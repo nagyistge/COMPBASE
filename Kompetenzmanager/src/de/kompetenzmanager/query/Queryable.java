@@ -6,7 +6,5 @@ import edu.uci.ics.jung.graph.Graph;
 
 public interface Queryable {
 
-	public Graph<LabeledElement, LabeledConnection> searchForKeyword(String keyword);
-
-	public Graph<LabeledElement, LabeledConnection> getAll();
+	public Graph<LabeledElement, LabeledConnection> searchForKeyword(String keyword) throws InvalidGraphException;
 }

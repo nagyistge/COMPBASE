@@ -1,4 +1,4 @@
-package de.kompetenzmanager.query;
+package de.kompetenzmanager.knowledge;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,35 +15,19 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-import de.kompetenzmanager.model.LabeledConnection;
-import de.kompetenzmanager.model.LabeledElement;
-import edu.uci.ics.jung.graph.Graph;
-
-public class OWLQuery implements Queryable {
+public class OWLGraphReader {
 
 	private final OWLDataFactory dataFactory;
 	private final OWLReasoner reasoner;
 	private final PrefixManager pm;
 
-	public OWLQuery(OWLDataFactory dataFactory, OWLReasoner reasoner, PrefixManager pm) {
+	public OWLGraphReader(OWLDataFactory dataFactory, OWLReasoner reasoner, PrefixManager pm) {
 		this.dataFactory = dataFactory;
 		this.reasoner = reasoner;
 		this.pm = pm;
 	}
 
-	@Override
-	public Graph<LabeledElement, LabeledConnection> searchForKeyword(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Graph<LabeledElement, LabeledConnection> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	Collection<OWLIndividual> getIndividualsWithLabel(String label) {
+	Collection<OWLIndividual> searchIndividualsWithLabel(String label) {
 		OWLDataProperty labelProperty = dataFactory.getOWLDataProperty("label", pm);
 		OWLClass thingClass = dataFactory.getOWLThing();
 		// Alle Indidividuen auslesen
