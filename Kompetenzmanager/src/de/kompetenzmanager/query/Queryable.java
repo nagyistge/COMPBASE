@@ -1,6 +1,12 @@
 package de.kompetenzmanager.query;
 
+import de.kompetenzmanager.model.LabeledConnection;
+import de.kompetenzmanager.model.LabeledElement;
+import edu.uci.ics.jung.graph.Graph;
+
 public interface Queryable {
 
-	public void searchForKeyword(String keyword);
+	public Graph<LabeledElement, LabeledConnection> searchForKeyword(String keyword);
+
+	public Graph<LabeledElement, LabeledConnection> getAll();
 }
