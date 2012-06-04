@@ -1,0 +1,30 @@
+{
+    "graph": 
+    [
+    {
+        "node1":"1",
+        "node2":"2",
+        "directed":true,               
+        "label": "kante1"
+    },
+    {
+        "node1":"3",
+        "node2":"2",
+        "directed":false,
+        "label": "kante2"
+    }
+    ],
+    
+    "nodes": 
+    [
+    {
+        "node" : 3
+    },
+    {        
+        "node" : 1         
+    },
+    {
+        "node" : 2
+    }    
+    ]     
+}
