@@ -1,0 +1,2 @@
+serviceClass: de.unipotsdam.kompetenzmanager.client.GreetingService
+path: 6F77F82D2E999B2F4FC23DF8567D668F.gwt.rpc
