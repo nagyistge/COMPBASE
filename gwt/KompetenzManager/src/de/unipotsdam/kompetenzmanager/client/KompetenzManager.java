@@ -3,6 +3,7 @@ package de.unipotsdam.kompetenzmanager.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -17,7 +18,8 @@ public class KompetenzManager implements EntryPoint {
 			+ "connection and try again.";
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
 	 */
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
@@ -26,10 +28,11 @@ public class KompetenzManager implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		FindCompetence find = new FindCompetence();
+		Widget find = new ShowCompetenceBinder2();
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("content").add(find);
-			
+		RootPanel.get("content").add(find);		
 	}
+
+	
 }

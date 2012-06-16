@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel width="600" height="800">
+		<g:AbsolutePanel height="652px" width="841px">
+			<g:at left="0" top="0">
+				<g:FlowPanel width="806px" height="34px">
+						<g:Label text="Willkommen beim Kompetenzfinder"/>
+					</g:FlowPanel>
+			</g:at>
+			<g:at left="10" top="74">
+				<g:VerticalPanel width="201px" height="541px">
+						<g:Label text="Tag 1"/>
+						<g:Label text="Tag 2"/>
+						<g:Button>Begriffssuche</g:Button>
+						<g:TextArea width="147px" height="36px"/>
+					</g:VerticalPanel>
+			</g:at>
+			<g:at left="244" top="74">
+				<g:ScrollPanel ui:field="graphScroll" width="565px" height="541px"/>
+			</g:at>
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

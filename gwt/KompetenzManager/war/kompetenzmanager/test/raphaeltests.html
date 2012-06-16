@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>raphael4gwt test</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-ext.js"></script>
+</head>
+<div id="foo"></div>
+<div id="bar"></div>
+<body>
+	<script type="text/javascript" language="javascript">
+	
+	var paper = Raphael('foo');
+
+    var rect = paper
+        .rect(50, 40, 50, 50)
+        .attr('fill', '#f00')
+        .transform('S2')
+        .rotate(10)
+        ;
+
+    var svg = paper.toSVG();
+
+    alert(svg);
+    
+    //if you want to inject the svg directly for showing it in some html element:
+    document.getElementById('bar').innerHTML = svg;
+	 </script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!-- from https://raw.github.com/sentience/g.raphael/81d142f542dd47c96f1159bb5e8978ad75ca42d2/test-radar.html -->
+<!-- sgurin - removed old g. namespace -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <title>gRaphaël Static Radar Chart</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script src="../raphael.js" type="text/javascript" charset="utf-8"></script>
+        <script src="g.raphael.js" type="text/javascript" charset="utf-8"></script>
+<!--         <script src="g.radar.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="g.radar.js" type="text/javascript" charset="utf-8"></script>
+<script src="g.venn.js" type="text/javascript" charset="utf-8"></script>
+<script src="g.sunburst.js" type="text/javascript" charset="utf-8"></script>
+
+      
+    </head>
+    <body>
+    
+      <script type="text/javascript" charset="utf-8">
+        
+//         var r = Raphael(0,0,600,600);
+        
+//         //Venn
+//         venn = r.venn(125, 125, 200, 200, {cardinalities: [5, 10], overlaps: [2]},
+//             {gradients: ["45-#c00-#f55", "45-#0c0-#5f5", "45-#c00-#5f5"], strokewidth: 2});
+        
+        
+        
+//         //sunburst
+//         var clusters = 
+//         {
+//        	    'Cluster A': 50,
+//        	    'Cluster B': {
+//        	        'Sub-Cluster B-A': 25,
+//        	        'Sub-Cluster B-B': 75,
+//        	    },
+//        	    'Cluster C': {
+//        	        'Sub-Cluster C-A': 86,
+//        	        'Sub-Cluster C-B': 23,
+//        	        'Sub-Cluster C-C': {
+//        	            'Depth 3 - A': 50,
+//        	            'Depth 3 - B': 125,
+//        	            WithoutQuotes: 14
+//        	        }
+//        	    }
+//        	}
+//         ;
+
+//        	var sunburst = r.sunburst(350, 350, clusters, {
+//        	    rootLabel: "clusters",
+//        	    offsetAngle: 90,
+//        	    // With of each "ring"
+//        	    levelWidths: [25, 75, 50, 40, 30],
+//        	    // Colors array, by default used per slice
+//        	    colors: ["#E8420C", "#FF9600", "#FF0057", "#A90CE8", "#1D0DFF"],
+//        	    // You can also specify gradients instead of colors
+//        	    gradients: ["45-#E8420C-#E832FF", "45-#FF9600-#FF96FF",
+//        	       "45-#FF0057-#FF00FF", "45-#A90CE8-#A90CFF",
+//        	       "45-#1D0DFF-#1D0DFF"],
+//        	    // Draw each level in a different color
+//        	    //colorizeByLevel: true,
+//        	    // Gradient function, this needs the color array;
+//        	    // will likey be replaced by an eachSector() function
+// //        	    onGradient: function(rootSect, depth) {
+// //        	        return shadeColor(this.colors[rootSect % this.colors.length],
+// //        	            0.1 * (depth + 2));
+// //        	    },
+//        	    stroke: "#fff",
+//        	    strokewidth: 1
+//        	});
+       	
+       	
+// //        	click context: - un path con los siguientes agregados: sect.level, sect.value, sect.label
+// //        	sector: sector,
+// // 		cx: cx,
+// // 		cy: cy,
+// // 		mx: sector.middle.x,
+// // 		my: sector.middle.y,
+// // 		mangle: sector.mangle	
+		
+//        	sunburst.click(function(){
+//        		alert(this.mangle+" - "+this.sector.level+" - "+this.sector.value+" - "+this.sector.label);       		
+//        	});
+        
+        
+        
+            window.onload = function () {
+                var r = Raphael("holder");
+                Raphael.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
+
+                r.text(320, 20, "Static Radar Chart").attr({"font-size": 20});
+
+                var radar = r.radarchart(
+					320, 240, 200, 
+					[35, 20, 13, 32, 25, 40, 37, 16, 42], {legend: ["asd", "dssdf", "df", "sdf","asd", "dssdf", "df", "sdf","sdfdd"]}
+				);
+                
+                radar.click(function(){
+//                 	arm: arm.point,
+//                     number: arm.number,
+//                     cover: cover,
+//                     cx: cx,
+//                     cy: cy,
+//                     mx: arm.x,
+//                     my: arm.y,
+//                     value: values[j],
+//                     max: max,
+//                     label: that.labels && that.labels[j]
+                
+                	alert(this+" - "+this.arm.type+"-"+this.number.type+"-"+this.cover.type+" - "+this.max+" - "+this.label);
+                })
+				
+// 				r.text(960, 20, "Animated Radar Chart").attr({"font-size": 20});
+// 				anim_radar = r.radar(
+// 					960, 240, 200, 
+// 					[35, 37, 16, 20, 40, 13, 32, 25, 42, 20	],
+// 					{	stroke:     "#09f",
+// 						helplines:  4,
+// 						discradius: 6
+// 				});
+				
+//                 anim_radar.hover(function () {
+//                     this.arm.stop();
+//                     this.arm.animate({scale: [3, 3, this.mx, this.my]}, 500);
+//                 }, function () {
+//                     anim_radar.each(function () {
+// 						this.arm.stop();
+// 						this.arm.animate({scale: [1, 1, this.mx, this.my]}, 500);
+// 					});
+//                 });
+				
+// 				anim_radar.click(function () {
+//                     //this.arm.animate({scale: [5, 1, this.mx, this.my], cx: this.cx, cy: this.cy}, 500);
+//                     this.arm.stop();
+//                     anim_radar.each(function () {
+// 						this.arm.stop();
+// 						this.arm.animate({scale: [this.value/5, this.value/5, this.mx, this.my]}, 500);
+// 					});
+//                 });
+            };
+        </script>
+        
+        
+        <div id="holder" style="width:1280px; height:480px;"></div>
+    </body>
+</html>

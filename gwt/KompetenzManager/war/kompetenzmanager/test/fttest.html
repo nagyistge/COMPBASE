@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The DOCTYPE declaration above will set the     -->
+<!-- browser's rendering engine into                -->
+<!-- "Standards Mode". Replacing this declaration   -->
+<!-- with a "Quirks Mode" doctype is not supported. -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>raphael4gwt test</title>
+    
+    <script type="text/javascript" language="javascript" 
+    	src="raphael-min.js"></script>
+    <script type="text/javascript" language="javascript" 
+    	src="raphael.free_transform.js"></script>
+  </head>
+
+  <body>
+	<input type="text" style="width: 100%" id="logbox" value=""></input>
+
+	 <script type="text/javascript" language="javascript" >
+	
+ var paper = Raphael(20, 20, 500, 500);
+ var c1 = paper.circle(20, 20, 100);
+ var r1 = paper.rect(120, 120, 20, 100);
+ var e1 = paper.ellipse(120, 120, 20, 40);
+ 
+ paper.freeTransform(r1, {}, function(s,e){alert("helllo"); });
+ 	 </script>
+
+  </body>
+</html>
