@@ -2,7 +2,7 @@
     "graph": 
     [
     {
-        "node1":"1",
+        "node1":"0",
         "node2":"2",
         "directed":true,               
         "label": "kante1"
@@ -21,7 +21,7 @@
         "node" : 3
     },
     {        
-        "node" : 1         
+        "node" : 0         
     },
     {
         "node" : 2

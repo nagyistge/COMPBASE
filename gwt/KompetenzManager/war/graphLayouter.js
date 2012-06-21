@@ -23,7 +23,7 @@ function appendGraph(id,width, height, data) {
     /* layout the graph using the Spring layout implementation */
     var layouter = new Graph.Layout.Spring(g);
     /* draw the graph using the RaphaelJS draw implementation */
-    renderer = new Graph.Renderer.Raphael(id, g, width, height);
+    renderer = new Graph.Renderer.Raphael(id, g, width, height);    
 //    layouter.layout();
 //    renderer.draw();       
     return g;

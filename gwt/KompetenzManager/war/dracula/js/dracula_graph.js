@@ -146,7 +146,7 @@ Graph.Renderer.Raphael = function(element, graph, width, height) {
     this.r = Raphael(element, this.width, this.height);
     this.radius = 40; /* max dimension of a node */
     this.graph = graph;
-    this.mouse_in = false;
+//    this.mouse_in = false;
 
     /* TODO default node rendering function */
     if(!this.graph.render) {
@@ -170,32 +170,32 @@ Graph.Renderer.Raphael = function(element, graph, width, height) {
     };
     
     var d = document.getElementById(element);
-    d.onmousemove = function (e) {
-        e = e || window.event;
-        if (selfRef.isDrag) {
-            var bBox = selfRef.isDrag.set.getBBox();
-            // TODO round the coordinates here (eg. for proper image representation)
-            var newX = e.clientX - selfRef.isDrag.dx + (bBox.x + bBox.width / 2);
-            var newY = e.clientY - selfRef.isDrag.dy + (bBox.y + bBox.height / 2);
-            /* prevent shapes from being dragged out of the canvas */
-            var clientX = e.clientX - (newX < 20 ? newX - 20 : newX > selfRef.width - 20 ? newX - selfRef.width + 20 : 0);
-            var clientY = e.clientY - (newY < 20 ? newY - 20 : newY > selfRef.height - 20 ? newY - selfRef.height + 20 : 0);
-            selfRef.isDrag.set.translate(clientX - Math.round(selfRef.isDrag.dx), clientY - Math.round(selfRef.isDrag.dy));
-            //            console.log(clientX - Math.round(selfRef.isDrag.dx), clientY - Math.round(selfRef.isDrag.dy));
-            for (var i in selfRef.graph.edges) {
-                selfRef.graph.edges[i].connection && selfRef.graph.edges[i].connection.draw();
-            }
-            //selfRef.r.safari();
-            selfRef.isDrag.dx = clientX;
-            selfRef.isDrag.dy = clientY;
-        }
-    };
-    d.onmouseup = function () {
-        selfRef.isDrag && selfRef.isDrag.set.animate({
-            "fill-opacity": .6
-        }, 500);
-        selfRef.isDrag = false;
-    };    
+//    d.onmousemove = function (e) {
+//        e = e || window.event;
+//        if (selfRef.isDrag) {
+//            var bBox = selfRef.isDrag.set.getBBox();
+//            // TODO round the coordinates here (eg. for proper image representation)
+//            var newX = e.clientX - selfRef.isDrag.dx + (bBox.x + bBox.width / 2);
+//            var newY = e.clientY - selfRef.isDrag.dy + (bBox.y + bBox.height / 2);
+//            /* prevent shapes from being dragged out of the canvas */
+//            var clientX = e.clientX - (newX < 20 ? newX - 20 : newX > selfRef.width - 20 ? newX - selfRef.width + 20 : 0);
+//            var clientY = e.clientY - (newY < 20 ? newY - 20 : newY > selfRef.height - 20 ? newY - selfRef.height + 20 : 0);
+//            selfRef.isDrag.set.translate(clientX - Math.round(selfRef.isDrag.dx), clientY - Math.round(selfRef.isDrag.dy));
+//            //            console.log(clientX - Math.round(selfRef.isDrag.dx), clientY - Math.round(selfRef.isDrag.dy));
+//            for (var i in selfRef.graph.edges) {
+//                selfRef.graph.edges[i].connection && selfRef.graph.edges[i].connection.draw();
+//            }
+//            //selfRef.r.safari();
+//            selfRef.isDrag.dx = clientX;
+//            selfRef.isDrag.dy = clientY;
+//        }
+//    };
+//    d.onmouseup = function () {
+//        selfRef.isDrag && selfRef.isDrag.set.animate({
+//            "fill-opacity": .6
+//        }, 500);
+//        selfRef.isDrag = false;
+//    };    
     this.draw();
 };
 Graph.Renderer.Raphael.prototype = {
@@ -275,7 +275,7 @@ Graph.Renderer.Raphael.prototype = {
             item.set = shape;
             item.node.style.cursor = "move";
         });
-        shape.mousedown(this.dragger);
+//        shape.mousedown(this.dragger);
 
         var box = shape.getBBox();
         shape.translate(Math.round(point[0]-(box.x+box.width/2)),Math.round(point[1]-(box.y+box.height/2)))
@@ -506,31 +506,31 @@ function log(a) {
  * If you want to use more shapes, you'll have to put them into a set.
  *
  */
-Raphael.el.tooltip = function (tp) {
-    this.tp = tp;
-    this.tp.o = {
-        x: 0, 
-        y: 0
-    };
-    this.tp.hide();
-    this.hover(
-        function(event){ 
-            this.mousemove(function(event){ 
-                this.tp.translate(event.clientX - 
-                    this.tp.o.x,event.clientY - this.tp.o.y);
-                this.tp.o = {
-                    x: event.clientX, 
-                    y: event.clientY
-                    };
-            });
-            this.tp.show().toFront();
-        }, 
-        function(event){
-            this.tp.hide();
-            this.unmousemove();
-        });
-    return this;
-};
+//Raphael.el.tooltip = function (tp) {
+//    this.tp = tp;
+//    this.tp.o = {
+//        x: 0, 
+//        y: 0
+//    };
+//    this.tp.hide();
+//    this.hover(
+//        function(event){ 
+//            this.mousemove(function(event){ 
+//                this.tp.translate(event.clientX - 
+//                    this.tp.o.x,event.clientY - this.tp.o.y);
+//                this.tp.o = {
+//                    x: event.clientX, 
+//                    y: event.clientY
+//                    };
+//            });
+//            this.tp.show().toFront();
+//        }, 
+//        function(event){
+//            this.tp.hide();
+//            this.unmousemove();
+//        });
+//    return this;
+//};
 
 /* For IE */
 if (!Array.prototype.forEach)
