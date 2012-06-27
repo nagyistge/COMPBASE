@@ -5,16 +5,26 @@
 
 <web-app>
   
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>de.unipotsdam.kompetenzmanager.server.GreetingServiceImpl</servlet-class>
+<!--   Servlets -->
+<!--   <servlet> -->
+<!--     <servlet-name>greetServlet</servlet-name> -->
+<!--     <servlet-class>de.unipotsdam.kompetenzmanager.server.GreetingServiceImpl</servlet-class> -->
+<!--   </servlet> -->
+    
+<!--   <servlet-mapping> -->
+<!--     <servlet-name>greetServlet</servlet-name> -->
+<!--     <url-pattern>/kompetenzmanager/greet</url-pattern> -->
+<!--   </servlet-mapping> -->
+  
+   <servlet>
+    <servlet-name>GraphBackendImpl</servlet-name>
+    <servlet-class>de.unipotsdam.kompetenzmanager.server.GraphBackendImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/kompetenzmanager/greet</url-pattern>
-  </servlet-mapping>
+    <servlet-name>GraphBackendImpl</servlet-name>
+    <url-pattern>/kompetenzmanager/graph</url-pattern>
+  </servlet-mapping>  
   
   <!-- Default page to serve -->
   <welcome-file-list>
