@@ -1,6 +1,7 @@
 package de.unipotsdam.kompetenzmanager.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -21,7 +22,7 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		JSONObject json = javascriptUtil.toJSON((Graph) result);
 		GWT.log("Graph konnte geladen werden mit den Daten" + json.toString());
 		showCompetenceBinder.removeGraph();
-		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());					
+		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());							
 	}
 	
 	@Override

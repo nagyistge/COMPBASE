@@ -14,7 +14,7 @@ public class KompetenzManager implements EntryPoint {
 	 */
 	public void onModuleLoad() {		
 		ShowCompetenceBinder2 graph1 = addGraphWidget("canvas");
-//		ShowCompetenceBinder2 graph2 = addGraphWidget("canvas2");
+		ShowCompetenceBinder2 graph2 = addGraphWidget("canvas2");
 	}	
 	
 	private ShowCompetenceBinder2 addGraphWidget(String canvasId) {

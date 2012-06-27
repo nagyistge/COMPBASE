@@ -48,9 +48,7 @@ public class ClickMenu extends Composite {
 		GWT.log("newNode has been clicked");
 		showCompetenceBinder2.removeClickMenu();		
 		ElementEntryField elementEntryField = new ElementEntryField(this.showCompetenceBinder2, this.nodeId); 		
-		showCompetenceBinder2.addElementEntryField(elementEntryField, showCompetenceBinder2.glassPanelContainer.getAbsoluteLeft() + 20, showCompetenceBinder2.glassPanelContainer.getAbsoluteTop() + 20);		
-			
-		//TODO implement insert Node
+		showCompetenceBinder2.addElementEntryField(elementEntryField, showCompetenceBinder2.absolutePanel.getWidgetLeft(showCompetenceBinder2.glassPanelContainer) + 20, showCompetenceBinder2.absolutePanel.getWidgetTop(showCompetenceBinder2.glassPanelContainer) + 20);		
 	}
 	
 	@UiHandler("removeNode")

@@ -21,7 +21,6 @@ import de.unipotsdam.kompetenzmanager.shared.Graph;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Button;
 
-
 public class ShowCompetenceBinder2 extends Composite {
 
 	interface ShowCompetenceBinder2UiBinder extends
@@ -37,10 +36,13 @@ public class ShowCompetenceBinder2 extends Composite {
 	AbsolutePanel absolutePanel;
 	@UiField
 	FocusPanel focusPanel1;
-	@UiField AbsolutePanel glassPanelContainer;
-	@UiField TextArea searchTextField;
-	@UiField Button searchButton;
-	
+	@UiField
+	AbsolutePanel glassPanelContainer;
+	@UiField
+	TextArea searchTextField;
+	@UiField
+	Button searchButton;
+
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
 	 */
@@ -58,41 +60,42 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	/**
 	 * initialisiere View
-	 * @param kompetenzManager 
+	 * 
+	 * @param kompetenzManager
 	 */
 	public ShowCompetenceBinder2(String canvasId) {
 		GWT.log("Das Graphmodul wurde instantiiert");
 		initWidget(uiBinder.createAndBindUi(this));
 		this.canvasDiv = this.focusPanel1.getElement();
-		this.canvasDiv.setId(canvasId);		
+		this.canvasDiv.setId(canvasId);
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
-		this.glassPanelContainer.add(glassPanel,0,0);
+		this.glassPanelContainer.add(glassPanel, 0, 0);
 	}
 
 	/**
 	 * nativ js calls
 	 */
 	public native void setGraph(JavaScriptObject json, String canvasId) /*-{
-		$wnd.setGraph(json,canvasId);			
+		return $wnd.setGraph(json, canvasId);
 	}-*/;
-	
+
 	// depends on getJSON
-	public native boolean existsNode(int x, int y) /*-{
-		return $wnd.existsNode(x, y);
+	public native boolean existsNode(int x, int y, String canvasId) /*-{
+		return $wnd.existsNode(x, y, canvasId);
 	}-*/;
-	
+
 	/**
-	 * get Node at Position x, y  relativ to div!
+	 * get Node at Position x, y relativ to div!
+	 * 
 	 * @param x
 	 * @param y
 	 * @return
 	 */
-	public native String getNodeID(int x, int y) /*-{
-		return $wnd.getNodeIdAtPosition(x, y);
+	public native String getNodeID(int x, int y, String canvasId) /*-{
+		return $wnd.getNodeIdAtPosition(x, y, canvasId);
 	}-*/;
 
-	
 	/**
 	 * Handelt das ClickEvent auf dem Graphen
 	 * 
@@ -103,15 +106,22 @@ public class ShowCompetenceBinder2 extends Composite {
 		com.google.gwt.dom.client.Element clickedElement = event
 				.getRelativeElement();
 		String id = clickedElement.getId();
-		this.x = event.getClientX(); // x und y muss man sich merken, damit bei mouseout reagiert werden kann
-		this.y = event.getClientY();	
+		// x und y muss man sich merken, damit bei mouseout reagiert werden kann
+		// this.x = event.getClientX();
+		// this.y = event.getClientY();
+		this.x = event.getRelativeX(this.absolutePanel.getElement());
+		this.y = event.getRelativeY(this.absolutePanel.getElement());
+		// Koordinaten normalisieren
+		int x1 = this.x - this.canvasDiv.getAbsoluteLeft()
+				+ this.canvasDiv.getScrollLeft();
+		int y1 = this.y - this.canvasDiv.getAbsoluteTop()
+				+ this.getAbsoluteTop();
 		// schauen ob und welcher Knoten geclickt wurde
-		if (widget.existsNode(x - this.canvasDiv.getAbsoluteLeft(), y
-				- this.canvasDiv.getAbsoluteTop())) {			
-			String nodeId = this.widget.getNodeID(x - this.canvasDiv.getAbsoluteLeft(), y
-					- this.canvasDiv.getAbsoluteTop());
-			this.clickMenu = new ClickMenu(id,widget, nodeId);
-			widget.addClickMenu(this.clickMenu, x, y);			
+		if (widget.existsNode(x1, y1, this.canvasDiv.getId())) {
+			String nodeId = this.widget.getNodeID(x1, y1,
+					this.canvasDiv.getId());
+			this.clickMenu = new ClickMenu(id, widget, nodeId);
+			widget.addClickMenu(this.clickMenu, x, y);
 		}
 	}
 
@@ -130,18 +140,18 @@ public class ShowCompetenceBinder2 extends Composite {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param clickMenu
 	 * @param x
 	 * @param y
 	 */
-	public void addClickMenu (ClickMenu clickMenu, int x, int y) {
+	public void addClickMenu(ClickMenu clickMenu, int x, int y) {
 		this.clickMenu = clickMenu;
 		this.absolutePanel.add(this.clickMenu, x, y);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -151,41 +161,43 @@ public class ShowCompetenceBinder2 extends Composite {
 			this.clickMenu = null;
 		}
 	}
-	
+
 	/**
 	 * Fügt ein EingabeFeld hinzu, um neue Einträge zu machen
+	 * 
 	 * @param elementEntryField
 	 * @param x
 	 * @param y
 	 */
-	public void addElementEntryField(ElementEntryField elementEntryField, int x, int y) {		
+	public void addElementEntryField(ElementEntryField elementEntryField,
+			int x, int y) {
 		this.glassPanel.setVisible(true);
-		this.elementEntryField = elementEntryField;				
-		this.absolutePanel.add(this.elementEntryField,x,y);
-		GWT.log("Enthält der Panel das ElementEntryField?");
-		GWT.log(this.absolutePanel.getWidgetCount()+"");
+		this.elementEntryField = elementEntryField;
+		GWT.log("versuche Feld in Koordinaten " + x + "und" + y
+				+ "zu erstellen");
+		this.absolutePanel.add(this.elementEntryField, x, y);
 	}
-	
+
 	/**
 	 * Zeigt wieder den Graphen, nachdem eine Eingabe gemacht wurde
 	 */
 	public void removeElementEntryField() {
 		if (this.elementEntryField != null) {
-		this.glassPanel.setVisible(false);
-		this.absolutePanel.remove(this.elementEntryField);
-		this.elementEntryField = null;
+			this.glassPanel.setVisible(false);
+			this.absolutePanel.remove(this.elementEntryField);
+			this.elementEntryField = null;
 		}
 	}
-	
+
 	public void removeGraph() {
 		Node graph = this.canvasDiv.getChild(0);
-		this.canvasDiv.removeChild(graph);		
+		this.canvasDiv.removeChild(graph);
 	}
-	
 
 	@UiHandler("searchButton")
 	void onSearchButtonClick(ClickEvent event) {
 		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
-		backendImpl.findShortestPath(this.searchTextField.getText(), new GraphUpdater<Graph>(widget));
+		backendImpl.findShortestPath(this.searchTextField.getText(),
+				new GraphUpdater<Graph>(widget));
 	}
 }
