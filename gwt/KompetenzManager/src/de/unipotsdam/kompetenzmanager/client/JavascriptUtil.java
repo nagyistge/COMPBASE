@@ -4,12 +4,12 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
-
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.GraphTriple;
 
 public class JavascriptUtil {
+	
 	/**
 	 * Converts Java Repräsentation to JSON
 	 * 
@@ -44,4 +44,5 @@ public class JavascriptUtil {
 		json.put("nodes", nodes);
 		return json;
 	}
+	
 }

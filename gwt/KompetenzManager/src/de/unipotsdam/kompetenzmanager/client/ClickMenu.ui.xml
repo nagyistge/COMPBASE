@@ -7,13 +7,11 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:FocusPanel ui:field="focusPanel2">
+		<g:FocusPanel ui:field="focusPanel2" width="126px" height="76px">
 			<g:VerticalPanel width="115px" height="73px">
-			<g:Button width="114px" ui:field="newNode"/>
-			<g:Button width="114px" ui:field="removeNode"/>
+			<g:Button width="114px" ui:field="newNode">Neues Element hinzufügen</g:Button>
+			<g:Button width="114px" ui:field="removeNode">Knoten löschen</g:Button>
 		</g:VerticalPanel>
-		</g:FocusPanel>
-	
-		
+		</g:FocusPanel>			
 	</g:HTMLPanel>
 </ui:UiBinder> 

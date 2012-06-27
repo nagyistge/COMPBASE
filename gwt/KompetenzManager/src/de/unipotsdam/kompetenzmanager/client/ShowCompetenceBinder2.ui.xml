@@ -7,22 +7,24 @@
 		}
 	</ui:style>
 	<g:HTMLPanel width="600" height="800">
-		<g:AbsolutePanel height="652px" width="841px" ui:field="absolutePanel">
+		<g:AbsolutePanel height="652px" width="880px" ui:field="absolutePanel">
 			<g:at left="0" top="0">
 				<g:FlowPanel width="806px" height="34px">
-						<g:Label text="Willkommen beim Kompetenzfinder"/>
+						<g:Label text="Willkommen beim Kompetenzfinder" styleName="{style.important}"/>
 					</g:FlowPanel>
 			</g:at>
 			<g:at left="10" top="74">
-				<g:VerticalPanel width="201px" height="126px">
-						<g:Label text="Tag 1"/>
-						<g:Label text="Tag 2"/>
-						<g:Button>Begriffssuche</g:Button>
-						<g:TextArea width="147px" height="36px"/>
+				<g:VerticalPanel width="201px" height="85px">
+						<g:Button ui:field="searchButton">Begriffssuche</g:Button>
+						<g:TextArea width="147px" height="36px" ui:field="searchTextField"/>
 					</g:VerticalPanel>
 			</g:at>
-			<g:at left="249" top="74">
-				<g:FocusPanel ui:field="focusPanel1" width="582px" height="541px"/>
+			<g:at left="246" top="74">
+				<g:AbsolutePanel width="624px" height="568px" ui:field="glassPanelContainer">
+					<g:at left="0" top="0">
+						<g:FocusPanel ui:field="focusPanel1" width="614px" height="541px"/>
+					</g:at>
+				</g:AbsolutePanel>
 			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>

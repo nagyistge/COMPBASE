@@ -2,10 +2,6 @@ package de.unipotsdam.kompetenzmanager.shared;
 
 import java.util.HashSet;
 
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONBoolean;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Graph implements IsSerializable {
@@ -19,6 +15,7 @@ public class Graph implements IsSerializable {
 
 	/**
 	 * add new Connection on Graph
+	 * 
 	 * @param fromNode
 	 * @param toNode
 	 * @param label
@@ -33,6 +30,6 @@ public class Graph implements IsSerializable {
 		this.triples.add(graphTriple);
 		this.nodes.add(fromNode1);
 		this.nodes.add(toNode1);
-	}	
+	}
 
 }

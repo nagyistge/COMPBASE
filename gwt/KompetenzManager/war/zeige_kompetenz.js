@@ -12,9 +12,9 @@ var finalData;
 // });
 // }
 
-function setGraph(json) {
+function setGraph(json,canvasId) {
 	var data = eval(json);
-	var graph = appendGraph('canvas', $(document).width() - 20, $(document)
+	var graph = appendGraph(canvasId, $(document).width() - 20, $(document)
 			.height() - 60, data);
 	paintedGraph = graph;
 	finalData = data;
@@ -32,8 +32,14 @@ function getNodeAtPosition(x, y) {
 		// position method
 		var nodeY = paintedGraph.nodes[id].point[1];
 		if (Math.abs(x - nodeX) < 20 && (Math.abs(nodeY - y) < 20)) {
-			return paintedGraph.nodes[i];
+			var nodeId = paintedGraph.nodes[id];
+			return nodeId;
 		}
 	}
 	return false;
+}
+
+function getNodeIdAtPosition(x,y) {
+	var node = getNodeAtPosition(x,y);
+	return node.id;
 }

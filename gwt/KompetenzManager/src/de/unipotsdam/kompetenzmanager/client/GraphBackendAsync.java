@@ -9,4 +9,5 @@ public interface GraphBackendAsync {
 	void getFullGraph(AsyncCallback<Graph> graph);	
 	void addNode(GraphNode sourceNode, GraphNode newNode, String kantenLabel, AsyncCallback<Graph> callback);
 	void findShortestPath(String keyword, AsyncCallback<Graph> graph);
+	void removeNode(GraphNode targetNode, AsyncCallback<Graph> callback);
 }

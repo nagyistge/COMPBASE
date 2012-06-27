@@ -9,11 +9,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-
-import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 
 public class ClickMenu extends Composite {
 
@@ -28,33 +24,38 @@ public class ClickMenu extends Composite {
 	Button removeNode;
 	
 	public String id;
-	private Integer x;
-	private Integer y;	
-	ShowCompetenceBinder2 widget = (ShowCompetenceBinder2) RootPanel.get(
-	"content").getWidget(0);
+	ShowCompetenceBinder2 showCompetenceBinder2;
+	private String nodeId;
 
 	interface ClickMenuUiBinder extends UiBinder<Widget, ClickMenu> {
 	}
 
-	public ClickMenu(String id, Integer x, Integer y) {
+	public ClickMenu(String id, ShowCompetenceBinder2 showCompetenceBinder2, String nodeId) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.showCompetenceBinder2 = showCompetenceBinder2;
 		this.id = id;		
-		this.x = x;
-		this.y = y;
+		this.nodeId = nodeId;
+		GWT.log("Die NodeID ist " + nodeId);
 	}
 
 	@UiHandler("focusPanel2")
 	void onFocusPanelMouseOut(MouseOutEvent event) {		
-		widget.absolutePanel.remove(widget.clickMenu);
+		showCompetenceBinder2.removeClickMenu();
 	}
 
 	@UiHandler("newNode")
 	void onnewNodeClick(ClickEvent event) {
-		
+		GWT.log("newNode has been clicked");
+		showCompetenceBinder2.removeClickMenu();		
+		ElementEntryField elementEntryField = new ElementEntryField(this.showCompetenceBinder2, this.nodeId); 		
+		showCompetenceBinder2.addElementEntryField(elementEntryField, showCompetenceBinder2.glassPanelContainer.getAbsoluteLeft() + 20, showCompetenceBinder2.glassPanelContainer.getAbsoluteTop() + 20);		
+			
+		//TODO implement insert Node
 	}
 	
 	@UiHandler("removeNode")
 	void onremoveNodeClick(ClickEvent event) {
+		//TODO implement delete Node
 	}
 	
 }
