@@ -11,6 +11,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+
 public class ClickMenu extends Composite {
 
 	private static ClickMenuUiBinder uiBinder = GWT
@@ -53,7 +55,8 @@ public class ClickMenu extends Composite {
 	
 	@UiHandler("removeNode")
 	void onremoveNodeClick(ClickEvent event) {
-		//TODO implement delete Node
+		GraphBackendImpl backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
+		backendImpl.removeNode(new GraphNode(this.nodeId), null);
 	}
 	
 }
