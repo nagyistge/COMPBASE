@@ -15,20 +15,21 @@ import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 public class GraphBackendImpl extends RemoteServiceServlet implements
 GraphBackend {
 
+	private GraphBackendFactory factory;
+
+	public GraphBackendImpl() {
+		this.factory = new GraphBackendFactory();
+	}
+	
 	@Override
 	public Graph getFullGraph() {
-		Graph result = new Graph();
-		result.addTriple("Idee1", "Idee2", "connection", true);
-		return result;		
+		return factory.createInstance().getFullGraph();
 	}
 
 	@Override
 	public Graph addNode(GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel) {
-		Graph result = new Graph();
-		result.addTriple("Idee1", "Idee2", "connection", true);				
-		result.addTriple(sourceNode.label, newNode.label, kantenLabel, true);
-		return result;
+		return factory.createInstance().addNode(sourceNode, newNode, kantenLabel);
 	}
 
 	@Override

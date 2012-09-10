@@ -25,4 +25,9 @@ public class GraphTriple implements IsSerializable {
 		&& ((GraphTriple)obj).label.equals(label)
 		&& ((GraphTriple)obj).directed == directed;		
 	}
+	
+	@Override
+	public String toString() {
+		return "fromNode: " + fromNode + ", toNode: " + toNode + ", Label: " + label + ", directed:" + directed;
+	}
 }

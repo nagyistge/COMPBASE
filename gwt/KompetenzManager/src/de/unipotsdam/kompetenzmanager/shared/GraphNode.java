@@ -25,5 +25,8 @@ public class GraphNode implements IsSerializable {
 	public int hashCode() {
 		return Integer.valueOf(label.codePointAt(0));
 	}
-
+	@Override
+	public String toString() {
+		return label;
+	}
 }

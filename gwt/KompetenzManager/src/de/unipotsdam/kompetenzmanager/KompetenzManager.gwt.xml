@@ -29,9 +29,11 @@
 	<!-- Other module inherits -->
 	<!-- <inherits name='com.hydro4ge.raphaelgwt.RaphaelGWT' /> -->
 	<!-- <inherits name='org.sgx.raphael4gwt.Raphael4Gwt'></inherits> -->
+<!-- 	<inherits name="neo4j-"></inherits> -->
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='de.unipotsdam.kompetenzmanager.client.KompetenzManager' />
+	
 
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />

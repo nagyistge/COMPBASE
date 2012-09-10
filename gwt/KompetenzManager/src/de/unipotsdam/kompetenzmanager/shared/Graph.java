@@ -31,5 +31,18 @@ public class Graph implements IsSerializable {
 		this.nodes.add(fromNode1);
 		this.nodes.add(toNode1);
 	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		for (GraphTriple triple : triples) {
+			result += triple.toString() + "\n";
+		}
+		result += "\n";
+		for (GraphNode graphNode: nodes) {
+			result += graphNode.toString() + "\n";
+		}
+		return result;
+	}
 
 }
