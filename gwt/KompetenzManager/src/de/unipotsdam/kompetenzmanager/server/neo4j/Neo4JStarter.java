@@ -8,13 +8,13 @@ import org.neo4j.graphdb.index.Index;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 public class Neo4JStarter {
-	private static GraphDatabaseService graphDb;
+	public static GraphDatabaseService graphDb;
 	private static Index<Node> nodeIndex;
 
 	public Neo4JStarter() {
-		if (Neo4JStarter.graphDb == null) {
+		if (Neo4JStarter.graphDb == null) {			
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
-					.newEmbeddedDatabase("database/store/store1");
+					.newEmbeddedDatabase("database/store/store2");
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			addRootNode();			
 		} 
@@ -26,6 +26,11 @@ public class Neo4JStarter {
 
 	public GraphDatabaseService getGraphDB() {
 		return Neo4JStarter.graphDb;
+	}
+	
+	public void shutdown() {
+		graphDb.shutdown();
+		graphDb = null;
 	}
 
 	public Graph doQuery(DoNeo doer) {

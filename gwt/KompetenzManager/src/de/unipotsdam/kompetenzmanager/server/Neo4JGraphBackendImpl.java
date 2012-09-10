@@ -9,23 +9,24 @@ import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
 public class Neo4JGraphBackendImpl implements GraphBackend {
 
-	private Neo4JStarter neo;
+		
 
-	public Neo4JGraphBackendImpl() {
-		this.neo = new Neo4JStarter();
+	@Override
+	public synchronized Graph getFullGraph() {
+		Neo4JStarter neo = new Neo4JStarter();
+		Graph graph = neo.doQuery(new DoFullGraph(neo.getGraphDB(), neo.getNodeIndex()));
+//		neo.shutdown();
+		return graph;
+		
 	}
 
 	@Override
-	public Graph getFullGraph() {
-		return neo
-				.doQuery(new DoFullGraph(neo.getGraphDB(), neo.getNodeIndex()));
-	}
-
-	@Override
-	public Graph addNode(GraphNode sourceNode, GraphNode newNode,
+	public synchronized Graph addNode(GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel) {
-		this.neo.doQuery(new DoAddNode(neo.getGraphDB(), neo.getNodeIndex(),
+		Neo4JStarter neo = new Neo4JStarter();
+		Graph graph = neo.doQuery(new DoAddNode(neo.getGraphDB(), neo.getNodeIndex(),
 				sourceNode, newNode, kantenLabel));
+//		neo.shutdown();
 		return getFullGraph();
 	}
 
@@ -40,8 +41,9 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	public void shutdown() {
-		this.neo.getGraphDB().shutdown();
+		new Neo4JStarter().shutdown();
 	}
+
 }

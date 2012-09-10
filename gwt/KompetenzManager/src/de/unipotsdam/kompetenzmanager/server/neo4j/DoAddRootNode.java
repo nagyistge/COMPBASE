@@ -15,7 +15,9 @@ public class DoAddRootNode extends DoNeo {
 
 	@Override
 	public Graph doit() {		
-		createAndIndexNode("rootnode");
+		Node nodeFrom = createAndIndexNode("rootnode");
+		Node nodeTo = createAndIndexNode("Informatik");
+		connectNodes(nodeFrom, nodeTo, "no specific label");		
 		return null;
 	}
 

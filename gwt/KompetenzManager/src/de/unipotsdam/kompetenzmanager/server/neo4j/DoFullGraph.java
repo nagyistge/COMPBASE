@@ -58,6 +58,7 @@ public class DoFullGraph extends DoNeo {
 						kantenLabel, directed));
 			}			
 		}
+		result.nodes.add(new GraphNode("rootnode"));
 		return result;
 	}
 
