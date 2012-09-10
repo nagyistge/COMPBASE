@@ -5,15 +5,22 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 
+import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.util.QueryUtil;
+
 public abstract class DoNeo implements Do {
 	protected GraphDatabaseService graphDb;
 	protected Index<Node> nodeIndex;
+	protected QueryUtil queryUtil;
+	protected int maxDepth;
 	public static final String NODE_KEY = "nodename";
 	public static final String REL_KEY = "relname";
 
 	public DoNeo(GraphDatabaseService graphDB, Index<Node> nodeIndex) {
 		this.graphDb = graphDB;
 		this.nodeIndex = nodeIndex;
+		this.queryUtil = new QueryUtil();
+		this.maxDepth = 10;
 	}
 
 	protected Node createAndIndexNode(String label) {
@@ -33,4 +40,12 @@ public abstract class DoNeo implements Do {
 		relationship.setProperty("label", label );
 		relationship.setProperty(REL_KEY, label);
 	}
+	protected Graph convertRelationShipsToGraph(
+			Iterable<Relationship> relationships) {
+		Graph result = new Graph();
+		for (Relationship rel : relationships) {
+			result.addTriple((String)rel.getStartNode().getProperty(NODE_KEY),(String) rel.getEndNode().getProperty(NODE_KEY), (String) rel.getProperty(REL_KEY), true);
+		}
+		return result;
+	}	
 }

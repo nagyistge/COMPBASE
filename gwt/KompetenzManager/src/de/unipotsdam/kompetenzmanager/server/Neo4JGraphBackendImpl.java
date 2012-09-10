@@ -43,8 +43,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public synchronized Graph findShortestPath(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(), "rootnode",keyword));
 	}
 
 	@Override
