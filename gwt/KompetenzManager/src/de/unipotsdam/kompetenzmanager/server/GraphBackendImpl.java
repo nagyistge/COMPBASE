@@ -34,14 +34,12 @@ GraphBackend {
 
 	@Override
 	public Graph findShortestPath(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return factory.createInstance().findShortestPath(keyword);
 	}
 
 	@Override
 	public Graph removeNode(GraphNode targetNode) {
-		// TODO Auto-generated method stub
-		return null;
+		return factory.createInstance().removeNode(targetNode);
 	}
 
 }
