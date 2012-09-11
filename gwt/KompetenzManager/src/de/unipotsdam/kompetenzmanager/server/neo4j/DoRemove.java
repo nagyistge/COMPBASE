@@ -25,6 +25,7 @@ public class DoRemove extends DoNeo {
 		}		
 		node.delete();
 		this.nodeIndex.remove(node);
+		getTableNode().removeProperty(label);
 		return null;
 	}
 

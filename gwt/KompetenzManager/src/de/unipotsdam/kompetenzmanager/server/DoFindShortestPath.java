@@ -31,7 +31,11 @@ public class DoFindShortestPath extends DoNeo {
 		PathFinder<Path> finder = GraphAlgoFactory.shortestPath(
 		        Traversal.expanderForTypes( RelTypes.assoziatedWith, Direction.BOTH ), maxDepth );				
 		Node startNode = this.nodeIndex.get(NODE_KEY, fromNode).getSingle();
-		Node endNode = this.nodeIndex.get(NODE_KEY, toNode).getSingle();
+//		Node endNode = this.nodeIndex.get(NODE_KEY, toNode).getSingle();
+		Node endNode = findEndNode(toNode);
+		if (endNode == null) {
+			return null;
+		}
 		//todo implement like by using a node table and a like iterator in queryutil
 		Path paths = finder.findSinglePath(startNode, endNode);
 		return convertPathToGraph(paths);
@@ -39,6 +43,15 @@ public class DoFindShortestPath extends DoNeo {
 
 	private Graph convertPathToGraph(Path paths) {
 		return convertRelationShipsToGraph(paths.relationships());
+	}
+	
+	private Node findEndNode(String toFind) {
+		for (String label : getTableNode().getPropertyKeys()) {
+			if (queryUtil.like(label, toFind)) {
+				return this.nodeIndex.get(NODE_KEY, label).getSingle();
+			}
+		}
+		return null;
 	}
 
 	

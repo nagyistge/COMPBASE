@@ -15,6 +15,7 @@ public abstract class DoNeo implements Do {
 	protected int maxDepth;
 	public static final String NODE_KEY = "nodename";
 	public static final String REL_KEY = "relname";
+	public static final String TABLE_KEY = "tablename";
 
 	public DoNeo(GraphDatabaseService graphDB, Index<Node> nodeIndex) {
 		this.graphDb = graphDB;
@@ -29,10 +30,15 @@ public abstract class DoNeo implements Do {
 			node.setProperty(NODE_KEY, label);
 			node.setProperty("label", label);
 			nodeIndex.add(node, NODE_KEY, label);
+			getTableNode().setProperty(label, label);
 			return node;
 		} else {
 			return nodeIndex.get(NODE_KEY, label).getSingle();
 		}
+	}
+	
+	protected Node getTableNode() {
+		return this.nodeIndex.get(TABLE_KEY, "nodetable").getSingle();
 	}
 	
 	protected void connectNodes(Node nodeFrom, Node nodeTo, String label) {

@@ -8,11 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 import com.google.gwt.benchmarks.client.Setup;
 
 import de.unipotsdam.kompetenzmanager.server.Neo4JGraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoNeo;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
@@ -29,6 +31,14 @@ public class TestNeo4JTestImpl {
 	@After
 	public void after() {
 		this.neo4JGraphImpl.shutdown();
+	}
+	
+	@Test
+	public void getTableNode() {
+		Neo4JStarter starter = new Neo4JStarter();
+		Node node = starter.getNodeIndex().get(DoNeo.TABLE_KEY, "nodetable").getSingle();
+		assertNotNull(node);
+		starter.shutdown();
 	}
 
 //	@Test
@@ -63,7 +73,7 @@ public class TestNeo4JTestImpl {
 //		String firstLabel = graphIterator.next().label;
 //		graphIterator.next();
 //		String secondLabel = graphIterator.next().label;
-		Graph result = this.neo4JGraphImpl.findShortestPath("testlabel3");
+		Graph result = this.neo4JGraphImpl.findShortestPath("testLbel3");
 		System.out.println(result);
 		assertFalse(result.triples.isEmpty());
 	}
