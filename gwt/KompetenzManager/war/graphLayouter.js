@@ -2,7 +2,7 @@ var redraw, g, renderer;
 function appendGraph(id,width, height, data) {
 //    var width = width - 20;
 //    var height = height - 60;
-	var width = 500;
+	var width = 800; //todo variabler machen
 	var height = 400;
 	
     // daten aus json lesen und in Graph einspeisen        

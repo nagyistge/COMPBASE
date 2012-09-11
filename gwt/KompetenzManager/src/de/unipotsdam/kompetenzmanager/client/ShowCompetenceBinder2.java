@@ -20,6 +20,8 @@ import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
 public class ShowCompetenceBinder2 extends Composite {
 
@@ -42,6 +44,10 @@ public class ShowCompetenceBinder2 extends Composite {
 	TextArea searchTextField;
 	@UiField
 	Button searchButton;
+	@UiField
+	Button button;
+	@UiField
+	ToggleButton toggleButton;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -196,8 +202,17 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	@UiHandler("searchButton")
 	void onSearchButtonClick(ClickEvent event) {
-		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);		
+		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 		backendImpl.findShortestPath(this.searchTextField.getText(),
 				new GraphUpdater<Graph>(widget));
+	}
+
+	@UiHandler("button")
+	void onButtonClick(ClickEvent event) {
+	}
+
+	@UiHandler("toggleButton")
+	void onToggleButtonClick(ClickEvent event) {
+		GWT.log("switched");
 	}
 }

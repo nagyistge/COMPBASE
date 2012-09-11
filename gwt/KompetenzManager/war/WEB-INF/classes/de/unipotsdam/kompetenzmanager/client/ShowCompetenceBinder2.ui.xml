@@ -6,11 +6,11 @@
 			font-weight: bold;
 		}
 	</ui:style>
-	<g:HTMLPanel width="600" height="800">
-		<g:AbsolutePanel height="652px" width="880px" ui:field="absolutePanel">
+	<g:HTMLPanel width="1600" height="950">
+		<g:AbsolutePanel height="692px" width="1600px" ui:field="absolutePanel">
 			<g:at left="0" top="0">
 				<g:FlowPanel width="806px" height="34px">
-						<g:Label text="Willkommen beim Kompetenzfinder" styleName="{style.important}"/>
+						<g:Label text="Willkommen bei der Didaktik der Informatik Recherche Plattform" styleName="{style.important}"/>
 					</g:FlowPanel>
 			</g:at>
 			<g:at left="10" top="74">
@@ -20,11 +20,30 @@
 					</g:VerticalPanel>
 			</g:at>
 			<g:at left="246" top="74">
-				<g:AbsolutePanel width="624px" height="568px" ui:field="glassPanelContainer">
+				<g:AbsolutePanel width="940px" height="568px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
-						<g:FocusPanel ui:field="focusPanel1" width="614px" height="541px"/>
+						<g:FocusPanel ui:field="focusPanel1" width="939px" height="541px"/>
 					</g:at>
 				</g:AbsolutePanel>
+			</g:at>
+			<g:at left="10" top="185">
+				<g:VerticalPanel width="201px" height="150px">
+					<g:Button ui:field="button">Finde Lernweg</g:Button>
+					<g:HorizontalPanel>
+						<g:Label text="von:"/>
+						<g:TextBox width="177px"/>
+					</g:HorizontalPanel>
+					<g:HorizontalPanel>
+						<g:Label text="bis:   "/>
+						<g:TextBox width="181px"/>
+					</g:HorizontalPanel>
+				</g:VerticalPanel>
+			</g:at>
+			<g:at left="10" top="356">
+				<g:VerticalPanel width="201px" height="100px">
+					<g:Label text="Baue auf letztem Ergebnis auf"/>
+					<g:ToggleButton text="JA" ui:field="toggleButton"/>
+				</g:VerticalPanel>
 			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>

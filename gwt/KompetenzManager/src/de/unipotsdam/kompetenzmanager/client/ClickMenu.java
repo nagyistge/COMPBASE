@@ -25,6 +25,7 @@ public class ClickMenu extends Composite {
 	
 	@UiField
 	Button removeNode;
+	@UiField Button showNeighbours;
 	
 	public String id;
 	ShowCompetenceBinder2 showCompetenceBinder2;
@@ -65,4 +66,7 @@ public class ClickMenu extends Composite {
 		backendImpl.removeNode(new GraphNode(this.nodeId), new GraphUpdater<Graph>(showCompetenceBinder2));
 	}
 	
+	@UiHandler("showNeighbours")
+	void onShowNeighboursClick(ClickEvent event) {
+	}
 }
