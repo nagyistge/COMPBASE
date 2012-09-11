@@ -26,7 +26,7 @@ public class DoFullGraph extends DoNeo {
 		StopEvaluator stopEvaluator = new StopEvaluator() {
 			@Override
 			public boolean isStopNode(TraversalPosition currentPos) {
-				return currentPos.returnedNodesCount() > 10;
+				return currentPos.returnedNodesCount() > maxDepth;
 			}
 		};
 		ReturnableEvaluator returnableEvaluator = new ReturnableEvaluator() {
