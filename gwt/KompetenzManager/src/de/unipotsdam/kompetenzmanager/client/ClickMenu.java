@@ -62,7 +62,7 @@ public class ClickMenu extends Composite {
 		if (this.showCompetenceBinder2 == null) {
 			GWT.log("showCompetenceBinder ist null");
 		}
-		GraphBackendImpl backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
+		GraphBackendAsync backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
 		backendImpl.removeNode(new GraphNode(this.nodeId), new GraphUpdater<Graph>(showCompetenceBinder2));
 	}
 	

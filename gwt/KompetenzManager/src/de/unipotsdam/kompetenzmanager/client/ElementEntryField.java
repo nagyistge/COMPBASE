@@ -62,7 +62,7 @@ public class ElementEntryField extends Composite {
 	@UiHandler("enterElementButton")
 	void onClick(ClickEvent e) {
 		//frage Server nach initialen Daten für den Graph TODO: should be only on request
-		GraphBackendImpl backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
+		GraphBackendAsync backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
 		GraphNode sourceNode = new GraphNode(this.nodeId);
 		GraphNode newNode = new GraphNode(this.elementEntryTextfield.getText());
 		String kantenLabel = this.kantenbeschriftungTextField.getText();

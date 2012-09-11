@@ -42,4 +42,14 @@ GraphBackend {
 		return factory.createInstance().removeNode(targetNode);
 	}
 
+	@Override
+	public Graph findShortestPath(String fromNode, String toNode) {
+		return factory.createInstance().findShortestPath(fromNode, toNode);
+	}
+
+	@Override
+	public Graph expandNode(String nodeName) {
+		return factory.createInstance().expandNode(nodeName);
+	}
+
 }

@@ -12,4 +12,6 @@ public interface GraphBackend extends RemoteService {
 	public Graph addNode(GraphNode sourceNode, GraphNode newNode, String kantenLabel);
 	public Graph findShortestPath(String keyword);
 	public Graph removeNode(GraphNode targetNode);
+	public Graph findShortestPath(String fromNode, String toNode);
+	public Graph expandNode(String nodeName);
 }

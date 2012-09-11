@@ -11,9 +11,7 @@ import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
 public class Neo4JGraphBackendImpl implements GraphBackend {
-
-		
-
+	
 	private Neo4JStarter neo;
 	
 	public Neo4JGraphBackendImpl() {
@@ -42,10 +40,8 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public synchronized Graph findShortestPath(String keyword) {
-		System.out.println("finding shortest path for keyword" + keyword);
-		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),"rootnode",keyword));
-		System.out.println(graph);
+	public synchronized Graph findShortestPath(String keyword) {		
+		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),"rootnode",keyword));		
 		if (graph == null) {
 			return getFullGraph();
 		} else {
@@ -61,6 +57,22 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	
 	public void shutdown() {
 		new Neo4JStarter().shutdown();
+	}
+
+	@Override
+	public Graph findShortestPath(String fromNode, String toNode) {
+		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),fromNode,toNode));		
+		if (graph == null) {
+			return getFullGraph();
+		} else {
+			return graph;
+		}
+	}
+
+	@Override
+	public Graph expandNode(String nodeName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

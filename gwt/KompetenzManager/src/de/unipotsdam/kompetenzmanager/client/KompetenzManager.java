@@ -20,7 +20,7 @@ public class KompetenzManager implements EntryPoint {
 		ShowCompetenceBinder2 widget = new ShowCompetenceBinder2(canvasId);		 
 		RootPanel.get("content").add(widget);		
 		widget.widget = widget; // ermöglicht referenzierung aus EventMethoden
-		GraphBackendImpl graphBackendImpl = new GraphBackendImpl(widget);
+		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
 		graphBackendImpl.getFullGraph(null);
 		return widget;
 	}

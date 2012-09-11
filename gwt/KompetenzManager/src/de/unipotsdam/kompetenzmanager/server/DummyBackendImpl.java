@@ -34,4 +34,16 @@ public class DummyBackendImpl implements GraphBackend{
 		return null;
 	}
 
+	@Override
+	public Graph findShortestPath(String fromNode, String toNode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph expandNode(String nodeName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

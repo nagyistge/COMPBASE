@@ -28,14 +28,14 @@
 			</g:at>
 			<g:at left="10" top="185">
 				<g:VerticalPanel width="201px" height="150px">
-					<g:Button ui:field="button">Finde Lernweg</g:Button>
+					<g:Button ui:field="searchPathButton">Finde Lernweg</g:Button>
 					<g:HorizontalPanel>
 						<g:Label text="von:"/>
-						<g:TextBox width="177px"/>
+						<g:TextBox width="177px" ui:field="searchFromTextField"/>
 					</g:HorizontalPanel>
 					<g:HorizontalPanel>
-						<g:Label text="bis:   "/>
-						<g:TextBox width="181px"/>
+						<g:Label text="bis:" />
+						<g:TextBox width="181px" ui:field="searchToTextField"/>
 					</g:HorizontalPanel>
 				</g:VerticalPanel>
 			</g:at>
