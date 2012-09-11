@@ -71,7 +71,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph expandNode(String nodeName) {
-		// TODO Auto-generated method stub
+		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));
 		return null;
 	}
 

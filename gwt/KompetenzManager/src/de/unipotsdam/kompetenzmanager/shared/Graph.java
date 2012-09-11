@@ -44,5 +44,10 @@ public class Graph implements IsSerializable {
 		}
 		return result;
 	}
+	
+	public void mergeWith(Graph graph) {
+		this.nodes.addAll(graph.nodes);
+		this.triples.addAll(graph.triples);
+	}
 
 }
