@@ -43,7 +43,9 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public synchronized Graph findShortestPath(String keyword) {
-		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(), "rootnode",keyword));
+		System.out.println("finding shortest path for keyword" + keyword);
+		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),"rootnode",keyword));
+		System.out.println(graph);
 		if (graph == null) {
 			return getFullGraph();
 		} else {

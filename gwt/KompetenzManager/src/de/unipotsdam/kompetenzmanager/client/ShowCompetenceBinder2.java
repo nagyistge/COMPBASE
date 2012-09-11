@@ -196,7 +196,7 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	@UiHandler("searchButton")
 	void onSearchButtonClick(ClickEvent event) {
-		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);		
 		backendImpl.findShortestPath(this.searchTextField.getText(),
 				new GraphUpdater<Graph>(widget));
 	}

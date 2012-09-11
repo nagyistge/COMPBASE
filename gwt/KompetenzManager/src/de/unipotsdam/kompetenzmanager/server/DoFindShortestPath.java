@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.util.Collection;
+
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphdb.Direction;
@@ -46,8 +48,9 @@ public class DoFindShortestPath extends DoNeo {
 	}
 	
 	private Node findEndNode(String toFind) {
-		for (String label : getTableNode().getPropertyKeys()) {
-			if (queryUtil.like(label, toFind)) {
+		Iterable<String> nodeKeys = getTableNode().getPropertyKeys();
+		for (String label : nodeKeys) {				
+			if (queryUtil.myLike(label, toFind)) {
 				return this.nodeIndex.get(NODE_KEY, label).getSingle();
 			}
 		}

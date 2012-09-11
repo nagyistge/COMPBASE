@@ -28,5 +28,9 @@ public class QueryUtil {
 	    expr = expr.replace("%", ".*");
 	    return str.matches(expr);
 	}
+	
+	public Boolean myLike(String compare, String with) {		
+		return compare.toLowerCase().contains(with.toLowerCase()) || with.toLowerCase().contains(compare.toLowerCase())  ; // like "%gita%"
+	}
 
 }

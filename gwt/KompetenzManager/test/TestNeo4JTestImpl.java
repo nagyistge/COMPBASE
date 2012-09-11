@@ -73,19 +73,8 @@ public class TestNeo4JTestImpl {
 //		String firstLabel = graphIterator.next().label;
 //		graphIterator.next();
 //		String secondLabel = graphIterator.next().label;
-		Graph result = this.neo4JGraphImpl.findShortestPath("testLbel3");
+		Graph result = this.neo4JGraphImpl.findShortestPath("testlab");
 		System.out.println(result);
 		assertFalse(result.triples.isEmpty());
 	}
-
-	@Test
-	public void testFindShortestPath() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRemoveNode() {
-		fail("Not yet implemented");
-	}
-
 }

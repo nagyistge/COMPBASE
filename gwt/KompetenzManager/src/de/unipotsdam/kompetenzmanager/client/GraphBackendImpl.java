@@ -22,7 +22,7 @@ public class GraphBackendImpl implements GraphBackendAsync {
 
 	@Override
 	public void getFullGraph(AsyncCallback<Graph> graph) {
-		// TODO Auto-generated method stub
+		graphBackEnd.getFullGraph(new GraphUpdater<Graph>(showCompetenceBinder));
 	}
 
 	@Override
@@ -40,10 +40,6 @@ public class GraphBackendImpl implements GraphBackendAsync {
 			callback = new GraphUpdater<Graph>(showCompetenceBinder);
 		}
 		graphBackEnd.findShortestPath(keyword, new GraphUpdater<Graph>(showCompetenceBinder));
-	}
-
-	public void updateGraph() {
-		graphBackEnd.getFullGraph(new GraphUpdater<Graph>(showCompetenceBinder));
 	}
 
 	@Override
