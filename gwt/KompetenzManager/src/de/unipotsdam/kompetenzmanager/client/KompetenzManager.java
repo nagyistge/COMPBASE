@@ -21,7 +21,7 @@ public class KompetenzManager implements EntryPoint {
 		RootPanel.get("content").add(widget);		
 		widget.widget = widget; // ermöglicht referenzierung aus EventMethoden
 		GraphBackendImpl graphBackendImpl = new GraphBackendImpl(widget);
-		graphBackendImpl.updateGraph();
+		graphBackendImpl.getFullGraph(null);
 		return widget;
 	}
 }
