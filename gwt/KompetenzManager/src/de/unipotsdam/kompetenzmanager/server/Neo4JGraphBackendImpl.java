@@ -73,6 +73,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	public Graph expandNode(String nodeName) {
 		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));		
 		graph.mergeWith(getFullGraph());
+		System.out.println("neighbourgraph simple is " + graph);
 		return graph;
 	}
 
@@ -109,8 +110,9 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
-		Graph result = expandNode(nodeName);
-		result.intersectWith(result);
+		Graph result = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));			
+		result.mergeWith(graph);
+		System.out.println("neighbourgraph is " + result);
 		return result;
 	}
 

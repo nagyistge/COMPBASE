@@ -70,14 +70,12 @@ GraphBackend {
 
 	@Override
 	public Graph findShortestPath(Graph graph, String fromNode, String toNode) {
-		// TODO Auto-generated method stub
-		return null;
+		return factory.createInstance().findShortestPath(graph, fromNode, toNode);
 	}
 
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
-		// TODO Auto-generated method stub
-		return null;
+		return factory.createInstance().expandNode(graph, nodeName);
 	}
 
 }
