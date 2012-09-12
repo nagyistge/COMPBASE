@@ -27,6 +27,7 @@ public class ClickMenu extends Composite {
 	Button removeNode;
 	@UiField
 	Button showNeighbours;
+	@UiField Button connectButton;
 
 	public String id;
 	ShowCompetenceBinder2 widget;
@@ -98,5 +99,11 @@ public class ClickMenu extends Composite {
 		} else {
 			backendImpl.expandNode(this.widget.getStoredGraph(), gNode.label, new GraphUpdater<Graph>(widget));
 		}
+	}
+	@UiHandler("connectButton")
+	void onConnectButtonClick(ClickEvent event) {
+		ConnectNodesMenu connectNodesMenu = new ConnectNodesMenu(this.nodeId);
+		widget.removeClickMenu();
+		this.widget.addClickMenu(connectNodesMenu);
 	}
 }

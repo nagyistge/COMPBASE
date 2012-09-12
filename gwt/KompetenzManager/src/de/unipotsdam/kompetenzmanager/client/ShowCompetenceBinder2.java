@@ -60,7 +60,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	/**
 	 * Metadaten zu ClickMenus
 	 */
-	public ClickMenu clickMenu = null;
+	public Composite menu = null;
 	public ElementEntryField elementEntryField = null;
 	public Element canvasDiv;
 	public GlassPanel glassPanel = null;
@@ -134,8 +134,8 @@ public class ShowCompetenceBinder2 extends Composite {
 		if (widget.existsNode(x1, y1, this.canvasDiv.getId())) {
 			String nodeId = this.widget.getNodeID(x1, y1,
 					this.canvasDiv.getId());
-			this.clickMenu = new ClickMenu(id, widget, nodeId);
-			widget.addClickMenu(this.clickMenu, x, y);
+			this.menu = new ClickMenu(id, widget, nodeId);
+			widget.addClickMenu(this.menu, x, y);
 		}
 	}
 
@@ -161,18 +161,29 @@ public class ShowCompetenceBinder2 extends Composite {
 	 * @param x
 	 * @param y
 	 */
-	public void addClickMenu(ClickMenu clickMenu, int x, int y) {
-		this.clickMenu = clickMenu;
-		this.absolutePanel.add(this.clickMenu, x, y);
+	public void addClickMenu(Composite clickMenu, int x, int y) {
+		this.menu = clickMenu;
+		this.absolutePanel.add(this.menu, x, y);
+	}
+	
+	/**
+	 * 
+	 * @param clickMenu
+	 * @param x
+	 * @param y
+	 */
+	public void addClickMenu(Composite clickMenu) {		
+		this.menu = clickMenu;
+		this.absolutePanel.add(this.menu, this.x, this.y);
 	}
 
 	/**
 	 * 
 	 */
 	public void removeClickMenu() {
-		if (this.clickMenu != null) {
-			this.absolutePanel.remove(this.clickMenu);
-			this.clickMenu = null;
+		if (this.menu != null) {
+			this.absolutePanel.remove(this.menu);
+			this.menu = null;
 		}
 	}
 
@@ -244,8 +255,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	@UiHandler("toggleButton")
-	void onToggleButtonClick(ClickEvent event) {
-		GWT.log("switched");
+	void onToggleButtonClick(ClickEvent event) {		
 		this.newGraph = !this.newGraph;
 	}
 
