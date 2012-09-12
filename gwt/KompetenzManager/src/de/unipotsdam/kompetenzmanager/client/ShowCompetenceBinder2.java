@@ -22,6 +22,7 @@ import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 public class ShowCompetenceBinder2 extends Composite {
+	
 
 	interface ShowCompetenceBinder2UiBinder extends
 			UiBinder<Widget, ShowCompetenceBinder2> {
@@ -39,7 +40,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiField
 	AbsolutePanel glassPanelContainer;
 	@UiField
-	TextArea searchTextField;	
+	TextArea searchTextField;
 	@UiField
 	TextBox searchFromTextField;
 	@UiField
@@ -54,17 +55,22 @@ public class ShowCompetenceBinder2 extends Composite {
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
 	 */
-	ShowCompetenceBinder2 widget;
+	public ShowCompetenceBinder2 widget;
 
 	/**
 	 * Metadaten zu ClickMenus
 	 */
 	public ClickMenu clickMenu = null;
 	public ElementEntryField elementEntryField = null;
+	public Element canvasDiv;
+	public GlassPanel glassPanel = null;
+
+	// TODO refactor
 	private Integer x;
 	private Integer y;
-	public Element canvasDiv;
-	GlassPanel glassPanel = null;
+
+	private Boolean newGraph = true;
+	private Graph storedGraph;
 
 	/**
 	 * initialisiere View
@@ -205,8 +211,18 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiHandler("searchButton")
 	void onSearchButtonClick(ClickEvent event) {
 		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
-		backendImpl.findShortestPath(this.searchTextField.getText(),
-				new GraphUpdater<Graph>(widget));
+		if (this.getNewGraph()) {
+			backendImpl.findShortestPath(this.searchTextField.getText(),
+					new GraphUpdater<Graph>(widget));
+		} else {
+			if (getStoredGraph() != null) {
+				backendImpl.findShortestPath(getStoredGraph(),
+						this.searchTextField.getText(),
+						new GraphUpdater<Graph>(widget));
+			} else {
+				GWT.log("Graph should have been stored but is not");
+			}
+		}
 	}
 
 	@UiHandler("searchPathButton")
@@ -214,14 +230,39 @@ public class ShowCompetenceBinder2 extends Composite {
 		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
 		String fromNode = this.searchFromTextField.getText();
 		String toNode = this.searchToTextField.getText();
-		backendImpl.findShortestPath(fromNode,toNode, new GraphUpdater<Graph>(widget));
+		if (this.getNewGraph()) {
+		backendImpl.findShortestPath(fromNode, toNode, new GraphUpdater<Graph>(
+				widget));
+		} else {
+			if (getStoredGraph() != null) {
+				backendImpl.findShortestPath(getStoredGraph(), fromNode, toNode, new GraphUpdater<Graph>(
+						widget));
+			} else {
+				GWT.log("Graph should have been stored but is not");
+			}
+		}
 	}
 
 	@UiHandler("toggleButton")
 	void onToggleButtonClick(ClickEvent event) {
 		GWT.log("switched");
+		this.newGraph = !this.newGraph;
 	}
-	
-	
-	
+
+	public void storeGraph(Graph result) {
+		this.setStoredGraph(result);
+	}
+
+	private void setStoredGraph(Graph storedGraph) {
+		this.storedGraph = storedGraph;
+	}
+
+	public Graph getStoredGraph() {
+		return storedGraph;
+	}
+
+	public Boolean getNewGraph() {
+		return newGraph;
+	}
+
 }

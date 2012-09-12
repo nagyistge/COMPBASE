@@ -71,8 +71,47 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph expandNode(String nodeName) {
-		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));
-		return null;
+		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));		
+		graph.mergeWith(getFullGraph());
+		return graph;
+	}
+
+	@Override
+	public Graph addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
+			String kantenLabel) {
+		Graph result = addNode(sourceNode, newNode, kantenLabel);
+		result.intersectWith(graph);
+		result.addTriple(sourceNode.label, newNode.label, kantenLabel, false);
+		return result;
+	}
+
+	@Override
+	public Graph findShortestPath(Graph graph, String keyword) {
+		Graph result = findShortestPath(keyword);
+		graph.intersectWith(result);
+		return result;
+	}
+
+	@Override
+	public Graph removeNode(Graph graph, GraphNode targetNode) {
+		Graph result = removeNode(targetNode);
+		result.intersectWith(graph);
+		result.removeNode(targetNode);
+		return result;
+	}
+
+	@Override
+	public Graph findShortestPath(Graph graph, String fromNode, String toNode) {		
+		Graph result = findShortestPath(fromNode, toNode);
+		graph.intersectWith(result);
+		return result;
+	}
+
+	@Override
+	public Graph expandNode(Graph graph, String nodeName) {
+		Graph result = expandNode(nodeName);
+		result.intersectWith(result);
+		return result;
 	}
 
 }

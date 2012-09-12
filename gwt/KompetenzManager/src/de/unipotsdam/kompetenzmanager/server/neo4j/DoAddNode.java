@@ -5,6 +5,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 
+import scala.util.control.Exception;
+
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
@@ -17,6 +19,9 @@ public class DoAddNode extends DoNeo {
 	public DoAddNode(GraphDatabaseService graphDb, Index<Node> nodeIndex, GraphNode sourceNode,
 			GraphNode newNode, String kantenLabel) {
 		super(graphDb, nodeIndex);
+		if (this.newNode != null) {
+			throw new Error("End node is null , kannot add node!");
+		}
 		this.sourceNode = sourceNode;
 		this.newNode = newNode;
 		this.kantenLabel = kantenLabel;

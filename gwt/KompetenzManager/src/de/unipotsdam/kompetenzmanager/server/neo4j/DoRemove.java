@@ -21,10 +21,11 @@ public class DoRemove extends DoNeo {
 	public Graph doit() {
 		Node node = this.nodeIndex.get(NODE_KEY, label).getSingle();
 		for (Relationship rel : node.getRelationships()) {
-			rel.delete();			
+			rel.delete();						
 		}		
 		node.delete();
 		this.nodeIndex.remove(node);
+		
 		getTableNode().removeProperty(label);
 		return null;
 	}

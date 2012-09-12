@@ -61,4 +61,38 @@ public class GraphBackendImpl implements GraphBackendAsync {
 		graphBackEnd.expandNode(nodeName, graphUpdater);		
 	}
 
+	@Override
+	public void addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
+			String kantenLabel, AsyncCallback<Graph> callback) {
+		graphBackEnd.addNode(graph, sourceNode, newNode, kantenLabel, callback);
+		
+	}
+
+	@Override
+	public void findShortestPath(Graph graph, String keyword,
+			AsyncCallback<Graph> callback) {
+		graphBackEnd.findShortestPath(graph, keyword, callback);
+		
+	}
+
+	@Override
+	public void removeNode(Graph graph, GraphNode targetNode,
+			AsyncCallback<Graph> callback) {
+		graphBackEnd.removeNode(graph, targetNode, callback);
+		
+	}
+
+	@Override
+	public void findShortestPath(Graph graph, String fromNode, String toNode,
+			AsyncCallback<Graph> graphUpdater) {
+		graphBackEnd.findShortestPath(graph, fromNode, toNode, graphUpdater);
+		
+	}
+
+	@Override
+	public void expandNode(Graph graph, String nodeName,
+			AsyncCallback<Graph> graphUpdater) {
+		graphBackEnd.expandNode(graph, nodeName, graphUpdater);		
+	}
+
 }

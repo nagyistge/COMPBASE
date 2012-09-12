@@ -22,51 +22,81 @@ public class ClickMenu extends Composite {
 	FocusPanel focusPanel2;
 	@UiField
 	Button newNode;
-	
+
 	@UiField
 	Button removeNode;
-	@UiField Button showNeighbours;
-	
+	@UiField
+	Button showNeighbours;
+
 	public String id;
-	ShowCompetenceBinder2 showCompetenceBinder2;
+	ShowCompetenceBinder2 widget;
 	private String nodeId;
 
 	interface ClickMenuUiBinder extends UiBinder<Widget, ClickMenu> {
 	}
 
-	public ClickMenu(String id, ShowCompetenceBinder2 showCompetenceBinder2, String nodeId) {
+	public ClickMenu(String id, ShowCompetenceBinder2 showCompetenceBinder2,
+			String nodeId) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.showCompetenceBinder2 = showCompetenceBinder2;
-		this.id = id;		
+		this.widget = showCompetenceBinder2;
+		this.id = id;
 		this.nodeId = nodeId;
 		GWT.log("Die NodeID ist " + nodeId);
 	}
 
 	@UiHandler("focusPanel2")
-	void onFocusPanelMouseOut(MouseOutEvent event) {		
-		showCompetenceBinder2.removeClickMenu();
+	void onFocusPanelMouseOut(MouseOutEvent event) {
+		widget.removeClickMenu();
 	}
 
 	@UiHandler("newNode")
 	void onnewNodeClick(ClickEvent event) {
 		GWT.log("newNode has been clicked");
-		showCompetenceBinder2.removeClickMenu();		
-		ElementEntryField elementEntryField = new ElementEntryField(this.showCompetenceBinder2, this.nodeId); 		
-		showCompetenceBinder2.addElementEntryField(elementEntryField, showCompetenceBinder2.absolutePanel.getWidgetLeft(showCompetenceBinder2.glassPanelContainer) + 20, showCompetenceBinder2.absolutePanel.getWidgetTop(showCompetenceBinder2.glassPanelContainer) + 20);		
+		widget.removeClickMenu();
+		ElementEntryField elementEntryField = new ElementEntryField(
+				this.widget, this.nodeId);		
+		widget
+				.addElementEntryField(
+						elementEntryField,
+						widget.absolutePanel
+								.getWidgetLeft(widget.glassPanelContainer) + 20,
+						widget.absolutePanel
+								.getWidgetTop(widget.glassPanelContainer) + 20);
 	}
-	
+
 	@UiHandler("removeNode")
 	void onremoveNodeClick(ClickEvent event) {
 		GWT.log("removeNode has been clicked");
-		showCompetenceBinder2.removeClickMenu();
-		if (this.showCompetenceBinder2 == null) {
+		widget.removeClickMenu();
+		if (this.widget == null) {
 			GWT.log("showCompetenceBinder ist null");
 		}
-		GraphBackendAsync backendImpl = new GraphBackendImpl(this.showCompetenceBinder2);
-		backendImpl.removeNode(new GraphNode(this.nodeId), new GraphUpdater<Graph>(showCompetenceBinder2));
+		GraphBackendAsync backendImpl = new GraphBackendImpl(
+				this.widget);
+		GraphNode targetNode = new GraphNode(this.nodeId);
+		if (this.widget.getNewGraph()) {
+			backendImpl.removeNode(targetNode, new GraphUpdater<Graph>(
+					widget));
+		} else {
+			if (this.widget.getStoredGraph() != null) {
+				backendImpl.removeNode(this.widget
+						.getStoredGraph(), targetNode, new GraphUpdater<Graph>(
+						widget));
+			} else {
+				GWT.log("Graph has not been stored");
+			}
+		}
 	}
-	
+
 	@UiHandler("showNeighbours")
 	void onShowNeighboursClick(ClickEvent event) {
+		GraphBackendAsync backendImpl = new GraphBackendImpl(
+				this.widget);
+		GraphNode gNode = new GraphNode(this.nodeId);
+		if (this.widget.getNewGraph()) {
+			backendImpl.expandNode(gNode.label, new GraphUpdater<Graph>(this.widget));
+		} else {
+			backendImpl.expandNode(this.widget.getStoredGraph(), gNode.label, new GraphUpdater<Graph>(widget));
+		}
 	}
 }

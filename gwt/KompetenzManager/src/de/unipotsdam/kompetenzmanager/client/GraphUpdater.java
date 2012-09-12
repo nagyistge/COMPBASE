@@ -14,7 +14,7 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 
 	public GraphUpdater(ShowCompetenceBinder2 widget) {
 		this.javascriptUtil = new JavascriptUtil();
-		this.showCompetenceBinder = widget;
+		this.showCompetenceBinder = widget;		
 	}
 	
 	@Override
@@ -22,7 +22,8 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		JSONObject json = javascriptUtil.toJSON((Graph) result);
 		GWT.log("Graph konnte geladen werden mit den Daten" + json.toString());
 		showCompetenceBinder.removeGraph();
-		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());							
+		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());
+		this.showCompetenceBinder.storeGraph((Graph) result);		
 	}
 	
 	@Override
