@@ -1,0 +1,20 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+		<g:TabPanel width="1601px" height="951px" animationEnabled="true" ui:field="tabView">
+			<g:Tab text="Thematische Sicht">
+				<g:HTMLPanel width="1600px" height="950px" ui:field="ThemeViewTab"/>
+			</g:Tab>
+			<g:Tab text="Literatur ">
+				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab">
+					<g:InlineLabel text="New InlineLabel"/>
+					<g:Label text="New Label"/>
+				</g:HTMLPanel>
+			</g:Tab>
+		</g:TabPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
