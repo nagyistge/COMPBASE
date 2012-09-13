@@ -2,6 +2,8 @@ package de.unipotsdam.kompetenzmanager.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SourcesTabEvents;
+import com.google.gwt.user.client.ui.TabListener;
 
 
 /**
@@ -17,11 +19,18 @@ public class KompetenzManager implements EntryPoint {
 	}	
 	
 	private ShowCompetenceBinder2 addGraphWidget(String canvasId) {
-		ShowCompetenceBinder2 widget = new ShowCompetenceBinder2(canvasId);		 
-		RootPanel.get("content").add(widget);		
+		TabbedView tabbedView = new TabbedView();		
+		ShowCompetenceBinder2 widget = new ShowCompetenceBinder2(canvasId);		
 		widget.widget = widget; // ermöglicht referenzierung aus EventMethoden
+		widget.tabbed = tabbedView;
 		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
-		graphBackendImpl.getFullGraph(null);
+		graphBackendImpl.getFullGraph(null);		
+		tabbedView.ThemeViewTab.add(widget);
+		tabbedView.tabView.getTabBar().selectTab(0);		
+		RootPanel.get("content").add(tabbedView);		
+//		TestWrapper testWrapper = new TestWrapper();
+//		testWrapper.getElement().appendChild(widget.getElement());
+//		testWrapper.getElement().appendChild(widget2.getElement());
 		return widget;
 	}
 }

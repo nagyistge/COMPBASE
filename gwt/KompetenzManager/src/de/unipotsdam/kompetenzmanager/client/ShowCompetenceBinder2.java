@@ -71,6 +71,7 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	private Boolean newGraph = true;
 	private Graph storedGraph;
+	public TabbedView tabbed;
 
 	/**
 	 * initialisiere View

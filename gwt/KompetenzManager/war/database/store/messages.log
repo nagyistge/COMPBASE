@@ -9273,3 +9273,22 @@
 2012-09-12 11:12:00.696+0000: GC Monitor: Application threads blocked for an additional 209ms [total block time: 0.815s]
 2012-09-12 11:14:51.051+0000: GC Monitor: Application threads blocked for an additional 126ms [total block time: 0.941s]
 2012-09-12 11:16:58.760+0000: GC Monitor: Application threads blocked for an additional 119ms [total block time: 1.06s]
+2012-09-13 08:08:12.640+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-13 08:08:12.671+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-13 08:08:12.687+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-13 08:08:12.702+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-13 08:08:12.718+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.index non clean shutdown detected
+2012-09-13 08:08:12.718+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-13 08:08:12.749+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db non clean shutdown detected
+2012-09-13 08:08:12.765+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshipstore.db non clean shutdown detected
+2012-09-13 08:08:12.765+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.nodestore.db non clean shutdown detected
+2012-09-13 08:08:12.796+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore non clean shutdown detected
+2012-09-13 08:09:12.061+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-13 08:09:12.061+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-13 08:09:12.077+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-13 08:09:12.077+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-13 08:09:12.077+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.index non clean shutdown detected
+2012-09-13 08:09:12.077+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-13 08:09:12.093+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.propertystore.db non clean shutdown detected
+2012-09-13 08:09:12.093+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.relationshipstore.db non clean shutdown detected
+2012-09-13 08:09:12.093+0000: C:\Users\Julian\Documents\NetBeansProjects\Kompetenzmanager\gwt\KompetenzManager\war\database\store\neostore.nodestore.db non clean shutdown detected

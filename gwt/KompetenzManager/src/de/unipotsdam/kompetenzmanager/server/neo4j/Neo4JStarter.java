@@ -14,7 +14,7 @@ public class Neo4JStarter {
 	public Neo4JStarter() {
 		if (Neo4JStarter.graphDb == null) {			
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
-					.newEmbeddedDatabase("database/store/");
+					.newEmbeddedDatabase("database/store/store1");
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			addRootNode();			
 		} 

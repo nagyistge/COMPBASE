@@ -4,6 +4,7 @@ import com.google.gwt.user.server.rpc.UnexpectedException;
 
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
