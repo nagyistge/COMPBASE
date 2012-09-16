@@ -5,13 +5,20 @@
 		
 	</ui:style>
 	<g:HTMLPanel>
-		<g:TabPanel width="1601px" height="951px" animationEnabled="true" ui:field="tabView">
-			<g:Tab text="Thematische Sicht">
-				<g:HTMLPanel width="1600px" height="950px" ui:field="ThemeViewTab"/>
-			</g:Tab>
-			<g:Tab text="Literatur ">
-				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab"/>
-			</g:Tab>
-		</g:TabPanel>
+		<g:TabLayoutPanel barHeight="30" width="1601px"
+			height="951px" ui:field="tabView">
+			<g:tab text="Thematische Sicht">
+				<g:customHeader>
+					<g:Label>Thematische Sicht</g:Label>
+				</g:customHeader>
+				<g:HTMLPanel width="1600px" height="950px" ui:field="ThemeViewTab" />
+			</g:tab>
+			<g:tab text="Literatur ">
+				<g:customHeader>
+					<g:Label>Thematische Sicht</g:Label>
+				</g:customHeader>
+				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab" />
+			</g:tab>
+		</g:TabLayoutPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -51,23 +51,14 @@
 				<g:AbsolutePanel width="201px" height="215px">
 					<g:at left="0" top="45">
 						<g:ScrollPanel width="201px" height="113px" ui:field="SelectedListPanel">
-							<g:FlowPanel width="100%" height="100%">
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-								<g:Label text="New Label"/>
-							</g:FlowPanel>
+							<g:VerticalPanel width="100%" height="100%" ui:field="VerticalPanel"/>
 						</g:ScrollPanel>
 					</g:at>
 					<g:at left="0" top="10">
 						<g:Label text="Bis jetzt ausgewählt:"/>
 					</g:at>
 					<g:at left="0" top="175">
-						<g:Button>Auswahl löschen</g:Button>
+						<g:Button ui:field="deleteSelection">Auswahl löschen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

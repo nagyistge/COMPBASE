@@ -27,10 +27,17 @@ public class KompetenzManager implements EntryPoint {
 		widget.tabbed = tabbedView;
 		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
 		graphBackendImpl.getFullGraph(null);		
+//		KeyBoardListener keyBoardListener = new KeyBoardListener(widget);
+//		tabbedView.ThemeViewTab.add(keyBoardListener);
 		tabbedView.ThemeViewTab.add(widget);
 		this.literatureView = new LiteratureView();
 		tabbedView.LiteratureViewTab.add(literatureView);
-		tabbedView.tabView.getTabBar().selectTab(0);		
+//		tabbedView.tabView.getTabWidget(index).getTabBar().selectTab(0);
+		tabbedView.tabView.selectTab(0, true);
+		tabbedView.tabView.selectTab(1, true);
+		
+		tabbedView.tabView.getWidget(1).setTitle("Literatur");
+		tabbedView.tabView.selectTab(0);
 		RootPanel.get("content").add(tabbedView);		
 //		TestWrapper testWrapper = new TestWrapper();
 //		testWrapper.getElement().appendChild(widget.getElement());

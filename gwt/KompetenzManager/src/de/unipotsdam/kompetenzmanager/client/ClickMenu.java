@@ -87,6 +87,8 @@ public class ClickMenu extends Composite {
 				GWT.log("Graph has not been stored");
 			}
 		}
+		// eventuell nur das entsprechende Element rausnehmen
+		widget.clearSelectedElements();
 	}
 
 	@UiHandler("showNeighbours")
@@ -104,6 +106,7 @@ public class ClickMenu extends Composite {
 	void onConnectButtonClick(ClickEvent event) {
 		ConnectNodesMenu connectNodesMenu = new ConnectNodesMenu(this.nodeId);
 		widget.removeClickMenu();
+		// here die logic einfügen
 		this.widget.addClickMenu(connectNodesMenu);
 	}
 }

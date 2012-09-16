@@ -21,5 +21,10 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/scala-library-2.9.0-1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/server-api-1.7.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/gwt-ent-0.7/gwtent-gwt15patch.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-ent-0.7/gwtent-gxt.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-ent-0.7/gwtent-orm.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-ent-0.7/gwtent-spring.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-ent-0.7/gwtent.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

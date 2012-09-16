@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -22,13 +23,14 @@ public class TabbedView extends Composite {
 	@UiField
 	HTMLPanel LiteratureViewTab;
 	@UiField
-	TabPanel tabView;
+	TabLayoutPanel tabView;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
 
 	public TabbedView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.tabView.setAnimationVertical(false);		
 	}
-
+	
 }

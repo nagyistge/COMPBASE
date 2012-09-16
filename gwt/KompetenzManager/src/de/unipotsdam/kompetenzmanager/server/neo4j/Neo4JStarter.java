@@ -18,6 +18,13 @@ public class Neo4JStarter {
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			addRootNode();			
 		} 
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
+			@Override
+			public void run() {
+				Neo4JStarter.nodeIndex = null;
+				Neo4JStarter.graphDb.shutdown();				
+			}
+		}));
 	}
 
 	private void addRootNode() {

@@ -1,5 +1,8 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Node;
@@ -13,14 +16,20 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.client.GlassPanel;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ShowCompetenceBinder2 extends Composite {
 
@@ -53,6 +62,10 @@ public class ShowCompetenceBinder2 extends Composite {
 	ToggleButton toggleButton;
 	@UiField
 	ScrollPanel SelectedListPanel;
+	@UiField
+	Button deleteSelection;
+	@UiField
+	VerticalPanel VerticalPanel;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -74,7 +87,9 @@ public class ShowCompetenceBinder2 extends Composite {
 	private Boolean newGraph = true;
 	private Graph storedGraph;
 	public TabbedView tabbed;
-	public boolean ctrlClicked;
+	public boolean ctrlClicked = false;
+	private Collection<String> selectedElements;
+	private boolean shiftKey;
 
 	/**
 	 * initialisiere View
@@ -88,11 +103,9 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.canvasDiv.setId(canvasId);
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
-		this.glassPanelContainer.add(glassPanel, 0, 0);		
+		this.glassPanelContainer.add(glassPanel, 0, 0);
+		this.selectedElements = new ArrayList<String>();
 	}
-	
-	
-	
 
 	/**
 	 * nativ js calls
@@ -140,12 +153,19 @@ public class ShowCompetenceBinder2 extends Composite {
 		// schauen ob und welcher Knoten geclickt wurde
 		if (widget.existsNode(x1, y1, this.canvasDiv.getId())) {
 			String nodeId = this.widget.getNodeID(x1, y1,
-					this.canvasDiv.getId());
-			Composite optionMenu = new ClickMenu(id, widget, nodeId);
-			showMenu(optionMenu);
+					this.canvasDiv.getId());		
+			//do not refactor unless you are absolutely sure what you are doing
+			if (this.ctrlClicked) {
+				Composite optionMenu = new MultiClickMenu(id, widget, nodeId);
+				showMenu(optionMenu);
+			} else if (this.shiftKey) {
+				addSelectedElementToList(nodeId);
+			} else {
+				Composite optionMenu = new ClickMenu(id, widget, nodeId);
+				showMenu(optionMenu);
+			}			
 		}
 	}
-
 
 	private void showMenu(Composite clickMenu) {
 		this.menu = clickMenu;
@@ -164,6 +184,8 @@ public class ShowCompetenceBinder2 extends Composite {
 			if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
 					this.x, this.y)) {
 				widget.removeClickMenu();
+				this.ctrlClicked = false;
+				this.shiftKey = false;
 			}
 		}
 	}
@@ -287,4 +309,39 @@ public class ShowCompetenceBinder2 extends Composite {
 	public Boolean getNewGraph() {
 		return newGraph;
 	}
+
+	public void addSelectedElementToList(String nodeId) {
+		this.selectedElements.add(nodeId);
+		Label label = new Label(nodeId);
+		// this.SelectedListPanel.getElement().getChild(0)
+		// .appendChild(label.getElement());
+		this.VerticalPanel.add(label);
+	}
+
+	@UiHandler("deleteSelection")
+	void onDeleteSelectionClick(ClickEvent event) {
+		clearSelectedElements();
+	}
+
+	public void clearSelectedElements() {
+		this.selectedElements.clear();
+		this.SelectedListPanel.clear();
+	}
+
+	@UiHandler("focusPanel1")
+	void onFocusPanel1KeyPress(KeyPressEvent event) {
+		this.ctrlClicked = event.isControlKeyDown();
+	}
+
+	@UiHandler("focusPanel1")
+	void onFocusPanel1KeyDown(KeyDownEvent event) {
+		this.ctrlClicked = event.isControlKeyDown();
+		this.shiftKey = event.isShiftKeyDown();
+	}
+
+	// @UiHandler("focusPanel1")
+	// void onFocusPanel1KeyUp(KeyUpEvent event) {
+	// this.ctrlClicked = !event.getNativeEvent().getCtrlKey();
+	// this.ctrlClicked = !event.getNativeEvent().getShiftKey();
+	// }
 }

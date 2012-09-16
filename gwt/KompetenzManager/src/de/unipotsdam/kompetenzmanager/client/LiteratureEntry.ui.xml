@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		addThemeButton {padding: 10}
+	</ui:style>
+	<g:HTMLPanel width="1600">
+		<g:AbsolutePanel width="1600px" height="500px">
+			<g:at left="10" top="85">
+				<g:HorizontalPanel width="738px" height="298px">
+			<g:VerticalPanel height="298px" width="126px">
+				<g:Label text="Titel"/>
+				<g:Label text="Autor"/>
+				<g:Label text="Publikationsdatum"/>
+				<g:Label text="Abstract"/>
+			</g:VerticalPanel>
+			<g:VerticalPanel height="296px" width="251px">
+				<g:TextBox ui:field="titleContent" width="220px"/>
+				<g:TextBox width="220px" ui:field="authorContent"/>
+				<g:TextBox width="220px" ui:field="publicationDate"/>
+				<g:TextArea ui:field="abstractContent" width="220px"/>
+			</g:VerticalPanel>
+			<g:VerticalPanel height="296px" width="261px">
+				<g:Label text="Tags:"/>
+				<g:SimplePanel>
+					<g:ScrollPanel height="239px" width="100%" ui:field="TagsContainer"/>
+				</g:SimplePanel>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+			</g:at>
+			<g:at left="10" top="40">
+				<g:AbsolutePanel width="252px" height="38px">
+					<g:at left="0" top="10">
+						<g:Hyperlink text="Klassifikationstabelle:" targetHistoryToken="newHistoryToken" width="138px" height="18px"/>
+					</g:at>
+					<g:at left="169" top="10">
+						<g:Label text="idContent"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:at>
+			<g:at left="281" top="421">
+				<g:Button ui:field="speichernButton" enabled="false" width="124px" height="30px">speichern</g:Button>
+			</g:at>
+			<g:at left="608" top="403">
+				<g:Button width="103px" ui:field="addThemeButton" styleName="addThemeButton">add theme tag</g:Button>
+			</g:at>
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
