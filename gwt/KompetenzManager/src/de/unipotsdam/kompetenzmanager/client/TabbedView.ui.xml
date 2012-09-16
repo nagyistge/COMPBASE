@@ -10,10 +10,7 @@
 				<g:HTMLPanel width="1600px" height="950px" ui:field="ThemeViewTab"/>
 			</g:Tab>
 			<g:Tab text="Literatur ">
-				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab">
-					<g:InlineLabel text="New InlineLabel"/>
-					<g:Label text="New Label"/>
-				</g:HTMLPanel>
+				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab"/>
 			</g:Tab>
 		</g:TabPanel>
 	</g:HTMLPanel>

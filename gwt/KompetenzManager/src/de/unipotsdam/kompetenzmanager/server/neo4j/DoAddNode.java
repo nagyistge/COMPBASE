@@ -32,8 +32,9 @@ public class DoAddNode extends DoNeo {
 	public Graph doit() {		
 		Node firstNode = createAndIndexNode(this.newNode.label);				
 		Node secondNode = nodeIndex.get(NODE_KEY, sourceNode.label).getSingle();		
-		Relationship relationship = firstNode.createRelationshipTo(secondNode,
-				RelTypes.assoziatedWith);
+//		Relationship relationship = firstNode.createRelationshipTo(secondNode,
+//				RelTypes.assoziatedWith);
+				Relationship relationship = firstNode.createRelationshipTo(secondNode, RelTypes.subclassOf);
 		relationship.setProperty("label", this.kantenLabel);
 		relationship.setProperty(REL_KEY, this.kantenLabel);
 		return null;

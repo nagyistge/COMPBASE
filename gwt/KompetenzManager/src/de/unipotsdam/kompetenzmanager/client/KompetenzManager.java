@@ -11,6 +11,8 @@ import com.google.gwt.user.client.ui.TabListener;
  */
 public class KompetenzManager implements EntryPoint {
 
+	public LiteratureView literatureView;
+
 	/**
 	 * This is the entry point method.
 	 */
@@ -26,6 +28,8 @@ public class KompetenzManager implements EntryPoint {
 		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
 		graphBackendImpl.getFullGraph(null);		
 		tabbedView.ThemeViewTab.add(widget);
+		this.literatureView = new LiteratureView();
+		tabbedView.LiteratureViewTab.add(literatureView);
 		tabbedView.tabView.getTabBar().selectTab(0);		
 		RootPanel.get("content").add(tabbedView);		
 //		TestWrapper testWrapper = new TestWrapper();

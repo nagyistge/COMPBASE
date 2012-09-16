@@ -20,9 +20,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.client.GlassPanel;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class ShowCompetenceBinder2 extends Composite {
-	
 
 	interface ShowCompetenceBinder2UiBinder extends
 			UiBinder<Widget, ShowCompetenceBinder2> {
@@ -51,6 +51,8 @@ public class ShowCompetenceBinder2 extends Composite {
 	Button searchPathButton;
 	@UiField
 	ToggleButton toggleButton;
+	@UiField
+	ScrollPanel SelectedListPanel;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -72,6 +74,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	private Boolean newGraph = true;
 	private Graph storedGraph;
 	public TabbedView tabbed;
+	public boolean ctrlClicked;
 
 	/**
 	 * initialisiere View
@@ -85,8 +88,11 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.canvasDiv.setId(canvasId);
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
-		this.glassPanelContainer.add(glassPanel, 0, 0);
+		this.glassPanelContainer.add(glassPanel, 0, 0);		
 	}
+	
+	
+	
 
 	/**
 	 * nativ js calls
@@ -135,9 +141,15 @@ public class ShowCompetenceBinder2 extends Composite {
 		if (widget.existsNode(x1, y1, this.canvasDiv.getId())) {
 			String nodeId = this.widget.getNodeID(x1, y1,
 					this.canvasDiv.getId());
-			this.menu = new ClickMenu(id, widget, nodeId);
-			widget.addClickMenu(this.menu, x, y);
+			Composite optionMenu = new ClickMenu(id, widget, nodeId);
+			showMenu(optionMenu);
 		}
+	}
+
+
+	private void showMenu(Composite clickMenu) {
+		this.menu = clickMenu;
+		widget.addClickMenu(this.menu, x, y);
 	}
 
 	/**
@@ -166,14 +178,14 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.menu = clickMenu;
 		this.absolutePanel.add(this.menu, x, y);
 	}
-	
+
 	/**
 	 * 
 	 * @param clickMenu
 	 * @param x
 	 * @param y
 	 */
-	public void addClickMenu(Composite clickMenu) {		
+	public void addClickMenu(Composite clickMenu) {
 		this.menu = clickMenu;
 		this.absolutePanel.add(this.menu, this.x, this.y);
 	}
@@ -243,12 +255,12 @@ public class ShowCompetenceBinder2 extends Composite {
 		String fromNode = this.searchFromTextField.getText();
 		String toNode = this.searchToTextField.getText();
 		if (this.getNewGraph()) {
-		backendImpl.findShortestPath(fromNode, toNode, new GraphUpdater<Graph>(
-				widget));
+			backendImpl.findShortestPath(fromNode, toNode,
+					new GraphUpdater<Graph>(widget));
 		} else {
 			if (getStoredGraph() != null) {
-				backendImpl.findShortestPath(getStoredGraph(), fromNode, toNode, new GraphUpdater<Graph>(
-						widget));
+				backendImpl.findShortestPath(getStoredGraph(), fromNode,
+						toNode, new GraphUpdater<Graph>(widget));
 			} else {
 				GWT.log("Graph should have been stored but is not");
 			}
@@ -256,7 +268,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	@UiHandler("toggleButton")
-	void onToggleButtonClick(ClickEvent event) {		
+	void onToggleButtonClick(ClickEvent event) {
 		this.newGraph = !this.newGraph;
 	}
 
@@ -275,5 +287,4 @@ public class ShowCompetenceBinder2 extends Composite {
 	public Boolean getNewGraph() {
 		return newGraph;
 	}
-
 }

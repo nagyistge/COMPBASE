@@ -1,5 +1,8 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -35,13 +38,30 @@ public class DoFullGraph extends DoNeo {
 				return true;
 			}
 		};
-		Traverser traverser = this.nodeIndex
+		
+				
+		
+		Traverser traverserAssociatedWith = createTraverser(stopEvaluator,
+				returnableEvaluator, RelTypes.assoziatedWith);
+		Traverser traverserSubClassOf = createTraverser(stopEvaluator, returnableEvaluator, RelTypes.subclassOf);
+		Graph result = traverseGraph(traverserAssociatedWith);
+		Graph resultPartTwo = traverseGraph(traverserSubClassOf);
+		result.mergeWith(resultPartTwo);
+		return result;
+	}
+
+	private Traverser createTraverser(StopEvaluator stopEvaluator,
+			ReturnableEvaluator returnableEvaluator, RelTypes toTraverse) {
+		Traverser traverserAssociatedWith = this.nodeIndex
 				.get(NODE_KEY, "rootnode")
 				.getSingle()
 				.traverse(Order.DEPTH_FIRST, stopEvaluator,
-						returnableEvaluator, RelTypes.assoziatedWith,
+						returnableEvaluator,toTraverse,
 						Direction.BOTH);
+		return traverserAssociatedWith;
+	}
 
+	private Graph traverseGraph(Traverser traverser) {
 		Graph result = new Graph();		
 		while (traverser.iterator().hasNext()) {									
 			Node currentNode = traverser.iterator().next();	
