@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import java.util.Collection;
+
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.RemoteService;
 
@@ -20,4 +22,7 @@ public interface GraphBackend extends RemoteService {
 	Graph removeNode(Graph graph, GraphNode targetNode);
 	Graph findShortestPath(Graph graph, String fromNode, String toNode);
 	Graph expandNode(Graph graph, String nodeName);
+	Graph connectNodes(Collection<String> graphNodes, String toNode);
+	Graph connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode);
 }

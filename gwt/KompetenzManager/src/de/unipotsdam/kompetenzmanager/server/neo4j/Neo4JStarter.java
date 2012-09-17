@@ -5,6 +5,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.Index;
+import org.neo4j.graphdb.index.RelationshipIndex;
+
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 public class Neo4JStarter {
@@ -16,6 +18,7 @@ public class Neo4JStarter {
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
 					.newEmbeddedDatabase("database/store/store3");
 			setNodeIndex(graphDb.index().forNodes("nodes"));
+			setRelIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();			
 		} 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
@@ -25,6 +28,11 @@ public class Neo4JStarter {
 				Neo4JStarter.graphDb.shutdown();				
 			}
 		}));
+	}
+
+	private void setRelIndex(RelationshipIndex forRelationships) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void addRootNode() {

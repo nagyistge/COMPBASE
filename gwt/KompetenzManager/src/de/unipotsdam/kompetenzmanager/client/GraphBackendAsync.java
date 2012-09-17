@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import java.util.Collection;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
@@ -17,4 +19,6 @@ public interface GraphBackendAsync {
 	void removeNode(Graph graph, GraphNode targetNode, AsyncCallback<Graph> callback);
 	void findShortestPath(Graph graph, String fromNode, String toNode, AsyncCallback<Graph> graphUpdater);
 	void expandNode(Graph graph, String nodeName, AsyncCallback<Graph> graphUpdater);
+	void connectNodes(Collection<String> graphNodes, String toNode, AsyncCallback<Graph> graphUpdater );
+	void connectNodes(Graph graph, Collection<String> graphNodes, String toNode, AsyncCallback<Graph> graphUpdater );
 }

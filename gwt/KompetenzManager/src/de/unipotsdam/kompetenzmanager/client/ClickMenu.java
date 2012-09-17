@@ -104,9 +104,15 @@ public class ClickMenu extends Composite {
 	}
 	@UiHandler("connectButton")
 	void onConnectButtonClick(ClickEvent event) {
-		ConnectNodesMenu connectNodesMenu = new ConnectNodesMenu(this.nodeId);
-		widget.removeClickMenu();
-		// here die logic einfügen
-		this.widget.addClickMenu(connectNodesMenu);
+		GWT.log("connecting nodes:" +this.nodeId + " " + widget.getSelectedElements());
+		GraphBackendAsync backendImpl = new GraphBackendImpl(
+				this.widget);		
+		widget.removeClickMenu();		
+		if (this.widget.getNewGraph()) {
+			backendImpl.connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		} else {
+			backendImpl.connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		}
+		widget.clearSelectedElements();
 	}
 }

@@ -104,7 +104,7 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
 		this.glassPanelContainer.add(glassPanel, 0, 0);
-		this.selectedElements = new ArrayList<String>();
+		this.setSelectedElements(new ArrayList<String>());
 	}
 
 	/**
@@ -311,7 +311,8 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	public void addSelectedElementToList(String nodeId) {
-		this.selectedElements.add(nodeId);
+		GWT.log("adding selected element to list");
+		this.getSelectedElements().add(nodeId);
 		Label label = new Label(nodeId);
 		// this.SelectedListPanel.getElement().getChild(0)
 		// .appendChild(label.getElement());
@@ -324,7 +325,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	public void clearSelectedElements() {
-		this.selectedElements.clear();
+		this.getSelectedElements().clear();
 		this.SelectedListPanel.clear();
 	}
 
@@ -337,6 +338,20 @@ public class ShowCompetenceBinder2 extends Composite {
 	void onFocusPanel1KeyDown(KeyDownEvent event) {
 		this.ctrlClicked = event.isControlKeyDown();
 		this.shiftKey = event.isShiftKeyDown();
+	}
+
+	/**
+	 * @param selectedElements the selectedElements to set
+	 */
+	public void setSelectedElements(Collection<String> selectedElements) {
+		this.selectedElements = selectedElements;
+	}
+
+	/**
+	 * @return the selectedElements
+	 */
+	public Collection<String> getSelectedElements() {
+		return selectedElements;
 	}
 
 	// @UiHandler("focusPanel1")

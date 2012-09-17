@@ -52,11 +52,17 @@ public class Graph implements IsSerializable {
 		this.triples.addAll(graph.triples);
 	}
 
-	public void intersectWith(Graph graph) {
+	/**
+	 * the input graph is kept
+	 * @param graph
+	 * @return 
+	 */
+	public Graph intersectWith(Graph graph) {
 		this.nodes.retainAll(graph.nodes);
 		this.nodes.addAll(graph.nodes);
 		this.triples.retainAll(graph.triples);
 		this.triples.addAll(graph.triples);
+		return this;
 	}
 
 	public void removeNode(GraphNode targetNode) {

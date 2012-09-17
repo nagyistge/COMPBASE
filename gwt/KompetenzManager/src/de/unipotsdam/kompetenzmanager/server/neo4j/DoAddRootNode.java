@@ -15,10 +15,12 @@ public class DoAddRootNode extends DoNeo {
 
 	@Override
 	public Graph doit() {		
+		//refactor use NodeIndex 
 		createAndIndexNodeTable("nodetable");
+//		createAndIndexNodeTable("reltable");
 		Node nodeFrom = createAndIndexNode("rootnode");
 		Node nodeTo = createAndIndexNode("Informatik");
-		connectNodes(nodeFrom, nodeTo, "no specific label");		
+		connectNodes(nodeFrom, nodeTo, "no specific label", RelTypes.subclassOf);		
 		return null;
 	}
 

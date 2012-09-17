@@ -1,9 +1,12 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.util.Collection;
+
 import com.google.gwt.user.server.rpc.UnexpectedException;
 
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectNodes;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
@@ -115,6 +118,19 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 		result.mergeWith(graph);
 		System.out.println("neighbourgraph is " + result);
 		return result;
+	}
+
+	@Override
+	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
+		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(), graphNodes,toNode));
+		return getFullGraph();
+	}
+
+	@Override
+	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode) {
+		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(), graphNodes,toNode));
+		return getFullGraph().intersectWith(graph);
 	}
 
 }

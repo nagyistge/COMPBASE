@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import java.util.Collection;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -93,6 +95,20 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	public void expandNode(Graph graph, String nodeName,
 			AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.expandNode(graph, nodeName, graphUpdater);		
+	}
+
+	@Override
+	public void connectNodes(Collection<String> graphNodes, String toNode,
+			AsyncCallback<Graph> graphUpdater) {
+		graphBackEnd.connectNodes(graphNodes, toNode, graphUpdater);
+		
+	}
+
+	@Override
+	public void connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode, AsyncCallback<Graph> graphUpdater) {
+		graphBackEnd.connectNodes(graph, graphNodes, toNode, graphUpdater);
+		
 	}
 
 }

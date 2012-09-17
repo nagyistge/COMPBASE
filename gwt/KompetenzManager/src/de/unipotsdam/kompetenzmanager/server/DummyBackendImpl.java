@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.util.Collection;
+
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
@@ -73,6 +75,19 @@ public class DummyBackendImpl implements GraphBackend{
 
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode) {
 		// TODO Auto-generated method stub
 		return null;
 	}

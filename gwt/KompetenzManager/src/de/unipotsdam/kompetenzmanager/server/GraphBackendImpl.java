@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.util.Collection;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
@@ -76,6 +78,17 @@ GraphBackend {
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
 		return factory.createInstance().expandNode(graph, nodeName);
+	}
+
+	@Override
+	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
+		return factory.createInstance().connectNodes(graphNodes, toNode);
+	}
+
+	@Override
+	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode) {
+		return factory.createInstance().connectNodes(graph, graphNodes, toNode);
 	}
 
 }
