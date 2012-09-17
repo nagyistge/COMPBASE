@@ -311,12 +311,12 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	public void addSelectedElementToList(String nodeId) {
-		GWT.log("adding selected element to list");
+		GWT.log("adding selected element to list:" + nodeId);
 		this.getSelectedElements().add(nodeId);
 		Label label = new Label(nodeId);
 		// this.SelectedListPanel.getElement().getChild(0)
 		// .appendChild(label.getElement());
-		this.VerticalPanel.add(label);
+		this.VerticalPanel.add(label);		
 	}
 
 	@UiHandler("deleteSelection")
@@ -326,7 +326,7 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	public void clearSelectedElements() {
 		this.getSelectedElements().clear();
-		this.SelectedListPanel.clear();
+		this.VerticalPanel.clear();		
 	}
 
 	@UiHandler("focusPanel1")

@@ -37,8 +37,8 @@ public class MultiClickMenu extends Composite {
 
 	@UiHandler("selectButton")
 	void onSelectButtonClick(ClickEvent event) {
-		this.widget.removeClickMenu();
 		this.widget.addSelectedElementToList(nodeId);	
+		this.widget.removeClickMenu();
 	}
 	@UiHandler("tagButton")
 	void onTagButtonClick(ClickEvent event) {
