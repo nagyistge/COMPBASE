@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.After;
@@ -18,6 +19,7 @@ import de.unipotsdam.kompetenzmanager.server.neo4j.DoNeo;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.GraphTriple;
 
 public class TestNeo4JTestImpl {
 
@@ -37,8 +39,7 @@ public class TestNeo4JTestImpl {
 	public void getTableNode() {
 		Neo4JStarter starter = new Neo4JStarter();
 		Node node = starter.getNodeIndex().get(DoNeo.TABLE_KEY, "nodetable").getSingle();
-		assertNotNull(node);
-		starter.shutdown();
+		assertNotNull(node);		
 	}
 
 //	@Test
@@ -57,6 +58,8 @@ public class TestNeo4JTestImpl {
 		"testlabel2"), "subclassOf");
 		this.neo4JGraphImpl.addNode(new GraphNode("testlabel2"), new GraphNode(
 		"testlabel3"), "subclassOf");
+		this.neo4JGraphImpl.addNode(new GraphNode("testlabel1"), new GraphNode(
+		"testlabel4"), "subclassOf");
 		assertTrue(true);
 	}
 
@@ -74,7 +77,22 @@ public class TestNeo4JTestImpl {
 //		graphIterator.next();
 //		String secondLabel = graphIterator.next().label;
 		Graph result = this.neo4JGraphImpl.findShortestPath("testlab");
-		System.out.println(result);
 		assertFalse(result.triples.isEmpty());
+	}
+	
+	@Test 
+	public void testConnectNodes() {
+		ArrayList<String> dummsnodes = new ArrayList<String>();
+		dummsnodes.add("testlabel1");
+		Graph result = this.neo4JGraphImpl.connectNodes(dummsnodes, "testlabel3");
+		System.out.println(result);
+		GraphTriple graphTriple = new GraphTriple("testlabel1", "testlabel3", "subClass", true);
+		System.out.println(graphTriple);
+		assertTrue(result.triples.contains(graphTriple));
+	}
+	
+	@Test
+	public void equalityTest() {
+	assertTrue("fromNode: testlabel1, toNode: testlabel3, Label: subClass, directed:true".equals("fromNode: testlabel1, toNode: testlabel3, Label: subClass, directed:true"));
 	}
 }

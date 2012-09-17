@@ -12,31 +12,31 @@ import de.unipotsdam.kompetenzmanager.shared.Graph;
 public class Neo4JStarter {
 	public static GraphDatabaseService graphDb;
 	private static Index<Node> nodeIndex;
+	private static RelationshipIndex relationshipIndex;
 
 	public Neo4JStarter() {
 		if (Neo4JStarter.graphDb == null) {			
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
 					.newEmbeddedDatabase("database/store/store3");
 			setNodeIndex(graphDb.index().forNodes("nodes"));
-			setRelIndex(graphDb.index().forRelationships("rels"));
+			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();			
 		} 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
 			@Override
 			public void run() {
 				Neo4JStarter.nodeIndex = null;
+				Neo4JStarter.setRelationshipIndex(null);
+				if (graphDb != null)
 				Neo4JStarter.graphDb.shutdown();				
 			}
 		}));
 	}
 
-	private void setRelIndex(RelationshipIndex forRelationships) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	private void addRootNode() {
-		doQuery(new DoAddRootNode(getGraphDB(), nodeIndex));
+		doQuery(new DoAddRootNode(getGraphDB(), nodeIndex, relationshipIndex));
 	}
 
 	public GraphDatabaseService getGraphDB() {
@@ -72,5 +72,19 @@ public class Neo4JStarter {
 	 */
 	public Index<Node> getNodeIndex() {
 		return Neo4JStarter.nodeIndex;
+	}
+
+	/**
+	 * @param relationshipIndex the relationshipIndex to set
+	 */
+	public static void setRelationshipIndex(RelationshipIndex relationshipIndex) {
+		Neo4JStarter.relationshipIndex = relationshipIndex;
+	}
+
+	/**
+	 * @return the relationshipIndex
+	 */
+	public RelationshipIndex getRelationshipIndex() {
+		return relationshipIndex;
 	}
 }

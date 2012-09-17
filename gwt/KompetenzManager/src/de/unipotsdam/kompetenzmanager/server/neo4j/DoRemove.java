@@ -5,6 +5,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.IndexHits;
+import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
@@ -12,8 +13,8 @@ public class DoRemove extends DoNeo {
 
 	private String label;
 
-	public DoRemove(GraphDatabaseService graphDB, Index<Node> nodeIndex, String label) {
-		super(graphDB, nodeIndex);		
+	public DoRemove(GraphDatabaseService graphDB, Index<Node> nodeIndex, RelationshipIndex relationshipIndex, String label) {
+		super(graphDB, nodeIndex, relationshipIndex);		
 		this.label = label;
 	}
 

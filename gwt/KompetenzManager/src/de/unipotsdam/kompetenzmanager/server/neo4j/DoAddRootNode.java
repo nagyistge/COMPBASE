@@ -3,13 +3,14 @@ package de.unipotsdam.kompetenzmanager.server.neo4j;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.index.Index;
+import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 public class DoAddRootNode extends DoNeo {
 
-	public DoAddRootNode(GraphDatabaseService graphDB, Index<Node> nodeIndex) {
-		super(graphDB, nodeIndex);
+	public DoAddRootNode(GraphDatabaseService graphDB, Index<Node> nodeIndex, RelationshipIndex relationshipIndex) {
+		super(graphDB, nodeIndex, relationshipIndex);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,7 +18,7 @@ public class DoAddRootNode extends DoNeo {
 	public Graph doit() {		
 		//refactor use NodeIndex 
 		createAndIndexNodeTable("nodetable");
-//		createAndIndexNodeTable("reltable");
+		createAndIndexNodeTable("reltable");
 		Node nodeFrom = createAndIndexNode("rootnode");
 		Node nodeTo = createAndIndexNode("Informatik");
 		connectNodes(nodeFrom, nodeTo, "no specific label", RelTypes.subclassOf);		

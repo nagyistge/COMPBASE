@@ -8,6 +8,7 @@ import de.unipotsdam.kompetenzmanager.client.GraphBackend;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectNodes;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindShortestPath;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
@@ -26,7 +27,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	public synchronized Graph getFullGraph() {		
 		Graph graph = null;
 		try {
-			graph = neo.doQuery(new DoFullGraph(neo.getGraphDB(), neo.getNodeIndex()));
+			graph = neo.doQuery(new DoFullGraph(neo.getGraphDB(), neo.getNodeIndex(),neo.getRelationshipIndex()));
 		} catch(UnexpectedException e) {
 			e.printStackTrace();
 			shutdown();			
@@ -38,14 +39,14 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	@Override
 	public synchronized Graph addNode(GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel) {		
-		Graph graph = neo.doQuery(new DoAddNode(neo.getGraphDB(), neo.getNodeIndex(),
+		Graph graph = neo.doQuery(new DoAddNode(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(),
 				sourceNode, newNode, kantenLabel));
 		return getFullGraph();
 	}
 
 	@Override
 	public synchronized Graph findShortestPath(String keyword) {		
-		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),"rootnode",keyword));		
+		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(),"rootnode",keyword));		
 		if (graph == null) {
 			return getFullGraph();
 		} else {
@@ -55,7 +56,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public synchronized Graph removeNode(GraphNode targetNode) {
-		 this.neo.doQuery(new DoRemove(neo.getGraphDB(), neo.getNodeIndex(), targetNode.label));		 
+		 this.neo.doQuery(new DoRemove(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), targetNode.label));		 
 		 return getFullGraph();
 	}
 	
@@ -65,7 +66,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph findShortestPath(String fromNode, String toNode) {
-		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),fromNode,toNode));		
+		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),fromNode,toNode));		
 		if (graph == null) {
 			return getFullGraph();
 		} else {
@@ -75,7 +76,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph expandNode(String nodeName) {
-		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));		
+		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),nodeName));		
 		graph.mergeWith(getFullGraph());
 		System.out.println("neighbourgraph simple is " + graph);
 		return graph;
@@ -114,7 +115,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
-		Graph result = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),nodeName));			
+		Graph result = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),nodeName));			
 		result.mergeWith(graph);
 		System.out.println("neighbourgraph is " + result);
 		return result;
@@ -122,14 +123,14 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
-		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(), graphNodes,toNode));
+		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(), graphNodes,toNode));
 		return getFullGraph();
 	}
 
 	@Override
 	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode) {
-		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(), graphNodes,toNode));
+		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(), graphNodes,toNode));
 		return getFullGraph().intersectWith(graph);
 	}
 

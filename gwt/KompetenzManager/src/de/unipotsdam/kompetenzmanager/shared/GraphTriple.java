@@ -27,6 +27,12 @@ public class GraphTriple implements IsSerializable {
 	}
 	
 	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return fromNode.hashCode() + toNode.hashCode() + label.hashCode() + directed.hashCode();
+	}	
+	
+	@Override
 	public String toString() {
 		return "fromNode: " + fromNode + ", toNode: " + toNode + ", Label: " + label + ", directed:" + directed;
 	}
