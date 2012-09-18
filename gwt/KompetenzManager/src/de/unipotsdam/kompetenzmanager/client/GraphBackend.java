@@ -6,7 +6,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 @RemoteServiceRelativePath("graph")
 public interface GraphBackend extends RemoteService {
@@ -25,4 +28,11 @@ public interface GraphBackend extends RemoteService {
 	Graph connectNodes(Collection<String> graphNodes, String toNode);
 	Graph connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode);
+	Literature getFullLiterature();
+	Literature getLiteratureForTags(Graph graph);
+	Graph getTagsforLiterature(Literature literature);
+	Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry);
+	Literature removeLiteratureEntry(LiteratureEntry literatureEntry);
+	GraphLiteraturePair connectLiteratureToGraph(Literature literature,
+			Graph graph);
 }

@@ -22,9 +22,12 @@
 			<g:at left="246" top="74">
 				<g:AbsolutePanel width="994px" height="568px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
-						<g:FocusPanel ui:field="focusPanel1" width="939px" height="541px">
-							<g:SimplePanel width="100%" height="100%"/>
+						<g:FocusPanel ui:field="focusPanel1" width="939px" height="475px">
+							<g:SimplePanel width="100%" height="477px"/>
 						</g:FocusPanel>
+					</g:at>
+					<g:at left="493" top="481">
+						<g:Button width="62px" height="30px" ui:field="resetButton">reset</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

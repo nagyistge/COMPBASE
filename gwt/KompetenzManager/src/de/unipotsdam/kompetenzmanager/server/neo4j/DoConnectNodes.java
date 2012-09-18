@@ -11,7 +11,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
-public class DoConnectNodes extends DoNeo {
+public class DoConnectNodes extends DoNeoGraph {
 
 	private Collection<String> graphNodes;
 	private String nodeTo;

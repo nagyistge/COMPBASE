@@ -7,7 +7,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
-public class DoAddRootNode extends DoNeo {
+public class DoAddRootNode extends DoNeoGraph {
 
 	public DoAddRootNode(GraphDatabaseService graphDB, Index<Node> nodeIndex, RelationshipIndex relationshipIndex) {
 		super(graphDB, nodeIndex, relationshipIndex);

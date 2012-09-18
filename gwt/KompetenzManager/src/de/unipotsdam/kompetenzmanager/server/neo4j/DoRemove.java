@@ -9,7 +9,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
-public class DoRemove extends DoNeo {
+public class DoRemove extends DoNeoGraph {
 
 	private String label;
 

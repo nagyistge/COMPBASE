@@ -12,7 +12,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
-public class DoFullGraph extends DoNeo {
+public class DoFullGraph extends DoNeoGraph {
 
 	public DoFullGraph(GraphDatabaseService graphDB, Index<Node> nodeIndex, RelationshipIndex relationshipIndex) {
 		super(graphDB, nodeIndex, relationshipIndex);		
@@ -31,8 +31,7 @@ public class DoFullGraph extends DoNeo {
 				result.add(hits.getSingle());
 			}
 		}
-		return (Relationship[]) result.toArray(new Relationship[result.size()]);
-		
+		return (Relationship[]) result.toArray(new Relationship[result.size()]);		
 	}
 
 	

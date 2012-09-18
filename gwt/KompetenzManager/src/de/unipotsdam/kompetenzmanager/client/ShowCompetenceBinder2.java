@@ -66,6 +66,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	Button deleteSelection;
 	@UiField
 	VerticalPanel VerticalPanel;
+	@UiField Button resetButton;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -359,4 +360,9 @@ public class ShowCompetenceBinder2 extends Composite {
 	// this.ctrlClicked = !event.getNativeEvent().getCtrlKey();
 	// this.ctrlClicked = !event.getNativeEvent().getShiftKey();
 	// }
+	@UiHandler("resetButton")
+	void onResetButtonClick(ClickEvent event) {
+		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
+		backendImpl.getFullGraph(null);
+	}
 }

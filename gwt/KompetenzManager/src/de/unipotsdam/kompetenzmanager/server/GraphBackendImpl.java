@@ -5,8 +5,12 @@ import java.util.Collection;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
+import de.unipotsdam.kompetenzmanager.client.LiteratureEntryBinder;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 /**
  * 
@@ -89,6 +93,37 @@ GraphBackend {
 	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode) {
 		return factory.createInstance().connectNodes(graph, graphNodes, toNode);
+	}
+
+	@Override
+	public Literature getFullLiterature() {
+		return this.factory.createInstance().getFullLiterature();
+	}
+
+	@Override
+	public Literature getLiteratureForTags(Graph graph) {
+		return this.factory.createInstance().getLiteratureForTags(graph);
+	}
+
+	@Override
+	public Graph getTagsforLiterature(Literature literature) {
+		return this.factory.createInstance().getTagsforLiterature(literature);
+	}
+
+	@Override
+	public Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().addOrUpdateLiteratureEntry(literatureEntry);	
+	}
+
+	@Override
+	public Literature removeLiteratureEntry(LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().removeLiteratureEntry(literatureEntry);
+	}
+
+	@Override
+	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
+			Graph graph) {
+		return this.factory.createInstance().connectLiteratureToGraph(literature, graph);
 	}
 
 }

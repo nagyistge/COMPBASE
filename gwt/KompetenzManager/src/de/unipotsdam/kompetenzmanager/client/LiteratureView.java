@@ -17,14 +17,14 @@ public class LiteratureView extends Composite {
 	@UiField VerticalPanel LiteratureViewVerticalPanel;
 	@UiField TreeItem literatureTreeExample;
 	@UiField Tree literatureTree;
-	private LiteratureEntry literatureEntry;
+	private LiteratureEntryBinder literatureEntry;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}
 
 	public LiteratureView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.literatureEntry = new LiteratureEntry();
+		this.literatureEntry = new LiteratureEntryBinder();
 		this.LiteratureViewVerticalPanel.add(literatureEntry);
 		//testlines
 		MyTreeItemUI myTreeItemUI = new MyTreeItemUI();		

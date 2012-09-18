@@ -11,7 +11,7 @@ import scala.util.control.Exception;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
-public class DoAddNode extends DoNeo {
+public class DoAddNode extends DoNeoGraph {
 	
 	private GraphNode sourceNode;
 	private GraphNode newNode;

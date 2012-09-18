@@ -5,7 +5,10 @@ import java.util.Collection;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public interface GraphBackendAsync {
 	void getFullGraph(AsyncCallback<Graph> graph);	
@@ -21,4 +24,10 @@ public interface GraphBackendAsync {
 	void expandNode(Graph graph, String nodeName, AsyncCallback<Graph> graphUpdater);
 	void connectNodes(Collection<String> graphNodes, String toNode, AsyncCallback<Graph> graphUpdater );
 	void connectNodes(Graph graph, Collection<String> graphNodes, String toNode, AsyncCallback<Graph> graphUpdater );
+	void getFullLiterature(AsyncCallback<Literature> literature);
+	void getLiteratureForTags(Graph graph, AsyncCallback<Literature> literature);
+	void getTagsforLiterature(Literature literature, AsyncCallback<Graph> graph);
+	void addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry, AsyncCallback<Literature> literature);	
+	void removeLiteratureEntry(LiteratureEntry literatureEntry, AsyncCallback<Literature> lierature);
+	void connectLiteratureToGraph(Literature literature, Graph graph, AsyncCallback<GraphLiteraturePair> callback);
 }

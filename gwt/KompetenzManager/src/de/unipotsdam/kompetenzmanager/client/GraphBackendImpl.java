@@ -6,7 +6,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class GraphBackendImpl implements GraphBackendAsync {
 	
@@ -108,6 +111,47 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	public void connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode, AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.connectNodes(graph, graphNodes, toNode, graphUpdater);
+		
+	}
+
+	@Override
+	public void getLiteratureForTags(Graph graph,
+			AsyncCallback<Literature> literature) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getTagsforLiterature(Literature literature,
+			AsyncCallback<Graph> graph) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry,
+			AsyncCallback<Literature> literature) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeLiteratureEntry(LiteratureEntry literatureEntry,
+			AsyncCallback<Literature> lierature) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getFullLiterature(AsyncCallback<Literature> literature) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void connectLiteratureToGraph(Literature literature, Graph graph,
+			AsyncCallback<GraphLiteraturePair> callback) {
+		// TODO Auto-generated method stub
 		
 	}
 

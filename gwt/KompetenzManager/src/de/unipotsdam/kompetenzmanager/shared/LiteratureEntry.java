@@ -2,8 +2,10 @@ package de.unipotsdam.kompetenzmanager.shared;
 
 import java.util.Collection;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class LiteratureEntry {
+
+public class LiteratureEntry implements IsSerializable{
 	
 	
 	public String titel;
@@ -19,6 +21,9 @@ public class LiteratureEntry {
 		this.year = year;
 		this.tags = tags;
 		this.abstractText = abstractText;
+	}
+	
+	public LiteratureEntry() {
 	}
 	
 }

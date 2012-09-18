@@ -7,7 +7,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
-public class DoFindNeighbours extends DoNeo {
+public class DoFindNeighbours extends DoNeoGraph {
 
 	//TODO remove this class when merging changes
 	public DoFindNeighbours(GraphDatabaseService graphDB, Index<Node> nodeIndex, RelationshipIndex relationshipIndex, String nodeLabel) {

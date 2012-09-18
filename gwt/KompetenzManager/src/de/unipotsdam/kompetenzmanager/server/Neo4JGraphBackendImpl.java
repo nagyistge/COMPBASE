@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.google.gwt.user.server.rpc.UnexpectedException;
 
 import de.unipotsdam.kompetenzmanager.client.GraphBackend;
+import de.unipotsdam.kompetenzmanager.client.LiteratureEntryBinder;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectNodes;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
@@ -13,7 +14,10 @@ import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class Neo4JGraphBackendImpl implements GraphBackend {
 	
@@ -60,12 +64,12 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 		 return getFullGraph();
 	}
 	
-	public void shutdown() {
+	public synchronized void shutdown() {
 		new Neo4JStarter().shutdown();
 	}
 
 	@Override
-	public Graph findShortestPath(String fromNode, String toNode) {
+	public synchronized Graph findShortestPath(String fromNode, String toNode) {
 		Graph graph =  neo.doQuery(new DoFindShortestPath(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),fromNode,toNode));		
 		if (graph == null) {
 			return getFullGraph();
@@ -75,7 +79,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Graph expandNode(String nodeName) {
+	public synchronized Graph expandNode(String nodeName) {
 		Graph graph = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),nodeName));		
 		graph.mergeWith(getFullGraph());
 		System.out.println("neighbourgraph simple is " + graph);
@@ -83,7 +87,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Graph addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
+	public synchronized Graph addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel) {
 		Graph result = addNode(sourceNode, newNode, kantenLabel);
 		result.intersectWith(graph);
@@ -92,14 +96,14 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Graph findShortestPath(Graph graph, String keyword) {
+	public synchronized Graph findShortestPath(Graph graph, String keyword) {
 		Graph result = findShortestPath(keyword);
 		graph.intersectWith(result);
 		return result;
 	}
 
 	@Override
-	public Graph removeNode(Graph graph, GraphNode targetNode) {
+	public synchronized Graph removeNode(Graph graph, GraphNode targetNode) {
 		Graph result = removeNode(targetNode);
 		result.intersectWith(graph);
 		result.removeNode(targetNode);
@@ -107,14 +111,14 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Graph findShortestPath(Graph graph, String fromNode, String toNode) {		
+	public synchronized Graph findShortestPath(Graph graph, String fromNode, String toNode) {		
 		Graph result = findShortestPath(fromNode, toNode);
 		graph.intersectWith(result);
 		return result;
 	}
 
 	@Override
-	public Graph expandNode(Graph graph, String nodeName) {
+	public synchronized Graph expandNode(Graph graph, String nodeName) {
 		Graph result = neo.doQuery(new DoFindNeighbours(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(),nodeName));			
 		result.mergeWith(graph);
 		System.out.println("neighbourgraph is " + result);
@@ -122,16 +126,55 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
+	public synchronized Graph connectNodes(Collection<String> graphNodes, String toNode) {
 		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(), graphNodes,toNode));
 		return getFullGraph();
 	}
 
 	@Override
-	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
+	public synchronized Graph connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode) {
 		neo.doQuery(new DoConnectNodes(neo.getGraphDB(), neo.getNodeIndex(),  neo.getRelationshipIndex(), graphNodes,toNode));
 		return getFullGraph().intersectWith(graph);
 	}
+
+	@Override
+	public Literature getFullLiterature() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Literature getLiteratureForTags(Graph graph) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph getTagsforLiterature(Literature literature) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Literature removeLiteratureEntry(LiteratureEntry literatureEntry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
+			Graph graph) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }
