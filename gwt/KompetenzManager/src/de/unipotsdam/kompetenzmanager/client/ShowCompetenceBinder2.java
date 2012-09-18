@@ -23,6 +23,10 @@ import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.client.GlassPanel;
+
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -30,6 +34,7 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ShowCompetenceBinder2 extends Composite {
 
@@ -67,6 +72,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiField
 	VerticalPanel VerticalPanel;
 	@UiField Button resetButton;
+	@UiField HorizontalPanel selectedLiterature;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt

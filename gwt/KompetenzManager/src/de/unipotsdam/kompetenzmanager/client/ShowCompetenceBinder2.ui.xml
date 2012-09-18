@@ -26,8 +26,14 @@
 							<g:SimplePanel width="100%" height="477px"/>
 						</g:FocusPanel>
 					</g:at>
-					<g:at left="493" top="481">
-						<g:Button width="62px" height="30px" ui:field="resetButton">reset</g:Button>
+					<g:at left="690" top="494">
+						<g:Button width="96px" height="45px" ui:field="resetButton">reset</g:Button>
+					</g:at>
+					<g:at left="10" top="496">
+						<g:Label text="Ausgewählte Literatur:" width="96px" height="43px"/>
+					</g:at>
+					<g:at left="125" top="494">
+						<g:HorizontalPanel width="538px" height="45px" ui:field="selectedLiterature"/>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

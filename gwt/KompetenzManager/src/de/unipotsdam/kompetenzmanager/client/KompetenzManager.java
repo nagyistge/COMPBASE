@@ -5,6 +5,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesTabEvents;
 import com.google.gwt.user.client.ui.TabListener;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

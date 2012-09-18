@@ -1,10 +1,11 @@
-package de.unipotsdam.kompetenzmanager.client;
+package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import java.util.Collection;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
@@ -129,14 +130,14 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	}
 
 	@Override
-	public void addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry,
+	public void addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> literature) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void removeLiteratureEntry(LiteratureEntry literatureEntry,
+	public void removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> lierature) {
 		// TODO Auto-generated method stub
 		

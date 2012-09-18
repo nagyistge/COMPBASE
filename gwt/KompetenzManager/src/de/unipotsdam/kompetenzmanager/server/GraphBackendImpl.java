@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.unipotsdam.kompetenzmanager.client.GraphBackend;
 import de.unipotsdam.kompetenzmanager.client.LiteratureEntryBinder;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
@@ -111,13 +111,13 @@ GraphBackend {
 	}
 
 	@Override
-	public Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry) {
-		return this.factory.createInstance().addOrUpdateLiteratureEntry(literatureEntry);	
+	public Literature addOrUpdateLiteratureEntry(Literature literature, LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().addOrUpdateLiteratureEntry(literature, literatureEntry);	
 	}
 
 	@Override
-	public Literature removeLiteratureEntry(LiteratureEntry literatureEntry) {
-		return this.factory.createInstance().removeLiteratureEntry(literatureEntry);
+	public Literature removeLiteratureEntry(Literature literature,LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().removeLiteratureEntry(literature, literatureEntry);
 	}
 
 	@Override

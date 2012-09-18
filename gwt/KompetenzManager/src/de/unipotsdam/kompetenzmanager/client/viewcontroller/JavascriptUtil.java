@@ -1,4 +1,4 @@
-package de.unipotsdam.kompetenzmanager.client;
+package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;

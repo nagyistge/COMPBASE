@@ -11,6 +11,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 

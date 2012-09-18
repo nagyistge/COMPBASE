@@ -14,6 +14,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 

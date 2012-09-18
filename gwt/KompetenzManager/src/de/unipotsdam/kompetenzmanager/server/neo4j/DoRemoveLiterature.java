@@ -8,12 +8,14 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
-public class DoAddLit extends DoNeoLit {
+public class DoRemoveLiterature extends DoNeoLit {
 
-	public DoAddLit(GraphDatabaseService graphDB, Index<Node> nodeIndex,
-			RelationshipIndex relIndex) {
+	private LiteratureEntry literatureEntry;
+
+	public DoRemoveLiterature(GraphDatabaseService graphDB,
+			Index<Node> nodeIndex, RelationshipIndex relIndex, LiteratureEntry literatureEntry) {
 		super(graphDB, nodeIndex, relIndex);
-		// TODO Auto-generated constructor stub
+		this.literatureEntry = literatureEntry;
 	}
 
 	@Override

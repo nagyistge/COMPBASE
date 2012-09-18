@@ -1,4 +1,4 @@
-package de.unipotsdam.kompetenzmanager.client;
+package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import java.util.Collection;
 
@@ -27,7 +27,7 @@ public interface GraphBackendAsync {
 	void getFullLiterature(AsyncCallback<Literature> literature);
 	void getLiteratureForTags(Graph graph, AsyncCallback<Literature> literature);
 	void getTagsforLiterature(Literature literature, AsyncCallback<Graph> graph);
-	void addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry, AsyncCallback<Literature> literature);	
-	void removeLiteratureEntry(LiteratureEntry literatureEntry, AsyncCallback<Literature> lierature);
-	void connectLiteratureToGraph(Literature literature, Graph graph, AsyncCallback<GraphLiteraturePair> callback);
+	void addOrUpdateLiteratureEntry(Literature storedLiterature, LiteratureEntry literatureEntry, AsyncCallback<Literature> literature);	
+	void removeLiteratureEntry(Literature storedLiterature, LiteratureEntry literatureEntry, AsyncCallback<Literature> lierature);
+	void connectLiteratureToGraph(Literature storedLiterature, Graph storedGraph, AsyncCallback<GraphLiteraturePair> callback);
 }

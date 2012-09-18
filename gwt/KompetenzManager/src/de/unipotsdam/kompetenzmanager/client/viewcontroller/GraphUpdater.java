@@ -1,10 +1,11 @@
-package de.unipotsdam.kompetenzmanager.client;
+package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 
 public class GraphUpdater<T> implements AsyncCallback<T> {

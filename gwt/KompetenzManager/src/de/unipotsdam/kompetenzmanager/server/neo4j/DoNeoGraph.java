@@ -19,7 +19,7 @@ import org.neo4j.graphdb.index.RelationshipIndex;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
-public abstract class DoNeoGraph extends DoNeo implements Do {
+public class DoNeoGraph extends DoNeo implements Do {
 
 	public DoNeoGraph(GraphDatabaseService graphDB, Index<Node> nodeIndex,
 			RelationshipIndex relIndex) {

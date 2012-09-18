@@ -4,14 +4,17 @@ import java.util.Collection;
 
 import com.google.gwt.user.server.rpc.UnexpectedException;
 
-import de.unipotsdam.kompetenzmanager.client.GraphBackend;
-import de.unipotsdam.kompetenzmanager.client.LiteratureEntryBinder;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddOrUpdateLiteratureEntry;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectGraphAndLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectNodes;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindShortestPath;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetFullLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemoveLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
@@ -140,39 +143,38 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Literature getFullLiterature() {
-		// TODO Auto-generated method stub
-		return null;
+		return neo.doQueryLit(new DoGetFullLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex()));
 	}
 
 	@Override
 	public Literature getLiteratureForTags(Graph graph) {
-		// TODO Auto-generated method stub
-		return null;
+		return neo.doQueryLit(new DoGetLitForTags(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(),graph));
 	}
 
 	@Override
 	public Graph getTagsforLiterature(Literature literature) {
-		// TODO Auto-generated method stub
-		return null;
+		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature));
 	}
 
 	@Override
-	public Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry) {
-		// TODO Auto-generated method stub
-		return null;
+	public Literature addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
+		this.neo.doQueryLit(new DoAddOrUpdateLiteratureEntry(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
+		return getFullLiterature().intersectWith(literatureStored);
 	}
 
 	@Override
-	public Literature removeLiteratureEntry(LiteratureEntry literatureEntry) {
-		// TODO Auto-generated method stub
-		return null;
+	public Literature removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
+		this.neo.doQueryLit(new DoRemoveLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
+		return literatureStored.intersectWith(getFullLiterature());
 	}
 
 	@Override
 	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph) {
-		// TODO Auto-generated method stub
-		return null;
+		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
+		Graph graphResult = neo.doQuery(doConnectGraphAndLiterature);
+		Literature literatureResult = neo.doQueryLit(doConnectGraphAndLiterature);
+		return new GraphLiteraturePair(graphResult, literatureResult);		
 	}
 
 
