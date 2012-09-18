@@ -5,9 +5,9 @@ import java.util.HashSet;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Literature  implements IsSerializable {
-	public HashSet<Literature> literatureEntries;
+	public HashSet<LiteratureEntry> literatureEntries;
 	
-	public Literature(HashSet<Literature> literaturEntries) {
+	public Literature(HashSet<LiteratureEntry> literaturEntries) {
 		this.literatureEntries = literaturEntries;
 	}
 	public Literature() {		
