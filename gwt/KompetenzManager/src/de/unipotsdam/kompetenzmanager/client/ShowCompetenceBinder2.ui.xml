@@ -30,7 +30,7 @@
 						<g:Button width="96px" height="45px" ui:field="resetButton">reset</g:Button>
 					</g:at>
 					<g:at left="10" top="496">
-						<g:Label text="Ausgewählte Literatur:" width="96px" height="43px"/>
+						<g:Label text="Relevante Literatur:" width="96px" height="43px"/>
 					</g:at>
 					<g:at left="125" top="494">
 						<g:HorizontalPanel width="538px" height="45px" ui:field="selectedLiterature"/>
