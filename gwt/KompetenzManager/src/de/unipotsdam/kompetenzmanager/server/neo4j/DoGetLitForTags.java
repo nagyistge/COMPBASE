@@ -1,12 +1,13 @@
-package de.unipotsdam.kompetenzmanager.server;
+package de.unipotsdam.kompetenzmanager.server.neo4j;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoNeoLit;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 
 public class DoGetLitForTags extends DoNeoLit {
@@ -21,8 +22,14 @@ public class DoGetLitForTags extends DoNeoLit {
 
 	@Override
 	public Literature dolit() {
-		// TODO Auto-generated method stub
-		return null;
+		Literature literature = new Literature();
+		for (GraphNode graphNode : graph.nodes) {
+			Node node = this.nodeIndex.get(NODE_KEY, graphNode.label).getSingle();
+			for (Relationship rel : node.getRelationships(RelTypes.isTagOf)) {
+				literature.literatureEntries.add(convertLitNodeToLitEntry(rel.getEndNode()));
+			}
+		}
+		return literature;
 	}
 
 }

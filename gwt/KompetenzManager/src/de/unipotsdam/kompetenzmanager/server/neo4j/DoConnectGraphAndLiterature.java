@@ -10,7 +10,7 @@ import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
-public class DoConnectGraphAndLiterature extends DoNeoLit implements Do {
+public class DoConnectGraphAndLiterature extends DoNeoLit {
 
 	private DoNeoGraph doNeoGraph;
 	private Literature literature;
@@ -45,15 +45,8 @@ public class DoConnectGraphAndLiterature extends DoNeoLit implements Do {
 	}
 
 	@Override
-	public Graph doit() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Literature dolit() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.literature;
 	}
 
 }

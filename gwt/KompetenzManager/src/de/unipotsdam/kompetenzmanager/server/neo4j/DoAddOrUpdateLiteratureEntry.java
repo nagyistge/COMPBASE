@@ -47,6 +47,8 @@ public class DoAddOrUpdateLiteratureEntry extends DoNeoLit {
 		node.setProperty(LIT_NODE_AUTHOR, literatureEntry.author);
 		node.setProperty(LIT_NODE_TITEL, literatureEntry.titel);
 		node.setProperty(LIT_NODE_YEAR, literatureEntry.year);
+		node.setProperty(LIT_NODE_PAPER, literatureEntry.paper);
+		node.setProperty(LIT_NODE_VOLUME, literatureEntry.volume);
 	}
 
 	private boolean existsNode() {

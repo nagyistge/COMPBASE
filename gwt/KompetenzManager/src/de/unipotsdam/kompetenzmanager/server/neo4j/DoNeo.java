@@ -7,6 +7,8 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import de.unipotsdam.kompetenzmanager.shared.util.QueryUtil;
 
 public abstract class DoNeo  {
@@ -28,6 +30,8 @@ public abstract class DoNeo  {
 	public static final String LIT_ROOT_NODE ="root";
 	public static final String LIT_SHORT_TITLE ="shorttitle";
 	public static final String LIT_ROOT_VALUE = "litroot";
+	public static final String LIT_NODE_PAPER = "litPAPER";
+	public static final String LIT_NODE_VOLUME = "litvolume";
 
 	public DoNeo(GraphDatabaseService graphDB, Index<Node> nodeIndex,
 			RelationshipIndex relIndex) {
@@ -77,5 +81,22 @@ public abstract class DoNeo  {
 			RelTypes relTypes) {
 		return nodeFrom.getProperty(NODE_KEY).toString()
 				+ nodeTo.getProperty(NODE_KEY).toString() + relTypes + label;
+	}
+	
+	protected Literature convertRelationShipToLiteratureEntry(Iterable<Relationship> iterable) {
+		Literature result = new Literature();
+		for (Relationship rel: iterable) {
+			result.literatureEntries.add(convertLitNodeToLitEntry(rel.getEndNode()));
+		}
+		return result;
+	}
+
+	protected LiteratureEntry convertLitNodeToLitEntry(Node node) {
+		LiteratureEntry literatureEntry = new LiteratureEntry((String)node.getProperty(LIT_NODE_ABSTRACT),(String)node.getProperty(LIT_NODE_AUTHOR), (Integer) node.getProperty(LIT_NODE_YEAR),(String) node.getProperty(LIT_NODE_ABSTRACT), null, (String) node.getProperty(LIT_NODE_PAPER), (String) node.getProperty(LIT_NODE_VOLUME));
+		return literatureEntry;		
+	}
+	
+	protected Node getLitNode(LiteratureEntry literatureEntry) {
+		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).getSingle();
 	}
 }

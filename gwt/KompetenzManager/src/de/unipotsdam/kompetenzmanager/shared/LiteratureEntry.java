@@ -14,18 +14,16 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 	public String author;
 	public int year;
 	public String abstractText;	
-	public Collection<GraphNode> tags;
-	public int keyOfSuperClass;
+	public Collection<GraphNode> tags;	
 	public Collection<LiteratureEntry> subClasses;
 	public String shortName;
 	
-	public LiteratureEntry( String titel, String author, int year, String abstractText, Collection<GraphNode> tags, int keyOfSuperClass, String paper, String volume) {
+	public LiteratureEntry( String titel, String author, int year, String abstractText, Collection<GraphNode> tags, String paper, String volume) {
 		this.titel = titel;
 		this.author = author;
 		this.year = year;
 		this.tags = tags;
-		this.abstractText = abstractText;
-		this.keyOfSuperClass = keyOfSuperClass;
+		this.abstractText = abstractText;		
 		this.subClasses = new HashSet<LiteratureEntry>();
 		this.shortName = this.author+=year;
 	}

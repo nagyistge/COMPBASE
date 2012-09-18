@@ -13,6 +13,8 @@ import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindShortestPath;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetFullLiterature;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetLitForTags;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetTagsForLit;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemoveLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
@@ -153,7 +155,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph getTagsforLiterature(Literature literature) {
-		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature));
+		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, this.neo));
 	}
 
 	@Override
@@ -171,10 +173,8 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	@Override
 	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph) {
-		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
-		Graph graphResult = neo.doQuery(doConnectGraphAndLiterature);
-		Literature literatureResult = neo.doQueryLit(doConnectGraphAndLiterature);
-		return new GraphLiteraturePair(graphResult, literatureResult);		
+		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);		
+		return new GraphLiteraturePair(getTagsforLiterature(literature), getLiteratureForTags(graph));		
 	}
 
 
