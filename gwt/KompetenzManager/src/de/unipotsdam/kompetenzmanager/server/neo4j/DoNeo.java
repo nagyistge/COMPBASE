@@ -20,6 +20,14 @@ public abstract class DoNeo  {
 	public static final String TABLE_KEY = "tablename";
 	public static final String REL_VALUE = "label";
 	public static final String NODE_VALUE = "label";
+	public static final String LIT_NODE_KEY ="literaturenode";
+	public static final String LIT_NODE_AUTHOR ="author";
+	public static final String LIT_NODE_YEAR ="date";
+	public static final String LIT_NODE_ABSTRACT ="abstract";
+	public static final String LIT_NODE_TITEL ="title";
+	public static final String LIT_ROOT_NODE ="root";
+	public static final String LIT_SHORT_TITLE ="shorttitle";
+	public static final String LIT_ROOT_VALUE = "litroot";
 
 	public DoNeo(GraphDatabaseService graphDB, Index<Node> nodeIndex,
 			RelationshipIndex relIndex) {
@@ -65,7 +73,7 @@ public abstract class DoNeo  {
 
 	}
 
-	private String createRelIndex(Node nodeFrom, Node nodeTo, String label,
+	protected String createRelIndex(Node nodeFrom, Node nodeTo, String label,
 			RelTypes relTypes) {
 		return nodeFrom.getProperty(NODE_KEY).toString()
 				+ nodeTo.getProperty(NODE_KEY).toString() + relTypes + label;

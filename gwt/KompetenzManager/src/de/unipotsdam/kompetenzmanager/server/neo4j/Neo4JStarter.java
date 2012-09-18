@@ -22,7 +22,8 @@ public class Neo4JStarter {
 					.newEmbeddedDatabase("database/store/store3");
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
-			addRootNode();			
+			addRootNode();		
+			addLiteratureRootNode();
 		} 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
 			@Override
@@ -33,6 +34,13 @@ public class Neo4JStarter {
 				Neo4JStarter.graphDb.shutdown();				
 			}
 		}));
+	}
+
+
+
+	private void addLiteratureRootNode() {
+		doQueryLit(new DoAddLiteratureRoot(getGraphDB(), nodeIndex, relationshipIndex));
+		
 	}
 
 

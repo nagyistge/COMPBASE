@@ -2,6 +2,7 @@ package de.unipotsdam.kompetenzmanager.server.neo4j;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
@@ -22,8 +23,34 @@ public class DoAddOrUpdateLiteratureEntry extends DoNeoLit {
 
 	@Override
 	public Literature dolit() {
-		// TODO Auto-generated method stub
+		Node node = null;
+		if (!existsNode()) {
+			node = graphDb.createNode();
+			this.nodeIndex.add(node, LIT_NODE_KEY, literatureEntry.hashCode());
+			createRelationShip(node);
+		}
+		else {
+			node = this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).getSingle();
+		}
+		updateLitNode(node);
 		return null;
+	}
+
+	private void createRelationShip(Node node) {
+		Node superNode = this.nodeIndex.get(LIT_ROOT_NODE, LIT_ROOT_VALUE).getSingle();
+		connectNodes(node, superNode, "", RelTypes.litSubclassOf);		
+	}
+
+	private void updateLitNode(Node node) {				
+		node.setProperty(LIT_NODE_KEY, this.literatureEntry.hashCode());
+		node.setProperty(LIT_NODE_ABSTRACT, literatureEntry.abstractText);
+		node.setProperty(LIT_NODE_AUTHOR, literatureEntry.author);
+		node.setProperty(LIT_NODE_TITEL, literatureEntry.titel);
+		node.setProperty(LIT_NODE_YEAR, literatureEntry.year);
+	}
+
+	private boolean existsNode() {
+		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).hasNext();		
 	}
 
 }
