@@ -6,12 +6,11 @@ import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Literature;
-import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
-public class DoAddLit extends DoNeoLit {
+public class DoGetFullLiterature extends DoNeoLit {
 
-	public DoAddLit(GraphDatabaseService graphDB, Index<Node> nodeIndex,
-			RelationshipIndex relIndex) {
+	public DoGetFullLiterature(GraphDatabaseService graphDB,
+			Index<Node> nodeIndex, RelationshipIndex relIndex) {
 		super(graphDB, nodeIndex, relIndex);
 		// TODO Auto-generated constructor stub
 	}

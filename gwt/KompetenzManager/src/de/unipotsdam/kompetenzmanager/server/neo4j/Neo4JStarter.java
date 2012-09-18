@@ -8,6 +8,7 @@ import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class Neo4JStarter {
@@ -60,16 +61,17 @@ public class Neo4JStarter {
 		}
 	}
 	
-	public LiteratureEntry doQuery(DoLit doer) {
+	public Literature doQueryLit(DoNeoLit doer) {
 		Transaction tx = graphDb.beginTx();
 		try {
-			LiteratureEntry result = doer.doit();
+			Literature result = doer.dolit();
 			tx.success();
 			return result;
 		} finally {
 			tx.finish();
 		}
 	}
+		
 
 	/**
 	 * @param nodeIndex

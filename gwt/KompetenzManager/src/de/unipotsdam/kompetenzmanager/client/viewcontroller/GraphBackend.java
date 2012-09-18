@@ -1,4 +1,4 @@
-package de.unipotsdam.kompetenzmanager.client;
+package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import java.util.Collection;
 
@@ -31,8 +31,10 @@ public interface GraphBackend extends RemoteService {
 	Literature getFullLiterature();
 	Literature getLiteratureForTags(Graph graph);
 	Graph getTagsforLiterature(Literature literature);
-	Literature addOrUpdateLiteratureEntry(LiteratureEntry literatureEntry);
-	Literature removeLiteratureEntry(LiteratureEntry literatureEntry);
+	Literature addOrUpdateLiteratureEntry(Literature storedLiterature,
+			LiteratureEntry literatureEntry);
+	Literature removeLiteratureEntry(Literature storedLiterature,
+			LiteratureEntry literatureEntry);
 	GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph);
 }

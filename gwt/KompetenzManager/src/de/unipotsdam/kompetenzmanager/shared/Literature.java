@@ -1,16 +1,22 @@
 package de.unipotsdam.kompetenzmanager.shared;
 
-import java.util.Collection;
+import java.util.HashSet;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Literature  implements IsSerializable {
-	public Collection<Literature> literatureEntries;
+	public HashSet<Literature> literatureEntries;
 	
-	public Literature(Collection<Literature> literaturEntries) {
+	public Literature(HashSet<Literature> literaturEntries) {
 		this.literatureEntries = literaturEntries;
 	}
 	public Literature() {		
+	}
+	
+	public Literature intersectWith(Literature literatureStored) {
+		this.literatureEntries.retainAll(literatureStored.literatureEntries);
+		this.literatureEntries.addAll(literatureStored.literatureEntries);
+		return this;
 	}
 }
 
