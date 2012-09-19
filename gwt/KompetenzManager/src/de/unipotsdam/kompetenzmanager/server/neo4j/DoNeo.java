@@ -1,5 +1,6 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.util.HashSet;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -7,11 +8,12 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
+import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import de.unipotsdam.kompetenzmanager.shared.util.QueryUtil;
 
-public abstract class DoNeo  {
+public abstract class DoNeo {
 	protected GraphDatabaseService graphDb;
 	protected Index<Node> nodeIndex;
 	protected QueryUtil queryUtil;
@@ -22,13 +24,13 @@ public abstract class DoNeo  {
 	public static final String TABLE_KEY = "tablename";
 	public static final String REL_VALUE = "label";
 	public static final String NODE_VALUE = "label";
-	public static final String LIT_NODE_KEY ="literaturenode";
-	public static final String LIT_NODE_AUTHOR ="author";
-	public static final String LIT_NODE_YEAR ="date";
-	public static final String LIT_NODE_ABSTRACT ="abstract";
-	public static final String LIT_NODE_TITEL ="title";
-	public static final String LIT_ROOT_NODE ="root";
-	public static final String LIT_SHORT_TITLE ="shorttitle";
+	public static final String LIT_NODE_KEY = "literaturenode";
+	public static final String LIT_NODE_AUTHOR = "author";
+	public static final String LIT_NODE_YEAR = "date";
+	public static final String LIT_NODE_ABSTRACT = "abstract";
+	public static final String LIT_NODE_TITEL = "title";
+	public static final String LIT_ROOT_NODE = "root";
+	public static final String LIT_SHORT_TITLE = "shorttitle";
 	public static final String LIT_ROOT_VALUE = "litroot";
 	public static final String LIT_NODE_PAPER = "litPAPER";
 	public static final String LIT_NODE_VOLUME = "litvolume";
@@ -79,27 +81,45 @@ public abstract class DoNeo  {
 
 	protected String createRelIndex(Node nodeFrom, Node nodeTo, String label,
 			RelTypes relTypes) {
-		return nodeFrom.getPropertyValues().iterator().next().toString() + relTypes + label;
+		return nodeFrom.getPropertyValues().iterator().next().toString()
+				+ relTypes + label;
 	}
-	
-	protected Literature convertRelationShipToLiteratureEntry(Iterable<Relationship> iterable) {
+
+	protected Literature convertRelationShipToLiteratureEntry(
+			Iterable<Relationship> iterable) {
 		Literature result = new Literature();
-		for (Relationship rel: iterable) {
-			result.literatureEntries.add(convertLitNodeToLitEntry(rel.getStartNode()));
-		}		
+		for (Relationship rel : iterable) {
+			result.literatureEntries.add(convertLitNodeToLitEntry(rel
+					.getStartNode()));
+		}
 		return result;
 	}
 
 	protected LiteratureEntry convertLitNodeToLitEntry(Node node) {
 		if (node.hasProperty(LIT_NODE_KEY)) {
-		LiteratureEntry literatureEntry = new LiteratureEntry((String)node.getProperty(LIT_NODE_TITEL),(String)node.getProperty(LIT_NODE_AUTHOR), (Integer) node.getProperty(LIT_NODE_YEAR),(String) node.getProperty(LIT_NODE_ABSTRACT), (String) node.getProperty(LIT_NODE_PAPER), (String) node.getProperty(LIT_NODE_VOLUME), (Integer) node.getProperty(LIT_NODE_KEY));
-		return literatureEntry;		
+			LiteratureEntry literatureEntry = new LiteratureEntry(
+					(String) node.getProperty(LIT_NODE_TITEL),
+					(String) node.getProperty(LIT_NODE_AUTHOR),
+					(Integer) node.getProperty(LIT_NODE_YEAR),
+					(String) node.getProperty(LIT_NODE_ABSTRACT),
+					(String) node.getProperty(LIT_NODE_PAPER),
+					(String) node.getProperty(LIT_NODE_VOLUME),
+					(Integer) node.getProperty(LIT_NODE_KEY));
+			Literature literature = new Literature(literatureEntry);
+			DoGetTagsForLit doGetTagsForLit = new DoGetTagsForLit(this.graphDb,
+					nodeIndex, relIndex, literature);
+			Graph associatedTags = doGetTagsForLit.doit();
+			literatureEntry.setGraph(associatedTags);
+			return literatureEntry;
 		} else {
-			throw new Error("diese Methode wurde mit einer falschen Node aufgerufen" + node.getProperty(LIT_ROOT_NODE));
+			throw new Error(
+					"diese Methode wurde mit einer falschen Node aufgerufen"
+							+ node.getProperty(LIT_ROOT_NODE));
 		}
 	}
-	
+
 	protected Node getLitNode(LiteratureEntry literatureEntry) {
-		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).getSingle();
+		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode())
+				.getSingle();
 	}
 }

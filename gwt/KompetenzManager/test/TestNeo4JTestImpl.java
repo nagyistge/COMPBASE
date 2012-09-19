@@ -123,8 +123,18 @@ public class TestNeo4JTestImpl {
 	
 	@Test
 	public void testGetFullLiterature() {
-		Literature result = this.neo4JGraphImpl.getFullLiterature();
+		testAddNode();
+		testAddOrUpdateLiteratureEntry();
+		testConnectLiteratureToGraph();
+		Literature result = this.neo4JGraphImpl.getFullLiterature();		
 		assertNotNull(result);
+		LiteratureEntry literatureEntryExample = this.neo4JGraphImpl.getFullLiterature().literatureEntries.iterator().next();
+		System.out.println(literatureEntryExample);
+		Graph graph = literatureEntryExample.graph;
+		System.out.println(graph);
+		assertNotNull(graph);
+		assertFalse(graph.triples.isEmpty());
+		
 	}
 	
 	@Test
