@@ -22,7 +22,8 @@ public class DoRemove extends DoNeoGraph {
 	public Graph doit() {
 		Node node = this.nodeIndex.get(NODE_KEY, label).getSingle();
 		for (Relationship rel : node.getRelationships()) {
-			rel.delete();						
+			rel.delete();	
+			this.relIndex.remove(rel);
 		}		
 		node.delete();
 		this.nodeIndex.remove(node);

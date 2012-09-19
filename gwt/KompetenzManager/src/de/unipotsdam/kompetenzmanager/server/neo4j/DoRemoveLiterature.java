@@ -3,6 +3,7 @@ package de.unipotsdam.kompetenzmanager.server.neo4j;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
@@ -22,8 +23,12 @@ public class DoRemoveLiterature extends DoNeoLit {
 	@Override
 	public Literature dolit() {
 		Node node = getLitNode(this.literatureEntry);
-		this.nodeIndex.remove(node);
-		this.relIndex.remove(node.getSingleRelationship(RelTypes.litSubclassOf, Direction.OUTGOING));
+		for (Relationship rel : node.getRelationships()) {
+			rel.delete();
+			this.relIndex.remove(rel);
+		}
+		node.delete();
+		this.nodeIndex.remove(node);		
 		return null;
 	}
 

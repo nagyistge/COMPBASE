@@ -2,6 +2,7 @@ package de.unipotsdam.kompetenzmanager.server.neo4j;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
@@ -23,29 +24,30 @@ public class DoConnectGraphAndLiterature extends DoNeoLit {
 		this.doNeoGraph = new DoNeoGraph(graphDB, nodeIndex, relIndex);
 		this.literature = literature;
 		this.graph = graph;
-		compute();
 	}
 
 	private void compute() {
 		for (GraphNode graphNode : graph.nodes) {
-			Iterable<Node> nodeIt = this.nodeIndex.get(LIT_NODE_KEY,
-					graphNode.label);
-			if (nodeIt.iterator().hasNext()) {
-				for (LiteratureEntry literatureEntry : literature.literatureEntries) {
-					Node litNode = getLitNode(literatureEntry);
-					if (litNode != null) {
-						nodeIt.iterator()
-								.next()
-								.createRelationshipTo(litNode, RelTypes.isTagOf);
-					}
+			Node gnode = this.nodeIndex.get(NODE_KEY, graphNode.label)
+					.getSingle();
+			for (LiteratureEntry literatureEntry : literature.literatureEntries) {
+				Node litNode = getLitNode(literatureEntry);
+				if (litNode != null && gnode != null) {
+					Relationship rel = gnode.createRelationshipTo(
+							litNode, RelTypes.isTagOf);
+					this.relIndex.add(rel,REL_KEY,createRelIndex(gnode, litNode, "",RelTypes.isTagOf));
+				} else {
+					System.err.println("could not find both nodes to connnect");
 				}
 			}
+
 		}
 
 	}
 
 	@Override
 	public Literature dolit() {
+		compute();
 		return this.literature;
 	}
 

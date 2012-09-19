@@ -40,9 +40,11 @@ public class DoNeoGraph extends DoNeo implements Do {
 			kantenlabel =  (String) rel.getProperty(REL_VALUE);
 			} catch (NotFoundException e) {				
 			}
+			if (rel.isType(RelTypes.subclassOf)) {
 			result.addTriple((String) rel.getStartNode().getProperty(NODE_KEY),
 					(String) rel.getEndNode().getProperty(NODE_KEY),
 					kantenlabel, true);
+			} 
 		}
 		return result;
 	}

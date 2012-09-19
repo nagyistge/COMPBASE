@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.util.UUID;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -26,11 +28,16 @@ public class DoAddOrUpdateLiteratureEntry extends DoNeoLit {
 		Node node = null;
 		if (!existsNode()) {
 			node = graphDb.createNode();
-			this.nodeIndex.add(node, LIT_NODE_KEY, literatureEntry.hashCode());
+			int id = UUID.randomUUID().hashCode();
+			if (literatureEntry.id != 0) {
+				id = literatureEntry.id;
+			}
+			node.setProperty(LIT_NODE_KEY, id);
+			this.nodeIndex.add(node, LIT_NODE_KEY, id);
 			createRelationShip(node);
 		}
 		else {
-			node = this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).getSingle();
+			node = this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.id).getSingle();
 		}
 		updateLitNode(node);
 		return null;
@@ -52,7 +59,7 @@ public class DoAddOrUpdateLiteratureEntry extends DoNeoLit {
 	}
 
 	private boolean existsNode() {
-		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode()).hasNext();		
+		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.id).hasNext();		
 	}
 
 }

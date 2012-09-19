@@ -26,7 +26,8 @@ public class DoGetLitForTags extends DoNeoLit {
 		for (GraphNode graphNode : graph.nodes) {
 			Node node = this.nodeIndex.get(NODE_KEY, graphNode.label).getSingle();
 			for (Relationship rel : node.getRelationships(RelTypes.isTagOf)) {
-				literature.literatureEntries.add(convertLitNodeToLitEntry(rel.getEndNode()));
+//				literature.literatureEntries.add(convertLitNodeToLitEntry(rel.getEndNode()));
+				literature.literatureEntries.add(convertLitNodeToLitEntry(rel.getOtherNode(node)));
 			}
 		}
 		return literature;

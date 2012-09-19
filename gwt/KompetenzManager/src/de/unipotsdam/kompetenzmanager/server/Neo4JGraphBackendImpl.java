@@ -1,6 +1,11 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.io.File;
 import java.util.Collection;
+
+import org.apache.commons.io.DirectoryWalker;
+import org.apache.lucene.store.Directory;
+import org.mortbay.util.IO;
 
 import com.google.gwt.user.server.rpc.UnexpectedException;
 
@@ -173,9 +178,12 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	@Override
 	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph) {
-		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);		
+		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
+		neo.doQueryLit(doConnectGraphAndLiterature);
 		return new GraphLiteraturePair(getTagsforLiterature(literature), getLiteratureForTags(graph));		
 	}
+
+
 
 
 
