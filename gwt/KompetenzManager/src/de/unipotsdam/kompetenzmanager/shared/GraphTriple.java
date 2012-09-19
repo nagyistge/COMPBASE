@@ -22,14 +22,14 @@ public class GraphTriple implements IsSerializable {
 	public boolean equals(Object obj) {
 		return (((GraphTriple)obj).fromNode.equals(fromNode))
 		&& ((GraphTriple)obj).toNode.equals(toNode)
-		&& ((GraphTriple)obj).label.equals(label)
+//		&& ((GraphTriple)obj).label.equals(label);
 		&& ((GraphTriple)obj).directed == directed;		
 	}
 	
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return fromNode.hashCode() + toNode.hashCode() + label.hashCode() + directed.hashCode();
+		return fromNode.hashCode() + toNode.hashCode() + directed.hashCode();
 	}	
 	
 	@Override

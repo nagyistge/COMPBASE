@@ -18,7 +18,7 @@ public class DoGetFullLiterature extends DoNeoLit {
 	@Override
 	public Literature dolit() {
 		Node rootNode = this.getLitRootNode();
-		Iterable<Relationship> iterable = rootNode.getRelationships();
+		Iterable<Relationship> iterable = rootNode.getRelationships();		
 		return convertRelationShipToLiteratureEntry(iterable);		
 	}
 

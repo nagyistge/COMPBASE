@@ -15,11 +15,12 @@ public class Neo4JStarter {
 	public static GraphDatabaseService graphDb;
 	private static Index<Node> nodeIndex;
 	private static RelationshipIndex relationshipIndex;
+	public static final String DATABASE_PATH = "database/store/store3"; 
 
 	public Neo4JStarter() {
 		if (Neo4JStarter.graphDb == null) {			
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
-					.newEmbeddedDatabase("database/store/store3");
+					.newEmbeddedDatabase(DATABASE_PATH);
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();		

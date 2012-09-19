@@ -11,8 +11,8 @@ public class Graph implements IsSerializable {
 	public HashSet<GraphNode> nodes;
 
 	public Graph() {
-		this.triples = new HashSet<GraphTriple>();
-		this.nodes = new HashSet<GraphNode>();
+		this.triples = new HashSet<GraphTriple>(10000);
+		this.nodes = new HashSet<GraphNode>(10000);
 	}
 
 	/**
@@ -48,14 +48,19 @@ public class Graph implements IsSerializable {
 	}
 
 	public void mergeWith(Graph graph) {
-		this.nodes.addAll(graph.nodes);
-		this.triples.addAll(graph.triples);
+		if (graph == null) {
+			System.err.println("merging null Graph");
+		} else {
+			this.nodes.addAll(graph.nodes);
+			this.triples.addAll(graph.triples);
+		}
 	}
 
 	/**
 	 * the input graph is kept
+	 * 
 	 * @param graph
-	 * @return 
+	 * @return
 	 */
 	public Graph intersectWith(Graph graph) {
 		this.nodes.retainAll(graph.nodes);
@@ -74,7 +79,7 @@ public class Graph implements IsSerializable {
 			graphTriple = it.next();
 		if (graphTriple.fromNode.equals(targetNode.label)
 				|| graphTriple.toNode.equals(targetNode.label)) {
-			toRemove.add(graphTriple);			
+			toRemove.add(graphTriple);
 		}
 		this.triples.removeAll(toRemove);
 	}

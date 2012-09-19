@@ -10,13 +10,28 @@ public class Literature  implements IsSerializable {
 	public Literature(HashSet<LiteratureEntry> literaturEntries) {
 		this.literatureEntries = literaturEntries;
 	}
-	public Literature() {		
+	public Literature() {	
+		this.literatureEntries = new HashSet<LiteratureEntry>();
 	}
 	
 	public Literature intersectWith(Literature literatureStored) {
 		this.literatureEntries.retainAll(literatureStored.literatureEntries);
 		this.literatureEntries.addAll(literatureStored.literatureEntries);
 		return this;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		Literature other = (Literature) obj;
+		return this.literatureEntries.equals(other.literatureEntries); 
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		for (LiteratureEntry element : this.literatureEntries) {
+			result += "LiteratureEntry: " + element.toString() + "\n";
+		}
+		return result;		
 	}
 }
 

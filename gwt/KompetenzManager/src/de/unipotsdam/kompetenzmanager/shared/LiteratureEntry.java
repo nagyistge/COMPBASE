@@ -13,19 +13,19 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 	public String titel;
 	public String author;
 	public int year;
-	public String abstractText;	
-	public Collection<GraphNode> tags;	
-	public Collection<LiteratureEntry> subClasses;
+	public String abstractText;			
 	public String shortName;
+	public int id;
 	
-	public LiteratureEntry( String titel, String author, int year, String abstractText, Collection<GraphNode> tags, String paper, String volume) {
+	public LiteratureEntry( String titel, String author, int year, String abstractText, String paper, String volume, int id) {
 		this.titel = titel;
 		this.author = author;
-		this.year = year;
-		this.tags = tags;
-		this.abstractText = abstractText;		
-		this.subClasses = new HashSet<LiteratureEntry>();
-		this.shortName = this.author+=year;
+		this.year = year;		
+		this.abstractText = abstractText;	
+		this.paper = paper;
+		this.volume = volume;
+		this.shortName = this.author+year;
+		this.id = id;
 	}
 	
 	public LiteratureEntry() {
@@ -33,18 +33,36 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 	
 	@Override
 	public int hashCode() {
-		return this.abstractText.hashCode() + this.titel.hashCode()+ this.year;
+		return this.id;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		LiteratureEntry other = (LiteratureEntry) obj;
-		return this.abstractText.equals(other.abstractText) && this.titel.equals(other.titel) && this.year == other.year; 
+		return this.id == other.id; 
 	}
 
 	@Override
 	public int compareTo(LiteratureEntry o) {
+		if (o.equals(this)) {
+			return 0;
+		}
 		return this.shortName.compareTo(o.shortName);
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		// TODO Auto-generated method stub
+		result+= " " + abstractText;
+		result+= " " +author;
+		result+= " " +year;
+		result+= " " +paper;
+		result+= " " +shortName;
+		result+= " " +titel;
+		result+= " " + volume;
+		result+= " " + id;
+		return result;
 	}
 	
 }

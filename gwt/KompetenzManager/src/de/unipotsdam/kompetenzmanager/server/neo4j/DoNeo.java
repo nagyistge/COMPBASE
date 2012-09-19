@@ -79,21 +79,24 @@ public abstract class DoNeo  {
 
 	protected String createRelIndex(Node nodeFrom, Node nodeTo, String label,
 			RelTypes relTypes) {
-		return nodeFrom.getProperty(NODE_KEY).toString()
-				+ nodeTo.getProperty(NODE_KEY).toString() + relTypes + label;
+		return nodeFrom.getPropertyValues().iterator().next().toString() + relTypes + label;
 	}
 	
 	protected Literature convertRelationShipToLiteratureEntry(Iterable<Relationship> iterable) {
 		Literature result = new Literature();
 		for (Relationship rel: iterable) {
-			result.literatureEntries.add(convertLitNodeToLitEntry(rel.getEndNode()));
-		}
+			result.literatureEntries.add(convertLitNodeToLitEntry(rel.getStartNode()));
+		}		
 		return result;
 	}
 
 	protected LiteratureEntry convertLitNodeToLitEntry(Node node) {
-		LiteratureEntry literatureEntry = new LiteratureEntry((String)node.getProperty(LIT_NODE_ABSTRACT),(String)node.getProperty(LIT_NODE_AUTHOR), (Integer) node.getProperty(LIT_NODE_YEAR),(String) node.getProperty(LIT_NODE_ABSTRACT), null, (String) node.getProperty(LIT_NODE_PAPER), (String) node.getProperty(LIT_NODE_VOLUME));
+		if (node.hasProperty(LIT_NODE_KEY)) {
+		LiteratureEntry literatureEntry = new LiteratureEntry((String)node.getProperty(LIT_NODE_TITEL),(String)node.getProperty(LIT_NODE_AUTHOR), (Integer) node.getProperty(LIT_NODE_YEAR),(String) node.getProperty(LIT_NODE_ABSTRACT), (String) node.getProperty(LIT_NODE_PAPER), (String) node.getProperty(LIT_NODE_VOLUME), (Integer) node.getProperty(LIT_NODE_KEY));
 		return literatureEntry;		
+		} else {
+			throw new Error("diese Methode wurde mit einer falschen Node aufgerufen" + node.getProperty(LIT_ROOT_NODE));
+		}
 	}
 	
 	protected Node getLitNode(LiteratureEntry literatureEntry) {
