@@ -19,4 +19,5 @@ public abstract class DoNeoLit extends DoNeo implements DoLit {
 	protected Node getLitRootNode() {
 		return this.nodeIndex.get(LIT_ROOT_NODE, LIT_ROOT_VALUE).getSingle();
 	}
+		
 }

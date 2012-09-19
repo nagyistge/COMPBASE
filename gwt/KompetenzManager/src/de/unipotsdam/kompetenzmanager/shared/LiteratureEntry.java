@@ -16,6 +16,7 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 	public String abstractText;			
 	public String shortName;
 	public int id;
+	public Graph graph;
 	
 	public LiteratureEntry( String titel, String author, int year, String abstractText, String paper, String volume, int id) {
 		this.titel = titel;
@@ -26,6 +27,7 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 		this.volume = volume;
 		this.shortName = this.author+year;
 		this.id = id;
+		this.graph = new Graph();
 	}
 	
 	public LiteratureEntry() {
@@ -63,6 +65,10 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 		result+= " " + volume;
 		result+= " " + id;
 		return result;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;		
 	}
 	
 }

@@ -160,7 +160,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public Graph getTagsforLiterature(Literature literature) {
-		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, this.neo));
+		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature));
 	}
 
 	@Override

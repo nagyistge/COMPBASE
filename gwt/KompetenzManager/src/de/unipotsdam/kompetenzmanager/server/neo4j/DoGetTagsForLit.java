@@ -16,15 +16,13 @@ import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class DoGetTagsForLit extends DoNeo implements Do {
 
-	private Literature literature;
-	private Neo4JStarter neo4JStarter;
+	private Literature literature;	
 
 	public DoGetTagsForLit(GraphDatabaseService graphDB, Index<Node> nodeIndex,
-			RelationshipIndex relIndex, Literature literature,
-			Neo4JStarter neo4jStarter) {
+			RelationshipIndex relIndex, Literature literature) {
 		super(graphDB, nodeIndex, relIndex);
 		this.literature = literature;
-		this.neo4JStarter = neo4jStarter;
+		
 	}
 
 	@Override

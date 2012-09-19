@@ -23,7 +23,7 @@ public class DoNeoGraph extends DoNeo implements Do {
 
 	public DoNeoGraph(GraphDatabaseService graphDB, Index<Node> nodeIndex,
 			RelationshipIndex relIndex) {
-		super(graphDB, nodeIndex, relIndex);		
+		super(graphDB, nodeIndex, relIndex);
 	}
 
 	@Override
@@ -36,20 +36,21 @@ public class DoNeoGraph extends DoNeo implements Do {
 		Graph result = new Graph();
 		for (Relationship rel : relationships) {
 			String kantenlabel = "";
-			try {
-			kantenlabel =  (String) rel.getProperty(REL_VALUE);
-			} catch (NotFoundException e) {				
-			}
 			if (rel.isType(RelTypes.subclassOf)) {
-			result.addTriple((String) rel.getStartNode().getProperty(NODE_KEY),
-					(String) rel.getEndNode().getProperty(NODE_KEY),
-					kantenlabel, true);
-			} 
+				if (rel.hasProperty(REL_VALUE)) {					
+						kantenlabel = (String) rel.getProperty(REL_VALUE);					
+				}
+				result.addTriple(
+						(String) rel.getStartNode().getProperty(NODE_KEY),
+						(String) rel.getEndNode().getProperty(NODE_KEY),
+						kantenlabel, true);
+			}
 		}
 		return result;
 	}
 
-	protected Traverser createTraverser(StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, RelTypes toTraverse) {
+	protected Traverser createTraverser(StopEvaluator stopEvaluator,
+			ReturnableEvaluator returnableEvaluator, RelTypes toTraverse) {
 		Traverser traverserAssociatedWith = this.nodeIndex
 				.get(NODE_KEY, "rootnode")
 				.getSingle()
@@ -81,7 +82,8 @@ public class DoNeoGraph extends DoNeo implements Do {
 		return result;
 	}
 
-	protected Relationship[] convertIteratorToList(Iterable<Relationship> relationships) {
+	protected Relationship[] convertIteratorToList(
+			Iterable<Relationship> relationships) {
 		List<Relationship> result = new ArrayList<Relationship>();
 		Iterator<Relationship> it = relationships.iterator();
 		while (it.hasNext()) {
