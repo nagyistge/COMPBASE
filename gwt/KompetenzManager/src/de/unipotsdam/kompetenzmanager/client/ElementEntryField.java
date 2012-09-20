@@ -85,12 +85,12 @@ public class ElementEntryField extends Composite {
 			backendImpl.addNode(widget.getStoredGraph(), sourceNode, newNode,
 					kantenLabel, new GraphUpdater<Graph>(widget));
 		}
-		this.widget.removeElementEntryField();
+		this.widget.removeDataEntryField();
 	}
 
 	@UiHandler("abbrechenButton")
 	void onAbbrechenClick(ClickEvent e) {
-		this.widget.removeElementEntryField();
+		this.widget.removeDataEntryField();
 	}
 
 }

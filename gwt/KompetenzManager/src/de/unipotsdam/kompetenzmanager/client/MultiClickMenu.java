@@ -48,4 +48,7 @@ public class MultiClickMenu extends Composite {
 	void onFocusPanelMouseOut(MouseOutEvent event) {
 		this.widget.removeClickMenu();
 	}
+	@UiHandler("showLiteratureButton")
+	void onShowLiteratureButtonClick(ClickEvent event) {
+	}
 }

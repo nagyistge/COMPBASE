@@ -60,12 +60,9 @@ public class ClickMenu extends Composite {
 		ElementEntryField elementEntryField = new ElementEntryField(
 				this.widget, this.nodeId);		
 		widget
-				.addElementEntryField(
-						elementEntryField,
-						widget.absolutePanel
-								.getWidgetLeft(widget.glassPanelContainer) + 20,
-						widget.absolutePanel
-								.getWidgetTop(widget.glassPanelContainer) + 20);
+				.addDataEntryField(
+						elementEntryField						
+						);
 	}
 
 	@UiHandler("removeNode")

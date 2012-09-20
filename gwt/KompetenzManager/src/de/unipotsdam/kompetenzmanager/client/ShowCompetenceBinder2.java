@@ -27,6 +27,7 @@ import com.google.gwt.widgetideas.client.GlassPanel;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -83,7 +84,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	 * Metadaten zu ClickMenus
 	 */
 	public Composite menu = null;
-	public ElementEntryField elementEntryField = null;
+	public Composite dataEntryField = null;
 	public Element canvasDiv;
 	public GlassPanel glassPanel = null;
 
@@ -97,6 +98,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	public boolean ctrlClicked = false;
 	private Collection<String> selectedElements;
 	private boolean shiftKey;
+	public ViewController viewcontroller;
 
 	/**
 	 * initialisiere View
@@ -232,27 +234,26 @@ public class ShowCompetenceBinder2 extends Composite {
 	/**
 	 * Fügt ein EingabeFeld hinzu, um neue Einträge zu machen
 	 * 
-	 * @param elementEntryField
+	 * @param dataEntryField
 	 * @param x
 	 * @param y
 	 */
-	public void addElementEntryField(ElementEntryField elementEntryField,
-			int x, int y) {
+	public void addDataEntryField(Composite dataEntryField) {
 		this.glassPanel.setVisible(true);
-		this.elementEntryField = elementEntryField;
-		GWT.log("versuche Feld in Koordinaten " + x + "und" + y
-				+ "zu erstellen");
-		this.absolutePanel.add(this.elementEntryField, x, y);
+		this.dataEntryField = dataEntryField;
+		this.absolutePanel.add(this.dataEntryField, widget.absolutePanel
+				.getWidgetLeft(widget.glassPanelContainer) + 20, widget.absolutePanel
+				.getWidgetTop(widget.glassPanelContainer) + 20);
 	}
 
 	/**
 	 * Zeigt wieder den Graphen, nachdem eine Eingabe gemacht wurde
 	 */
-	public void removeElementEntryField() {
-		if (this.elementEntryField != null) {
+	public void removeDataEntryField() {
+		if (this.dataEntryField != null) {
 			this.glassPanel.setVisible(false);
-			this.absolutePanel.remove(this.elementEntryField);
-			this.elementEntryField = null;
+			this.absolutePanel.remove(this.dataEntryField);
+			this.dataEntryField = null;
 		}
 	}
 
@@ -370,5 +371,14 @@ public class ShowCompetenceBinder2 extends Composite {
 	void onResetButtonClick(ClickEvent event) {
 		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
 		backendImpl.getFullGraph(null);
+	}
+
+	public void addMultiClickMenu(MultiClickMenu multiClickMenu) {
+		addDataEntryField(multiClickMenu);		
+	}
+
+	public void removeMultiClickMenu() {
+		removeDataEntryField();
+		
 	}
 }

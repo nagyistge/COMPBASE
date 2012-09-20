@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.TabListener;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 
 
 /**
@@ -24,27 +25,36 @@ public class KompetenzManager implements EntryPoint {
 	}	
 	
 	private ShowCompetenceBinder2 addGraphWidget(String canvasId) {
-		TabbedView tabbedView = new TabbedView();		
+		
+		//create graphview
 		ShowCompetenceBinder2 widget = new ShowCompetenceBinder2(canvasId);		
 		widget.widget = widget; // ermöglicht referenzierung aus EventMethoden
-		widget.tabbed = tabbedView;
+		
 		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
 		graphBackendImpl.getFullGraph(null);		
-//		KeyBoardListener keyBoardListener = new KeyBoardListener(widget);
-//		tabbedView.ThemeViewTab.add(keyBoardListener);
-		tabbedView.ThemeViewTab.add(widget);
+
+		//create literatureview
 		this.literatureView = new LiteratureView();
-		tabbedView.LiteratureViewTab.add(literatureView);
-//		tabbedView.tabView.getTabWidget(index).getTabBar().selectTab(0);
-		tabbedView.tabView.selectTab(0, true);
-		tabbedView.tabView.selectTab(1, true);
+
 		
+		//create tabbed view
+		TabbedView tabbedView = new TabbedView();		
+		tabbedView.ThemeViewTab.add(widget);
+		tabbedView.LiteratureViewTab.add(literatureView);
+		
+		//select correct tab
+		tabbedView.tabView.selectTab(0, true);
+		tabbedView.tabView.selectTab(1, true);	
 		tabbedView.tabView.getWidget(1).setTitle("Literatur");
 		tabbedView.tabView.selectTab(0);
+		
+		//add viewcontroller
+		ViewController viewController = new ViewController(widget, literatureView, tabbedView);
+		widget.viewcontroller = viewController;
+		literatureView.viewcontroller = viewController;
+
+		//start application
 		RootPanel.get("content").add(tabbedView);		
-//		TestWrapper testWrapper = new TestWrapper();
-//		testWrapper.getElement().appendChild(widget.getElement());
-//		testWrapper.getElement().appendChild(widget2.getElement());
 		return widget;
 	}
 }
