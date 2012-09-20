@@ -1,6 +1,6 @@
 package de.unipotsdam.kompetenzmanager.server;
 
-import de.unipotsdam.kompetenzmanager.client.GraphBackend;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 
 public class GraphBackendFactory {
 	private static Neo4JGraphBackendImpl neo4jGraphBackendImpl;

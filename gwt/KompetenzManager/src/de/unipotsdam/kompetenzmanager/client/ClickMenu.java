@@ -11,6 +11,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 
@@ -87,6 +90,8 @@ public class ClickMenu extends Composite {
 				GWT.log("Graph has not been stored");
 			}
 		}
+		// eventuell nur das entsprechende Element rausnehmen
+		widget.clearSelectedElements();
 	}
 
 	@UiHandler("showNeighbours")
@@ -102,8 +107,15 @@ public class ClickMenu extends Composite {
 	}
 	@UiHandler("connectButton")
 	void onConnectButtonClick(ClickEvent event) {
-		ConnectNodesMenu connectNodesMenu = new ConnectNodesMenu(this.nodeId);
-		widget.removeClickMenu();
-		this.widget.addClickMenu(connectNodesMenu);
+		GWT.log("connecting nodes:" +this.nodeId + " " + widget.getSelectedElements());
+		GraphBackendAsync backendImpl = new GraphBackendImpl(
+				this.widget);		
+		widget.removeClickMenu();		
+		if (this.widget.getNewGraph()) {
+			backendImpl.connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		} else {
+			backendImpl.connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		}
+		widget.clearSelectedElements();
 	}
 }

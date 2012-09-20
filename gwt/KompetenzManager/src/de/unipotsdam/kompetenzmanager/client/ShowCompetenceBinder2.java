@@ -1,5 +1,8 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Node;
@@ -13,16 +16,27 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.client.GlassPanel;
+
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendAsync;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ShowCompetenceBinder2 extends Composite {
-	
 
 	interface ShowCompetenceBinder2UiBinder extends
 			UiBinder<Widget, ShowCompetenceBinder2> {
@@ -51,6 +65,14 @@ public class ShowCompetenceBinder2 extends Composite {
 	Button searchPathButton;
 	@UiField
 	ToggleButton toggleButton;
+	@UiField
+	ScrollPanel SelectedListPanel;
+	@UiField
+	Button deleteSelection;
+	@UiField
+	VerticalPanel VerticalPanel;
+	@UiField Button resetButton;
+	@UiField HorizontalPanel selectedLiterature;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -71,6 +93,10 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	private Boolean newGraph = true;
 	private Graph storedGraph;
+	public TabbedView tabbed;
+	public boolean ctrlClicked = false;
+	private Collection<String> selectedElements;
+	private boolean shiftKey;
 
 	/**
 	 * initialisiere View
@@ -85,6 +111,7 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
 		this.glassPanelContainer.add(glassPanel, 0, 0);
+		this.setSelectedElements(new ArrayList<String>());
 	}
 
 	/**
@@ -133,10 +160,23 @@ public class ShowCompetenceBinder2 extends Composite {
 		// schauen ob und welcher Knoten geclickt wurde
 		if (widget.existsNode(x1, y1, this.canvasDiv.getId())) {
 			String nodeId = this.widget.getNodeID(x1, y1,
-					this.canvasDiv.getId());
-			this.menu = new ClickMenu(id, widget, nodeId);
-			widget.addClickMenu(this.menu, x, y);
+					this.canvasDiv.getId());		
+			//do not refactor unless you are absolutely sure what you are doing
+			if (this.ctrlClicked) {
+				Composite optionMenu = new MultiClickMenu(id, widget, nodeId);
+				showMenu(optionMenu);
+			} else if (this.shiftKey) {
+				addSelectedElementToList(nodeId);
+			} else {
+				Composite optionMenu = new ClickMenu(id, widget, nodeId);
+				showMenu(optionMenu);
+			}			
 		}
+	}
+
+	private void showMenu(Composite clickMenu) {
+		this.menu = clickMenu;
+		widget.addClickMenu(this.menu, x, y);
 	}
 
 	/**
@@ -151,6 +191,8 @@ public class ShowCompetenceBinder2 extends Composite {
 			if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
 					this.x, this.y)) {
 				widget.removeClickMenu();
+				this.ctrlClicked = false;
+				this.shiftKey = false;
 			}
 		}
 	}
@@ -165,14 +207,14 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.menu = clickMenu;
 		this.absolutePanel.add(this.menu, x, y);
 	}
-	
+
 	/**
 	 * 
 	 * @param clickMenu
 	 * @param x
 	 * @param y
 	 */
-	public void addClickMenu(Composite clickMenu) {		
+	public void addClickMenu(Composite clickMenu) {
 		this.menu = clickMenu;
 		this.absolutePanel.add(this.menu, this.x, this.y);
 	}
@@ -242,12 +284,12 @@ public class ShowCompetenceBinder2 extends Composite {
 		String fromNode = this.searchFromTextField.getText();
 		String toNode = this.searchToTextField.getText();
 		if (this.getNewGraph()) {
-		backendImpl.findShortestPath(fromNode, toNode, new GraphUpdater<Graph>(
-				widget));
+			backendImpl.findShortestPath(fromNode, toNode,
+					new GraphUpdater<Graph>(widget));
 		} else {
 			if (getStoredGraph() != null) {
-				backendImpl.findShortestPath(getStoredGraph(), fromNode, toNode, new GraphUpdater<Graph>(
-						widget));
+				backendImpl.findShortestPath(getStoredGraph(), fromNode,
+						toNode, new GraphUpdater<Graph>(widget));
 			} else {
 				GWT.log("Graph should have been stored but is not");
 			}
@@ -255,7 +297,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	@UiHandler("toggleButton")
-	void onToggleButtonClick(ClickEvent event) {		
+	void onToggleButtonClick(ClickEvent event) {
 		this.newGraph = !this.newGraph;
 	}
 
@@ -275,4 +317,58 @@ public class ShowCompetenceBinder2 extends Composite {
 		return newGraph;
 	}
 
+	public void addSelectedElementToList(String nodeId) {
+		GWT.log("adding selected element to list:" + nodeId);
+		this.getSelectedElements().add(nodeId);
+		Label label = new Label(nodeId);
+		// this.SelectedListPanel.getElement().getChild(0)
+		// .appendChild(label.getElement());
+		this.VerticalPanel.add(label);		
+	}
+
+	@UiHandler("deleteSelection")
+	void onDeleteSelectionClick(ClickEvent event) {
+		clearSelectedElements();
+	}
+
+	public void clearSelectedElements() {
+		this.getSelectedElements().clear();
+		this.VerticalPanel.clear();		
+	}
+
+	@UiHandler("focusPanel1")
+	void onFocusPanel1KeyPress(KeyPressEvent event) {
+		this.ctrlClicked = event.isControlKeyDown();
+	}
+
+	@UiHandler("focusPanel1")
+	void onFocusPanel1KeyDown(KeyDownEvent event) {
+		this.ctrlClicked = event.isControlKeyDown();
+		this.shiftKey = event.isShiftKeyDown();
+	}
+
+	/**
+	 * @param selectedElements the selectedElements to set
+	 */
+	public void setSelectedElements(Collection<String> selectedElements) {
+		this.selectedElements = selectedElements;
+	}
+
+	/**
+	 * @return the selectedElements
+	 */
+	public Collection<String> getSelectedElements() {
+		return selectedElements;
+	}
+
+	// @UiHandler("focusPanel1")
+	// void onFocusPanel1KeyUp(KeyUpEvent event) {
+	// this.ctrlClicked = !event.getNativeEvent().getCtrlKey();
+	// this.ctrlClicked = !event.getNativeEvent().getShiftKey();
+	// }
+	@UiHandler("resetButton")
+	void onResetButtonClick(ClickEvent event) {
+		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
+		backendImpl.getFullGraph(null);
+	}
 }
