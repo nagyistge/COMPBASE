@@ -12,13 +12,14 @@ public class LiteratureEntry implements IsSerializable, Comparable<LiteratureEnt
 	public String volume;
 	public String titel;
 	public String author;
-	public int year;
+	public String year;
 	public String abstractText;			
 	public String shortName;
 	public int id;
 	public Graph graph;
+	public int klassifikationsnummer = 0;
 	
-	public LiteratureEntry( String titel, String author, int year, String abstractText, String paper, String volume, int id) {
+	public LiteratureEntry( String titel, String author, String year, String abstractText, String paper, String volume, int id) {
 		this.titel = titel;
 		this.author = author;
 		this.year = year;		
