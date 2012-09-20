@@ -1,10 +1,16 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.util.Collection;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.unipotsdam.kompetenzmanager.client.GraphBackend;
+import de.unipotsdam.kompetenzmanager.client.LiteratureEntryBinder;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 /**
  * 
@@ -76,6 +82,48 @@ GraphBackend {
 	@Override
 	public Graph expandNode(Graph graph, String nodeName) {
 		return factory.createInstance().expandNode(graph, nodeName);
+	}
+
+	@Override
+	public Graph connectNodes(Collection<String> graphNodes, String toNode) {
+		return factory.createInstance().connectNodes(graphNodes, toNode);
+	}
+
+	@Override
+	public Graph connectNodes(Graph graph, Collection<String> graphNodes,
+			String toNode) {
+		return factory.createInstance().connectNodes(graph, graphNodes, toNode);
+	}
+
+	@Override
+	public Literature getFullLiterature() {
+		return this.factory.createInstance().getFullLiterature();
+	}
+
+	@Override
+	public Literature getLiteratureForTags(Graph graph) {
+		return this.factory.createInstance().getLiteratureForTags(graph);
+	}
+
+	@Override
+	public Graph getTagsforLiterature(Literature literature) {
+		return this.factory.createInstance().getTagsforLiterature(literature);
+	}
+
+	@Override
+	public Literature addOrUpdateLiteratureEntry(Literature literature, LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().addOrUpdateLiteratureEntry(literature, literatureEntry);	
+	}
+
+	@Override
+	public Literature removeLiteratureEntry(Literature literature,LiteratureEntry literatureEntry) {
+		return this.factory.createInstance().removeLiteratureEntry(literature, literatureEntry);
+	}
+
+	@Override
+	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
+			Graph graph) {
+		return this.factory.createInstance().connectLiteratureToGraph(literature, graph);
 	}
 
 }
