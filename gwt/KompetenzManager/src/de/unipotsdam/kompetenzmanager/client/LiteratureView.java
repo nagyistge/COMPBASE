@@ -3,6 +3,7 @@ package de.unipotsdam.kompetenzmanager.client;
 import com.google.gwt.core.client.GWT;
 
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
@@ -13,6 +14,7 @@ import com.google.gwt.widgetideas.client.GlassPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
 
 public class LiteratureView extends Composite {
 
@@ -26,13 +28,14 @@ public class LiteratureView extends Composite {
 	private GlassPanel glassPanel;
 	private MultiClickMenu dataEntryField;
 	public ViewController viewcontroller;
+	private Literature storedLiterature;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}
 
 	public LiteratureView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.literatureEntry = new LiteratureEntryBinder();
+		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
 		this.LiteratureViewVerticalPanel.add(literatureEntry);
 		//testlines
 		TreeItem treeItem = new TreeItem("test");
@@ -61,6 +64,33 @@ public class LiteratureView extends Composite {
 			this.glassPanelContainer.remove(this.dataEntryField);
 			this.dataEntryField = null;
 		}		
+	}
+
+
+
+	public void update(Literature result) {
+		this.storedLiterature = result;
+		updateLiteratureTree();
+		updateSelectedLitEntry();
+	}
+
+
+
+	private void updateSelectedLitEntry() {
+		// TODO Auto-generated method stub		
+	}
+
+
+
+	private void updateLiteratureTree() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public Literature getStoredLiterature() {
+		return this.storedLiterature;
 	}
 
 }
