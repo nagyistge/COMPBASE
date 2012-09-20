@@ -33,4 +33,8 @@ public class TabbedView extends Composite {
 		this.tabView.setAnimationVertical(false);		
 	}
 	
+	public TabLayoutPanel getTabLayoutPanel() {
+		return this.tabView;
+	}
+	
 }

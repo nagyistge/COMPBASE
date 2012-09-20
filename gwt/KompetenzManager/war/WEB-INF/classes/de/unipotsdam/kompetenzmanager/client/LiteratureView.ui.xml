@@ -5,15 +5,11 @@
 		
 	</ui:style>
 	<g:HTMLPanel width="1600px" height="800px">
-		<g:AbsolutePanel height="497px" width="852px">
+		<g:AbsolutePanel height="497px" width="852px" ui:field="glassPanelContainer">
 			<g:at left="10" top="10">
 				<g:SimplePanel width="175px" height="427px">
 					<g:Tree width="100%" height="420px" ui:field="literatureTree">
-						<g:TreeItem text="New" ui:field="literatureTreeExample"></g:TreeItem>
-						<g:TreeItem text="New TreeItem" state="true">
-							<g:TreeItem text="New TreeItem"></g:TreeItem>
-						</g:TreeItem>
-					</g:Tree>
+						<g:TreeItem text="Literatur" ui:field="treeHeader"></g:TreeItem></g:Tree>
 				</g:SimplePanel>
 			</g:at>
 			<g:at left="247" top="10">
@@ -21,6 +17,9 @@
 			</g:at>
 			<g:at left="10" top="457">
 				<g:Button>reset</g:Button>
+			</g:at>
+			<g:at left="78" top="457">
+				<g:Button width="45px" height="30px">new</g:Button>
 			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>
