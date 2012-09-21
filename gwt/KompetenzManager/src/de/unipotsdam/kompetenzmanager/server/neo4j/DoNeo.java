@@ -100,7 +100,7 @@ public abstract class DoNeo {
 			LiteratureEntry literatureEntry = new LiteratureEntry(
 					(String) node.getProperty(LIT_NODE_TITEL),
 					(String) node.getProperty(LIT_NODE_AUTHOR),
-					(Integer) node.getProperty(LIT_NODE_YEAR),
+					(String) node.getProperty(LIT_NODE_YEAR),
 					(String) node.getProperty(LIT_NODE_ABSTRACT),
 					(String) node.getProperty(LIT_NODE_PAPER),
 					(String) node.getProperty(LIT_NODE_VOLUME),

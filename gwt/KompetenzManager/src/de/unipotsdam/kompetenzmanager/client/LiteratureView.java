@@ -1,6 +1,7 @@
 package de.unipotsdam.kompetenzmanager.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dev.util.collect.HashMap;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -13,8 +14,11 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.widgetideas.client.GlassPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class LiteratureView extends Composite {
 
@@ -28,7 +32,10 @@ public class LiteratureView extends Composite {
 	private GlassPanel glassPanel;
 	private MultiClickMenu dataEntryField;
 	public ViewController viewcontroller;
-	private Literature storedLiterature;
+	public Literature storedLiterature;
+	private GraphBackendImpl backendImpl;
+	public TreeItem rootItem;
+	public HashMap treeEntryMap;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}
@@ -37,10 +44,11 @@ public class LiteratureView extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
 		this.LiteratureViewVerticalPanel.add(literatureEntry);
-		//testlines
-		TreeItem treeItem = new TreeItem("test");
-		treeItem.addItem(new TreeItem("zweite Ebene"));
-		this.treeHeader.addItem(treeItem);
+		// load tree
+		this.rootItem = new TreeItem("Literatur");
+		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
+		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(viewcontroller.getLiteratureview(), literatureTree, rootItem);
+		backendImpl.getFullLiterature(litUpdater);
 		
 		
 		// add glasspanel
@@ -48,8 +56,10 @@ public class LiteratureView extends Composite {
 		this.glassPanel.setVisible(false);
 		this.glassPanelContainer.add(glassPanel, 0, 0);
 	}
-	
-	
+
+
+
+
 
 	public void addMultiClickMenu(MultiClickMenu multiClickMenu) {
 		this.glassPanel.setVisible(true);
@@ -65,29 +75,6 @@ public class LiteratureView extends Composite {
 			this.dataEntryField = null;
 		}		
 	}
-
-
-
-	public void update(Literature result) {
-		this.storedLiterature = result;
-		updateLiteratureTree();
-		updateSelectedLitEntry();
-	}
-
-
-
-	private void updateSelectedLitEntry() {
-		// TODO Auto-generated method stub		
-	}
-
-
-
-	private void updateLiteratureTree() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	public Literature getStoredLiterature() {
 		return this.storedLiterature;

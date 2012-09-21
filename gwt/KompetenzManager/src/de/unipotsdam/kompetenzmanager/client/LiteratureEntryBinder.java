@@ -16,7 +16,9 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -52,7 +54,9 @@ public class LiteratureEntryBinder extends Composite {
 	void onSpeichernButtonClick(ClickEvent event) {
 		GraphBackendImpl backendImpl = new GraphBackendImpl(viewcontroller.getWidget());		
 		this.shownLiteratureEntry = aggregateLiteratureEntry();
-		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry , new UpdateLiteratureView(viewcontroller.getLiteratureview()));
+		LiteratureView litView = viewcontroller.getLiteratureview();
+		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(litView, litView.literatureTree, litView.rootItem);
+		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry ,litUpdater);		
 		if (this.shownLiteratureEntry.klassifikationsnummer > 0) {
 			this.contentKlassifikationsID.setText(this.shownLiteratureEntry.klassifikationsnummer+"");
 			this.klassifikationstabellePanel.setVisible(true);
@@ -64,7 +68,7 @@ public class LiteratureEntryBinder extends Composite {
 		int id = 0;
 		if (this.shownLiteratureEntry != null) {
 		  this.shownLiteratureEntry.abstractText = abstractContent.getText();
-		  this.shownLiteratureEntry.author = abstractContent.getText();
+		  this.shownLiteratureEntry.author = authorContent.getText();
 		  this.shownLiteratureEntry.paper = paperContent.getText();
 		  this.shownLiteratureEntry.year = this.publicationDate.getText();
 		  this.shownLiteratureEntry.volume = this.volumeContent.getText();
@@ -77,6 +81,17 @@ public class LiteratureEntryBinder extends Composite {
 		return shownLiteratureEntry;		
 		
 	}
+	
+	private void updateSelectedLitEntry(LiteratureEntry lit) {
+		this.shownLiteratureEntry = lit;
+		  abstractContent.setText(this.shownLiteratureEntry.abstractText);
+		  authorContent.setText(this.shownLiteratureEntry.author);
+		  paperContent.setText(this.shownLiteratureEntry.paper);
+		  publicationDate.setText(this.shownLiteratureEntry.year);
+		  this.volumeContent.setText(this.shownLiteratureEntry.volume);
+		  titleContent.setText(this.shownLiteratureEntry.titel);		  		  	
+	}
+	
 	@UiHandler("titleContent")
 	void onTitleContentChange(ChangeEvent event) {
 		this.speichernButton.setEnabled(true);
