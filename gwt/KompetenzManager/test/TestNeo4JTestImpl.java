@@ -41,7 +41,7 @@ public class TestNeo4JTestImpl {
 	public void before() {
 		this.neo4JGraphImpl = new Neo4JGraphBackendImpl();
 		this.dummyLiterature = new Literature();		
-		this.dummyLiterature.literatureEntries.add(new LiteratureEntry("schöner Aufsatz", "Ju Deh", 2000, "wichtiger abstract", "thepaper", "important volume", 22));
+		this.dummyLiterature.literatureEntries.add(new LiteratureEntry("schöner Aufsatz", "Ju Deh", 2000+"", "wichtiger abstract", "thepaper", "important volume", 22));
 	}
 
 	@After
@@ -139,13 +139,13 @@ public class TestNeo4JTestImpl {
 	
 	@Test
 	public void testAddOrUpdateLiteratureEntry() {		
-		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel", "author", 2012, "abstract", "new york times", "vol", 222));
+		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel", "author", 2012+"", "abstract", "new york times", "vol", 222));
 		assertTrue(this.neo4JGraphImpl.getFullLiterature().literatureEntries.size() > 0);
 //		int id = UUID.randomUUID().hashCode();
 		int id = 8987879;
-		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel2", "author2", 2011, "abstract2", "new york times2", "vol2", id));
+		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel2", "author2", 2011+"", "abstract2", "new york times2", "vol2", id));
 		assertTrue(this.neo4JGraphImpl.getFullLiterature().literatureEntries.size() > 1);
-		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel3", "author3", 2012, "abstract3", "new york times3", "vol3", id));
+		this.neo4JGraphImpl.addOrUpdateLiteratureEntry(dummyLiterature, new LiteratureEntry("titel3", "author3", 2012+"", "abstract3", "new york times3", "vol3", id));
 		assertFalse(this.neo4JGraphImpl.getFullLiterature().literatureEntries.size() > 2);
 	
 	}

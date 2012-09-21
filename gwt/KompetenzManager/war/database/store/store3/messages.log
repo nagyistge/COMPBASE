@@ -5489,3 +5489,16 @@
 2012-09-20 15:57:45.508+0000: Started - database is now available
 2012-09-20 15:57:45.509+0000: GC Monitor started. 
 2012-09-20 16:57:41.223+0000: GC Monitor: Application threads blocked for an additional 388ms [total block time: 0.388s]
+2012-09-20 17:10:31.552+0000: GC Monitor: Application threads blocked for an additional 191ms [total block time: 0.579s]
+2012-09-20 17:10:37.513+0000: GC Monitor: Application threads blocked for an additional 4353ms [total block time: 4.932s]
+2012-09-20 17:10:38.188+0000: GC Monitor: Application threads blocked for an additional 174ms [total block time: 5.106s]
+2012-09-20 17:13:39.505+0000: GC Monitor: Application threads blocked for an additional 66427ms [total block time: 71.533s]
+2012-09-20 17:22:59.867+0000: GC Monitor: Application threads blocked for an additional 124ms [total block time: 71.657s]
+2012-09-20 20:06:24.507+0000: GC Monitor: Application threads blocked for an additional 9803138ms [total block time: 9874.795s]
+2012-09-20 20:06:34.554+0000: GC Monitor: Application threads blocked for an additional 9947ms [total block time: 9884.742s]
+2012-09-20 20:15:41.866+0000: GC Monitor: Application threads blocked for an additional 156ms [total block time: 9884.898s]
+2012-09-21 05:00:25.561+0000: GC Monitor: Application threads blocked for an additional 31482294ms [total block time: 41367.19s]
+2012-09-21 05:00:40.930+0000: GC Monitor: Application threads blocked for an additional 132ms [total block time: 41367.324s]
+2012-09-21 05:04:45.512+0000: GC Monitor: Application threads blocked for an additional 243282ms [total block time: 41610.61s]
+2012-09-21 05:38:26.500+0000: GC Monitor: Application threads blocked for an additional 1569535ms [total block time: 43180.14s]
+2012-09-21 05:38:27.217+0000: GC Monitor: Application threads blocked for an additional 181ms [total block time: 43180.32s]
