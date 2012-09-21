@@ -32,10 +32,10 @@ public class KompetenzManager implements EntryPoint {
 		
 		GraphBackendAsync graphBackendImpl = new GraphBackendImpl(widget);
 		graphBackendImpl.getFullGraph(null);		
-
+		
+		
 		//create literatureview
 		this.literatureView = new LiteratureView();
-
 		
 		//create tabbed view
 		TabbedView tabbedView = new TabbedView();		
@@ -52,6 +52,9 @@ public class KompetenzManager implements EntryPoint {
 		ViewController viewController = new ViewController(widget, literatureView, tabbedView);
 		widget.viewcontroller = viewController;
 		literatureView.viewcontroller = viewController;
+		
+		// jetzt kann auch die Literatur initialisiert werden
+		literatureView.initLiteratureView();
 
 		//start application
 		RootPanel.get("content").add(tabbedView);		

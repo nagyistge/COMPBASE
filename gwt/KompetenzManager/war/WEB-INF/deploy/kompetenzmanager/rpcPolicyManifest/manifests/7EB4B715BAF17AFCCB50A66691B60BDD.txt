@@ -1,0 +1,2 @@
+serviceClass: de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend
+path: FF2DE53ED53229DDAC9E44BDBB7E080A.gwt.rpc

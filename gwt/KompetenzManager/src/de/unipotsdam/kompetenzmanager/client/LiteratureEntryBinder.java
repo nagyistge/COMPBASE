@@ -1,7 +1,5 @@
 package de.unipotsdam.kompetenzmanager.client;
 
-import java.util.UUID;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
@@ -18,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.util.UUID;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -56,12 +55,12 @@ public class LiteratureEntryBinder extends Composite {
 		this.shownLiteratureEntry = aggregateLiteratureEntry();
 		LiteratureView litView = viewcontroller.getLiteratureview();
 		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(litView, litView.literatureTree, litView.rootItem);
-		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry ,litUpdater);		
+		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry,litUpdater);		
 		if (this.shownLiteratureEntry.klassifikationsnummer > 0) {
 			this.contentKlassifikationsID.setText(this.shownLiteratureEntry.klassifikationsnummer+"");
 			this.klassifikationstabellePanel.setVisible(true);
 		}
-		this.speichernButton.setEnabled(false);
+		this.speichernButton.setEnabled(false);		
 	}
 
 	private LiteratureEntry aggregateLiteratureEntry() {
@@ -75,7 +74,7 @@ public class LiteratureEntryBinder extends Composite {
 		  this.shownLiteratureEntry.titel =  this.titleContent.getText();		  
 		  this.shownLiteratureEntry.shortName = this.shownLiteratureEntry.author+this.shownLiteratureEntry.year;
 		} else {
-			id = UUID.randomUUID().hashCode();
+			id = UUID.uuid().hashCode();
 			return new LiteratureEntry(this.titleContent.getText(), this.authorContent.getText(), this.publicationDate.getText(), this.abstractContent.getText(), this.paperContent.getText(),this.volumeContent.getText(), id);
 		}
 		return shownLiteratureEntry;		

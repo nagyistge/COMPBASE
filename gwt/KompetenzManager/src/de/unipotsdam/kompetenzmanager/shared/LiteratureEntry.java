@@ -1,9 +1,10 @@
 package de.unipotsdam.kompetenzmanager.shared;
 
-import java.text.Collator;
 import java.util.Locale;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+
+import de.unipotsdam.kompetenzmanager.shared.util.Collator;
 
 public class LiteratureEntry implements IsSerializable,
 		Comparable<LiteratureEntry> {
@@ -48,8 +49,7 @@ public class LiteratureEntry implements IsSerializable,
 
 	@Override
 	public int compareTo(LiteratureEntry o) {
-		Collator collator = Collator.getInstance(Locale.GERMAN);
-		collator.setStrength(Collator.SECONDARY);
+		Collator collator = new Collator();
 		if (o.equals(this)) {
 			return 0;
 		} else if (collator.compare(o.paper, this.paper) == 0) {
