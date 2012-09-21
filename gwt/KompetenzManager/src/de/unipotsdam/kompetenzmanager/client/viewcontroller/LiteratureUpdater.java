@@ -1,13 +1,11 @@
 package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import scala.collection.mutable.HashSet;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -30,7 +28,8 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 		this.paperMap = new HashMap<String, TreeItem>();		
 		this.yearMap = new HashMap<String,TreeItem>();
 		this.setTreeEntryMap(new HashMap<TreeItem, LiteratureEntry>());
-		literatureTree2.addItem(literatureTree);
+		literatureTree2.addItem(literatureTree);	
+		GWT.log("lit wird geladen ...");
 	}
 
 	@Override
@@ -46,6 +45,7 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 		this.literatureTree.removeItems();		
 		addTreeElements(literatureEntries);
 		this.literatureView.treeEntryMap = this.treeEntryMap;
+		GWT.log("successfully loaded literature from database:" + result.toString());
 	}
 
 	public void storeResult(Literature toUpdate) {

@@ -118,41 +118,41 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	@Override
 	public void getLiteratureForTags(Graph graph,
 			AsyncCallback<Literature> literature) {
-		// TODO Auto-generated method stub
+		graphBackEnd.getLiteratureForTags(graph, literature);
 		
 	}
 
 	@Override
 	public void getTagsforLiterature(Literature literature,
 			AsyncCallback<Graph> graph) {
-		// TODO Auto-generated method stub
+		graphBackEnd.getTagsforLiterature(literature, graph);
 		
 	}
 
 	@Override
 	public void addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> literature) {
-		// TODO Auto-generated method stub
+		graphBackEnd.addOrUpdateLiteratureEntry(literatureStored, literatureEntry, literature);
 		
 	}
 
 	@Override
 	public void removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> lierature) {
-		// TODO Auto-generated method stub
+		graphBackEnd.removeLiteratureEntry(literatureStored, literatureEntry, lierature);
 		
 	}
 
 	@Override
 	public void getFullLiterature(AsyncCallback<Literature> literature) {
-		// TODO Auto-generated method stub
+		graphBackEnd.getFullLiterature(literature);
 		
 	}
 
 	@Override
 	public void connectLiteratureToGraph(Literature literature, Graph graph,
 			AsyncCallback<GraphLiteraturePair> callback) {
-		// TODO Auto-generated method stub
+		graphBackEnd.connectLiteratureToGraph(literature, graph, callback);
 		
 	}
 

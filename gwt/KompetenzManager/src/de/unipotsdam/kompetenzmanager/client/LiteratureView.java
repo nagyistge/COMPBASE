@@ -1,8 +1,8 @@
 package de.unipotsdam.kompetenzmanager.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashMap;
+import java.util.HashMap;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -33,28 +33,37 @@ public class LiteratureView extends Composite {
 	private MultiClickMenu dataEntryField;
 	public ViewController viewcontroller;
 	public Literature storedLiterature;
-	private GraphBackendImpl backendImpl;
+	
 	public TreeItem rootItem;
 	public HashMap treeEntryMap;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}
 
-	public LiteratureView() {
-		initWidget(uiBinder.createAndBindUi(this));
-		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
-		this.LiteratureViewVerticalPanel.add(literatureEntry);
-		// load tree
-		this.rootItem = new TreeItem("Literatur");
-		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
-		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(viewcontroller.getLiteratureview(), literatureTree, rootItem);
-		backendImpl.getFullLiterature(litUpdater);
-		
+	public LiteratureView()	
+	{		
+		initWidget(uiBinder.createAndBindUi(this));				
 		
 		// add glasspanel
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
 		this.glassPanelContainer.add(glassPanel, 0, 0);
+	}
+
+
+
+
+
+	public void initLiteratureView() {
+		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
+		this.LiteratureViewVerticalPanel.add(literatureEntry);
+		// load tree
+		this.rootItem = new TreeItem("Literatur");
+		GraphBackendImpl backendImpl;
+		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
+		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(viewcontroller.getLiteratureview(), literatureTree, rootItem);
+		GWT.log("trying to get the literature now");
+		backendImpl.getFullLiterature(litUpdater);
 	}
 
 
