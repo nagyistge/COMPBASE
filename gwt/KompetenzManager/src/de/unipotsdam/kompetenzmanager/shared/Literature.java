@@ -41,5 +41,9 @@ public class Literature  implements IsSerializable {
 		}
 		return result;		
 	}
+	public Literature mergeWith(Literature literatureStored) {
+		this.literatureEntries.addAll(literatureStored.literatureEntries);
+		return this;
+	}
 }
 

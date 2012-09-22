@@ -11,8 +11,8 @@
 			<g:VerticalPanel height="339px" width="126px">
 				<g:Label text="Titel"/>
 				<g:Label text="Autor"/>
-				<g:Label text="Publikationsdatum"/>
-				<g:Label text="Publikationsort"/>
+				<g:Label text="Jahr"/>
+				<g:Label text="Paper"/>
 				<g:Label text="Ausgabe"/>
 				<g:Label text="Abstract"/>
 			</g:VerticalPanel>
