@@ -45,5 +45,10 @@ public class Literature  implements IsSerializable {
 		this.literatureEntries.addAll(literatureStored.literatureEntries);
 		return this;
 	}
+	public Literature intersectStrong(Literature fullLiterature) {
+		// TODO Auto-generated method stub
+		this.literatureEntries.retainAll(literatureEntries);
+		return this;
+	}
 }
 

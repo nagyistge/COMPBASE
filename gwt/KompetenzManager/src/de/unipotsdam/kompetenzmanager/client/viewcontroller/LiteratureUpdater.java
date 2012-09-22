@@ -49,11 +49,15 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 	public void onSuccess(L result) {
 		//casting
 		Literature toUpdate = ((Literature) result);
+		
+		GWT.log(toUpdate.literatureEntries.size() + "Eintrage"+ toUpdate.toString());
+		
 		//storing result
 		storeResult(toUpdate);
 		//sorting result by alphabetical order
 		List<LiteratureEntry> literatureEntries = sortEntries(toUpdate);
-		Collections.reverse(literatureEntries);
+		Collections.reverse(literatureEntries);				
+		
 		//adding Tree Elements
 		this.literatureTree.removeItems();		
 		addTreeElements(literatureEntries);
@@ -113,12 +117,13 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 				yearLevel.addItem(authorLevel);
 				literatureTree.addItem(paperLevel);
 				this.paperMap.put(literatureEntry.paper, paperLevel);
+				this.yearMap.put(literatureEntry.year, yearLevel);
 			} else {
 				paperLevel = this.paperMap.get(literatureEntry.paper);				
 				if (!yearMap.containsKey(literatureEntry.year)) {
-					this.yearMap.put(literatureEntry.year, yearLevel);
 					paperLevel.addItem(yearLevel);
 					yearLevel.addItem(authorLevel);				
+					this.yearMap.put(literatureEntry.year, yearLevel);
 				} else {
 					yearLevel = this.yearMap.get(yearLevel.paper);
 					yearLevel.addItem(authorLevel);
