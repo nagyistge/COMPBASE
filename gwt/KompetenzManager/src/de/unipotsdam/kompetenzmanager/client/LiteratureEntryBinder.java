@@ -58,7 +58,7 @@ public class LiteratureEntryBinder extends Composite {
 		
 		//storing them in the db and updating tree
 		LiteratureView litView = viewcontroller.getLiteratureview();
-		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(litView, litView.literatureTree, litView.rootItem);
+		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(this.viewcontroller.getLiteratureview());
 		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry,litUpdater);		
 
 		//showing the klassifkation if possible
@@ -75,8 +75,8 @@ public class LiteratureEntryBinder extends Composite {
 			GWT.log("litEntry Map does nocht contain any values");
 		}
 		TreeItem treeItem = this.viewcontroller.getLiteratureview().litEntryMap.get(this.shownLiteratureEntry);
-		if (treeItem != null) {
-			treeItem.setSelected(true);
+		if (treeItem != null) {			
+			treeItem.setState(true);
 		} else {
 			GWT.log("after saving the correct literature entry could not be selected because it does not exist in the literatureEntry Map\n \n" + this.shownLiteratureEntry.toString());
 		}
@@ -100,7 +100,7 @@ public class LiteratureEntryBinder extends Composite {
 		
 	}
 	
-	private void updateSelectedLitEntry(LiteratureEntry lit) {
+	public void updateSelectedLitEntry(LiteratureEntry lit) {
 		this.shownLiteratureEntry = lit;
 		  abstractContent.setText(this.shownLiteratureEntry.abstractText);
 		  authorContent.setText(this.shownLiteratureEntry.author);

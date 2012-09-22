@@ -166,7 +166,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	@Override
 	public Literature addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
 		this.neo.doQueryLit(new DoAddOrUpdateLiteratureEntry(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
-		return literatureStored.mergeWith(new Literature(literatureEntry));
+		return new Literature(literatureEntry).mergeWith(literatureStored);
 	}
 
 	@Override

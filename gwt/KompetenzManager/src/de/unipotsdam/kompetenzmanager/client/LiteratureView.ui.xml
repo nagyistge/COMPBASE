@@ -5,21 +5,20 @@
 		
 	</ui:style>
 	<g:HTMLPanel width="1600px" height="800px">
-		<g:AbsolutePanel height="497px" width="852px" ui:field="glassPanelContainer">
+		<g:AbsolutePanel height="589px" width="945px" ui:field="glassPanelContainer">
+			<g:at left="388" top="10">
+				<g:VerticalPanel width="547px" height="477px" ui:field="LiteratureViewVerticalPanel"/>
+			</g:at>
+			<g:at left="10" top="551">
+				<g:Button ui:field="resetButton">reset</g:Button>
+			</g:at>
+			<g:at left="78" top="549">
+				<g:Button width="45px" height="30px" ui:field="button">new</g:Button>
+			</g:at>
 			<g:at left="10" top="10">
-				<g:SimplePanel width="175px" height="427px">
-					<g:Tree width="100%" height="420px" ui:field="literatureTree">
-						<g:TreeItem text="Literatur" ui:field="treeHeader"></g:TreeItem></g:Tree>
-				</g:SimplePanel>
-			</g:at>
-			<g:at left="247" top="10">
-				<g:VerticalPanel width="501px" height="477px" ui:field="LiteratureViewVerticalPanel"/>
-			</g:at>
-			<g:at left="10" top="457">
-				<g:Button>reset</g:Button>
-			</g:at>
-			<g:at left="78" top="457">
-				<g:Button width="45px" height="30px">new</g:Button>
+				<g:ScrollPanel width="325px" height="477px">
+					<g:Tree ui:field="literatureTree" width="308px" height="460px"/>
+				</g:ScrollPanel>
 			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>
