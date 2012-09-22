@@ -5,7 +5,7 @@
 		
 	</ui:style>
 	<g:HTMLPanel>
-		<g:AbsolutePanel height="301px">
+		<g:AbsolutePanel height="377px">
 			<g:at left="44" top="31">
 				<g:Label text="Wähle Literatur"/>
 			</g:at>
@@ -13,10 +13,16 @@
 				<g:Label text="Wähle Tags" width="87px" height="18px"/>
 			</g:at>
 			<g:at left="44" top="74">
-				<g:ListBox visibleItemCount="5" width="152px" height="201px"/>
+				<g:ListBox visibleItemCount="5" width="152px" height="201px" ui:field="literaturListe" multipleSelect="true"/>
 			</g:at>
 			<g:at left="244" top="74">
-				<g:ListBox visibleItemCount="5" width="152px" height="197px"/>
+				<g:ListBox visibleItemCount="5" width="152px" height="197px" ui:field="tagListe" multipleSelect="true"/>
+			</g:at>
+			<g:at left="59" top="313">
+				<g:Button ui:field="tagButton">taggen</g:Button>
+			</g:at>
+			<g:at left="244" top="313">
+				<g:Button ui:field="abbrechenButton">abbrechen</g:Button>
 			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>

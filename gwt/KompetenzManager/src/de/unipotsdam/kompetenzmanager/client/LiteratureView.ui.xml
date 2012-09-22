@@ -5,7 +5,7 @@
 		
 	</ui:style>
 	<g:HTMLPanel width="1600px" height="800px">
-		<g:AbsolutePanel height="516px" width="1161px" ui:field="glassPanelContainer">
+		<g:AbsolutePanel height="657px" width="1161px" ui:field="glassPanelContainer">
 			<g:at left="382" top="10">
 				<g:VerticalPanel width="658px" height="477px" ui:field="LiteratureViewVerticalPanel"/>
 			</g:at>
@@ -17,7 +17,7 @@
 			</g:at>
 			<g:at left="10" top="10">
 				<g:ScrollPanel width="325px" height="477px">
-					<g:Tree ui:field="literatureTree" width="308px" height="460px"/>
+					<g:Tree ui:field="literatureTree" width="308px" height="464px"/>
 				</g:ScrollPanel>
 			</g:at>
 		</g:AbsolutePanel>
