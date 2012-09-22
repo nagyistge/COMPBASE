@@ -18601,3 +18601,1904 @@
 2012-09-22 12:18:51.529+0000: GC Monitor: Application threads blocked for an additional 419ms [total block time: 1.343s]
 2012-09-22 12:18:53.896+0000: GC Monitor: Application threads blocked for an additional 454ms [total block time: 1.797s]
 2012-09-22 12:18:57.264+0000: GC Monitor: Application threads blocked for an additional 392ms [total block time: 2.189s]
+2012-09-22 12:36:15.514+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-22 12:36:15.528+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-22 12:36:15.530+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-22 12:36:15.531+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-22 12:36:15.533+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index non clean shutdown detected
+2012-09-22 12:36:15.535+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-22 12:36:15.548+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db non clean shutdown detected
+2012-09-22 12:36:15.551+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db non clean shutdown detected
+2012-09-22 12:36:15.557+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db non clean shutdown detected
+2012-09-22 12:36:15.565+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore non clean shutdown detected
+2012-09-22 12:36:15.596+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2]. Recovery started ...
+2012-09-22 12:36:15.602+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] logVersion=11 with committed tx=68
+2012-09-22 12:36:15.657+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] entries found=60 lastEntryPos=3333
+2012-09-22 12:36:15.658+0000: Internal recovery completed, scanned 60 log entries. Recovered 5 transactions. Last tx recovered: 73
+2012-09-22 12:36:15.658+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] sorting 1 xids
+2012-09-22 12:36:15.660+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] checkRecoveryComplete 0 xids
+2012-09-22 12:36:15.946+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names rebuild id generator, highId=3 defragged count=0
+2012-09-22 12:36:16.225+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys rebuild id generator, highId=59 defragged count=0
+2012-09-22 12:36:16.496+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index rebuild id generator, highId=44 defragged count=0
+2012-09-22 12:36:16.671+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings rebuild id generator, highId=23 defragged count=0
+2012-09-22 12:36:16.784+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays rebuild id generator, highId=1 defragged count=0
+2012-09-22 12:36:17.121+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db rebuild id generator, highId=101 defragged count=0
+2012-09-22 12:36:17.463+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db rebuild id generator, highId=77 defragged count=0
+2012-09-22 12:36:17.610+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db rebuild id generator, highId=22 defragged count=0
+2012-09-22 12:36:17.723+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore rebuild id generator, highId=6 defragged count=0
+2012-09-22 12:36:17.789+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] recovery completed.
+2012-09-22 12:36:17.790+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] completed.
+2012-09-22 12:36:17.804+0000: TM opening log: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 12:36:17.855+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2]. Recovery started ...
+2012-09-22 12:36:17.856+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] logVersion=11 with committed tx=23
+2012-09-22 12:36:18.860+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] entries found=17 lastEntryPos=900
+2012-09-22 12:36:18.861+0000: Internal recovery completed, scanned 17 log entries. Recovered 3 transactions. Last tx recovered: 26
+2012-09-22 12:36:18.861+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] sorting 1 xids
+2012-09-22 12:36:18.861+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] checkRecoveryComplete 0 xids
+2012-09-22 12:36:18.861+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] recovery completed.
+2012-09-22 12:36:18.862+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] completed.
+2012-09-22 12:36:18.865+0000: --- STARTUP diagnostics START ---
+2012-09-22 12:36:18.867+0000: Neo4j Kernel properties:
+    store_dir=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3
+    remote_logging_host=127.0.0.1
+    read_only=false
+    neo4j.ext.udc.host=udc.neo4j.org
+    logical_log=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log
+    remote_logging_port=4560
+    gc_monitor_threshold=200ms
+    load_kernel_extensions=true
+    array_block_size=120
+    intercept_committing_transactions=false
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=37M
+    remote_shell_name=shell
+    dump_configuration=false
+    gc_monitor_wait_time=100ms
+    cache_type=soft
+    intercept_deserialized_transactions=false
+    neostore.nodestore.db.mapped_memory=8M
+    neo4j.ext.udc.first_delay=600000
+    remote_shell_enabled=false
+    neo4j.ext.udc.reg=unreg
+    remote_shell_port=1337
+    lucene_searcher_cache_size=2147483647
+    neo4j.ext.udc.interval=86400000
+    use_memory_mapped_buffers=false
+    rebuild_idgenerators_fast=true
+    ephemeral=false
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=29M
+    neostore.propertystore.db.strings.mapped_memory=25M
+    neo_store=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    backup_slave=false
+    neostore.propertystore.db.mapped_memory=30M
+    gcr_cache_min_log_interval=60s
+    relationship_auto_indexing=false
+    relationship_grab_size=100
+    string_block_size=120
+    remote_shell_read_only=false
+    grab_file_lock=true
+    node_cache_array_fraction=1.0
+    remote_logging_enabled=false
+    allow_store_upgrade=false
+    execution_guard_enabled=false
+    neo4j.ext.udc.enabled=true
+    relationship_cache_array_fraction=1.0
+2012-09-22 12:36:18.873+0000: Diagnostics providers:
+    org.neo4j.kernel.configuration.Config
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+2012-09-22 12:36:18.875+0000: System memory information:
+    Total Physical memory: 4,00 GB
+    Free Physical memory: 1,16 GB
+    Committed virtual memory: 283,02 MB
+    Total swap space: 4,00 GB
+    Free swap space: 4,00 GB
+2012-09-22 12:36:18.878+0000: JVM memory information:
+    Free  memory: 100,10 MB
+    Total memory: 187,74 MB
+    Max   memory: 494,94 MB
+    Garbage Collector: Copy: [Eden Space, Survivor Space]
+    Garbage Collector: MarkSweepCompact: [Eden Space, Survivor Space, Tenured Gen, Perm Gen, Perm Gen [shared-ro], Perm Gen [shared-rw]]
+    Memory Pool: Code Cache (Non-heap memory): committed=4,03 MB, used=3,96 MB, max=32,00 MB, threshold=0,00 B
+    Memory Pool: Eden Space (Heap memory): committed=51,88 MB, used=9,99 MB, max=136,50 MB, threshold=?
+    Memory Pool: Survivor Space (Heap memory): committed=6,44 MB, used=0,00 B, max=17,06 MB, threshold=?
+    Memory Pool: Tenured Gen (Heap memory): committed=129,43 MB, used=77,65 MB, max=341,38 MB, threshold=0,00 B
+    Memory Pool: Perm Gen (Non-heap memory): committed=21,75 MB, used=21,74 MB, max=64,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-ro] (Non-heap memory): committed=10,00 MB, used=5,17 MB, max=10,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-rw] (Non-heap memory): committed=12,00 MB, used=6,59 MB, max=12,00 MB, threshold=0,00 B
+2012-09-22 12:36:18.884+0000: Operating system information:
+    Operating System: Windows 7; version: 6.1; arch: x86; cpus: 2
+    Process id: 2888@Freibier
+    Byte order: LITTLE_ENDIAN
+2012-09-22 12:36:18.887+0000: JVM information:
+    VM Name: Java HotSpot(TM) Client VM
+    VM Vendor: Sun Microsystems Inc.
+    VM Version: 17.1-b03
+    JIT compiler: HotSpot Client Compiler
+    VM Arguments: [-Xmx512m, -Dfile.encoding=Cp1252]
+2012-09-22 12:36:18.888+0000: Java classpath:
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/raphaelgwt-1.0.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/classes/
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-community-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\charsets.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-jsr107cache-1.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-matching-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jsse.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\classes
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\rt.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\test-classes
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-cypher-1.7.2.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\neo4j-community-1.7.2\lib\geronimo-jta_1.1_spec-1.1.1.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-lucene-index-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-shell-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\resources.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-spring.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-orm.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-servlet.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jsr107cache-1.1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-kernel-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.hamcrest.core_1.1.0.v20090501071000.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/lucene-core-3.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-udc-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jce.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-1.0-sdk-1.5.0.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gxt.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/scala-library-2.9.0-1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/server-api-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-labs-1.5.0.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA-sources.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-incubator-20101117-r1766.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-servlet-2.0.4.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.junit_4.8.1.v4_8_1_v20100427-1100\junit.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gwt15patch.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\src
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-algo-1.7.2.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-dev.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/rapahel4gwt-0.34.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-user.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-jmx-1.7.2.jar
+2012-09-22 12:36:18.901+0000: Library path:
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    C:\Windows\Sun\Java\bin
+    C:\Windows\System32
+    C:\Windows
+    C:\Program Files (x86)\Java\jre6\bin\client
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Program Files (x86)\Java\jre6\lib\i386
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\libnvvp
+    C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+    C:\Windows\System32
+    C:\Windows
+    C:\Windows\System32\wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0
+    C:\Program Files\TortoiseSVN\bin
+    C:\xampp\php
+    C:\Program Files (x86)\NetBeans 7.1.2\java\maven\bin
+    C:\Program Files (x86)\Git\cmd
+    C:\Program Files (x86)\Java\jdk1.7.0_05\bin
+    C:\Users\Julian\Desktop\helios\eclipse
+2012-09-22 12:36:18.908+0000: System.properties:
+    sun.boot.library.path = C:\Program Files (x86)\Java\jre6\bin
+    path.separator = ;
+    file.encoding.pkg = sun.io
+    sun.java.launcher = SUN_STANDARD
+    user.country = DE
+    sun.os.patch.level = Service Pack 1
+    user.dir = C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    org.mortbay.log.class = com.google.gwt.dev.shell.jetty.JettyNullLogger
+    user.variant = 
+    sun.jnu.encoding = Cp1252
+    sun.management.compiler = HotSpot Client Compiler
+    user.home = C:\Users\Julian
+    user.timezone = Europe/Berlin
+    file.encoding = Cp1252
+    org.mortbay.xml.XmlParser.Validating = false
+    build.compiler = org.eclipse.jdt.core.JDTCompilerAdapter
+    user.name = Julian
+    sun.arch.data.model = 32
+    user.language = de
+    awt.toolkit = sun.awt.windows.WToolkit
+    file.separator = \
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = windows
+    sun.cpu.isalist = pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+2012-09-22 12:36:18.909+0000: --- STARTUP diagnostics END ---
+2012-09-22 12:36:18.912+0000: TM non resolved transactions found in C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 12:36:20.027+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] @ version=11 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1 from position 905
+2012-09-22 12:36:20.505+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 12:36:20.688+0000: Log rotated, newLog @ pos=16, version 12 and last tx 26
+2012-09-22 12:36:20.965+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] @ version=11 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1 from position 3338
+2012-09-22 12:36:21.024+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 12:36:21.096+0000: Log rotated, newLog @ pos=16, version 12 and last tx 73
+2012-09-22 12:36:21.097+0000: Recovery completed, all transactions have been resolved to a consistent state.
+2012-09-22 12:36:21.179+0000: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2012-09-22 12:36:21.180+0000: Extension org.neo4j.kernel.KernelExtension[shell] loaded ok
+2012-09-22 12:36:21.212+0000: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok
+2012-09-22 12:36:21.217+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions START ---
+2012-09-22 12:36:21.218+0000: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1347880698604, id:4230156788471535349, store version: 13561656364791302]
+2012-09-22 12:36:21.218+0000: Kernel version: Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 12:36:21.218+0000: Neo4j component versions:
+2012-09-22 12:36:21.219+0000:   Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 12:36:21.219+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions END ---
+2012-09-22 12:36:21.223+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS START ---
+2012-09-22 12:36:21.224+0000: Store versions:
+    Store versions:
+      NeoStore v0.A.0
+      NodeStore v0.A.0
+      RelationshipStore v0.A.0
+      RelationshipTypeStore v0.A.0
+      PropertyStore v0.A.0
+      PropertyIndexStore v0.A.0
+      StringPropertyStore v0.A.0
+      ArrayPropertyStore v0.A.0
+2012-09-22 12:36:21.224+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS END ---
+2012-09-22 12:36:21.224+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE START ---
+2012-09-22 12:36:21.224+0000: Id usage:
+    Id usage:
+      NodeStore: used=22 high=21
+      RelationshipStore: used=77 high=76
+      RelationshipTypeStore: used=2 high=1
+      PropertyStore: used=101 high=100
+      PropertyIndexStore: used=44 high=43
+      StringPropertyStore: used=23 high=22
+      ArrayPropertyStore: used=1 high=0
+2012-09-22 12:36:21.225+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE END ---
+2012-09-22 12:36:21.225+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles START ---
+2012-09-22 12:36:21.226+0000: Storage files:
+    active_tx_log: 11,00 B
+    index:
+      lucene:
+        node:
+          nodes:
+            segments.gen: 20,00 B
+            segments_b: 1,89 kB
+            write.lock: 0,00 B
+            _a.fdt: 259,00 B
+            _a.fdx: 108,00 B
+            _a.fnm: 55,00 B
+            _a.frq: 26,00 B
+            _a.nrm: 69,00 B
+            _a.prx: 26,00 B
+            _a.tii: 35,00 B
+            _a.tis: 337,00 B
+            _b.fdt: 22,00 B
+            _b.fdx: 12,00 B
+            _b.fnm: 55,00 B
+            _b.frq: 2,00 B
+            _b.nrm: 9,00 B
+            _b.prx: 2,00 B
+            _b.tii: 35,00 B
+            _b.tis: 47,00 B
+            _c.fdt: 23,00 B
+            _c.fdx: 12,00 B
+            _c.fnm: 55,00 B
+            _c.frq: 2,00 B
+            _c.nrm: 9,00 B
+            _c.prx: 2,00 B
+            _c.tii: 35,00 B
+            _c.tis: 47,00 B
+            _d.fdt: 23,00 B
+            _d.fdx: 12,00 B
+            _d.fnm: 55,00 B
+            _d.frq: 2,00 B
+            _d.nrm: 9,00 B
+            _d.prx: 2,00 B
+            _d.tii: 35,00 B
+            _d.tis: 47,00 B
+            _e.fdt: 21,00 B
+            _e.fdx: 12,00 B
+            _e.fnm: 55,00 B
+            _e.frq: 2,00 B
+            _e.nrm: 9,00 B
+            _e.prx: 2,00 B
+            _e.tii: 35,00 B
+            _e.tis: 46,00 B
+            _f.fdt: 23,00 B
+            _f.fdx: 12,00 B
+            _f.fnm: 55,00 B
+            _f.frq: 2,00 B
+            _f.nrm: 9,00 B
+            _f.prx: 2,00 B
+            _f.tii: 35,00 B
+            _f.tis: 46,00 B
+            _g.fdt: 24,00 B
+            _g.fdx: 12,00 B
+            _g.fnm: 55,00 B
+            _g.frq: 2,00 B
+            _g.nrm: 9,00 B
+            _g.prx: 2,00 B
+            _g.tii: 35,00 B
+            _g.tis: 49,00 B
+            _h.cfs: 296,00 B
+            _i.cfs: 296,00 B
+            _i.fdt: 23,00 B
+            _i.fdx: 12,00 B
+          - Total: 4,50 kB
+        - Total: 4,50 kB
+        relationship:
+          rels:
+            segments.gen: 20,00 B
+            segments_c: 898,00 B
+            write.lock: 0,00 B
+            _k.fdt: 1,12 kB
+            _k.fdx: 180,00 B
+            _k.fnm: 53,00 B
+            _k.frq: 88,00 B
+            _k.nrm: 92,00 B
+            _k.prx: 88,00 B
+            _k.tii: 35,00 B
+            _k.tis: 1,07 kB
+            _l.cfs: 349,00 B
+            _m.cfs: 347,00 B
+            _n.cfs: 347,00 B
+            _n.fdt: 45,00 B
+            _n.fdx: 12,00 B
+          - Total: 4,68 kB
+        - Total: 4,68 kB
+      - Total: 9,18 kB
+      lucene-store.db: 40,00 B
+      lucene.log.1: 16,00 B
+      lucene.log.active: 4,00 B
+    - Total: 9,24 kB
+    index.db: 181,00 B
+    lock: 0,00 B
+    messages.log: 1,29 MB
+    neostore: 54,00 B
+    neostore.id: 9,00 B
+    neostore.nodestore.db: 8,19 kB
+    neostore.nodestore.db.id: 9,00 B
+    neostore.propertystore.db: 276,47 kB
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.propertystore.db.index: 10,24 kB
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db.index.keys: 3,01 kB
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    neostore.propertystore.db.strings: 23,50 kB
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.relationshipstore.db: 348,14 kB
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 10,00 B
+    neostore.relationshiptypestore.db.id: 9,00 B
+    neostore.relationshiptypestore.db.names: 114,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    nioneo_logical.log.1: 16,00 B
+    nioneo_logical.log.active: 4,00 B
+    tm_tx_log.1: 0,00 B
+2012-09-22 12:36:21.260+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles END ---
+2012-09-22 12:36:21.262+0000: Started - database is now available
+2012-09-22 12:36:21.279+0000: GC Monitor started. 
+2012-09-22 12:37:20.499+0000: GC Monitor: Application threads blocked for an additional 142ms [total block time: 0.142s]
+2012-09-22 12:42:17.311+0000: GC Monitor: Application threads blocked for an additional 318ms [total block time: 0.46s]
+2012-09-22 12:43:52.395+0000: GC Monitor: Application threads blocked for an additional 535ms [total block time: 0.995s]
+2012-09-22 12:43:55.222+0000: GC Monitor: Application threads blocked for an additional 371ms [total block time: 1.366s]
+2012-09-22 12:43:57.753+0000: GC Monitor: Application threads blocked for an additional 405ms [total block time: 1.771s]
+2012-09-22 12:43:59.847+0000: GC Monitor: Application threads blocked for an additional 401ms [total block time: 2.172s]
+2012-09-22 12:47:21.647+0000: GC Monitor: Application threads blocked for an additional 469ms [total block time: 2.641s]
+2012-09-22 12:48:07.393+0000: GC Monitor: Application threads blocked for an additional 162ms [total block time: 2.803s]
+2012-09-22 12:58:39.669+0000: GC Monitor: Application threads blocked for an additional 377ms [total block time: 3.18s]
+2012-09-22 13:00:42.760+0000: GC Monitor: Application threads blocked for an additional 111ms [total block time: 3.291s]
+2012-09-22 13:02:35.401+0000: GC Monitor: Application threads blocked for an additional 126ms [total block time: 3.417s]
+2012-09-22 13:03:55.816+0000: GC Monitor: Application threads blocked for an additional 120ms [total block time: 3.537s]
+2012-09-22 13:15:14.678+0000: GC Monitor: Application threads blocked for an additional 176ms [total block time: 3.713s]
+2012-09-22 13:16:29.149+0000: GC Monitor: Application threads blocked for an additional 203ms [total block time: 3.916s]
+2012-09-22 13:21:00.398+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-22 13:21:00.409+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-22 13:21:00.410+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-22 13:21:00.410+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-22 13:21:00.423+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index non clean shutdown detected
+2012-09-22 13:21:00.433+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-22 13:21:00.460+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db non clean shutdown detected
+2012-09-22 13:21:00.474+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db non clean shutdown detected
+2012-09-22 13:21:00.493+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db non clean shutdown detected
+2012-09-22 13:21:00.502+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore non clean shutdown detected
+2012-09-22 13:21:00.551+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1]. Recovery started ...
+2012-09-22 13:21:00.558+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] logVersion=12 with committed tx=73
+2012-09-22 13:21:00.579+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] entries found=6 lastEntryPos=307
+2012-09-22 13:21:00.579+0000: Internal recovery completed, scanned 6 log entries. Recovered 1 transactions. Last tx recovered: 74
+2012-09-22 13:21:00.580+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] sorting 1 xids
+2012-09-22 13:21:00.581+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] checkRecoveryComplete 0 xids
+2012-09-22 13:21:00.896+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names rebuild id generator, highId=3 defragged count=0
+2012-09-22 13:21:01.261+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys rebuild id generator, highId=59 defragged count=0
+2012-09-22 13:21:01.562+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index rebuild id generator, highId=44 defragged count=0
+2012-09-22 13:21:01.680+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings rebuild id generator, highId=23 defragged count=0
+2012-09-22 13:21:01.788+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays rebuild id generator, highId=1 defragged count=0
+2012-09-22 13:21:02.064+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db rebuild id generator, highId=101 defragged count=0
+2012-09-22 13:21:02.551+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db rebuild id generator, highId=78 defragged count=0
+2012-09-22 13:21:02.682+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db rebuild id generator, highId=22 defragged count=0
+2012-09-22 13:21:02.806+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore rebuild id generator, highId=6 defragged count=0
+2012-09-22 13:21:02.883+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] recovery completed.
+2012-09-22 13:21:02.885+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] completed.
+2012-09-22 13:21:02.902+0000: TM opening log: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 13:21:02.952+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1]. Recovery started ...
+2012-09-22 13:21:02.953+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] logVersion=12 with committed tx=26
+2012-09-22 13:21:02.953+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] entries found=0 lastEntryPos=16
+2012-09-22 13:21:02.953+0000: Internal recovery completed, scanned 0 log entries. Recovered 0 transactions. Last tx recovered: -1
+2012-09-22 13:21:02.954+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] sorting 0 xids
+2012-09-22 13:21:02.954+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] checkRecoveryComplete 0 xids
+2012-09-22 13:21:02.954+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] recovery completed.
+2012-09-22 13:21:02.954+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] completed.
+2012-09-22 13:21:02.962+0000: --- STARTUP diagnostics START ---
+2012-09-22 13:21:02.964+0000: Neo4j Kernel properties:
+    store_dir=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3
+    remote_logging_host=127.0.0.1
+    read_only=false
+    neo4j.ext.udc.host=udc.neo4j.org
+    logical_log=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log
+    remote_logging_port=4560
+    gc_monitor_threshold=200ms
+    load_kernel_extensions=true
+    array_block_size=120
+    intercept_committing_transactions=false
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=37M
+    remote_shell_name=shell
+    dump_configuration=false
+    gc_monitor_wait_time=100ms
+    cache_type=soft
+    intercept_deserialized_transactions=false
+    neostore.nodestore.db.mapped_memory=8M
+    neo4j.ext.udc.first_delay=600000
+    remote_shell_enabled=false
+    neo4j.ext.udc.reg=unreg
+    remote_shell_port=1337
+    lucene_searcher_cache_size=2147483647
+    neo4j.ext.udc.interval=86400000
+    use_memory_mapped_buffers=false
+    rebuild_idgenerators_fast=true
+    ephemeral=false
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=29M
+    neostore.propertystore.db.strings.mapped_memory=25M
+    neo_store=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    backup_slave=false
+    neostore.propertystore.db.mapped_memory=30M
+    gcr_cache_min_log_interval=60s
+    relationship_auto_indexing=false
+    relationship_grab_size=100
+    string_block_size=120
+    remote_shell_read_only=false
+    grab_file_lock=true
+    node_cache_array_fraction=1.0
+    remote_logging_enabled=false
+    allow_store_upgrade=false
+    execution_guard_enabled=false
+    neo4j.ext.udc.enabled=true
+    relationship_cache_array_fraction=1.0
+2012-09-22 13:21:02.970+0000: Diagnostics providers:
+    org.neo4j.kernel.configuration.Config
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+2012-09-22 13:21:02.971+0000: System memory information:
+    Total Physical memory: 4,00 GB
+    Free Physical memory: 1,13 GB
+    Committed virtual memory: 286,82 MB
+    Total swap space: 4,00 GB
+    Free swap space: 4,00 GB
+2012-09-22 13:21:02.976+0000: JVM memory information:
+    Free  memory: 83,67 MB
+    Total memory: 193,31 MB
+    Max   memory: 494,94 MB
+    Garbage Collector: Copy: [Eden Space, Survivor Space]
+    Garbage Collector: MarkSweepCompact: [Eden Space, Survivor Space, Tenured Gen, Perm Gen, Perm Gen [shared-ro], Perm Gen [shared-rw]]
+    Memory Pool: Code Cache (Non-heap memory): committed=4,06 MB, used=4,06 MB, max=32,00 MB, threshold=0,00 B
+    Memory Pool: Eden Space (Heap memory): committed=53,44 MB, used=29,69 MB, max=136,50 MB, threshold=?
+    Memory Pool: Survivor Space (Heap memory): committed=6,63 MB, used=0,00 B, max=17,06 MB, threshold=?
+    Memory Pool: Tenured Gen (Heap memory): committed=133,25 MB, used=79,95 MB, max=341,38 MB, threshold=0,00 B
+    Memory Pool: Perm Gen (Non-heap memory): committed=20,50 MB, used=20,31 MB, max=64,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-ro] (Non-heap memory): committed=10,00 MB, used=5,17 MB, max=10,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-rw] (Non-heap memory): committed=12,00 MB, used=6,59 MB, max=12,00 MB, threshold=0,00 B
+2012-09-22 13:21:02.983+0000: Operating system information:
+    Operating System: Windows 7; version: 6.1; arch: x86; cpus: 2
+    Process id: 3528@Freibier
+    Byte order: LITTLE_ENDIAN
+2012-09-22 13:21:03.024+0000: JVM information:
+    VM Name: Java HotSpot(TM) Client VM
+    VM Vendor: Sun Microsystems Inc.
+    VM Version: 17.1-b03
+    JIT compiler: HotSpot Client Compiler
+    VM Arguments: [-Xmx512m, -Dfile.encoding=Cp1252]
+2012-09-22 13:21:03.026+0000: Java classpath:
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/raphaelgwt-1.0.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/classes/
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-community-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\charsets.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-jsr107cache-1.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-matching-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jsse.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\classes
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\rt.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\test-classes
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-cypher-1.7.2.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\neo4j-community-1.7.2\lib\geronimo-jta_1.1_spec-1.1.1.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-lucene-index-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-shell-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\resources.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-spring.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-orm.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-servlet.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jsr107cache-1.1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-kernel-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.hamcrest.core_1.1.0.v20090501071000.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/lucene-core-3.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-udc-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jce.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-1.0-sdk-1.5.0.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gxt.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/scala-library-2.9.0-1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/server-api-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-labs-1.5.0.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA-sources.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-incubator-20101117-r1766.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-servlet-2.0.4.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.junit_4.8.1.v4_8_1_v20100427-1100\junit.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gwt15patch.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\src
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-algo-1.7.2.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-dev.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/rapahel4gwt-0.34.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-user.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-jmx-1.7.2.jar
+2012-09-22 13:21:03.040+0000: Library path:
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    C:\Windows\Sun\Java\bin
+    C:\Windows\System32
+    C:\Windows
+    C:\Program Files (x86)\Java\jre6\bin\client
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Program Files (x86)\Java\jre6\lib\i386
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\libnvvp
+    C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+    C:\Windows\System32
+    C:\Windows
+    C:\Windows\System32\wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0
+    C:\Program Files\TortoiseSVN\bin
+    C:\xampp\php
+    C:\Program Files (x86)\NetBeans 7.1.2\java\maven\bin
+    C:\Program Files (x86)\Git\cmd
+    C:\Program Files (x86)\Java\jdk1.7.0_05\bin
+    C:\Users\Julian\Desktop\helios\eclipse
+2012-09-22 13:21:03.048+0000: System.properties:
+    sun.boot.library.path = C:\Program Files (x86)\Java\jre6\bin
+    path.separator = ;
+    file.encoding.pkg = sun.io
+    sun.java.launcher = SUN_STANDARD
+    user.country = DE
+    sun.os.patch.level = Service Pack 1
+    user.dir = C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    org.mortbay.log.class = com.google.gwt.dev.shell.jetty.JettyNullLogger
+    user.variant = 
+    sun.jnu.encoding = Cp1252
+    sun.management.compiler = HotSpot Client Compiler
+    user.home = C:\Users\Julian
+    user.timezone = Europe/Berlin
+    file.encoding = Cp1252
+    org.mortbay.xml.XmlParser.Validating = false
+    build.compiler = org.eclipse.jdt.core.JDTCompilerAdapter
+    user.name = Julian
+    sun.arch.data.model = 32
+    user.language = de
+    awt.toolkit = sun.awt.windows.WToolkit
+    file.separator = \
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = windows
+    sun.cpu.isalist = pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+2012-09-22 13:21:03.049+0000: --- STARTUP diagnostics END ---
+2012-09-22 13:21:03.147+0000: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2012-09-22 13:21:03.148+0000: Extension org.neo4j.kernel.KernelExtension[shell] loaded ok
+2012-09-22 13:21:03.178+0000: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok
+2012-09-22 13:21:03.187+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions START ---
+2012-09-22 13:21:03.187+0000: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1347880698604, id:4230156788471535349, store version: 13561656364791302]
+2012-09-22 13:21:03.188+0000: Kernel version: Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 13:21:03.188+0000: Neo4j component versions:
+2012-09-22 13:21:03.189+0000:   Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 13:21:03.189+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions END ---
+2012-09-22 13:21:03.193+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS START ---
+2012-09-22 13:21:03.195+0000: Store versions:
+    Store versions:
+      NeoStore v0.A.0
+      NodeStore v0.A.0
+      RelationshipStore v0.A.0
+      RelationshipTypeStore v0.A.0
+      PropertyStore v0.A.0
+      PropertyIndexStore v0.A.0
+      StringPropertyStore v0.A.0
+      ArrayPropertyStore v0.A.0
+2012-09-22 13:21:03.196+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS END ---
+2012-09-22 13:21:03.196+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE START ---
+2012-09-22 13:21:03.196+0000: Id usage:
+    Id usage:
+      NodeStore: used=22 high=21
+      RelationshipStore: used=78 high=77
+      RelationshipTypeStore: used=2 high=1
+      PropertyStore: used=101 high=100
+      PropertyIndexStore: used=44 high=43
+      StringPropertyStore: used=23 high=22
+      ArrayPropertyStore: used=1 high=0
+2012-09-22 13:21:03.197+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE END ---
+2012-09-22 13:21:03.197+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles START ---
+2012-09-22 13:21:03.198+0000: Storage files:
+    active_tx_log: 11,00 B
+    index:
+      lucene:
+        node:
+          nodes:
+            segments.gen: 20,00 B
+            segments_b: 1,89 kB
+            _a.fdt: 259,00 B
+            _a.fdx: 108,00 B
+            _a.fnm: 55,00 B
+            _a.frq: 26,00 B
+            _a.nrm: 69,00 B
+            _a.prx: 26,00 B
+            _a.tii: 35,00 B
+            _a.tis: 337,00 B
+            _b.fdt: 22,00 B
+            _b.fdx: 12,00 B
+            _b.fnm: 55,00 B
+            _b.frq: 2,00 B
+            _b.nrm: 9,00 B
+            _b.prx: 2,00 B
+            _b.tii: 35,00 B
+            _b.tis: 47,00 B
+            _c.fdt: 23,00 B
+            _c.fdx: 12,00 B
+            _c.fnm: 55,00 B
+            _c.frq: 2,00 B
+            _c.nrm: 9,00 B
+            _c.prx: 2,00 B
+            _c.tii: 35,00 B
+            _c.tis: 47,00 B
+            _d.fdt: 23,00 B
+            _d.fdx: 12,00 B
+            _d.fnm: 55,00 B
+            _d.frq: 2,00 B
+            _d.nrm: 9,00 B
+            _d.prx: 2,00 B
+            _d.tii: 35,00 B
+            _d.tis: 47,00 B
+            _e.fdt: 21,00 B
+            _e.fdx: 12,00 B
+            _e.fnm: 55,00 B
+            _e.frq: 2,00 B
+            _e.nrm: 9,00 B
+            _e.prx: 2,00 B
+            _e.tii: 35,00 B
+            _e.tis: 46,00 B
+            _f.fdt: 23,00 B
+            _f.fdx: 12,00 B
+            _f.fnm: 55,00 B
+            _f.frq: 2,00 B
+            _f.nrm: 9,00 B
+            _f.prx: 2,00 B
+            _f.tii: 35,00 B
+            _f.tis: 46,00 B
+            _g.fdt: 24,00 B
+            _g.fdx: 12,00 B
+            _g.fnm: 55,00 B
+            _g.frq: 2,00 B
+            _g.nrm: 9,00 B
+            _g.prx: 2,00 B
+            _g.tii: 35,00 B
+            _g.tis: 49,00 B
+            _h.cfs: 296,00 B
+            _i.cfs: 296,00 B
+            _i.fdt: 23,00 B
+            _i.fdx: 12,00 B
+          - Total: 4,50 kB
+        - Total: 4,50 kB
+        relationship:
+          rels:
+            segments.gen: 20,00 B
+            segments_c: 898,00 B
+            _k.fdt: 1,12 kB
+            _k.fdx: 180,00 B
+            _k.fnm: 53,00 B
+            _k.frq: 88,00 B
+            _k.nrm: 92,00 B
+            _k.prx: 88,00 B
+            _k.tii: 35,00 B
+            _k.tis: 1,07 kB
+            _l.cfs: 349,00 B
+            _m.cfs: 347,00 B
+            _n.cfs: 347,00 B
+            _n.fdt: 45,00 B
+            _n.fdx: 12,00 B
+          - Total: 4,68 kB
+        - Total: 4,68 kB
+      - Total: 9,18 kB
+      lucene-store.db: 40,00 B
+      lucene.log.1: 16,00 B
+      lucene.log.active: 4,00 B
+    - Total: 9,24 kB
+    index.db: 181,00 B
+    lock: 0,00 B
+    messages.log: 1,32 MB
+    neostore: 54,00 B
+    neostore.id: 9,00 B
+    neostore.nodestore.db: 8,19 kB
+    neostore.nodestore.db.id: 9,00 B
+    neostore.propertystore.db: 276,47 kB
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.propertystore.db.index: 10,24 kB
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db.index.keys: 3,01 kB
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    neostore.propertystore.db.strings: 23,50 kB
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.relationshipstore.db: 348,14 kB
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 10,00 B
+    neostore.relationshiptypestore.db.id: 9,00 B
+    neostore.relationshiptypestore.db.names: 114,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    nioneo_logical.log.1: 312,00 B
+    nioneo_logical.log.active: 4,00 B
+    tm_tx_log.1: 0,00 B
+2012-09-22 13:21:03.229+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles END ---
+2012-09-22 13:21:03.232+0000: Started - database is now available
+2012-09-22 13:21:03.257+0000: GC Monitor started. 
+2012-09-22 13:24:53.099+0000: GC Monitor: Application threads blocked for an additional 325ms [total block time: 0.325s]
+2012-09-22 13:28:16.131+0000: GC Monitor: Application threads blocked for an additional 450ms [total block time: 0.775s]
+2012-09-22 13:30:10.055+0000: GC Monitor: Application threads blocked for an additional 300ms [total block time: 1.075s]
+2012-09-22 13:51:00.223+0000: GC Monitor: Application threads blocked for an additional 395ms [total block time: 1.47s]
+2012-09-22 13:52:12.403+0000: GC Monitor: Application threads blocked for an additional 458ms [total block time: 1.928s]
+2012-09-22 13:52:15.123+0000: GC Monitor: Application threads blocked for an additional 443ms [total block time: 2.371s]
+2012-09-22 13:52:17.492+0000: GC Monitor: Application threads blocked for an additional 446ms [total block time: 2.817s]
+2012-09-22 14:06:03.145+0000: GC Monitor: Application threads blocked for an additional 584ms [total block time: 3.401s]
+2012-09-22 14:06:51.493+0000: GC Monitor: Application threads blocked for an additional 547ms [total block time: 3.948s]
+2012-09-22 14:06:55.316+0000: GC Monitor: Application threads blocked for an additional 783ms [total block time: 4.731s]
+2012-09-22 14:08:25.004+0000: GC Monitor: Application threads blocked for an additional 178ms [total block time: 4.909s]
+2012-09-22 14:08:54.370+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-22 14:08:54.386+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-22 14:08:54.389+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-22 14:08:54.392+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-22 14:08:54.394+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index non clean shutdown detected
+2012-09-22 14:08:54.397+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-22 14:08:54.434+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db non clean shutdown detected
+2012-09-22 14:08:54.448+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db non clean shutdown detected
+2012-09-22 14:08:54.451+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db non clean shutdown detected
+2012-09-22 14:08:54.456+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore non clean shutdown detected
+2012-09-22 14:08:54.511+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1]. Recovery started ...
+2012-09-22 14:08:54.516+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] logVersion=12 with committed tx=73
+2012-09-22 14:08:54.607+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] entries found=62 lastEntryPos=3324
+2012-09-22 14:08:54.608+0000: Internal recovery completed, scanned 62 log entries. Recovered 5 transactions. Last tx recovered: 78
+2012-09-22 14:08:54.608+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] sorting 1 xids
+2012-09-22 14:08:54.616+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] checkRecoveryComplete 0 xids
+2012-09-22 14:08:54.917+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names rebuild id generator, highId=3 defragged count=0
+2012-09-22 14:08:55.278+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys rebuild id generator, highId=62 defragged count=0
+2012-09-22 14:08:55.659+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index rebuild id generator, highId=47 defragged count=0
+2012-09-22 14:08:55.776+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings rebuild id generator, highId=23 defragged count=0
+2012-09-22 14:08:55.883+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays rebuild id generator, highId=1 defragged count=0
+2012-09-22 14:08:56.140+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db rebuild id generator, highId=117 defragged count=0
+2012-09-22 14:08:56.471+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db rebuild id generator, highId=82 defragged count=0
+2012-09-22 14:08:56.600+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db rebuild id generator, highId=25 defragged count=0
+2012-09-22 14:08:56.704+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore rebuild id generator, highId=6 defragged count=0
+2012-09-22 14:08:56.781+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] recovery completed.
+2012-09-22 14:08:56.782+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] completed.
+2012-09-22 14:08:56.798+0000: TM opening log: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 14:08:56.845+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1]. Recovery started ...
+2012-09-22 14:08:56.846+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] logVersion=12 with committed tx=26
+2012-09-22 14:08:57.715+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] entries found=17 lastEntryPos=892
+2012-09-22 14:08:57.716+0000: Internal recovery completed, scanned 17 log entries. Recovered 3 transactions. Last tx recovered: 29
+2012-09-22 14:08:57.716+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] sorting 1 xids
+2012-09-22 14:08:57.717+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] checkRecoveryComplete 0 xids
+2012-09-22 14:08:57.717+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] recovery completed.
+2012-09-22 14:08:57.717+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] completed.
+2012-09-22 14:08:57.720+0000: --- STARTUP diagnostics START ---
+2012-09-22 14:08:57.722+0000: Neo4j Kernel properties:
+    store_dir=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3
+    remote_logging_host=127.0.0.1
+    read_only=false
+    neo4j.ext.udc.host=udc.neo4j.org
+    logical_log=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log
+    remote_logging_port=4560
+    gc_monitor_threshold=200ms
+    load_kernel_extensions=true
+    array_block_size=120
+    intercept_committing_transactions=false
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=37M
+    remote_shell_name=shell
+    dump_configuration=false
+    gc_monitor_wait_time=100ms
+    cache_type=soft
+    intercept_deserialized_transactions=false
+    neostore.nodestore.db.mapped_memory=8M
+    neo4j.ext.udc.first_delay=600000
+    remote_shell_enabled=false
+    neo4j.ext.udc.reg=unreg
+    remote_shell_port=1337
+    lucene_searcher_cache_size=2147483647
+    neo4j.ext.udc.interval=86400000
+    use_memory_mapped_buffers=false
+    rebuild_idgenerators_fast=true
+    ephemeral=false
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=29M
+    neostore.propertystore.db.strings.mapped_memory=25M
+    neo_store=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    backup_slave=false
+    neostore.propertystore.db.mapped_memory=30M
+    gcr_cache_min_log_interval=60s
+    relationship_auto_indexing=false
+    relationship_grab_size=100
+    string_block_size=120
+    remote_shell_read_only=false
+    grab_file_lock=true
+    node_cache_array_fraction=1.0
+    remote_logging_enabled=false
+    allow_store_upgrade=false
+    execution_guard_enabled=false
+    neo4j.ext.udc.enabled=true
+    relationship_cache_array_fraction=1.0
+2012-09-22 14:08:57.727+0000: Diagnostics providers:
+    org.neo4j.kernel.configuration.Config
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+2012-09-22 14:08:57.728+0000: System memory information:
+    Total Physical memory: 4,00 GB
+    Free Physical memory: 1,18 GB
+    Committed virtual memory: 288,92 MB
+    Total swap space: 4,00 GB
+    Free swap space: 4,00 GB
+2012-09-22 14:08:57.731+0000: JVM memory information:
+    Free  memory: 104,94 MB
+    Total memory: 193,74 MB
+    Max   memory: 494,94 MB
+    Garbage Collector: Copy: [Eden Space, Survivor Space]
+    Garbage Collector: MarkSweepCompact: [Eden Space, Survivor Space, Tenured Gen, Perm Gen, Perm Gen [shared-ro], Perm Gen [shared-rw]]
+    Memory Pool: Code Cache (Non-heap memory): committed=3,91 MB, used=3,83 MB, max=32,00 MB, threshold=0,00 B
+    Memory Pool: Eden Space (Heap memory): committed=53,56 MB, used=8,67 MB, max=136,50 MB, threshold=?
+    Memory Pool: Survivor Space (Heap memory): committed=6,63 MB, used=0,00 B, max=17,06 MB, threshold=?
+    Memory Pool: Tenured Gen (Heap memory): committed=133,55 MB, used=80,13 MB, max=341,38 MB, threshold=0,00 B
+    Memory Pool: Perm Gen (Non-heap memory): committed=21,75 MB, used=21,68 MB, max=64,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-ro] (Non-heap memory): committed=10,00 MB, used=5,17 MB, max=10,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-rw] (Non-heap memory): committed=12,00 MB, used=6,59 MB, max=12,00 MB, threshold=0,00 B
+2012-09-22 14:08:57.735+0000: Operating system information:
+    Operating System: Windows 7; version: 6.1; arch: x86; cpus: 2
+    Process id: 4556@Freibier
+    Byte order: LITTLE_ENDIAN
+2012-09-22 14:08:57.738+0000: JVM information:
+    VM Name: Java HotSpot(TM) Client VM
+    VM Vendor: Sun Microsystems Inc.
+    VM Version: 17.1-b03
+    JIT compiler: HotSpot Client Compiler
+    VM Arguments: [-Xmx512m, -Dfile.encoding=Cp1252]
+2012-09-22 14:08:57.738+0000: Java classpath:
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/raphaelgwt-1.0.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/classes/
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-community-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\charsets.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-jsr107cache-1.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-matching-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jsse.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\classes
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\rt.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\test-classes
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-cypher-1.7.2.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\neo4j-community-1.7.2\lib\geronimo-jta_1.1_spec-1.1.1.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-lucene-index-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-shell-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\resources.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-spring.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-orm.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-servlet.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jsr107cache-1.1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-kernel-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.hamcrest.core_1.1.0.v20090501071000.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/lucene-core-3.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-udc-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jce.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-1.0-sdk-1.5.0.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gxt.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/scala-library-2.9.0-1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/server-api-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-labs-1.5.0.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA-sources.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-incubator-20101117-r1766.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-servlet-2.0.4.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.junit_4.8.1.v4_8_1_v20100427-1100\junit.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gwt15patch.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\src
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-algo-1.7.2.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-dev.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/rapahel4gwt-0.34.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-user.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-jmx-1.7.2.jar
+2012-09-22 14:08:57.750+0000: Library path:
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    C:\Windows\Sun\Java\bin
+    C:\Windows\System32
+    C:\Windows
+    C:\Program Files (x86)\Java\jre6\bin\client
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Program Files (x86)\Java\jre6\lib\i386
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\libnvvp
+    C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+    C:\Windows\System32
+    C:\Windows
+    C:\Windows\System32\wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0
+    C:\Program Files\TortoiseSVN\bin
+    C:\xampp\php
+    C:\Program Files (x86)\NetBeans 7.1.2\java\maven\bin
+    C:\Program Files (x86)\Git\cmd
+    C:\Program Files (x86)\Java\jdk1.7.0_05\bin
+    C:\Users\Julian\Desktop\helios\eclipse
+2012-09-22 14:08:57.756+0000: System.properties:
+    sun.boot.library.path = C:\Program Files (x86)\Java\jre6\bin
+    path.separator = ;
+    file.encoding.pkg = sun.io
+    sun.java.launcher = SUN_STANDARD
+    user.country = DE
+    sun.os.patch.level = Service Pack 1
+    user.dir = C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    org.mortbay.log.class = com.google.gwt.dev.shell.jetty.JettyNullLogger
+    user.variant = 
+    sun.jnu.encoding = Cp1252
+    sun.management.compiler = HotSpot Client Compiler
+    user.home = C:\Users\Julian
+    user.timezone = Europe/Berlin
+    file.encoding = Cp1252
+    org.mortbay.xml.XmlParser.Validating = false
+    build.compiler = org.eclipse.jdt.core.JDTCompilerAdapter
+    user.name = Julian
+    sun.arch.data.model = 32
+    user.language = de
+    awt.toolkit = sun.awt.windows.WToolkit
+    file.separator = \
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = windows
+    sun.cpu.isalist = pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+2012-09-22 14:08:57.757+0000: --- STARTUP diagnostics END ---
+2012-09-22 14:08:57.759+0000: TM non resolved transactions found in C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 14:08:57.856+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1] @ version=12 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2 from position 3329
+2012-09-22 14:08:57.957+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 14:08:58.006+0000: Log rotated, newLog @ pos=16, version 13 and last tx 78
+2012-09-22 14:08:58.496+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1] @ version=12 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2 from position 897
+2012-09-22 14:08:58.860+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 14:08:59.028+0000: Log rotated, newLog @ pos=16, version 13 and last tx 29
+2012-09-22 14:08:59.029+0000: Recovery completed, all transactions have been resolved to a consistent state.
+2012-09-22 14:08:59.090+0000: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2012-09-22 14:08:59.092+0000: Extension org.neo4j.kernel.KernelExtension[shell] loaded ok
+2012-09-22 14:08:59.112+0000: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok
+2012-09-22 14:08:59.117+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions START ---
+2012-09-22 14:08:59.117+0000: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1347880698604, id:4230156788471535349, store version: 13561656364791302]
+2012-09-22 14:08:59.117+0000: Kernel version: Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:08:59.117+0000: Neo4j component versions:
+2012-09-22 14:08:59.118+0000:   Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:08:59.118+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions END ---
+2012-09-22 14:08:59.121+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS START ---
+2012-09-22 14:08:59.121+0000: Store versions:
+    Store versions:
+      NeoStore v0.A.0
+      NodeStore v0.A.0
+      RelationshipStore v0.A.0
+      RelationshipTypeStore v0.A.0
+      PropertyStore v0.A.0
+      PropertyIndexStore v0.A.0
+      StringPropertyStore v0.A.0
+      ArrayPropertyStore v0.A.0
+2012-09-22 14:08:59.122+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS END ---
+2012-09-22 14:08:59.122+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE START ---
+2012-09-22 14:08:59.122+0000: Id usage:
+    Id usage:
+      NodeStore: used=25 high=24
+      RelationshipStore: used=82 high=81
+      RelationshipTypeStore: used=2 high=1
+      PropertyStore: used=117 high=116
+      PropertyIndexStore: used=47 high=46
+      StringPropertyStore: used=23 high=22
+      ArrayPropertyStore: used=1 high=0
+2012-09-22 14:08:59.122+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE END ---
+2012-09-22 14:08:59.123+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles START ---
+2012-09-22 14:08:59.123+0000: Storage files:
+    active_tx_log: 11,00 B
+    index:
+      lucene:
+        node:
+          nodes:
+            segments.gen: 20,00 B
+            segments_c: 691,00 B
+            write.lock: 0,00 B
+            _a.fdt: 259,00 B
+            _a.fdx: 108,00 B
+            _a.frq: 26,00 B
+            _a.nrm: 69,00 B
+            _a.prx: 26,00 B
+            _a.tis: 337,00 B
+            _b.fdt: 22,00 B
+            _b.fdx: 12,00 B
+            _b.frq: 2,00 B
+            _b.nrm: 9,00 B
+            _b.prx: 2,00 B
+            _b.tis: 47,00 B
+            _c.fdt: 23,00 B
+            _c.fdx: 12,00 B
+            _c.frq: 2,00 B
+            _c.nrm: 9,00 B
+            _c.prx: 2,00 B
+            _c.tis: 47,00 B
+            _d.fdt: 23,00 B
+            _d.fdx: 12,00 B
+            _d.frq: 2,00 B
+            _d.nrm: 9,00 B
+            _d.prx: 2,00 B
+            _d.tis: 47,00 B
+            _e.fdt: 21,00 B
+            _e.fdx: 12,00 B
+            _e.frq: 2,00 B
+            _e.nrm: 9,00 B
+            _e.prx: 2,00 B
+            _e.tis: 46,00 B
+            _f.fdt: 23,00 B
+            _f.fdx: 12,00 B
+            _f.frq: 2,00 B
+            _f.nrm: 9,00 B
+            _f.prx: 2,00 B
+            _f.tis: 46,00 B
+            _g.fdt: 24,00 B
+            _g.fdx: 12,00 B
+            _g.frq: 2,00 B
+            _g.nrm: 9,00 B
+            _g.prx: 2,00 B
+            _g.tis: 49,00 B
+            _h.cfs: 296,00 B
+            _i.cfs: 296,00 B
+            _j.cfs: 296,00 B
+            _k.fdt: 428,00 B
+            _k.fdx: 180,00 B
+            _k.fnm: 55,00 B
+            _k.frq: 44,00 B
+            _k.nrm: 114,00 B
+            _k.prx: 44,00 B
+            _k.tii: 35,00 B
+            _k.tis: 534,00 B
+            _l.cfs: 296,00 B
+            _l.fdt: 23,00 B
+            _l.fdx: 12,00 B
+            _l.fnm: 55,00 B
+            _l.frq: 2,00 B
+            _l.nrm: 9,00 B
+            _l.prx: 2,00 B
+            _l.tii: 35,00 B
+            _l.tis: 48,00 B
+            _m.fdt: 22,00 B
+            _m.fdx: 12,00 B
+            _m.fnm: 55,00 B
+            _m.frq: 2,00 B
+            _m.nrm: 9,00 B
+            _m.prx: 2,00 B
+            _m.tii: 35,00 B
+            _m.tis: 47,00 B
+          - Total: 4,97 kB
+        - Total: 4,97 kB
+        relationship:
+          rels:
+            segments.gen: 20,00 B
+            segments_d: 1,48 kB
+            write.lock: 0,00 B
+            _k.fdt: 1,12 kB
+            _k.fdx: 180,00 B
+            _k.fnm: 53,00 B
+            _k.frq: 88,00 B
+            _k.nrm: 92,00 B
+            _k.prx: 88,00 B
+            _k.tii: 35,00 B
+            _k.tis: 1,07 kB
+            _l.cfs: 349,00 B
+            _m.cfs: 347,00 B
+            _n.cfs: 347,00 B
+            _o.cfs: 347,00 B
+            _p.cfs: 347,00 B
+            _q.cfs: 345,00 B
+          - Total: 6,25 kB
+        - Total: 6,25 kB
+      - Total: 11,22 kB
+      lucene-store.db: 40,00 B
+      lucene.log.2: 16,00 B
+      lucene.log.active: 4,00 B
+    - Total: 11,28 kB
+    index.db: 181,00 B
+    lock: 0,00 B
+    messages.log: 1,35 MB
+    neostore: 54,00 B
+    neostore.id: 9,00 B
+    neostore.nodestore.db: 8,19 kB
+    neostore.nodestore.db.id: 9,00 B
+    neostore.propertystore.db: 276,47 kB
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.propertystore.db.index: 10,24 kB
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db.index.keys: 3,01 kB
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    neostore.propertystore.db.strings: 23,50 kB
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.relationshipstore.db: 348,14 kB
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 10,00 B
+    neostore.relationshiptypestore.db.id: 9,00 B
+    neostore.relationshiptypestore.db.names: 114,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    nioneo_logical.log.2: 16,00 B
+    nioneo_logical.log.active: 4,00 B
+    tm_tx_log.1: 0,00 B
+2012-09-22 14:08:59.147+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles END ---
+2012-09-22 14:08:59.149+0000: Started - database is now available
+2012-09-22 14:08:59.153+0000: GC Monitor started. 
+2012-09-22 14:11:31.169+0000: GC Monitor: Application threads blocked for an additional 363ms [total block time: 0.363s]
+2012-09-22 14:14:31.484+0000: GC Monitor: Application threads blocked for an additional 392ms [total block time: 0.755s]
+2012-09-22 14:14:34.129+0000: GC Monitor: Application threads blocked for an additional 458ms [total block time: 1.213s]
+2012-09-22 14:14:36.459+0000: GC Monitor: Application threads blocked for an additional 490ms [total block time: 1.703s]
+2012-09-22 14:14:39.544+0000: GC Monitor: Application threads blocked for an additional 530ms [total block time: 2.233s]
+2012-09-22 14:21:21.108+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-22 14:21:21.124+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-22 14:21:21.126+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-22 14:21:21.127+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-22 14:21:21.131+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index non clean shutdown detected
+2012-09-22 14:21:21.134+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-22 14:21:21.151+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db non clean shutdown detected
+2012-09-22 14:21:21.157+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db non clean shutdown detected
+2012-09-22 14:21:21.166+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db non clean shutdown detected
+2012-09-22 14:21:21.173+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore non clean shutdown detected
+2012-09-22 14:21:21.205+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2]. Recovery started ...
+2012-09-22 14:21:21.213+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] logVersion=13 with committed tx=78
+2012-09-22 14:21:21.233+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] entries found=6 lastEntryPos=307
+2012-09-22 14:21:21.234+0000: Internal recovery completed, scanned 6 log entries. Recovered 1 transactions. Last tx recovered: 79
+2012-09-22 14:21:21.234+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] sorting 1 xids
+2012-09-22 14:21:21.236+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] checkRecoveryComplete 0 xids
+2012-09-22 14:21:21.919+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names rebuild id generator, highId=3 defragged count=0
+2012-09-22 14:21:22.247+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys rebuild id generator, highId=62 defragged count=0
+2012-09-22 14:21:22.378+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index rebuild id generator, highId=47 defragged count=0
+2012-09-22 14:21:22.488+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings rebuild id generator, highId=23 defragged count=0
+2012-09-22 14:21:22.596+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays rebuild id generator, highId=1 defragged count=0
+2012-09-22 14:21:22.806+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db rebuild id generator, highId=117 defragged count=0
+2012-09-22 14:21:23.060+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db rebuild id generator, highId=83 defragged count=0
+2012-09-22 14:21:23.207+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db rebuild id generator, highId=25 defragged count=0
+2012-09-22 14:21:23.320+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore rebuild id generator, highId=6 defragged count=0
+2012-09-22 14:21:23.563+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] recovery completed.
+2012-09-22 14:21:23.563+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] completed.
+2012-09-22 14:21:23.578+0000: TM opening log: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 14:21:23.624+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2]. Recovery started ...
+2012-09-22 14:21:23.624+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] logVersion=13 with committed tx=29
+2012-09-22 14:21:23.625+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] entries found=0 lastEntryPos=16
+2012-09-22 14:21:23.625+0000: Internal recovery completed, scanned 0 log entries. Recovered 0 transactions. Last tx recovered: -1
+2012-09-22 14:21:23.625+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] sorting 0 xids
+2012-09-22 14:21:23.626+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] checkRecoveryComplete 0 xids
+2012-09-22 14:21:23.626+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] recovery completed.
+2012-09-22 14:21:23.626+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] completed.
+2012-09-22 14:21:23.628+0000: --- STARTUP diagnostics START ---
+2012-09-22 14:21:23.630+0000: Neo4j Kernel properties:
+    store_dir=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3
+    remote_logging_host=127.0.0.1
+    read_only=false
+    neo4j.ext.udc.host=udc.neo4j.org
+    logical_log=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log
+    remote_logging_port=4560
+    gc_monitor_threshold=200ms
+    load_kernel_extensions=true
+    array_block_size=120
+    intercept_committing_transactions=false
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=37M
+    remote_shell_name=shell
+    dump_configuration=false
+    gc_monitor_wait_time=100ms
+    cache_type=soft
+    intercept_deserialized_transactions=false
+    neostore.nodestore.db.mapped_memory=8M
+    neo4j.ext.udc.first_delay=600000
+    remote_shell_enabled=false
+    neo4j.ext.udc.reg=unreg
+    remote_shell_port=1337
+    lucene_searcher_cache_size=2147483647
+    neo4j.ext.udc.interval=86400000
+    use_memory_mapped_buffers=false
+    rebuild_idgenerators_fast=true
+    ephemeral=false
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=29M
+    neostore.propertystore.db.strings.mapped_memory=25M
+    neo_store=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    backup_slave=false
+    neostore.propertystore.db.mapped_memory=30M
+    gcr_cache_min_log_interval=60s
+    relationship_auto_indexing=false
+    relationship_grab_size=100
+    string_block_size=120
+    remote_shell_read_only=false
+    grab_file_lock=true
+    node_cache_array_fraction=1.0
+    remote_logging_enabled=false
+    allow_store_upgrade=false
+    execution_guard_enabled=false
+    neo4j.ext.udc.enabled=true
+    relationship_cache_array_fraction=1.0
+2012-09-22 14:21:23.634+0000: Diagnostics providers:
+    org.neo4j.kernel.configuration.Config
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+2012-09-22 14:21:23.635+0000: System memory information:
+    Total Physical memory: 4,00 GB
+    Free Physical memory: 1,17 GB
+    Committed virtual memory: 298,73 MB
+    Total swap space: 4,00 GB
+    Free swap space: 4,00 GB
+2012-09-22 14:21:23.654+0000: JVM memory information:
+    Free  memory: 117,17 MB
+    Total memory: 203,64 MB
+    Max   memory: 494,94 MB
+    Garbage Collector: Copy: [Eden Space, Survivor Space]
+    Garbage Collector: MarkSweepCompact: [Eden Space, Survivor Space, Tenured Gen, Perm Gen, Perm Gen [shared-ro], Perm Gen [shared-rw]]
+    Memory Pool: Code Cache (Non-heap memory): committed=4,22 MB, used=4,20 MB, max=32,00 MB, threshold=0,00 B
+    Memory Pool: Eden Space (Heap memory): committed=56,25 MB, used=651,73 kB, max=136,50 MB, threshold=?
+    Memory Pool: Survivor Space (Heap memory): committed=7,00 MB, used=1,60 MB, max=17,06 MB, threshold=?
+    Memory Pool: Tenured Gen (Heap memory): committed=140,39 MB, used=84,23 MB, max=341,38 MB, threshold=0,00 B
+    Memory Pool: Perm Gen (Non-heap memory): committed=20,50 MB, used=20,31 MB, max=64,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-ro] (Non-heap memory): committed=10,00 MB, used=5,17 MB, max=10,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-rw] (Non-heap memory): committed=12,00 MB, used=6,59 MB, max=12,00 MB, threshold=0,00 B
+2012-09-22 14:21:23.659+0000: Operating system information:
+    Operating System: Windows 7; version: 6.1; arch: x86; cpus: 2
+    Process id: 4128@Freibier
+    Byte order: LITTLE_ENDIAN
+2012-09-22 14:21:23.661+0000: JVM information:
+    VM Name: Java HotSpot(TM) Client VM
+    VM Vendor: Sun Microsystems Inc.
+    VM Version: 17.1-b03
+    JIT compiler: HotSpot Client Compiler
+    VM Arguments: [-Xmx512m, -Dfile.encoding=Cp1252]
+2012-09-22 14:21:23.661+0000: Java classpath:
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/raphaelgwt-1.0.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/classes/
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-community-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\charsets.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-jsr107cache-1.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-matching-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jsse.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\classes
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\rt.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\test-classes
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-cypher-1.7.2.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\neo4j-community-1.7.2\lib\geronimo-jta_1.1_spec-1.1.1.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-lucene-index-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-shell-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\resources.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-spring.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-orm.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-servlet.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jsr107cache-1.1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-kernel-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.hamcrest.core_1.1.0.v20090501071000.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/lucene-core-3.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-udc-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jce.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-1.0-sdk-1.5.0.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gxt.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/scala-library-2.9.0-1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/server-api-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-labs-1.5.0.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA-sources.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-incubator-20101117-r1766.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-servlet-2.0.4.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.junit_4.8.1.v4_8_1_v20100427-1100\junit.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gwt15patch.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\src
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-algo-1.7.2.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-dev.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/rapahel4gwt-0.34.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-user.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-jmx-1.7.2.jar
+2012-09-22 14:21:23.671+0000: Library path:
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    C:\Windows\Sun\Java\bin
+    C:\Windows\System32
+    C:\Windows
+    C:\Program Files (x86)\Java\jre6\bin\client
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Program Files (x86)\Java\jre6\lib\i386
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\libnvvp
+    C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+    C:\Windows\System32
+    C:\Windows
+    C:\Windows\System32\wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0
+    C:\Program Files\TortoiseSVN\bin
+    C:\xampp\php
+    C:\Program Files (x86)\NetBeans 7.1.2\java\maven\bin
+    C:\Program Files (x86)\Git\cmd
+    C:\Program Files (x86)\Java\jdk1.7.0_05\bin
+    C:\Users\Julian\Desktop\helios\eclipse
+2012-09-22 14:21:23.675+0000: System.properties:
+    sun.boot.library.path = C:\Program Files (x86)\Java\jre6\bin
+    path.separator = ;
+    file.encoding.pkg = sun.io
+    sun.java.launcher = SUN_STANDARD
+    user.country = DE
+    sun.os.patch.level = Service Pack 1
+    user.dir = C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    org.mortbay.log.class = com.google.gwt.dev.shell.jetty.JettyNullLogger
+    user.variant = 
+    sun.jnu.encoding = Cp1252
+    sun.management.compiler = HotSpot Client Compiler
+    user.home = C:\Users\Julian
+    user.timezone = Europe/Berlin
+    file.encoding = Cp1252
+    org.mortbay.xml.XmlParser.Validating = false
+    build.compiler = org.eclipse.jdt.core.JDTCompilerAdapter
+    user.name = Julian
+    sun.arch.data.model = 32
+    user.language = de
+    awt.toolkit = sun.awt.windows.WToolkit
+    file.separator = \
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = windows
+    sun.cpu.isalist = pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+2012-09-22 14:21:23.676+0000: --- STARTUP diagnostics END ---
+2012-09-22 14:21:24.178+0000: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2012-09-22 14:21:24.179+0000: Extension org.neo4j.kernel.KernelExtension[shell] loaded ok
+2012-09-22 14:21:24.205+0000: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok
+2012-09-22 14:21:24.210+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions START ---
+2012-09-22 14:21:24.211+0000: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1347880698604, id:4230156788471535349, store version: 13561656364791302]
+2012-09-22 14:21:24.211+0000: Kernel version: Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:21:24.211+0000: Neo4j component versions:
+2012-09-22 14:21:24.212+0000:   Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:21:24.213+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions END ---
+2012-09-22 14:21:24.216+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS START ---
+2012-09-22 14:21:24.216+0000: Store versions:
+    Store versions:
+      NeoStore v0.A.0
+      NodeStore v0.A.0
+      RelationshipStore v0.A.0
+      RelationshipTypeStore v0.A.0
+      PropertyStore v0.A.0
+      PropertyIndexStore v0.A.0
+      StringPropertyStore v0.A.0
+      ArrayPropertyStore v0.A.0
+2012-09-22 14:21:24.217+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS END ---
+2012-09-22 14:21:24.218+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE START ---
+2012-09-22 14:21:24.218+0000: Id usage:
+    Id usage:
+      NodeStore: used=25 high=24
+      RelationshipStore: used=83 high=82
+      RelationshipTypeStore: used=2 high=1
+      PropertyStore: used=117 high=116
+      PropertyIndexStore: used=47 high=46
+      StringPropertyStore: used=23 high=22
+      ArrayPropertyStore: used=1 high=0
+2012-09-22 14:21:24.219+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE END ---
+2012-09-22 14:21:24.219+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles START ---
+2012-09-22 14:21:24.219+0000: Storage files:
+    active_tx_log: 11,00 B
+    index:
+      lucene:
+        node:
+          nodes:
+            segments.gen: 20,00 B
+            segments_c: 691,00 B
+            _k.fdt: 428,00 B
+            _k.fdx: 180,00 B
+            _k.fnm: 55,00 B
+            _k.frq: 44,00 B
+            _k.nrm: 114,00 B
+            _k.prx: 44,00 B
+            _k.tii: 35,00 B
+            _k.tis: 534,00 B
+            _l.cfs: 296,00 B
+            _l.fdt: 23,00 B
+            _l.fdx: 12,00 B
+            _l.fnm: 55,00 B
+            _l.frq: 2,00 B
+            _l.nrm: 9,00 B
+            _l.prx: 2,00 B
+            _l.tii: 35,00 B
+            _l.tis: 48,00 B
+            _m.fdt: 22,00 B
+            _m.fdx: 12,00 B
+            _m.fnm: 55,00 B
+            _m.frq: 2,00 B
+            _m.nrm: 9,00 B
+            _m.prx: 2,00 B
+            _m.tii: 35,00 B
+            _m.tis: 47,00 B
+          - Total: 2,75 kB
+        - Total: 2,75 kB
+        relationship:
+          rels:
+            segments.gen: 20,00 B
+            segments_d: 1,48 kB
+            _k.fdt: 1,12 kB
+            _k.fdx: 180,00 B
+            _k.fnm: 53,00 B
+            _k.frq: 88,00 B
+            _k.nrm: 92,00 B
+            _k.prx: 88,00 B
+            _k.tii: 35,00 B
+            _k.tis: 1,07 kB
+            _l.cfs: 349,00 B
+            _m.cfs: 347,00 B
+            _n.cfs: 347,00 B
+            _o.cfs: 347,00 B
+            _p.cfs: 347,00 B
+            _q.cfs: 345,00 B
+          - Total: 6,25 kB
+        - Total: 6,25 kB
+      - Total: 8,99 kB
+      lucene-store.db: 40,00 B
+      lucene.log.2: 16,00 B
+      lucene.log.active: 4,00 B
+    - Total: 9,05 kB
+    index.db: 181,00 B
+    lock: 0,00 B
+    messages.log: 1,37 MB
+    neostore: 54,00 B
+    neostore.id: 9,00 B
+    neostore.nodestore.db: 8,19 kB
+    neostore.nodestore.db.id: 9,00 B
+    neostore.propertystore.db: 276,47 kB
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.propertystore.db.index: 10,24 kB
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db.index.keys: 3,01 kB
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    neostore.propertystore.db.strings: 23,50 kB
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.relationshipstore.db: 348,14 kB
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 10,00 B
+    neostore.relationshiptypestore.db.id: 9,00 B
+    neostore.relationshiptypestore.db.names: 114,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    nioneo_logical.log.2: 312,00 B
+    nioneo_logical.log.active: 4,00 B
+    tm_tx_log.1: 0,00 B
+2012-09-22 14:28:42.459+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names non clean shutdown detected
+2012-09-22 14:28:42.478+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db non clean shutdown detected
+2012-09-22 14:28:42.480+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings non clean shutdown detected
+2012-09-22 14:28:42.481+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys non clean shutdown detected
+2012-09-22 14:28:42.484+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index non clean shutdown detected
+2012-09-22 14:28:42.487+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays non clean shutdown detected
+2012-09-22 14:28:42.503+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db non clean shutdown detected
+2012-09-22 14:28:42.511+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db non clean shutdown detected
+2012-09-22 14:28:42.514+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db non clean shutdown detected
+2012-09-22 14:28:42.522+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore non clean shutdown detected
+2012-09-22 14:28:42.555+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2]. Recovery started ...
+2012-09-22 14:28:42.561+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] logVersion=13 with committed tx=78
+2012-09-22 14:28:42.625+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] entries found=87 lastEntryPos=4730
+2012-09-22 14:28:42.627+0000: Internal recovery completed, scanned 87 log entries. Recovered 7 transactions. Last tx recovered: 85
+2012-09-22 14:28:42.627+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] sorting 1 xids
+2012-09-22 14:28:42.629+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] checkRecoveryComplete 0 xids
+2012-09-22 14:28:43.075+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshiptypestore.db.names rebuild id generator, highId=3 defragged count=0
+2012-09-22 14:28:43.468+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index.keys rebuild id generator, highId=66 defragged count=0
+2012-09-22 14:28:43.656+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.index rebuild id generator, highId=51 defragged count=0
+2012-09-22 14:28:43.794+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.strings rebuild id generator, highId=23 defragged count=0
+2012-09-22 14:28:43.912+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db.arrays rebuild id generator, highId=1 defragged count=0
+2012-09-22 14:28:44.105+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.propertystore.db rebuild id generator, highId=140 defragged count=0
+2012-09-22 14:28:44.337+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.relationshipstore.db rebuild id generator, highId=88 defragged count=0
+2012-09-22 14:28:44.460+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore.nodestore.db rebuild id generator, highId=29 defragged count=0
+2012-09-22 14:28:44.587+0000: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore rebuild id generator, highId=6 defragged count=0
+2012-09-22 14:28:44.653+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log] recovery completed.
+2012-09-22 14:28:44.653+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] completed.
+2012-09-22 14:28:44.663+0000: TM opening log: C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 14:28:44.694+0000: Non clean shutdown detected on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2]. Recovery started ...
+2012-09-22 14:28:44.694+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] logVersion=13 with committed tx=29
+2012-09-22 14:28:45.136+0000: [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] entries found=23 lastEntryPos=1195
+2012-09-22 14:28:45.137+0000: Internal recovery completed, scanned 23 log entries. Recovered 4 transactions. Last tx recovered: 33
+2012-09-22 14:28:45.137+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] sorting 1 xids
+2012-09-22 14:28:45.137+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] checkRecoveryComplete 0 xids
+2012-09-22 14:28:45.137+0000: XaResourceManager[C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log] recovery completed.
+2012-09-22 14:28:45.138+0000: Recovery on log [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] completed.
+2012-09-22 14:28:45.141+0000: --- STARTUP diagnostics START ---
+2012-09-22 14:28:45.142+0000: Neo4j Kernel properties:
+    store_dir=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3
+    remote_logging_host=127.0.0.1
+    read_only=false
+    neo4j.ext.udc.host=udc.neo4j.org
+    logical_log=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log
+    remote_logging_port=4560
+    gc_monitor_threshold=200ms
+    load_kernel_extensions=true
+    array_block_size=120
+    intercept_committing_transactions=false
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=37M
+    remote_shell_name=shell
+    dump_configuration=false
+    gc_monitor_wait_time=100ms
+    cache_type=soft
+    intercept_deserialized_transactions=false
+    neostore.nodestore.db.mapped_memory=8M
+    neo4j.ext.udc.first_delay=600000
+    remote_shell_enabled=false
+    neo4j.ext.udc.reg=unreg
+    remote_shell_port=1337
+    lucene_searcher_cache_size=2147483647
+    neo4j.ext.udc.interval=86400000
+    use_memory_mapped_buffers=false
+    rebuild_idgenerators_fast=true
+    ephemeral=false
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=29M
+    neostore.propertystore.db.strings.mapped_memory=25M
+    neo_store=C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    backup_slave=false
+    neostore.propertystore.db.mapped_memory=30M
+    gcr_cache_min_log_interval=60s
+    relationship_auto_indexing=false
+    relationship_grab_size=100
+    string_block_size=120
+    remote_shell_read_only=false
+    grab_file_lock=true
+    node_cache_array_fraction=1.0
+    remote_logging_enabled=false
+    allow_store_upgrade=false
+    execution_guard_enabled=false
+    neo4j.ext.udc.enabled=true
+    relationship_cache_array_fraction=1.0
+2012-09-22 14:28:45.160+0000: Diagnostics providers:
+    org.neo4j.kernel.configuration.Config
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+2012-09-22 14:28:45.161+0000: System memory information:
+    Total Physical memory: 4,00 GB
+    Free Physical memory: 1,15 GB
+    Committed virtual memory: 274,13 MB
+    Total swap space: 4,00 GB
+    Free swap space: 4,00 GB
+2012-09-22 14:28:45.163+0000: JVM memory information:
+    Free  memory: 62,27 MB
+    Total memory: 182,97 MB
+    Max   memory: 494,94 MB
+    Garbage Collector: Copy: [Eden Space, Survivor Space]
+    Garbage Collector: MarkSweepCompact: [Eden Space, Survivor Space, Tenured Gen, Perm Gen, Perm Gen [shared-ro], Perm Gen [shared-rw]]
+    Memory Pool: Code Cache (Non-heap memory): committed=3,41 MB, used=3,40 MB, max=32,00 MB, threshold=0,00 B
+    Memory Pool: Eden Space (Heap memory): committed=50,50 MB, used=45,01 MB, max=136,50 MB, threshold=?
+    Memory Pool: Survivor Space (Heap memory): committed=6,31 MB, used=0,00 B, max=17,06 MB, threshold=?
+    Memory Pool: Tenured Gen (Heap memory): committed=126,16 MB, used=75,70 MB, max=341,38 MB, threshold=0,00 B
+    Memory Pool: Perm Gen (Non-heap memory): committed=20,00 MB, used=19,78 MB, max=64,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-ro] (Non-heap memory): committed=10,00 MB, used=5,17 MB, max=10,00 MB, threshold=0,00 B
+    Memory Pool: Perm Gen [shared-rw] (Non-heap memory): committed=12,00 MB, used=6,59 MB, max=12,00 MB, threshold=0,00 B
+2012-09-22 14:28:45.168+0000: Operating system information:
+    Operating System: Windows 7; version: 6.1; arch: x86; cpus: 2
+    Process id: 1572@Freibier
+    Byte order: LITTLE_ENDIAN
+2012-09-22 14:28:45.211+0000: JVM information:
+    VM Name: Java HotSpot(TM) Client VM
+    VM Vendor: Sun Microsystems Inc.
+    VM Version: 17.1-b03
+    JIT compiler: HotSpot Client Compiler
+    VM Arguments: [-Xmx512m, -Dfile.encoding=Cp1252]
+2012-09-22 14:28:45.212+0000: Java classpath:
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/raphaelgwt-1.0.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/classes/
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-community-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\charsets.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-jsr107cache-1.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-matching-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jsse.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\classes
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\rt.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\test-classes
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-cypher-1.7.2.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\neo4j-community-1.7.2\lib\geronimo-jta_1.1_spec-1.1.1.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-lucene-index-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-shell-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\resources.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-spring.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-orm.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-servlet.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/jsr107cache-1.1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-kernel-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.hamcrest.core_1.1.0.v20090501071000.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/lucene-core-3.5.0.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-udc-1.7.2.jar
+     [bootstrap] C:\Program Files (x86)\Java\jre6\lib\jce.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-1.0-sdk-1.5.0.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gxt.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/scala-library-2.9.0-1.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/server-api-1.7.2.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/appengine-api-labs-1.5.0.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\validation-api-1.0.0.GA-sources.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/gwt-incubator-20101117-r1766.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-servlet-2.0.4.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\org.junit_4.8.1.v4_8_1_v20100427-1100\junit.jar
+     [loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent-gwt15patch.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\lib\gwt-ent-0.7\gwtent.jar
+     [classpath] C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\src
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-graph-algo-1.7.2.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-dev.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/rapahel4gwt-0.34.jar
+     [classpath] C:\Users\Julian\Desktop\helios\eclipse\plugins\com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080122-rel-r36\gwt-2.4.0\gwt-user.jar
+     [classpath + loader.0] file:/C:/Users/Julian/Documents/NetBeansProjects/gitprojects/Kompetenzmanager/Kompetenzmanager/gwt/KompetenzManager/war/WEB-INF/lib/neo4j-jmx-1.7.2.jar
+2012-09-22 14:28:45.227+0000: Library path:
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    C:\Windows\Sun\Java\bin
+    C:\Windows\System32
+    C:\Windows
+    C:\Program Files (x86)\Java\jre6\bin\client
+    C:\Program Files (x86)\Java\jre6\bin
+    C:\Program Files (x86)\Java\jre6\lib\i386
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin
+    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\libnvvp
+    C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+    C:\Windows\System32
+    C:\Windows
+    C:\Windows\System32\wbem
+    C:\Windows\System32\WindowsPowerShell\v1.0
+    C:\Program Files\TortoiseSVN\bin
+    C:\xampp\php
+    C:\Program Files (x86)\NetBeans 7.1.2\java\maven\bin
+    C:\Program Files (x86)\Git\cmd
+    C:\Program Files (x86)\Java\jdk1.7.0_05\bin
+    C:\Users\Julian\Desktop\helios\eclipse
+2012-09-22 14:28:45.234+0000: System.properties:
+    sun.boot.library.path = C:\Program Files (x86)\Java\jre6\bin
+    path.separator = ;
+    file.encoding.pkg = sun.io
+    sun.java.launcher = SUN_STANDARD
+    user.country = DE
+    sun.os.patch.level = Service Pack 1
+    user.dir = C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war
+    org.mortbay.log.class = com.google.gwt.dev.shell.jetty.JettyNullLogger
+    user.variant = 
+    sun.jnu.encoding = Cp1252
+    sun.management.compiler = HotSpot Client Compiler
+    user.home = C:\Users\Julian
+    user.timezone = Europe/Berlin
+    file.encoding = Cp1252
+    org.mortbay.xml.XmlParser.Validating = false
+    build.compiler = org.eclipse.jdt.core.JDTCompilerAdapter
+    user.name = Julian
+    sun.arch.data.model = 32
+    user.language = de
+    awt.toolkit = sun.awt.windows.WToolkit
+    file.separator = \
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = windows
+    sun.cpu.isalist = pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+2012-09-22 14:28:45.235+0000: --- STARTUP diagnostics END ---
+2012-09-22 14:28:45.236+0000: TM non resolved transactions found in C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\tm_tx_log.1
+2012-09-22 14:28:45.461+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.2] @ version=13 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\nioneo_logical.log.1 from position 4735
+2012-09-22 14:28:45.541+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 14:28:45.599+0000: Log rotated, newLog @ pos=16, version 14 and last tx 85
+2012-09-22 14:28:46.006+0000: Rotating [C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.2] @ version=13 to C:\Users\Julian\Documents\NetBeansProjects\gitprojects\Kompetenzmanager\Kompetenzmanager\gwt\KompetenzManager\war\database\store\store3\index\lucene.log.1 from position 1200
+2012-09-22 14:28:46.087+0000: Rotate: old log scanned, newLog @ pos=16
+2012-09-22 14:28:46.140+0000: Log rotated, newLog @ pos=16, version 14 and last tx 33
+2012-09-22 14:28:46.141+0000: Recovery completed, all transactions have been resolved to a consistent state.
+2012-09-22 14:28:46.555+0000: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2012-09-22 14:28:46.556+0000: Extension org.neo4j.kernel.KernelExtension[shell] loaded ok
+2012-09-22 14:28:46.577+0000: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok
+2012-09-22 14:28:46.582+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions START ---
+2012-09-22 14:28:46.582+0000: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1347880698604, id:4230156788471535349, store version: 13561656364791302]
+2012-09-22 14:28:46.582+0000: Kernel version: Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:28:46.582+0000: Neo4j component versions:
+2012-09-22 14:28:46.583+0000:   Neo4j - Graph Database Kernel 1.7.2
+2012-09-22 14:28:46.583+0000: --- STARTUP diagnostics for KernelDiagnostics:Versions END ---
+2012-09-22 14:28:46.586+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS START ---
+2012-09-22 14:28:46.586+0000: Store versions:
+    Store versions:
+      NeoStore v0.A.0
+      NodeStore v0.A.0
+      RelationshipStore v0.A.0
+      RelationshipTypeStore v0.A.0
+      PropertyStore v0.A.0
+      PropertyIndexStore v0.A.0
+      StringPropertyStore v0.A.0
+      ArrayPropertyStore v0.A.0
+2012-09-22 14:28:46.587+0000: --- STARTUP diagnostics for NEO_STORE_VERSIONS END ---
+2012-09-22 14:28:46.587+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE START ---
+2012-09-22 14:28:46.587+0000: Id usage:
+    Id usage:
+      NodeStore: used=29 high=28
+      RelationshipStore: used=88 high=87
+      RelationshipTypeStore: used=2 high=1
+      PropertyStore: used=140 high=139
+      PropertyIndexStore: used=51 high=50
+      StringPropertyStore: used=23 high=22
+      ArrayPropertyStore: used=1 high=0
+2012-09-22 14:28:46.587+0000: --- STARTUP diagnostics for NEO_STORE_ID_USAGE END ---
+2012-09-22 14:28:46.588+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles START ---
+2012-09-22 14:28:46.588+0000: Storage files:
+    active_tx_log: 11,00 B
+    index:
+      lucene:
+        node:
+          nodes:
+            segments.gen: 20,00 B
+            segments_d: 1,48 kB
+            write.lock: 0,00 B
+            _k.fdt: 428,00 B
+            _k.fdx: 180,00 B
+            _k.fnm: 55,00 B
+            _k.frq: 44,00 B
+            _k.nrm: 114,00 B
+            _k.prx: 44,00 B
+            _k.tii: 35,00 B
+            _k.tis: 534,00 B
+            _l.cfs: 296,00 B
+            _m.fdt: 22,00 B
+            _m.fdx: 12,00 B
+            _m.fnm: 55,00 B
+            _m.frq: 2,00 B
+            _m.nrm: 9,00 B
+            _m.prx: 2,00 B
+            _m.tii: 35,00 B
+            _m.tis: 47,00 B
+            _n.cfs: 294,00 B
+            _o.cfs: 298,00 B
+            _p.cfs: 298,00 B
+            _q.cfs: 296,00 B
+            _q.fdt: 23,00 B
+            _q.fdx: 12,00 B
+          - Total: 4,56 kB
+        - Total: 4,56 kB
+        relationship:
+          rels:
+            segments.gen: 20,00 B
+            segments_e: 484,00 B
+            write.lock: 0,00 B
+            _k.fdt: 1,12 kB
+            _k.fdx: 180,00 B
+            _k.frq: 88,00 B
+            _k.nrm: 92,00 B
+            _k.prx: 88,00 B
+            _k.tis: 1,07 kB
+            _l.cfs: 349,00 B
+            _m.cfs: 347,00 B
+            _n.cfs: 347,00 B
+            _o.cfs: 347,00 B
+            _p.cfs: 347,00 B
+            _q.cfs: 345,00 B
+            _r.cfs: 345,00 B
+            _s.cfs: 349,00 B
+            _t.cfs: 349,00 B
+            _u.fdt: 1,48 kB
+            _u.fdx: 252,00 B
+            _u.fnm: 53,00 B
+            _u.frq: 127,00 B
+            _u.nrm: 128,00 B
+            _u.prx: 124,00 B
+            _u.tii: 35,00 B
+            _u.tis: 1,44 kB
+            _v.cfs: 347,00 B
+            _v.fdt: 45,00 B
+            _v.fdx: 12,00 B
+          - Total: 10,18 kB
+        - Total: 10,18 kB
+      - Total: 14,75 kB
+      lucene-store.db: 40,00 B
+      lucene.log.1: 16,00 B
+      lucene.log.active: 4,00 B
+    - Total: 14,80 kB
+    index.db: 181,00 B
+    lock: 0,00 B
+    messages.log: 1,40 MB
+    neostore: 54,00 B
+    neostore.id: 9,00 B
+    neostore.nodestore.db: 8,19 kB
+    neostore.nodestore.db.id: 9,00 B
+    neostore.propertystore.db: 276,47 kB
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.propertystore.db.index: 10,24 kB
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db.index.keys: 3,01 kB
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    neostore.propertystore.db.strings: 23,50 kB
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.relationshipstore.db: 348,14 kB
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 10,00 B
+    neostore.relationshiptypestore.db.id: 9,00 B
+    neostore.relationshiptypestore.db.names: 114,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    nioneo_logical.log.1: 16,00 B
+    nioneo_logical.log.active: 4,00 B
+    tm_tx_log.1: 0,00 B
+2012-09-22 14:28:46.602+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles END ---
+2012-09-22 14:28:46.604+0000: Started - database is now available
+2012-09-22 14:28:46.639+0000: GC Monitor started. 
+2012-09-22 14:33:05.368+0000: GC Monitor: Application threads blocked for an additional 333ms [total block time: 0.333s]

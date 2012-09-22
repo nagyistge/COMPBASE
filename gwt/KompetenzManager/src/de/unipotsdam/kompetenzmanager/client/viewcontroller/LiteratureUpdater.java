@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dev.util.collect.HashSet;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -24,14 +25,18 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 	private HashMap<String, MyTreeItem> yearMap;
 	private HashMap<LiteratureEntry,MyTreeItem> litEntryMap;
 
-	public LiteratureUpdater(LiteratureView literatureView, Tree literatureTree2, TreeItem literatureTree) {
+	public LiteratureUpdater(LiteratureView literatureView) {
 		this.literatureView = literatureView;
-		this.literatureTree = literatureTree;
+		//adding root node
+		this.literatureTree = new TreeItem("Literatur");
+		literatureView.removeTree();
+		Tree litTree = literatureView.getLiteratureTree();		
+		litTree.addItem(literatureTree);	
+
 		this.paperMap = new HashMap<String, MyTreeItem>();		
 		this.yearMap = new HashMap<String, MyTreeItem>();
 		this.treeEntryMap = new HashMap<MyTreeItem, LiteratureEntry>();
-		this.litEntryMap = new HashMap<LiteratureEntry, MyTreeItem>();
-		literatureTree2.addItem(literatureTree);	
+		this.litEntryMap = new HashMap<LiteratureEntry, MyTreeItem>();		
 		GWT.log("lit wird geladen ...");
 	}
 
@@ -52,11 +57,32 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 		//adding Tree Elements
 		this.literatureTree.removeItems();		
 		addTreeElements(literatureEntries);
+//		removeDuplicateElements();
 		//setting the mapping from treeelements to the literatureentryfield shown
 		this.literatureView.treeEntryMap = this.treeEntryMap;
 		this.literatureView.litEntryMap = this.litEntryMap;
 		GWT.log("successfully loaded literature from database:" + result.toString());		
 	}
+
+//	private void removeDuplicateElements() {
+//		HashMap<String, MyTreeItem> hashSet = new HashMap<String, MyTreeItem>();
+//		for (int i =0; i< literatureTree.asTreeItem().getChildCount();i++) {
+//			MyTreeItem paperItem = (MyTreeItem) literatureTree.asTreeItem().getChild(i);
+//			for (int j=0;j<paperItem.getChildCount();j++) {
+//				MyTreeItem yearItem = (MyTreeItem) paperItem.getChild(j);
+//				String key = yearItem.getText()+paperItem.getText();
+//				if (hashSet.containsKey(key)) {
+//					for (int k=0;k<yearItem.getChildCount();k++) {
+//						hashSet.get(key).addItem(yearItem.getChild(k));						
+//					}
+//					paperItem.removeItem(yearItem);
+//				} else {
+//					hashSet.put(key, yearItem);
+//				}								
+//			}
+//		}
+		
+//	}
 
 	public void storeResult(Literature toUpdate) {
 		literatureView.storedLiterature = toUpdate;
@@ -71,26 +97,30 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 
 	public void addTreeElements(List<LiteratureEntry> literatureEntries) {
 		for (LiteratureEntry literatureEntry : literatureEntries) {
-			MyTreeItem paperLevel = new MyTreeItem(literatureEntry.paper);
-			MyTreeItem yearLevel = new MyTreeItem(literatureEntry.year);
-			MyTreeItem authorLevel = new MyTreeItem(literatureEntry.shortName);
+			if (literatureEntry.paper.trim().equals("")) {
+				literatureEntry.paper = "keine Angabe";
+			}
+			if (literatureEntry.year.trim().equals("")) {
+				literatureEntry.year = "keine Angabe";
+			}	
+			MyTreeItem paperLevel = new MyTreeItem(literatureEntry.paper, literatureView);
+			MyTreeItem yearLevel = new MyTreeItem(literatureEntry.year, literatureView);
+			MyTreeItem authorLevel = new MyTreeItem(literatureEntry.shortName, literatureView);
 			
 			//es gibt das Paper noch nicht
-			if (!paperMap.containsKey(paperLevel)) {
+			if (!paperMap.containsKey(literatureEntry.paper)) {
 				paperLevel.addItem(yearLevel);
 				yearLevel.addItem(authorLevel);
 				literatureTree.addItem(paperLevel);
 				this.paperMap.put(literatureEntry.paper, paperLevel);
 			} else {
-				paperLevel = this.paperMap.get(paperLevel.getText());
-				// es gibt den Jahrgang schon
-				if (yearMap.containsKey(literatureEntry.year)) {
-					yearLevel = this.yearMap.get(yearLevel.getText());
-					yearLevel.addItem(authorLevel);
-				// es gibt den Jahrgang noch nicht
-				} else {
+				paperLevel = this.paperMap.get(literatureEntry.paper);				
+				if (!yearMap.containsKey(literatureEntry.year)) {
 					this.yearMap.put(literatureEntry.year, yearLevel);
 					paperLevel.addItem(yearLevel);
+					yearLevel.addItem(authorLevel);				
+				} else {
+					yearLevel = this.yearMap.get(yearLevel.paper);
 					yearLevel.addItem(authorLevel);
 				}				
 			}						

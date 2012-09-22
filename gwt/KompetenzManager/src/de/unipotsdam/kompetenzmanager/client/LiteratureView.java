@@ -3,16 +3,19 @@ package de.unipotsdam.kompetenzmanager.client;
 import java.util.HashMap;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.widgetideas.client.GlassPanel;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
+import com.google.gwt.user.client.ui.TreeListener;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.widgetideas.client.GlassPanel;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
@@ -27,15 +30,14 @@ public class LiteratureView extends Composite {
 	@UiField VerticalPanel LiteratureViewVerticalPanel;
 	@UiField Tree literatureTree;
 	@UiField AbsolutePanel glassPanelContainer;
-	@UiField TreeItem treeHeader;
+	@UiField Button resetButton;
+	@UiField Button button;
 	
-	private LiteratureEntryBinder literatureEntry;
 	private GlassPanel glassPanel;
 	private MultiClickMenu dataEntryField;
 	public ViewController viewcontroller;
 	public Literature storedLiterature;
-	
-	public TreeItem rootItem;
+		
 	public HashMap<MyTreeItem,LiteratureEntry> treeEntryMap;
 	public HashMap<LiteratureEntry, MyTreeItem> litEntryMap;
 
@@ -52,21 +54,40 @@ public class LiteratureView extends Composite {
 		this.glassPanel = new GlassPanel(true);
 		this.glassPanel.setVisible(false);
 		this.glassPanelContainer.add(glassPanel, 0, 0);
+				
 	}
 
 
 
 
 
+	@SuppressWarnings("deprecation")
 	public void initLiteratureView() {
-		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
-		this.LiteratureViewVerticalPanel.add(literatureEntry);
-		this.shownLiteratureEntryBinder = literatureEntry;
+		this.shownLiteratureEntryBinder = new LiteratureEntryBinder(this.viewcontroller);
+		this.LiteratureViewVerticalPanel.add(shownLiteratureEntryBinder);	
 		// load tree
-		this.rootItem = new TreeItem("Literatur");
+		updateLiteratureView();
+//		literatureTree.addTreeListener(new TreeListener() {					
+//
+//			@Override
+//			public void onTreeItemStateChanged(TreeItem item) {}
+//			
+//			@Override
+//			public void onTreeItemSelected(TreeItem item) {
+//				if (item instanceof MyTreeItem)
+//				((MyTreeItem) item).updateBindings();				
+//			}
+//		});
+	}
+
+
+
+
+
+	private void updateLiteratureView() {
 		GraphBackendImpl backendImpl;
 		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
-		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(viewcontroller.getLiteratureview(), literatureTree, rootItem);
+		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(this);
 		GWT.log("trying to get the literature now");
 		backendImpl.getFullLiterature(litUpdater);
 	}
@@ -94,4 +115,49 @@ public class LiteratureView extends Composite {
 		return this.storedLiterature;
 	}
 
+	@UiHandler("resetButton")
+	void onResetButtonClick(ClickEvent event) {
+		updateLiteratureView();
+	}
+	
+	@UiHandler("button")
+	void onButtonClick(ClickEvent event) {		
+		clearLiteratureEntry();		
+	}
+
+
+	private void clearLiteratureEntry() {
+		this.shownLiteratureEntryBinder = new LiteratureEntryBinder(viewcontroller);
+		this.LiteratureViewVerticalPanel.clear();
+		this.LiteratureViewVerticalPanel.add(shownLiteratureEntryBinder);
+	}
+
+
+
+	public void setLiteratureTree(Tree literatureTree) {
+		this.literatureTree = literatureTree;
+	}
+
+
+
+	public Tree getLiteratureTree() {
+		return literatureTree;
+	}
+
+	public void showLiteratureEntry(MyTreeItem myTreeItem) {
+		clearLiteratureEntry();		
+		this.LiteratureViewVerticalPanel.clear();
+		LiteratureEntryBinder literatureEntryBinder = new LiteratureEntryBinder(viewcontroller);
+		literatureEntryBinder.updateSelectedLitEntry(this.treeEntryMap.get(myTreeItem));
+		this.LiteratureViewVerticalPanel.add(literatureEntryBinder);
+	}
+
+
+
+
+
+	public void removeTree() {
+		this.literatureTree.removeItems();
+		
+	}
 }
