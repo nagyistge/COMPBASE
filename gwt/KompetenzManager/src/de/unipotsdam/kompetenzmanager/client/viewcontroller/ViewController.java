@@ -90,4 +90,19 @@ public class ViewController {
 	public TabbedView getTabbedView() {
 		return tabbedView;
 	}
+
+	public void addThemeTag() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void tagSelectionToLiterature() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void showLiteratureToTags() {
+		// TODO Auto-generated method stub
+		
+	}
 }

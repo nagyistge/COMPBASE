@@ -43,6 +43,7 @@ public class MultiClickMenu extends Composite {
 	@UiHandler("tagButton")
 	void onTagButtonClick(ClickEvent event) {
 		this.widget.removeClickMenu();
+		this.widget.viewcontroller.tagSelectionToLiterature();
 	}
 	@UiHandler("focusPanel")
 	void onFocusPanelMouseOut(MouseOutEvent event) {
@@ -50,5 +51,7 @@ public class MultiClickMenu extends Composite {
 	}
 	@UiHandler("showLiteratureButton")
 	void onShowLiteratureButtonClick(ClickEvent event) {
+		this.widget.removeClickMenu();
+		this.widget.viewcontroller.showLiteratureToTags();
 	}
 }

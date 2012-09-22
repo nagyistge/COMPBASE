@@ -16,6 +16,7 @@ public class MyTreeItemUI extends Composite {
 			.create(MyTreeItemUIUiBinder.class);
 	@UiField Button treeButton;
 	private LiteratureView literatureView;
+	private MyTreeItem parent;
 
 	interface MyTreeItemUIUiBinder extends UiBinder<Widget, MyTreeItemUI> {
 	}
@@ -24,14 +25,16 @@ public class MyTreeItemUI extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	public MyTreeItemUI(String paper, LiteratureView literatureView) {
+	public MyTreeItemUI(String paper, LiteratureView literatureView, Boolean enableButton, MyTreeItem parent) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.literatureView = literatureView;
 		this.treeButton.setText(paper);
+		this.treeButton.setEnabled(enableButton);
+		this.parent = parent;
 	}
 
 	@UiHandler("treeButton")
 	void onTreeButtonClick(ClickEvent event) {
-		
+		this.literatureView.showLiteratureEntry(parent);
 	}
 }

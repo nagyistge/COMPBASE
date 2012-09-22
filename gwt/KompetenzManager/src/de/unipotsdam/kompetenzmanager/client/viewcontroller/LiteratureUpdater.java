@@ -107,9 +107,9 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 			if (literatureEntry.year.trim().equals("")) {
 				literatureEntry.year = "keine Angabe";
 			}	
-			MyTreeItem paperLevel = new MyTreeItem(literatureEntry.paper, literatureView);
+			MyTreeItem paperLevel = new MyTreeItem(literatureEntry.paper, literatureView);			
 			MyTreeItem yearLevel = new MyTreeItem(literatureEntry.year, literatureView);
-			MyTreeItem authorLevel = new MyTreeItem(literatureEntry.shortName, literatureView);
+			MyTreeItem authorLevel = new MyTreeItem(literatureEntry.shortName, literatureView,true);
 			
 			//es gibt das Paper noch nicht
 			if (!paperMap.containsKey(literatureEntry.paper)) {

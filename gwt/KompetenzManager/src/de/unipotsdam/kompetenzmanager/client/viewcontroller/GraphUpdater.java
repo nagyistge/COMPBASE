@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
 
 public class GraphUpdater<T> implements AsyncCallback<T> {
 
@@ -24,7 +25,9 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		GWT.log("Graph konnte geladen werden mit den Daten" + json.toString());
 		showCompetenceBinder.removeGraph();
 		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());
-		this.showCompetenceBinder.storeGraph((Graph) result);		
+		this.showCompetenceBinder.storeGraph((Graph) result);
+		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);
+		backendImpl.getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>());
 	}
 	
 	@Override
