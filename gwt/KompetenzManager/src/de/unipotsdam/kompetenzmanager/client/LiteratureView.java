@@ -34,7 +34,7 @@ public class LiteratureView extends Composite {
 	@UiField Button button;
 	
 	private GlassPanel glassPanel;
-	private MultiClickMenu dataEntryField;
+	private ManyToManyConnector dataEntryField;
 	public ViewController viewcontroller;
 	public Literature storedLiterature;
 		
@@ -96,9 +96,9 @@ public class LiteratureView extends Composite {
 
 
 
-	public void addMultiClickMenu(MultiClickMenu multiClickMenu) {
+	public void addMultiClickMenu(ManyToManyConnector manyToManyConnector) {
 		this.glassPanel.setVisible(true);
-		this.dataEntryField = multiClickMenu;
+		this.dataEntryField = manyToManyConnector;
 		this.glassPanelContainer.add(dataEntryField);
 		
 	}

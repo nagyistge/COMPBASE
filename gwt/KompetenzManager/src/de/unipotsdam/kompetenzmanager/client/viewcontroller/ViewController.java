@@ -1,9 +1,15 @@
 package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
+import java.util.Collection;
+
 import de.unipotsdam.kompetenzmanager.client.LiteratureView;
+import de.unipotsdam.kompetenzmanager.client.ManyToManyConnector;
 import de.unipotsdam.kompetenzmanager.client.MultiClickMenu;
 import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.client.TabbedView;
+import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphNode;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
 
 public class ViewController {
 	private ShowCompetenceBinder2 widget;
@@ -38,10 +44,10 @@ public class ViewController {
 		}
 	}
 	
-	public void addMultiClickMenu(String id, String nodeId) {
-		MultiClickMenu multiClickMenu = new MultiClickMenu(id, widget, nodeId);
-		this.widget.addMultiClickMenu(multiClickMenu);
-		this.literatureview.addMultiClickMenu(multiClickMenu);
+	public void addConnectLitAndGraphMenu() {
+		ManyToManyConnector manyToManyConnector = new ManyToManyConnector(this);
+		this.widget.addMultiClickMenu(manyToManyConnector);
+		this.literatureview.addMultiClickMenu(manyToManyConnector);
 	}
 	
 	public void removeMultiClickMenu() {
@@ -97,12 +103,22 @@ public class ViewController {
 	}
 
 	public void tagSelectionToLiterature() {
-		// TODO Auto-generated method stub
-		
+		addConnectLitAndGraphMenu();		
 	}
 
 	public void showLiteratureToTags() {
-		// TODO Auto-generated method stub
+		Graph selectedGraph = convertToGraph(this.widget.getSelectedElements());
+		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+		backendImpl.getLiteratureForTags(selectedGraph, new LiteratureUpdater<Literature>(this.literatureview));
+		changeSelectedTab(false);		
+	}
+
+	public Graph convertToGraph(Collection<String> selectedElements) {
+		Graph result = new Graph();
+		for(String elem: selectedElements) {
+			result.nodes.add(new GraphNode(elem));
+		}
+		return result;
 		
 	}
 }

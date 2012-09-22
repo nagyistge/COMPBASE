@@ -27,7 +27,7 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());
 		this.showCompetenceBinder.storeGraph((Graph) result);
 		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);
-		backendImpl.getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>());
+		backendImpl.getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>(showCompetenceBinder.viewcontroller));
 	}
 	
 	@Override

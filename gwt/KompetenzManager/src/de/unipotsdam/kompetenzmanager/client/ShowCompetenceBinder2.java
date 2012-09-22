@@ -2,6 +2,7 @@ package de.unipotsdam.kompetenzmanager.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -30,6 +31,9 @@ import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 import de.unipotsdam.kompetenzmanager.shared.GeometryUtil;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
+
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -99,6 +103,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	private Collection<String> selectedElements;
 	private boolean shiftKey;
 	public ViewController viewcontroller;
+	private Literature relevanteLiterur;
 
 	/**
 	 * initialisiere View
@@ -373,12 +378,21 @@ public class ShowCompetenceBinder2 extends Composite {
 		backendImpl.getFullGraph(null);
 	}
 
-	public void addMultiClickMenu(MultiClickMenu multiClickMenu) {
-		addDataEntryField(multiClickMenu);		
+	public void addMultiClickMenu(ManyToManyConnector manyToManyConnector) {
+		addDataEntryField(manyToManyConnector);		
 	}
 
 	public void removeMultiClickMenu() {
 		removeDataEntryField();
+		
+	}
+
+	public HashSet<LiteratureEntry> getRelevanteLiteratur() {
+		return this.relevanteLiterur.literatureEntries;
+	}
+
+	public void setRelevanteLiteratur(Literature result) {
+		this.relevanteLiterur = result;
 		
 	}
 }
