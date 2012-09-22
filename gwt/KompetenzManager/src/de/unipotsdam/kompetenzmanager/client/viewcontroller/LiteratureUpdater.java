@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 
 import de.unipotsdam.kompetenzmanager.client.LiteratureView;
+import de.unipotsdam.kompetenzmanager.client.MyTreeItem;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
@@ -18,18 +19,18 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 
 	private LiteratureView literatureView;
 	private TreeItem literatureTree;
-	private HashMap<TreeItem, LiteratureEntry> treeEntryMap;
-	private HashMap<String, TreeItem> paperMap;
-	private HashMap<String, TreeItem> yearMap;
-	private HashMap<LiteratureEntry,TreeItem> litEntryMap;
+	private HashMap<MyTreeItem, LiteratureEntry> treeEntryMap;
+	private HashMap<String, MyTreeItem> paperMap;
+	private HashMap<String, MyTreeItem> yearMap;
+	private HashMap<LiteratureEntry,MyTreeItem> litEntryMap;
 
 	public LiteratureUpdater(LiteratureView literatureView, Tree literatureTree2, TreeItem literatureTree) {
 		this.literatureView = literatureView;
 		this.literatureTree = literatureTree;
-		this.paperMap = new HashMap<String, TreeItem>();		
-		this.yearMap = new HashMap<String,TreeItem>();
-		this.treeEntryMap = new HashMap<TreeItem, LiteratureEntry>();
-		this.litEntryMap = new HashMap<LiteratureEntry, TreeItem>();
+		this.paperMap = new HashMap<String, MyTreeItem>();		
+		this.yearMap = new HashMap<String, MyTreeItem>();
+		this.treeEntryMap = new HashMap<MyTreeItem, LiteratureEntry>();
+		this.litEntryMap = new HashMap<LiteratureEntry, MyTreeItem>();
 		literatureTree2.addItem(literatureTree);	
 		GWT.log("lit wird geladen ...");
 	}
@@ -70,22 +71,29 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 
 	public void addTreeElements(List<LiteratureEntry> literatureEntries) {
 		for (LiteratureEntry literatureEntry : literatureEntries) {
-			TreeItem paperLevel = new TreeItem(literatureEntry.paper);
-			TreeItem yearLevel = new TreeItem(literatureEntry.year);
-			TreeItem authorLevel = new TreeItem(literatureEntry.shortName);
-			if (!paperMap.containsKey(paperLevel)) {																	
+			MyTreeItem paperLevel = new MyTreeItem(literatureEntry.paper);
+			MyTreeItem yearLevel = new MyTreeItem(literatureEntry.year);
+			MyTreeItem authorLevel = new MyTreeItem(literatureEntry.shortName);
+			
+			//es gibt das Paper noch nicht
+			if (!paperMap.containsKey(paperLevel)) {
+				paperLevel.addItem(yearLevel);
+				yearLevel.addItem(authorLevel);
 				literatureTree.addItem(paperLevel);
 				this.paperMap.put(literatureEntry.paper, paperLevel);
 			} else {
 				paperLevel = this.paperMap.get(paperLevel.getText());
+				// es gibt den Jahrgang schon
 				if (yearMap.containsKey(literatureEntry.year)) {
-					yearLevel = this.yearMap.get(literatureEntry.year);														
+					yearLevel = this.yearMap.get(yearLevel.getText());
+					yearLevel.addItem(authorLevel);
+				// es gibt den Jahrgang noch nicht
 				} else {
-					this.yearMap.put(literatureEntry.year, yearLevel);					
+					this.yearMap.put(literatureEntry.year, yearLevel);
+					paperLevel.addItem(yearLevel);
+					yearLevel.addItem(authorLevel);
 				}				
-			}
-			paperLevel.addItem(yearLevel);
-			yearLevel.addItem(authorLevel);
+			}						
 			this.treeEntryMap.put(authorLevel, literatureEntry);
 			this.litEntryMap.put(literatureEntry,authorLevel);
 		}

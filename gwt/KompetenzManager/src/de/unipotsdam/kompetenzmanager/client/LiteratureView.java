@@ -28,6 +28,7 @@ public class LiteratureView extends Composite {
 	@UiField Tree literatureTree;
 	@UiField AbsolutePanel glassPanelContainer;
 	@UiField TreeItem treeHeader;
+	
 	private LiteratureEntryBinder literatureEntry;
 	private GlassPanel glassPanel;
 	private MultiClickMenu dataEntryField;
@@ -35,9 +36,10 @@ public class LiteratureView extends Composite {
 	public Literature storedLiterature;
 	
 	public TreeItem rootItem;
-	public HashMap treeEntryMap;
+	public HashMap<MyTreeItem,LiteratureEntry> treeEntryMap;
+	public HashMap<LiteratureEntry, MyTreeItem> litEntryMap;
+
 	public LiteratureEntryBinder shownLiteratureEntryBinder;
-	public HashMap<LiteratureEntry, TreeItem> litEntryMap;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}

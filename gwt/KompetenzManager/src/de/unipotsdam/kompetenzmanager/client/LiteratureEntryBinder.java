@@ -71,8 +71,15 @@ public class LiteratureEntryBinder extends Composite {
 		this.speichernButton.setEnabled(false);		
 		
 		//selecting the correct treeitem
+		if (this.viewcontroller.getLiteratureview().litEntryMap.isEmpty()) {
+			GWT.log("litEntry Map does nocht contain any values");
+		}
 		TreeItem treeItem = this.viewcontroller.getLiteratureview().litEntryMap.get(this.shownLiteratureEntry);
-		treeItem.setSelected(true);
+		if (treeItem != null) {
+			treeItem.setSelected(true);
+		} else {
+			GWT.log("after saving the correct literature entry could not be selected because it does not exist in the literatureEntry Map\n \n" + this.shownLiteratureEntry.toString());
+		}
 	}
 
 	private LiteratureEntry aggregateLiteratureEntry() {
