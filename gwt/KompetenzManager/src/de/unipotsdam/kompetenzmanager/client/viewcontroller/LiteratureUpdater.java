@@ -21,13 +21,15 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 	private HashMap<TreeItem, LiteratureEntry> treeEntryMap;
 	private HashMap<String, TreeItem> paperMap;
 	private HashMap<String, TreeItem> yearMap;
+	private HashMap<LiteratureEntry,TreeItem> litEntryMap;
 
 	public LiteratureUpdater(LiteratureView literatureView, Tree literatureTree2, TreeItem literatureTree) {
 		this.literatureView = literatureView;
 		this.literatureTree = literatureTree;
 		this.paperMap = new HashMap<String, TreeItem>();		
 		this.yearMap = new HashMap<String,TreeItem>();
-		this.setTreeEntryMap(new HashMap<TreeItem, LiteratureEntry>());
+		this.treeEntryMap = new HashMap<TreeItem, LiteratureEntry>();
+		this.litEntryMap = new HashMap<LiteratureEntry, TreeItem>();
 		literatureTree2.addItem(literatureTree);	
 		GWT.log("lit wird geladen ...");
 	}
@@ -39,13 +41,20 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 
 	@Override
 	public void onSuccess(L result) {
+		//casting
 		Literature toUpdate = ((Literature) result);
+		//storing result
 		storeResult(toUpdate);
+		//sorting result by alphabetical order
 		List<LiteratureEntry> literatureEntries = sortEntries(toUpdate);
+		Collections.reverse(literatureEntries);
+		//adding Tree Elements
 		this.literatureTree.removeItems();		
 		addTreeElements(literatureEntries);
+		//setting the mapping from treeelements to the literatureentryfield shown
 		this.literatureView.treeEntryMap = this.treeEntryMap;
-		GWT.log("successfully loaded literature from database:" + result.toString());
+		this.literatureView.litEntryMap = this.litEntryMap;
+		GWT.log("successfully loaded literature from database:" + result.toString());		
 	}
 
 	public void storeResult(Literature toUpdate) {
@@ -77,24 +86,9 @@ public class LiteratureUpdater<L> implements AsyncCallback<L> {
 			}
 			paperLevel.addItem(yearLevel);
 			yearLevel.addItem(authorLevel);
-			this.getTreeEntryMap().put(authorLevel, literatureEntry);
+			this.treeEntryMap.put(authorLevel, literatureEntry);
+			this.litEntryMap.put(literatureEntry,authorLevel);
 		}
 	}
-
-	/**
-	 * @param treeEntryMap the treeEntryMap to set
-	 */
-	private void setTreeEntryMap(HashMap<TreeItem, LiteratureEntry> treeEntryMap) {
-		this.treeEntryMap = treeEntryMap;
-	}
-
-	/**
-	 * @return the treeEntryMap
-	 */
-	public HashMap<TreeItem, LiteratureEntry> getTreeEntryMap() {
-		return treeEntryMap;
-	}
-
-	
 
 }

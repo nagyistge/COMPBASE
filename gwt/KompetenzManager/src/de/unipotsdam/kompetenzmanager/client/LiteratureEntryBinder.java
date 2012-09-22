@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
@@ -38,7 +39,7 @@ public class LiteratureEntryBinder extends Composite {
 	@UiField AbsolutePanel klassifikationstabellePanel;
 	@UiField Label contentKlassifikationsID;
 	private ViewController viewcontroller;
-	private LiteratureEntry shownLiteratureEntry;
+	public LiteratureEntry shownLiteratureEntry;
 
 	interface LiteratureEntryUiBinder extends UiBinder<Widget, LiteratureEntryBinder> {
 	}
@@ -52,15 +53,26 @@ public class LiteratureEntryBinder extends Composite {
 	@UiHandler("speichernButton")
 	void onSpeichernButtonClick(ClickEvent event) {
 		GraphBackendImpl backendImpl = new GraphBackendImpl(viewcontroller.getWidget());		
+		//reading all the text fields
 		this.shownLiteratureEntry = aggregateLiteratureEntry();
+		
+		//storing them in the db and updating tree
 		LiteratureView litView = viewcontroller.getLiteratureview();
 		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(litView, litView.literatureTree, litView.rootItem);
 		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry,litUpdater);		
+
+		//showing the klassifkation if possible
 		if (this.shownLiteratureEntry.klassifikationsnummer > 0) {
 			this.contentKlassifikationsID.setText(this.shownLiteratureEntry.klassifikationsnummer+"");
 			this.klassifikationstabellePanel.setVisible(true);
 		}
+		
+		//disabling button
 		this.speichernButton.setEnabled(false);		
+		
+		//selecting the correct treeitem
+		TreeItem treeItem = this.viewcontroller.getLiteratureview().litEntryMap.get(this.shownLiteratureEntry);
+		treeItem.setSelected(true);
 	}
 
 	private LiteratureEntry aggregateLiteratureEntry() {
