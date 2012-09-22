@@ -1,6 +1,5 @@
 package de.unipotsdam.kompetenzmanager.client;
 
-import com.google.gwt.user.client.ui.IsTreeItem;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -14,7 +13,17 @@ public class MyTreeItem extends TreeItem {
 	}
 
 	public MyTreeItem(String paper, LiteratureView literatureView) {
-		super(new MyTreeItemUI(paper, literatureView));
+		super();
+//		super(new MyTreeItemUI(paper, literatureView, false));
+		this.setWidget(new MyTreeItemUI(paper, literatureView, false, this));		
+		this.literatureView = literatureView;
+		this.paper = paper;
+	}
+	
+	public MyTreeItem(String paper, LiteratureView literatureView, Boolean isClickBoolean) {
+//		super(new MyTreeItemUI(paper, literatureView, isClickBoolean));
+		super();
+		this.setWidget((new MyTreeItemUI(paper, literatureView, isClickBoolean, this)));
 		this.literatureView = literatureView;
 		this.paper = paper;
 	}

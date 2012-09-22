@@ -13,11 +13,13 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.util.UUID;
+import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -48,6 +50,7 @@ public class LiteratureEntryBinder extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.viewcontroller = viewcontroller;
 		this.klassifikationstabellePanel.setVisible(false);
+//		this.addThemeButton = new Button("add Theme");
 	}
 
 	@UiHandler("speichernButton")
@@ -107,7 +110,19 @@ public class LiteratureEntryBinder extends Composite {
 		  paperContent.setText(this.shownLiteratureEntry.paper);
 		  publicationDate.setText(this.shownLiteratureEntry.year);
 		  this.volumeContent.setText(this.shownLiteratureEntry.volume);
-		  titleContent.setText(this.shownLiteratureEntry.titel);		  		  	
+		  titleContent.setText(this.shownLiteratureEntry.titel);
+		  this.TagsContainer.clear();
+		  for (GraphNode graph : lit.graph.nodes) {
+			  Button button = new Button(graph.label);
+			  button.setEnabled(false);
+			  button.addClickHandler(new ClickHandler() {				
+				@Override
+				public void onClick(ClickEvent event) {
+					// navigate to graph and call shortest path or something				
+				}
+			});
+			this.TagsContainer.add(button);
+		  }
 	}
 	
 	@UiHandler("titleContent")
@@ -133,5 +148,9 @@ public class LiteratureEntryBinder extends Composite {
 	@UiHandler("abstractContent")
 	void onAbstractContentChange(ChangeEvent event) {
 		this.speichernButton.setEnabled(true);
+	}
+	@UiHandler("addThemeButton")
+	void onAddThemeButtonClick(ClickEvent event) {
+		this.viewcontroller.addThemeTag();
 	}
 }
