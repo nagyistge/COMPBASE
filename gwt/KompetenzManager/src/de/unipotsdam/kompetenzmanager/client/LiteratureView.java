@@ -36,6 +36,8 @@ public class LiteratureView extends Composite {
 	
 	public TreeItem rootItem;
 	public HashMap treeEntryMap;
+	public LiteratureEntryBinder shownLiteratureEntryBinder;
+	public HashMap<LiteratureEntry, TreeItem> litEntryMap;
 
 	interface LiteratureViewUiBinder extends UiBinder<Widget, LiteratureView> {
 	}
@@ -57,6 +59,7 @@ public class LiteratureView extends Composite {
 	public void initLiteratureView() {
 		this.literatureEntry = new LiteratureEntryBinder(this.viewcontroller);
 		this.LiteratureViewVerticalPanel.add(literatureEntry);
+		this.shownLiteratureEntryBinder = literatureEntry;
 		// load tree
 		this.rootItem = new TreeItem("Literatur");
 		GraphBackendImpl backendImpl;
