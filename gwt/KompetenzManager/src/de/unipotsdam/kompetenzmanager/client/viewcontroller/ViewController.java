@@ -5,6 +5,7 @@ import java.util.Collection;
 import de.unipotsdam.kompetenzmanager.client.LiteratureView;
 import de.unipotsdam.kompetenzmanager.client.ManyToManyConnector;
 import de.unipotsdam.kompetenzmanager.client.MultiClickMenu;
+import de.unipotsdam.kompetenzmanager.client.MyButton;
 import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.client.TabbedView;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
@@ -16,6 +17,7 @@ public class ViewController {
 	private LiteratureView literatureview;
 	private TabbedView tabbedView;
 	private Boolean graphIsVisible;
+	private boolean inprocess;
 
 	public ViewController(ShowCompetenceBinder2 widget, LiteratureView literatureView, TabbedView tabbedView) { 
 		this.setWidget(widget);
@@ -38,9 +40,11 @@ public class ViewController {
 
 	protected void changeSelectedTab(Boolean graphIsVisible) {
 		if (graphIsVisible) {
-			tabbedView.getTabLayoutPanel().selectTab(1);
-		} else {
+//			tabbedView.getTabLayoutPanel().selectTab(widget);
 			tabbedView.getTabLayoutPanel().selectTab(0);
+		} else {
+//			tabbedView.getTabLayoutPanel().selectTab(literatureview);
+			tabbedView.getTabLayoutPanel().selectTab(1);
 		}
 	}
 	
@@ -121,5 +125,14 @@ public class ViewController {
 		}
 		return result;
 		
+	}
+
+	public void showTagsForLiterature(MyButton button)  {
+		changeSelectedTab(true);
+		while (this.inprocess) {}
+		this.inprocess = true;
+		GraphBackendImpl backendImpl = new	GraphBackendImpl(widget);
+		backendImpl.findShortestPath(button.getLabel(), new GraphUpdater<Graph>(widget));
+		this.inprocess = false;
 	}
 }

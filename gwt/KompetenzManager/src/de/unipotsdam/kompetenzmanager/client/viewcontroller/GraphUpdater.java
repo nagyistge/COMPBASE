@@ -28,6 +28,7 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		this.showCompetenceBinder.storeGraph((Graph) result);
 		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);
 		backendImpl.getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>(showCompetenceBinder.viewcontroller));
+//		showCompetenceBinder.widget.viewcontroller.changeSelectedTab(true);
 	}
 	
 	@Override

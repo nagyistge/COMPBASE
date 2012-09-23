@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -21,8 +22,6 @@ import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.MouseOutEvent;
 
 public class ManyToManyConnector extends Composite {
 
@@ -44,8 +43,8 @@ public class ManyToManyConnector extends Composite {
 	private ShowCompetenceBinder2 widget;
 	private ViewController viewcontroller;
 	private HashMap<String, LiteratureEntry> literatureStringMap;
-	private Literature literature;
-	private Graph graph;
+	public Literature literature;
+	public Graph graph;
 
 	public ManyToManyConnector() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -96,11 +95,10 @@ public class ManyToManyConnector extends Composite {
 
 	private Literature getLiteratureFromSelectedList() {
 		Collection<String> selected = new HashSet<String>();
-		getSelectedItems(selected, literaturListe);
-		Literature literature = new Literature();
+		getSelectedItems(selected, literaturListe);		
 		for (String string : selected) {
-			literature.literatureEntries.add(this.literatureStringMap
-					.get(string));
+			LiteratureEntry litEtry = this.literatureStringMap.get(string);
+			literature.literatureEntries.add(litEtry);
 		}
 		return literature;
 	}
@@ -115,24 +113,10 @@ public class ManyToManyConnector extends Composite {
 
 	public void getSelectedItems(Collection<String> selected, ListBox listbox) {
 		HashSet<Integer> indexes = new HashSet<Integer>();
-		// while (listbox.getItemCount() > 0) {
-		// int i = listbox.getSelectedIndex();
-		// if (i > 0) {
-		// String selectedElem = listbox.getElement().getChild(i)
-		// .getFirstChild().toString();
-		// selected.add(selectedElem);
-		// listbox.removeItem(i);
-		// } else {
-		// for (int j = 0; j < listbox.getItemCount(); j++) {
-		// listbox.removeItem(0);
-		// }
-		// }
-		// }
 		while (listbox.getSelectedIndex() > 0) {
 			int index = listbox.getSelectedIndex();
 			listbox.setItemSelected(index, false);
-			String selectedElem = listbox.getElement().getChild(index)
-					.getFirstChild().toString();
+			String selectedElem = listbox.getItemText(index);
 			selected.add(selectedElem);
 			indexes.add(index);
 		}
@@ -152,9 +136,8 @@ public class ManyToManyConnector extends Composite {
 	// }
 
 	public void pullDataFromLiteratureBox() {
-		this.literature.literatureEntries.clear();
-		this.literature.literatureEntries
-				.addAll(getLiteratureFromSelectedList().literatureEntries);
+		this.literature.literatureEntries.clear();	
+		getLiteratureFromSelectedList();
 	}
 
 	// @UiHandler("tagListe")
