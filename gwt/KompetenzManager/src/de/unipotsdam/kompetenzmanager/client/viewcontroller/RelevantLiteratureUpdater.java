@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class RelevantLiteratureUpdater<T> implements AsyncCallback<Literature> {
 	
@@ -21,7 +22,7 @@ public class RelevantLiteratureUpdater<T> implements AsyncCallback<Literature> {
 
 	@Override
 	public void onSuccess(Literature result) {
-		this.viewController.getWidget().setRelevanteLiteratur(result);
+		this.viewController.getWidget().setRelevanteLiteratur(result);		
 	}
 
 }

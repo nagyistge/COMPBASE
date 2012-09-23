@@ -80,6 +80,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiField HorizontalPanel selectedLiterature;
 	@UiField Button auswahlTaggen;
 	@UiField Button literaturAnzeigen;
+	@UiField HorizontalPanel relevanteLiteratureButtonListe;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
@@ -396,7 +397,16 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	public void setRelevanteLiteratur(Literature result) {
 		this.relevanteLiterur = result;
+		showRelevantLiterature();
 		
+	}
+
+	public void showRelevantLiterature() {
+		this.relevanteLiteratureButtonListe.clear();
+		for (LiteratureEntry literatureEntry : this.relevanteLiterur.literatureEntries) {
+			MyLitButton myLitButton = new MyLitButton(this.viewcontroller, literatureEntry);
+			this.relevanteLiteratureButtonListe.add(myLitButton);
+		}
 	}
 	@UiHandler("auswahlTaggen")
 	void onAuswahlTaggenClick(ClickEvent event) {
