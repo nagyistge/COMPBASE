@@ -402,7 +402,7 @@ public class ShowCompetenceBinder2 extends Composite {
 	}
 
 	public void showRelevantLiterature() {
-		this.relevanteLiteratureButtonListe.clear();
+		this.relevanteLiteratureButtonListe.clear();		
 		for (LiteratureEntry literatureEntry : this.relevanteLiterur.literatureEntries) {
 			MyLitButton myLitButton = new MyLitButton(this.viewcontroller, literatureEntry);
 			this.relevanteLiteratureButtonListe.add(myLitButton);

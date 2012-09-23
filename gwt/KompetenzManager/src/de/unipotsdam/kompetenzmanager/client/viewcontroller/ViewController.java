@@ -2,6 +2,8 @@ package de.unipotsdam.kompetenzmanager.client.viewcontroller;
 
 import java.util.Collection;
 
+import com.google.gwt.core.client.GWT;
+
 import de.unipotsdam.kompetenzmanager.client.LiteratureView;
 import de.unipotsdam.kompetenzmanager.client.ManyToManyConnector;
 import de.unipotsdam.kompetenzmanager.client.MultiClickMenu;
@@ -9,6 +11,7 @@ import de.unipotsdam.kompetenzmanager.client.MyButton;
 import de.unipotsdam.kompetenzmanager.client.ShowCompetenceBinder2;
 import de.unipotsdam.kompetenzmanager.client.TabbedView;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
+import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
@@ -56,6 +59,23 @@ public class ViewController {
 		this.literatureview.addMultiClickMenu(manyToManyConnector);
 		changeSelectedTab(false);
 	}
+	
+	public void connectTagsToLiterature(Graph graph, Literature literature) {
+		while (this.inprocess) {}
+		this.inprocess = true;
+		if (!graph.nodes.isEmpty() && !literature.literatureEntries.isEmpty()) {
+			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+			backendImpl.connectLiteratureToGraph(literature, graph,
+					new GraphAndLiteratureUpdater<GraphLiteraturePair>(
+							this));
+		} else {
+			GWT.log("Für die Abbildung muss mindest ein Literatureintrag oder Knoten gewählt sein");
+		}
+		removeMultiClickMenu();
+		this.inprocess = false;
+		this.changeSelectedTab(false);
+	}
+	
 
 	public void removeMultiClickMenu() {
 		this.widget.removeMultiClickMenu();
@@ -115,9 +135,7 @@ public class ViewController {
 		Literature litEntry = new Literature(
 				literatureview.shownLiteratureEntryBinder.shownLiteratureEntry);
 		if (literatureEntry.graph.nodes.isEmpty()) {
-			backendImpl.getFullGraph(null);
-			this.widget.getRelevanteLiteratur().add(literatureEntry);
-			this.widget.showRelevantLiterature();
+			backendImpl.getFullGraph(null);			
 		} else {
 			backendImpl.getTagsforLiterature(litEntry, new GraphUpdater<Graph>(
 					widget));

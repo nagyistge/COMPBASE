@@ -15,7 +15,7 @@ public class Neo4JStarter {
 	public static GraphDatabaseService graphDb;
 	private static Index<Node> nodeIndex;
 	private static RelationshipIndex relationshipIndex;
-	public static final String DATABASE_PATH = "database/store/store3"; 
+	public static final String DATABASE_PATH = "database/store/store4"; 
 
 	public Neo4JStarter() {
 		if (Neo4JStarter.graphDb == null) {			
