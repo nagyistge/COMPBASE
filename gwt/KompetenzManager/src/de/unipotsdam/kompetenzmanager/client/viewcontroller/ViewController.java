@@ -59,15 +59,15 @@ public class ViewController {
 		this.literatureview.addMultiClickMenu(manyToManyConnector);
 		changeSelectedTab(false);
 	}
-	
+
 	public void connectTagsToLiterature(Graph graph, Literature literature) {
-		while (this.inprocess) {}
+		while (this.inprocess) {
+		}
 		this.inprocess = true;
 		if (!graph.nodes.isEmpty() && !literature.literatureEntries.isEmpty()) {
 			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 			backendImpl.connectLiteratureToGraph(literature, graph,
-					new GraphAndLiteratureUpdater<GraphLiteraturePair>(
-							this));
+					new GraphAndLiteratureUpdater<GraphLiteraturePair>(this));
 		} else {
 			GWT.log("Für die Abbildung muss mindest ein Literatureintrag oder Knoten gewählt sein");
 		}
@@ -75,7 +75,6 @@ public class ViewController {
 		this.inprocess = false;
 		this.changeSelectedTab(false);
 	}
-	
 
 	public void removeMultiClickMenu() {
 		this.widget.removeMultiClickMenu();
@@ -127,7 +126,7 @@ public class ViewController {
 		return tabbedView;
 	}
 
-	public void addThemeTag(LiteratureEntry literatureEntry) {		
+	public void addThemeTag(LiteratureEntry literatureEntry) {
 		while (this.inprocess) {
 		}
 		this.inprocess = true;
@@ -135,7 +134,7 @@ public class ViewController {
 		Literature litEntry = new Literature(
 				literatureview.shownLiteratureEntryBinder.shownLiteratureEntry);
 		if (literatureEntry.graph.nodes.isEmpty()) {
-			backendImpl.getFullGraph(null);			
+			backendImpl.getFullGraph(null);
 		} else {
 			backendImpl.getTagsforLiterature(litEntry, new GraphUpdater<Graph>(
 					widget));
@@ -151,14 +150,18 @@ public class ViewController {
 
 	public void showLiteratureToTags() {
 		Graph selectedGraph = convertToGraph(this.widget.getSelectedElements());
-		while (this.inprocess) {
+		if (selectedGraph.nodes.isEmpty()) {
+			GWT.log("Keine Elemente ausgewählt, kann den graphen nicht anzeigen");
+		} else {
+			while (this.inprocess) {
+			}
+			this.inprocess = true;
+			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+			backendImpl.getLiteratureForTags(selectedGraph,
+					new LiteratureUpdater<Literature>(literatureview));
+			this.inprocess = false;
+			changeSelectedTab(false);
 		}
-		this.inprocess = true;
-		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
-		backendImpl.getLiteratureForTags(selectedGraph,
-				new LiteratureUpdater<Literature>(literatureview));
-		this.inprocess = false;
-		changeSelectedTab(false);
 	}
 
 	// private void showLiteratureToTags(Graph selectedGraph) {

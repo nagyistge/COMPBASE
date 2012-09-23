@@ -77,7 +77,7 @@
 						<g:Button width="114px" height="28px" ui:field="auswahlTaggen">Auswahl taggen</g:Button>
 					</g:at>
 					<g:at left="0" top="269">
-						<g:Button ui:field="literaturAnzeigen" width="156px" height="28px">Literatur anzeigen</g:Button>
+						<g:Button ui:field="literaturAnzeigen" width="156px" height="28px">Literatur für Auswahl anzeigen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
