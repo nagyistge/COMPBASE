@@ -8,6 +8,8 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
+import com.google.gwt.core.client.GWT;
+
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
@@ -119,7 +121,12 @@ public abstract class DoNeo {
 	}
 
 	protected Node getLitNode(LiteratureEntry literatureEntry) {
-		return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode())
-				.getSingle();
+		if (literatureEntry.id == 0) {
+			GWT.log("kann Literatureintrag nicht ohne id finden");
+			return null;
+		} else {
+			return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode())
+					.getSingle();
+		}
 	}
 }

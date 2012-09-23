@@ -114,6 +114,7 @@ public class LiteratureEntryBinder extends Composite {
 		  this.TagsContainer.clear();
 		  for (GraphNode graph : lit.graph.nodes) {
 			  Button button = new Button(graph.label);
+			  button.setVisible(true);
 			  button.setEnabled(false);
 			  button.addClickHandler(new ClickHandler() {				
 				@Override

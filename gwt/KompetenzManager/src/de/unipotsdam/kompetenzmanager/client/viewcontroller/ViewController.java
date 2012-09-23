@@ -48,6 +48,7 @@ public class ViewController {
 		ManyToManyConnector manyToManyConnector = new ManyToManyConnector(this);
 		this.widget.addMultiClickMenu(manyToManyConnector);
 		this.literatureview.addMultiClickMenu(manyToManyConnector);
+		changeSelectedTab(true);
 	}
 	
 	public void removeMultiClickMenu() {
