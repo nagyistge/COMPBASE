@@ -67,22 +67,7 @@ public class LiteratureView extends Composite {
 		this.LiteratureViewVerticalPanel.add(shownLiteratureEntryBinder);	
 		// load tree
 		updateLiteratureView();
-//		literatureTree.addTreeListener(new TreeListener() {					
-//
-//			@Override
-//			public void onTreeItemStateChanged(TreeItem item) {}
-//			
-//			@Override
-//			public void onTreeItemSelected(TreeItem item) {
-//				if (item instanceof MyTreeItem)
-//				((MyTreeItem) item).updateBindings();				
-//			}
-//		});
 	}
-
-
-
-
 
 	private void updateLiteratureView() {
 		GraphBackendImpl backendImpl;
@@ -90,6 +75,7 @@ public class LiteratureView extends Composite {
 		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(this);
 		GWT.log("trying to get the literature now");
 		backendImpl.getFullLiterature(litUpdater);
+		this.shownLiteratureEntryBinder.addThemeButton.setEnabled(false);
 	}
 
 

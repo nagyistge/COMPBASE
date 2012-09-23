@@ -120,6 +120,7 @@ public class LiteratureEntryBinder extends Composite {
 			  MyButton label = new MyButton(graph.label, viewcontroller);
 			  this.verticalTagPanel.add(label);
 		  }
+		  this.addThemeButton.setEnabled(true);
 	}
 	
 	@UiHandler("titleContent")
