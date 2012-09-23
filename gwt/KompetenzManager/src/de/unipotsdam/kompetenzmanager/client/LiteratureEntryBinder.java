@@ -1,5 +1,6 @@
 package de.unipotsdam.kompetenzmanager.client;
 
+import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
@@ -24,6 +25,8 @@ import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.VerticalSplitPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class LiteratureEntryBinder extends Composite {
 
@@ -40,6 +43,7 @@ public class LiteratureEntryBinder extends Composite {
 	@UiField TextArea abstractContent;
 	@UiField AbsolutePanel klassifikationstabellePanel;
 	@UiField Label contentKlassifikationsID;
+	@UiField VerticalPanel verticalTagPanel;
 	private ViewController viewcontroller;
 	public LiteratureEntry shownLiteratureEntry;
 
@@ -111,18 +115,10 @@ public class LiteratureEntryBinder extends Composite {
 		  publicationDate.setText(this.shownLiteratureEntry.year);
 		  this.volumeContent.setText(this.shownLiteratureEntry.volume);
 		  titleContent.setText(this.shownLiteratureEntry.titel);
-		  this.TagsContainer.clear();
-		  for (GraphNode graph : lit.graph.nodes) {
-			  Button button = new Button(graph.label);
-			  button.setVisible(true);
-			  button.setEnabled(false);
-			  button.addClickHandler(new ClickHandler() {				
-				@Override
-				public void onClick(ClickEvent event) {
-					// navigate to graph and call shortest path or something				
-				}
-			});
-			this.TagsContainer.add(button);
+//		  this.TagsContainer.clear();
+		  for (GraphNode graph : lit.graph.nodes) {			  
+			  MyButton label = new MyButton(graph.label, viewcontroller);
+			  this.verticalTagPanel.add(label);
 		  }
 	}
 	

@@ -13,9 +13,9 @@
 				</g:customHeader>
 				<g:HTMLPanel width="1600px" height="950px" ui:field="ThemeViewTab" />
 			</g:tab>
-			<g:tab text="Literatur ">
+			<g:tab text="Literatur">
 				<g:customHeader>
-					<g:Label>Thematische Sicht</g:Label>
+					<g:Label>Literatur-Sicht</g:Label>
 				</g:customHeader>
 				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab" />
 			</g:tab>

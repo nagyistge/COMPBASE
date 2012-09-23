@@ -44,8 +44,7 @@ public class KompetenzManager implements EntryPoint {
 		
 		//select correct tab
 		tabbedView.tabView.selectTab(0, true);
-		tabbedView.tabView.selectTab(1, true);	
-		tabbedView.tabView.getWidget(1).setTitle("Literatur");
+		tabbedView.tabView.selectTab(1, true);			
 		tabbedView.tabView.selectTab(0);
 		
 		//add viewcontroller

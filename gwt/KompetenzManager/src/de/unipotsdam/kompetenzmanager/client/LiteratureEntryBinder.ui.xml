@@ -26,9 +26,9 @@
 			</g:VerticalPanel>
 			<g:VerticalPanel height="296px" width="261px">
 				<g:Label text="Tags:"/>
-				<g:SimplePanel>
-					<g:ScrollPanel height="239px" width="100%" ui:field="TagsContainer"/>
-				</g:SimplePanel>
+				<g:ScrollPanel ui:field="TagsContainer">
+					<g:VerticalPanel width="100%" height="201px" ui:field="verticalTagPanel"/>
+				</g:ScrollPanel>
 			</g:VerticalPanel>
 		</g:HorizontalPanel>
 			</g:at>
