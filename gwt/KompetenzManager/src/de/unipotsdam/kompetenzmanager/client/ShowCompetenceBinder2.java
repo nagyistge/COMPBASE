@@ -249,6 +249,7 @@ public class ShowCompetenceBinder2 extends Composite {
 		this.absolutePanel.add(this.dataEntryField, widget.absolutePanel
 				.getWidgetLeft(widget.glassPanelContainer) + 20, widget.absolutePanel
 				.getWidgetTop(widget.glassPanelContainer) + 20);
+		
 	}
 
 	/**

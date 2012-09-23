@@ -1,7 +1,5 @@
 package de.unipotsdam.kompetenzmanager.shared;
 
-import java.util.Locale;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import de.unipotsdam.kompetenzmanager.shared.util.Collator;
