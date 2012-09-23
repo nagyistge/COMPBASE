@@ -86,7 +86,7 @@ public class ManyToManyConnector extends Composite {
 		if (!graph.nodes.isEmpty() && !literature.literatureEntries.isEmpty()) {
 			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 			backendImpl.connectLiteratureToGraph(literature, graph,
-					new GraphAndLiteratureUpdater<GraphLiteraturePair>());
+					new GraphAndLiteratureUpdater<GraphLiteraturePair>(viewcontroller));
 		} else {
 			GWT.log("Für die Abbildung muss mindest ein Literatureintrag oder Knoten gewählt sein");
 		}

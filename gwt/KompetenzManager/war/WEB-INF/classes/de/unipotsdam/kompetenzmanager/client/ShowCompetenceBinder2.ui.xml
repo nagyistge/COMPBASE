@@ -7,7 +7,7 @@
 		}
 	</ui:style>
 	<g:HTMLPanel width="1800" height="950">
-		<g:AbsolutePanel height="692px" width="1600px" ui:field="absolutePanel">
+		<g:AbsolutePanel height="794px" width="1600px" ui:field="absolutePanel">
 			<g:at left="0" top="0">
 				<g:FlowPanel width="806px" height="34px">
 						<g:Label text="Willkommen bei der Didaktik der Informatik Recherche Plattform" styleName="{style.important}"/>
@@ -34,11 +34,10 @@
 					</g:at>
 					<g:at left="125" top="494">
 						<g:HorizontalPanel width="538px" height="45px" ui:field="selectedLiterature">
-							<g:ScrollPanel height="43px"/>
+							<g:ScrollPanel height="43px">
+								<g:HorizontalPanel width="100%" height="100%" ui:field="relevanteLiteratureButtonListe"/>
+							</g:ScrollPanel>
 						</g:HorizontalPanel>
-					</g:at>
-					<g:at left="10" top="556">
-						<g:Button ui:field="literaturAnzeigen">Literatur anzeigen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
@@ -62,7 +61,7 @@
 				</g:VerticalPanel>
 			</g:at>
 			<g:at left="10" top="445">
-				<g:AbsolutePanel width="201px" height="237px">
+				<g:AbsolutePanel width="201px" height="322px">
 					<g:at left="0" top="45">
 						<g:ScrollPanel width="201px" height="113px" ui:field="SelectedListPanel">
 							<g:VerticalPanel width="100%" height="100%" ui:field="VerticalPanel"/>
@@ -76,6 +75,9 @@
 					</g:at>
 					<g:at left="0" top="209">
 						<g:Button width="114px" height="28px" ui:field="auswahlTaggen">Auswahl taggen</g:Button>
+					</g:at>
+					<g:at left="0" top="269">
+						<g:Button ui:field="literaturAnzeigen" width="156px" height="28px">Literatur anzeigen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

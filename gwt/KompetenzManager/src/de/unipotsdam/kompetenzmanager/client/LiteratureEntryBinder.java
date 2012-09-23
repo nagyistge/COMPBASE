@@ -149,6 +149,6 @@ public class LiteratureEntryBinder extends Composite {
 	}
 	@UiHandler("addThemeButton")
 	void onAddThemeButtonClick(ClickEvent event) {
-		this.viewcontroller.addThemeTag();
+		this.viewcontroller.addThemeTag(this.shownLiteratureEntry);
 	}
 }

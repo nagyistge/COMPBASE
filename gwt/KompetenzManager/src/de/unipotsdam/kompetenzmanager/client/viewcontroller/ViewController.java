@@ -11,6 +11,7 @@ import de.unipotsdam.kompetenzmanager.client.TabbedView;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
+import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class ViewController {
 	private ShowCompetenceBinder2 widget;
@@ -19,49 +20,51 @@ public class ViewController {
 	private Boolean graphIsVisible;
 	private boolean inprocess;
 
-	public ViewController(ShowCompetenceBinder2 widget, LiteratureView literatureView, TabbedView tabbedView) { 
+	public ViewController(ShowCompetenceBinder2 widget,
+			LiteratureView literatureView, TabbedView tabbedView) {
 		this.setWidget(widget);
 		this.setLiteratureview(literatureView);
 		this.setTabbedView(tabbedView);
 		this.graphIsVisible = true;
 	}
-	
+
 	public Boolean isVisibleGraphTab() {
 		return graphIsVisible;
 	}
-	
+
 	public void switchTab() {
-		this.graphIsVisible = !graphIsVisible;		
+		this.graphIsVisible = !graphIsVisible;
 	}
-	
+
 	public void switchTab(Boolean graphIsVisible) {
-		this.graphIsVisible = graphIsVisible;				
+		this.graphIsVisible = graphIsVisible;
 	}
 
 	protected void changeSelectedTab(Boolean graphIsVisible) {
 		if (graphIsVisible) {
-//			tabbedView.getTabLayoutPanel().selectTab(widget);
+			// tabbedView.getTabLayoutPanel().selectTab(widget);
 			tabbedView.getTabLayoutPanel().selectTab(0);
 		} else {
-//			tabbedView.getTabLayoutPanel().selectTab(literatureview);
+			// tabbedView.getTabLayoutPanel().selectTab(literatureview);
 			tabbedView.getTabLayoutPanel().selectTab(1);
 		}
 	}
-	
+
 	public void addConnectLitAndGraphMenu() {
 		ManyToManyConnector manyToManyConnector = new ManyToManyConnector(this);
 		this.widget.addMultiClickMenu(manyToManyConnector);
 		this.literatureview.addMultiClickMenu(manyToManyConnector);
-		changeSelectedTab(true);
+		changeSelectedTab(false);
 	}
-	
+
 	public void removeMultiClickMenu() {
 		this.widget.removeMultiClickMenu();
 		this.literatureview.removeMultiClickMenu();
 	}
 
 	/**
-	 * @param widget the widget to set
+	 * @param widget
+	 *            the widget to set
 	 */
 	public void setWidget(ShowCompetenceBinder2 widget) {
 		this.widget = widget;
@@ -75,7 +78,8 @@ public class ViewController {
 	}
 
 	/**
-	 * @param literatureview the literatureview to set
+	 * @param literatureview
+	 *            the literatureview to set
 	 */
 	public void setLiteratureview(LiteratureView literatureview) {
 		this.literatureview = literatureview;
@@ -89,7 +93,8 @@ public class ViewController {
 	}
 
 	/**
-	 * @param tabbedView the tabbedView to set
+	 * @param tabbedView
+	 *            the tabbedView to set
 	 */
 	public void setTabbedView(TabbedView tabbedView) {
 		this.tabbedView = tabbedView;
@@ -102,45 +107,79 @@ public class ViewController {
 		return tabbedView;
 	}
 
-	public void addThemeTag() {
-		while (this.inprocess) {}
-		this.inprocess = true;	
+	public void addThemeTag(LiteratureEntry literatureEntry) {		
+		while (this.inprocess) {
+		}
+		this.inprocess = true;
 		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
-		backendImpl.getTagsforLiterature(new Literature(literatureview.shownLiteratureEntryBinder.shownLiteratureEntry), new GraphUpdater<Graph>(widget));		
+		Literature litEntry = new Literature(
+				literatureview.shownLiteratureEntryBinder.shownLiteratureEntry);
+		if (literatureEntry.graph.nodes.isEmpty()) {
+			backendImpl.getFullGraph(null);
+			this.widget.getRelevanteLiteratur().add(literatureEntry);
+			this.widget.showRelevantLiterature();
+		} else {
+			backendImpl.getTagsforLiterature(litEntry, new GraphUpdater<Graph>(
+					widget));
+		}
 		this.inprocess = false;
 		changeSelectedTab(true);
-		
+
 	}
 
 	public void tagSelectionToLiterature() {
-		addConnectLitAndGraphMenu();		
+		addConnectLitAndGraphMenu();
 	}
 
 	public void showLiteratureToTags() {
-		while(this.inprocess) {}
-		this.inprocess = true;
 		Graph selectedGraph = convertToGraph(this.widget.getSelectedElements());
+		while (this.inprocess) {
+		}
+		this.inprocess = true;
 		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
-		backendImpl.getLiteratureForTags(selectedGraph, new LiteratureUpdater<Literature>(this.literatureview));
+		backendImpl.getLiteratureForTags(selectedGraph,
+				new LiteratureUpdater<Literature>(literatureview));
 		this.inprocess = false;
-		changeSelectedTab(false);		
+		changeSelectedTab(false);
 	}
+
+	// private void showLiteratureToTags(Graph selectedGraph) {
+	// this.inprocess = true;
+	// GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+	// backendImpl.getLiteratureForTags(selectedGraph, new
+	// LiteratureUpdater<Literature>(this.literatureview));
+	// this.inprocess = false;
+	// changeSelectedTab(false);
+	// }
 
 	public Graph convertToGraph(Collection<String> selectedElements) {
 		Graph result = new Graph();
-		for(String elem: selectedElements) {
+		for (String elem : selectedElements) {
 			result.nodes.add(new GraphNode(elem));
 		}
 		return result;
-		
+
 	}
 
-	public void showTagsForLiterature(MyButton button)  {
+	public void showTagsForLiterature(MyButton button) {
 		changeSelectedTab(true);
-		while (this.inprocess) {}
+		while (this.inprocess) {
+		}
 		this.inprocess = true;
-		GraphBackendImpl backendImpl = new	GraphBackendImpl(widget);
-		backendImpl.findShortestPath(button.getLabel(), new GraphUpdater<Graph>(widget));
+		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+		backendImpl.findShortestPath(button.getLabel(),
+				new GraphUpdater<Graph>(widget));
 		this.inprocess = false;
+	}
+
+	public void showLiteratureToTags(LiteratureEntry literatureEntry) {
+		while (this.inprocess) {
+		}
+		this.inprocess = true;
+		LiteratureUpdater<Literature> literatureUpdater = new LiteratureUpdater<Literature>(
+				getLiteratureview());
+		literatureUpdater.onSuccess(new Literature(literatureEntry));
+		this.inprocess = false;
+		changeSelectedTab(false);
 	}
 }
