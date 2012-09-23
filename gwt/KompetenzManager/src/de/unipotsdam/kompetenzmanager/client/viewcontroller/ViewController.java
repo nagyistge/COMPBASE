@@ -103,7 +103,12 @@ public class ViewController {
 	}
 
 	public void addThemeTag() {
-		// TODO Auto-generated method stub
+		while (this.inprocess) {}
+		this.inprocess = true;	
+		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+		backendImpl.getTagsforLiterature(new Literature(literatureview.shownLiteratureEntryBinder.shownLiteratureEntry), new GraphUpdater<Graph>(widget));		
+		this.inprocess = false;
+		changeSelectedTab(true);
 		
 	}
 
@@ -112,9 +117,12 @@ public class ViewController {
 	}
 
 	public void showLiteratureToTags() {
+		while(this.inprocess) {}
+		this.inprocess = true;
 		Graph selectedGraph = convertToGraph(this.widget.getSelectedElements());
 		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 		backendImpl.getLiteratureForTags(selectedGraph, new LiteratureUpdater<Literature>(this.literatureview));
+		this.inprocess = false;
 		changeSelectedTab(false);		
 	}
 

@@ -20,7 +20,7 @@
 					</g:VerticalPanel>
 			</g:at>
 			<g:at left="246" top="74">
-				<g:AbsolutePanel width="994px" height="568px" ui:field="glassPanelContainer">
+				<g:AbsolutePanel width="994px" height="608px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
 						<g:FocusPanel ui:field="focusPanel1" width="939px" height="475px">
 							<g:SimplePanel width="100%" height="477px"/>
@@ -36,6 +36,9 @@
 						<g:HorizontalPanel width="538px" height="45px" ui:field="selectedLiterature">
 							<g:ScrollPanel height="43px"/>
 						</g:HorizontalPanel>
+					</g:at>
+					<g:at left="10" top="556">
+						<g:Button ui:field="literaturAnzeigen">Literatur anzeigen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
@@ -58,8 +61,8 @@
 					<g:ToggleButton text="JA" ui:field="toggleButton"/>
 				</g:VerticalPanel>
 			</g:at>
-			<g:at left="10" top="467">
-				<g:AbsolutePanel width="201px" height="215px">
+			<g:at left="10" top="445">
+				<g:AbsolutePanel width="201px" height="237px">
 					<g:at left="0" top="45">
 						<g:ScrollPanel width="201px" height="113px" ui:field="SelectedListPanel">
 							<g:VerticalPanel width="100%" height="100%" ui:field="VerticalPanel"/>
@@ -70,6 +73,9 @@
 					</g:at>
 					<g:at left="0" top="175">
 						<g:Button ui:field="deleteSelection">Auswahl löschen</g:Button>
+					</g:at>
+					<g:at left="0" top="209">
+						<g:Button width="114px" height="28px" ui:field="auswahlTaggen">Auswahl taggen</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

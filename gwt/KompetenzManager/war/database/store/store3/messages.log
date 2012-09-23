@@ -19903,3 +19903,15 @@
     nioneo_logical.log.1: 2,62 kB
     nioneo_logical.log.active: 4,00 B
     tm_tx_log.1: 0,00 B
+2012-09-23 17:03:32.571+0000: --- STARTUP diagnostics for KernelDiagnostics:StoreFiles END ---
+2012-09-23 17:03:32.574+0000: Started - database is now available
+2012-09-23 17:03:32.587+0000: GC Monitor started. 
+2012-09-23 17:07:15.135+0000: GC Monitor: Application threads blocked for an additional 141ms [total block time: 0.141s]
+2012-09-23 17:07:15.869+0000: GC Monitor: Application threads blocked for an additional 134ms [total block time: 0.275s]
+2012-09-23 17:07:33.978+0000: GC Monitor: Application threads blocked for an additional 119ms [total block time: 0.394s]
+2012-09-23 17:07:36.162+0000: GC Monitor: Application threads blocked for an additional 150ms [total block time: 0.544s]
+2012-09-23 17:07:38.143+0000: GC Monitor: Application threads blocked for an additional 119ms [total block time: 0.663s]
+2012-09-23 17:07:39.796+0000: GC Monitor: Application threads blocked for an additional 134ms [total block time: 0.797s]
+2012-09-23 17:07:47.836+0000: GC Monitor: Application threads blocked for an additional 305ms [total block time: 1.102s]
+2012-09-23 17:08:32.424+0000: GC Monitor: Application threads blocked for an additional 119ms [total block time: 1.221s]
+2012-09-23 17:08:32.907+0000: GC Monitor: Application threads blocked for an additional 103ms [total block time: 1.324s]
