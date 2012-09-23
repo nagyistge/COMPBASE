@@ -61,11 +61,19 @@ public class ManyToManyConnector extends Composite {
 	}
 
 	private void fillMultiBoxes(ViewController viewController) {
+		addTagsToListBox();
+		addLiteratureToListBox(viewController);
+	}
+
+	private void addTagsToListBox() {
 		for (String elem : widget.getSelectedElements()) {
 			if (!elem.equals("rootnode")) {
 				this.tagListe.addItem(elem);
 			}
 		}
+	}
+
+	private void addLiteratureToListBox(ViewController viewController) {
 		int i = 0;
 		for (LiteratureEntry literatureEntry : viewController
 				.getLiteratureview().getStoredLiterature().literatureEntries) {
@@ -81,21 +89,16 @@ public class ManyToManyConnector extends Composite {
 
 	@UiHandler("tagButton")
 	void onTagButtonClick(ClickEvent event) {
-		// Graph graph = getGraphFromSelection();
-		// Literature literature = getLiteratureFromSelectedList();
-		if (!graph.nodes.isEmpty() && !literature.literatureEntries.isEmpty()) {
-			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
-			backendImpl.connectLiteratureToGraph(literature, graph,
-					new GraphAndLiteratureUpdater<GraphLiteraturePair>(viewcontroller));
-		} else {
-			GWT.log("Für die Abbildung muss mindest ein Literatureintrag oder Knoten gewählt sein");
-		}
-		viewcontroller.removeMultiClickMenu();
+		Graph graph = getGraphFromSelection();
+		Literature literature = getLiteratureFromSelectedList();
+		viewcontroller.connectTagsToLiterature(graph, literature);
 	}
+
+
 
 	private Literature getLiteratureFromSelectedList() {
 		Collection<String> selected = new HashSet<String>();
-		getSelectedItems(selected, literaturListe);		
+		getSelectedItems(selected, literaturListe);
 		for (String string : selected) {
 			LiteratureEntry litEtry = this.literatureStringMap.get(string);
 			literature.literatureEntries.add(litEtry);
@@ -113,7 +116,7 @@ public class ManyToManyConnector extends Composite {
 
 	public void getSelectedItems(Collection<String> selected, ListBox listbox) {
 		HashSet<Integer> indexes = new HashSet<Integer>();
-		while (listbox.getSelectedIndex() > 0) {
+		while (listbox.getSelectedIndex() >= 0) {
 			int index = listbox.getSelectedIndex();
 			listbox.setItemSelected(index, false);
 			String selectedElem = listbox.getItemText(index);
@@ -135,10 +138,10 @@ public class ManyToManyConnector extends Composite {
 	// pullDataFromLiteratureBox();
 	// }
 
-	public void pullDataFromLiteratureBox() {
-		this.literature.literatureEntries.clear();	
-		getLiteratureFromSelectedList();
-	}
+	// public void pullDataFromLiteratureBox() {
+	// this.literature.literatureEntries.clear();
+	// getLiteratureFromSelectedList();
+	// }
 
 	// @UiHandler("tagListe")
 	// void onTagListeChange(ChangeEvent event) {
@@ -150,10 +153,10 @@ public class ManyToManyConnector extends Composite {
 		this.graph.nodes.addAll(getGraphFromSelection().nodes);
 	}
 
-	@UiHandler("literaturListe")
-	void onLiteraturListeMouseOut(MouseOutEvent event) {
-		pullDataFromLiteratureBox();
-	}
+	// @UiHandler("literaturListe")
+	// void onLiteraturListeMouseOut(MouseOutEvent event) {
+	// pullDataFromLiteratureBox();
+	// }
 
 	@UiHandler("tagListe")
 	void onTagListeMouseOut(MouseOutEvent event) {

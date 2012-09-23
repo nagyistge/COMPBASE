@@ -23,8 +23,8 @@ public class GraphAndLiteratureUpdater<T> implements
 
 	@Override
 	public void onSuccess(GraphLiteraturePair result) {
-		GraphUpdater<Graph> graphUpdater = new GraphUpdater<Graph>(viewcontroller.getWidget());
-		graphUpdater.onSuccess(result.graph);
+//		GraphUpdater<Graph> graphUpdater = new GraphUpdater<Graph>(viewcontroller.getWidget());
+//		graphUpdater.onSuccess(result.graph);
 		LiteratureUpdater<Literature> literatureUpdater = new LiteratureUpdater<Literature>(viewcontroller.getLiteratureview());
 		literatureUpdater.onSuccess(result.literature);
 		
