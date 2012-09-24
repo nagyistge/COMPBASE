@@ -1,8 +1,5 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -16,13 +13,13 @@ import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class DoGetTagsForLit extends DoNeo implements Do {
 
-	private Literature literature;	
+	private Literature literature;
 
 	public DoGetTagsForLit(GraphDatabaseService graphDB, Index<Node> nodeIndex,
 			RelationshipIndex relIndex, Literature literature) {
 		super(graphDB, nodeIndex, relIndex);
 		this.literature = literature;
-		
+
 	}
 
 	@Override
@@ -34,13 +31,14 @@ public class DoGetTagsForLit extends DoNeo implements Do {
 					.getRelationships(RelTypes.isTagOf);
 			if (rels.iterator().hasNext()) {
 				for (Relationship relationship : rels) {
-					Node graphNode = relationship.getOtherNode(litNode);			
+					Node graphNode = relationship.getOtherNode(litNode);
 					DoFindShortestPath doFindShortestPath = new DoFindShortestPath(
 							this.graphDb, nodeIndex, this.relIndex, "rootnode",
 							(String) graphNode.getProperty(NODE_VALUE));
 					graph.mergeWith(doFindShortestPath.doit());
 				}
 			}
+
 		}
 
 		for (GraphNode graphNode : graph.nodes) {
