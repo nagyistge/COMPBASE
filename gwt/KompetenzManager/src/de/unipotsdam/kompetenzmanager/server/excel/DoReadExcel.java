@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.gwt.dev.util.Strings;
 
+import de.unipotsdam.kompetenzmanager.client.viewcontroller.util.UUID;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
@@ -28,7 +29,7 @@ public class DoReadExcel {
 		// An excel file name. You can create a file name with a full
 		// path information.
 		//
-		filename = "Klassifkation.xlsx";
+		filename = "excel/Klassifkation.xlsx";
 
 	}
 
@@ -81,18 +82,17 @@ public class DoReadExcel {
 	public Literature generateLiteratureEntriesFromExcel() throws IOException {
 		readRawData();
 		Literature result = new Literature();
-		for (int i = 3; i < sheetData.size(); i++) {
+		for (int i = 0; i < sheetData.size(); i++) {
 			List list = sheetData.get(i);
 			LiteratureEntry literatureEntry = new LiteratureEntry();
-			XSSFCell cell1 = (XSSFCell) list.get(1);
-			XSSFCell cell2 = (XSSFCell) list.get(2);
-			XSSFCell cell3 = (XSSFCell) list.get(3);
-			XSSFCell cell4 = (XSSFCell) list.get(4);
-			XSSFCell cell5 = (XSSFCell) list.get(5);
+			XSSFCell cell1 = (XSSFCell) list.get(0);
+			XSSFCell cell2 = (XSSFCell) list.get(1);
+			XSSFCell cell3 = (XSSFCell) list.get(2);
+			XSSFCell cell4 = (XSSFCell) list.get(3);			
 			literatureEntry.titel = cell1.getStringCellValue();
 			literatureEntry.author = cell2.getStringCellValue();
-			String band = cell3.getRawValue();
-			if (band.startsWith("INFO")) {
+			String band = cell3.getStringCellValue();
+			if (band.contains("INFO")) {
 				literatureEntry.paper = "INFO";  
 			} else {
 				literatureEntry.paper = "DDI";
@@ -100,7 +100,8 @@ public class DoReadExcel {
 			literatureEntry.year = cell4.getRawValue();
 			literatureEntry.klassifikationsnummer = i;	
 			literatureEntry.abstractText = "";
-			literatureEntry.volume = Integer.parseInt(band) + "";
+			literatureEntry.volume =  "";
+			literatureEntry.id = new UUID().hashCode();
 			result.literatureEntries.add(literatureEntry);
 		}
 		return result;
