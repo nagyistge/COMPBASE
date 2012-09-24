@@ -48,6 +48,9 @@
 			<g:at left="608" top="444">
 				<g:Button width="103px" ui:field="addThemeButton" styleName="addThemeButton">add theme tag</g:Button>
 			</g:at>
+			<g:at left="42" top="442">
+				<g:Button width="103px" height="28px" ui:field="deleteButton">löschen</g:Button>
+			</g:at>
 		</g:AbsolutePanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

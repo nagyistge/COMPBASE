@@ -203,4 +203,15 @@ public class ViewController {
 		this.inprocess = false;
 		changeSelectedTab(false);
 	}
+
+	public void deleteLitEntry(LiteratureEntry shownLiteratureEntry) {
+		while (this.inprocess) {
+		}
+		this.inprocess = true;
+		GraphBackendImpl backendImpl = new GraphBackendImpl(this.widget);
+		backendImpl.removeLiteratureEntry(this.literatureview.getStoredLiterature(), shownLiteratureEntry, new LiteratureUpdater<Literature>(literatureview));
+		this.inprocess = false;
+		changeSelectedTab(false);
+		
+	}
 }

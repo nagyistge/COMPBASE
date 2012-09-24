@@ -44,6 +44,7 @@ public class LiteratureEntryBinder extends Composite {
 	@UiField AbsolutePanel klassifikationstabellePanel;
 	@UiField Label contentKlassifikationsID;
 	@UiField VerticalPanel verticalTagPanel;
+	@UiField Button deleteButton;
 	private ViewController viewcontroller;
 	public LiteratureEntry shownLiteratureEntry;
 
@@ -150,5 +151,9 @@ public class LiteratureEntryBinder extends Composite {
 	@UiHandler("addThemeButton")
 	void onAddThemeButtonClick(ClickEvent event) {
 		this.viewcontroller.addThemeTag(this.shownLiteratureEntry);
+	}
+	@UiHandler("deleteButton")
+	void onDeleteButtonClick(ClickEvent event) {
+		this.viewcontroller.deleteLitEntry(this.shownLiteratureEntry);
 	}
 }
