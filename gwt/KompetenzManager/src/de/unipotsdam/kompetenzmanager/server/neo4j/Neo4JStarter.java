@@ -28,7 +28,7 @@ public class Neo4JStarter {
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();		
 			addLiteratureRootNode();
-			initilaizeLiterature();
+//			initilaizeLiterature();
 		} 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
 			@Override
