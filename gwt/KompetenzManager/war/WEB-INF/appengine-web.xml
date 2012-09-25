@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-  <application></application>
+  <application>uzuzjmd</application>
   <version>1</version>
-
+  <threadsafe>false</threadsafe>
+  <warmup-requests-enabled>false</warmup-requests-enabled>
   <!-- Configure serving/caching of GWT files -->
   <static-files>
     <include path="**" />

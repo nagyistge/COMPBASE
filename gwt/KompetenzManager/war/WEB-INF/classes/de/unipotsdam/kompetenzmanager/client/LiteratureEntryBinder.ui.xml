@@ -9,7 +9,7 @@
 			<g:at left="10" top="85">
 				<g:HorizontalPanel width="738px" height="340px">
 			<g:VerticalPanel height="339px" width="126px">
-				<g:Label text="Titel"/>
+				<g:Label text="Titel" height="33px"/>
 				<g:Label text="Autor"/>
 				<g:Label text="Jahr"/>
 				<g:Label text="Paper"/>
@@ -17,7 +17,7 @@
 				<g:Label text="Abstract"/>
 			</g:VerticalPanel>
 			<g:VerticalPanel height="338px" width="251px">
-				<g:TextBox ui:field="titleContent" width="220px"/>
+				<g:TextArea ui:field="titleContent" width="220px"/>
 				<g:TextBox width="220px" ui:field="authorContent"/>
 				<g:TextBox width="220px" ui:field="publicationDate"/>
 				<g:TextBox width="222px" ui:field="paperContent"/>

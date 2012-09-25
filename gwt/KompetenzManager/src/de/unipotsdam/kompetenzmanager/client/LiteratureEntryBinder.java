@@ -33,7 +33,7 @@ public class LiteratureEntryBinder extends Composite {
 	private static LiteratureEntryUiBinder uiBinder = GWT
 			.create(LiteratureEntryUiBinder.class);
 	@UiField ScrollPanel TagsContainer;
-	@UiField TextBox titleContent;
+	@UiField TextArea titleContent;
 	@UiField TextBox authorContent;
 	@UiField TextBox publicationDate;
 	@UiField Button speichernButton;

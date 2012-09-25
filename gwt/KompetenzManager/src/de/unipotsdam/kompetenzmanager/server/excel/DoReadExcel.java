@@ -25,10 +25,7 @@ public class DoReadExcel {
 	private String filename;
 
 	public DoReadExcel() throws IOException {
-		this.sheetData = new ArrayList<List<XSSFCell>>();
-		// An excel file name. You can create a file name with a full
-		// path information.
-		//
+		this.sheetData = new ArrayList<List<XSSFCell>>();		
 		filename = "excel/Klassifkation.xlsx";
 
 	}

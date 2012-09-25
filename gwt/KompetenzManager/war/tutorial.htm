@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0063)https://elis.soft.cs.uni-potsdam.de/mahara/view/view.php?id=222 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="author" content="Elis Team (admin)">
+    <title>ddi-graph - eLiS-mahara</title>
+    <script type="text/javascript">
+    var config = {
+        'theme': {"images\/icon_close.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/icon_close.gif","images\/edit.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/edit.gif","images\/failure.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/failure.gif","images\/loading.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/loading.gif","images\/success.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/success.gif","images\/icon_problem.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/icon_problem.gif","images\/icon_help.gif":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/images\/icon_help.gif","style\/js.css":"https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/raw\/static\/style\/js.css"},
+        'sesskey' : '4BbLFiuaoqn7xd6K',
+        'wwwroot': 'https://elis.soft.cs.uni-potsdam.de/mahara/',
+        'loggedin': 1,
+        'userid': 1
+    };
+    </script>
+    <script type="text/javascript">var strings = {"namedfieldempty":"Das erforderliche Feld \"%s\" ist leer","processing":"Bearbeitung","unknownerror":"Unbekannter Fehler (0x20f91a0)","loading":"Laden ...","showtags":"Meine Tags anzeigen","couldnotgethelp":"Beim Lesen der Hilfedatei ist ein Fehler aufgetreten","password":"Passwort","username":"Anmeldename","login":"Anmelden","sessiontimedout":"Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an","loginfailed":"Fehler bei der Anmeldung. Bitte kontrollieren Sie Ihren Anmeldenamen und das Passwort.","home":"Startseite","youhavenottaggedanythingyet":"Sie haben bisher noch keine Schlagworte erfasst"};
+function plural(n) { return n != 1; }
+</script>
+    <script type="text/javascript" src="./tutorial_files/jquery.js"></script>
+    <script type="text/javascript" src="./tutorial_files/tiny_mce.js"></script>
+    <script type="text/javascript" src="./tutorial_files/Packed.js"></script>
+    <script type="text/javascript" src="./tutorial_files/keyboardNavigation.js"></script>
+    <script type="text/javascript" src="./tutorial_files/paginator.js"></script>
+    <script type="text/javascript" src="./tutorial_files/viewmenu.js"></script>
+    <script type="text/javascript" src="./tutorial_files/resumeshowhide.js"></script>
+    <script type="text/javascript" src="./tutorial_files/jquery.rating.js"></script>
+    <script type="text/javascript" src="./tutorial_files/mahara.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/views.css">
+    <script type="text/javascript">pieformPath = "https://elis.soft.cs.uni-potsdam.de/mahara/lib/pieforms/static/core/";</script>
+    <script type="text/javascript" src="./tutorial_files/pieforms.js"></script>
+    <script type="text/javascript">
+var editor_to_focus;
+PieformManager.connect('onsubmit', null, tinyMCE.triggerSave);
+PieformManager.connect('onload', null, function() {
+    tinyMCE.execCommand('mceAddControl', false, 'add_feedback_form_message');
+    $('add_feedback_form_message').focus = function() {
+        editor_to_focus = 'add_feedback_form_message';
+    };
+});
+PieformManager.connect('onreply', null, function() {
+    tinyMCE.execCommand('mceRemoveControl', false, 'add_feedback_form_message');
+});</script>
+    <script type="text/javascript">PieformManager.loadPlugin('element', 'textarea');
+PieformManager.connect("onload", "objection_form", function(){new PieformTextarea($("objection_form_message"));});
+</script><script type="text/javascript" src="./tutorial_files/textarea.js"></script>
+    <script type="text/javascript">$j=jQuery;</script>
+    <script type="text/javascript">
+tinyMCE.init({
+    button_tile_map: true,
+        mode: "none",
+    theme: "advanced",
+    plugins: "table,emotions,spellchecker,inlinepopups,paste,fullscreen",
+    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,forecolor,backcolor,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,hr,emotions,image,spellchecker,cleanup,separator,link,unlink,separator,code,fullscreen",
+    theme_advanced_buttons2 : "undo,redo,separator,bullist,numlist,separator,tablecontrols,separator,cut,copy,paste,pasteword",
+    theme_advanced_buttons3 : "fontselect,separator,fontsizeselect,separator,formatselect",
+    theme_advanced_toolbar_location : "top",
+    theme_advanced_toolbar_align : "left",
+    fix_list_elements: true,
+    spellchecker_rpc_url : "https://elis.soft.cs.uni-potsdam.de/mahara/js/tinymce/plugins/spellchecker/rpc.php",
+    //width: '512',
+    extended_valid_elements : "object[width|height|classid|codebase],param[name|value],embed[src|type|width|height|flashvars|wmode],script[src,type,language],+ul[id|type|compact],iframe[src|width|height|align|title|class|type|frameborder|allowfullscreen]",
+    urlconverter_callback : "custom_urlconvert",
+    language: 'de',
+    directionality: "ltr",
+    content_css : "https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/theme\/default\/static\/style\/tinymce.css",
+    //document_base_url: "https:\/\/elis.soft.cs.uni-potsdam.de\/mahara\/",
+    remove_script_host: false,
+    relative_urls: false,
+    setup: function(ed) {
+        ed.onInit.add(function(ed) {
+            if (typeof(editor_to_focus) == 'string' && ed.editorId == editor_to_focus) {
+                ed.focus();
+            }
+        });
+        
+    }
+});
+function custom_urlconvert (u, n, e) {
+  // Don't convert the url on the skype status buttons.
+  if (u.indexOf('skype:') == 0) {
+      return u;
+  }
+  var t = tinyMCE.activeEditor, s = t.settings;
+
+  // Don't convert link href since thats the CSS files that gets loaded into the editor also skip local file URLs
+  if (!s.convert_urls || (e && e.nodeName == 'LINK') || u.indexOf('file:') === 0)
+      return u;
+
+  // Convert to relative
+  if (s.relative_urls)
+      return t.documentBaseURI.toRelative(u);
+
+  // Convert to absolute
+  u = t.documentBaseURI.toAbsolute(u, s.remove_script_host);
+
+  return u;
+}
+</script>
+
+
+    <script type="text/javascript">
+var viewid = 222;
+var showmore = 0;
+addLoadEvent(function () {
+    paginator = new Paginator("feedback_pagination", "feedbacktable", "artefact\/comment\/comments.json.php", {"view":"222"});
+});
+    </script>
+
+	<!--[if lt IE 7.]>
+		<script defer type="text/javascript" src="https://elis.soft.cs.uni-potsdam.de/mahara/js/pngfix.js"></script>
+	<![endif]-->
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/style.css">
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/style(1).css">
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/views(1).css">
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/views(2).css">
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/jquery.rating.css">
+
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="./tutorial_files/dropdown.css">
+
+    <script type="text/javascript" src="./tutorial_files/css.js"></script><link rel="stylesheet" type="text/css" href="./tutorial_files/js.css">
+    <link rel="shortcut icon" href="https://elis.soft.cs.uni-potsdam.de/mahara/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" href="https://elis.soft.cs.uni-potsdam.de/mahara/js/tinymce/themes/advanced/skins/default/ui.css"><link rel="stylesheet" href="https://elis.soft.cs.uni-potsdam.de/mahara/js/tinymce/plugins/inlinepopups/skins/clearlooks2/window.css"></head>
+
+
+<body id="micro">
+
+
+<div id="containerX">
+    <div id="loading-box"></div>
+    <div id="top-wrapper">
+      <div class="viewheadertop">
+        <div class="fr links">
+                                    <a class="btn" href="https://elis.soft.cs.uni-potsdam.de/mahara/view/blocks.php?id=222">Ansicht bearbeiten</a>
+            
+          
+          <a class="btn nojs-hidden-inline" href="javascript:history.back()">Zurück</a>
+        </div>
+        <div class="fl">
+          <a class="small-logo" href="https://elis.soft.cs.uni-potsdam.de/mahara/"><img src="./tutorial_files/site-logo-small.png" alt="eLiS-mahara"></a>
+        </div>
+        <div id="mainnav-container" class="nav">
+         <div id="mainnav" class="" style="display: none; ">
+          <strong><a href="https://elis.soft.cs.uni-potsdam.de/mahara/user/view.php">Elis Team</a>:</strong>
+                      
+                                    <a href="https://elis.soft.cs.uni-potsdam.de/mahara/artefact/internal/">Ressourcen</a> |
+            
+                                    <a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/">Mein Portfolio</a> |
+            
+                                    <a href="https://elis.soft.cs.uni-potsdam.de/mahara/group/mygroups.php">Gruppen</a> |
+            
+          
+                      <a href="https://elis.soft.cs.uni-potsdam.de/mahara/admin/">Website Verwaltung</a> |
+          
+
+          
+          <a href="https://elis.soft.cs.uni-potsdam.de/mahara/?logout">Abmelden</a>
+        </div>
+        <script type="text/javascript">
+        addLoadEvent(function(){
+            setStyle('mainnav', {'display': 'none'});
+            removeElementClass('mainnav', 'js-hidden');
+            connect('mainnav-container', 'onmouseenter', function(e) { appear('mainnav', {'duration': 0.25}); });
+            connect('mainnav-container', 'onmouseleave', function(e) { fade('mainnav', {'duration': 0.25}); });
+        });
+        
+        </script>
+       </div>
+
+      </div>
+      <div class="viewheader">
+
+        <div class="center title"><strong>ddi-graph</strong></div>
+
+		<div class="cb"></div>
+      </div>
+    </div>
+	<div class="cb"></div>
+    <div id="main-wrapper">
+        <div class="main-column">
+            <div id="messages"></div>
+            <div id="main-column-container">
+
+
+
+
+
+
+
+
+
+
+<p>by <a href="https://elis.soft.cs.uni-potsdam.de/mahara/user/view.php?id=1">Elis Team (admin)</a></p>
+
+<div id="view-description"></div>
+
+<div id="view" class="cb">
+        <div id="bottom-pane">
+            <div id="column-container">
+               <div id="column_1" class="column columns1" style="width: 98%;">
+    <div class="column-content">
+        <div class="blockinstance cb bt-textbox" id="blockinstance_1018">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=847&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Kleines Tutorial</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Als Projekt haben wir uns die Aufgabe gestellt, die deutschsprachige Literatur zur Didaktik der Informatik der letzten 10 Jahre zu klassifizieren.</p>
+<p>Diese Website dient der Klassifikation aus thematischer Sicht. Man stelle sich die Themen der Informatik als eine Ontologie vor, bei der Informatik die allgemeinste Beschreibung ist, und zum Beispiel "XML gestützte Modelliereung" ziemlich speziell ist. Als Informatiker stellt man sich eine solche Hierarchie meist als Baum vor. Tatsächlich kann aber eine Ontologie auch ein Graph sein. Zum Beispiel kann man Projektarbeit sowohl Teamarbeit als auch Softwareentwicklung zuschreiben, wohingegen eine Ordnung zwischen letzteren beiden unplausibel ist.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1019">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=848&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Literatursicht</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Die Literatursicht zeigt Rohdaten, wie den Autor oder den Titel des Literatureintrages. Außerdem werden die Einträge nach Zeitschrift und Jahrgang sortiert in einem Baum dargestellt.</p>
+<p>&nbsp;</p>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1022">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=853&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Bild</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=853&view=222"><img src="./tutorial_files/download.php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1023">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=854&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Thematische Sicht (Graphensicht)</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Die thematische Sicht stellt ein komplexes Tool zur Verwaltung von thematischen Graphen dar.</p>
+<p>Wenn man auf einen Knoten klickt, dann erscheint das Knoten-Menu:</p>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1024">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=855&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Erstes Menu</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=855&view=222"><img src="./tutorial_files/download(1).php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1025">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=856&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Erklärung Erstes Menu</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <ol><li>"Knoten löschen" löscht den ausgewählten Knoten</li>
+<li>"Nachbarn zeigen" ist hilfreich, weil immer nur ein Teilgraph aus Platzgründen gezeigt werden kann</li>
+<li>"verbinden" dient dazu alle ausgewählten Elemente zu verbinden (siehe Auswahlmenu später)</li>
+<li>"Neues Element hinzufügen" öffnet ein Menu zum Erstellen eines Elementes</li>
+</ol>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1026">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=857&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Zweites Menu (Auswahlmenu)</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=857&view=222"><img src="./tutorial_files/download(2).php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1027">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=858&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Erklärung zweites Menu</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Das Menu öffnet sich wenn man STRG gedrückt hält und auf einen Knoten klickt:</p>
+<ol><li>"auswählen" nimmt den Knoten in die Auswahl Liste auf</li>
+<li>"Auswahl taggen" öffnet ein Zuordnungsmenu</li>
+<li>"Literatur für Auswahl anzeigen" wechselt zum Literaturmenu und zeigt dort einen reduzierten Baum, bei dem nur die für die Knoten relevanten Knoten sichtbar sind.</li>
+<li>Die Literatur für die Knoten unten erscheint auch, wenn man im Literaturmenu einen Eintrag ausgewählt hat.</li>
+</ol>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1028">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=859&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Suchfunktionen</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=859&view=222"><img src="./tutorial_files/download(3).php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1030">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=860&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Das Auswahlmenu</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=860&view=222"><img src="./tutorial_files/download(4).php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1031">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=861&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Getaggte Literatur</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Nachdem Literatur getaggt wurde, sieht man in der Literatursicht die Tags als Buttons (bei Klick kommt man wieder auf den Graphen).</p>
+<p>Es fällt auf, dass bei dem Beispiel nur Modellieren und Klassenverständnis getaggt wurden. Trotzdem erscheinen Informatik und der "rootnode" trotzdem. Das liegt daran, dass die thematische Struktur als kausale Ordnung aufgefasst wird. Das heißt, wenn ein Paper sich mit Modellieren beschäftigt, dann gehört es auch zu Informatik im Allgemeinen. Das ist der Grundgedanke jeder Ontologie.</p>
+
+
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-image" id="blockinstance_1032">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=862&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">Visuelle Verknüpfung von Literatur und Tag (Graphenknoten)</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <div class="center">
+<div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=862&view=222"><img src="./tutorial_files/download(5).php" alt=""></a></div>
+
+</div>
+
+        </div>
+    </div>
+    <div class="blockinstance cb bt-textbox" id="blockinstance_1033">
+        <div class="blockinstance-header">
+            <h4><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/artefact.php?artefact=863&view=222" title="Für Informationen und zum Abgeben eines Feedback bitte anklicken">So viele Sichten ... Verwirrung?</a></h4>
+        </div>
+        <div class="blockinstance-content">
+            <p>Es besteht die Gefahr, dass die unterschiedlichen Sichten zur Verwirrung führen. Immerhin sind solche Graphen nicht so üblich wie zum beispiel Excel.</p>
+<p>Es gibt eigentlich zwei Fälle:</p>
+<p>1) Eingabe:</p>
+<ol><li>Man wähle Literatur in der Literatursicht nach Jahrgang aus.</li>
+<li>Dann wechsele man zum Thematischen Tab und wähle Knoten aus (Extra Feature: Mit SHIFT-Click spart man sich ein Menu)</li>
+<li>Dann klicke man auf Auswahl taggen: Die gewählten Knoten stehen in der einen Box, den Autor kann man nach seinem Namen und Jahr in der Linken Box auwählen (bereits auf die Auswahl verlinkte Autoren sind schon markiert)</li>
+<li>Auf Taggen klicken</li>
+</ol><p>2) Nach Theme suchen:</p>
+<ol><li>Im Graphen recherchieren und auf relevante Literatur klicken bzw. Literatur für Auswahl</li>
+<li>ODER: Nach Literatur suchen und auf Button klicken um zum Graphen zu kommen</li>
+</ol>
+
+
+
+        </div>
+    </div>
+
+    </div>
+</div>
+
+                <div class="cb">
+                </div>
+            </div>
+        </div>
+  <div class="viewfooter">
+    <div class="tags"><label>Tags:</label> <a class="tag" href="https://elis.soft.cs.uni-potsdam.de/mahara/tags.php?tag=Didaktik+der+Informatik">Didaktik der Informatik</a>, <a class="tag" href="https://elis.soft.cs.uni-potsdam.de/mahara/tags.php?tag=Visualisierung">Visualisierung</a></div>
+    
+    <div class="submissionform"><form class="pieform" name="view_group_submission_form_222" method="post" action="" id="view_group_submission_form_222">
+<div><span id="view_group_submission_form_222_text1_container" class="html">Die Ansicht </span><span id="view_group_submission_form_222_options_container" class="select"><select class="select" id="view_group_submission_form_222_options" name="options" tabindex="3">
+	<option value="21">kleiner Gruppentest JHA</option>
+</select></span><span id="view_group_submission_form_222_text2_container" class="html"> zur Bewertung einreichen</span><span id="view_group_submission_form_222_submit_container" class="submit"><input type="submit" class="submit" id="view_group_submission_form_222_submit" name="submit" tabindex="3" value="Übertragen"></span></div><input type="hidden" class="hidden" id="view_group_submission_form_222_view" name="view" value="222">
+<input type="hidden" class="hidden" id="view_group_submission_form_222_returnto" name="returnto" value="view">
+<input type="hidden" class="hidden" id="view_group_submission_form_222_sesskey" name="sesskey" value="4BbLFiuaoqn7xd6K">
+<input type="hidden" name="pieform_view_group_submission_form_222" value="">
+</form>
+<script type="text/javascript">new Pieform({"name":"view_group_submission_form_222","jsForm":false,"submitButtons":["submit"],"preSubmitCallback":"formStartProcessing","jsSuccessCallback":"formSuccess","jsErrorCallback":"formError","globalJsErrorCallback":"formGlobalError","postSubmitCallback":"formStopProcessing","newIframeOnSubmit":false});</script>
+</div>
+        <table id="feedbacktable" class="fullwidth table">
+      <thead><tr><th>Feedback</th></tr></thead>
+      <tbody>
+        
+
+      </tbody>
+    </table>
+    <div id="feedback_pagination" class="pagination center"><div class="results">0 Kommentare</div></div>
+    
+	<div id="viewmenu">
+          <a id="add_feedback_link" class="feedback" href="">Feedback abgeben</a> |
+
+  <a id="objection_link" class="objection" href="">Anstößiges Material anzeigen</a> |
+
+  <a id="print_link" class="print" href="" onclick="window.print(); return false;">Drucken</a>
+  | <a id="toggle_watchlist_link" class="watchlist" href="">Ansicht der Beobachtungsliste hinzufügen</a>
+  |  <span class="help"><a href="" onclick="contextualHelp(null,null,&quot;core&quot;,&quot;view&quot;,null,&quot;viewmenu&quot;,this); return false;"><img src="./tutorial_files/icon_help.png" alt="Hilfe" title="Hilfe"></a></span>
+
+
+
+    </div>
+    <div><form class="pieform js-hidden" name="add_feedback_form" method="post" action="" id="add_feedback_form" enctype="multipart/form-data">
+<table cellspacing="0"><tbody>
+	<tr id="add_feedback_form_message_container" class="wysiwyg">
+		<th><label for="add_feedback_form_message">Nachricht</label></th>
+		<td><textarea rows="5" cols="80" class="wysiwyg" id="add_feedback_form_message" name="message" tabindex="1" style="display: none; " aria-hidden="true"></textarea><span role="application" aria-labelledby="add_feedback_form_message_voice" id="add_feedback_form_message_parent" class="mceEditor defaultSkin" style=""><span class="mceVoiceLabel" style="display:none;" id="add_feedback_form_message_voice">Rich Text Bereich</span><table role="presentation" id="add_feedback_form_message_tbl" class="mceLayout" cellspacing="0" cellpadding="0" style="width: 505px; height: 100px; "><tbody><tr role="presentation" class="mceFirst"><td class="mceToolbar mceLeft mceFirst mceLast" role="presentation"><div id="add_feedback_form_message_toolbargroup" role="group" aria-labelledby="add_feedback_form_message_toolbargroup_voice" tabindex="-1"><span role="application"><span id="add_feedback_form_message_toolbargroup_voice" class="mceVoiceLabel" style="display:none;">Toolbar</span><table id="add_feedback_form_message_toolbar1" class="mceToolbar mceToolbarRow1 Enabled" cellpadding="0" cellspacing="0" align="" role="presentation" tabindex="-1" aria-disabled="false" aria-pressed="false"><tbody><tr><td class="mceToolbarStart mceToolbarStartButton mceFirst"><span><!-- IE --></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_bold" href="javascript:;" class="mceButton mceButtonEnabled mce_bold" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_bold_voice" title="Fett (Strg+B)" tabindex="-1"><span class="mceIcon mce_bold"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_bold_voice">Fett (Strg+B)</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_italic" href="javascript:;" class="mceButton mceButtonEnabled mce_italic" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_italic_voice" title="Kursiv (Strg+I)" tabindex="-1"><span class="mceIcon mce_italic"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_italic_voice">Kursiv (Strg+I)</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_underline" href="javascript:;" class="mceButton mceButtonEnabled mce_underline" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_underline_voice" title="Unterstrichen (Strg+U)" tabindex="-1"><span class="mceIcon mce_underline"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_underline_voice">Unterstrichen (Strg+U)</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_strikethrough" href="javascript:;" class="mceButton mceButtonEnabled mce_strikethrough" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_strikethrough_voice" title="Durchgestrichen" tabindex="-1"><span class="mceIcon mce_strikethrough"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_strikethrough_voice">Durchgestrichen</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><div id="add_feedback_form_message_forecolor" role="button" tabindex="-1" aria-labelledby="add_feedback_form_message_forecolor_voice" aria-haspopup="true"><table role="presentation" class="mceSplitButton mceSplitButtonEnabled mce_forecolor" cellpadding="0" cellspacing="0" title="Textfarbe"><tbody><tr><td class="mceFirst"><a role="button" id="add_feedback_form_message_forecolor_action" tabindex="-1" href="javascript:;" class="mceAction mce_forecolor" onclick="return false;" onmousedown="return false;" title="Textfarbe"><span class="mceAction mce_forecolor"></span><span class="mceVoiceLabel mceIconOnly" id="add_feedback_form_message_forecolor_voice" style="display:none;">Textfarbe</span><div id="add_feedback_form_message_forecolor_preview" class="mceColorPreview" style="background-color: rgb(136, 136, 136); "></div></a></td><td class="mceLast"><a role="button" id="add_feedback_form_message_forecolor_open" tabindex="-1" href="javascript:;" class="mceOpen mce_forecolor" onclick="return false;" onmousedown="return false;" title="Textfarbe"><span class="mceOpen mce_forecolor"><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></div></td><td style="position: relative"><div id="add_feedback_form_message_backcolor" role="button" tabindex="-1" aria-labelledby="add_feedback_form_message_backcolor_voice" aria-haspopup="true"><table role="presentation" class="mceSplitButton mceSplitButtonEnabled mce_backcolor" cellpadding="0" cellspacing="0" title="Hintergrundfarbe"><tbody><tr><td class="mceFirst"><a role="button" id="add_feedback_form_message_backcolor_action" tabindex="-1" href="javascript:;" class="mceAction mce_backcolor" onclick="return false;" onmousedown="return false;" title="Hintergrundfarbe"><span class="mceAction mce_backcolor"></span><span class="mceVoiceLabel mceIconOnly" id="add_feedback_form_message_backcolor_voice" style="display:none;">Hintergrundfarbe</span><div id="add_feedback_form_message_backcolor_preview" class="mceColorPreview" style="background-color: rgb(136, 136, 136); "></div></a></td><td class="mceLast"><a role="button" id="add_feedback_form_message_backcolor_open" tabindex="-1" href="javascript:;" class="mceOpen mce_backcolor" onclick="return false;" onmousedown="return false;" title="Hintergrundfarbe"><span class="mceOpen mce_backcolor"><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></div></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_justifyleft" href="javascript:;" class="mceButton mceButtonEnabled mce_justifyleft" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_justifyleft_voice" title="Linksbündig" tabindex="-1"><span class="mceIcon mce_justifyleft"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_justifyleft_voice">Linksbündig</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_justifycenter" href="javascript:;" class="mceButton mceButtonEnabled mce_justifycenter" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_justifycenter_voice" title="Zentriert" tabindex="-1"><span class="mceIcon mce_justifycenter"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_justifycenter_voice">Zentriert</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_justifyright" href="javascript:;" class="mceButton mceButtonEnabled mce_justifyright" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_justifyright_voice" title="Rechtsbündig" tabindex="-1"><span class="mceIcon mce_justifyright"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_justifyright_voice">Rechtsbündig</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_justifyfull" href="javascript:;" class="mceButton mceButtonEnabled mce_justifyfull" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_justifyfull_voice" title="Blocksatz" tabindex="-1"><span class="mceIcon mce_justifyfull"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_justifyfull_voice">Blocksatz</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_hr" href="javascript:;" class="mceButton mceButtonEnabled mce_hr" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_hr_voice" title="Trennlinie einfügen" tabindex="-1"><span class="mceIcon mce_hr"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_hr_voice">Trennlinie einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_emotions" href="javascript:;" class="mceButton mceButtonEnabled mce_emotions" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_emotions_voice" title="Smilies" tabindex="-1"><span class="mceIcon mce_emotions"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_emotions_voice">Smilies</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_image" href="javascript:;" class="mceButton mceButtonEnabled mce_image" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_image_voice" title="Bild einfügen/verändern" tabindex="-1"><span class="mceIcon mce_image"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_image_voice">Bild einfügen/verändern</span></a></td><td style="position: relative"><div id="add_feedback_form_message_spellchecker" role="button" tabindex="-1" aria-labelledby="add_feedback_form_message_spellchecker_voice" aria-haspopup="true" aria-pressed="false"><table role="presentation" class="mceSplitButton mceSplitButtonEnabled mce_spellchecker" cellpadding="0" cellspacing="0" title="Rechtschreibprüfung an/aus"><tbody><tr><td class="mceFirst"><a role="button" id="add_feedback_form_message_spellchecker_action" tabindex="-1" href="javascript:;" class="mceAction mce_spellchecker" onclick="return false;" onmousedown="return false;" title="Rechtschreibprüfung an/aus"><span class="mceAction mce_spellchecker"></span><span class="mceVoiceLabel mceIconOnly" id="add_feedback_form_message_spellchecker_voice" style="display:none;">Rechtschreibprüfung an/aus</span></a></td><td class="mceLast"><a role="button" id="add_feedback_form_message_spellchecker_open" tabindex="-1" href="javascript:;" class="mceOpen mce_spellchecker" onclick="return false;" onmousedown="return false;" title="Rechtschreibprüfung an/aus"><span class="mceOpen mce_spellchecker"><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></div></td><td style="position: relative"><a role="button" id="add_feedback_form_message_cleanup" href="javascript:;" class="mceButton mceButtonEnabled mce_cleanup" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_cleanup_voice" title="Quellcode aufräumen" tabindex="-1"><span class="mceIcon mce_cleanup"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_cleanup_voice">Quellcode aufräumen</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_link" href="javascript:;" class="mceButton mce_link mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_link_voice" title="Link einfügen/verändern" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_link"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_link_voice">Link einfügen/verändern</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_unlink" href="javascript:;" class="mceButton mce_unlink mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_unlink_voice" title="Link entfernen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_unlink"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_unlink_voice">Link entfernen</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_code" href="javascript:;" class="mceButton mceButtonEnabled mce_code" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_code_voice" title="HTML-Quellcode bearbeiten" tabindex="-1"><span class="mceIcon mce_code"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_code_voice">HTML-Quellcode bearbeiten</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_fullscreen" href="javascript:;" class="mceButton mceButtonEnabled mce_fullscreen" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_fullscreen_voice" title="Vollbildschirm" tabindex="-1" aria-pressed="false"><span class="mceIcon mce_fullscreen"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_fullscreen_voice">Vollbildschirm</span></a></td><td class="mceToolbarEnd mceToolbarEndButton mceLast"><span><!-- IE --></span></td></tr></tbody></table><table id="add_feedback_form_message_toolbar2" class="mceToolbar mceToolbarRow2 Enabled" cellpadding="0" cellspacing="0" align="" role="presentation" tabindex="-1" aria-disabled="false" aria-pressed="false"><tbody><tr><td class="mceToolbarStart mceToolbarStartButton mceFirst"><span><!-- IE --></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_undo" href="javascript:;" class="mceButton mce_undo mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_undo_voice" title="Rückgängig (Strg+Z)" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_undo"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_undo_voice">Rückgängig (Strg+Z)</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_redo" href="javascript:;" class="mceButton mce_redo mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_redo_voice" title="Wiederholen (Strg+Y)" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_redo"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_redo_voice">Wiederholen (Strg+Y)</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_bullist" href="javascript:;" class="mceButton mceButtonEnabled mce_bullist" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_bullist_voice" title="Unsortierte Liste" tabindex="-1" aria-pressed="false"><span class="mceIcon mce_bullist"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_bullist_voice">Unsortierte Liste</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_numlist" href="javascript:;" class="mceButton mceButtonEnabled mce_numlist" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_numlist_voice" title="Sortierte Liste" tabindex="-1" aria-pressed="false"><span class="mceIcon mce_numlist"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_numlist_voice">Sortierte Liste</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_table" href="javascript:;" class="mceButton mceButtonEnabled mce_table" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_table_voice" title="Tabelle erstellen/bearbeiten" tabindex="-1"><span class="mceIcon mce_table"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_table_voice">Tabelle erstellen/bearbeiten</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_row_props" href="javascript:;" class="mceButton mce_row_props mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_row_props_voice" title="Eigenschaften der Zeile" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_row_props"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_row_props_voice">Eigenschaften der Zeile</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_cell_props" href="javascript:;" class="mceButton mce_cell_props mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_cell_props_voice" title="Eigenschaften der Zelle" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_cell_props"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_cell_props_voice">Eigenschaften der Zelle</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_row_before" href="javascript:;" class="mceButton mce_row_before mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_row_before_voice" title="Zeile oberhalb einfügen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_row_before"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_row_before_voice">Zeile oberhalb einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_row_after" href="javascript:;" class="mceButton mce_row_after mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_row_after_voice" title="Zeile unterhalb einfügen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_row_after"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_row_after_voice">Zeile unterhalb einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_delete_row" href="javascript:;" class="mceButton mce_delete_row mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_delete_row_voice" title="Zeile löschen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_delete_row"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_delete_row_voice">Zeile löschen</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_col_before" href="javascript:;" class="mceButton mce_col_before mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_col_before_voice" title="Spalte links einfügen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_col_before"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_col_before_voice">Spalte links einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_col_after" href="javascript:;" class="mceButton mce_col_after mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_col_after_voice" title="Spalte rechts einfügen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_col_after"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_col_after_voice">Spalte rechts einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_delete_col" href="javascript:;" class="mceButton mce_delete_col mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_delete_col_voice" title="Spalte löschen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_delete_col"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_delete_col_voice">Spalte löschen</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_split_cells" href="javascript:;" class="mceButton mce_split_cells mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_split_cells_voice" title="Verbundene Zellen trennen" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_split_cells"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_split_cells_voice">Verbundene Zellen trennen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_merge_cells" href="javascript:;" class="mceButton mce_merge_cells mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_merge_cells_voice" title="Zellen verbinden" tabindex="-1" aria-disabled="true"><span class="mceIcon mce_merge_cells"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_merge_cells_voice">Zellen verbinden</span></a></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><a role="button" id="add_feedback_form_message_cut" href="javascript:;" class="mceButton mceButtonEnabled mce_cut" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_cut_voice" title="Ausschneiden" tabindex="-1"><span class="mceIcon mce_cut"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_cut_voice">Ausschneiden</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_copy" href="javascript:;" class="mceButton mceButtonEnabled mce_copy" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_copy_voice" title="Kopieren" tabindex="-1"><span class="mceIcon mce_copy"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_copy_voice">Kopieren</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_paste" href="javascript:;" class="mceButton mceButtonEnabled mce_paste" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_paste_voice" title="Einfügen" tabindex="-1"><span class="mceIcon mce_paste"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_paste_voice">Einfügen</span></a></td><td style="position: relative"><a role="button" id="add_feedback_form_message_pasteword" href="javascript:;" class="mceButton mceButtonEnabled mce_pasteword" onmousedown="return false;" onclick="return false;" aria-labelledby="add_feedback_form_message_pasteword_voice" title="Mit Formatierungen (aus Word) einfügen" tabindex="-1"><span class="mceIcon mce_pasteword"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="add_feedback_form_message_pasteword_voice">Mit Formatierungen (aus Word) einfügen</span></a></td><td class="mceToolbarEnd mceToolbarEndButton mceLast"><span><!-- IE --></span></td></tr></tbody></table><table id="add_feedback_form_message_toolbar3" class="mceToolbar mceToolbarRow3 Enabled" cellpadding="0" cellspacing="0" align="" role="presentation" tabindex="-1" aria-disabled="false" aria-pressed="false"><tbody><tr><td class="mceToolbarStart mceToolbarStartListBox mceFirst"><span><!-- IE --></span></td><td style="position: relative"><span role="listbox" aria-haspopup="true" aria-labelledby="add_feedback_form_message_fontselect_voiceDesc" aria-describedby="add_feedback_form_message_fontselect_voiceDesc"><table role="presentation" tabindex="-1" id="add_feedback_form_message_fontselect" cellpadding="0" cellspacing="0" class="mceListBox mceListBoxEnabled mce_fontselect" aria-valuenow="Schriftart"><tbody><tr><td class="mceFirst"><span id="add_feedback_form_message_fontselect_voiceDesc" class="voiceLabel" style="display:none;">Schriftart</span><a id="add_feedback_form_message_fontselect_text" tabindex="-1" href="javascript:;" class="mceText mceTitle" onclick="return false;" onmousedown="return false;">Schriftart</a></td><td class="mceLast"><a id="add_feedback_form_message_fontselect_open" tabindex="-1" href="javascript:;" class="mceOpen" onclick="return false;" onmousedown="return false;"><span><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></span></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><span role="listbox" aria-haspopup="true" aria-labelledby="add_feedback_form_message_fontsizeselect_voiceDesc" aria-describedby="add_feedback_form_message_fontsizeselect_voiceDesc"><table role="presentation" tabindex="-1" id="add_feedback_form_message_fontsizeselect" cellpadding="0" cellspacing="0" class="mceListBox mceListBoxEnabled mce_fontsizeselect" aria-valuenow="Schriftgröße"><tbody><tr><td class="mceFirst"><span id="add_feedback_form_message_fontsizeselect_voiceDesc" class="voiceLabel" style="display:none;">Schriftgröße</span><a id="add_feedback_form_message_fontsizeselect_text" tabindex="-1" href="javascript:;" class="mceText mceTitle" onclick="return false;" onmousedown="return false;">Schriftgröße</a></td><td class="mceLast"><a id="add_feedback_form_message_fontsizeselect_open" tabindex="-1" href="javascript:;" class="mceOpen" onclick="return false;" onmousedown="return false;"><span><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></span></td><td style="position: relative"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative"><span role="listbox" aria-haspopup="true" aria-labelledby="add_feedback_form_message_formatselect_voiceDesc" aria-describedby="add_feedback_form_message_formatselect_voiceDesc"><table role="presentation" tabindex="-1" id="add_feedback_form_message_formatselect" cellpadding="0" cellspacing="0" class="mceListBox mceListBoxEnabled mce_formatselect" aria-valuenow="Absatz"><tbody><tr><td class="mceFirst"><span id="add_feedback_form_message_formatselect_voiceDesc" class="voiceLabel" style="display:none;">Vorlage - Absatz</span><a id="add_feedback_form_message_formatselect_text" tabindex="-1" href="javascript:;" class="mceText" onclick="return false;" onmousedown="return false;">Absatz</a></td><td class="mceLast"><a id="add_feedback_form_message_formatselect_open" tabindex="-1" href="javascript:;" class="mceOpen" onclick="return false;" onmousedown="return false;"><span><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></span></td><td class="mceToolbarEnd mceToolbarEndListBox mceLast"><span><!-- IE --></span></td></tr></tbody></table></span></div><a href="https://elis.soft.cs.uni-potsdam.de/mahara/view/view.php?id=222#" accesskey="z" title="Zur Werkzeugleiste springen: Alt+Q; Zum Editor springen: Alt-Z; Zum Elementpfad springen: Alt-X" onfocus="tinyMCE.getInstanceById(&#39;add_feedback_form_message&#39;).focus();"><!-- IE --></a></td></tr><tr class="mceLast"><td class="mceIframeContainer mceFirst mceLast"><iframe id="add_feedback_form_message_ifr" src="javascript:""" frameborder="0" allowtransparency="true" title="Rich Text BereichDrücken Sie ALT-F10 für die Toolbar. Drücken Sie ALT-0 für Hilfe" style="width: 100%; height: 100px; display: block; "></iframe></td></tr></tbody></table></span></td>
+	</tr>
+	<tr id="add_feedback_form_rating_container" class="star radio">
+		<th><label for="add_feedback_form_rating">Bewertung</label></th>
+		<td><span class="star-rating-control"><div class="rating-cancel" style=""><a title="Cancel Rating"></a></div><div class="star-rating rater-0 star radio star-rating-applied star-rating-live" id="add_feedback_form_ratinga8c9"><a title="1">1</a></div><div class="star-rating rater-0 star radio star-rating-applied star-rating-live" id="add_feedback_form_ratinge68a"><a title="2">2</a></div><div class="star-rating rater-0 star radio star-rating-applied star-rating-live" id="add_feedback_form_ratingfdc3"><a title="3">3</a></div><div class="star-rating rater-0 star radio star-rating-applied star-rating-live" id="add_feedback_form_rating80b9"><a title="4">4</a></div><div class="star-rating rater-0 star radio star-rating-applied star-rating-live" id="add_feedback_form_ratingb9de"><a title="5">5</a></div></span><input type="radio" class="star radio star-rating-applied" id="add_feedback_form_ratinga8c9" name="rating" tabindex="1" value="1" style="display: none; "> <label for="add_feedback_form_ratinga8c9"></label>
+<input type="radio" class="star radio star-rating-applied" id="add_feedback_form_ratinge68a" name="rating" tabindex="1" value="2" style="display: none; "> <label for="add_feedback_form_ratinge68a"></label>
+<input type="radio" class="star radio star-rating-applied" id="add_feedback_form_ratingfdc3" name="rating" tabindex="1" value="3" style="display: none; "> <label for="add_feedback_form_ratingfdc3"></label>
+<input type="radio" class="star radio star-rating-applied" id="add_feedback_form_rating80b9" name="rating" tabindex="1" value="4" style="display: none; "> <label for="add_feedback_form_rating80b9"></label>
+<input type="radio" class="star radio star-rating-applied" id="add_feedback_form_ratingb9de" name="rating" tabindex="1" value="5" style="display: none; "> <label for="add_feedback_form_ratingb9de"></label></td>
+	</tr>
+	<tr id="add_feedback_form_ispublic_container" class="checkbox">
+		<th><label for="add_feedback_form_ispublic">Veröffentlichen</label></th>
+		<td><input type="checkbox" class="checkbox" id="add_feedback_form_ispublic" name="ispublic" tabindex="1" checked="checked"></td>
+	</tr>
+	<tr id="add_feedback_form_attachments_container" class="files">
+		<th><label for="add_feedback_form_attachments">Datei anhängen</label></th>
+		<td><script type="text/javascript">
+    var add_feedback_form_attachments_current = 0;
+    var add_feedback_form_attachments_newrefinput;
+    var add_feedback_form_attachments_newref;
+
+    function add_feedback_form_attachments_new() {
+        add_feedback_form_attachments_current++;
+        add_feedback_form_attachments_newrefinput = INPUT({'type': 'file', 'name': 'add_feedback_form_attachments_files_' + add_feedback_form_attachments_current});
+        var add_feedback_form_attachments_newref = DIV(null,add_feedback_form_attachments_newrefinput);
+
+        appendChildNodes('add_feedback_form_attachments_list', add_feedback_form_attachments_newref);
+
+        add_feedback_form_attachments_newrefinput.focus();
+    }
+</script>
+<div id="add_feedback_form_attachments_list">
+        <input type="hidden" name="MAX_FILE_SIZE" value="15728640">
+    
+    <input type="file" name="add_feedback_form_attachments_files_0">
+</div>
+<a href="" onclick="add_feedback_form_attachments_new(); return false;">[+]</a>
+</td>
+	</tr>
+	<tr id="add_feedback_form_submit_container" class="submitcancel">
+		<th></th>
+		<td><input type="submit" class="submitcancel submit" id="add_feedback_form_submit" name="submit" tabindex="1" value="Feedback abgeben"> <input type="submit" class="submitcancel cancel" id="cancel_add_feedback_form_submit" name="cancel_submit" tabindex="1" value="Abbruch"></td>
+	</tr>
+</tbody></table>
+<input type="hidden" class="hidden" id="add_feedback_form_sesskey" name="sesskey" value="4BbLFiuaoqn7xd6K">
+<input type="hidden" name="pieform_add_feedback_form" value="">
+</form>
+<script type="text/javascript">new Pieform({"name":"add_feedback_form","jsForm":true,"submitButtons":["submit"],"preSubmitCallback":"formStartProcessing","jsSuccessCallback":"addFeedbackSuccess","jsErrorCallback":"formError","globalJsErrorCallback":"formGlobalError","postSubmitCallback":"formStopProcessing","newIframeOnSubmit":false});</script>
+</div>
+    <div><form class="pieform js-safe-hidden" name="objection_form" method="post" action="" id="objection_form">
+<table cellspacing="0"><tbody>
+	<tr id="objection_form_message_container" class="textarea">
+		<th><label for="objection_form_message">Anzeige</label></th>
+		<td><div class="resizable-textarea" style="width: 505px; height: 107px; "><textarea rows="5" cols="80" class="textarea resizable" id="objection_form_message" name="message" tabindex="2" style="margin-bottom: 0px; width: 100%; "></textarea><div class="grippie"></div></div></td>
+	</tr>
+	<tr id="objection_form_submit_container" class="submitcancel">
+		<th></th>
+		<td><input type="submit" class="submitcancel submit" id="objection_form_submit" name="submit" onclick="return confirm(&quot;Are you sure you wish to report this page as containing objectionable material?&quot;);" tabindex="2" value="Notify administrator"> <input type="submit" class="submitcancel cancel" id="cancel_objection_form_submit" name="cancel_submit" tabindex="2" value="Abbruch"></td>
+	</tr>
+</tbody></table>
+<input type="hidden" class="hidden" id="objection_form_sesskey" name="sesskey" value="4BbLFiuaoqn7xd6K">
+<input type="hidden" name="pieform_objection_form" value="">
+</form>
+<script type="text/javascript">new Pieform({"name":"objection_form","jsForm":true,"submitButtons":["submit"],"preSubmitCallback":"formStartProcessing","jsSuccessCallback":"objectionSuccess","jsErrorCallback":"formError","globalJsErrorCallback":"formGlobalError","postSubmitCallback":"formStopProcessing","newIframeOnSubmit":false});</script>
+</div>
+  </div>
+</div>
+
+
+			</div>
+		</div>
+	</div>
+	<div id="footer-wrap">
+		
+	</div>
+</div>
+
+
+
+
+</body></html>

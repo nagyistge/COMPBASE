@@ -26,7 +26,7 @@ public class LiteratureEntry implements IsSerializable,
 		this.abstractText = abstractText;
 		this.paper = paper;
 		this.volume = volume;
-		this.shortName = this.author + year;
+		this.shortName = this.author.substring(0, 3) + year;
 		this.id = id;
 		this.graph = new Graph();
 	}

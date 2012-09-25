@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.io.IOException;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
@@ -7,6 +9,7 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
+import de.unipotsdam.kompetenzmanager.server.excel.DoReadExcel;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
@@ -25,6 +28,7 @@ public class Neo4JStarter {
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();		
 			addLiteratureRootNode();
+			initilaizeLiterature();
 		} 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
 			@Override
@@ -35,6 +39,22 @@ public class Neo4JStarter {
 				Neo4JStarter.graphDb.shutdown();				
 			}
 		}));
+	}
+
+
+
+	private void initilaizeLiterature() {
+		DoReadExcel doReadExcel;
+		try {
+			doReadExcel = new DoReadExcel();
+			for (LiteratureEntry literatureEntry : doReadExcel.generateLiteratureEntriesFromExcel().literatureEntries) {			
+				DoAddOrUpdateLiteratureEntry addOrUpdateLiteratureEntry = new DoAddOrUpdateLiteratureEntry(this.getGraphDB(), this.getNodeIndex(), this.getRelationshipIndex(), literatureEntry);
+				this.doQueryLit(addOrUpdateLiteratureEntry);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
