@@ -23,6 +23,8 @@ public class TabbedView extends Composite {
 	@UiField
 	HTMLPanel LiteratureViewTab;
 	@UiField
+	HTMLPanel TutorialTab;
+	@UiField
 	TabLayoutPanel tabView;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {

@@ -19,6 +19,12 @@
 				</g:customHeader>
 				<g:HTMLPanel width="1600px" height="950px" ui:field="LiteratureViewTab" />
 			</g:tab>
+			<g:tab text="Tutorial">
+				<g:customHeader>
+					<g:Label>Tutorial</g:Label>
+				</g:customHeader>
+				<g:HTMLPanel width="1600px" height="950px" ui:field="TutorialTab" />
+			</g:tab>
 		</g:TabLayoutPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
