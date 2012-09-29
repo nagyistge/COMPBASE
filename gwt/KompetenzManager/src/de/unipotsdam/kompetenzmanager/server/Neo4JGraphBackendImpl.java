@@ -150,35 +150,35 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public Literature getFullLiterature() {
+	public synchronized Literature getFullLiterature() {
 		return neo.doQueryLit(new DoGetFullLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex()));
 	}
 
 	@Override
-	public Literature getLiteratureForTags(Graph graph) {
+	public synchronized Literature getLiteratureForTags(Graph graph) {
 		return neo.doQueryLit(new DoGetLitForTags(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(),graph));
 	}
 
 	@Override
-	public Graph getTagsforLiterature(Literature literature) {
+	public  synchronized Graph getTagsforLiterature(Literature literature) {
 		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature));
 	}
 
 	@Override
-	public Literature addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
+	public  synchronized Literature addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
 		this.neo.doQueryLit(new DoAddOrUpdateLiteratureEntry(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
 		return new Literature(literatureEntry).mergeWith(literatureStored).intersectStrong(getFullLiterature());
 //		return getFullLiterature();
 	}
 
 	@Override
-	public Literature removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
+	public  synchronized Literature removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
 		this.neo.doQueryLit(new DoRemoveLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
 		return literatureStored.intersectStrong(getFullLiterature());
 	}
 
 	@Override
-	public GraphLiteraturePair connectLiteratureToGraph(Literature literature,
+	public  synchronized GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph) {
 		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
 		neo.doQueryLit(doConnectGraphAndLiterature);

@@ -33,7 +33,7 @@ public class DoFindShortestPath extends DoNeoGraph {
 	}
 
 	@Override
-	public Graph doit() {
+	public synchronized Graph doit() {
 		RelTypes assoc = RelTypes.subclassOf;
 		Node startNode = this.nodeIndex.get(NODE_KEY, fromNode).getSingle();
 //		Node endNode = this.nodeIndex.get(NODE_KEY, toNode).getSingle();

@@ -110,8 +110,10 @@ public abstract class DoNeo {
 			Literature literature = new Literature(literatureEntry);
 			DoGetTagsForLit doGetTagsForLit = new DoGetTagsForLit(this.graphDb,
 					nodeIndex, relIndex, literature);
+			DoFullGraph doFullGraph = new DoFullGraph(this.graphDb, nodeIndex, relIndex);
 			Graph associatedTags = doGetTagsForLit.doit();
-			literatureEntry.setGraph(associatedTags);
+			Graph fullgraph = doFullGraph.doit(); 
+			literatureEntry.setGraph(associatedTags.addConnectingTriples(fullgraph));
 			return literatureEntry;
 		} else {
 			throw new Error(

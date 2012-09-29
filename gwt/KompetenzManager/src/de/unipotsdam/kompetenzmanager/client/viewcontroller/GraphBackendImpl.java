@@ -27,12 +27,12 @@ public class GraphBackendImpl implements GraphBackendAsync {
 			.create(GraphBackend.class);
 
 	@Override
-	public void getFullGraph(AsyncCallback<Graph> graph) {
+	public synchronized void getFullGraph(AsyncCallback<Graph> graph) {
 		graphBackEnd.getFullGraph(new GraphUpdater<Graph>(showCompetenceBinder));
 	}
 
 	@Override
-	public void addNode(GraphNode sourceNode, GraphNode newNode,
+	public synchronized void addNode(GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel, AsyncCallback<Graph> callback) {
 		if (callback == null) {
 			callback = new GraphUpdater<Graph>(showCompetenceBinder);
@@ -41,7 +41,7 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	}
 
 	@Override
-	public void findShortestPath(String keyword, AsyncCallback<Graph> callback) {
+	public synchronized void findShortestPath(String keyword, AsyncCallback<Graph> callback) {
 		if (callback == null) {
 			callback = new GraphUpdater<Graph>(showCompetenceBinder);
 		}
@@ -49,7 +49,7 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	}
 
 	@Override
-	public void removeNode(GraphNode targetNode, AsyncCallback<Graph> callback) {
+	public synchronized void removeNode(GraphNode targetNode, AsyncCallback<Graph> callback) {
 		if (callback == null) {
 			callback = new GraphUpdater<Graph>(showCompetenceBinder);
 		}
@@ -57,100 +57,100 @@ public class GraphBackendImpl implements GraphBackendAsync {
 	}
 
 	@Override
-	public void findShortestPath(String fromNode, String toNode,
+	public synchronized void findShortestPath(String fromNode, String toNode,
 			AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.findShortestPath(fromNode, toNode, graphUpdater);		
 	}
 
 	@Override
-	public void expandNode(String nodeName, AsyncCallback<Graph> graphUpdater) {
+	public synchronized void expandNode(String nodeName, AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.expandNode(nodeName, graphUpdater);		
 	}
 
 	@Override
-	public void addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
+	public synchronized void addNode(Graph graph, GraphNode sourceNode, GraphNode newNode,
 			String kantenLabel, AsyncCallback<Graph> callback) {
 		graphBackEnd.addNode(graph, sourceNode, newNode, kantenLabel, callback);
 		
 	}
 
 	@Override
-	public void findShortestPath(Graph graph, String keyword,
+	public synchronized void findShortestPath(Graph graph, String keyword,
 			AsyncCallback<Graph> callback) {
 		graphBackEnd.findShortestPath(graph, keyword, callback);
 		
 	}
 
 	@Override
-	public void removeNode(Graph graph, GraphNode targetNode,
+	public synchronized void removeNode(Graph graph, GraphNode targetNode,
 			AsyncCallback<Graph> callback) {
 		graphBackEnd.removeNode(graph, targetNode, callback);
 		
 	}
 
 	@Override
-	public void findShortestPath(Graph graph, String fromNode, String toNode,
+	public synchronized void findShortestPath(Graph graph, String fromNode, String toNode,
 			AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.findShortestPath(graph, fromNode, toNode, graphUpdater);
 		
 	}
 
 	@Override
-	public void expandNode(Graph graph, String nodeName,
+	public synchronized void expandNode(Graph graph, String nodeName,
 			AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.expandNode(graph, nodeName, graphUpdater);		
 	}
 
 	@Override
-	public void connectNodes(Collection<String> graphNodes, String toNode,
+	public synchronized void connectNodes(Collection<String> graphNodes, String toNode,
 			AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.connectNodes(graphNodes, toNode, graphUpdater);
 		
 	}
 
 	@Override
-	public void connectNodes(Graph graph, Collection<String> graphNodes,
+	public synchronized void connectNodes(Graph graph, Collection<String> graphNodes,
 			String toNode, AsyncCallback<Graph> graphUpdater) {
 		graphBackEnd.connectNodes(graph, graphNodes, toNode, graphUpdater);
 		
 	}
 
 	@Override
-	public void getLiteratureForTags(Graph graph,
+	public synchronized void getLiteratureForTags(Graph graph,
 			AsyncCallback<Literature> literature) {
 		graphBackEnd.getLiteratureForTags(graph, literature);
 		
 	}
 
 	@Override
-	public void getTagsforLiterature(Literature literature,
+	public synchronized void getTagsforLiterature(Literature literature,
 			AsyncCallback<Graph> graph) {
 		graphBackEnd.getTagsforLiterature(literature, graph);
 		
 	}
 
 	@Override
-	public void addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
+	public synchronized void addOrUpdateLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> literature) {
 		graphBackEnd.addOrUpdateLiteratureEntry(literatureStored, literatureEntry, literature);
 		
 	}
 
 	@Override
-	public void removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
+	public synchronized void removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry,
 			AsyncCallback<Literature> lierature) {
 		graphBackEnd.removeLiteratureEntry(literatureStored, literatureEntry, lierature);
 		
 	}
 
 	@Override
-	public void getFullLiterature(AsyncCallback<Literature> literature) {
+	public synchronized void getFullLiterature(AsyncCallback<Literature> literature) {
 		graphBackEnd.getFullLiterature(literature);
 		
 	}
 
 	@Override
-	public void connectLiteratureToGraph(Literature literature, Graph graph,
+	public synchronized void connectLiteratureToGraph(Literature literature, Graph graph,
 			AsyncCallback<GraphLiteraturePair> callback) {
 		graphBackEnd.connectLiteratureToGraph(literature, graph, callback);
 		

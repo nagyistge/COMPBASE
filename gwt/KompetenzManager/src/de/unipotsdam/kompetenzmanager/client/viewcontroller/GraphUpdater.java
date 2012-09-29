@@ -13,6 +13,7 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 
 	private JavascriptUtil javascriptUtil;
 	private ShowCompetenceBinder2 showCompetenceBinder;
+	private boolean inprocess = false;
 
 	public GraphUpdater(ShowCompetenceBinder2 widget) {
 		this.javascriptUtil = new JavascriptUtil();
@@ -27,7 +28,10 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());
 		this.showCompetenceBinder.storeGraph((Graph) result);
 //		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);		
+		while(this.inprocess) {}
+		this.inprocess = true;
 		showCompetenceBinder.viewcontroller.getBackendImpl().getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>(showCompetenceBinder.viewcontroller));
+		this.inprocess = false;
 //		showCompetenceBinder.widget.viewcontroller.changeSelectedTab(true);
 	}
 	
