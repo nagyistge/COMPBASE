@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -39,14 +40,24 @@ public class TestNeo4JTestImpl {
 
 	@Before
 	public void before() {
-		this.neo4JGraphImpl = new Neo4JGraphBackendImpl();
+		try {
+			this.neo4JGraphImpl = new Neo4JGraphBackendImpl();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.dummyLiterature = new Literature();		
 		this.dummyLiterature.literatureEntries.add(new LiteratureEntry("schöner Aufsatz", "Ju Deh", 2000+"", "wichtiger abstract", "thepaper", "important volume", 22));
 	}
 
 	@After
 	public void after() {
-		this.neo4JGraphImpl.shutdown();
+		try {
+			this.neo4JGraphImpl.shutdown();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@AfterClass
@@ -62,7 +73,7 @@ public class TestNeo4JTestImpl {
 	
 	
 	@Test
-	public void getTableNode() {
+	public void getTableNode() throws IOException {
 		Neo4JStarter starter = new Neo4JStarter();
 		Node node = starter.getNodeIndex().get(DoNeo.TABLE_KEY, "nodetable").getSingle();
 		assertNotNull(node);		
@@ -122,7 +133,7 @@ public class TestNeo4JTestImpl {
 	}
 	
 	@Test
-	public void testGetFullLiterature() {
+	public void testGetFullLiterature() throws IOException {
 		testAddNode();
 		testAddOrUpdateLiteratureEntry();
 		testConnectLiteratureToGraph();
@@ -151,7 +162,7 @@ public class TestNeo4JTestImpl {
 	}
 
 	@Test
-	public void testConnectLiteratureToGraph() {
+	public void testConnectLiteratureToGraph() throws IOException {
 		testAddNode();
 		testAddOrUpdateLiteratureEntry();
 		Literature input = neo4JGraphImpl.getFullLiterature();
@@ -189,7 +200,7 @@ public class TestNeo4JTestImpl {
 	}
 
 	@Test
-	public void testGetTagsforLiterature() {
+	public void testGetTagsforLiterature() throws IOException {
 		testAddNode();
 		testAddOrUpdateLiteratureEntry();
 		testConnectLiteratureToGraph();

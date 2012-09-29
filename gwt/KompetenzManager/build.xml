@@ -8,6 +8,8 @@
 			<exclude name="WEB-INF/**" />
 			<webinf dir="war/WEB-INF/">
 				<include name="**/*.jar" />
+				<include name="**/*.xml" />
+				<include name="**/*.xlsx" />				
 			</webinf>
 		</war>
 	</target>

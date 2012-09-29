@@ -1,6 +1,12 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Properties;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -18,53 +24,90 @@ public class Neo4JStarter {
 	public static GraphDatabaseService graphDb;
 	private static Index<Node> nodeIndex;
 	private static RelationshipIndex relationshipIndex;
-	public static final String DATABASE_PATH = "database/store/real"; 
+	public static String DATABASE_PATH = "database/store/real";
+	public static String PROPERTIES_PATH = "ddi-graph.xml";
+	public static String PATH_PREFIX = "";
 
-	public Neo4JStarter() {
-		if (Neo4JStarter.graphDb == null) {			
+	public static void initPaths() {
+		URL ClassUrl = Neo4JStarter.class.getProtectionDomain().getCodeSource()
+				.getLocation();
+		String jarURL = ClassUrl.getFile();
+		jarURL = jarURL.replace(Neo4JStarter.class.getCanonicalName(), "");
+
+		File currentDir = new File(jarURL);
+		while (!currentDir.getName().equals("WEB-INF")) {
+			currentDir = currentDir.getParentFile();
+		}
+		
+		PATH_PREFIX = currentDir.getAbsolutePath() + "/";
+		DATABASE_PATH = PATH_PREFIX + DATABASE_PATH;
+		PROPERTIES_PATH = PATH_PREFIX + PROPERTIES_PATH;
+	}
+
+	public Neo4JStarter() throws IOException {
+		initPaths();
+
+		if (Neo4JStarter.graphDb == null) {
 			Neo4JStarter.graphDb = new GraphDatabaseFactory()
 					.newEmbeddedDatabase(DATABASE_PATH);
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
-			addRootNode();		
+			addRootNode();
 			addLiteratureRootNode();
-//			initilaizeLiterature();
-		} 
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {			
+			initilaizeLiterature();
+		}
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			@Override
 			public void run() {
 				Neo4JStarter.nodeIndex = null;
 				Neo4JStarter.setRelationshipIndex(null);
 				if (graphDb != null)
-				Neo4JStarter.graphDb.shutdown();				
+					Neo4JStarter.graphDb.shutdown();
 			}
 		}));
 	}
 
-
-
-	private void initilaizeLiterature() {
+	private void initilaizeLiterature() throws IOException {
 		DoReadExcel doReadExcel;
+		FileInputStream fileInput = null;
+		FileOutputStream fileOutputStream = null;
 		try {
-			doReadExcel = new DoReadExcel();
-			for (LiteratureEntry literatureEntry : doReadExcel.generateLiteratureEntriesFromExcel().literatureEntries) {			
-				DoAddOrUpdateLiteratureEntry addOrUpdateLiteratureEntry = new DoAddOrUpdateLiteratureEntry(this.getGraphDB(), this.getNodeIndex(), this.getRelationshipIndex(), literatureEntry);
-				this.doQueryLit(addOrUpdateLiteratureEntry);
+			Properties props = new Properties();
+			fileInput = new FileInputStream(new File(PROPERTIES_PATH));
+			props.loadFromXML(fileInput);
+			if (!props.containsKey("literatureLoaded")) {
+				doReadExcel = new DoReadExcel();
+				HashSet<LiteratureEntry> generatedEntries = doReadExcel
+						.generateLiteratureEntriesFromExcel().literatureEntries;
+				for (LiteratureEntry literatureEntry : generatedEntries) {
+					DoAddOrUpdateLiteratureEntry addOrUpdateLiteratureEntry = new DoAddOrUpdateLiteratureEntry(
+							this.getGraphDB(), this.getNodeIndex(),
+							this.getRelationshipIndex(), literatureEntry);
+					this.doQueryLit(addOrUpdateLiteratureEntry);
+				}
+				props.setProperty("literatureLoaded", generatedEntries.size()
+						+ "");
+				fileOutputStream = new FileOutputStream(new File(
+						PROPERTIES_PATH));
+				props.storeToXML(fileOutputStream, null);
+
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if (fileInput != null)
+				fileInput.close();
+			if (fileOutputStream != null)
+				fileOutputStream.close();
 		}
 	}
 
-
-
 	private void addLiteratureRootNode() {
-		doQueryLit(new DoAddLiteratureRoot(getGraphDB(), nodeIndex, relationshipIndex));
-		
+		doQueryLit(new DoAddLiteratureRoot(getGraphDB(), nodeIndex,
+				relationshipIndex));
+
 	}
-
-
 
 	private void addRootNode() {
 		doQuery(new DoAddRootNode(getGraphDB(), nodeIndex, relationshipIndex));
@@ -73,7 +116,7 @@ public class Neo4JStarter {
 	public GraphDatabaseService getGraphDB() {
 		return Neo4JStarter.graphDb;
 	}
-	
+
 	public void shutdown() {
 		graphDb.shutdown();
 		graphDb = null;
@@ -89,7 +132,7 @@ public class Neo4JStarter {
 			tx.finish();
 		}
 	}
-	
+
 	public Literature doQueryLit(DoNeoLit doer) {
 		Transaction tx = graphDb.beginTx();
 		try {
@@ -100,7 +143,6 @@ public class Neo4JStarter {
 			tx.finish();
 		}
 	}
-		
 
 	/**
 	 * @param nodeIndex
@@ -118,7 +160,8 @@ public class Neo4JStarter {
 	}
 
 	/**
-	 * @param relationshipIndex the relationshipIndex to set
+	 * @param relationshipIndex
+	 *            the relationshipIndex to set
 	 */
 	public static void setRelationshipIndex(RelationshipIndex relationshipIndex) {
 		Neo4JStarter.relationshipIndex = relationshipIndex;

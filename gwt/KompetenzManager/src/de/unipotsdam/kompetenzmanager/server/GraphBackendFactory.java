@@ -1,5 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server;
 
+import java.io.IOException;
+
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 
 public class GraphBackendFactory {
@@ -8,7 +10,12 @@ public class GraphBackendFactory {
 	public synchronized GraphBackend createInstance() {
 //		return new DummyBackendImpl();
 		if (neo4jGraphBackendImpl == null) {
-			neo4jGraphBackendImpl = new Neo4JGraphBackendImpl();
+			try {
+				neo4jGraphBackendImpl = new Neo4JGraphBackendImpl();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return neo4jGraphBackendImpl;
 		

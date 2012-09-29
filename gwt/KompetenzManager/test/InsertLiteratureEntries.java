@@ -23,7 +23,7 @@ public class InsertLiteratureEntries {
 	private Neo4JStarter neo;
 
 	@Before
-	public void before() {
+	public void before() throws IOException {
 		this.neo4JGraphImpl = new Neo4JGraphBackendImpl();		
 		this.neo = new Neo4JStarter();
 		
@@ -31,7 +31,12 @@ public class InsertLiteratureEntries {
 
 	@After
 	public void after() {
-		this.neo4JGraphImpl.shutdown();
+		try {
+			this.neo4JGraphImpl.shutdown();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

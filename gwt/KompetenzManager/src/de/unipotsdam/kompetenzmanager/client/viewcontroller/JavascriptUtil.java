@@ -12,6 +12,7 @@ public class JavascriptUtil {
 	
 	/**
 	 * Converts Java Repräsentation to JSON
+	 * for now the labels and the directions are ignored
 	 * 
 	 * @return
 	 */
@@ -23,11 +24,13 @@ public class JavascriptUtil {
 			JSONObject obj = new JSONObject();
 			JSONString fromNode = new JSONString(triple.fromNode);
 			JSONString toNode = new JSONString(triple.toNode);
-			JSONString label = new JSONString(triple.label);
+//			JSONString label = new JSONString(triple.label);
+			JSONString label = new JSONString("");
 			obj.put("node1", fromNode);
 			obj.put("node2", toNode);
-			obj.put("directed", JSONBoolean.getInstance(triple.directed));
-			obj.put("label", label);
+//			obj.put("directed", JSONBoolean.getInstance(triple.directed));
+			obj.put("directed", JSONBoolean.getInstance(false));
+			obj.put("label", label);			
 			triples.set(i, obj);
 			i++;
 		}
@@ -46,3 +49,4 @@ public class JavascriptUtil {
 	}
 	
 }
+
