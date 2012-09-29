@@ -74,15 +74,15 @@ public class ElementEntryField extends Composite {
 	void onClick(ClickEvent e) {
 		// frage Server nach initialen Daten für den Graph TODO: should be only
 		// on request
-		GraphBackendAsync backendImpl = new GraphBackendImpl(this.widget);
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(this.widget);
 		GraphNode sourceNode = new GraphNode(this.nodeId);
 		GraphNode newNode = new GraphNode(this.elementEntryTextfield.getText());
 		String kantenLabel = this.kantenbeschriftungTextField.getText();
 		if (this.widget.getNewGraph()) {
 			// if null ist default, then basic view is updated
-			backendImpl.addNode(sourceNode, newNode, kantenLabel, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().addNode(sourceNode, newNode, kantenLabel, new GraphUpdater<Graph>(widget));
 		} else {
-			backendImpl.addNode(widget.getStoredGraph(), sourceNode, newNode,
+			widget.viewcontroller.getBackendImpl().addNode(widget.getStoredGraph(), sourceNode, newNode,
 					kantenLabel, new GraphUpdater<Graph>(widget));
 		}
 		this.widget.removeDataEntryField();

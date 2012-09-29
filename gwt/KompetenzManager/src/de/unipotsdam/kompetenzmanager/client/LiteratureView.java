@@ -70,11 +70,11 @@ public class LiteratureView extends Composite {
 	}
 
 	private void updateLiteratureView() {
-		GraphBackendImpl backendImpl;
-		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
+//		GraphBackendImpl backendImpl;
+//		backendImpl = new GraphBackendImpl(viewcontroller.getWidget());
 		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(this);
 		GWT.log("trying to get the literature now");
-		backendImpl.getFullLiterature(litUpdater);
+		viewcontroller.getBackendImpl().getFullLiterature(litUpdater);
 		this.shownLiteratureEntryBinder.addThemeButton.setEnabled(false);
 	}
 

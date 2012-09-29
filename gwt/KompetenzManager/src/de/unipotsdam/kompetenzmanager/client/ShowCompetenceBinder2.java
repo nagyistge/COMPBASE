@@ -272,13 +272,13 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	@UiHandler("searchButton")
 	void onSearchButtonClick(ClickEvent event) {
-		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
 		if (this.getNewGraph()) {
-			backendImpl.findShortestPath(this.searchTextField.getText(),
+			widget.viewcontroller.getBackendImpl().findShortestPath(this.searchTextField.getText(),
 					new GraphUpdater<Graph>(widget));
 		} else {
 			if (getStoredGraph() != null) {
-				backendImpl.findShortestPath(getStoredGraph(),
+				widget.viewcontroller.getBackendImpl().findShortestPath(getStoredGraph(),
 						this.searchTextField.getText(),
 						new GraphUpdater<Graph>(widget));
 			} else {
@@ -289,15 +289,15 @@ public class ShowCompetenceBinder2 extends Composite {
 
 	@UiHandler("searchPathButton")
 	void onButtonClick(ClickEvent event) {
-		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
 		String fromNode = this.searchFromTextField.getText();
 		String toNode = this.searchToTextField.getText();
 		if (this.getNewGraph()) {
-			backendImpl.findShortestPath(fromNode, toNode,
+			viewcontroller.getBackendImpl().findShortestPath(fromNode, toNode,
 					new GraphUpdater<Graph>(widget));
 		} else {
 			if (getStoredGraph() != null) {
-				backendImpl.findShortestPath(getStoredGraph(), fromNode,
+				viewcontroller.getBackendImpl().findShortestPath(getStoredGraph(), fromNode,
 						toNode, new GraphUpdater<Graph>(widget));
 			} else {
 				GWT.log("Graph should have been stored but is not");
@@ -377,8 +377,8 @@ public class ShowCompetenceBinder2 extends Composite {
 	// }
 	@UiHandler("resetButton")
 	void onResetButtonClick(ClickEvent event) {
-		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
-		backendImpl.getFullGraph(null);
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(widget);
+		widget.viewcontroller.getBackendImpl().getFullGraph(null);
 	}
 
 	public void addMultiClickMenu(ManyToManyConnector manyToManyConnector) {

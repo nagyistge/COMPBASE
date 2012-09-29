@@ -26,8 +26,8 @@ public class GraphUpdater<T> implements AsyncCallback<T> {
 		showCompetenceBinder.removeGraph();
 		showCompetenceBinder.setGraph(json.getJavaScriptObject(),showCompetenceBinder.canvasDiv.getId());
 		this.showCompetenceBinder.storeGraph((Graph) result);
-		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);
-		backendImpl.getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>(showCompetenceBinder.viewcontroller));
+//		GraphBackendImpl backendImpl = new GraphBackendImpl(showCompetenceBinder);		
+		showCompetenceBinder.viewcontroller.getBackendImpl().getLiteratureForTags(showCompetenceBinder.getStoredGraph(), new RelevantLiteratureUpdater<Literature>(showCompetenceBinder.viewcontroller));
 //		showCompetenceBinder.widget.viewcontroller.changeSelectedTab(true);
 	}
 	

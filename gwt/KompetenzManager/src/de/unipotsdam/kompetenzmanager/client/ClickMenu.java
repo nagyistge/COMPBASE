@@ -46,6 +46,10 @@ public class ClickMenu extends Composite {
 		this.id = id;
 		this.nodeId = nodeId;
 		GWT.log("Die NodeID ist " + nodeId);
+		//for presentation purposes 
+		this.removeNode.setVisible(false);
+		this.removeNode.setEnabled(false);
+		
 	}
 
 	@UiHandler("focusPanel2")
@@ -71,47 +75,48 @@ public class ClickMenu extends Composite {
 		widget.removeClickMenu();
 		if (this.widget == null) {
 			GWT.log("showCompetenceBinder ist null");
-		}
-		GraphBackendAsync backendImpl = new GraphBackendImpl(
-				this.widget);
+		}		
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(
+//				this.widget);
 		GraphNode targetNode = new GraphNode(this.nodeId);
 		if (this.widget.getNewGraph()) {
-			backendImpl.removeNode(targetNode, new GraphUpdater<Graph>(
+			widget.viewcontroller.getBackendImpl().removeNode(targetNode, new GraphUpdater<Graph>(
 					widget));
 		} else {
 			if (this.widget.getStoredGraph() != null) {
-				backendImpl.removeNode(this.widget
+				widget.viewcontroller.getBackendImpl().removeNode(this.widget
 						.getStoredGraph(), targetNode, new GraphUpdater<Graph>(
 						widget));
 			} else {
 				GWT.log("Graph has not been stored");
 			}
-		}
+		} 		
+		
 		// eventuell nur das entsprechende Element rausnehmen
 		widget.clearSelectedElements();
 	}
 
 	@UiHandler("showNeighbours")
 	void onShowNeighboursClick(ClickEvent event) {
-		GraphBackendAsync backendImpl = new GraphBackendImpl(
-				this.widget);
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(
+//				this.widget);
 		GraphNode gNode = new GraphNode(this.nodeId);
 		if (this.widget.getNewGraph()) {
-			backendImpl.expandNode(gNode.label, new GraphUpdater<Graph>(this.widget));
+			widget.viewcontroller.getBackendImpl().expandNode(gNode.label, new GraphUpdater<Graph>(this.widget));
 		} else {
-			backendImpl.expandNode(this.widget.getStoredGraph(), gNode.label, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().expandNode(this.widget.getStoredGraph(), gNode.label, new GraphUpdater<Graph>(widget));
 		}
 	}
 	@UiHandler("connectButton")
 	void onConnectButtonClick(ClickEvent event) {
 		GWT.log("connecting nodes:" +this.nodeId + " " + widget.getSelectedElements());
-		GraphBackendAsync backendImpl = new GraphBackendImpl(
-				this.widget);		
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(
+//				this.widget);		
 		widget.removeClickMenu();		
 		if (this.widget.getNewGraph()) {
-			backendImpl.connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
 		} else {
-			backendImpl.connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
 		}
 		widget.clearSelectedElements();
 	}
