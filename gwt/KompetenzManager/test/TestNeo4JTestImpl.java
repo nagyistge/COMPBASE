@@ -207,7 +207,7 @@ public class TestNeo4JTestImpl {
 		Graph tags = this.neo4JGraphImpl.getTagsforLiterature(neo4JGraphImpl.getFullLiterature());
 		Graph tagsCopy = new Graph();
 		tagsCopy.mergeWith(tags);
-		assertNotEmpty(tags.nodes);		
+//		assertNotEmpty(tags.nodes.);		
 		Graph fullGraph = neo4JGraphImpl.getFullGraph();
 //		System.out.println("compare1" + fullGraph.toString());
 		assertNotNull(tags);

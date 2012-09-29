@@ -122,7 +122,7 @@ public class Neo4JStarter {
 		graphDb = null;
 	}
 
-	public Graph doQuery(Do doer) {
+	public synchronized Graph doQuery(Do doer) {
 		Transaction tx = graphDb.beginTx();
 		try {
 			Graph result = doer.doit();
@@ -133,7 +133,7 @@ public class Neo4JStarter {
 		}
 	}
 
-	public Literature doQueryLit(DoNeoLit doer) {
+	public synchronized Literature doQueryLit(DoNeoLit doer) {
 		Transaction tx = graphDb.beginTx();
 		try {
 			Literature result = doer.dolit();

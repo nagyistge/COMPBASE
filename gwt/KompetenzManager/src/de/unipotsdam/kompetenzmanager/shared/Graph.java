@@ -55,6 +55,15 @@ public class Graph implements IsSerializable {
 			this.triples.addAll(graph.triples);
 		}
 	}
+	
+	public Graph addConnectingTriples(Graph graph) {
+		for (GraphTriple graphTriple : graph.triples) {
+			if (this.nodes.contains(new GraphNode(graphTriple.fromNode))) {
+				this.triples.add(graphTriple);
+			}
+		}
+		return this;
+	}
 
 	/**
 	 * the input graph is kept

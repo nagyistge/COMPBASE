@@ -21,7 +21,7 @@ public class DoGetLitForTags extends DoNeoLit {
 	}
 
 	@Override
-	public Literature dolit() {
+	public synchronized Literature dolit() {
 		Literature literature = new Literature();
 		for (GraphNode graphNode : graph.nodes) {
 			Node node = this.nodeIndex.get(NODE_KEY, graphNode.label).getSingle();

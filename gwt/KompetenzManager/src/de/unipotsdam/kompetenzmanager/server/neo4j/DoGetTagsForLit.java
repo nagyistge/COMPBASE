@@ -1,5 +1,10 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -23,8 +28,27 @@ public class DoGetTagsForLit extends DoNeo implements Do {
 	}
 
 	@Override
-	public Graph doit() {
+	public synchronized Graph doit() {
 		Graph graph = new Graph();
+		getTheConnectedGraph(graph);
+//		getTheRelationShipInTheGraph(graph);
+		return graph;
+	}
+
+	private synchronized void getTheRelationShipInTheGraph(Graph graph) {
+	for (GraphNode graphNode : graph.nodes) {
+			for (GraphNode graphNode2 : graph.nodes) {
+				if (!graphNode.equals(graphNode2)) {
+					DoFindShortestPath doFindShortestPathBetweenResults = new DoFindShortestPath(
+							this.graphDb, nodeIndex, this.relIndex,
+							graphNode2.label, graphNode.label);
+					graph.mergeWith(doFindShortestPathBetweenResults.doit());
+				}
+			}
+		}
+	}
+
+	private synchronized void getTheConnectedGraph(Graph graph) {
 		for (LiteratureEntry literatureEntry : literature.literatureEntries) {
 			Node litNode = getLitNode(literatureEntry);
 			Iterable<Relationship> rels = litNode
@@ -40,18 +64,6 @@ public class DoGetTagsForLit extends DoNeo implements Do {
 			}
 
 		}
-
-		for (GraphNode graphNode : graph.nodes) {
-			for (GraphNode graphNode2 : graph.nodes) {
-				if (!graphNode.equals(graphNode2)) {
-					DoFindShortestPath doFindShortestPathBetweenResults = new DoFindShortestPath(
-							this.graphDb, nodeIndex, this.relIndex,
-							graphNode2.label, graphNode.label);
-					graph.mergeWith(doFindShortestPathBetweenResults.doit());
-				}
-			}
-		}
-		return graph;
 	}
 
 }
