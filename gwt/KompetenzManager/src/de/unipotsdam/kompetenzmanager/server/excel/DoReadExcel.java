@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.google.gwt.dev.util.Strings;
 
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.util.UUID;
+import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
@@ -25,8 +26,8 @@ public class DoReadExcel {
 	private String filename;
 
 	public DoReadExcel() throws IOException {
-		this.sheetData = new ArrayList<List<XSSFCell>>();		
-		filename = "excel/Klassifkation.xlsx";
+		this.sheetData = new ArrayList<List<XSSFCell>>();
+		filename = Neo4JStarter.PATH_PREFIX + "excel/Klassifkation.xlsx";
 
 	}
 
@@ -85,19 +86,19 @@ public class DoReadExcel {
 			XSSFCell cell1 = (XSSFCell) list.get(0);
 			XSSFCell cell2 = (XSSFCell) list.get(1);
 			XSSFCell cell3 = (XSSFCell) list.get(2);
-			XSSFCell cell4 = (XSSFCell) list.get(3);			
+			XSSFCell cell4 = (XSSFCell) list.get(3);
 			literatureEntry.titel = cell1.getStringCellValue();
 			literatureEntry.author = cell2.getStringCellValue();
 			String band = cell3.getStringCellValue();
 			if (band.contains("INFO")) {
-				literatureEntry.paper = "INFO";  
+				literatureEntry.paper = "INFO";
 			} else {
 				literatureEntry.paper = "DDI";
 			}
 			literatureEntry.year = cell4.getRawValue();
-			literatureEntry.klassifikationsnummer = i;	
+			literatureEntry.klassifikationsnummer = i;
 			literatureEntry.abstractText = "";
-			literatureEntry.volume =  "";
+			literatureEntry.volume = "";
 			literatureEntry.id = new UUID().hashCode();
 			result.literatureEntries.add(literatureEntry);
 		}

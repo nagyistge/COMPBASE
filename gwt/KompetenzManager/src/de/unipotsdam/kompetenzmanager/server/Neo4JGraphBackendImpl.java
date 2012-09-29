@@ -1,11 +1,7 @@
 package de.unipotsdam.kompetenzmanager.server;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
-
-import org.apache.commons.io.DirectoryWalker;
-import org.apache.lucene.store.Directory;
-import org.mortbay.util.IO;
 
 import com.google.gwt.user.server.rpc.UnexpectedException;
 
@@ -33,18 +29,23 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	
 	private Neo4JStarter neo;
 	
-	public Neo4JGraphBackendImpl() {
+	public Neo4JGraphBackendImpl() throws IOException {
 		this.neo = new Neo4JStarter();
 	}
 
 	@Override
-	public synchronized Graph getFullGraph() {		
+	public synchronized Graph getFullGraph()  {		
 		Graph graph = null;
 		try {
 			graph = neo.doQuery(new DoFullGraph(neo.getGraphDB(), neo.getNodeIndex(),neo.getRelationshipIndex()));
 		} catch(UnexpectedException e) {
 			e.printStackTrace();
-			shutdown();			
+			try {
+				shutdown();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
 		}
 		return graph;
 		
@@ -74,7 +75,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 		 return getFullGraph();
 	}
 	
-	public synchronized void shutdown() {
+	public synchronized void shutdown() throws IOException {
 		new Neo4JStarter().shutdown();
 	}
 

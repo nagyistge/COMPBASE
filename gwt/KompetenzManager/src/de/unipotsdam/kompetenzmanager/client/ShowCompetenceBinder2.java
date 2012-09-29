@@ -77,10 +77,9 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiField
 	VerticalPanel VerticalPanel;
 	@UiField Button resetButton;
-	@UiField HorizontalPanel selectedLiterature;
 	@UiField Button auswahlTaggen;
 	@UiField Button literaturAnzeigen;
-	@UiField HorizontalPanel relevanteLiteratureButtonListe;
+	@UiField VerticalPanel relevanteLiteratureButtonListe;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt

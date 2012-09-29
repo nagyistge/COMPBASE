@@ -20,24 +20,22 @@
 					</g:VerticalPanel>
 			</g:at>
 			<g:at left="246" top="74">
-				<g:AbsolutePanel width="994px" height="608px" ui:field="glassPanelContainer">
+				<g:AbsolutePanel width="1105px" height="608px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
-						<g:FocusPanel ui:field="focusPanel1" width="939px" height="475px">
-							<g:SimplePanel width="100%" height="477px"/>
+						<g:FocusPanel ui:field="focusPanel1" width="939px" height="598px">
+							<g:SimplePanel width="100%" height="594px"/>
 						</g:FocusPanel>
 					</g:at>
-					<g:at left="690" top="494">
+					<g:at left="976" top="506">
 						<g:Button width="96px" height="45px" ui:field="resetButton">reset</g:Button>
 					</g:at>
 					<g:at left="10" top="496">
 						<g:Label text="Relevante Literatur:" width="96px" height="43px"/>
 					</g:at>
-					<g:at left="125" top="494">
-						<g:HorizontalPanel width="538px" height="45px" ui:field="selectedLiterature">
-							<g:ScrollPanel height="43px">
-								<g:HorizontalPanel width="100%" height="100%" ui:field="relevanteLiteratureButtonListe"/>
-							</g:ScrollPanel>
-						</g:HorizontalPanel>
+					<g:at left="958" top="7">
+						<g:ScrollPanel height="468px" width="147px">
+							<g:VerticalPanel ui:field="relevanteLiteratureButtonListe" width="100%" height="461px"/>
+						</g:ScrollPanel>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
