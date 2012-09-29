@@ -6,8 +6,8 @@
 	</ui:style>
 	<g:HTMLPanel width="1600px" height="800px">
 		<g:AbsolutePanel height="657px" width="1161px" ui:field="glassPanelContainer">
-			<g:at left="382" top="10">
-				<g:VerticalPanel width="658px" height="477px" ui:field="LiteratureViewVerticalPanel"/>
+			<g:at left="341" top="10">
+				<g:VerticalPanel width="699px" height="477px" ui:field="LiteratureViewVerticalPanel"/>
 			</g:at>
 			<g:at left="10" top="551">
 				<g:Button ui:field="resetButton">reset</g:Button>

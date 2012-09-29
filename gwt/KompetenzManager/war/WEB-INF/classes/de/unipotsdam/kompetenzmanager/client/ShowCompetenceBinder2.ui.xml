@@ -22,17 +22,14 @@
 			<g:at left="246" top="74">
 				<g:AbsolutePanel width="1105px" height="608px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
-						<g:FocusPanel ui:field="focusPanel1" width="939px" height="598px">
-							<g:SimplePanel width="100%" height="594px"/>
+						<g:FocusPanel ui:field="focusPanel1" width="877px" height="598px">
+							<g:SimplePanel width="871px" height="594px"/>
 						</g:FocusPanel>
 					</g:at>
-					<g:at left="976" top="506">
+					<g:at left="901" top="499">
 						<g:Button width="96px" height="45px" ui:field="resetButton">reset</g:Button>
 					</g:at>
-					<g:at left="10" top="496">
-						<g:Label text="Relevante Literatur:" width="96px" height="43px"/>
-					</g:at>
-					<g:at left="958" top="7">
+					<g:at left="883" top="0">
 						<g:ScrollPanel height="468px" width="147px">
 							<g:VerticalPanel ui:field="relevanteLiteratureButtonListe" width="100%" height="461px"/>
 						</g:ScrollPanel>

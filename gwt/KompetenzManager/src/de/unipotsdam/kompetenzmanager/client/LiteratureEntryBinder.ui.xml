@@ -8,26 +8,25 @@
 		<g:AbsolutePanel width="1600px" height="630px">
 			<g:at left="20" top="84">
 				<g:HorizontalPanel width="879px" height="466px">
-			<g:VerticalPanel height="432px" width="126px">
-				<g:Label text="Titel" height="33px"/>
+			<g:VerticalPanel height="432px" width="86px">
+				<g:Label text="Titel" height="85px"/>
 				<g:Label text="Autor"/>
 				<g:Label text="Jahr"/>
 				<g:Label text="Paper"/>
 				<g:Label text="Ausgabe"/>
-				<g:Label text="Abstract"/>
+				<g:Label text="Abstract" height="69px"/>
 			</g:VerticalPanel>
 			<g:VerticalPanel height="431px" width="407px">
-				<g:TextArea ui:field="titleContent" width="368px"/>
-				<g:TextBox width="370px" ui:field="authorContent"/>
-				<g:TextBox width="371px" ui:field="publicationDate"/>
-				<g:TextBox width="370px" ui:field="paperContent"/>
-				<g:TextBox width="370px" ui:field="volumeContent"/>
-				<g:TextArea width="369px" ui:field="abstractContent"/>
+				<g:TextArea ui:field="titleContent" width="409px" height="94px"/>
+				<g:TextBox width="407px" ui:field="authorContent"/>
+				<g:TextBox width="409px" ui:field="publicationDate"/>
+				<g:TextBox width="410px" ui:field="paperContent"/>
+				<g:TextBox width="410px" ui:field="volumeContent"/>
+				<g:TextArea width="409px" ui:field="abstractContent" height="93px"/>
 			</g:VerticalPanel>
 			<g:VerticalPanel height="429px" width="346px">
-				<g:Label text="Tags:"/>
 				<g:ScrollPanel ui:field="TagsContainer">
-					<g:VerticalPanel width="100%" height="201px" ui:field="verticalTagPanel"/>
+					<g:VerticalPanel width="100%" height="430px" ui:field="verticalTagPanel"/>
 				</g:ScrollPanel>
 			</g:VerticalPanel>
 		</g:HorizontalPanel>
@@ -46,7 +45,7 @@
 				<g:Button ui:field="speichernButton" enabled="false" width="124px" height="30px">speichern</g:Button>
 			</g:at>
 			<g:at left="735" top="569">
-				<g:Button width="103px" ui:field="addThemeButton" styleName="addThemeButton">add theme tag</g:Button>
+				<g:Button width="103px" ui:field="addThemeButton" visible="false" enabled="false" styleName="addThemeButton">add theme tag</g:Button>
 			</g:at>
 			<g:at left="42" top="442">
 				<g:Button width="103px" visible="false" enabled="false" height="28px" ui:field="deleteButton">löschen</g:Button>

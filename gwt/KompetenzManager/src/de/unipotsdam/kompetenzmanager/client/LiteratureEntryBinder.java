@@ -60,14 +60,14 @@ public class LiteratureEntryBinder extends Composite {
 
 	@UiHandler("speichernButton")
 	void onSpeichernButtonClick(ClickEvent event) {
-		GraphBackendImpl backendImpl = new GraphBackendImpl(viewcontroller.getWidget());		
+//		GraphBackendImpl backendImpl = new GraphBackendImpl(viewcontroller.getWidget());		
 		//reading all the text fields
 		this.shownLiteratureEntry = aggregateLiteratureEntry();
 		
 		//storing them in the db and updating tree
 		LiteratureView litView = viewcontroller.getLiteratureview();
 		LiteratureUpdater<Literature> litUpdater = new LiteratureUpdater<Literature>(this.viewcontroller.getLiteratureview());
-		backendImpl.addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry,litUpdater);		
+		viewcontroller.getBackendImpl().addOrUpdateLiteratureEntry(viewcontroller.getLiteratureview().getStoredLiterature(),shownLiteratureEntry,litUpdater);		
 
 		//showing the klassifkation if possible
 		if (this.shownLiteratureEntry.klassifikationsnummer > 0) {

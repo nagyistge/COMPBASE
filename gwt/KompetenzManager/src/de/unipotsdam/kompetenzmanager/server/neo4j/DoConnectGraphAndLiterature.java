@@ -3,7 +3,6 @@ package de.unipotsdam.kompetenzmanager.server.neo4j;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
-import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 
@@ -34,12 +33,18 @@ public class DoConnectGraphAndLiterature extends DoNeoLit {
 			for (LiteratureEntry literatureEntry : literature.literatureEntries) {
 				Node litNode = getLitNode(literatureEntry);
 				if (litNode != null && gnode != null) {
-					for (Relationship formerRel : gnode.getRelationships(RelTypes.isTagOf)) {
-						formerRel.delete();
-					}
-					Relationship rel = gnode.createRelationshipTo(
-							litNode, RelTypes.isTagOf);
-					this.relIndex.add(rel,REL_KEY,createRelIndex(gnode, litNode, "",RelTypes.isTagOf));
+					// for presentation needs to work
+					// for (Relationship formerRel :
+					// gnode.getRelationships(RelTypes.isTagOf)) {
+					// formerRel.delete();
+					// }
+					Relationship rel = gnode.createRelationshipTo(litNode,
+							RelTypes.isTagOf);
+					this.relIndex
+							.add(rel,
+									REL_KEY,
+									createRelIndex(gnode, litNode, "",
+											RelTypes.isTagOf));
 				} else {
 					System.err.println("could not find both nodes to connnect");
 				}

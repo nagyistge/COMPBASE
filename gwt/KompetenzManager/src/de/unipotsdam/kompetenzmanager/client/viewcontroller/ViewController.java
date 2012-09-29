@@ -22,6 +22,7 @@ public class ViewController {
 	private TabbedView tabbedView;
 	private Boolean graphIsVisible;
 	private boolean inprocess;
+	private GraphBackendImpl backendImpl;
 
 	public ViewController(ShowCompetenceBinder2 widget,
 			LiteratureView literatureView, TabbedView tabbedView) {
@@ -29,7 +30,10 @@ public class ViewController {
 		this.setLiteratureview(literatureView);
 		this.setTabbedView(tabbedView);
 		this.graphIsVisible = true;
+		this.setBackendImpl(new GraphBackendImpl(widget));
 	}
+	
+	
 
 	public Boolean isVisibleGraphTab() {
 		return graphIsVisible;
@@ -65,7 +69,7 @@ public class ViewController {
 		}
 		this.inprocess = true;
 		if (!graph.nodes.isEmpty() && !literature.literatureEntries.isEmpty()) {
-			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+//			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 			backendImpl.connectLiteratureToGraph(literature, graph,
 					new GraphAndLiteratureUpdater<GraphLiteraturePair>(this));
 		} else {
@@ -130,7 +134,7 @@ public class ViewController {
 		while (this.inprocess) {
 		}
 		this.inprocess = true;
-		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+//		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);		
 		Literature litEntry = new Literature(
 				literatureview.shownLiteratureEntryBinder.shownLiteratureEntry);
 		if (literatureEntry.graph.nodes.isEmpty()) {
@@ -156,7 +160,7 @@ public class ViewController {
 			while (this.inprocess) {
 			}
 			this.inprocess = true;
-			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+//			GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 			backendImpl.getLiteratureForTags(selectedGraph,
 					new LiteratureUpdater<Literature>(literatureview));
 			this.inprocess = false;
@@ -187,7 +191,7 @@ public class ViewController {
 		while (this.inprocess) {
 		}
 		this.inprocess = true;
-		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
+//		GraphBackendImpl backendImpl = new GraphBackendImpl(widget);
 		backendImpl.findShortestPath(button.getLabel(),
 				new GraphUpdater<Graph>(widget));
 		this.inprocess = false;
@@ -208,10 +212,22 @@ public class ViewController {
 		while (this.inprocess) {
 		}
 		this.inprocess = true;
-		GraphBackendImpl backendImpl = new GraphBackendImpl(this.widget);
+//		GraphBackendImpl backendImpl = new GraphBackendImpl(this.widget);
 		backendImpl.removeLiteratureEntry(this.literatureview.getStoredLiterature(), shownLiteratureEntry, new LiteratureUpdater<Literature>(literatureview));
 		this.inprocess = false;
 		changeSelectedTab(false);
 		
+	}
+
+
+
+	public void setBackendImpl(GraphBackendImpl backendImpl) {
+		this.backendImpl = backendImpl;
+	}
+
+
+
+	public GraphBackendImpl getBackendImpl() {
+		return backendImpl;
 	}
 }

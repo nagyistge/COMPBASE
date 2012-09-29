@@ -35,7 +35,7 @@ public class DoNeoGraph extends DoNeo implements Do {
 	protected Graph convertRelationShipsToGraph(Relationship... relationships) {
 		Graph result = new Graph();
 		for (Relationship rel : relationships) {
-			String kantenlabel = "";
+			String kantenlabel = "";			
 			if (rel.isType(RelTypes.subclassOf)) {
 				if (rel.hasProperty(REL_VALUE)) {					
 						kantenlabel = (String) rel.getProperty(REL_VALUE);					
@@ -44,7 +44,7 @@ public class DoNeoGraph extends DoNeo implements Do {
 						(String) rel.getStartNode().getProperty(NODE_KEY),
 						(String) rel.getEndNode().getProperty(NODE_KEY),
 						kantenlabel, true);
-			}
+			} 
 		}
 		return result;
 	}
