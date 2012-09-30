@@ -40,6 +40,7 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 public class ShowCompetenceBinder2 extends Composite {
 
@@ -75,11 +76,11 @@ public class ShowCompetenceBinder2 extends Composite {
 	@UiField
 	Button deleteSelection;
 	@UiField
-	VerticalPanel VerticalPanel;
+	FlowPanel VerticalPanel;
 	@UiField Button resetButton;
 	@UiField Button auswahlTaggen;
 	@UiField Button literaturAnzeigen;
-	@UiField VerticalPanel relevanteLiteratureButtonListe;
+	@UiField FlowPanel relevanteLiteratureButtonListe;
 
 	/**
 	 * enthält sich selber, da es aus den EventStubs kein "this" gibt
