@@ -14,16 +14,16 @@
 					</g:FlowPanel>
 			</g:at>
 			<g:at left="10" top="74">
-				<g:VerticalPanel width="201px" height="85px">
+				<g:VerticalPanel width="230px" height="85px">
 						<g:Button ui:field="searchButton">Begriffssuche</g:Button>
-						<g:TextArea width="147px" height="36px" ui:field="searchTextField"/>
+						<g:TextArea width="210px" height="36px" ui:field="searchTextField"/>
 					</g:VerticalPanel>
 			</g:at>
 			<g:at left="246" top="74">
-				<g:AbsolutePanel width="1105px" height="608px" ui:field="glassPanelContainer">
+				<g:AbsolutePanel width="1038px" height="608px" ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
 						<g:FocusPanel ui:field="focusPanel1" width="877px" height="598px">
-							<g:SimplePanel width="871px" height="594px"/>
+							<g:SimplePanel width="849px" height="572px"/>
 						</g:FocusPanel>
 					</g:at>
 					<g:at left="901" top="499">
@@ -31,13 +31,13 @@
 					</g:at>
 					<g:at left="883" top="0">
 						<g:ScrollPanel height="468px" width="147px">
-							<g:VerticalPanel ui:field="relevanteLiteratureButtonListe" width="100%" height="461px"/>
+							<g:FlowPanel ui:field="relevanteLiteratureButtonListe" width="100%" height="461px"/>
 						</g:ScrollPanel>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
 			<g:at left="10" top="185">
-				<g:VerticalPanel width="201px" height="150px">
+				<g:VerticalPanel width="230px" height="150px">
 					<g:Button ui:field="searchPathButton">Finde Lernweg</g:Button>
 					<g:HorizontalPanel>
 						<g:Label text="von:" width="30"/>
@@ -49,30 +49,27 @@
 					</g:HorizontalPanel>
 				</g:VerticalPanel>
 			</g:at>
-			<g:at left="10" top="356">
-				<g:VerticalPanel width="201px" height="54px">
-					<g:Label text="Baue auf letztem Ergebnis auf"/>
-					<g:ToggleButton text="JA" ui:field="toggleButton"/>
-				</g:VerticalPanel>
+			<g:at left="10" top="356">				
+					<g:ToggleButton text="baue auf Ergebnis auf" ui:field="toggleButton" width="140px" height="16px"/>				
 			</g:at>
-			<g:at left="10" top="445">
-				<g:AbsolutePanel width="201px" height="322px">
+			<g:at left="10" top="415">
+				<g:AbsolutePanel width="230px" height="237px">
 					<g:at left="0" top="45">
-						<g:ScrollPanel width="201px" height="113px" ui:field="SelectedListPanel">
-							<g:VerticalPanel width="100%" height="100%" ui:field="VerticalPanel"/>
+						<g:ScrollPanel width="203px" height="76px" ui:field="SelectedListPanel">
+							<g:FlowPanel width="193px" height="71px" ui:field="VerticalPanel"/>
 						</g:ScrollPanel>
 					</g:at>
 					<g:at left="0" top="10">
 						<g:Label text="Bis jetzt ausgewählt:"/>
 					</g:at>
-					<g:at left="0" top="175">
-						<g:Button ui:field="deleteSelection">Auswahl löschen</g:Button>
+					<g:at left="0" top="138">
+						<g:Button ui:field="deleteSelection" width="67px" height="28px">löschen</g:Button>
 					</g:at>
-					<g:at left="0" top="209">
-						<g:Button width="114px" height="28px" ui:field="auswahlTaggen">Auswahl taggen</g:Button>
+					<g:at left="71" top="138">
+						<g:Button width="77px" height="28px" ui:field="auswahlTaggen">taggen</g:Button>
 					</g:at>
-					<g:at left="0" top="269">
-						<g:Button ui:field="literaturAnzeigen" width="156px" height="28px">Literatur für Auswahl anzeigen</g:Button>
+					<g:at left="154" top="138">
+						<g:Button ui:field="literaturAnzeigen" width="76px" height="28px">Literatur</g:Button>
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>

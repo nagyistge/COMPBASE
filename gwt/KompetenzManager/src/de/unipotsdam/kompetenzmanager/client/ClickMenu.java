@@ -31,6 +31,7 @@ public class ClickMenu extends Composite {
 	@UiField
 	Button showNeighbours;
 	@UiField Button connectButton;
+	@UiField Button pathHere;
 
 	public String id;
 	ShowCompetenceBinder2 widget;
@@ -117,6 +118,21 @@ public class ClickMenu extends Composite {
 			widget.viewcontroller.getBackendImpl().connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
 		} else {
 			widget.viewcontroller.getBackendImpl().connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		}
+		widget.clearSelectedElements();
+	}
+	@UiHandler("pathHere")
+	void onPathHereClick(ClickEvent event) {
+		GWT.log("connecting nodes:" +this.nodeId + " " + widget.getSelectedElements());
+//		GraphBackendAsync backendImpl = new GraphBackendImpl(
+//				this.widget);		
+		widget.removeClickMenu();		
+		if (this.widget.getNewGraph()) {
+			widget.viewcontroller.getBackendImpl().findShortestPath(nodeId, new GraphUpdater<Graph>(widget));
+//			connectNodes(widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+		} else {
+//			widget.viewcontroller.getBackendImpl().connectNodes(widget.getStoredGraph(),widget.getSelectedElements(), this.nodeId, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().findShortestPath(widget.getStoredGraph(), nodeId, new GraphUpdater<Graph>(widget));
 		}
 		widget.clearSelectedElements();
 	}

@@ -1,0 +1,34 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		/* Add CSS here. See the GWT docs on UI Binder for more details */
+		.important {
+			font-weight: bold;
+		}
+		.ElementEntryLabel {
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:AbsolutePanel height="149px" width="352px">
+			<g:at left="10" top="10">
+				<g:HorizontalPanel width="342px" height="77px">
+			<g:VerticalPanel width="155px" height="69px">
+				<g:Label text="ElementName" height="30px" styleName="{style.important}" ui:field="ElementNameLabel"/>
+				<g:Label text="Kantenbeschriftung" ui:field="KantenBeschriftung"/>
+			</g:VerticalPanel>
+			<g:VerticalPanel height="54px" width="132px">
+				<g:TextBox ui:field="elementEntryTextfield"/>
+				<g:TextBox ui:field="kantenbeschriftungTextField"/>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+			</g:at>
+			<g:at left="10" top="95">
+				<g:Button width="144px" height="30px" ui:field="enterElementButton">Element erstellen</g:Button>
+			</g:at>
+			<g:at left="175" top="95">
+				<g:Button width="167px" height="30px" ui:field="abbrechenButton">Abbrechen</g:Button>
+			</g:at>
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
