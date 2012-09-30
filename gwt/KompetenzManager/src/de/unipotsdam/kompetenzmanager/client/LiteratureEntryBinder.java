@@ -1,32 +1,28 @@
 package de.unipotsdam.kompetenzmanager.client;
 
-import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Widget;
 
-import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackendImpl;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.LiteratureUpdater;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.ViewController;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.util.UUID;
 import de.unipotsdam.kompetenzmanager.shared.GraphNode;
 import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.VerticalSplitPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class LiteratureEntryBinder extends Composite {
 
@@ -43,7 +39,7 @@ public class LiteratureEntryBinder extends Composite {
 	@UiField TextArea abstractContent;
 	@UiField AbsolutePanel klassifikationstabellePanel;
 	@UiField Label contentKlassifikationsID;
-	@UiField VerticalPanel verticalTagPanel;
+	@UiField FlowPanel verticalTagPanel;
 	@UiField Button deleteButton;
 	private ViewController viewcontroller;
 	public LiteratureEntry shownLiteratureEntry;
