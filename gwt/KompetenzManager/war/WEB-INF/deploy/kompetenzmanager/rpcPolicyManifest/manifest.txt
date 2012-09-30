@@ -1,2 +1,4 @@
 # Module kompetenzmanager
 # RPC service class, partial path of RPC policy file
+de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend, FF2DE53ED53229DDAC9E44BDBB7E080A.gwt.rpc
+com.google.gwt.logging.shared.RemoteLoggingService, D981642EFA42F70DEE26F7EF8CAC42EC.gwt.rpc
