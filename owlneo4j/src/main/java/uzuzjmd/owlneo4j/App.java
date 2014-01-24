@@ -1,7 +1,9 @@
 package uzuzjmd.owlneo4j;
 
-import org.neo4j.rest.graphdb.RestAPI;
-import org.neo4j.rest.graphdb.RestAPIFacade;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.rest.graphdb.RestGraphDatabase;
+
+
 
 /**
  * Hello world!
@@ -10,7 +12,9 @@ import org.neo4j.rest.graphdb.RestAPIFacade;
 public class App 
 {
     public static void main( String[] args )
-    {
-    	RestAPI restAPI = new RestAPIFacade("http://localhost:7474/db/data","test","test");    	
+    {    						
+		GraphDatabaseService test = new RestGraphDatabase("http://localhost:7474/db/data");
+		test.index().forNodes("nodes");
+    	
     }
 }
