@@ -35,7 +35,7 @@ public class DoGetTagsForLit extends DoNeo implements Do {
 		return graph;
 	}
 
-	private synchronized void getTheRelationShipInTheGraph(Graph graph) {
+	protected synchronized void getTheRelationShipInTheGraph(Graph graph) {
 	for (GraphNode graphNode : graph.nodes) {
 			for (GraphNode graphNode2 : graph.nodes) {
 				if (!graphNode.equals(graphNode2)) {
@@ -48,7 +48,7 @@ public class DoGetTagsForLit extends DoNeo implements Do {
 		}
 	}
 
-	private synchronized void getTheConnectedGraph(Graph graph) {
+	protected synchronized void getTheConnectedGraph(Graph graph) {
 		for (LiteratureEntry literatureEntry : literature.literatureEntries) {
 			Node litNode = getLitNode(literatureEntry);
 			Iterable<Relationship> rels = litNode

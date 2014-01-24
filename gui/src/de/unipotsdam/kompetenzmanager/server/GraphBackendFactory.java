@@ -8,7 +8,10 @@ public class GraphBackendFactory {
 	private static Neo4JGraphBackendImpl neo4jGraphBackendImpl;
 	
 	public synchronized GraphBackend createInstance() {
-//		return new DummyBackendImpl();
+		return new MixedGraphBackend();
+	}
+	
+	public synchronized GraphBackend createNeo4JInstance() {		
 		if (neo4jGraphBackendImpl == null) {
 			try {
 				neo4jGraphBackendImpl = new Neo4JGraphBackendImpl();
@@ -18,7 +21,5 @@ public class GraphBackendFactory {
 			}
 		}
 		return neo4jGraphBackendImpl;
-		
-				
-	}
+	}	
 }
