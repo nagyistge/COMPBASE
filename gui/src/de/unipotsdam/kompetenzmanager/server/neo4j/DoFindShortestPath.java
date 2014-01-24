@@ -1,22 +1,14 @@
 package de.unipotsdam.kompetenzmanager.server.neo4j;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
 import org.neo4j.kernel.Traversal;
-
-import com.google.gwt.dev.util.collect.Lists;
 
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 

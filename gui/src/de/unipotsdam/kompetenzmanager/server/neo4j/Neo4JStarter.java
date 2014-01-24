@@ -14,6 +14,9 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.RelationshipIndex;
+import org.neo4j.rest.graphdb.RestAPI;
+import org.neo4j.rest.graphdb.RestAPIFacade;
+import org.neo4j.rest.graphdb.RestGraphDatabase;
 
 import de.unipotsdam.kompetenzmanager.server.excel.DoReadExcel;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
@@ -48,8 +51,9 @@ public class Neo4JStarter {
 		initPaths();
 
 		if (Neo4JStarter.graphDb == null) {
-			Neo4JStarter.graphDb = new GraphDatabaseFactory()
-					.newEmbeddedDatabase(DATABASE_PATH);
+//			Neo4JStarter.graphDb = new GraphDatabaseFactory()
+//					.newEmbeddedDatabase(DATABASE_PATH);								
+			graphDb = new RestGraphDatabase("http://localhost:7474/db/data");			
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();
