@@ -15,6 +15,7 @@ import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindShortestPath;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetFullLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetLitForTags;
+import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetTagsForLabels;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetTagsForLit;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemoveLiterature;
@@ -183,6 +184,11 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
 		neo.doQueryLit(doConnectGraphAndLiterature);
 		return new GraphLiteraturePair(getTagsforLiterature(literature), getLiteratureForTags(graph));		
+	}
+
+	public Graph getTagsforLiterature2(Literature literature) {		
+		DoGetTagsForLabels doget = new DoGetTagsForLabels(neo.getGraphDB(),neo.getNodeIndex(), neo.getRelationshipIndex(), literature);
+		return doget.doit();
 	}
 
 

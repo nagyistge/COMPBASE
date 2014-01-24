@@ -74,8 +74,8 @@ public abstract class DoNeo {
 		String index = createRelIndex(nodeFrom, nodeTo, label, relType);
 		if (!relIndex.get(REL_KEY, index).hasNext()) {
 			relationship.setProperty(NODE_VALUE, label);
-			relationship.setProperty(REL_KEY, index);
-			getRelNode().setProperty(index, index);
+			relationship.setProperty(REL_KEY, index);			
+			getRelNode().setProperty(index, index);			
 			this.relIndex.add(relationship, REL_KEY, index);
 		}
 

@@ -35,3 +35,4 @@ gui/war/
 gui/gwt-unitCache
 gui/gwt-unitCache
 gui/war
+*.class
