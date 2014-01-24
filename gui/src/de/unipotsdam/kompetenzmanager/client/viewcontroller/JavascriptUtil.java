@@ -38,7 +38,7 @@ public class JavascriptUtil {
 		JSONArray nodes = new JSONArray();
 		int j = 0;
 		for (GraphNode node : graph.nodes) {
-			JSONString nodeLabel = new JSONString(node.label);
+			JSONString nodeLabel = new JSONString(node.getLabel());
 			JSONObject obj = new JSONObject();
 			obj.put("node", nodeLabel);
 			nodes.set(j, obj);

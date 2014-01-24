@@ -23,7 +23,7 @@ public class DoGetTagsForLabels extends DoGetTagsForLit {
 		for (GraphNode node : graph.nodes) {
 			DoFindShortestPath doFindShortestPath = new DoFindShortestPath(
 					this.graphDb, nodeIndex, this.relIndex, "rootnode",
-					node.label);
+					node.getLabel());
 			graph.mergeWith(doFindShortestPath.doit());
 		}
 	}

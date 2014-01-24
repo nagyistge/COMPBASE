@@ -8,6 +8,82 @@ public class LiteratureEntry implements IsSerializable,
 		Comparable<LiteratureEntry> {
 
 	public String paper;
+	public String getPaper() {
+		return paper;
+	}
+
+	public void setPaper(String paper) {
+		this.paper = encode(paper);
+	}
+
+	public String getVolume() {
+		return volume;
+	}
+
+	public void setVolume(String volume) {
+		this.volume = encode(volume);
+	}
+
+	public String getTitel() {
+		return titel;
+	}
+
+	public void setTitel(String titel) {
+		this.titel = encode(titel);
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = encode(author);
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = encode(year);
+	}
+
+	public String getAbstractText() {
+		return abstractText;
+	}
+
+	public void setAbstractText(String abstractText) {
+		this.abstractText = encode(abstractText);
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = encode(shortName);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getKlassifikationsnummer() {
+		return klassifikationsnummer;
+	}
+
+	public void setKlassifikationsnummer(int klassifikationsnummer) {
+		this.klassifikationsnummer = klassifikationsnummer;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
 	public String volume;
 	public String titel;
 	public String author;
@@ -78,6 +154,10 @@ public class LiteratureEntry implements IsSerializable,
 
 	public void setGraph(Graph graph) {
 		this.graph = graph;
+	}
+	
+	private String encode(String label2) {
+		return label2.replaceAll(" ", "-");
 	}
 
 }

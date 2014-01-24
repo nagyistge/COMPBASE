@@ -36,3 +36,7 @@ gui/gwt-unitCache
 gui/gwt-unitCache
 gui/war
 *.class
+gui/lib/httpcomponents-client-4.3.2
+**/*.class
+**/**/*.class
+gui/war/WEB-INF/classes/

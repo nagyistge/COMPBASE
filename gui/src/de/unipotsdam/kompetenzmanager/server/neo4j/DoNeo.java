@@ -87,48 +87,5 @@ public abstract class DoNeo {
 				+ relTypes + label;
 	}
 
-	protected Literature convertRelationShipToLiteratureEntry(
-			Iterable<Relationship> iterable) {
-		Literature result = new Literature();
-		for (Relationship rel : iterable) {
-			result.literatureEntries.add(convertLitNodeToLitEntry(rel
-					.getStartNode()));
-		}
-		return result;
-	}
 
-	protected LiteratureEntry convertLitNodeToLitEntry(Node node) {
-		if (node.hasProperty(LIT_NODE_KEY)) {
-			LiteratureEntry literatureEntry = new LiteratureEntry(
-					(String) node.getProperty(LIT_NODE_TITEL),
-					(String) node.getProperty(LIT_NODE_AUTHOR),
-					(String) node.getProperty(LIT_NODE_YEAR),
-					(String) node.getProperty(LIT_NODE_ABSTRACT),
-					(String) node.getProperty(LIT_NODE_PAPER),
-					(String) node.getProperty(LIT_NODE_VOLUME),
-					(Integer) node.getProperty(LIT_NODE_KEY));
-			Literature literature = new Literature(literatureEntry);
-			DoGetTagsForLit doGetTagsForLit = new DoGetTagsForLit(this.graphDb,
-					nodeIndex, relIndex, literature);
-			DoFullGraph doFullGraph = new DoFullGraph(this.graphDb, nodeIndex, relIndex);
-			Graph associatedTags = doGetTagsForLit.doit();
-			Graph fullgraph = doFullGraph.doit(); 
-			literatureEntry.setGraph(associatedTags.addConnectingTriples(fullgraph));
-			return literatureEntry;
-		} else {
-			throw new Error(
-					"diese Methode wurde mit einer falschen Node aufgerufen"
-							+ node.getProperty(LIT_ROOT_NODE));
-		}
-	}
-
-	protected Node getLitNode(LiteratureEntry literatureEntry) {
-		if (literatureEntry.id == 0) {
-			GWT.log("kann Literatureintrag nicht ohne id finden");
-			return null;
-		} else {
-			return this.nodeIndex.get(LIT_NODE_KEY, literatureEntry.hashCode())
-					.getSingle();
-		}
-	}
 }
