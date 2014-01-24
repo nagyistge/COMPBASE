@@ -31,8 +31,8 @@ public class DoAddNode extends DoNeoGraph {
 
 	@Override
 	public Graph doit() {		
-		Node firstNode = createAndIndexNode(this.newNode.label);				
-		Node secondNode = nodeIndex.get(NODE_KEY, sourceNode.label).getSingle();		
+		Node firstNode = createAndIndexNode(this.newNode.getLabel());				
+		Node secondNode = nodeIndex.get(NODE_KEY, sourceNode.getLabel()).getSingle();		
 		connectNodes(firstNode, secondNode, kantenLabel, RelTypes.subclassOf);
 		////		Relationship relationship = firstNode.createRelationshipTo(secondNode,
 ////				RelTypes.assoziatedWith);

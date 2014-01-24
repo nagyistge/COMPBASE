@@ -86,8 +86,8 @@ public class Graph implements IsSerializable {
 		Collection<GraphTriple> toRemove = new HashSet<GraphTriple>();
 		while (it.hasNext())
 			graphTriple = it.next();
-		if (graphTriple.fromNode.equals(targetNode.label)
-				|| graphTriple.toNode.equals(targetNode.label)) {
+		if (graphTriple.fromNode.equals(targetNode.getLabel())
+				|| graphTriple.toNode.equals(targetNode.getLabel())) {
 			toRemove.add(graphTriple);
 		}
 		this.triples.removeAll(toRemove);

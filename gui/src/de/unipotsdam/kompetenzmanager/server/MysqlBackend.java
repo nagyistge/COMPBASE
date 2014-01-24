@@ -13,8 +13,7 @@ import de.unipotsdam.kompetenzmanager.shared.Literature;
 import de.unipotsdam.kompetenzmanager.shared.LiteratureEntry;
 
 public class MysqlBackend implements GraphBackend {
-	
-	
+
 	private MysqlConnect mysqlconnect;
 
 	public MysqlBackend() {
@@ -104,8 +103,9 @@ public class MysqlBackend implements GraphBackend {
 
 	@Override
 	public Literature getFullLiterature() {
-		this.mysqlconnect.connect();		
-		VereinfachtesResultSet result = this.mysqlconnect.issueSelectStatement("select * from literatur");
+		this.mysqlconnect.connect();
+		VereinfachtesResultSet result = this.mysqlconnect
+				.issueSelectStatement("select * from literatur");
 		Literature literature = convertResultSetToLiteratur(result);
 		mysqlconnect.close();
 		return literature;
@@ -114,37 +114,50 @@ public class MysqlBackend implements GraphBackend {
 
 	private Literature convertResultSetToLiteratur(VereinfachtesResultSet result) {
 		Literature literature = new Literature();
-		while (result.next()) {						
-			literature.literatureEntries.add(new LiteratureEntry(result.getString("titel"), result.getString("author"), result.getString("year"), result.getString("abstract"), result.getString("paper"), result.getString("volume"), result.getInt("id")));
+		while (result.next()) {
+			literature.literatureEntries.add(new LiteratureEntry(result
+					.getString("titel"), result.getString("author"), result
+					.getString("year"), result.getString("abstract"), result
+					.getString("paper"), result.getString("volume"), result
+					.getInt("id")));
 		}
 		return literature;
 	}
 
 	@Override
 	public Literature getLiteratureForTags(Graph graph) {
-		this.mysqlconnect.connect();
-		String questionmarkstring = "(";
-		Object[] inarray = new String[graph.nodes.size()];
-		int inarrayindex= 0;
-		for (GraphNode node: graph.nodes) {
-			inarray[inarrayindex] = node.label;
-			inarrayindex ++;
-			questionmarkstring += "?,";
+		Literature literature = new Literature();
+		if (graph.nodes.size() > 1) {
+			this.mysqlconnect.connect();
+			String questionmarkstring = "(";
+			Object[] inarray = new String[graph.nodes.size()];
+			int inarrayindex = 0;
+			for (GraphNode node : graph.nodes) {
+				inarray[inarrayindex] = node.getLabel();
+				inarrayindex++;
+				questionmarkstring += "?,";
+			}
+			questionmarkstring = questionmarkstring.substring(0,
+					questionmarkstring.lastIndexOf(",") - 1); // letzte Komma
+																// weg
+			questionmarkstring += "?)";
+			// System.out.println("Questionmarkstring: " + questionmarkstring +
+			// ", arrayindex: " + inarray.length );
+			VereinfachtesResultSet result = this.mysqlconnect
+					.issueSelectStatement(
+							""
+									+ "select * from literatur "
+									+ "LEFT JOIN literaturfortags ON literatur.id=literaturfortags.literaturid "
+									+ "where literaturfortags.tag in "
+									+ questionmarkstring, inarray);
+			literature = convertResultSetToLiteratur(result);
+			mysqlconnect.close();
 		}
-		questionmarkstring = questionmarkstring.substring(0, questionmarkstring.lastIndexOf(",")-1); // letzte Komma weg
-		questionmarkstring += "?)";
-		//System.out.println("Questionmarkstring: " + questionmarkstring + ", arrayindex: " + inarray.length );
-		VereinfachtesResultSet result = this.mysqlconnect.issueSelectStatement(""
-				+ "select * from literatur "
-				+ "LEFT JOIN literaturfortags ON literatur.id=literaturfortags.literaturid "
-				+ "where literaturfortags.tag in " + questionmarkstring, inarray);
-		Literature literature = convertResultSetToLiteratur(result);
-		mysqlconnect.close();
 		return literature;
 	}
 
 	@Override
-	public Graph getTagsforLiterature(Literature literature) {		
+	public Graph getTagsforLiterature(Literature literature) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -153,23 +166,41 @@ public class MysqlBackend implements GraphBackend {
 	public Literature addOrUpdateLiteratureEntry(Literature literatureStored,
 			LiteratureEntry literatureEntry) {
 		this.mysqlconnect.connect();
-		VereinfachtesResultSet result = this.mysqlconnect.issueSelectStatement("select * from literatur where id=?",literatureEntry.id);
+		VereinfachtesResultSet result = this.mysqlconnect.issueSelectStatement(
+				"select * from literatur where id=?", literatureEntry.id);
 		if (result.next()) {
-			this.mysqlconnect.issueInsertOrDeleteStatement("delete from literatur where id = ?", literatureEntry.id);
-			this.mysqlconnect.issueInsertOrDeleteStatement("insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)", literatureEntry.id,literatureEntry.titel,literatureEntry.author, literatureEntry.year, literatureEntry.paper,literatureEntry.volume,literatureEntry.abstractText);
-		} else {			
-			this.mysqlconnect.issueInsertOrDeleteStatement("insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)", literatureEntry.id,literatureEntry.titel,literatureEntry.author, literatureEntry.year, literatureEntry.paper,literatureEntry.volume,literatureEntry.abstractText);
-		} 		
+			this.mysqlconnect.issueInsertOrDeleteStatement(
+					"delete from literatur where id = ?", literatureEntry.id);
+			this.mysqlconnect
+					.issueInsertOrDeleteStatement(
+							"insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)",
+							literatureEntry.id, literatureEntry.titel,
+							literatureEntry.author, literatureEntry.year,
+							literatureEntry.paper, literatureEntry.volume,
+							literatureEntry.abstractText);
+		} else {
+			this.mysqlconnect
+					.issueInsertOrDeleteStatement(
+							"insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)",
+							literatureEntry.id, literatureEntry.titel,
+							literatureEntry.author, literatureEntry.year,
+							literatureEntry.paper, literatureEntry.volume,
+							literatureEntry.abstractText);
+		}
 		mysqlconnect.close();
-		return new Literature(literatureEntry).mergeWith(literatureStored).intersectStrong(getFullLiterature());
+		return new Literature(literatureEntry).mergeWith(literatureStored)
+				.intersectStrong(getFullLiterature());
 	}
 
 	@Override
 	public Literature removeLiteratureEntry(Literature storedLiterature,
 			LiteratureEntry literatureEntry) {
 		this.mysqlconnect.connect();
-		this.mysqlconnect.issueInsertOrDeleteStatement("delete from literatur where id = ?", literatureEntry.id);
-		this.mysqlconnect.issueInsertOrDeleteStatement("delete from literaturfortags where literaturid = ?", literatureEntry.id);
+		this.mysqlconnect.issueInsertOrDeleteStatement(
+				"delete from literatur where id = ?", literatureEntry.id);
+		this.mysqlconnect.issueInsertOrDeleteStatement(
+				"delete from literaturfortags where literaturid = ?",
+				literatureEntry.id);
 		mysqlconnect.close();
 		return storedLiterature.intersectStrong(getFullLiterature());
 	}
@@ -181,10 +212,13 @@ public class MysqlBackend implements GraphBackend {
 		for (LiteratureEntry entry : literature.literatureEntries) {
 			entry.graph = graph;
 			for (GraphNode node : graph.nodes) {
-				this.mysqlconnect.issueInsertOrDeleteStatement("insert into literaturfortags (literaturid,tag) values (?,?)", entry.id, node.label);				
-			}			
-		}		
-		
+				this.mysqlconnect
+						.issueInsertOrDeleteStatement(
+								"insert into literaturfortags (literaturid,tag) values (?,?)",
+								entry.id, node.getLabel());
+			}
+		}
+
 		mysqlconnect.close();
 		return new GraphLiteraturePair(graph, literature);
 	}

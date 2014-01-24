@@ -21,7 +21,7 @@ public class DoAddRootNode extends DoNeoGraph {
 		createAndIndexNodeTable("reltable");
 		Node nodeFrom = createAndIndexNode("rootnode");
 		Node nodeTo = createAndIndexNode("Informatik");
-		connectNodes(nodeFrom, nodeTo, "no specific label", RelTypes.subclassOf);		
+		connectNodes(nodeFrom, nodeTo, "nospecificlabel", RelTypes.subclassOf);		
 		return null;
 	}
 
