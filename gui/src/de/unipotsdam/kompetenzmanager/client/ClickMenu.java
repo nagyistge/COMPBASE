@@ -103,9 +103,9 @@ public class ClickMenu extends Composite {
 //				this.widget);
 		GraphNode gNode = new GraphNode(this.nodeId);
 		if (this.widget.getNewGraph()) {
-			widget.viewcontroller.getBackendImpl().expandNode(gNode.label, new GraphUpdater<Graph>(this.widget));
+			widget.viewcontroller.getBackendImpl().expandNode(gNode.getLabel(), new GraphUpdater<Graph>(this.widget));
 		} else {
-			widget.viewcontroller.getBackendImpl().expandNode(this.widget.getStoredGraph(), gNode.label, new GraphUpdater<Graph>(widget));
+			widget.viewcontroller.getBackendImpl().expandNode(this.widget.getStoredGraph(), gNode.getLabel(), new GraphUpdater<Graph>(widget));
 		}
 	}
 	@UiHandler("connectButton")

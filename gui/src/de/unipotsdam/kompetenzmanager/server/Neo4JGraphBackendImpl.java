@@ -8,17 +8,12 @@ import com.google.gwt.user.server.rpc.UnexpectedException;
 import de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddNode;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoAddOrUpdateLiteratureEntry;
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectGraphAndLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoConnectNodes;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindNeighbours;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFindShortestPath;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoFullGraph;
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetFullLiterature;
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetLitForTags;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetTagsForLabels;
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoGetTagsForLit;
 import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemove;
-import de.unipotsdam.kompetenzmanager.server.neo4j.DoRemoveLiterature;
 import de.unipotsdam.kompetenzmanager.server.neo4j.Neo4JStarter;
 import de.unipotsdam.kompetenzmanager.shared.Graph;
 import de.unipotsdam.kompetenzmanager.shared.GraphLiteraturePair;
@@ -72,7 +67,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 
 	@Override
 	public synchronized Graph removeNode(GraphNode targetNode) {
-		 this.neo.doQuery(new DoRemove(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), targetNode.label));		 
+		 this.neo.doQuery(new DoRemove(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), targetNode.getLabel()));		 
 		 return getFullGraph();
 	}
 	
@@ -103,7 +98,7 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 			String kantenLabel) {
 		Graph result = addNode(sourceNode, newNode, kantenLabel);
 		result.intersectWith(graph);
-		result.addTriple(sourceNode.label, newNode.label, kantenLabel, false);
+		result.addTriple(sourceNode.getLabel(), newNode.getLabel(), kantenLabel, false);
 		return result;
 	}
 
@@ -151,18 +146,21 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
-	public synchronized Literature getFullLiterature() {
-		return neo.doQueryLit(new DoGetFullLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex()));
+	@Deprecated
+	public synchronized Literature getFullLiterature() {		
+		return null;
 	}
 
 	@Override
+	@Deprecated
 	public synchronized Literature getLiteratureForTags(Graph graph) {
-		return neo.doQueryLit(new DoGetLitForTags(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(),graph));
+		return null;
 	}
 
 	@Override
+	@Deprecated
 	public  synchronized Graph getTagsforLiterature(Literature literature) {
-		return neo.doQuery(new DoGetTagsForLit(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature));
+		return null;
 	}
 
 	@Override
@@ -173,17 +171,16 @@ public class Neo4JGraphBackendImpl implements GraphBackend {
 	}
 
 	@Override
+	@Deprecated
 	public  synchronized Literature removeLiteratureEntry(Literature literatureStored, LiteratureEntry literatureEntry) {
-		this.neo.doQueryLit(new DoRemoveLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literatureEntry));
-		return literatureStored.intersectStrong(getFullLiterature());
+		return null;
 	}
 
 	@Override
+	@Deprecated
 	public  synchronized GraphLiteraturePair connectLiteratureToGraph(Literature literature,
 			Graph graph) {
-		DoConnectGraphAndLiterature doConnectGraphAndLiterature = new DoConnectGraphAndLiterature(neo.getGraphDB(), neo.getNodeIndex(), neo.getRelationshipIndex(), literature, graph);
-		neo.doQueryLit(doConnectGraphAndLiterature);
-		return new GraphLiteraturePair(getTagsforLiterature(literature), getLiteratureForTags(graph));		
+		return null;		
 	}
 
 	public Graph getTagsforLiterature2(Literature literature) {		

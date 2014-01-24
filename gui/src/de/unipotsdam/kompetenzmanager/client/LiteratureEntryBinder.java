@@ -114,7 +114,7 @@ public class LiteratureEntryBinder extends Composite {
 		  titleContent.setText(this.shownLiteratureEntry.titel);
 //		  this.TagsContainer.clear();
 		  for (GraphNode graph : lit.graph.nodes) {			  
-			  MyButton label = new MyButton(graph.label, viewcontroller);
+			  MyButton label = new MyButton(graph.getLabel(), viewcontroller);
 			  this.verticalTagPanel.add(label);
 		  }
 		  this.addThemeButton.setEnabled(true);
