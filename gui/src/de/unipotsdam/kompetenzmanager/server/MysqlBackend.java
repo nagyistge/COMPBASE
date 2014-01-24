@@ -155,7 +155,7 @@ public class MysqlBackend implements GraphBackend {
 		this.mysqlconnect.connect();
 		VereinfachtesResultSet result = this.mysqlconnect.issueSelectStatement("select * from literatur where id=?",literatureEntry.id);
 		if (result.next()) {
-			this.mysqlconnect.issueInsertOrDeleteStatement("delete * from literatur where id = ?", literatureEntry.id);
+			this.mysqlconnect.issueInsertOrDeleteStatement("delete from literatur where id = ?", literatureEntry.id);
 			this.mysqlconnect.issueInsertOrDeleteStatement("insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)", literatureEntry.id,literatureEntry.titel,literatureEntry.author, literatureEntry.year, literatureEntry.paper,literatureEntry.volume,literatureEntry.abstractText);
 		} else {			
 			this.mysqlconnect.issueInsertOrDeleteStatement("insert into literatur (id,titel,author,year,paper,volume,abstract) values (?,?,?,?,?,?,?)", literatureEntry.id,literatureEntry.titel,literatureEntry.author, literatureEntry.year, literatureEntry.paper,literatureEntry.volume,literatureEntry.abstractText);
@@ -168,7 +168,8 @@ public class MysqlBackend implements GraphBackend {
 	public Literature removeLiteratureEntry(Literature storedLiterature,
 			LiteratureEntry literatureEntry) {
 		this.mysqlconnect.connect();
-		this.mysqlconnect.issueInsertOrDeleteStatement("delete * from literatur where id = ?", literatureEntry.id);
+		this.mysqlconnect.issueInsertOrDeleteStatement("delete from literatur where id = ?", literatureEntry.id);
+		this.mysqlconnect.issueInsertOrDeleteStatement("delete from literaturfortags where literaturid = ?", literatureEntry.id);
 		mysqlconnect.close();
 		return storedLiterature.intersectStrong(getFullLiterature());
 	}
