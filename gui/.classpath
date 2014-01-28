@@ -11,7 +11,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-core-3.5.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/scala-library-2.9.0-1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/server-api-1.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/gwt-servlet-2.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.8/poi-3.8-20120326.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.8/poi-examples-3.8-20120326.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.8/poi-excelant-3.8-20120326.jar"/>
@@ -50,5 +49,6 @@
 	<classpathentry kind="lib" path="lib/neo4j-community-1.7.2/lib/neo4j-shell-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/neo4j-community-1.7.2/lib/neo4j-udc-1.7.2.jar"/>
 	<classpathentry kind="src" path="/java-rest-binding-master"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/graph-dependencies"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

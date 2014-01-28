@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/julian/ontologies/2014/0/untitled-ontology-4"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/julian/ontologies/2014/0/untitled-ontology-4">
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Declaration>
+        <Class IRI="#Competence"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Context"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Evidence"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Knowledge"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Skill"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#argues"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#composes"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDimension"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#requires"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#subCompetence"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#subKnowledge"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DreckigesGeschirr"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Küchengeräte"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Reihenfolge"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rezepte"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ZuHause"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ZubereitetesEssen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#anwenden"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#kochen"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="#Evidence"/>
+        <NamedIndividual IRI="#DreckigesGeschirr"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Knowledge"/>
+        <NamedIndividual IRI="#Küchengeräte"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Knowledge"/>
+        <NamedIndividual IRI="#Reihenfolge"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Knowledge"/>
+        <NamedIndividual IRI="#Rezepte"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Context"/>
+        <NamedIndividual IRI="#ZuHause"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Evidence"/>
+        <NamedIndividual IRI="#ZubereitetesEssen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Skill"/>
+        <NamedIndividual IRI="#anwenden"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Competence"/>
+        <NamedIndividual IRI="#kochen"/>
+    </ClassAssertion>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#DreckigesGeschirr"/>
+        <NamedIndividual IRI="#Küchengeräte"/>
+        <NamedIndividual IRI="#Reihenfolge"/>
+        <NamedIndividual IRI="#Rezepte"/>
+        <NamedIndividual IRI="#ZuHause"/>
+        <NamedIndividual IRI="#ZubereitetesEssen"/>
+        <NamedIndividual IRI="#anwenden"/>
+        <NamedIndividual IRI="#kochen"/>
+    </DifferentIndividuals>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#subKnowledge"/>
+        <NamedIndividual IRI="#Küchengeräte"/>
+        <NamedIndividual IRI="#Rezepte"/>
+    </ObjectPropertyAssertion>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#composes"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#requires"/>
+    </TransitiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#argues"/>
+        <Class IRI="#Evidence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#composes"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasDimension"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#requires"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#subCompetence"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#subKnowledge"/>
+        <Class IRI="#Knowledge"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#argues"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#composes"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasDimension"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#requires"/>
+        <Class IRI="#Competence"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#subCompetence"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#subCompetence"/>
+            <Class IRI="#Knowledge"/>
+        </ObjectMaxCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#subCompetence"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#subCompetence"/>
+            <Class IRI="#Skill"/>
+        </ObjectMaxCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#subKnowledge"/>
+        <Class IRI="#Knowledge"/>
+    </ObjectPropertyRange>
+    <DisjointObjectProperties>
+        <ObjectProperty IRI="#composes"/>
+        <ObjectProperty IRI="#requires"/>
+    </DisjointObjectProperties>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
