@@ -16,15 +16,19 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      ontologyIRI="http://www.semanticweb.org/julian/ontologies/2014/0/untitled-ontology-4">
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
         <Class IRI="#Competence"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Context"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Declarativ"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Evidence"/>
@@ -33,7 +37,10 @@
         <Class IRI="#Knowledge"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Skill"/>
+        <Class IRI="#Operator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Procedural"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#argues"/>
@@ -43,6 +50,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasDimension"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isIdentifiedBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#requires"/>
@@ -77,6 +87,14 @@
     <Declaration>
         <NamedIndividual IRI="#kochen"/>
     </Declaration>
+    <SubClassOf>
+        <Class IRI="#Declarativ"/>
+        <Class IRI="#Knowledge"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Procedural"/>
+        <Class IRI="#Knowledge"/>
+    </SubClassOf>
     <ClassAssertion>
         <Class IRI="#Evidence"/>
         <NamedIndividual IRI="#DreckigesGeschirr"/>
@@ -100,10 +118,6 @@
     <ClassAssertion>
         <Class IRI="#Evidence"/>
         <NamedIndividual IRI="#ZubereitetesEssen"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Skill"/>
-        <NamedIndividual IRI="#anwenden"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Competence"/>
@@ -124,12 +138,6 @@
         <NamedIndividual IRI="#Küchengeräte"/>
         <NamedIndividual IRI="#Rezepte"/>
     </ObjectPropertyAssertion>
-    <TransitiveObjectProperty>
-        <ObjectProperty IRI="#composes"/>
-    </TransitiveObjectProperty>
-    <TransitiveObjectProperty>
-        <ObjectProperty IRI="#requires"/>
-    </TransitiveObjectProperty>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#argues"/>
         <Class IRI="#Evidence"/>
@@ -141,6 +149,10 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasDimension"/>
         <Class IRI="#Competence"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isIdentifiedBy"/>
+        <Class IRI="#Procedural"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#requires"/>
@@ -167,6 +179,10 @@
         <Class IRI="#Context"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#isIdentifiedBy"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#requires"/>
         <Class IRI="#Competence"/>
     </ObjectPropertyRange>
@@ -175,13 +191,6 @@
         <ObjectMaxCardinality cardinality="1">
             <ObjectProperty IRI="#subCompetence"/>
             <Class IRI="#Knowledge"/>
-        </ObjectMaxCardinality>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#subCompetence"/>
-        <ObjectMaxCardinality cardinality="1">
-            <ObjectProperty IRI="#subCompetence"/>
-            <Class IRI="#Skill"/>
         </ObjectMaxCardinality>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
