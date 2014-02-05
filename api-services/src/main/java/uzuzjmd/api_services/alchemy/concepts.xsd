@@ -1,0 +1,36 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="status"/>
+        <xs:element type="xs:string" name="url"/>
+        <xs:element type="xs:string" name="language"/>
+        <xs:element type="xs:string" name="text"/>
+        <xs:element name="concepts">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="concept" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="text"/>
+                    <xs:element type="xs:string" name="relevance"/>
+                    <xs:element type="xs:string" name="website"/>
+                    <xs:element type="xs:string" name="geo"/>
+                    <xs:element type="xs:string" name="dbpedia"/>
+                    <xs:element type="xs:string" name="yago"/>
+                    <xs:element type="xs:string" name="opencyc"/>
+                    <xs:element type="xs:string" name="freebase"/>
+                    <xs:element type="xs:string" name="ciaFactbook"/>
+                    <xs:element type="xs:string" name="census"/>
+                    <xs:element type="xs:string" name="geonames"/>
+                    <xs:element type="xs:string" name="crunchbase"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
