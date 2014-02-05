@@ -76,6 +76,9 @@
         <NamedIndividual IRI="#Rezepte"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Rezepte_anwenden"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#ZuHause"/>
     </Declaration>
     <Declaration>
@@ -112,6 +115,10 @@
         <NamedIndividual IRI="#Rezepte"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Procedural"/>
+        <NamedIndividual IRI="#Rezepte_anwenden"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Context"/>
         <NamedIndividual IRI="#ZuHause"/>
     </ClassAssertion>
@@ -138,6 +145,31 @@
         <NamedIndividual IRI="#Küchengeräte"/>
         <NamedIndividual IRI="#Rezepte"/>
     </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isIdentifiedBy"/>
+        <NamedIndividual IRI="#Rezepte_anwenden"/>
+        <NamedIndividual IRI="#anwenden"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#subKnowledge"/>
+        <NamedIndividual IRI="#Rezepte_anwenden"/>
+        <NamedIndividual IRI="#Rezepte"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requires"/>
+        <NamedIndividual IRI="#kochen"/>
+        <NamedIndividual IRI="#Rezepte_anwenden"/>
+    </ObjectPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#composes"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#subCompetence"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#subKnowledge"/>
+    </TransitiveObjectProperty>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#argues"/>
         <Class IRI="#Evidence"/>
@@ -184,14 +216,14 @@
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#requires"/>
-        <Class IRI="#Competence"/>
+        <ObjectUnionOf>
+            <Class IRI="#Competence"/>
+            <Class IRI="#Knowledge"/>
+        </ObjectUnionOf>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#subCompetence"/>
-        <ObjectMaxCardinality cardinality="1">
-            <ObjectProperty IRI="#subCompetence"/>
-            <Class IRI="#Knowledge"/>
-        </ObjectMaxCardinality>
+        <Class IRI="#Competence"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#subKnowledge"/>
