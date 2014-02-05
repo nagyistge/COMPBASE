@@ -1,6 +1,8 @@
-package uzuzjmd.api_services.synonyms;
+package interfaces;
 
 import java.util.List;
+
+import uzuzjmd.api_services.synonyms.Words;
 
 public interface ISynonym {
 	Words getSynonyms(String word);
