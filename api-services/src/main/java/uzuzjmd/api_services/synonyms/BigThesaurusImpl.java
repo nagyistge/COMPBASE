@@ -1,20 +1,13 @@
 package uzuzjmd.api_services.synonyms;
 
+import interfaces.ISynonym;
 import uzuzjmd.api_services.ApiKeyGenerator;
+import uzuzjmd.api_services.UZUZWebservice;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-public class BigThesaurusImpl implements ISynonym {
-	private Client client;
-
-	public BigThesaurusImpl() {
-		ClientConfig clientConfig = new DefaultClientConfig();
-		client = Client.create(clientConfig);
-	}
-
+public class BigThesaurusImpl extends UZUZWebservice implements ISynonym {
+	
 	public Words getSynonyms(String word) {	
 		WebResource webResource = client
 				.resource("http://words.bighugelabs.com/api/2/"
