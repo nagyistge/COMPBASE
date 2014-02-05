@@ -7,7 +7,7 @@ import uzuzjmd.api_services.alchemy.Results;
 
 public class Alchemytest {
 
-	//@Test
+	@Test
 	public void test() {
 		AlchemyImpl alchemyImpl = new AlchemyImpl();
 		Results results = alchemyImpl
@@ -23,8 +23,9 @@ public class Alchemytest {
 	@Test
 	public void test2() {
 		AlchemyImpl alchemyImpl = new AlchemyImpl();
+		String s= "formulate a situation an independent judgment using expertise and specialized methods and justify";
 		Results results = alchemyImpl
-				.getRankedConcepts("understanding women and their problems and needing a lot of input to create some useful information");
+				.getRankedConcepts(s);
 		for (Results.Concepts.Concept concept : results.getConcepts().getConcept()) {
 			System.out.println(concept.getText());
 		}
