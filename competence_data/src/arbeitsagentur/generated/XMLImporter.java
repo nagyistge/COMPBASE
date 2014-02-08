@@ -44,19 +44,35 @@ public class XMLImporter extends AbstractXMLImporter {
 		Berufe berufe = importBerufe();
 		Suchworte suchworte = importSuchworte();
 		Kompetenzen toFill = importKompetenzen();
-		Hierarchie hierarchie = importHierarchie();
+		Hierarchie hierarchie = importHierarchie();		
 		for (Kompmerkmal kompmerkmal : toFill.getKompmerkmal()) {
 			FullCompetence fullCompetence = new FullCompetence(kompmerkmal);
 			// Berufe hinzufügen
 			fillBerufe(berufe, fullCompetence);
 			// Suchworte hinzufügen
 			fillSuchwort(suchworte, kompmerkmal, fullCompetence);
+			// Kontexte hinzufügen und Hierarchie konstruieren
+
 			// Kontexte hinzufügen
 			fillKontexte(hierarchie, fullCompetence);
 
-			System.out.println(fullCompetence);
-
+			// Zwischenstand ausgeben
+		    System.out.println(fullCompetence);
+			result.add(fullCompetence);
 		}
+//		for (FullCompetence fullCompetence : result) {
+//			for (FullCompetence fullCompetence2 : result) {
+//				for (HierachieTriple hierachieTriple : triples) {
+//					if (fullCompetence.getId().equals(hierachieTriple.over)
+//							&& fullCompetence2.getId().equals(
+//									hierachieTriple.under)) {
+//						fullCompetence.unterKompetenzen.add(fullCompetence2);
+//					}
+//				}
+//			}
+//			System.out.println(fullCompetence);
+//		}
+
 		return result;
 	}
 
@@ -74,34 +90,33 @@ public class XMLImporter extends AbstractXMLImporter {
 	}
 
 	private void extractKontextLevel3(FullCompetence fullCompetence,
-			Ebene3 ebene3) {
+			Ebene3 ebene3) {		
 		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene3
 				.getKompetenz()) {
-			if (kompetenz.getIdref().equals(
-					fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene3.getBezeichnung());
-			}
-		}
+			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
+				fullCompetence.kontexte.add(ebene3.getBezeichnung());					
+			} 			
+		}		
 	}
 
 	private void extractKontextLevel2(FullCompetence fullCompetence,
-			Ebene2 ebene2) {
+			Ebene2 ebene2) {		
 		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene2
 				.getKompetenz()) {
 			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene2.getBezeichnung());
-			}
-		}
+				fullCompetence.kontexte.add(ebene2.getBezeichnung());				
+			} 			
+		}		
 	}
 
 	private void extractKontextLevel1(FullCompetence fullCompetence,
-			Ebene1 ebene1) {
+			Ebene1 ebene1) {		
 		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene1
 				.getKompetenz()) {
 			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene1.getBezeichnung());
-			}
-		}
+				fullCompetence.kontexte.add(ebene1.getBezeichnung());				
+			} 			
+		}		
 	}
 
 	private void fillSuchwort(Suchworte suchworte, Kompmerkmal kompmerkmal,
