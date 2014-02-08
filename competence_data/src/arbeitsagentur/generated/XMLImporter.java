@@ -38,28 +38,38 @@ public class XMLImporter extends AbstractXMLImporter {
 		return unMarshallXML(Suchworte.class, xmlLoader.getSuchworteXML());
 	}
 
-	public List<FullCompetence> importfullKomptenzdefinitions()
-			throws JAXBException {
+	public synchronized  List<FullCompetence> importfullKomptenzdefinitions()
+			throws JAXBException, InterruptedException {
 		List<FullCompetence> result = new LinkedList<>();
 		Berufe berufe = importBerufe();
 		Suchworte suchworte = importSuchworte();
 		Kompetenzen toFill = importKompetenzen();
 		Hierarchie hierarchie = importHierarchie();		
-		for (Kompmerkmal kompmerkmal : toFill.getKompmerkmal()) {
+		for (Kompmerkmal kompmerkmal : toFill.getKompmerkmal()) {			
 			FullCompetence fullCompetence = new FullCompetence(kompmerkmal);
 			// Berufe hinzufügen
-			fillBerufe(berufe, fullCompetence);
+			BerufeThread berufeThread = new BerufeThread(berufe, fullCompetence);
+			berufeThread.start();
 			// Suchworte hinzufügen
-			fillSuchwort(suchworte, kompmerkmal, fullCompetence);
+			SuchworteThread sucheSuchworteThread = new SuchworteThread(suchworte, kompmerkmal, fullCompetence);
+			sucheSuchworteThread.start();
 			// Kontexte hinzufügen und Hierarchie konstruieren
 
-			// Kontexte hinzufügen
-			fillKontexte(hierarchie, fullCompetence);
+			// Kontexte hinzufügen			
+			KontexteThread kontexteThread = new KontexteThread(hierarchie, fullCompetence);
+			kontexteThread.start();
+			
+			berufeThread.join();
+			sucheSuchworteThread.join();
+			kontexteThread.join();
 
-			// Zwischenstand ausgeben
-		    System.out.println(fullCompetence);
-			result.add(fullCompetence);
+			// Zwischenstand ausgeben		    
+			result.add(fullCompetence);			
 		}
+		
+		System.out.println(result.size());	
+		System.out.println(result.get(5));
+		
 //		for (FullCompetence fullCompetence : result) {
 //			for (FullCompetence fullCompetence2 : result) {
 //				for (HierachieTriple hierachieTriple : triples) {
@@ -76,67 +86,9 @@ public class XMLImporter extends AbstractXMLImporter {
 		return result;
 	}
 
-	private void fillKontexte(Hierarchie hierarchie,
-			FullCompetence fullCompetence) {
-		for (Ebene1 ebene1 : hierarchie.getEbene1()) {
-			extractKontextLevel1(fullCompetence, ebene1);
-			for (Ebene2 ebene2 : ebene1.getEbene2()) {
-				extractKontextLevel2(fullCompetence, ebene2);
-				for (Ebene3 ebene3 : ebene2.getEbene3()) {
-					extractKontextLevel3(fullCompetence, ebene3);
-				}
-			}
-		}
-	}
+	
 
-	private void extractKontextLevel3(FullCompetence fullCompetence,
-			Ebene3 ebene3) {		
-		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene3
-				.getKompetenz()) {
-			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene3.getBezeichnung());					
-			} 			
-		}		
-	}
+	
 
-	private void extractKontextLevel2(FullCompetence fullCompetence,
-			Ebene2 ebene2) {		
-		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene2
-				.getKompetenz()) {
-			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene2.getBezeichnung());				
-			} 			
-		}		
-	}
-
-	private void extractKontextLevel1(FullCompetence fullCompetence,
-			Ebene1 ebene1) {		
-		for (arbeitsagentur.generated.komphierarchie.Kompetenz kompetenz : ebene1
-				.getKompetenz()) {
-			if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-				fullCompetence.kontexte.add(ebene1.getBezeichnung());				
-			} 			
-		}		
-	}
-
-	private void fillSuchwort(Suchworte suchworte, Kompmerkmal kompmerkmal,
-			FullCompetence fullCompetence) {
-		for (Suchwort suchwort : suchworte.getSuchwort()) {
-			for (BigInteger integer : kompmerkmal.getSuchw()) {
-				if (suchwort.getId().equals(integer)) {
-					fullCompetence.suchworte.getSuchwort().add(suchwort);
-				}
-			}
-		}
-	}
-
-	private void fillBerufe(Berufe berufe, FullCompetence fullCompetence) {
-		for (Beruf beruf : berufe.getBeruf()) {
-			for (Kompetenz kompetenz : beruf.getKompetenz()) {
-				if (kompetenz.getIdref().equals(fullCompetence.getId())) {
-					fullCompetence.berufe.getBeruf().add(beruf);
-				}
-			}
-		}
-	}
+	
 }

@@ -44,7 +44,7 @@ public class ImportTester {
 	}
 
 	 @Test
-	public void testFillKompetenz() throws JAXBException {
+	public void testFillKompetenz() throws JAXBException, InterruptedException {
 		XMLImporter importer = new XMLImporter();
 		List<FullCompetence> competencies = importer
 				.importfullKomptenzdefinitions();
