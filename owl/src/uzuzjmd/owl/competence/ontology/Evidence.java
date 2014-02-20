@@ -8,6 +8,7 @@ import thewebsemantic.binding.RdfBean;
 public class Evidence extends RdfBean<Evidence> {
 	private String titel;	
 	private String commment;
+	private int number;
 
 	public void setTitel(String titel) {
 		this.titel = titel;
@@ -25,6 +26,14 @@ public class Evidence extends RdfBean<Evidence> {
 	
 	public void setCommment(String commment) {
 		this.commment = commment;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }
