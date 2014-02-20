@@ -9,8 +9,7 @@ import arbeitsagentur.generated.komphierarchie.Hierarchie;
 public class KontexteThread extends Thread {
 
 	private Hierarchie hierarchie;
-	private FullCompetence fullcompetence;
-	private Boolean stop;
+	private FullCompetence fullcompetence;	
 
 	public KontexteThread(Hierarchie hierarchie, FullCompetence fullCompetence) {
 		this.hierarchie = hierarchie;

@@ -14,6 +14,7 @@ public class AbstractXMLImporter {
 		this.xmlLoader = new XMLLoader();
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected <T> T unMarshallXML(Class<T> className, InputStream input) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(className);		
 		return (T) context.createUnmarshaller().unmarshal(input);
