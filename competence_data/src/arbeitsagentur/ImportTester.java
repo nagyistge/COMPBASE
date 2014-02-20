@@ -48,9 +48,10 @@ public class ImportTester {
 		XMLImporter importer = new XMLImporter();
 		List<FullCompetence> competencies = importer
 				.importfullKomptenzdefinitions();
-		// for (FullCompetence fullCompetence : competencies) {
-		// System.out.println(fullCompetence.toString());
-		// }
+		 for (FullCompetence fullCompetence : competencies) {
+			 if (!fullCompetence.unterKompetenzen.isEmpty())
+				 System.out.println(fullCompetence.toString());
+		 }
 	}
 
 }
