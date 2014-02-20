@@ -26,6 +26,14 @@ proof-of-concept:operatorFor
       rdfs:domain proof-of-concept:Operator ;
       rdfs:range proof-of-concept:Competence .
 
+<http://uzuzjmd.owl.competence.ontology/evidences>
+      a       rdf:Property .
+
+<http://uzuzjmd.owl.competence.ontology/EvidenceSystem>
+      a       rdfs:Class ;
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.EvidenceSystem" .
+
 proof-of-concept:descriptionFor
       a       owl:ObjectProperty ;
       rdfs:domain proof-of-concept:CompetenceDescription ;
@@ -39,8 +47,15 @@ proof-of-concept:catchwordFor
 proof-of-concept:Catchword
       a       owl:Class .
 
+<http://uzuzjmd.owl.competence.ontology/EvidenceSystem/Moodle>
+      a       <http://uzuzjmd.owl.competence.ontology/EvidenceSystem> ;
+      <http://uzuzjmd.owl.competence.ontology/evidences>
+              <http://uzuzjmd.owl.competence.ontology/Evidence/hello> .
+
 <http://uzuzjmd.owl.competence.ontology/Evidence/hello>
-      a       <http://uzuzjmd.owl.competence.ontology/Evidence> .
+      a       <http://uzuzjmd.owl.competence.ontology/Evidence> ;
+      <http://uzuzjmd.owl.competence.ontology/commment>
+              "that is my personal comment"^^xsd:string .
 
 proof-of-concept:Competence
       a       owl:Class .
@@ -56,14 +71,14 @@ proof-of-concept:CompetenceDescription
       <http://uzuzjmd.owl.competence.ontology/testProperty>
               "false"^^xsd:boolean .
 
+proof-of-concept:CompetenceField
+      a       owl:Class .
+
 <http://www.uzuzjmd.de/proof-of-concept.owl>
       a       owl:Ontology .
 
 <http://uzuzjmd.owl.competence.ontology/evidence1>
       a       <http://uzuzjmd.owl.competence.ontology/Evidence> .
-
-proof-of-concept:CompetenceField
-      a       owl:Class .
 
 <http://uzuzjmd.owl.competence.ontology/testProperty>
       a       owl:ObjectProperty ;
@@ -80,6 +95,9 @@ proof-of-concept:subjectOf
 
 proof-of-concept:competence1
       a       proof-of-concept:Competence .
+
+<http://uzuzjmd.owl.competence.ontology/commment>
+      a       rdf:Property .
 
 proof-of-concept:DescriptionElement
       a       owl:Class .
