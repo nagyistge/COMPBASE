@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import thewebsemantic.binding.Jenabean;
 import uzuzjmd.owl.competence.ontology.Evidence;
+import uzuzjmd.owl.competence.ontology.EvidenceSystem;
 
 import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.ontology.Individual;
@@ -64,9 +65,16 @@ public class OntologyManager {
 
 		Evidence evidence = new Evidence();
 		evidence.setTitel("hello");
+		evidence.setCommment("that is my personal comment");
 		evidence.save();
 
-		m.write(System.out);
+		EvidenceSystem evidenceSystem = new EvidenceSystem();
+		evidenceSystem.setTitel("Moodle");
+		evidenceSystem.getEvidences().add(evidence);
+		evidenceSystem.save();
+		
+		
+		//m.write(System.out);
 
 		NS = "http://uzuzjmd.owl.competence.ontology/";
 		// create a dummy paper for this example
@@ -93,6 +101,9 @@ public class OntologyManager {
 			System.out.println(evidence1.getURI()
 					+ " is inferred to have properties " + i.next().asTriple());
 		}
+		
+		Individual individual = m.getIndividual(NS + "Evidence/"+ "hello");
+		System.out.println("hello individual: " + individual.listProperties().next().getLiteral().getString());
 
 		FileWriter out = null;
 		try {
