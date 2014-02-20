@@ -9,10 +9,11 @@ import uzuzjmd.owl.util.CompetenceReasoner;
 import uzuzjmd.owl.util.OntologyLoader;
 import uzuzjmd.owl.util.XMLLoader;
 
-import com.hp.hpl.jena.graph.Graph;
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 import com.hp.hpl.jena.util.FileManager;
@@ -52,6 +53,9 @@ public class OntologyLoaderTest {
 		Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
 		reasoner = reasoner.bindSchema(schema);
 		InfModel infmodel = ModelFactory.createInfModel(reasoner, data);
+		
+		Resource r = infmodel.getResource( OntologyLoader.defaultIri + "Competence" );		
+		OntClass cls = r.as( OntClass.class );
 		
 		// spielereien		
 		
