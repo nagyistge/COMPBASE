@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1391087311379" name="http://www.semanticweb.org/julian/ontologies/2014/0/untitled-ontology-4" uri="competence-modell.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1391087311379" name="http://www.semanticweb.org/ontologies/2012/5/Ontology1338745483425.owl" uri="testresources/KompetenzManager.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="http://www.semanticweb.org/julian/ontologies/2014/0/untitled-ontology-4" uri="competence-modell.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="http://www.semanticweb.org/ontologies/2012/5/Ontology1338745483425.owl" uri="testresources/KompetenzManager.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="http://www.uzuzjmd.de/proof-of-concept.owl" uri="src/proof-of-concept.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="http://www.w3.org/2002/07/owl" uri="src/proof-of-conceptrdf.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="shadowed:http://www.uzuzjmd.de/proof-of-concept.owl" uri="bin/proof-of-concept.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392909142934" name="shadowed:http://www.w3.org/2002/07/owl" uri="bin/proof-of-conceptrdf.owl"/>
     </group>
 </catalog>
