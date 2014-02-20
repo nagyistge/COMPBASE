@@ -1,0 +1,81 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:proof-of-concept="http://www.uzuzjmd.de/proof-of-concept.owl#"
+    xmlns="http://www.w3.org/2002/07/owl#"
+    xmlns:j.0="http://thewebsemantic.com/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:j.1="http://uzuzjmd.owl.competence.ontology/" > 
+  <rdf:Description rdf:about="http://thewebsemantic.com/javaclass">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#hasElement">
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElement"/>
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#competenceFieldFor">
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceField"/>
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Die_Lehramtsanwärter_beachten_die_kulturelle_und_soziale_Vielfalt_in_der_jeweiligen_Lerngruppe">
+    <rdf:type rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#operatorFor">
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Operator"/>
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#descriptionFor">
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription"/>
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#catchwordFor">
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://uzuzjmd.owl.competence.ontology/Evidence/hello">
+    <rdf:type rdf:resource="http://uzuzjmd.owl.competence.ontology/Evidence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Competence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://uzuzjmd.owl.competence.ontology/Evidence">
+    <j.0:javaclass>uzuzjmd.owl.competence.ontology.Evidence</j.0:javaclass>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceField">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Learner">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#subjectOf">
+    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Learner"/>
+    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#competence1">
+    <rdf:type rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Operator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>
