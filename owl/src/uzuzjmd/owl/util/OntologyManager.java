@@ -66,6 +66,7 @@ public class OntologyManager {
 		Evidence evidence = new Evidence();
 		evidence.setTitel("hello");
 		evidence.setCommment("that is my personal comment");
+		evidence.setNumber(88);
 		evidence.save();
 
 		EvidenceSystem evidenceSystem = new EvidenceSystem();
@@ -102,8 +103,11 @@ public class OntologyManager {
 					+ " is inferred to have properties " + i.next().asTriple());
 		}
 		
-		Individual individual = m.getIndividual(NS + "Evidence/"+ "hello");
-		System.out.println("hello individual: " + individual.listProperties().next().getLiteral().getString());
+		Individual individual = m.getIndividual(NS + "Evidence/"+ "hello");		
+		System.out.println("hello individual number: " + individual.listProperties().next().getLiteral().getInt());
+		Iterator<Statement> properties = individual.listProperties();
+		properties.next();
+		System.out.println("hello individual: comment"+ properties.next().getLiteral().getString());
 
 		FileWriter out = null;
 		try {
