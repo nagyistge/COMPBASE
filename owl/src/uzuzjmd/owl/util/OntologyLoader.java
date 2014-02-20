@@ -10,12 +10,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-import algorithm.phase.BaseConsistencyCheck;
-
 public class OntologyLoader {
 	
 	private OWLOntologyManager manager;
 	private final OWLOntology ontology;
+	public static final String defaultIri = "http://www.uzuzjmd.de/proof-of-concept.owl#";
 
 
 	public OntologyLoader(InputStream file) throws OWLOntologyCreationException {
@@ -23,11 +22,9 @@ public class OntologyLoader {
 		this.ontology = manager.loadOntologyFromOntologyDocument(file);
 
 		OWLDataFactory dataFactory = manager.getOWLDataFactory();
-		String defaultIri = "http://www.uzuzjmd.de/proof-of-concept.owl#";
+		
 		PrefixManager prefixManager = new DefaultPrefixManager(defaultIri);
 
-		BaseConsistencyCheck check = new BaseConsistencyCheck(ontology,
-				dataFactory, prefixManager, manager);
 	}
 		
 	public OWLOntology loadOntologyFromXML() throws OWLOntologyCreationException {		
