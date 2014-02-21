@@ -1,112 +1,40 @@
-@prefix :        <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix proof-of-concept:  <http://www.uzuzjmd.de/proof-of-concept.owl#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:     <http://www.w3.org/XML/1998/namespace> .
 
-proof-of-concept:evidence1
-      a       proof-of-concept:Evidence .
+<http://www.uzuzjmd.de/proof-of-concept.owl#Evidence>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.Evidence" .
 
-proof-of-concept:Catchword
-      a       owl:Class .
-
-proof-of-concept:number
-      a       rdf:Property .
-
-<http://www.uzuzjmd.de/proof-of-concept.owl>
-      a       owl:Ontology .
-
-proof-of-concept:CompetenceField
-      a       owl:Class .
-
-proof-of-concept:subjectOf
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:Learner ;
-      rdfs:range proof-of-concept:Competence .
-
-proof-of-concept:Learner
-      a       owl:Class .
-
-<http://www.uzuzjmd.de/proof-of-concept.owl#Evidence/hello3>
-      a       proof-of-concept:Evidence ;
-      proof-of-concept:commment
-              "that is my personal comment3"^^xsd:string ;
-      proof-of-concept:number
-              "8822"^^xsd:int ;
-      proof-of-concept:titel
-              "hello3"^^xsd:string .
+<http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.CompetenceDescription" .
 
 <http://thewebsemantic.com/javaclass>
       a       owl:AnnotationProperty .
 
-proof-of-concept:competenceFieldFor
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:CompetenceField ;
-      rdfs:range proof-of-concept:Competence .
-
-proof-of-concept:hasElement
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:CompetenceDescription ;
-      rdfs:range proof-of-concept:DescriptionElement .
-
-proof-of-concept:Die_Lehramtsanwärter_beachten_die_kulturelle_und_soziale_Vielfalt_in_der_jeweiligen_Lerngruppe
-      a       owl:NamedIndividual , proof-of-concept:Competence .
-
-proof-of-concept:operatorFor
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:Operator ;
-      rdfs:range proof-of-concept:Competence .
-
-proof-of-concept:testProperty
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:Evidence ;
-      rdfs:range proof-of-concept:Evidence .
-
-<http://www.uzuzjmd.de/proof-of-concept.owl#Evidence/hello>
-      a       proof-of-concept:Evidence ;
-      proof-of-concept:commment
-              "that is my personal comment"^^xsd:string ;
-      proof-of-concept:number
-              "88"^^xsd:int ;
-      proof-of-concept:titel
-              "hello"^^xsd:string .
-
-proof-of-concept:catchwordFor
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:Catchword ;
-      rdfs:range proof-of-concept:Competence .
-
-proof-of-concept:descriptionFor
-      a       owl:ObjectProperty ;
-      rdfs:domain proof-of-concept:CompetenceDescription ;
-      rdfs:range proof-of-concept:Competence .
-
-proof-of-concept:titel
-      a       rdf:Property .
-
-proof-of-concept:Competence
-      a       owl:Class .
-
-proof-of-concept:Evidence
-      a       rdfs:Class ;
+<http://www.uzuzjmd.de/proof-of-concept.owl#Learner>
       <http://thewebsemantic.com/javaclass>
-              "uzuzjmd.owl.competence.ontology.Evidence" ;
-      proof-of-concept:testProperty
-              "false"^^xsd:boolean .
+              "uzuzjmd.owl.competence.ontology.Learner" .
 
-proof-of-concept:CompetenceDescription
-      a       owl:Class ;
-      rdfs:subClassOf owl:Thing .
+<http://www.uzuzjmd.de/proof-of-concept.owl#Catchword>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.Catchword" .
 
-proof-of-concept:competence1
-      a       proof-of-concept:Competence .
+<http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElement>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.DescriptionElement" .
 
-proof-of-concept:DescriptionElement
-      a       owl:Class .
+<http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceArea>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.CompetenceArea" .
 
-proof-of-concept:Operator
-      a       owl:Class .
+<http://www.uzuzjmd.de/proof-of-concept.owl#Operator>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.Operator" .
 
-proof-of-concept:commment
-      a       rdf:Property .
+<http://www.uzuzjmd.de/proof-of-concept.owl#Competence>
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.Competence" .
