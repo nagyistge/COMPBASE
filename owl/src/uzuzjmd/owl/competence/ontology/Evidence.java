@@ -1,11 +1,12 @@
 package uzuzjmd.owl.competence.ontology;
 
 import thewebsemantic.Id;
-import thewebsemantic.RdfProperty;
-import thewebsemantic.RdfType;
+import thewebsemantic.Namespace;
 import thewebsemantic.binding.RdfBean;
+import uzuzjmd.owl.util.MagicStrings;
 
-public class Evidence extends RdfBean<Evidence> {
+@Namespace(value = MagicStrings.PREFIX)
+public class Evidence extends RdfBean<Evidence> implements HasTitel{
 	private String titel;	
 	private String commment;
 	private int number;
@@ -14,12 +15,7 @@ public class Evidence extends RdfBean<Evidence> {
 		this.titel = titel;
 	}
 
-	@Id
-	public String getTitle() {
-		return titel;
-	}
-
-		
+	
 	public String getCommment() {
 		return commment;
 	}
@@ -35,5 +31,12 @@ public class Evidence extends RdfBean<Evidence> {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	
+	@Id
+	@Override
+	public String getTitel() {
+		return titel;
+	}
+	
 
 }
