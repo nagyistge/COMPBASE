@@ -1,44 +1,28 @@
 package uzuzjmd.owl.util;
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Iterator;
 
 import thewebsemantic.binding.Jenabean;
 import uzuzjmd.owl.competence.ontology.Evidence;
-import uzuzjmd.owl.competence.ontology.EvidenceSystem;
 
-import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.rdf.model.Alt;
-import com.hp.hpl.jena.rdf.model.Bag;
-import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.RSIterator;
-import com.hp.hpl.jena.rdf.model.ReifiedStatement;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.ResourceF;
-import com.hp.hpl.jena.rdf.model.Seq;
 import com.hp.hpl.jena.rdf.model.Statement;
+import uzuzjmd.owl.util.MagicStrings.*;
 
 public class OntologyManager {
-	public static final String prefix = "http://www.uzuzjmd.de/proof-of-concept.owl";
+	public static final String NS = MagicStrings.PREFIX; 
 
 	public void loadOntology() throws IOException {
 		// create the base model
-
-		String NS = prefix + "#";
+		
 		OntModel m = ModelFactory
 				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 		m.read(this.getClass().getResourceAsStream("/proof-of-conceptrdf.owl"),
@@ -68,16 +52,18 @@ public class OntologyManager {
 		evidence.setCommment("that is my personal comment");
 		evidence.setNumber(88);
 		evidence.save();
-
-		EvidenceSystem evidenceSystem = new EvidenceSystem();
-		evidenceSystem.setTitel("Moodle");
-		evidenceSystem.getEvidences().add(evidence);
-		evidenceSystem.save();
 		
-		
-		//m.write(System.out);
+		Evidence evidence2 = new Evidence();
+		evidence2.setTitel("hello3");
+		evidence2.setCommment("that is my personal comment3");
+		evidence2.setNumber(8822);
+		evidence2.save();
 
-		NS = "http://uzuzjmd.owl.competence.ontology/";
+
+			
+		
+		m.write(System.out);
+		
 		// create a dummy paper for this example
 		OntClass evidenceClass = m.getOntClass(NS + "Evidence");
 		System.out.println("Evidence saved as " + evidenceClass.getURI());
@@ -104,7 +90,7 @@ public class OntologyManager {
 		}
 		
 		Individual individual = m.getIndividual(NS + "Evidence/"+ "hello");		
-		System.out.println("hello individual number: " + individual.listProperties().next().getLiteral().getInt());
+		//System.out.println("hello individual number: " + individual.listProperties().next().getLiteral().getInt());
 		Iterator<Statement> properties = individual.listProperties();
 		properties.next();
 		System.out.println("hello individual: comment"+ properties.next().getLiteral().getString());

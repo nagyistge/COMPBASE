@@ -5,23 +5,14 @@
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
-<http://uzuzjmd.owl.competence.ontology/EvidenceSystem>
-      a       rdfs:Class ;
-      <http://thewebsemantic.com/javaclass>
-              "uzuzjmd.owl.competence.ontology.EvidenceSystem" .
+proof-of-concept:evidence1
+      a       proof-of-concept:Evidence .
 
 proof-of-concept:Catchword
       a       owl:Class .
 
-<http://uzuzjmd.owl.competence.ontology/Evidence>
-      a       rdfs:Class ;
-      <http://thewebsemantic.com/javaclass>
-              "uzuzjmd.owl.competence.ontology.Evidence" ;
-      <http://uzuzjmd.owl.competence.ontology/testProperty>
-              "false"^^xsd:boolean .
-
-<http://uzuzjmd.owl.competence.ontology/evidence1>
-      a       <http://uzuzjmd.owl.competence.ontology/Evidence> .
+proof-of-concept:number
+      a       rdf:Property .
 
 <http://www.uzuzjmd.de/proof-of-concept.owl>
       a       owl:Ontology .
@@ -29,24 +20,22 @@ proof-of-concept:Catchword
 proof-of-concept:CompetenceField
       a       owl:Class .
 
-<http://uzuzjmd.owl.competence.ontology/testProperty>
-      a       owl:ObjectProperty ;
-      rdfs:domain <http://uzuzjmd.owl.competence.ontology/Evidence> ;
-      rdfs:range <http://uzuzjmd.owl.competence.ontology/Evidence> .
-
-proof-of-concept:Learner
-      a       owl:Class .
-
 proof-of-concept:subjectOf
       a       owl:ObjectProperty ;
       rdfs:domain proof-of-concept:Learner ;
       rdfs:range proof-of-concept:Competence .
 
-<http://uzuzjmd.owl.competence.ontology/commment>
-      a       rdf:Property .
+proof-of-concept:Learner
+      a       owl:Class .
 
-<http://uzuzjmd.owl.competence.ontology/number>
-      a       rdf:Property .
+<http://www.uzuzjmd.de/proof-of-concept.owl#Evidence/hello3>
+      a       proof-of-concept:Evidence ;
+      proof-of-concept:commment
+              "that is my personal comment3"^^xsd:string ;
+      proof-of-concept:number
+              "8822"^^xsd:int ;
+      proof-of-concept:titel
+              "hello3"^^xsd:string .
 
 <http://thewebsemantic.com/javaclass>
       a       owl:AnnotationProperty .
@@ -69,8 +58,19 @@ proof-of-concept:operatorFor
       rdfs:domain proof-of-concept:Operator ;
       rdfs:range proof-of-concept:Competence .
 
-<http://uzuzjmd.owl.competence.ontology/evidences>
-      a       rdf:Property .
+proof-of-concept:testProperty
+      a       owl:ObjectProperty ;
+      rdfs:domain proof-of-concept:Evidence ;
+      rdfs:range proof-of-concept:Evidence .
+
+<http://www.uzuzjmd.de/proof-of-concept.owl#Evidence/hello>
+      a       proof-of-concept:Evidence ;
+      proof-of-concept:commment
+              "that is my personal comment"^^xsd:string ;
+      proof-of-concept:number
+              "88"^^xsd:int ;
+      proof-of-concept:titel
+              "hello"^^xsd:string .
 
 proof-of-concept:catchwordFor
       a       owl:ObjectProperty ;
@@ -82,20 +82,18 @@ proof-of-concept:descriptionFor
       rdfs:domain proof-of-concept:CompetenceDescription ;
       rdfs:range proof-of-concept:Competence .
 
-<http://uzuzjmd.owl.competence.ontology/EvidenceSystem/Moodle>
-      a       <http://uzuzjmd.owl.competence.ontology/EvidenceSystem> ;
-      <http://uzuzjmd.owl.competence.ontology/evidences>
-              <http://uzuzjmd.owl.competence.ontology/Evidence/hello> .
-
-<http://uzuzjmd.owl.competence.ontology/Evidence/hello>
-      a       <http://uzuzjmd.owl.competence.ontology/Evidence> ;
-      <http://uzuzjmd.owl.competence.ontology/commment>
-              "that is my personal comment"^^xsd:string ;
-      <http://uzuzjmd.owl.competence.ontology/number>
-              "88"^^xsd:int .
+proof-of-concept:titel
+      a       rdf:Property .
 
 proof-of-concept:Competence
       a       owl:Class .
+
+proof-of-concept:Evidence
+      a       rdfs:Class ;
+      <http://thewebsemantic.com/javaclass>
+              "uzuzjmd.owl.competence.ontology.Evidence" ;
+      proof-of-concept:testProperty
+              "false"^^xsd:boolean .
 
 proof-of-concept:CompetenceDescription
       a       owl:Class ;
@@ -109,3 +107,6 @@ proof-of-concept:DescriptionElement
 
 proof-of-concept:Operator
       a       owl:Class .
+
+proof-of-concept:commment
+      a       rdf:Property .
