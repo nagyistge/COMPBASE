@@ -18,7 +18,7 @@ public class CompOntologyManager {
 
 	public CompOntologyManager() {
 		initializeOntologyModelInMemory();
-		this.util = new CompOntologyUtil(m);
+		this.util = new CompOntologyUtil(getM());
 	}
 	
 	public void loadOntology() throws IOException {
@@ -34,7 +34,7 @@ public class CompOntologyManager {
 						
 		//TODO create Restrictions			
 				
-		return m;
+		return getM();
 	}
 
 	private void initObjectProperties() {
@@ -49,7 +49,7 @@ public class CompOntologyManager {
 
 	private void initClasses() {
 		for (CompOntClass compOntClass : CompOntClass.values()) {
-			getUtil().createOntClass(m, compOntClass);	
+			getUtil().createOntClass(getM(), compOntClass);	
 		}		
 	}
 	
@@ -62,18 +62,26 @@ public class CompOntologyManager {
 	private void initializeOntologyModel() {
 		Dataset dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
 		Model tdb = dataset.getDefaultModel();
-		m = ModelFactory.createOntologyModel(
-				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb);
+		setM(ModelFactory.createOntologyModel(
+				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
 		
 	}
 
 	private void initializeOntologyModelInMemory() {
-		m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+		setM(ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
 		
 	}
 
 	public CompOntologyUtil getUtil() {
 		return util;
+	}
+
+	public OntModel getM() {
+		return m;
+	}
+
+	public void setM(OntModel m) {
+		this.m = m;
 	}
 
 

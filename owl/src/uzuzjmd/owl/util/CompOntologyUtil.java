@@ -10,6 +10,7 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Model;
 
 public class CompOntologyUtil {
 	
@@ -74,7 +75,7 @@ public class CompOntologyUtil {
 	 * @param m
 	 * @throws IOException
 	 */
-	public void writeOntologyout() throws IOException {
+	public void writeOntologyout(Model m) throws IOException {
 		OutputStream out = null;
 		try {
 			// // XML format - long and verbose
