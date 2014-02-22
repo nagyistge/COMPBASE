@@ -10,19 +10,22 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.query.Dataset;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.tdb.TDBFactory;
 
 public class CompOntologyUtil {
-	public Individual createIndividualForString(OntModel m, OntClass paper,
+	
+	private OntModel m;
+
+	public CompOntologyUtil(OntModel m) {
+		this.m = m;
+	}
+	
+	
+	public Individual createIndividualForString(OntClass paper,
 			String individualName) {
 		return m.createIndividual(MagicStrings.PREFIX + individualName, paper);
 	}
 
-	public OntClass getOntClassForString(OntModel m, String className) {
+	public OntClass getOntClassForString(String className) {
 		OntClass paper = m.getOntClass(MagicStrings.PREFIX + className);
 		return paper;
 	}
@@ -33,46 +36,45 @@ public class CompOntologyUtil {
 	 * @param m
 	 * @param path
 	 */
-	public void readFileOntology(OntModel m, String path) {
+	public void readFileOntology(String path) {
 		m.read(this.getClass().getResourceAsStream("/" + path),
 				MagicStrings.PREFIX);
 	}
 
+	
+
 	/**
-	 * Also creates a database, if it does not exist already If there already
-	 * exist one, Nullpointer is thrown
-	 * 
+	 * should not be used directly anymore. Use Enums instead!
+	 * @param m
+	 * @param Domain
+	 * @param Range
+	 * @param propertyName
 	 * @return
 	 */
-	public OntModel initializeOntologyModel() {
-		Dataset dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
-		Model tdb = dataset.getDefaultModel();
-		OntModel m = ModelFactory.createOntologyModel(
-				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb);
-		return m;
-	}
-
-	public OntModel initializeOntologyModelInMemory() {
-		OntModel m = ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-		return m;
-	}
-
-	public ObjectProperty createObjectProperty(OntModel m, OntClass Domain,
-			OntClass Range, String propertyName) {
+	@Deprecated
+	public ObjectProperty createObjectProperty(OntClass domain,
+			OntClass range, String propertyName) {
 		ObjectProperty property = m.createObjectProperty(MagicStrings.PREFIX
 				+ propertyName);
-		property.setDomain(Range);
-		property.setRange(Domain);
+		property.setDomain(domain);
+		property.setRange(range);
 		return property;
 	}
+	
+	public ObjectProperty createObjectProperty(CompOntClass domain,
+			CompOntClass range, String propertyName) {		
+		OntClass ontClass1 = getClass(domain);
+		OntClass ontclass2 = getClass(range);
+		return createObjectProperty(ontClass1,ontclass2, propertyName);		
+	}
+	
 
 	/**
 	 * 
 	 * @param m
 	 * @throws IOException
 	 */
-	public void writeOntologyout(OntModel m) throws IOException {
+	public void writeOntologyout() throws IOException {
 		OutputStream out = null;
 		try {
 			// // XML format - long and verbose
@@ -95,6 +97,10 @@ public class CompOntologyUtil {
 				}
 			}
 		}
+	}
+	
+	public OntClass getClass(CompOntClass compOntClass) {
+		return getOntClassForString(compOntClass.name());
 	}
 	
 	public void createOntClass(OntModel model, CompOntClass ontClass) {
