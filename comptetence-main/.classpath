@@ -43,5 +43,6 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/net/htmlparser/jericho/jericho-html/3.1/jericho-html-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
