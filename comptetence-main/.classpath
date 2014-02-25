@@ -3,7 +3,45 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_45"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jenalibs"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/competence-dependencies"/>
 	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/com/hp/hpl/jena/jena/2.6.4/jena-2.6.4.jar" sourcepath="I:/mavenrepo/.m2/repository/com/hp/hpl/jena/jena/2.6.4/jena-2.6.4-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.hp.hpl.jena"/>
+			<attribute name="maven.artifactId" value="jena"/>
+			<attribute name="maven.version" value="2.6.4"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-core/2.11.0/jena-core-2.11.0.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.jena"/>
+			<attribute name="maven.artifactId" value="jena-core"/>
+			<attribute name="maven.version" value="2.11.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-core/2.7.1/jena-core-2.7.1.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.jena"/>
+			<attribute name="maven.artifactId" value="jena-core"/>
+			<attribute name="maven.version" value="2.7.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-tdb/0.9.1/jena-tdb-0.9.1.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.jena"/>
+			<attribute name="maven.artifactId" value="jena-tdb"/>
+			<attribute name="maven.version" value="0.9.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

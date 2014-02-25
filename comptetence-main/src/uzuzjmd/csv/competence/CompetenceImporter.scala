@@ -17,8 +17,13 @@ object CompetenceImporter {
     val csv = new CsvToBean[CompetenceBean];
 
     val list = csv.parse(strat, new FileReader(new File(args.head)));
-    val filteredlist = list.asScala.map(a => new FilteredCSVCompetence(a.getCompetence(), a.getCatchword().split(",").toList, a.getOperator()));
-    filteredlist.foreach(comptenzgefiltered => comptenzgefiltered.catchwordsFiltered.filter(catchword => !catchword.trim().equals("")).map(catchword=>catchword.replace(" ", "")).foreach(catchword => println(catchword)));
+    val filteredlist = list.asScala.
+    map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences). // erstellt neue Klasse
+    map(a=>a.catchwordsFiltered.filter(CompetenceFilter.catchwordString)); //filtered leere Catchwords und Überschrift
+      
+      ; //simples Erstellen, des neuen Objektes
+        
+     
 
   }
 
