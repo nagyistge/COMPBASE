@@ -1,6 +1,7 @@
 package uzuzjmd.owl.competence.ontology;
 
 public enum CompOntClass {
+	MetaCatchword,
 	Competence,
 	Evidence,
 	Operator,
@@ -9,5 +10,5 @@ public enum CompOntClass {
 	DescriptionElement,
 	CompetenceArea,
 	Learner,
-	CompetenceSpec
+	CompetenceSpec	
 }

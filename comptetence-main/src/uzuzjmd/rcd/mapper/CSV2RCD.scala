@@ -10,10 +10,14 @@ import uzuzjmd.rcd.generated.Description
 import uzuzjmd.rcd.generated.Identifier
 import uzuzjmd.rcd.generated.Definition
 import uzuzjmd.rcd.generated.Model
+import uzuzjmd.rcd.generated.Metadata
 import uzuzjmd.rcd.generated.Statement
 import uzuzjmd.rcd.generated.Statementtext
 import uzuzjmd.rcd.generated.Rdceoschema
 import uzuzjmd.rcd.generated.Rdceoschemaversion
+import uzuzjmd.owl.competence.ontology.CompOntClass
+import uzuzjmd.owl.util.MagicStrings
+import edu.uci.ics.jung.io.graphml.Metadata
 
 object CSV2RCD {
 	def mapCompetence (csvCompetences : Buffer[FilteredCSVCompetence]) : Buffer[Rdceo] = {
@@ -21,12 +25,12 @@ object CSV2RCD {
 	}
 	
 	def constructRDCEO(filteredCSVCompetence: FilteredCSVCompetence) : Rdceo = {
-	  val rdceo = new Rdceo
+	  val rdceo = new Rdceo	  	  
 	  
 	  //create titel
 	  val titel = new Title()
 	  val langstringsTitle = titel.getLangstring().asScala	  	  
-	  langstringsTitle.append(createLangString("Kompetenz" + filteredCSVCompetence.competence.hashCode()))	  
+	  langstringsTitle+=(createLangString("Kompetenz" + filteredCSVCompetence.competence.hashCode()))	  
 	  rdceo.setTitle(titel)
 	  
 	  //create description
@@ -36,7 +40,7 @@ object CSV2RCD {
 	  
 	  //create identifier
 	  val identifier = new Identifier
-	  identifier.setValue("http://uzuzjmd.de/Kompetenzen")
+	  identifier.setValue(MagicStrings.PREFIX)
 	  rdceo.setIdentifier(identifier)
 	  
 	  //create definition
@@ -47,20 +51,22 @@ object CSV2RCD {
 		  definition.setModel(model);	  
 		  //createStatments
 		  val statements = definition.getStatement().asScala
-		  statements.appendAll(filteredCSVCompetence.catchwordsFiltered.map(a=>createStatement(a, "catchword")))
-		  statements.append(createStatement(filteredCSVCompetence.evidencen,"evidence"))
-		  statements.appendAll(filteredCSVCompetence.metacatchwords.map(a=>createStatement(a, "metaoperator")))
-		  statements.append(createStatement(filteredCSVCompetence.operator,"operator"))
-		  statements.appendAll(filteredCSVCompetence.metacatchwords.map(a => createStatement(a, "metacatchwords")))
+		  statements.appendAll(filteredCSVCompetence.catchwordsFiltered.map(a=>createStatement(a, CompOntClass.Catchword.name())))
+		  statements.append(createStatement(filteredCSVCompetence.evidencen,CompOntClass.Evidence.name()))
+		  statements.appendAll(filteredCSVCompetence.metacatchwords.map(a=>createStatement(a, CompOntClass.MetaCatchword.name())))
+		  statements.append(createStatement(filteredCSVCompetence.operator,CompOntClass.Operator.name()))		  
+      rdceo.getDefinition().asScala+=definition
 	  // createMetaData
 	  val rdceoSchema = new Rdceoschema
 	  rdceoSchema.setValue("IMS RDCEO")
 	  val rdceoSchemaVersion = new Rdceoschemaversion
 	  rdceoSchemaVersion.setValue("1.0")
-	  rdceo.getMetadata().setRdceoschema(rdceoSchema)
-	  rdceo.getMetadata().setRdceoschemaversion(rdceoSchemaVersion)
+	  //val metadata = new Metadata
+	  //rdceo.setMetadata(metadata)
+	  //rdceo.getMetadata().setRdceoschema(rdceoSchema)
+	  //rdceo.getMetadata().setRdceoschemaversion(rdceoSchemaVersion)
 	  
-	  return null;
+	  return rdceo
 	}
 	
 	def createLangString( toConvert : String) : Langstring = {
@@ -74,7 +80,7 @@ object CSV2RCD {
 	  statement.setStatementname(toConvertConcept)
 	  val statementtext = new Statementtext
 	  statementtext.getLangstring().add(createLangString(toConvert))
-	  statement.setStatementtext(statementtext)	  
+	  statement.setStatementtext(statementtext)		  
 	  return statement
 	}
 }
