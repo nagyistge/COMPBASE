@@ -45,3 +45,4 @@ api-services/src/main/java/uzuzjmd/api_services/ApiKeyGenerator.java
 AlchemyAPI_Java-0.8/
 owl/tdb2/
 dependencies/dependencies_lib
+competence-dependencies/dependencies_lib
