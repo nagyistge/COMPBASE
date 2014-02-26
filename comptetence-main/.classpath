@@ -1,56 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_45"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jenalibs"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/competence-dependencies"/>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar"/>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/com/hp/hpl/jena/jena/2.6.4/jena-2.6.4.jar" sourcepath="I:/mavenrepo/.m2/repository/com/hp/hpl/jena/jena/2.6.4/jena-2.6.4-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="com.hp.hpl.jena"/>
-			<attribute name="maven.artifactId" value="jena"/>
-			<attribute name="maven.version" value="2.6.4"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-core/2.11.0/jena-core-2.11.0.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="org.apache.jena"/>
-			<attribute name="maven.artifactId" value="jena-core"/>
-			<attribute name="maven.version" value="2.11.0"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-core/2.7.1/jena-core-2.7.1.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="org.apache.jena"/>
-			<attribute name="maven.artifactId" value="jena-core"/>
-			<attribute name="maven.version" value="2.7.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/org/apache/jena/jena-tdb/0.9.1/jena-tdb-0.9.1.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="org.apache.jena"/>
-			<attribute name="maven.artifactId" value="jena-tdb"/>
-			<attribute name="maven.version" value="0.9.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="I:/mavenrepo/.m2/repository/net/htmlparser/jericho/jericho-html/3.1/jericho-html-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_45"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/org.apache.axis_1.4.0.v201005080400/lib/axis.jar"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/org.apache.commons.discovery_0.2.0.v201004190315/lib/commons-discovery-0.2.jar"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/javax.xml.rpc_1.1.0.v201209140446/lib/jaxrpc.jar"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/javax.xml.soap_1.2.0.v201005080501/lib/saaj.jar"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/javax.wsdl_1.6.2.v201012040545.jar"/>
-	<classpathentry kind="lib" path="I:/eclipse/plugins/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/antlr-runtime-3.2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/arq-2.8.7.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/aterm-java-1.6.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/aterm-java-1.8.2-p1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/axis.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/collections-generic-4.01.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/colt-1.2.0.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/concurrent-1.3.4.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/HermiT.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/httpclient-4.0.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/httpcore-4.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/icu4j-3.4.4.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/icu4j-3.4.4_2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/iri-0.8.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/iri-0.8_2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/j3d-core-1.3.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/javax.wsdl_1.6.2.v201012040545.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-2.6.4.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-2.6.4_2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-arq-2.9.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jenabean-1.0.6.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-core-2.7.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-core-2.11.0.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-iri-0.9.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jena-tdb-0.9.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jericho-html-3.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jetty.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jgrapht-jdk1.5.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jgrapht-jdk1.5-0.7.3.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jjtraveler-0.6.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-3d-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-3d-demos-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-algorithms-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-graph-impl-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-jai-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-jai-samples-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-samples-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/jung-visualization-2.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/junit.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/junit_2.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/lucene-core-2.3.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/org.semanticweb.HermiT.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/owlapi-bin.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/owlapi-src.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-cli.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-common-2.3.6-ansell.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-core.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-core-2.3.6-ansell.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-datatypes.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-dig.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-el.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-explanation.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-jena.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-modularity.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-owlapi.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-owlapiv3.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-pellint.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-query.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-rules.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/pellet-test.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/relaxngDatatype.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/relaxngDatatype-20030225.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/saaj.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/scala-library-2.10.3.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/servlet.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/shared-objects-1.4.9-p1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/slf4j-log4j12-1.6.4.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/TableLayout.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/vecmath-1.3.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/wstx-asl-3.2.6.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/wstx-asl-3.2.9.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/xercesImpl-2.10.0.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/xsdlib.jar"/>
+	<classpathentry kind="lib" path="I:/workspace/Wissensmodellierung/dependencies/dependencies_lib/xsdlib-20030225.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
