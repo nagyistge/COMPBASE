@@ -51,9 +51,9 @@ public class Neo4JStarter {
 		initPaths();
 
 		if (Neo4JStarter.graphDb == null) {
-//			Neo4JStarter.graphDb = new GraphDatabaseFactory()
-//					.newEmbeddedDatabase(DATABASE_PATH);								
-			graphDb = new RestGraphDatabase("http://localhost:7474/db/data");			
+			Neo4JStarter.graphDb = new GraphDatabaseFactory()
+					.newEmbeddedDatabase(DATABASE_PATH);								
+			//graphDb = new RestGraphDatabase("http://localhost:7474/db/data");			
 			setNodeIndex(graphDb.index().forNodes("nodes"));
 			setRelationshipIndex(graphDb.index().forRelationships("rels"));
 			addRootNode();
