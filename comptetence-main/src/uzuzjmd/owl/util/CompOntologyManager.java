@@ -11,6 +11,8 @@ import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.vocabulary.OWL2;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 public class CompOntologyManager {
 	
@@ -46,6 +48,8 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.DescriptionElement, CompOntClass.CompetenceDescription, CompObjectProperties.DescriptionElementOf);
 		getUtil().createObjectProperty(CompOntClass.CompetenceDescription, CompOntClass.Competence, CompObjectProperties.CompetenceDescriptionOf);
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.SimilarTo);
+		getM().getObjectProperty(MagicStrings.PREFIX+CompObjectProperties.SimilarTo).addProperty(RDF.type,OWL2.ReflexiveProperty);
 	}
 
 	private void initClasses() {
