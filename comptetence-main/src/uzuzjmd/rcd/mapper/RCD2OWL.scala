@@ -24,6 +24,7 @@ import com.hp.hpl.jena.ontology.ObjectProperty
 import uzuzjmd.owl.util.CompOntologyUtil
 import uzuzjmd.owl.competence.ontology.CompObjectProperties
 import uzuzjmd.owl.util.CompOntologyManager
+import com.hp.hpl.jena.ontology.OntClass
 
 object RCD2OWL {
 
@@ -49,11 +50,11 @@ object RCD2OWL {
     return x.getLangstring().asScala.head.getValue()
   }
 
-  implicit def toMyString5(x: (Title, String, Statementtext)): (String, String, String) = {
+  implicit def toMyString5(x: (Title, String, Statementtext)): (RCDFilter.CompetenceTriple) = {
     return (toMyString3(x._1), x._2, toMyString4(x._3))
   }
 
-  implicit def toMyString6(x: Buffer[(Title, String, Statementtext)]): Buffer[(String, String, String)] = {
+  implicit def toMyString6(x: Buffer[(Title, String, Statementtext)]): Buffer[RCDFilter.CompetenceTriple] = {
     return x.map(x => toMyString5(x))
   }
 
@@ -81,16 +82,17 @@ object RCD2OWL {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel): Buffer[ObjectProperty] = {
+  private def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel) {
     val util = new CompOntologyUtil(ontModel)
-    
+
     val triples = getStatementTriples(rcdeos)
-    
+
     // die mit object property 
     val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)
-    createOntClasses(util, triplesWithObjectProperties)
-    
-    
+    createOntClassesForTitle(util, triplesWithObjectProperties)
+
+    createSubOperatorRels(util, triplesWithObjectProperties)
+    createMetaOperatorRels(util, triplesWithObjectProperties)
 
     //    classDoesNotExist.foreach ( _ match {
     //    //  a) classes existieren?
@@ -101,7 +103,6 @@ object RCD2OWL {
     // debugging output
     triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
 
-    return null;
   }
 
   /**
@@ -116,20 +117,20 @@ object RCD2OWL {
    *
    * @return triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
    */
-  private def getStatementTriples(rcdeos: scala.collection.mutable.Buffer[uzuzjmd.rcd.generated.Rdceo]): scala.collection.mutable.Buffer[(String, String, String)] = {
+  private def getStatementTriples(rcdeos: scala.collection.mutable.Buffer[uzuzjmd.rcd.generated.Rdceo]): scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple] = {
     // transform to pairs of titel and statement 
     val inputStatements = rcdeos.map(x => (x.getTitle(), x.getDefinition().asScala.head.getStatement().asScala)).map(x => flatStatements(x)).flatten
     // triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
-    val triples: Buffer[(String, String, String)] = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
+    val triples: Buffer[RCDFilter.CompetenceTriple] = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
     triples
   }
 
-    /**
-     *
-     *  classes erstellen
-     */
-  private def createOntClasses(util: uzuzjmd.owl.util.CompOntologyUtil, triples: scala.collection.mutable.Buffer[(String, String, String)]): Unit = {
-  
+  /**
+   *
+   *  classes erstellen
+   */
+  private def createOntClassesForTitle(util: uzuzjmd.owl.util.CompOntologyUtil, triples: scala.collection.mutable.Buffer[(String, String, String)]): Unit = {
+
     // die mit subcompetence
     val triplesGroupedByTitles2a = triples.filter(RCDFilter.isSubClassTriple).groupBy(x => x._1)
     // we assume, that the triple text contains the super-class
@@ -138,6 +139,25 @@ object RCD2OWL {
     // die ohne subcompetence
     val triplesGroupedByTitles2b = triples.filterNot(RCDFilter.isSubClassTriple).groupBy(x => x._1)
     triplesGroupedByTitles2b.foreach(x => util.createOntClassForString(x._1).addSuperClass(util.getClass(CompOntClass.Competence)))
+  }
+
+  /**
+   * Looks up Competence for each Title
+   * Then it searches for all Operators of this Competence
+   * Then it makes them inherit the superOperator specified
+   */
+  private def createSubOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]): Unit = {
+
+    val suboperatorTriples = triplesWithObjectProperties.filter(RCDFilter.isSubOperatorTriple)
+    suboperatorTriples.foreach(
+      x =>
+        util.getOperatorsForOntClass(x._1).asScala.foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
+  }
+  
+  private def createMetaOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]): Unit = {
+    val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
+    metaCatchwordTriples.foreach(
+      x => util.getRelatedClassesForOntClass(x._3, CompObjectProperties.MetaCatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
   }
 
 }
