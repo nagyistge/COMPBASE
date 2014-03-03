@@ -3,6 +3,9 @@ package uzuzjmd.owl.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
@@ -11,7 +14,9 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.util.iterator.Filter;
 
 public class CompOntologyUtil {
 
@@ -130,7 +135,7 @@ public class CompOntologyUtil {
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
-		return getOntClassForString(compOntClass.name());
+		return createOntClassForString(compOntClass.name());
 	}
 
 	/**
@@ -161,4 +166,32 @@ public class CompOntologyUtil {
 		OntClass paper = m.getOntClass(MagicStrings.PREFIX + className);
 		return paper;
 	}
+	
+	public Set<OntClass> getOperatorsForOntClass(String string) {
+		return getRelatedClassesForOntClass(string,  CompObjectProperties.OperatorOf);
+	} 
+	
+	/**
+	 * 
+	 * @param string Classname
+	 * @param compObjectProperties ObjectPropertieClassifier
+	 * @return relatedClasses
+	 */
+	public Set<OntClass> getRelatedClassesForOntClass(String string, final CompObjectProperties compObjectProperties) {
+		OntClass competenceClass = m.getOntClass(string);		
+		List<OntProperty> properties = competenceClass.listDeclaredProperties().filterKeep(new Filter<OntProperty>() {			
+			@Override
+			public boolean accept(OntProperty o) {
+				return o.equals(m.getObjectProperty(MagicStrings.PREFIX + compObjectProperties.name()).asProperty());
+			}
+		}).toList();
+		Set<OntClass> result = new HashSet<OntClass>();
+		for (OntProperty ontClass : properties) {
+			result.add(ontClass.getDomain().asClass());
+		}
+		return result;
+	} 
+	
+	
+	
 }
