@@ -2,6 +2,7 @@ package uzuzjmd.owl.util;
 
 import java.io.IOException;
 
+import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -38,13 +39,13 @@ public class CompOntologyManager {
 	}
 
 	private void initObjectProperties() {
-		getUtil().createObjectProperty(CompOntClass.Learner, CompOntClass.Competence, "isLearnerOf");
-		getUtil().createObjectProperty(CompOntClass.Catchword, CompOntClass.Competence, "isCatchwordFor");
-		getUtil().createObjectProperty(CompOntClass.Evidence, CompOntClass.Competence, "isEvidenceFor");
-		getUtil().createObjectProperty(CompOntClass.Operator, CompOntClass.Competence, "isOperatorFor");
-		getUtil().createObjectProperty(CompOntClass.DescriptionElement, CompOntClass.CompetenceDescription, "isElementOf");
-		getUtil().createObjectProperty(CompOntClass.CompetenceDescription, CompOntClass.Competence, "isDescriptionFor");
-		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceSpec, "isPartOf");
+		getUtil().createObjectProperty(CompOntClass.Learner, CompOntClass.Competence, CompObjectProperties.LearnerOf);
+		getUtil().createObjectProperty(CompOntClass.Catchword, CompOntClass.Competence, CompObjectProperties.CatchwordOf);
+		getUtil().createObjectProperty(CompOntClass.Evidence, CompOntClass.Competence, CompObjectProperties.EvidencOf);
+		getUtil().createObjectProperty(CompOntClass.Operator, CompOntClass.Competence, CompObjectProperties.OperatorOf);
+		getUtil().createObjectProperty(CompOntClass.DescriptionElement, CompOntClass.CompetenceDescription, CompObjectProperties.DescriptionElementOf);
+		getUtil().createObjectProperty(CompOntClass.CompetenceDescription, CompOntClass.Competence, CompObjectProperties.CompetenceDescriptionOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
 	}
 
 	private void initClasses() {

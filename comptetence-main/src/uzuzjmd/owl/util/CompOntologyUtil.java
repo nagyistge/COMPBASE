@@ -4,23 +4,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.semanticweb.owlapi.model.OWLIndividual;
+
+import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
+import uzuzjmd.owl.competence.ontology.CompOntIndividual;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 public class CompOntologyUtil {
-	
+
 	private OntModel m;
 
 	public CompOntologyUtil(OntModel m) {
 		this.m = m;
 	}
-	
-	
+
 	public Individual createIndividualForString(OntClass paper,
 			String individualName) {
 		return m.createIndividual(MagicStrings.PREFIX + individualName, paper);
@@ -42,10 +46,9 @@ public class CompOntologyUtil {
 				MagicStrings.PREFIX);
 	}
 
-	
-
 	/**
 	 * should not be used directly anymore. Use Enums instead!
+	 * 
 	 * @param m
 	 * @param Domain
 	 * @param Range
@@ -53,22 +56,29 @@ public class CompOntologyUtil {
 	 * @return
 	 */
 	@Deprecated
-	public ObjectProperty createObjectProperty(OntClass domain,
-			OntClass range, String propertyName) {
+	public ObjectProperty createObjectProperty(OntClass domain, OntClass range,
+			String propertyName) {
 		ObjectProperty property = m.createObjectProperty(MagicStrings.PREFIX
 				+ propertyName);
 		property.setDomain(domain);
 		property.setRange(range);
 		return property;
 	}
-	
+
+
 	public ObjectProperty createObjectProperty(CompOntClass domain,
-			CompOntClass range, String propertyName) {		
+			CompOntClass range, CompObjectProperties propertyName) {
 		OntClass ontClass1 = getClass(domain);
 		OntClass ontclass2 = getClass(range);
-		return createObjectProperty(ontClass1,ontclass2, propertyName);		
+		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
 	}
 	
+//	public void linkObjectPropertyWithIndividual(CompOntIndividual<?> individual, CompOntIndividual<?> individual2, CompObjectProperties compObjectProperties) {
+//	    Individual individualFromDB = m.getIndividual(individual.toString());
+//	    Individual individual2FromDB = m.getIndividual(individual2.toString());
+//	    Resource objectProperty = m.getObjectProperty(MagicStrings.PREFIX+compObjectProperties.name());
+//	    m.add(compObjectProperties,individual,individual2.toStringID())
+//	}
 
 	/**
 	 * 
@@ -80,9 +90,13 @@ public class CompOntologyUtil {
 		try {
 			// // XML format - long and verbose
 			out = new FileOutputStream(MagicStrings.ONTOLOGYFILE);
-			//String preamble = "<?xml version=\"1.0\"?>\r\n\r\n\r\n<!DOCTYPE rdf:RDF [\r\n    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\r\n    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\r\n    <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\r\n    <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\r\n]>\r\n";			
-			//out.write(preamble.getBytes());
+			// String preamble =
+			// "<?xml version=\"1.0\"?>\r\n\r\n\r\n<!DOCTYPE rdf:RDF [\r\n    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\r\n    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\r\n    <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\r\n    <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\r\n]>\r\n";
+			// out.write(preamble.getBytes());
 			m.write(out, MagicStrings.ONTOLOGYFORMAT);
+
+			System.out.println("Written Ontology to "
+					+ MagicStrings.ONTOLOGYFILE);
 
 			// OR Turtle format - compact and more readable
 			// use this variant if you're not sure which to use!
@@ -99,13 +113,13 @@ public class CompOntologyUtil {
 			}
 		}
 	}
-	
+
 	public OntClass getClass(CompOntClass compOntClass) {
 		return getOntClassForString(compOntClass.name());
 	}
-	
+
 	public void createOntClass(OntModel model, CompOntClass ontClass) {
-		model.createClass(MagicStrings.PREFIX+ontClass.name());
+		model.createClass(MagicStrings.PREFIX + ontClass.name());
 	}
 
 }
