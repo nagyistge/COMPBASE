@@ -10,6 +10,8 @@ import uzuzjmd.rcd.generated.Statement
 import uzuzjmd.rcd.generated.Definition
 import uzuzjmd.rcd.generated.Rdceo
 import uzuzjmd.console.util.ConsoleOut
+import uzuzjmd.rcd.mapper.RCD2OWL
+import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy
 
 object CompetenceImporter {
 
@@ -34,8 +36,9 @@ object CompetenceImporter {
     val rcdeoCompetences = CSV2RCD.mapCompetence(filteredList)
     
     //debuggingOutput
-    ConsoleOut.printFilteredComptences(filteredList)
-    ConsoleOut.printRcdeoCompetences(rcdeoCompetences)
+    //ConsoleOut.printFilteredComptences(filteredList)
+    //ConsoleOut.printRcdeoCompetences(rcdeoCompetences)
+    val result = RCD2OWL.convert(rcdeoCompetences)
     
     
   }
