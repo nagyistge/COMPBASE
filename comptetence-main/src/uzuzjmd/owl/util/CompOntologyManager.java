@@ -50,7 +50,7 @@ public class CompOntologyManager {
 
 	private void initClasses() {
 		for (CompOntClass compOntClass : CompOntClass.values()) {
-			getUtil().createOntClass(getM(), compOntClass);	
+			getUtil().createOntClass(compOntClass);	
 		}		
 	}
 	
