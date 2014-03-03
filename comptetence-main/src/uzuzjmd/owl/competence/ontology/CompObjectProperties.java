@@ -13,5 +13,6 @@ public enum CompObjectProperties {
 	BelongsToArea,	
 	HasCompetence,
 	SpecifiedBy,
-	LearnerOf	
+	LearnerOf,
+	requiredFor
 }

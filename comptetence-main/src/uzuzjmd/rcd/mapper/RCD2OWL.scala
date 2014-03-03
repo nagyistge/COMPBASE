@@ -1,6 +1,7 @@
 package uzuzjmd.rcd.mapper
 
 import uzuzjmd.csv.competence.FilteredCSVCompetence
+import uzuzjmd.rcd.competence.RCDFilter
 import uzuzjmd.rcd.generated.Rdceo
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
@@ -26,14 +27,13 @@ import uzuzjmd.owl.util.CompOntologyManager
 
 object RCD2OWL {
 
-  
   /**
    * A bunch of useful toString - Methoden, um die Arbeit mit RCDEOs zu vereinfachen
    * Wichtige Annahme: Die formell als Liste definierte Langstring-Liste besteht immer nur aus einem Element
    * Wenn dies anders verwendet werden soll, gelten diese implicits nicht mehr
-   * 
+   *
    */
-  
+
   implicit def toMyString1(x: Langstring): String = {
     return x.getValue()
   }
@@ -59,6 +59,8 @@ object RCD2OWL {
 
   /**
    * TODO: Needs implementation
+   * ist nicht Zustandsfrei, da das StandardModel über den
+   * Manager geladen wird
    */
   def convert(rcdeos: Buffer[Rdceo]): OntModel = {
     val manager = new CompOntologyManager
@@ -68,18 +70,35 @@ object RCD2OWL {
     return null;
   }
 
+  /**
+   * special cases
+   * _2 == SubCompetenceOf --> should transform to owl:Subclass of Competence
+   * 		and should be transitiv property
+   * _2 == SubOperatorOf --> should transform to owl:Subclass of Operator
+   * 		and should be transitiv property
+   * _2 == MetaCatchwordOf --> should transform to owl:Subclass of Catchword
+   * 		and should be transitiv property
+   * _2 == similarTo should be transitiv and reflexiv property
+   * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
+   */
   def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel): Buffer[ObjectProperty] = {
     val util = new CompOntologyUtil(ontModel)
+    
+    val triples = getStatementTriples(rcdeos)
+    
+    // die mit object property 
+    val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)
+    createOntClasses(util, triplesWithObjectProperties)
+    
+    
 
-    // add all operators
-    val result: Buffer[ObjectProperty] = Buffer.empty
+    //    classDoesNotExist.foreach ( _ match {
+    //    //  a) classes existieren?
+    //      case (null,object1,object2) => "hello"
+    //    })
+    //    
 
-    // transform to pairs of titel and filters statement that are not classes (defined by CompOntClass)
-    val filteredInputSortedByStatementText = rcdeos.map(x => (x.getTitle(), x.getDefinition().asScala.head.getStatement().asScala))
-    val flattendStatements: Buffer[(Title, Statement)] = flatStatements(filteredInputSortedByStatementText)
-    // triples: KompetenzIndividual (Title), ObjectProperty, Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf     
-    val triples: Buffer[(String, String, String)] = flattendStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
-
+    // debugging output
     triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
 
     return null;
@@ -89,13 +108,36 @@ object RCD2OWL {
    * Utility Function
    * links the statements to the specified title
    */
-  def flatStatements(titleStatements: Buffer[(Title, Buffer[Statement])]): Buffer[(Title, Statement)] = {
-    titleStatements.map(x => x._2.map(y => (x._1, y))).flatten
+  private def flatStatements(titleStatements: (Title, Buffer[Statement])): Buffer[(Title, Statement)] = {
+    return titleStatements._2.map(y => (titleStatements._1, y))
   }
 
-  def getPairs[A, B](a: A, b: List[B]): List[(A, B)] = {
-    if (b.isEmpty) List.empty
-    else (a, b.head) :: getPairs(a, b.tail)
+  /**
+   *
+   * @return triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
+   */
+  private def getStatementTriples(rcdeos: scala.collection.mutable.Buffer[uzuzjmd.rcd.generated.Rdceo]): scala.collection.mutable.Buffer[(String, String, String)] = {
+    // transform to pairs of titel and statement 
+    val inputStatements = rcdeos.map(x => (x.getTitle(), x.getDefinition().asScala.head.getStatement().asScala)).map(x => flatStatements(x)).flatten
+    // triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
+    val triples: Buffer[(String, String, String)] = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
+    triples
+  }
+
+    /**
+     *
+     *  classes erstellen
+     */
+  private def createOntClasses(util: uzuzjmd.owl.util.CompOntologyUtil, triples: scala.collection.mutable.Buffer[(String, String, String)]): Unit = {
+  
+    // die mit subcompetence
+    val triplesGroupedByTitles2a = triples.filter(RCDFilter.isSubClassTriple).groupBy(x => x._1)
+    // we assume, that the triple text contains the super-class
+    triplesGroupedByTitles2a.foreach(titleMap => titleMap._2.foreach(triple => util.createOntClassForString(titleMap._1).addSuperClass(util.getOntClassForString(triple._3))))
+
+    // die ohne subcompetence
+    val triplesGroupedByTitles2b = triples.filterNot(RCDFilter.isSubClassTriple).groupBy(x => x._1)
+    triplesGroupedByTitles2b.foreach(x => util.createOntClassForString(x._1).addSuperClass(util.getClass(CompOntClass.Competence)))
   }
 
 }

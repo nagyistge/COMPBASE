@@ -4,18 +4,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.semanticweb.owlapi.model.OWLIndividual;
-
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
-import uzuzjmd.owl.competence.ontology.CompOntIndividual;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
 
 public class CompOntologyUtil {
 
@@ -25,15 +21,27 @@ public class CompOntologyUtil {
 		this.m = m;
 	}
 
+	/**
+	 * creates the individual, if not exists
+	 * @param paper
+	 * @param individualName
+	 * @return
+	 */
 	public Individual createIndividualForString(OntClass paper,
 			String individualName) {
 		return m.createIndividual(MagicStrings.PREFIX + individualName, paper);
 	}
-
-	public OntClass getOntClassForString(String className) {
-		OntClass paper = m.getOntClass(MagicStrings.PREFIX + className);
-		return paper;
+	
+	/**
+	 * returns null if individual does not exist
+	 * @param indivString
+	 * @return
+	 */
+	public Individual getIndividualForString(String indivString) {
+		return m.getIndividual(MagicStrings.PREFIX + indivString);
 	}
+	
+
 
 	/**
 	 * reads relativ from src dir
@@ -47,15 +55,13 @@ public class CompOntologyUtil {
 	}
 
 	/**
-	 * should not be used directly anymore. Use Enums instead!
-	 * 
+	 * creates and object porperty or reuses one	 
 	 * @param m
 	 * @param Domain
 	 * @param Range
 	 * @param propertyName
 	 * @return
-	 */
-	@Deprecated
+	 */	
 	public ObjectProperty createObjectProperty(OntClass domain, OntClass range,
 			String propertyName) {
 		ObjectProperty property = m.createObjectProperty(MagicStrings.PREFIX
@@ -66,6 +72,12 @@ public class CompOntologyUtil {
 	}
 
 
+	/**	
+	 * @param domain
+	 * @param range
+	 * @param propertyName
+	 * @return
+	 */
 	public ObjectProperty createObjectProperty(CompOntClass domain,
 			CompOntClass range, CompObjectProperties propertyName) {
 		OntClass ontClass1 = getClass(domain);
@@ -73,12 +85,15 @@ public class CompOntologyUtil {
 		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
 	}
 	
-//	public void linkObjectPropertyWithIndividual(CompOntIndividual<?> individual, CompOntIndividual<?> individual2, CompObjectProperties compObjectProperties) {
-//	    Individual individualFromDB = m.getIndividual(individual.toString());
-//	    Individual individual2FromDB = m.getIndividual(individual2.toString());
-//	    Resource objectProperty = m.getObjectProperty(MagicStrings.PREFIX+compObjectProperties.name());
-//	    m.add(compObjectProperties,individual,individual2.toStringID())
-//	}
+	/**
+	 * links the objectProperty to  
+	 * @param individual
+	 * @param individual2
+	 * @param compObjectProperties
+	 */
+	public ObjectProperty createObjectPropertyWithIndividual(Individual individual, Individual individual2, CompObjectProperties compObjectProperties) {	  
+		return createObjectProperty(individual.getOntClass(), individual2.getOntClass(), compObjectProperties.name());	
+	}
 
 	/**
 	 * 
@@ -118,8 +133,32 @@ public class CompOntologyUtil {
 		return getOntClassForString(compOntClass.name());
 	}
 
-	public void createOntClass(OntModel model, CompOntClass ontClass) {
-		model.createClass(MagicStrings.PREFIX + ontClass.name());
+	/**
+	 * creates class or returns class if exists
+	 * @param model
+	 * @param ontClass
+	 */
+	public OntClass createOntClass(CompOntClass ontClass) {
+		return createOntClassForString(ontClass.name());
+	}
+	
+
+	/**
+	 * creates class or returns class if exists
+	 * @param model
+	 * @param ontClass
+	 */
+	public OntClass createOntClassForString(String string) {
+		return m.createClass(MagicStrings.PREFIX + string);
 	}
 
+	/**
+	 * returns null if class does not exist
+	 * @param className
+	 * @return
+	 */
+	public OntClass getOntClassForString(String className) {
+		OntClass paper = m.getOntClass(MagicStrings.PREFIX + className);
+		return paper;
+	}
 }
