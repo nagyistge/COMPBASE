@@ -3,7 +3,7 @@ package uzuzjmd.rcd.competence
 import uzuzjmd.owl.competence.ontology.CompObjectProperties
 
 object RCDFilter {
-  type CompetenceTriple = (String, String, String)
+  type CompetenceTriple = (String, String, String) // Titel, Statementname, Statementtext
   type CompetenceFilter = CompetenceTriple => Boolean
   
   
@@ -17,6 +17,10 @@ object RCDFilter {
   
   def isSubOperatorTriple(triple: CompetenceTriple): Boolean = {
     CompObjectProperties.SubOperatorOf.equals(CompObjectProperties.valueOf(triple._2))
+  }
+  
+  def isMetaCatchwordOfTriple(triple: CompetenceTriple): Boolean = {
+    CompObjectProperties.MetaCatchwordOf.equals(CompObjectProperties.valueOf(triple._2))
   }
   
  
