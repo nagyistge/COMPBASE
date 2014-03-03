@@ -25,6 +25,7 @@ import uzuzjmd.owl.util.CompOntologyUtil
 import uzuzjmd.owl.competence.ontology.CompObjectProperties
 import uzuzjmd.owl.util.CompOntologyManager
 import com.hp.hpl.jena.ontology.OntClass
+import com.hp.hpl.jena.ontology.Individual
 
 object RCD2OWL {
 
@@ -90,6 +91,10 @@ object RCD2OWL {
     // die mit object property 
     val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)
     createOntClassesForTitle(util, triplesWithObjectProperties)
+    
+    val triplesWithDescriptionElementOf = triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple)
+    triplesWithDescriptionElementOf.foreach(x=>competenceDescriptionToOnt(x,util))
+    
 
     createSubOperatorRels(util, triplesWithObjectProperties)
     createMetaOperatorRels(util, triplesWithObjectProperties)
@@ -104,6 +109,14 @@ object RCD2OWL {
     triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
 
   }
+  
+  private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyUtil) {
+       val individual = util.createIndividualForString(util.getClass(CompOntClass.DescriptionElement), triple._3)
+       val objectProperty = util.getObjectPropertyForString(triple._2)
+       val resourceTyp = objectProperty.getRDFType()
+       individual.addProperty(objectProperty.asProperty(), resourceTyp)
+       
+  } 
 
   /**
    * Utility Function

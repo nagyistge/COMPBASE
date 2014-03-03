@@ -192,6 +192,9 @@ public class CompOntologyUtil {
 		return result;
 	} 
 	
+	public ObjectProperty getObjectPropertyForString(String objectProperty) {
+		return m.createObjectProperty(MagicStrings.PREFIX + objectProperty);
+	}
 	
 	
 }
