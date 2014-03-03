@@ -27,7 +27,7 @@ object CSV2RCD {
 	def constructRDCEO(filteredCSVCompetence: FilteredCSVCompetence) : Rdceo = {
 	  val rdceo = new Rdceo	  	  
 	  
-	  //create titel
+	  //create titel (entspricht dem Individual der Competence-Klasse)
 	  val titel = new Title()
 	  val langstringsTitle = titel.getLangstring().asScala	  	  
 	  langstringsTitle+=(createLangString("Kompetenz" + filteredCSVCompetence.competence.hashCode()))	  
@@ -75,6 +75,10 @@ object CSV2RCD {
 	  return langstring;
 	}
 	
+	/**
+	 * Statementtext entspricht dem Individual
+	 * Statementname entspricht der ObjectProperty
+	 */
 	def createStatement (toConvert : String, toConvertConcept : String) : Statement = {
 	  val statement = new Statement
 	  statement.setStatementname(toConvertConcept)
