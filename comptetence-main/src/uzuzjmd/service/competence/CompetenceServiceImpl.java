@@ -20,7 +20,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 	public void insertCompetence(Rdceo rcdeo) {
 		ArrayList<Rdceo> list = new ArrayList<Rdceo>();
 		list.add(rcdeo);
-		uzuzjmd.console.util.ConsoleOut.printRcdeoCompetences(list);
+		//uzuzjmd.console.util.ConsoleOut.printRcdeoCompetences(list);
 		System.out.println("Competences inserted");				
 	}
 
