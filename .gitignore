@@ -109,3 +109,5 @@ comptetence-main/lib/xercesImpl-2.7.1.jar
 comptetence-main/lib/xsdlib.jar
 comptetence-main/lib/antlr-runtime-3.2.jar
 competence-dependencies/lib/
+gui/war/WEB-INF/
+gui/war/WEB-INF/classes
