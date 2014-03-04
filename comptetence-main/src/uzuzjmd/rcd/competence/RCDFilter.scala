@@ -3,10 +3,13 @@ package uzuzjmd.rcd.competence
 import uzuzjmd.owl.competence.ontology.CompObjectProperties
 
 object RCDFilter {
-  type CompetenceTriple = (String, String, String) // Titel, Statementname, Statementtext
+  /**
+   * // Titel, Statementname, Statementtext bzw. 
+   *  _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
+   */
+  type CompetenceTriple = (String, String, String) 
   type CompetenceFilter = CompetenceTriple => Boolean
-  
-  
+    
   def isObjectPropertyTriple(triple: CompetenceTriple): Boolean = {
     CompObjectProperties.values.contains(triple._2)
   }
