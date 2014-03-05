@@ -108,8 +108,7 @@ object RCD2OWL {
     val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)    
     createOntClassesForTitle(util, triplesWithObjectProperties)        
     logger.debug("Classes for Titles created")
-    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
-    util.writeOntologyout(ontModel)
+    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)    
         
     logger.debug("ObjectProps for default cases created")
     createDescriptionElementOfRels(util, triplesWithObjectProperties)
@@ -119,6 +118,8 @@ object RCD2OWL {
     logger.debug("SubOperator rels created")
     createMetaOperatorRels(util, triplesWithObjectProperties)
     logger.debug("metaoperator rels created")
+    
+    util.writeOntologyout(ontModel)
 
     
     
@@ -126,7 +127,7 @@ object RCD2OWL {
     //TODO
 
     // debugging output
-    triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
+    //triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
     
 
   }
@@ -134,17 +135,15 @@ object RCD2OWL {
   /**
    * vgl. RCDFilter.CompetenceTriple
    * jedem CompetenceDescriptionElement wird die ObjectProperty
+   * TODO:TestThisMethod
    */
   private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyUtil) {
     val individualDescriptionElement = util.createIndividualForString(util.getClass(CompOntClass.DescriptionElement), triple._3)
-    val objectProperty = util.getObjectPropertyForString(triple._2)
-    // die eine Seite der Rel ist das Individual
-    val resourceTyp = objectProperty.getRDFType()
-    individualDescriptionElement.addProperty(objectProperty.asProperty(), resourceTyp)
-    // die andere Seite ist 
+    val objectProperty = util.getObjectPropertyForString(triple._2)   
     val competenceClass = util.getClass(CompOntClass.DescriptionElement)
-    val individuals = util.getRelatedIndividuals(competenceClass, CompObjectProperties.HasCompetence);
-    individuals.asScala.filter(x=>x.equals(util.getIndividualForString(triple._1))).foreach(y=>y.addProperty(objectProperty, resourceTyp))          
+    // TODO 
+    val relatedClasses = util.getRelatedClassesForOntClass(triple._1, CompObjectProperties.HasCompetence);
+    relatedClasses.asScala.foreach(y=>individualDescriptionElement.addProperty(objectProperty.asObjectProperty(), y))          
   }
 
   /**
@@ -187,19 +186,23 @@ object RCD2OWL {
    * Looks up Competence for each Title
    * Then it searches for all Operators of this Competence
    * Then it makes them inherit the superOperator specified
+   * TODO
    */
   private def createSubOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
 
-    val suboperatorTriples = triplesWithObjectProperties.filter(RCDFilter.isSubOperatorTriple)
-    suboperatorTriples.foreach(
-      x =>
-        util.getOperatorsForOntClass(x._1).asScala.foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
+//    val suboperatorTriples = triplesWithObjectProperties.filter(RCDFilter.isSubOperatorTriple)
+//    suboperatorTriples.foreach(
+//      x =>
+//        util.getOperatorsForOntClass(x._1).asScala.foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
   }
 
+  /**
+   * TODO
+   */
   private def createMetaOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
-    val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
-    metaCatchwordTriples.foreach(
-      x => util.getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
+//    val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
+//    metaCatchwordTriples.foreach(
+//      x => util.getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
   }
 
   private def createDescriptionElementOfRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]) = {
@@ -217,9 +220,9 @@ object RCD2OWL {
       filterNot(RCDFilter.isSubClassTriple).
       filterNot(RCDFilter.isSubOperatorTriple)
     defaultCasesObjectProperties.foreach(x => 
-      util.createObjectPropertyWithIndividual(
+      util.createObjectPropertyWithIndividualAndClass(
           util.createIndividualForString(util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((x._2)))), x._3),
-          util.createIndividualForString(util.getOntClassForString(x._1), x._1),           
+          util.getOntClassForString(x._1),           
           CompObjectProperties.valueOf(x._2)))
   }
 
