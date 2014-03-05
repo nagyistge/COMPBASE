@@ -7,6 +7,7 @@ import uzuzjmd.owl.competence.ontology.CompOntClass
 object RCDMaps {
 	type TripleToString = RCDFilter.CompetenceTriple => String	
 	type classToObjectProperty = CompOntClass => CompObjectProperties
+
 	
 	def convertTriplesToOperators (input : RCDFilter.CompetenceTriple) : RCDFilter.CompetenceTriple ={
 	  val values = CompOntClass.values.map(x=>x.name())
@@ -31,7 +32,7 @@ object RCDMaps {
 	    case CompOntClass.Evidence => return CompObjectProperties.EvidencOf
 	    case CompOntClass.Learner => return CompObjectProperties.LearnerOf
 	    case CompOntClass.MetaCatchword => return CompObjectProperties.MetaCatchwordOf
-	    case CompOntClass.Operator => return CompObjectProperties.LearnerOf
+	    case CompOntClass.Operator => return CompObjectProperties.OperatorOf
 	    case default => return null
 	  }
 	}

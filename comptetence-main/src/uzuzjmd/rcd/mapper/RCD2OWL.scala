@@ -33,6 +33,7 @@ import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.console.util.LogStream
 import uzuzjmd.rcd.competence.RCDMaps
 
+
 object RCD2OWL {
   
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
@@ -96,14 +97,20 @@ object RCD2OWL {
     val logStream = RCD2OWL.logStream
     
     val util = new CompOntologyUtil(ontModel)
-
+        
+    
     val triples = getStatementTriples(rcdeos).map(RCDMaps.convertTriplesToOperators).filterNot(RCDFilter.isTripleWithBlanc)
+    // debugging output
+    triples.map(x => logger.trace("Triple: " + x._1 + " " + x._2 + " " + x._3))
+    
 
     // die mit object property & classes
     val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)    
-    createOntClassesForTitle(util, triplesWithObjectProperties)    
+    createOntClassesForTitle(util, triplesWithObjectProperties)        
     logger.debug("Classes for Titles created")
-    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)    
+    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
+    util.writeOntologyout(ontModel)
+        
     logger.debug("ObjectProps for default cases created")
     createDescriptionElementOfRels(util, triplesWithObjectProperties)
     logger.debug("DescriptionElementRels created ")
@@ -113,12 +120,14 @@ object RCD2OWL {
     createMetaOperatorRels(util, triplesWithObjectProperties)
     logger.debug("metaoperator rels created")
 
+    
+    
     // data properties
     //TODO
 
     // debugging output
-    // triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
-    util.writeOntologyout(ontModel)
+    triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
+    
 
   }
 
@@ -209,8 +218,8 @@ object RCD2OWL {
       filterNot(RCDFilter.isSubOperatorTriple)
     defaultCasesObjectProperties.foreach(x => 
       util.createObjectPropertyWithIndividual(
-          util.createIndividualForString(util.getClass(CompOntClass.Competence), x._1), 
           util.createIndividualForString(util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((x._2)))), x._3),
+          util.createIndividualForString(util.getOntClassForString(x._1), x._1),           
           CompObjectProperties.valueOf(x._2)))
   }
 

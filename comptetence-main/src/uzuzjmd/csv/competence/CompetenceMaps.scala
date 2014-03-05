@@ -15,11 +15,13 @@ object CompetenceMaps {
         competenceBeans.getOperator(),
         competenceBeans.getMetaoperator(),
         competenceBeans.getEvidenzen(),
-        competenceBeans.getCompetenceArea().split("##").toList)
+        competenceBeans.getCompetenceArea().split("##").toList,
+        "Die Lehramtsanwärter"
+    )        
   }
 
   def cleanCatchwords(catchword: String): String = {
-    return catchword.replace("", " ");
+    return catchword.replaceAll(" ", "");
   }
   
    def cleanOperator(catchword: String): String = {
