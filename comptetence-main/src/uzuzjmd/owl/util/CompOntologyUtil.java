@@ -115,6 +115,18 @@ public class CompOntologyUtil {
 		return result;
 	}
 	
+	/**
+	 * links the objectProperty to  
+	 * @param individual
+	 * @param individual2
+	 * @param compObjectProperties
+	 */
+	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeIndividual, CompObjectProperties compObjectProperties) {	  
+		ObjectProperty result =  getObjectPropertyForString(compObjectProperties.name());				
+		domainIndividual.addProperty(result.asObjectProperty(), rangeIndividual);			
+		return result;
+	}
+	
 	
 
 	/**
