@@ -1,18 +1,19 @@
 package uzuzjmd.owl.util;
 
-import java.io.IOException;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
+import uzuzjmd.console.util.LogStream;
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.ontology.Ontology;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
-import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.OWL2;
 import com.hp.hpl.jena.vocabulary.RDF;
 
@@ -20,23 +21,26 @@ public class CompOntologyManager {
 
 	private CompOntologyUtil util;
 	private OntModel m;
-
-	public CompOntologyManager() {
+	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
+	static LogStream logStream = new LogStream(logger, Level.TRACE);
+	
+	public CompOntologyManager() {		
+		// initialize Model
 		initializeOntologyModelInMemory();
+		
+		// initializeOntologyModel();
 		this.util = new CompOntologyUtil(getM());
 	}
 
-	public void loadOntology() throws IOException {
-		// create the base model
-
-	}
-
+	
 	public OntModel createBaseOntology() {
-		// m = this.util.initializeOntologyModel();
-		Ontology ont = m.getOntology(MagicStrings.PREFIX);
-		ont.addProperty(DCTerms.creator, "Julian Dehne");		
+		// m = this.util.initializeOntologyModel();	
 		initClasses();
 		initObjectProperties();
+		
+		logger.info("Base Ontology created");
+		logger.setLevel(Level.DEBUG);		
+		m.write(logStream);
 
 		// TODO create Restrictions
 
