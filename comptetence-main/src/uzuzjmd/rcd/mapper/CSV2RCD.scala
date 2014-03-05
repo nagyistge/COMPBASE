@@ -55,6 +55,7 @@ object CSV2RCD {
 		  statements.append(createStatement(filteredCSVCompetence.evidencen,CompOntClass.Evidence.name()))
 		  statements.appendAll(filteredCSVCompetence.metacatchwords.map(a=>createStatement(a, CompOntClass.MetaCatchword.name())))
 		  statements.append(createStatement(filteredCSVCompetence.operator,CompOntClass.Operator.name()))		  
+		  statements.append(createStatement(filteredCSVCompetence.learner, CompOntClass.Learner.name()))
       rdceo.getDefinition().asScala+=definition
 	  // createMetaData
 	  val rdceoSchema = new Rdceoschema

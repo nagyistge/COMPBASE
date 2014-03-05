@@ -1,7 +1,6 @@
 package uzuzjmd.owl.util;
 
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
@@ -10,10 +9,13 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
 
+import com.clarkparsia.sparqlowl.parser.antlr.SparqlOwlParser.objectPropertyExpression_return;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -22,15 +24,19 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.util.URIref;
 import com.hp.hpl.jena.util.iterator.Filter;
 
 public class CompOntologyUtil {
 
 	static final Logger logger = LogManager.getLogger(CompOntologyUtil.class.getName());
 	private OntModel m;
+	
 
 	public CompOntologyUtil(OntModel m) {
 		this.m = m;
+		
+		
 	}
 
 	/**
@@ -40,8 +46,8 @@ public class CompOntologyUtil {
 	 * @return
 	 */
 	public Individual createIndividualForString(OntClass paper,
-			String individualName) {
-		return m.createIndividual(MagicStrings.PREFIX + individualName, paper);
+			String individualName) {		
+		return m.createIndividual(encode(MagicStrings.PREFIX + individualName), paper);
 	}
 	
 	/**
@@ -50,7 +56,7 @@ public class CompOntologyUtil {
 	 * @return
 	 */
 	public Individual getIndividualForString(String indivString) {
-		return m.getIndividual(MagicStrings.PREFIX + indivString);
+		return m.getIndividual(encode(MagicStrings.PREFIX + indivString));
 	}
 	
 
@@ -79,7 +85,7 @@ public class CompOntologyUtil {
 		ObjectProperty property = m.createObjectProperty(MagicStrings.PREFIX
 				+ propertyName);
 		property.setDomain(domain);
-		property.setRange(range);
+		property.setRange(range);		
 		return property;
 	}
 
@@ -93,7 +99,7 @@ public class CompOntologyUtil {
 	public ObjectProperty createObjectProperty(CompOntClass domain,
 			CompOntClass range, CompObjectProperties propertyName) {
 		OntClass ontClass1 = getClass(domain);
-		OntClass ontclass2 = getClass(range);
+		OntClass ontclass2 = getClass(range);		
 		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
 	}
 	
@@ -103,11 +109,9 @@ public class CompOntologyUtil {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public ObjectProperty createObjectPropertyWithIndividual(Individual individual, Individual individual2, CompObjectProperties compObjectProperties) {	  
-		ObjectProperty result =  createObjectProperty(individual.getOntClass(), individual2.getOntClass(), compObjectProperties.name());
-		Resource resourceTyp = result.getRDFType();		
-		individual.addProperty(result.asProperty(), resourceTyp);       
-		individual2.addProperty(result.asProperty(), resourceTyp);			       		
+	public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {	  
+		ObjectProperty result =  getObjectPropertyForString(compObjectProperties.name());				
+		domainIndividual.addProperty(result.asObjectProperty(), rangeIndividual);			
 		return result;
 	}
 	
@@ -119,6 +123,7 @@ public class CompOntologyUtil {
 	 * @throws IOException
 	 */
 	public void writeOntologyout(Model m) throws IOException {
+		
 		OutputStream out = null;
 		try {
 			// // XML format - long and verbose
@@ -167,7 +172,7 @@ public class CompOntologyUtil {
 	 * @param ontClass
 	 */
 	public OntClass createOntClassForString(String string) {
-		return m.createClass(MagicStrings.PREFIX + string);
+		return m.createClass(encode(MagicStrings.PREFIX + string));
 	}
 
 	/**
@@ -176,7 +181,7 @@ public class CompOntologyUtil {
 	 * @return
 	 */
 	public OntClass getOntClassForString(String className) {
-		OntClass paper = m.getOntClass(MagicStrings.PREFIX + className);
+		OntClass paper = m.getOntClass(encode(MagicStrings.PREFIX + className));
 		return paper;
 	}
 	
@@ -249,7 +254,12 @@ public class CompOntologyUtil {
 	}
 	
 	public ObjectProperty getObjectPropertyForString(String objectProperty) {
-		return m.createObjectProperty(MagicStrings.PREFIX + objectProperty);
+		return m.createObjectProperty(encode(MagicStrings.PREFIX + objectProperty));
+	}
+	
+	private String encode(String string) {
+//		return string;
+		return URIref.encode(string);
 	}
 	
 	

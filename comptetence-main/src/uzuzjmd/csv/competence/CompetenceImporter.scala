@@ -28,7 +28,7 @@ object CompetenceImporter {
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
       map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences). // erstellt neue Klasse    
-      map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString))). //filtered leere Catchwords und Überschrift
+      map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString).map(CompetenceMaps.cleanCatchwords))). //filtered leere Catchwords und Überschrift
       map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
       map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
       map(a => a.copy(evidencen = CompetenceMaps.cleanHTML(a.evidencen)))
