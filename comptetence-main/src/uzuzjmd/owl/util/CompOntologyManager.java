@@ -93,7 +93,7 @@ public class CompOntologyManager {
 
 	private void initializeOntologyModelInMemory() {
 		setM(ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
+				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));		
 
 	}
 
