@@ -134,3 +134,4 @@ gui/war/WEB-INF/classes/de/unipotsdam/kompetenzmanager/server/neo4j/Neo4JStarter
 gui/war/WEB-INF/classes/de/unipotsdam/kompetenzmanager/server/neo4j/Neo4JStarter.class
 gui/war/WEB-INF/classes/de/unipotsdam/kompetenzmanager/server/neo4j/RelTypes.class
 gui/war/WEB-INF/classes/de/unipotsdam/kompetenzmanager/server/Neo4JGraphBackendImpl.class
+comptetence-main/tdb2
