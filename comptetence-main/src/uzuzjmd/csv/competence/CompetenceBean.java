@@ -1,6 +1,7 @@
 package uzuzjmd.csv.competence;
 
 public class CompetenceBean {
+	private String learner;
 	private String operator;
 	private String catchword;
 	private String competence;
@@ -64,5 +65,11 @@ public class CompetenceBean {
 	}
 	public void setMetaoperator(String metaoperator) {
 		this.metaoperator = metaoperator;
+	}
+	public String getLearner() {
+		return learner;
+	}
+	public void setLearner(String learner) {
+		this.learner = learner;
 	}
 }
