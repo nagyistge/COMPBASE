@@ -14,5 +14,5 @@ public enum CompObjectProperties {
 	HasCompetence,
 	SpecifiedBy,
 	LearnerOf,
-	requiredFor
+	requiredFor,	
 }

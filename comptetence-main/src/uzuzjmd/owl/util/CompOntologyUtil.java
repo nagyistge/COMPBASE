@@ -1,11 +1,15 @@
 package uzuzjmd.owl.util;
 
 import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
@@ -22,6 +26,7 @@ import com.hp.hpl.jena.util.iterator.Filter;
 
 public class CompOntologyUtil {
 
+	static final Logger logger = LogManager.getLogger(CompOntologyUtil.class.getName());
 	private OntModel m;
 
 	public CompOntologyUtil(OntModel m) {
@@ -187,8 +192,13 @@ public class CompOntologyUtil {
 	 * @param compObjectProperties ObjectPropertyClassifier
 	 * @return relatedClasses
 	 */
-	public Set<OntClass> getRelatedClassesForOntClass(String competenceClassString, final CompObjectProperties compObjectProperties) {
-		OntClass competenceClass = m.getOntClass(competenceClassString);		
+	public Set<OntClass> getRelatedClassesForOntClass(String classString, final CompObjectProperties compObjectProperties) {
+		OntClass competenceClass = getOntClassForString(classString);		
+		if (competenceClass == null) {
+			String message = "There is no class for the specified String";
+			logger.error(message);
+			throw new Error("There is no class for the specified String");
+		}
 		List<OntProperty> properties = getRelatedProperties(
 				compObjectProperties, competenceClass);
 		Set<OntClass> result = new HashSet<OntClass>();
@@ -202,7 +212,7 @@ public class CompOntologyUtil {
 
 	private List<OntProperty> getRelatedProperties(
 			final CompObjectProperties compObjectProperties,
-			OntClass competenceClass) {
+			OntClass competenceClass) {		
 		List<OntProperty> properties = competenceClass.listDeclaredProperties().filterKeep(new Filter<OntProperty>() {			
 			@Override
 			public boolean accept(OntProperty o) {
