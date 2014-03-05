@@ -1,5 +1,8 @@
 package uzuzjmd.rcd.mapper
 
+import org.apache.log4j.Level
+import org.apache.log4j.LogManager
+import org.apache.log4j.Logger
 import uzuzjmd.csv.competence.FilteredCSVCompetence
 import uzuzjmd.rcd.competence.RCDFilter
 import uzuzjmd.rcd.generated.Rdceo
@@ -27,8 +30,14 @@ import uzuzjmd.owl.util.CompOntologyManager
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.util.iterator.Filter
+import uzuzjmd.console.util.LogStream
+import uzuzjmd.rcd.competence.RCDMaps
 
 object RCD2OWL {
+  
+  val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
+  logger.setLevel(Level.DEBUG)
+  val logStream = new LogStream(logger, Level.DEBUG);
 
   /**
    * A bunch of useful toString - Methoden, um die Arbeit mit RCDEOs zu vereinfachen
@@ -65,12 +74,10 @@ object RCD2OWL {
    * ist nicht Zustandsfrei, da das StandardModel über den
    * Manager geladen wird
    */
-  def convert(rcdeos: Buffer[Rdceo]): OntModel = {
-    val manager = new CompOntologyManager
+  def convert(rcdeos: Buffer[Rdceo], manager : CompOntologyManager): OntModel = {      
     val ontmodel = manager.getM()
     val objectProperties = convertObjectProperties(rcdeos, ontmodel)
-
-    return null;
+    return ontmodel;
   }
 
   /**
@@ -84,24 +91,34 @@ object RCD2OWL {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  private def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel) {
+  private def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel) {    
+    val logger = RCD2OWL.logger
+    val logStream = RCD2OWL.logStream
+    
     val util = new CompOntologyUtil(ontModel)
 
-    val triples = getStatementTriples(rcdeos)
+    val triples = getStatementTriples(rcdeos).map(RCDMaps.convertTriplesToOperators).filterNot(RCDFilter.isTripleWithBlanc)
 
     // die mit object property & classes
-    val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)
-    createOntClassesForTitle(util, triplesWithObjectProperties)
-    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
+    val triplesWithObjectProperties = triples.filter(RCDFilter.isObjectPropertyTriple)    
+    createOntClassesForTitle(util, triplesWithObjectProperties)    
+    logger.debug("Classes for Titles created")
+    createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)    
+    logger.debug("ObjectProps for default cases created")
     createDescriptionElementOfRels(util, triplesWithObjectProperties)
+    logger.debug("DescriptionElementRels created ")
     createSubOperatorRels(util, triplesWithObjectProperties)
+    //ontModel.write(logStream)
+    logger.debug("SubOperator rels created")
     createMetaOperatorRels(util, triplesWithObjectProperties)
+    logger.debug("metaoperator rels created")
 
     // data properties
     //TODO
 
     // debugging output
     // triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
+    util.writeOntologyout(ontModel)
 
   }
 
@@ -173,7 +190,7 @@ object RCD2OWL {
   private def createMetaOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
     val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
     metaCatchwordTriples.foreach(
-      x => util.getRelatedClassesForOntClass(x._3, CompObjectProperties.MetaCatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
+      x => util.getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
   }
 
   private def createDescriptionElementOfRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]) = {
@@ -193,7 +210,7 @@ object RCD2OWL {
     defaultCasesObjectProperties.foreach(x => 
       util.createObjectPropertyWithIndividual(
           util.createIndividualForString(util.getClass(CompOntClass.Competence), x._1), 
-          util.createIndividualForString(util.getClass(CompOntClass.valueOf(x._2)), x._3),
+          util.createIndividualForString(util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((x._2)))), x._3),
           CompObjectProperties.valueOf(x._2)))
   }
 
