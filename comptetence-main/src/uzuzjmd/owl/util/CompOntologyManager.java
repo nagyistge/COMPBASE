@@ -8,6 +8,8 @@ import uzuzjmd.console.util.LogStream;
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
 
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
@@ -37,6 +39,8 @@ public class CompOntologyManager {
 		// m = this.util.initializeOntologyModel();	
 		initClasses();
 		initObjectProperties();
+		// only for developing purposes
+		initIndividuals();
 		
 		logger.info("Base Ontology created");
 		logger.setLevel(Level.DEBUG);		
@@ -47,11 +51,28 @@ public class CompOntologyManager {
 		return getM();
 	}
 
+	private void initIndividuals() {
+		OntClass learnerClass = util.createOntClass(CompOntClass.Learner);
+		OntClass competence = util.createOntClass(CompOntClass.Competence);
+		Individual individual = util.createIndividualForString(learnerClass, "julian");
+		util.createObjectPropertyWithIndividualAndClass(individual, competence, CompObjectProperties.LearnerOf);
+		
+		OntClass catchwordClass = util.createOntClass(CompOntClass.Catchword);		
+		Individual catchwordIndividual = util.createIndividualForString(catchwordClass, "mycachtword");
+		util.createObjectPropertyWithIndividualAndClass(catchwordIndividual, competence, CompObjectProperties.CatchwordOf);
+		
+	}
+
+
 	private void initObjectProperties() {
 		getUtil().createObjectProperty(CompOntClass.Learner,
 				CompOntClass.Competence, CompObjectProperties.LearnerOf);
+		getUtil().createObjectProperty(CompOntClass.Competence,
+				CompOntClass.Learner, CompObjectProperties.LearnerOfInverse);
 		getUtil().createObjectProperty(CompOntClass.Catchword,
 				CompOntClass.Competence, CompObjectProperties.CatchwordOf);
+		getUtil().createObjectProperty(CompOntClass.Competence,
+				CompOntClass.Catchword, CompObjectProperties.CatchwordOfInverse);
 		getUtil().createObjectProperty(CompOntClass.Evidence,
 				CompOntClass.Competence, CompObjectProperties.EvidencOf);
 		getUtil().createObjectProperty(CompOntClass.Operator,
@@ -66,9 +87,9 @@ public class CompOntologyManager {
 				CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.Competence, CompObjectProperties.SimilarTo);
-		getM().getObjectProperty(
-				MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
-				.addProperty(RDF.type, OWL2.ReflexiveProperty);
+//		getM().getObjectProperty(
+//				MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
+//				.addProperty(RDF.type, OWL2.ReflexiveProperty);
 	}
 
 	private void initClasses() {
