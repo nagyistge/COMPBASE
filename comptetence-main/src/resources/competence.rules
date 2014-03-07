@@ -7,5 +7,5 @@
 
 [testrule: -> (comp:test rdf:type rdfs:Resource)]
 [operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]
-[operatorInverse: (?a comp:CatchwordOf ?b) -> (?b comp:CatchwordOfInverse ?a)]
+[operatorInverse2: (?a comp:CatchwordOf ?b) -> (?b comp:CatchwordOfInverse ?a)]
    
