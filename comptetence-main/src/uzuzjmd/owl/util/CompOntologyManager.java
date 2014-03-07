@@ -53,7 +53,8 @@ public class CompOntologyManager {
 
 	private void initIndividuals() {
 		OntClass learnerClass = util.createOntClass(CompOntClass.Learner);
-		OntClass competence = util.createOntClass(CompOntClass.Competence);
+		OntClass competence = util.createOntClassForString("TestCompetence");
+		competence.addSuperClass(util.getClass(CompOntClass.Competence));
 		Individual individual = util.createIndividualForString(learnerClass, "julian");
 		util.createObjectPropertyWithIndividualAndClass(individual, competence, CompObjectProperties.LearnerOf);
 		
