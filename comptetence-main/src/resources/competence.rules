@@ -1,4 +1,4 @@
-@prefix comp: <http://www.uzuzjmd.de/proof-of-concept.owl#>
+@prefix comp: <http://www.uzuzjmd.de/proof-of-concept.owl#> . @include <OWLMini>.
 
 #[rdfs2:  (?x ?p ?y), (?p rdfs:domain ?c) -> (?x rdf:type ?c)]
 #[rdfs3:  (?x ?p ?y), (?p rdfs:range ?c) -> (?y rdf:type ?c)]
@@ -8,4 +8,5 @@
 [testrule: -> (comp:test rdf:type rdfs:Resource)]
 [operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]
 [operatorInverse2: (?a comp:CatchwordOf ?b) -> (?b comp:CatchwordOfInverse ?a)]
-   
+[opinheritence: (?a comp:LearnerOf ?competence) (?competence rdfs:subClassOf ?c) notEqual(?c, owl:Thing) notEqual(?c, rdfs:Resource) 
+			 -> (?a comp:LearnerOf ?c)]

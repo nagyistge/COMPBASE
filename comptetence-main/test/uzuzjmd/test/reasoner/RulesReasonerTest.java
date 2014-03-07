@@ -33,6 +33,9 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.reasoner.Reasoner;
+import com.hp.hpl.jena.reasoner.ReasonerFactory;
+import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 
 public class RulesReasonerTest {
 
@@ -40,10 +43,14 @@ public class RulesReasonerTest {
 	public void test() throws IOException {
 		CompOntologyManager manager = initOntology();
 		System.out.println("testing simple rules");
-		SimpleRulesReasoner reasoner = new SimpleRulesReasoner(manager);
+		SimpleRulesReasoner rulesReasoner = new SimpleRulesReasoner(manager);
 		//manager.getM().validate();
-		reasoner.reason();
+		rulesReasoner.reason();		
+		
+		Reasoner transitivReasoner  = ReasonerRegistry.getTransitiveReasoner();		
+		InfModel infModel = ModelFactory.createInfModel(transitivReasoner, manager.getM());				
 		manager.getUtil().writeOntologyout(manager.getM());
+		//manager.getUtil().writeOntologyout(manager.getM().add(infModel));
 	}
 	
 	//@Test
