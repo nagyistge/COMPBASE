@@ -70,16 +70,6 @@ object RCD2OWL {
     return x.map(x => toMyString5(x))
   }
 
-  /**
-   * TODO: Needs implementation
-   * ist nicht Zustandsfrei, da das StandardModel über den
-   * Manager geladen wird
-   */
-  def convert(rcdeos: Buffer[Rdceo], manager : CompOntologyManager): OntModel = {      
-    val ontmodel = manager.getM()
-    val objectProperties = convertObjectProperties(rcdeos, ontmodel)
-    return ontmodel;
-  }
 
   /**
    * special cases
@@ -92,11 +82,12 @@ object RCD2OWL {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  private def convertObjectProperties(rcdeos: Buffer[Rdceo], ontModel: OntModel) {    
+  def convert(rcdeos: Buffer[Rdceo], manager : CompOntologyManager): OntModel = {  
     val logger = RCD2OWL.logger
     val logStream = RCD2OWL.logStream
     
-    val util = new CompOntologyUtil(ontModel)
+    val util = manager.getUtil()
+    val ontModel = manager.getM()
         
     
     val triples = getStatementTriples(rcdeos).map(RCDMaps.convertTriplesToOperators).filterNot(RCDFilter.isTripleWithBlanc)
@@ -128,7 +119,7 @@ object RCD2OWL {
 
     // debugging output
     //triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
-    
+    return null
 
   }
 
@@ -140,9 +131,8 @@ object RCD2OWL {
   private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyUtil) {
     val individualDescriptionElement = util.createIndividualForString(util.getClass(CompOntClass.DescriptionElement), triple._3)
     val objectProperty = util.getObjectPropertyForString(triple._2)   
-    val competenceClass = util.getClass(CompOntClass.DescriptionElement)
-    // TODO 
-    val relatedClasses = util.getRelatedClassesForOntClass(triple._1, CompObjectProperties.HasCompetence);
+    val competenceClass = util.getClass(CompOntClass.DescriptionElement)    
+    val relatedClasses = util.getQueries().getRelatedClassesForOntClass(triple._1, CompObjectProperties.HasCompetence);
     relatedClasses.asScala.foreach(y=>individualDescriptionElement.addProperty(objectProperty.asObjectProperty(), y))          
   }
 
@@ -185,28 +175,28 @@ object RCD2OWL {
   /**
    * Looks up Competence for each Title
    * Then it searches for all Operators of this Competence
-   * Then it makes them inherit the superOperator specified
-   * TODO
+   * Then it makes them inherit the superOperator specified    
    */
   private def createSubOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
 
-//    val suboperatorTriples = triplesWithObjectProperties.filter(RCDFilter.isSubOperatorTriple)
-//    suboperatorTriples.foreach(
-//      x =>
-//        util.getOperatorsForOntClass(x._1).asScala.foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
+    val suboperatorTriples = triplesWithObjectProperties.filter(RCDFilter.isSubOperatorTriple)
+    suboperatorTriples.foreach(
+      x =>
+        util.getQueries().getRelatedClassesForOntClass(x._1,CompObjectProperties.OperatorOf).asScala.
+        foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
   }
 
-  /**
-   * TODO
-   */
+  
   private def createMetaOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
-//    val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
-//    metaCatchwordTriples.foreach(
-//      x => util.getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
+    val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
+    metaCatchwordTriples.foreach(
+      x => util.getQueries().getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.
+      foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
   }
 
   private def createDescriptionElementOfRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]) = {
-    triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).foreach(x => competenceDescriptionToOnt(x, util))
+      triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).
+      foreach(x => competenceDescriptionToOnt(x, util))
   }
 
   /**
