@@ -1,5 +1,7 @@
 package uzuzjmd.owl.util;
 
+import java.io.IOException;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -7,6 +9,8 @@ import org.apache.log4j.Logger;
 import uzuzjmd.console.util.LogStream;
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
+import uzuzjmd.owl.reasoning.jena.ModelChangeListener;
+import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -14,6 +18,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelChangedListener;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.OWL2;
@@ -23,6 +28,7 @@ public class CompOntologyManager {
 
 	private CompOntologyUtil util;
 	private OntModel m;
+	private SimpleRulesReasoner rulesReasoner;
 	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
 	static LogStream logStream = new LogStream(logger, Level.TRACE);
 	
@@ -32,15 +38,41 @@ public class CompOntologyManager {
 		
 		// initializeOntologyModel();
 		this.util = new CompOntologyUtil(getM());
+		
+		// init simple Rules Reasoner
+		initReasoner();	
+		
+		// apply rules whenever the model is changed
+		ModelChangedListener modelChangedListener = new ModelChangeListener(m,rulesReasoner);
+		m.register( modelChangedListener );
+	}
+
+
+	private void initReasoner() {
+		try {
+			rulesReasoner = new SimpleRulesReasoner(m);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	private SimpleRulesReasoner initRulesReasoning() {		
+		rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
+		rulesReasoner.reason();
+		return rulesReasoner;
 	}
 
 	
 	public OntModel createBaseOntology() {
 		// m = this.util.initializeOntologyModel();	
 		initClasses();
-		initObjectProperties();
+		initObjectProperties();		
 		// only for developing purposes
-		initIndividuals();
+		initIndividuals();		 
+		// init rulesReasoning and add standard rules
+		rulesReasoner = initRulesReasoning();
 		
 		logger.info("Base Ontology created");
 		logger.setLevel(Level.DEBUG);		
@@ -129,6 +161,10 @@ public class CompOntologyManager {
 
 	public void setM(OntModel m) {
 		this.m = m;
+	}
+	
+	public SimpleRulesReasoner getRulesReasoner() {
+		return rulesReasoner;
 	}
 
 }
