@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -230,7 +231,7 @@ public class CompOntologyUtil {
 		return result;
 	}
 
-	private List<OntProperty> getRelatedProperties(
+	public List<OntProperty> getRelatedProperties(
 			final CompObjectProperties compObjectProperties,
 			OntClass competenceClass) {		
 		List<OntProperty> properties = competenceClass.listDeclaredProperties().filterKeep(new Filter<OntProperty>() {			
@@ -238,7 +239,7 @@ public class CompOntologyUtil {
 			public boolean accept(OntProperty o) {
 				return o.equals(m.getObjectProperty(MagicStrings.PREFIX + compObjectProperties.name()).asProperty());
 			}
-		}).toList();
+		}).toList();				
 		return properties;
 	} 
 	
