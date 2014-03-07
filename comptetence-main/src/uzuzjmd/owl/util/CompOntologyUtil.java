@@ -3,41 +3,38 @@ package uzuzjmd.owl.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
+import uzuzjmd.owl.competence.queries.CompetenceQueries;
 
-import com.clarkparsia.sparqlowl.parser.antlr.SparqlOwlParser.objectPropertyExpression_return;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntProperty;
-import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.util.URIref;
-import com.hp.hpl.jena.util.iterator.Filter;
 
 public class CompOntologyUtil {
 
 	static final Logger logger = LogManager.getLogger(CompOntologyUtil.class.getName());
 	private OntModel m;
+	private CompetenceQueries queries;
 	
 
 		
-	public CompOntologyUtil(OntModel m) {
+	public CompOntologyUtil(OntModel m, CompetenceQueries queries) {
 		this.m = m;
+		this.queries = queries;
 	}
+	
+	public CompetenceQueries getQueries() {
+		return queries;
+	}
+	
 	
 	public OntModel getM() {
 		return m;
@@ -201,73 +198,7 @@ public class CompOntologyUtil {
 		return paper;
 	}
 	
-	public Set<OntClass> getOperatorsForOntClass(String string) {
-		return getRelatedClassesForOntClass(string,  CompObjectProperties.OperatorOf);
-	} 
 	
-	/**
-	 * 
-	 * This only works if the ObjectProperty is registered within the Class specified by the String
-	 * and the ObjectProperty is either point "Range" or "Domain" to the Class specified by the String 
-	 * @param string Classname
-	 * @param compObjectProperties ObjectPropertyClassifier
-	 * @return relatedClasses
-	 */
-	public Set<OntClass> getRelatedClassesForOntClass(String classString, final CompObjectProperties compObjectProperties) {
-		OntClass competenceClass = getOntClassForString(classString);		
-		if (competenceClass == null) {
-			String message = "There is no class for the specified String";
-			logger.error(message);
-			throw new Error("There is no class for the specified String");
-		}
-		List<OntProperty> properties = getRelatedProperties(
-				compObjectProperties, competenceClass);
-		Set<OntClass> result = new HashSet<OntClass>();
-		for (OntProperty ontClass : properties) {			
-			result.add(ontClass.getDomain().asClass());
-			result.add(ontClass.getRange().asClass());
-		}
-		result.remove(competenceClass);
-		return result;
-	}
-
-	public List<OntProperty> getRelatedProperties(
-			final CompObjectProperties compObjectProperties,
-			OntClass competenceClass) {		
-		List<OntProperty> properties = competenceClass.listDeclaredProperties().filterKeep(new Filter<OntProperty>() {			
-			@Override
-			public boolean accept(OntProperty o) {
-				return o.equals(m.getObjectProperty(MagicStrings.PREFIX + compObjectProperties.name()).asProperty());
-			}
-		}).toList();				
-		return properties;
-	} 
-	
-	/**
-	 * Iterates over all the object properties of Type specified and then iterates over all the individuals
-	 * over all the individuals linked to them as range or domain except the individuals of Type
-	 * OntClass specified
-	 * @param compObjectProperties
-	 * @param ontClass
-	 * @return
-	 */
-	public Set<Individual> getRelatedIndividuals(OntClass ontClass, final CompObjectProperties compObjectProperties) {
-		Set<Individual> individuals = new HashSet<Individual>();
-		List<OntProperty> relatedProps = getRelatedProperties(compObjectProperties, ontClass);
-		for (OntProperty ontProperty : relatedProps) {
-				Set<? extends OntResource> ontRange = ontProperty.listRange().toSet();
-				for (OntResource ontResource : ontRange) {
-					individuals.add(ontResource.asIndividual());
-				}
-				Set<? extends OntResource> ontDomain = ontProperty.listDomain().toSet();
-				for (OntResource ontResource : ontDomain) {
-					if (!ontResource.asIndividual().getOntClass().equals(ontClass)){
-						individuals.add(ontResource.asIndividual());
-					}
-				}
-		}		
-		return individuals;
-	}
 	
 	public ObjectProperty getObjectPropertyForString(String objectProperty) {
 		return m.createObjectProperty(encode(MagicStrings.PREFIX + objectProperty));

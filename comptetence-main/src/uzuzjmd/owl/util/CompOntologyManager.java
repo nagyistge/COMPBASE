@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import uzuzjmd.console.util.LogStream;
 import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
+import uzuzjmd.owl.competence.queries.CompetenceQueries;
 import uzuzjmd.owl.reasoning.jena.ModelChangeListener;
 import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 
@@ -26,18 +27,22 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 public class CompOntologyManager {
 
+	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
+	static LogStream logStream = new LogStream(logger, Level.TRACE);
+	
 	private CompOntologyUtil util;
 	private OntModel m;
 	private SimpleRulesReasoner rulesReasoner;
-	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
-	static LogStream logStream = new LogStream(logger, Level.TRACE);
+	private CompetenceQueries queries;
+
 	
 	public CompOntologyManager() {		
 		// initialize Model
 		initializeOntologyModelInMemory();
 		
 		// initializeOntologyModel();
-		this.util = new CompOntologyUtil(getM());
+		this.queries = new CompetenceQueries(getM());
+		this.util = new CompOntologyUtil(getM(),getQueries());		
 		
 		// init simple Rules Reasoner
 		initReasoner();	
@@ -165,6 +170,10 @@ public class CompOntologyManager {
 	
 	public SimpleRulesReasoner getRulesReasoner() {
 		return rulesReasoner;
+	}
+	
+	public CompetenceQueries getQueries() {
+		return queries;
 	}
 
 }
