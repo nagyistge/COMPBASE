@@ -33,10 +33,13 @@ public class CompOntologyUtil {
 	private OntModel m;
 	
 
+		
 	public CompOntologyUtil(OntModel m) {
 		this.m = m;
-		
-		
+	}
+	
+	public OntModel getM() {
+		return m;
 	}
 
 	/**
@@ -121,9 +124,9 @@ public class CompOntologyUtil {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeIndividual, CompObjectProperties compObjectProperties) {	  
+	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeClass, CompObjectProperties compObjectProperties) {	  
 		ObjectProperty result =  getObjectPropertyForString(compObjectProperties.name());				
-		domainIndividual.addProperty(result.asObjectProperty(), rangeIndividual);			
+		domainIndividual.addProperty(result.asObjectProperty(), rangeClass);			
 		return result;
 	}
 	
