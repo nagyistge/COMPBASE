@@ -41,7 +41,7 @@ public class RulesReasonerTest {
 		CompOntologyManager manager = initOntology();
 		System.out.println("testing simple rules");
 		SimpleRulesReasoner reasoner = new SimpleRulesReasoner(manager);
-		manager.getM().validate();
+		//manager.getM().validate();
 		reasoner.reason();
 		manager.getUtil().writeOntologyout(manager.getM());
 	}
