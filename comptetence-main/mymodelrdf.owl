@@ -1,107 +1,104 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:j.0="http://www.uzuzjmd.de/proof-of-concept.owl#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:j.0="http://comp#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#MetaCatchword">
+  <rdf:Description rdf:about="http://comp#EvidencOf">
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#Evidence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#julian">
+    <j.0:LearnerOf rdf:resource="http://comp#TestCompetence"/>
+    <rdf:type rdf:resource="http://comp#Learner"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CatchwordOfInverse">
+    <rdfs:range rdf:resource="http://comp#Catchword"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#LearnerOf">
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#Learner"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#LearnerOfInverse">
+    <rdfs:range rdf:resource="http://comp#Learner"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#TestCompetence">
+    <j.0:LearnerOfInverse rdf:resource="http://comp#julian"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElementOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElement"/>
+  <rdf:Description rdf:about="http://comp#CompetenceDescription">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#OperatorOf">
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#Operator"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CatchwordOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword"/>
+  <rdf:Description rdf:about="http://comp#Competence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#MetaCatchword">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#DescriptionElement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CompetenceArea">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CatchwordOf">
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#Catchword"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#SimilarTo">
+  <rdf:Description rdf:about="http://comp#SimilarTo">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ReflexiveProperty"/>
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#SpecifiedBy">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceSpec"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword">
+  <rdf:Description rdf:about="http://comp#Evidence">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceArea">
+  <rdf:Description rdf:about="http://comp#CompetenceSpec">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Competence">
-    <j.0:LearnerOfInverse rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#julian"/>
+  <rdf:Description rdf:about="http://comp#Operator">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#LearnerOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Learner"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#mycachtword">
-    <j.0:CatchwordOf rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#TestCompetence"/>
-    <rdf:type rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Evidence">
+  <rdf:Description rdf:about="http://comp#Learner">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#EvidencOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Evidence"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CatchwordOfInverse">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Catchword"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#test">
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Learner">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#TestCompetence">
-    <j.0:LearnerOfInverse rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#julian"/>
-    <j.0:CatchwordOfInverse rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#mycachtword"/>
-    <rdfs:subClassOf rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#LearnerOfInverse">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Learner"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
+  <rdf:Description rdf:about="http://comp#DescriptionElementOf">
+    <rdfs:range rdf:resource="http://comp#CompetenceDescription"/>
+    <rdfs:domain rdf:resource="http://comp#DescriptionElement"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#OperatorOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Operator"/>
+  <rdf:Description rdf:about="http://comp#CompetenceDescriptionOf">
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+    <rdfs:domain rdf:resource="http://comp#CompetenceDescription"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#DescriptionElement">
+  <rdf:Description rdf:about="http://comp#mycachtword">
+    <j.0:CatchwordOf rdf:resource="http://comp#TestCompetence"/>
+    <rdf:type rdf:resource="http://comp#Catchword"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Catchword">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#Operator">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceSpec">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#julian">
-    <j.0:LearnerOf rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <j.0:LearnerOf rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#TestCompetence"/>
-    <rdf:type rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Learner"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescriptionOf">
-    <rdfs:range rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#Competence"/>
-    <rdfs:domain rdf:resource="http://www.uzuzjmd.de/proof-of-concept.owl#CompetenceDescription"/>
+  <rdf:Description rdf:about="http://comp#SpecifiedBy">
+    <rdfs:range rdf:resource="http://comp#CompetenceSpec"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
 </rdf:RDF>
