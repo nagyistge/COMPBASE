@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import uzuzjmd.console.util.LogStream;
 import uzuzjmd.owl.util.CompOntologyManager;
+import uzuzjmd.owl.util.MagicStrings;
 
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -41,14 +42,16 @@ public class SimpleRulesReasoner {
 	public SimpleRulesReasoner(CompOntologyManager manager) throws IOException {
 		this.manager = manager;
 		rules = createStaticRules();		
+		logger.setLevel(Level.DEBUG);
 		setupRulesReasoner(manager, rules);		
 	}
 
 	public Model reason() {		
 		InfModel inf = ModelFactory.createInfModel(reasoner, manager.getM());		
-		logger.debug("A * * =>");		
+		logger.debug("RulesReasoner * * =>");		
 		manager.getM().add(inf.getDeductionsModel());
-		manager.getM().write(logStream);		
+		inf.getDeductionsModel().write(logStream,"N-TRIPLE","comp:");
+		logger.debug("RulesReasoner close");
 		return inf.getDeductionsModel();
 	}
 
@@ -65,7 +68,7 @@ public class SimpleRulesReasoner {
 	private List<Rule> createStaticRules() {
 		List<Rule> rules = null;
 		try {		
-			rules = Rule.parseRules( Rule.rulesParserFromReader(new BufferedReader(new FileReader("I:/workspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules"))));
+			rules = Rule.parseRules( Rule.rulesParserFromReader(new BufferedReader(new FileReader(MagicStrings.RULESFILE))));
 		} catch (ParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +80,8 @@ public class SimpleRulesReasoner {
 	}
 	
 	public void addRuleAsString(String rule) {
-		List<Rule> rules = Rule.parseRules(rule);
+		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
+		List<Rule> rules = Rule.parseRules(rule);		
 		this.rules.addAll(rules);	
 	} 
 }
