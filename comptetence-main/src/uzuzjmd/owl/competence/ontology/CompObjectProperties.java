@@ -15,4 +15,5 @@ public enum CompObjectProperties {
 	SpecifiedBy,
 	LearnerOf,
 	requiredFor,	
+	LearnerOfInverse, CatchwordOfInverse,
 }
