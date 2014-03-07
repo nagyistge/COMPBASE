@@ -41,17 +41,14 @@ public class RulesReasonerTest {
 
 	@Test
 	public void test() throws IOException {
-		CompOntologyManager manager = initOntology();
 		System.out.println("testing simple rules");
-		SimpleRulesReasoner rulesReasoner = new SimpleRulesReasoner(manager);
-		rulesReasoner.addRuleAsString("[operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]");
-		//manager.getM().validate();
-		rulesReasoner.reason();		
-		
-		Reasoner transitivReasoner  = ReasonerRegistry.getTransitiveReasoner();		
-		InfModel infModel = ModelFactory.createInfModel(transitivReasoner, manager.getM());				
-		manager.getUtil().writeOntologyout(manager.getM());
-		//manager.getUtil().writeOntologyout(manager.getM().add(infModel));
+		CompOntologyManager manager = initOntology();		
+		CompOntologyUtil util = manager.getUtil();
+		OntClass learnerClass = util.createOntClass(CompOntClass.Learner);
+		OntClass competence = util.createOntClassForString("TestCompetence");
+		competence.addSuperClass(util.getClass(CompOntClass.Competence));
+		Individual individual = util.createIndividualForString(learnerClass, "julian coming late");
+		util.createObjectPropertyWithIndividualAndClass(individual, competence, CompObjectProperties.LearnerOf);				
 	}
 	
 	//@Test
