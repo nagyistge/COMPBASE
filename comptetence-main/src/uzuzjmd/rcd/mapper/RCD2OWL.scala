@@ -109,17 +109,17 @@ object RCD2OWL {
     logger.debug("SubOperator rels created")
     createMetaOperatorRels(util, triplesWithObjectProperties)
     logger.debug("metaoperator rels created")
-    
-    util.writeOntologyout(ontModel)
-
-    
+        
     
     // data properties
-    //TODO
+    rcdeos.foreach(x=>util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))   
+    
+    // for debugging
+    util.writeOntologyout(ontModel)
 
     // debugging output
     //triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
-    return null
+    return ontModel
 
   }
 
@@ -210,10 +210,14 @@ object RCD2OWL {
       filterNot(RCDFilter.isSubClassTriple).
       filterNot(RCDFilter.isSubOperatorTriple)
     defaultCasesObjectProperties.foreach(x => 
-      util.createObjectPropertyWithIndividualAndClass(
-          util.createIndividualForString(util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((x._2)))), x._3),
+      util.createObjectPropertyWithIndividualAndClass(          
+          util.createIndividualForStringWithDefinition(getPropertyClass(x._2, util),getPropertyClass(x._2,util).getLocalName()+x._3.hashCode(),x._3),
           util.getOntClassForString(x._1),           
           CompObjectProperties.valueOf(x._2)))
+  }
+  
+  private def getPropertyClass(input: String, util: CompOntologyUtil ) : OntClass = {
+    return util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((input))))    
   }
 
 }

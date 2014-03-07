@@ -48,8 +48,22 @@ public class CompOntologyUtil {
 	 */
 	public Individual createIndividualForString(OntClass paper,
 			String individualName) {		
-		return m.createIndividual(encode(MagicStrings.PREFIX + individualName), paper);
+		return m.createIndividual(encode(MagicStrings.PREFIX + individualName), paper);				
 	}
+	
+	/**
+	 * creates the individual, if not exists
+	 * @param paper
+	 * @param individualName
+	 * @return
+	 */
+	public Individual createIndividualForStringWithDefinition(OntClass ontClass,
+			String individualName,String definition) {		
+		Individual individual = m.createIndividual(encode(MagicStrings.PREFIX + individualName), ontClass);
+		individual.addLiteral(m.createProperty(MagicStrings.PREFIX+"definition"), definition);
+		return individual;
+	}
+	
 	
 	/**
 	 * returns null if individual does not exist
@@ -205,8 +219,8 @@ public class CompOntologyUtil {
 	}
 	
 	private String encode(String string) {
-//		return string;
-		return URIref.encode(string);
+		return string;
+//		return URIref.encode(string);
 	}
 	
 	
