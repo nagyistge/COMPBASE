@@ -44,6 +44,7 @@ public class RulesReasonerTest {
 		CompOntologyManager manager = initOntology();
 		System.out.println("testing simple rules");
 		SimpleRulesReasoner rulesReasoner = new SimpleRulesReasoner(manager);
+		rulesReasoner.addRuleAsString("[operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]");
 		//manager.getM().validate();
 		rulesReasoner.reason();		
 		
