@@ -64,7 +64,7 @@ public class CompOntologyManager {
 
 
 	private SimpleRulesReasoner initRulesReasoning() {		
-		rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
+		//rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
 		rulesReasoner.reason();
 		return rulesReasoner;
 	}

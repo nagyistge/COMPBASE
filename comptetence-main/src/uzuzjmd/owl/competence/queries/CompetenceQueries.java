@@ -37,7 +37,7 @@ public class CompetenceQueries {
 	 * @param compObjectProperties ObjectPropertyClassifier
 	 * @return relatedClasses
 	 */
-	public Set<OntClass> getRelatedClassesForOntClass(String classString, final CompObjectProperties compObjectProperties) {
+	public Set<OntClass> getRelatedClassesForOntClass(String domainClass, final CompObjectProperties compObjectProperties) {
 		Set<OntClass> result = new HashSet<OntClass>();
 		
 		// Create a new query
@@ -45,7 +45,7 @@ public class CompetenceQueries {
 			"SELECT ?class " +
 			"WHERE {" +
 			"comp:"+compObjectProperties.name() + " rdfs:range ?class." + "\n"+
-			"comp:"+compObjectProperties.name() + " rdfs:domain comp:"+classString +
+			"comp:"+compObjectProperties.name() + " rdfs:domain comp:"+domainClass +
 			"}";
 
 		Query query = QueryFactory.create(queryString); 
@@ -74,14 +74,14 @@ public class CompetenceQueries {
 	 * @param ontClass
 	 * @return
 	 */
-	public Set<Individual> getRelatedIndividuals(OntClass ontClass, final CompObjectProperties compObjectProperties) {
+	public Set<Individual> getRelatedIndividuals(OntClass rangeClass, final CompObjectProperties compObjectProperties) {
 		Set<Individual> result = new HashSet<Individual>();		
 		
 		// Create a new query
 		String queryString = queryprefix + 			
 			"SELECT ?individual " +
 			"WHERE {" +
-			"?individual  comp:"+compObjectProperties.name() + " comp:" + ontClass.getLocalName()+ 		
+			"?individual  comp:"+compObjectProperties.name() + " comp:" + rangeClass.getLocalName()+ 		
 			"}";
 
 		Query query = QueryFactory.create(queryString);
