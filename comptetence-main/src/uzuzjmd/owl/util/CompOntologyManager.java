@@ -87,9 +87,9 @@ public class CompOntologyManager {
 				CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.Competence, CompObjectProperties.SimilarTo);
-//		getM().getObjectProperty(
-//				MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
-//				.addProperty(RDF.type, OWL2.ReflexiveProperty);
+		getM().getObjectProperty(
+				MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
+				.addProperty(RDF.type, OWL2.ReflexiveProperty);
 	}
 
 	private void initClasses() {
