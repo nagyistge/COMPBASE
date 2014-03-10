@@ -6,7 +6,7 @@
 //[rdfs9:  (?x rdfs:subClassOf ?y), (?a rdf:type ?x) -> (?a rdf:type ?y)]
 
 // create inverse relationships
-// [operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]
+[operatorInverse: (?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)]
 [operatorInverse2: (?a comp:CatchwordOf ?b) -> (?b comp:CatchwordOfInverse ?a)]
 [opinheritence: (?a comp:LearnerOf ?competence) (?competence rdfs:subClassOf ?c) notEqual(?c, owl:Thing) notEqual(?c, rdfs:Resource) 
 			 -> (?a comp:LearnerOf ?c)]

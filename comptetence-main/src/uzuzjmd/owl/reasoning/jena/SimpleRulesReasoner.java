@@ -26,7 +26,7 @@ public class SimpleRulesReasoner {
 	/*
 	 * Logging
 	 */
-	static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class
+	public static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class
 			.getName());
 	static LogStream logStream = new LogStream(logger, Level.DEBUG);
 	/**
@@ -39,8 +39,7 @@ public class SimpleRulesReasoner {
 	private GenericRuleReasoner reasoner;
 
 	public SimpleRulesReasoner(OntModel m) throws IOException {
-		this.m = m;
-		logger.setLevel(Level.DEBUG);
+		this.m = m;		
 		setupRulesReasoner();
 	}
 
