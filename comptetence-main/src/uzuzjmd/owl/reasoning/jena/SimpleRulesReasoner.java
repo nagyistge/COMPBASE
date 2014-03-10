@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -20,6 +21,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import com.hp.hpl.jena.reasoner.rulesys.Rule.ParserException;
+import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 
 public class SimpleRulesReasoner {
 
@@ -36,34 +38,41 @@ public class SimpleRulesReasoner {
 	/**
 	 * properties
 	 */
-	private GenericRuleReasoner reasoner;
+	public GenericRuleReasoner reasoner;
 
-	public SimpleRulesReasoner(OntModel m) throws IOException {
+	public SimpleRulesReasoner(OntModel m, Boolean ruleLogging) throws IOException {
 		this.m = m;		
-		setupRulesReasoner();
+		setupRulesReasoner(ruleLogging);
 	}
 
 	public Model reason() {
 		InfModel inf = ModelFactory.createInfModel(reasoner, m);
+		m.validate();
 		m.add(inf.getDeductionsModel());
 		if (!inf.getDeductionsModel().isEmpty()) {
 			logger.debug("RulesReasoner * * =>");
 			inf.getDeductionsModel().write(logStream, "N-TRIPLE", "comp:");
 			logger.debug("RulesReasoner close");
-		}
+		}	
 		return inf.getDeductionsModel();
 	}
 
-	private void setupRulesReasoner() {
-		List<Rule> rules = createStaticRules();
-		reasoner = new GenericRuleReasoner(rules);
+	private void setupRulesReasoner(Boolean ruleLogging) {		
+		List<Rule> rules = new LinkedList<Rule>();
+		reasoner = new GenericRuleReasoner(rules);				
 		reasoner.setDerivationLogging(true);
 		reasoner.setOWLTranslation(true); // not needed in RDFS case
 		reasoner.setTransitiveClosureCaching(true);
-
-		// reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, Boolean.TRUE);
+		reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, ruleLogging);		
+		reason();
 	}
 
+	/**
+	 * somehow not working
+	 * use addRule Method
+	 * @deprecated
+	 * @return
+	 */
 	private List<Rule> createStaticRules() {
 		List<Rule> rules = null;
 		try {
@@ -82,8 +91,8 @@ public class SimpleRulesReasoner {
 
 	public void addRuleAsString(String rule) {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
-		List<Rule> rules = Rule.parseRules(rule);
-		reasoner.addRules(rules);
+		List<Rule> rules = Rule.parseRules(rule);		
+		reasoner.addRules(rules);		
 	}
 
 	/**
@@ -96,7 +105,11 @@ public class SimpleRulesReasoner {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
 		String resultRule = "[" + rulename + ":" + rule + "]";
 		List<Rule> rules = Rule.parseRules(resultRule);
-		reasoner.addRules(rules);
+		reasoner.addRules(rules);		
+	}
+	
+	public GenericRuleReasoner getReasoner() {
+		return reasoner;
 	}
 
 }
