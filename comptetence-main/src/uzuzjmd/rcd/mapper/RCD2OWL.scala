@@ -170,6 +170,9 @@ object RCD2OWL {
     // die ohne subcompetence
     val triplesGroupedByTitles2b = triples.filterNot(RCDFilter.isSubClassTriple).groupBy(x => x._1)
     triplesGroupedByTitles2b.foreach(x => util.createOntClassForString(x._1).addSuperClass(util.getClass(CompOntClass.Competence)))
+    
+    // finally noch individuals für jede Kompetenz erstellen
+    triples.foreach(x=>util.createIndividualForString(util.getOntClassForString(x._1), "I"+x._1))
   }
 
   /**
@@ -227,7 +230,10 @@ object RCD2OWL {
      val localname = input._3
      val genericClassName = localname + localname.hashCode()
      val genericClassAsOnt = util.createOntClassForString(genericClassName,localname)
-     genericClassAsOnt.addSuperClass(genericClass)     
+     genericClassAsOnt.addSuperClass(genericClass)
+     val genericIndividual = util.createSingleTonIndividual(genericClassAsOnt)     
+     val competenceIndividual = util.createSingleTonIndividual(util.getOntClassForString(input._1))
+     util.createObjectPropertyWithIndividual(genericIndividual, competenceIndividual, CompObjectProperties.valueOf(input._2))
   }
 
 }

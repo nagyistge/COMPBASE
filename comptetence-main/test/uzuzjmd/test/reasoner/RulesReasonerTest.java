@@ -77,8 +77,7 @@ public class RulesReasonerTest {
 		Individual testindividual = util.createIndividualForString(
 				learnerClass, "juliancominglate");
 		Individual testindividual2 = util.createIndividualForString(testCompetence, "myTestkompetence");
-		util.createObjectPropertyWithIndividual(testindividual, testindividual2, CompObjectProperties.LearnerOf);		
-		//util.createObjectPropertyWithIndividualAndClass(testindividual, testCompetence, CompObjectProperties.LearnerOf);
+		util.createObjectPropertyWithIndividual(testindividual, testindividual2, CompObjectProperties.LearnerOf);				
 		Set<Individual> individuals = util.getQueries().getRelatedIndividuals(CompObjectProperties.LearnerOf,testindividual2.getLocalName());			
 		
 		System.out.println("found related individuals for TestCompetence+ LearnerOf");
