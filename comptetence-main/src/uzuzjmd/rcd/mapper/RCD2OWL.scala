@@ -212,15 +212,22 @@ object RCD2OWL {
       filterNot(RCDFilter.isMetaCatchwordOfTriple).
       filterNot(RCDFilter.isSubClassTriple).
       filterNot(RCDFilter.isSubOperatorTriple)
-    defaultCasesObjectProperties.foreach(x => 
-      util.createObjectPropertyWithIndividualAndClass(          
-          util.createIndividualForStringWithDefinition(getPropertyClass(x._2, util),getPropertyClass(x._2,util).getLocalName()+x._3.hashCode(),x._3),
-          util.getOntClassForString(x._1),           
-          CompObjectProperties.valueOf(x._2)))
+    defaultCasesObjectProperties.foreach(handleDefaultCases(util))
   }
   
-  private def getPropertyClass(input: String, util: CompOntologyUtil ) : OntClass = {
+  /**
+   * returns the class associated with this property
+   */
+  private def getPropertyClass (util: CompOntologyUtil, input: String)  : OntClass = {
     return util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((input))))    
+  }
+  
+  private def handleDefaultCases (util : CompOntologyUtil) (input: RCDFilter.CompetenceTriple) {     
+     val genericClass = getPropertyClass(util,input._2)
+     val localname = input._3
+     val genericClassName = localname + localname.hashCode()
+     val genericClassAsOnt = util.createOntClassForString(genericClassName,localname)
+     genericClassAsOnt.addSuperClass(genericClass)     
   }
 
 }
