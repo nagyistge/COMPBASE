@@ -17,4 +17,16 @@ public enum CompObjectProperties {
 	requiredFor,	
 	LearnerOfInverse,
 	CatchwordOfInverse,
+	OperatorOfInverse,
+	SimilarToInverse,
+	SubCompetenceOfInverse,
+	SubOperatorOfInverse,	
+	MetaCatchwordOfInverse,	
+	EvidencOfInverse,		
+	CompetenceDescriptionOfInverse,
+	DescriptionElementOfInverse,
+	BelongsToAreaInverse,	
+	HasCompetenceInverse,
+	SpecifiedByInverse,	
+	requiredForInverse
 }

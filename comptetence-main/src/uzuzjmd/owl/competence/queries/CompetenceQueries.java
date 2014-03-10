@@ -15,6 +15,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 
 public class CompetenceQueries {
 	
@@ -42,19 +43,22 @@ public class CompetenceQueries {
 	public Set<OntClass> getRelatedClassesForOntClass(String domainClass, final CompObjectProperties compObjectProperties) {
 		Set<OntClass> result = new HashSet<OntClass>();
 		
-		QueryExecution qe = getClassesForRange(domainClass,
-				compObjectProperties, result);
+		getClassesForRange(domainClass, compObjectProperties, result);		
+		getClassesForDomain(domainClass, compObjectProperties, result);				
+		for (OntClass ontclass : result) {
+			result.addAll(ontclass.listSubClasses().toSet());
+		}
 		
-		getClassesForDomain(domainClass, compObjectProperties, result, qe);				
+		result.remove(m.getOntClass("http://www.w3.org/2002/07/owl#Nothing"));
 		
 		return result;
 	}
 
 	private void getClassesForDomain(String domainClass,
 			final CompObjectProperties compObjectProperties,
-			Set<OntClass> result, QueryExecution qe) {
+			Set<OntClass> result) {
 		// Create a new query for range
-		String queryString2 = queryprefix + 			
+		String queryString = queryprefix + 			
 			"SELECT ?class " +
 			"WHERE {" +
 			"comp:"+compObjectProperties.name() + " rdfs:range  comp:"+domainClass + ".\n"+
@@ -63,22 +67,10 @@ public class CompetenceQueries {
 			"FILTER (?class != rdfs:Resource)" + "\n"+
 			"}";
 
-		Query query2 = QueryFactory.create(queryString2); 
-
-		// Execute the query and obtain results
-		QueryExecution qe2 = QueryExecutionFactory.create(query2, m);
-		ResultSet results2 = qe2.execSelect();
-		   for ( ; results2.hasNext() ; )
-		    {
-		      QuerySolution soln = results2.nextSolution() ;
-		      result.add(soln.getResource("?class").as(OntClass.class));
-		    }
-
-		// Important - free up resources used running the query
-		qe.close();
+		sparql(result, queryString,"?class",OntClass.class);
 	}
 
-	private QueryExecution getClassesForRange(String domainClass,
+	private void getClassesForRange(String domainClass,
 			final CompObjectProperties compObjectProperties,
 			Set<OntClass> result) {
 		// Create a new query
@@ -90,24 +82,10 @@ public class CompetenceQueries {
 			"FILTER (?class != owl:Thing)" + ".\n"+
 			"FILTER (?class != rdfs:Resource)" + "\n"+
 			"}";
-
-		Query query = QueryFactory.create(queryString); 
-
-		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, m);
-		ResultSet results = qe.execSelect();
-		   for ( ; results.hasNext() ; )
-		    {
-		      QuerySolution soln = results.nextSolution() ;
-		      result.add(soln.getResource("?class").as(OntClass.class));
-		    }
-
-		// Important - free up resources used running the query
-		qe.close();
-		return qe;
+		
+		sparql(result, queryString,"?class",OntClass.class);
+				
 	}
-
-
 	
 	/**
 	 * Iterates over all the object properties of Type specified and then iterates over all the individuals
@@ -117,16 +95,28 @@ public class CompetenceQueries {
 	 * @param ontClass
 	 * @return
 	 */
-	public Set<Individual> getRelatedIndividuals(OntClass rangeClass, final CompObjectProperties compObjectProperties) {
+	public Set<Individual> getRelatedIndividuals(final CompObjectProperties compObjectProperties, String rangeIndividualName) {
 		Set<Individual> result = new HashSet<Individual>();		
 		
 		// Create a new query
 		String queryString = queryprefix + 			
 			"SELECT ?individual " +
 			"WHERE {" +
-			"?individual  comp:"+compObjectProperties.name() + " comp:" + rangeClass.getLocalName()+ 		
+			"?individual  comp:"+compObjectProperties.name() + " comp:" + rangeIndividualName+ 		
 			"}";
 
+		sparql(result, queryString,"?individual",Individual.class);
+		return result;
+	}
+
+	/**
+	 * Assumes, that the query only returns only a set of one type which is specified by resultClass
+	 * @param result
+	 * @param queryString
+	 * @param variable
+	 * @param resultClass
+	 */
+	private <T extends RDFNode> void sparql(Set<T> result, String queryString, String variable, Class<T> resultClass) {
 		Query query = QueryFactory.create(queryString);
 
 		// Execute the query and obtain results
@@ -135,11 +125,10 @@ public class CompetenceQueries {
 		   for ( ; results.hasNext() ; )
 		    {
 		      QuerySolution soln = results.nextSolution() ;
-		      result.add(soln.getResource("?individual").as(Individual.class));
+		      result.add(soln.getResource(variable).as( (Class<T>) resultClass));
 		    }
 
 		// Important - free up resources used running the query
 		qe.close();
-		return result;
 	}
 }
