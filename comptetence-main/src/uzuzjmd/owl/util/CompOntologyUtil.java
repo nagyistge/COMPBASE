@@ -16,7 +16,7 @@ import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+import com.hp.hpl.jena.util.URIref;
 
 public class CompOntologyUtil {
 
@@ -132,18 +132,6 @@ public class CompOntologyUtil {
 		return result;
 	}
 	
-	/**
-	 * links the objectProperty to  
-	 * @param individual
-	 * @param individual2
-	 * @param compObjectProperties
-	 */
-	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeClass, CompObjectProperties compObjectProperties) {	  				
-		ObjectProperty result =  getObjectPropertyForString(compObjectProperties.name());				
-		domainIndividual.addProperty(result.asObjectProperty(), rangeClass);			
-		return result;
-	}
-	
 	
 
 	/**
@@ -225,8 +213,12 @@ public class CompOntologyUtil {
 	}
 	
 	private String encode(String string) {
-		return string;
-//		return URIref.encode(string);
+	//	return string;
+		return URIref.encode(string);
+	}
+	
+	public Individual createSingleTonIndividual(OntClass ontclass) {
+		return createIndividualForString(ontclass, "I"+ontclass.getLocalName());
 	}
 	
 	
