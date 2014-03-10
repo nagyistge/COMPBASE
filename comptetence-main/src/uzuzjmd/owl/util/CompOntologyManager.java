@@ -13,8 +13,6 @@ import uzuzjmd.owl.competence.queries.CompetenceQueries;
 import uzuzjmd.owl.reasoning.jena.ModelChangeListener;
 import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 
-import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
@@ -64,7 +62,7 @@ public class CompOntologyManager {
 
 
 	private SimpleRulesReasoner initRulesReasoning() {		
-		//rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
+		rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
 		rulesReasoner.reason();
 		return rulesReasoner;
 	}
@@ -73,11 +71,9 @@ public class CompOntologyManager {
 	public OntModel createBaseOntology() {
 		// m = this.util.initializeOntologyModel();	
 		initClasses();
-		initObjectProperties();		
-		// only for developing purposes
-		initIndividuals();		 
+		initObjectProperties();			 		
 		// init rulesReasoning and add standard rules
-		rulesReasoner = initRulesReasoning();
+		// rulesReasoner = initRulesReasoning();
 		
 		logger.info("Base Ontology created");
 		logger.setLevel(Level.DEBUG);		
@@ -88,18 +84,6 @@ public class CompOntologyManager {
 		return getM();
 	}
 
-	private void initIndividuals() {
-		OntClass learnerClass = util.createOntClass(CompOntClass.Learner);
-		OntClass competence = util.createOntClassForString("TestCompetence");
-		competence.addSuperClass(util.getClass(CompOntClass.Competence));
-		Individual individual = util.createIndividualForString(learnerClass, "julian");
-		util.createObjectPropertyWithIndividualAndClass(individual, competence, CompObjectProperties.LearnerOf);
-		
-		OntClass catchwordClass = util.createOntClass(CompOntClass.Catchword);		
-		Individual catchwordIndividual = util.createIndividualForString(catchwordClass, "mycachtword");
-		util.createObjectPropertyWithIndividualAndClass(catchwordIndividual, competence, CompObjectProperties.CatchwordOf);
-		
-	}
 
 
 	private void initObjectProperties() {
@@ -174,6 +158,15 @@ public class CompOntologyManager {
 	
 	public CompetenceQueries getQueries() {
 		return queries;
+	}
+	
+	public void switchOffDebugg() {
+		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
+
+	}
+	
+	public void switchOnDebug() {
+		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
 	}
 
 }

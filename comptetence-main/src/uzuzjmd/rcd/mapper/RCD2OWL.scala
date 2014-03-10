@@ -107,7 +107,7 @@ object RCD2OWL {
     createSubOperatorRels(util, triplesWithObjectProperties)
     //ontModel.write(logStream)
     logger.debug("SubOperator rels created")
-    createMetaOperatorRels(util, triplesWithObjectProperties)
+    createMetacatchwordRels(util, triplesWithObjectProperties)
     logger.debug("metaoperator rels created")
         
     
@@ -175,7 +175,7 @@ object RCD2OWL {
   /**
    * Looks up Competence for each Title
    * Then it searches for all Operators of this Competence
-   * Then it makes them inherit the superOperator specified    
+   * Then it makes the operator inherit them     
    */
   private def createSubOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
 
@@ -186,9 +186,12 @@ object RCD2OWL {
         foreach(y => y.addSubClass(util.createOntClassForString(x._3))))
   }
 
-  
-  private def createMetaOperatorRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
+  /**
+   * same procedure as with subOperatorRels
+   */
+  private def createMetacatchwordRels(util: uzuzjmd.owl.util.CompOntologyUtil, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
     val metaCatchwordTriples = triplesWithObjectProperties.filter(RCDFilter.isMetaCatchwordOfTriple)
+    val test = util.getQueries().getRelatedClassesForOntClass(metaCatchwordTriples.head.x._1, CompObjectProperties.CatchwordOf).asScala
     metaCatchwordTriples.foreach(
       x => util.getQueries().getRelatedClassesForOntClass(x._1, CompObjectProperties.CatchwordOf).asScala.
       foreach(y => y.addSuperClass(util.createOntClassForString(x._3))))
