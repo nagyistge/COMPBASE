@@ -25,66 +25,64 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 public class CompOntologyManager {
 
-	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
+	static final Logger logger = LogManager.getLogger(CompOntologyManager.class
+			.getName());
 	static LogStream logStream = new LogStream(logger, Level.TRACE);
-	
+
 	private CompOntologyUtil util;
 	private OntModel m;
 	private SimpleRulesReasoner rulesReasoner;
 	private CompetenceQueries queries;
 
-	
-	public CompOntologyManager() {		
+	public CompOntologyManager() {
 		// initialize Model
 		initializeOntologyModelInMemory();
-		
+
 		// initializeOntologyModel();
 		this.queries = new CompetenceQueries(getM());
-		this.util = new CompOntologyUtil(getM(),getQueries());		
-		
-		// init simple Rules Reasoner
-		initReasoner();	
-		
-		// apply rules whenever the model is changed
-		ModelChangedListener modelChangedListener = new ModelChangeListener(m,rulesReasoner);
-		m.register( modelChangedListener );
-	}
+		this.util = new CompOntologyUtil(getM(), getQueries());
 
+		// init simple Rules Reasoner
+		initReasoner();
+
+		// apply rules whenever the model is changed
+		ModelChangedListener modelChangedListener = new ModelChangeListener(
+				rulesReasoner);
+		m.register(modelChangedListener);
+	}
 
 	private void initReasoner() {
 		try {
-			rulesReasoner = new SimpleRulesReasoner(m);
+			rulesReasoner = new SimpleRulesReasoner(m, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-
-	private SimpleRulesReasoner initRulesReasoning() {		
-		rulesReasoner.addRuleAsString("(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)","operatorInverse");
+	private SimpleRulesReasoner initRulesReasoning() {
+		rulesReasoner.addRuleAsString(
+				"(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)",
+				"operatorInverse");
 		rulesReasoner.reason();
 		return rulesReasoner;
 	}
 
-	
 	public OntModel createBaseOntology() {
-		// m = this.util.initializeOntologyModel();	
+		// m = this.util.initializeOntologyModel();
 		initClasses();
-		initObjectProperties();			 		
+		initObjectProperties();
 		// init rulesReasoning and add standard rules
 		// rulesReasoner = initRulesReasoning();
-		
+
 		logger.info("Base Ontology created");
-		logger.setLevel(Level.DEBUG);		
+		logger.setLevel(Level.DEBUG);
 		m.write(logStream);
 
 		// TODO create Restrictions
 
 		return getM();
 	}
-
-
 
 	private void initObjectProperties() {
 		getUtil().createObjectProperty(CompOntClass.Learner,
@@ -93,20 +91,36 @@ public class CompOntologyManager {
 				CompOntClass.Learner, CompObjectProperties.LearnerOfInverse);
 		getUtil().createObjectProperty(CompOntClass.Catchword,
 				CompOntClass.Competence, CompObjectProperties.CatchwordOf);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.Catchword, CompObjectProperties.CatchwordOfInverse);
+		getUtil()
+				.createObjectProperty(CompOntClass.Competence,
+						CompOntClass.Catchword,
+						CompObjectProperties.CatchwordOfInverse);
 		getUtil().createObjectProperty(CompOntClass.Evidence,
 				CompOntClass.Competence, CompObjectProperties.EvidencOf);
+		getUtil().createObjectProperty(CompOntClass.Competence,
+				CompOntClass.Evidence, CompObjectProperties.EvidencOfInverse);
 		getUtil().createObjectProperty(CompOntClass.Operator,
 				CompOntClass.Competence, CompObjectProperties.OperatorOf);
+		getUtil()
+				.createObjectProperty(CompOntClass.Operator,
+						CompOntClass.Competence,
+						CompObjectProperties.OperatorOfInverse);
 		getUtil().createObjectProperty(CompOntClass.DescriptionElement,
 				CompOntClass.CompetenceDescription,
 				CompObjectProperties.DescriptionElementOf);
 		getUtil().createObjectProperty(CompOntClass.CompetenceDescription,
+				CompOntClass.DescriptionElement,
+				CompObjectProperties.DescriptionElementOfInverse);
+		getUtil().createObjectProperty(CompOntClass.CompetenceDescription,
 				CompOntClass.Competence,
 				CompObjectProperties.CompetenceDescriptionOf);
 		getUtil().createObjectProperty(CompOntClass.Competence,
+				CompOntClass.CompetenceDescription,
+				CompObjectProperties.CompetenceDescriptionOfInverse);
+		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
+		getUtil().createObjectProperty(CompOntClass.CompetenceSpec,
+				CompOntClass.Competence, CompObjectProperties.SpecifiedByInverse);
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.Competence, CompObjectProperties.SimilarTo);
 		getM().getObjectProperty(
@@ -136,7 +150,7 @@ public class CompOntologyManager {
 
 	private void initializeOntologyModelInMemory() {
 		setM(ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));		
+				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
 
 	}
 
@@ -151,20 +165,19 @@ public class CompOntologyManager {
 	public void setM(OntModel m) {
 		this.m = m;
 	}
-	
+
 	public SimpleRulesReasoner getRulesReasoner() {
 		return rulesReasoner;
 	}
-	
+
 	public CompetenceQueries getQueries() {
 		return queries;
 	}
-	
+
 	public void switchOffDebugg() {
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
-
 	}
-	
+
 	public void switchOnDebug() {
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
 	}

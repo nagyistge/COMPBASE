@@ -16,7 +16,7 @@ import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.util.URIref;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class CompOntologyUtil {
 
@@ -118,6 +118,8 @@ public class CompOntologyUtil {
 		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
 	}
 	
+	
+	
 	/**
 	 * links the objectProperty to  
 	 * @param individual
@@ -136,7 +138,7 @@ public class CompOntologyUtil {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeClass, CompObjectProperties compObjectProperties) {	  
+	public ObjectProperty createObjectPropertyWithIndividualAndClass(Individual domainIndividual, OntClass rangeClass, CompObjectProperties compObjectProperties) {	  				
 		ObjectProperty result =  getObjectPropertyForString(compObjectProperties.name());				
 		domainIndividual.addProperty(result.asObjectProperty(), rangeClass);			
 		return result;
@@ -198,8 +200,12 @@ public class CompOntologyUtil {
 	 * @param model
 	 * @param ontClass
 	 */
-	public OntClass createOntClassForString(String string) {
-		return m.createClass(encode(MagicStrings.PREFIX + string));
+	public OntClass createOntClassForString(String string, String ... definitions) {
+		OntClass paper = m.createClass(encode(MagicStrings.PREFIX + string));
+		if (definitions != null && definitions.length > 0) {
+			paper.addLiteral(m.createProperty(MagicStrings.PREFIX+"definition"), definitions[0]);
+		}
+		return paper;		
 	}
 
 	/**
@@ -208,7 +214,7 @@ public class CompOntologyUtil {
 	 * @return
 	 */
 	public OntClass getOntClassForString(String className) {
-		OntClass paper = m.getOntClass(encode(MagicStrings.PREFIX + className));
+		OntClass paper = m.getOntClass(encode(MagicStrings.PREFIX + className));				
 		return paper;
 	}
 	
