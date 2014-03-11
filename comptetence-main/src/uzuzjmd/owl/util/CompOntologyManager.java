@@ -29,7 +29,7 @@ public class CompOntologyManager {
 			.getName());
 	static LogStream logStream = new LogStream(logger, Level.TRACE);
 
-	private CompOntologyUtil util;
+	private CompOntologyAccess util;
 	private OntModel m;
 	private SimpleRulesReasoner rulesReasoner;
 	private CompetenceQueries queries;
@@ -40,7 +40,7 @@ public class CompOntologyManager {
 
 		// initializeOntologyModel();
 		this.queries = new CompetenceQueries(getM());
-		this.util = new CompOntologyUtil(getM(), getQueries());
+		this.util = new CompOntologyAccess(getM(), getQueries());
 
 		// init simple Rules Reasoner
 		initReasoner();
@@ -154,7 +154,7 @@ public class CompOntologyManager {
 
 	}
 
-	public CompOntologyUtil getUtil() {
+	public CompOntologyAccess getUtil() {
 		return util;
 	}
 
