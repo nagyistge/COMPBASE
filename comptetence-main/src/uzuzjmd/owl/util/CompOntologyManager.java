@@ -11,6 +11,7 @@ import uzuzjmd.owl.competence.ontology.CompObjectProperties;
 import uzuzjmd.owl.competence.ontology.CompOntClass;
 import uzuzjmd.owl.competence.queries.CompetenceQueries;
 import uzuzjmd.owl.reasoning.jena.ModelChangeListener;
+import uzuzjmd.owl.reasoning.jena.RuleFactory;
 import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -22,6 +23,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.OWL2;
 import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 
 public class CompOntologyManager {
 
@@ -44,6 +46,8 @@ public class CompOntologyManager {
 
 		// init simple Rules Reasoner
 		initReasoner();
+		initRulesFactory(rulesReasoner);
+		// switchOnDebug();
 
 		// apply rules whenever the model is changed
 		ModelChangedListener modelChangedListener = new ModelChangeListener(
@@ -120,7 +124,8 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
 		getUtil().createObjectProperty(CompOntClass.CompetenceSpec,
-				CompOntClass.Competence, CompObjectProperties.SpecifiedByInverse);
+				CompOntClass.Competence,
+				CompObjectProperties.SpecifiedByInverse);
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.Competence, CompObjectProperties.SimilarTo);
 		getM().getObjectProperty(
@@ -146,6 +151,15 @@ public class CompOntologyManager {
 		setM(ModelFactory.createOntologyModel(
 				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
 
+	}
+
+	private SimpleRulesReasoner initRulesFactory(
+			SimpleRulesReasoner rulesReasoner) {
+		RuleFactory factory = new RuleFactory();
+		for (String ruleString : factory.getRuleStringss()) {
+			rulesReasoner.addRuleAsString(ruleString);
+		}
+		return rulesReasoner;
 	}
 
 	private void initializeOntologyModelInMemory() {
@@ -175,10 +189,14 @@ public class CompOntologyManager {
 	}
 
 	public void switchOffDebugg() {
+		rulesReasoner.getReasoner().setParameter(
+				ReasonerVocabulary.PROPtraceOn, false);
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
 	}
 
 	public void switchOnDebug() {
+		rulesReasoner.getReasoner().setParameter(
+				ReasonerVocabulary.PROPtraceOn, true);
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
 	}
 
