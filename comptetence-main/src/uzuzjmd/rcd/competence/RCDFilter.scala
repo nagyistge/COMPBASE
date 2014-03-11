@@ -8,6 +8,10 @@ object RCDFilter {
    *  _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
    */
   type CompetenceTriple = (String, String, String)
+  /**
+   *   suboperatortriples: x._1 competence, x._2 operator,  x._3 suboperator,
+   */
+  type OperatorTriple = (String, String, String)
   type CompetenceFilter = CompetenceTriple => Boolean
 
   def isObjectPropertyTriple(triple: CompetenceTriple): Boolean = {
@@ -32,9 +36,9 @@ object RCDFilter {
 
   def isTripleWithBlanc(triple: CompetenceTriple): Boolean = {
     triple match {
-//      case (null, egal, egal2) => return false
-//      case (egal, null, egal2) => return false
-//      case (egal, egal2, null) => return false
+      //      case (null, egal, egal2) => return false
+      //      case (egal, null, egal2) => return false
+      //      case (egal, egal2, null) => return false
       case ("", egal, egal2) => return true
       case (egal, "", egal2) => return true
       case (egal, egal2, "") => return true
