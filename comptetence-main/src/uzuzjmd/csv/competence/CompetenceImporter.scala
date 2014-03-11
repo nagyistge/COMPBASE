@@ -13,6 +13,7 @@ import uzuzjmd.console.util.ConsoleOut
 import uzuzjmd.rcd.mapper.RCD2OWL
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy
 import uzuzjmd.owl.util.CompOntologyManager
+import uzuzjmd.owl.util.CompFileUtil
 
 object CompetenceImporter {
 
@@ -42,6 +43,10 @@ object CompetenceImporter {
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
     val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
+
+    // for debugging
+    val compFileUtil = new CompFileUtil(compOntManager.getM());
+    compFileUtil.writeOntologyout(compOntManager.getM());
 
   }
 

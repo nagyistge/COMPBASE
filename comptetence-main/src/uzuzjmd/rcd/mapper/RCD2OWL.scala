@@ -33,42 +33,13 @@ import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.console.util.LogStream
 import uzuzjmd.rcd.competence.RCDMaps
 import uzuzjmd.owl.util.CompFileUtil
+import uzuzjmd.owl.reasoning.jena.RuleFactory
 
-object RCD2OWL {
+object RCD2OWL extends RCDImplicits {
 
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
   logger.setLevel(Level.DEBUG)
   val logStream = new LogStream(logger, Level.DEBUG);
-
-  /**
-   * A bunch of useful toString - Methoden, um die Arbeit mit RCDEOs zu vereinfachen
-   * Wichtige Annahme: Die formell als Liste definierte Langstring-Liste besteht immer nur aus einem Element
-   * Wenn dies anders verwendet werden soll, gelten diese implicits nicht mehr
-   *
-   */
-
-  implicit def amyString1(x: Langstring): String = {
-    return x.getValue()
-  }
-  implicit def amyString2(x: Buffer[Langstring]): String = {
-    return amyString1(x.head)
-  }
-
-  implicit def toMyString3(x: Title): String = {
-    return x.getLangstring().asScala.head.getValue()
-  }
-
-  implicit def toMyString4(x: Statementtext): String = {
-    return x.getLangstring().asScala.head.getValue()
-  }
-
-  implicit def toMyString5(x: (Title, String, Statementtext)): (RCDFilter.CompetenceTriple) = {
-    return (toMyString3(x._1), x._2, toMyString4(x._3))
-  }
-
-  implicit def toMyString6(x: Buffer[(Title, String, Statementtext)]): Buffer[RCDFilter.CompetenceTriple] = {
-    return x.map(x => toMyString5(x))
-  }
 
   /**
    * special cases
@@ -98,21 +69,14 @@ object RCD2OWL {
     logger.debug("Classes for Titles created")
     createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
     logger.debug("ObjectProps for default cases created")
-
-    createSubOperatorRels(util, rcdeos)
+    RCD2Operators.createSubOperatorRels(util, rcdeos)
     logger.debug("SubOperator rels created")
-    createMetacatchwordRels(util, triplesWithObjectProperties)
+    RCD2Catchword.createMetaCatchwordRels(util, rcdeos)
     logger.debug("metaoperator rels created")
 
     // data properties
     rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
 
-    // for debugging
-    val compFileUtil = new CompFileUtil(manager.getM());
-    compFileUtil.writeOntologyout(manager.getM());
-
-    // debugging output
-    //triples.map(x => println("Triple" + x._1 + " " + x._2 + " " + x._3))
     return ontModel
 
   }
@@ -166,47 +130,6 @@ object RCD2OWL {
     triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1))
   }
 
-  /**
-   * Looks up Competence for each Title
-   * Then it searches for all Operators of this Competence
-   * Then it makes the operator inherit them
-   */
-  private def createSubOperatorRels(util: uzuzjmd.owl.util.CompOntologyAccess, rcdeos: Buffer[Rdceo]) {
-    rcdeos.foreach(handleRcdeoSubOperators(util))
-  }
-
-  /**
-   * maps the (sub)operator parts of the rcdeo to a model represantation
-   * Hilfsfunktion für createSubOperatorRels
-   */
-  private def handleRcdeoSubOperators(util: CompOntologyAccess)(rcdeo: Rdceo) {
-    // suboperatorTriples.foreach(handleSubOperatorTriple(util))
-    val title = rcdeo.getTitle()
-    val statements = rcdeo.getDefinition().asScala.head.getStatement().asScala
-    val operators = statements.filter(statement => statement.getStatementname().equals(CompOntClass.Operator.name())).map(statement => statement.getStatementtext())
-    val subOperators = statements.filter(statement => statement.getStatementname().equals(CompOntClass.SubOperator.name())).map(statement => statement.getStatementtext())
-    subOperators.foreach(subOperators => operators.foreach(operator => handleSubOperatorTriple(util)((title, operator, subOperators))))
-  }
-
-  /**
-   * suboperatortriples: x._1 competence, x._2 operator,  x._3 suboperator,
-   * Hilfsfunktion für handleRcdeoSubOperators
-   */
-  private def handleSubOperatorTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple) {
-    val operatorIndividual: Individual = util.createSingleTonIndividualWithClass2(input._3)
-    val competenceIndividual: Individual = util.createSingleTonIndividual(input._1)
-    val superOperatorClass: OntClass = util.createSingleTonIndividualWithClass(input._2)
-    operatorIndividual.getOntClass().addSuperClass(superOperatorClass)
-    util.createObjectPropertyWithIndividual(operatorIndividual, competenceIndividual, CompObjectProperties.OperatorOf)
-  }
-
-  /**
-   * same procedure as with subOperatorRels
-   */
-  private def createMetacatchwordRels(util: uzuzjmd.owl.util.CompOntologyAccess, triplesWithObjectProperties: scala.collection.mutable.Buffer[RCDFilter.CompetenceTriple]): Unit = {
-
-  }
-
   private def createDescriptionElementOfRels(util: uzuzjmd.owl.util.CompOntologyAccess, triplesWithObjectProperties: scala.collection.mutable.Buffer[(String, String, String)]) = {
     triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).
       foreach(x => competenceDescriptionToOnt(x, util))
@@ -227,6 +150,7 @@ object RCD2OWL {
 
   /**
    * returns the class associated with this property
+   * HelferClass für handledefaultcases
    */
   private def getPropertyClass(util: CompOntologyAccess, input: String): OntClass = {
     return util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((input))))

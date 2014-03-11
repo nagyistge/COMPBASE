@@ -38,8 +38,13 @@ import uzuzjmd.csv.competence.FilteredCSVCompetence
 import uzuzjmd.rcd.mapper.RCD2OWL
 import uzuzjmd.rcd.mapper.CSV2RCD
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-object testimport {;import org.scalaide.worksheet.runtime.library.WorksheetSupport._; def main(args: Array[String])=$execute{;$skip(1618); 
+
+
+object testimport {;import org.scalaide.worksheet.runtime.library.WorksheetSupport._; def main(args: Array[String])=$execute{;$skip(1692); 
   println("Welcome to the Scala worksheet");$skip(27); 
   
   val rcdeo = new Rdceo;System.out.println("""rcdeo  : uzuzjmd.rcd.generated.Rdceo = """ + $show(rcdeo ));$skip(83); 
