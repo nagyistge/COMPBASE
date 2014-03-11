@@ -28,8 +28,8 @@ public class SimpleRulesReasoner {
 	/*
 	 * Logging
 	 */
-	public static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class
-			.getName());
+	public static final Logger logger = LogManager
+			.getLogger(SimpleRulesReasoner.class.getName());
 	static LogStream logStream = new LogStream(logger, Level.DEBUG);
 	/**
 	 * dependencies
@@ -40,12 +40,13 @@ public class SimpleRulesReasoner {
 	 */
 	public GenericRuleReasoner reasoner;
 
-	public SimpleRulesReasoner(OntModel m, Boolean ruleLogging) throws IOException {
-		this.m = m;		
+	public SimpleRulesReasoner(OntModel m, Boolean ruleLogging)
+			throws IOException {
+		this.m = m;
 		setupRulesReasoner(ruleLogging);
 	}
 
-	public Model reason() {
+	public synchronized Model reason() {
 		InfModel inf = ModelFactory.createInfModel(reasoner, m);
 		m.validate();
 		m.add(inf.getDeductionsModel());
@@ -53,23 +54,23 @@ public class SimpleRulesReasoner {
 			logger.debug("RulesReasoner * * =>");
 			inf.getDeductionsModel().write(logStream, "N-TRIPLE", "comp:");
 			logger.debug("RulesReasoner close");
-		}	
+		}
 		return inf.getDeductionsModel();
 	}
 
-	private void setupRulesReasoner(Boolean ruleLogging) {		
+	private void setupRulesReasoner(Boolean ruleLogging) {
 		List<Rule> rules = new LinkedList<Rule>();
-		reasoner = new GenericRuleReasoner(rules);				
+		reasoner = new GenericRuleReasoner(rules);
 		reasoner.setDerivationLogging(true);
 		reasoner.setOWLTranslation(true); // not needed in RDFS case
 		reasoner.setTransitiveClosureCaching(true);
-		reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, ruleLogging);		
+		reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, ruleLogging);
 		reason();
 	}
 
 	/**
-	 * somehow not working
-	 * use addRule Method
+	 * somehow not working use addRule Method
+	 * 
 	 * @deprecated
 	 * @return
 	 */
@@ -91,8 +92,8 @@ public class SimpleRulesReasoner {
 
 	public void addRuleAsString(String rule) {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
-		List<Rule> rules = Rule.parseRules(rule);		
-		reasoner.addRules(rules);		
+		List<Rule> rules = Rule.parseRules(rule);
+		reasoner.addRules(rules);
 	}
 
 	/**
@@ -101,13 +102,13 @@ public class SimpleRulesReasoner {
 	 * @param rule
 	 * @param rulename
 	 */
-	public void addRuleAsString(String rule, String rulename) {
+	synchronized public void addRuleAsString(String rule, String rulename) {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
 		String resultRule = "[" + rulename + ":" + rule + "]";
 		List<Rule> rules = Rule.parseRules(resultRule);
-		reasoner.addRules(rules);		
+		reasoner.addRules(rules);
 	}
-	
+
 	public GenericRuleReasoner getReasoner() {
 		return reasoner;
 	}
