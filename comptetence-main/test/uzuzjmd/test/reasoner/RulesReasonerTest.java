@@ -3,7 +3,7 @@ package uzuzjmd.test.reasoner;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,8 +14,8 @@ import uzuzjmd.owl.competence.ontology.CompOntClass;
 import uzuzjmd.owl.reasoning.jena.RuleFactory;
 import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 import uzuzjmd.owl.util.CompFileUtil;
-import uzuzjmd.owl.util.CompOntologyManager;
 import uzuzjmd.owl.util.CompOntologyAccess;
+import uzuzjmd.owl.util.CompOntologyManager;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -85,8 +85,9 @@ public class RulesReasonerTest {
 				testCompetence, "myTestkompetence");
 		util.createObjectPropertyWithIndividual(testindividual,
 				testindividual2, CompObjectProperties.LearnerOf);
-		Set<Individual> individuals = util.getQueries().getRelatedIndividuals(
-				CompObjectProperties.LearnerOf, testindividual2.getLocalName());
+		ConcurrentLinkedQueue<Individual> individuals = util.getQueries()
+				.getRelatedIndividuals(CompObjectProperties.LearnerOf,
+						testindividual2.getLocalName());
 
 		System.out
 				.println("found related individuals for TestCompetence+ LearnerOf");
@@ -99,10 +100,10 @@ public class RulesReasonerTest {
 
 	@Test
 	public void testGetRelatedClasses() throws IOException {
-		Set<OntClass> classes = util.getQueries().getRelatedClassesForOntClass(
-				CompOntClass.Learner.name(),
-				CompObjectProperties.LearnerOfInverse);
-		Set<OntClass> classes2 = util.getQueries()
+		ConcurrentLinkedQueue<OntClass> classes = util.getQueries()
+				.getRelatedClassesForOntClass(CompOntClass.Learner.name(),
+						CompObjectProperties.LearnerOfInverse);
+		ConcurrentLinkedQueue<OntClass> classes2 = util.getQueries()
 				.getRelatedClassesForOntClass(CompOntClass.Learner.name(),
 						CompObjectProperties.LearnerOf);
 		System.out
