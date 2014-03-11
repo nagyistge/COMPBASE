@@ -32,20 +32,17 @@ object CompetenceImporter {
       map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
       map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
       map(a => a.copy(evidencen = CompetenceMaps.cleanHTML(a.evidencen)))
-      
+
     //mapping CSVObjects to RCD
     val rcdeoCompetences = CSV2RCD.mapCompetence(filteredList)
-    
+
     //debuggingOutput
     //ConsoleOut.printFilteredComptences(filteredList)
     //ConsoleOut.printRcdeoCompetences(rcdeoCompetences)
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
-    val result = RCD2OWL.convert(rcdeoCompetences,compOntManager)
-    
-    
+    val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
+
   }
-  
- 
 
 }
