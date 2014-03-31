@@ -1,3 +1,4 @@
+package uzuzjmd.up.competence.competence_server;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
