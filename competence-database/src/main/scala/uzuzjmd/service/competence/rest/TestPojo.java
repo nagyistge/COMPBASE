@@ -1,4 +1,4 @@
-package de.unipotsdam.service.rest;
+package uzuzjmd.service.competence.rest;
 
 import java.util.Map;
 
