@@ -1,4 +1,4 @@
-package de.unipotsdam.service.rest;
+package uzuzjmd.service.competence.rest;
 
 import javax.jws.WebParam;
 import javax.ws.rs.GET;
