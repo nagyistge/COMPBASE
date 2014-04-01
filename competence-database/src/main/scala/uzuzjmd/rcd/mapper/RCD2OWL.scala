@@ -52,7 +52,8 @@ object RCD2OWL extends RCDImplicits {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  def convert(rcdeos: Buffer[Rdceo], manager: CompOntologyManager): OntModel = {
+  def convert(rcdeos: Buffer[Rdceo], manager: CompOntologyManager) {
+    manager.begin()
     val logger = RCD2OWL.logger
     val logStream = RCD2OWL.logStream
 
@@ -76,9 +77,7 @@ object RCD2OWL extends RCDImplicits {
 
     // data properties
     rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
-
-    return ontModel
-
+    manager.close()
   }
 
   /**
