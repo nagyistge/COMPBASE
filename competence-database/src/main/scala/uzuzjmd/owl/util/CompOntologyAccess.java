@@ -21,19 +21,22 @@ public class CompOntologyAccess {
 	static final Logger logger = LogManager.getLogger(CompOntologyAccess.class
 			.getName());
 	private CompFileUtil fileUtil;
-	private OntModel m;
+
 	private CompetenceQueries queries;
+	private CompOntologyManager manager;
 
 	/**
 	 * The QueriesObject and Model are dependencies
 	 * 
 	 * @param m
 	 * @param queries
+	 * @param compOntologyManager
 	 */
-	public CompOntologyAccess(OntModel m, CompetenceQueries queries) {
-		this.m = m;
+	public CompOntologyAccess(OntModel m, CompetenceQueries queries,
+			CompOntologyManager compOntologyManager) {
 		this.queries = queries;
 		this.fileUtil = new CompFileUtil(m);
+		this.manager = compOntologyManager;
 	}
 
 	/**
@@ -45,7 +48,9 @@ public class CompOntologyAccess {
 	 */
 	public Individual createIndividualForString(
 			OntClass classNameWithoutPrefix, String individualName) {
-		return m.createIndividual(encode(MagicStrings.PREFIX + individualName),
+
+		return manager.getM().createIndividual(
+				encode(MagicStrings.PREFIX + individualName),
 				classNameWithoutPrefix);
 	}
 
@@ -58,11 +63,12 @@ public class CompOntologyAccess {
 	 */
 	public Individual createIndividualForStringWithDefinition(
 			OntClass ontClass, String individualName, String definition) {
-		Individual individual = m.createIndividual(encode(MagicStrings.PREFIX
-				+ individualName), ontClass);
+
+		Individual individual = manager.getM().createIndividual(
+				encode(MagicStrings.PREFIX + individualName), ontClass);
 		individual.addLiteral(
-				m.createProperty(MagicStrings.PREFIX + "definition"),
-				definition);
+				manager.getM().createProperty(
+						MagicStrings.PREFIX + "definition"), definition);
 		return individual;
 	}
 
@@ -74,6 +80,7 @@ public class CompOntologyAccess {
 	 */
 	public ObjectProperty createObjectProperty(CompOntClass domain,
 			CompOntClass range, CompObjectProperties propertyName) {
+
 		OntClass ontClass1 = getClass(domain);
 		OntClass ontclass2 = getClass(range);
 		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
@@ -90,8 +97,9 @@ public class CompOntologyAccess {
 	 */
 	public ObjectProperty createObjectProperty(OntClass domain, OntClass range,
 			String propertyName) {
-		ObjectProperty property = m.createObjectProperty(MagicStrings.PREFIX
-				+ propertyName);
+
+		ObjectProperty property = manager.getM().createObjectProperty(
+				MagicStrings.PREFIX + propertyName);
 		property.setDomain(domain);
 		property.setRange(range);
 		return property;
@@ -107,6 +115,7 @@ public class CompOntologyAccess {
 	public ObjectProperty createObjectPropertyWithIndividual(
 			Individual domainIndividual, Individual rangeIndividual,
 			CompObjectProperties compObjectProperties) {
+
 		ObjectProperty result = getObjectPropertyForString(compObjectProperties
 				.name());
 		domainIndividual
@@ -132,11 +141,12 @@ public class CompOntologyAccess {
 	 */
 	public OntClass createOntClassForString(String string,
 			String... definitions) {
-		OntClass paper = m.createClass(encode(MagicStrings.PREFIX + string));
+		OntClass paper = manager.getM().createClass(
+				encode(MagicStrings.PREFIX + string));
 		if (definitions != null && definitions.length > 0) {
 			paper.addLiteral(
-					m.createProperty(MagicStrings.PREFIX + "definition"),
-					definitions[0]);
+					manager.getM().createProperty(
+							MagicStrings.PREFIX + "definition"), definitions[0]);
 		}
 		return paper;
 	}
@@ -149,6 +159,7 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createSingleTonIndividual(String ontclass) {
+
 		return createIndividualForString(getOntClassForString(ontclass),
 				MagicStrings.SINGLETONPREFIX + ontclass);
 	}
@@ -161,12 +172,14 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createSingleTonIndividual(OntClass ontclass) {
+
 		return createIndividualForString(ontclass, MagicStrings.SINGLETONPREFIX
 				+ ontclass.getLocalName());
 	}
 
 	public OntClass createSingleTonIndividualWithClass(String classname,
 			String... definitions) {
+
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		createSingleTonIndividual(classOnt);
 		return classOnt;
@@ -174,6 +187,7 @@ public class CompOntologyAccess {
 
 	public Individual createSingleTonIndividualWithClass2(String classname,
 			String... definitions) {
+
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		return createSingleTonIndividual(classOnt);
 	}
@@ -184,6 +198,7 @@ public class CompOntologyAccess {
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
+
 		return createOntClassForString(compOntClass.name());
 	}
 
@@ -198,21 +213,15 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual getIndividualForString(String indivString) {
-		return m.getIndividual(encode(MagicStrings.PREFIX + indivString));
-	}
 
-	/**
-	 * in case only the util object is available
-	 * 
-	 * @return
-	 */
-	public OntModel getM() {
-		return m;
+		return manager.getM().getIndividual(
+				encode(MagicStrings.PREFIX + indivString));
 	}
 
 	public ObjectProperty getObjectPropertyForString(String objectProperty) {
-		return m.createObjectProperty(encode(MagicStrings.PREFIX
-				+ objectProperty));
+
+		return manager.getM().createObjectProperty(
+				encode(MagicStrings.PREFIX + objectProperty));
 	}
 
 	/**
@@ -222,7 +231,9 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public OntClass getOntClassForString(String className) {
-		OntClass paper = m.getOntClass(encode(MagicStrings.PREFIX + className));
+
+		OntClass paper = manager.getM().getOntClass(
+				encode(MagicStrings.PREFIX + className));
 		return paper;
 	}
 

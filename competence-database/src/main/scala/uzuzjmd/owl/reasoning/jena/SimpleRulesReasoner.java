@@ -12,9 +12,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import uzuzjmd.console.util.LogStream;
+import uzuzjmd.owl.util.CompOntologyManager;
 import uzuzjmd.owl.util.MagicStrings;
 
-import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -31,25 +31,23 @@ public class SimpleRulesReasoner {
 	public static final Logger logger = LogManager
 			.getLogger(SimpleRulesReasoner.class.getName());
 	static LogStream logStream = new LogStream(logger, Level.DEBUG);
-	/**
-	 * dependencies
-	 */
-	private OntModel m;
+
 	/**
 	 * properties
 	 */
 	public GenericRuleReasoner reasoner;
+	private CompOntologyManager manager;
 
-	public SimpleRulesReasoner(OntModel m, Boolean ruleLogging)
+	public SimpleRulesReasoner(CompOntologyManager manager, Boolean ruleLogging)
 			throws IOException {
-		this.m = m;
+		this.manager = manager;
 		setupRulesReasoner(ruleLogging);
 	}
 
 	public synchronized Model reason() {
-		InfModel inf = ModelFactory.createInfModel(reasoner, m);
-		m.validate();
-		m.add(inf.getDeductionsModel());
+		InfModel inf = ModelFactory.createInfModel(reasoner, manager.getM());
+		manager.getM().validate();
+		manager.getM().add(inf.getDeductionsModel());
 		if (!inf.getDeductionsModel().isEmpty()) {
 			logger.debug("RulesReasoner * * =>");
 			inf.getDeductionsModel().write(logStream, "N-TRIPLE", "comp:");
