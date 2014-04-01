@@ -64,6 +64,14 @@ public class CompOntologyManager {
 
 	}
 
+	public CompOntologyManager(Boolean fuseki) {
+
+	}
+
+	public Dataset getDataset() {
+		return dataset;
+	}
+
 	public OntModel getM() {
 		return this.m;
 	}
