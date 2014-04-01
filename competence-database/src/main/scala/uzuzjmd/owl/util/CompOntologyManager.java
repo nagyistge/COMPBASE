@@ -18,7 +18,6 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelChangedListener;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.OWL2;
@@ -35,6 +34,7 @@ public class CompOntologyManager {
 	private OntModel m;
 	private SimpleRulesReasoner rulesReasoner;
 	private CompetenceQueries queries;
+	private ModelChangeListener modelChangedListener;
 
 	public CompOntologyManager() {
 		// initialize Model
@@ -50,8 +50,18 @@ public class CompOntologyManager {
 		// switchOnDebug();
 
 		// apply rules whenever the model is changed
-		ModelChangedListener modelChangedListener = new ModelChangeListener(
-				rulesReasoner);
+		this.modelChangedListener = new ModelChangeListener(rulesReasoner);
+
+		// defaultmäßif ist derReasoner angeschaltet
+		registerReasoner();
+
+	}
+
+	public void unregisterReasoner() {
+		m.unregister(modelChangedListener);
+	}
+
+	public void registerReasoner() {
 		m.register(modelChangedListener);
 	}
 
