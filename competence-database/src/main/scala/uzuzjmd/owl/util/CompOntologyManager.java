@@ -17,8 +17,10 @@ import uzuzjmd.owl.reasoning.jena.SimpleRulesReasoner;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.tdb.TDB;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.OWL2;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -35,39 +37,57 @@ public class CompOntologyManager {
 	private SimpleRulesReasoner rulesReasoner;
 	private CompetenceQueries queries;
 	private ModelChangeListener modelChangedListener;
+	private Dataset dataset;
 
+	/**
+	 * should be singleton
+	 */
 	public CompOntologyManager() {
 		// initialize Model
-		initializeOntologyModelInMemory();
+		// initializeOntologyModelInMemory();
 
-		// initializeOntologyModel();
 		this.queries = new CompetenceQueries(getM());
-		this.util = new CompOntologyAccess(getM(), getQueries());
+		this.util = new CompOntologyAccess(getM(), getQueries(), this);
 
 		// init simple Rules Reasoner
+		begin();
 		initReasoner();
 		initRulesFactory(rulesReasoner);
+		close();
 		// switchOnDebug();
 
 		// apply rules whenever the model is changed
-		this.modelChangedListener = new ModelChangeListener(rulesReasoner);
+		this.modelChangedListener = new ModelChangeListener(rulesReasoner, this);
 
 		// defaultmäßif ist derReasoner angeschaltet
 		registerReasoner();
 
 	}
 
+	public OntModel getM() {
+		return this.m;
+	}
+
+	public void close() {
+		dataset.commit();
+		dataset.end();
+	}
+
 	public void unregisterReasoner() {
+		begin();
 		m.unregister(modelChangedListener);
+		close();
 	}
 
 	public void registerReasoner() {
+		begin();
 		m.register(modelChangedListener);
+		close();
 	}
 
 	private void initReasoner() {
 		try {
-			rulesReasoner = new SimpleRulesReasoner(m, false);
+			rulesReasoner = new SimpleRulesReasoner(this, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,6 +103,7 @@ public class CompOntologyManager {
 	}
 
 	public OntModel createBaseOntology() {
+		begin();
 		// m = this.util.initializeOntologyModel();
 		initClasses();
 		initObjectProperties();
@@ -95,6 +116,7 @@ public class CompOntologyManager {
 
 		// TODO create Restrictions
 
+		close();
 		return getM();
 	}
 
@@ -155,8 +177,9 @@ public class CompOntologyManager {
 	 * 
 	 * @return
 	 */
-	private void initializeOntologyModel() {
-		Dataset dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
+	public void begin() {
+		dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
+		dataset.begin(ReadWrite.WRITE);
 		Model tdb = dataset.getDefaultModel();
 		setM(ModelFactory.createOntologyModel(
 				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
@@ -182,10 +205,6 @@ public class CompOntologyManager {
 		return util;
 	}
 
-	public OntModel getM() {
-		return m;
-	}
-
 	public void setM(OntModel m) {
 		this.m = m;
 	}
@@ -208,6 +227,10 @@ public class CompOntologyManager {
 		rulesReasoner.getReasoner().setParameter(
 				ReasonerVocabulary.PROPtraceOn, true);
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
+	}
+
+	public void sync() {
+		TDB.sync(dataset);
 	}
 
 }
