@@ -90,7 +90,7 @@ public class SimpleRulesReasoner {
 		return rules;
 	}
 
-	public void addRuleAsString(String rule) {
+	public synchronized void addRuleAsString(String rule) {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
 		List<Rule> rules = Rule.parseRules(rule);
 		reasoner.addRules(rules);
