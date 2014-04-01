@@ -5,8 +5,8 @@
 	<artifactId>competence-database</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
-	<description>My wonderfull scala app</description>
-	<inceptionYear>2010</inceptionYear>
+	<description>A RDf based competence database </description>
+	<inceptionYear>2014</inceptionYear>
 	<licenses>
 		<!-- <license> -->
 		<!-- <name>My License</name> -->

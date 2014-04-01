@@ -18,6 +18,19 @@ import uzuzjmd.owl.util.CompFileUtil
 object CompetenceImporter {
 
   def main(args: Array[String]) {
+    val compOntManager = convertCSVArray(args)
+
+    // for debugging
+    val compFileUtil = new CompFileUtil(compOntManager.getM());
+    compFileUtil.writeOntologyout(compOntManager.getM());
+
+  }
+
+  def convertCSV(pathToCSV: String): CompOntologyManager = {
+    return convertCSVArray((pathToCSV :: Nil).toArray)
+  }
+
+  private def convertCSVArray(args: Array[String]): uzuzjmd.owl.util.CompOntologyManager = {
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
@@ -43,11 +56,7 @@ object CompetenceImporter {
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
     val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
-
-    // for debugging
-    val compFileUtil = new CompFileUtil(compOntManager.getM());
-    compFileUtil.writeOntologyout(compOntManager.getM());
-
+    compOntManager
   }
 
 }
