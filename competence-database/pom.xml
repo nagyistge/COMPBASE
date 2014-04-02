@@ -470,39 +470,24 @@
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 				</configuration>
-				<executions>
+				<executions>					
 					<execution>
-						<id>Starter</id>
+						<id>SoapClient</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
 						<configuration>
-							<finalName>starter</finalName>
+							<finalName>SoapClient</finalName>
 							<archive>
 								<manifest>
-									<mainClass>uzuzjmd.up.competence.competence_server.Starter</mainClass>
+									<mainClass>uzuzjmd.competence.main.SoapClient</mainClass>
 								</manifest>
 							</archive>
 						</configuration>
 					</execution>
 					<execution>
-						<id>TestClient</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>TestClient</finalName>
-							<archive>
-								<manifest>
-									<mainClass>TestClient</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</execution>
-					<execution>
-						<id>TestSAOPServer</id>
+						<id>SoapServer</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -511,11 +496,41 @@
 							<finalName>TestServer</finalName>
 							<archive>
 								<manifest>
-									<mainClass>uzuzjmd.service.competence.WebserviceStarter</mainClass>
+									<mainClass>uzuzjmd.competence.main.SoapServer</mainClass>
 								</manifest>
 							</archive>
 						</configuration>
 					</execution>
+					<execution>
+						<id>RestServer</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>RestServer</finalName>
+							<archive>
+								<manifest>
+									<mainClass>uzuzjmd.competence.main.RestServer</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>					
+					<execution>
+						<id>FusekiServer</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>FusekiServer</finalName>
+							<archive>
+								<manifest>
+									<mainClass>uzuzjmd.competence.main.FusekiServer</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>					
 					<execution>
 						<id>CSVImporter</id>
 						<phase>package</phase>
@@ -526,7 +541,7 @@
 							<finalName>CSVImporter</finalName>
 							<archive>
 								<manifest>
-									<mainClass>uzuzjmd.csv.competence.CompetenceImporter</mainClass>
+									<mainClass>uzuzjmd.competence.main.CompetenceImporter</mainClass>
 								</manifest>
 							</archive>
 						</configuration>
