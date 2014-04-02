@@ -7,9 +7,10 @@ import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import uzuzjmd.csv.competence.CompetenceImporter
-import uzuzjmd.owl.util.CompFileUtil
-import uzuzjmd.owl.util.CompOntologyManager
+import uzuzjmd.competence.owl.access.CompFileUtil
+import uzuzjmd.competence.main.CompetenceImporter
+import uzuzjmd.competence.owl.access.CompOntologyManager
+
 @RunWith(classOf[JUnitRunner])
 class MapperTest extends FunSuite with ShouldMatchers {
 
@@ -33,6 +34,5 @@ class MapperTest extends FunSuite with ShouldMatchers {
   //    List("fee", "fie", "foe", "fum") should have length (4)
   //  }
 }
-//  }
 //}
 
