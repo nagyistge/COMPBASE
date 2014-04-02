@@ -1,0 +1,8 @@
+package uzuzjmd.competence.csv
+
+import scala.collection.immutable.List
+import scala.collection.mutable.Buffer
+
+case class FilteredCSVCompetence (val competence : String, val catchwordsFiltered : List[String], val operator : String, val metaoperator : String, val evidencen : String, val metacatchwords : List[String], val learner : String) {
+  
+}
