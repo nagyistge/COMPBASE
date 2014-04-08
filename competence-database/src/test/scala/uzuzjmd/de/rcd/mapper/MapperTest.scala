@@ -15,7 +15,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 class MapperTest extends FunSuite with ShouldMatchers {
 
   test("The CSV import should run without errors") {
-    CompetenceImporter.convertCSV("I:/workspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv");
+    CompetenceImporter.convertCSV("C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv");
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val fileUtil = new CompFileUtil(compOntManag.getM())

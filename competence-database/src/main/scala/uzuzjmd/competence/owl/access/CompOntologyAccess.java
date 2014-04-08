@@ -1,5 +1,7 @@
 package uzuzjmd.competence.owl.access;
 
+import java.net.URLEncoder;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -11,7 +13,6 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.util.URIref;
 
 public class CompOntologyAccess {
 
@@ -194,7 +195,7 @@ public class CompOntologyAccess {
 
 	private String encode(String string) {
 		// return string;
-		return URIref.encode(string);
+		return URLEncoder.encode(string);
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
