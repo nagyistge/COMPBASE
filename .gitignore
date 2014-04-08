@@ -137,3 +137,15 @@ gui/war/WEB-INF/classes/de/unipotsdam/kompetenzmanager/server/Neo4JGraphBackendI
 comptetence-main/tdb2
 competence-database/tdb2/
 jena-fuseki-1.0.1
+competence-gui/htdocs/moodle
+competence-gui/htdocs/xampp
+competence-gui/moodledata
+competence-database/NewFile.css
+competence-gui/htdocs/apache_pb.gif
+competence-gui/htdocs/apache_pb.png
+competence-gui/htdocs/apache_pb2.gif
+competence-gui/htdocs/apache_pb2.png
+competence-gui/htdocs/apache_pb2_ani.gif
+competence-gui/htdocs/favicon.ico
+competence-gui/htdocs/index.html
+competence-gui/htdocs/index.php
