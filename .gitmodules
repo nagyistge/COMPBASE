@@ -1,4 +1,4 @@
 [submodule "competence"]
 	path = competence
-	url = C:/dev/scalaworkspace/Wissensmodellierung/competence-gui/htdocs/moodle/mod/competence
+	url = https://github.com/uzuzjmd/competence
 	branch = master
