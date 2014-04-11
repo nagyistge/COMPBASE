@@ -2,7 +2,7 @@ package uzuzjmd.competence.main;
 
 import javax.xml.ws.Endpoint;
 
-import uzuzjmd.competence.evidence.service.EvidenceServiceImpl;
+import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 public class EvidenceServer {
@@ -30,7 +30,7 @@ public class EvidenceServer {
 	private static void startServer(String moodleurl, String moodledb,
 			String adminname, String adminpassword) {
 		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
-				new EvidenceServiceImpl(moodleurl, moodledb, adminname,
+				new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname,
 						adminpassword));
 		System.out.println("publishing wsdl to "
 				+ MagicStrings.EVIDENCESERVICEENDPOINT);

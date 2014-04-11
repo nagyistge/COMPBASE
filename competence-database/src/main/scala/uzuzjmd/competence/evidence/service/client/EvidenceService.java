@@ -7,11 +7,13 @@
 
 package uzuzjmd.competence.evidence.service.client;
 
-public interface EvidenceService extends java.rmi.Remote {
-	public uzuzjmd.competence.evidence.service.client.MoodleEvidence[] getMoodleEvidences(
-			java.lang.String course, java.lang.String user)
-			throws java.rmi.RemoteException;
+import uzuzjmd.competence.evidence.model.Evidence;
+import uzuzjmd.competence.evidence.model.MoodleEvidence;
 
-	public uzuzjmd.competence.evidence.service.client.Evidence[] getEvidences(
+public interface EvidenceService extends java.rmi.Remote {
+	public MoodleEvidence[] getMoodleEvidences(java.lang.String course,
 			java.lang.String user) throws java.rmi.RemoteException;
+
+	public Evidence[] getEvidences(java.lang.String user)
+			throws java.rmi.RemoteException;
 }

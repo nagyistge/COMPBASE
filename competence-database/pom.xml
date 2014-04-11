@@ -84,13 +84,13 @@
 			<artifactId>wsdl4j</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr-runtime</artifactId>
 			<version>3.2</version>
 		</dependency>
-
+	
 		<dependency>
 			<groupId>com.github.ansell.aterms</groupId>
 			<artifactId>aterm-java</artifactId>
