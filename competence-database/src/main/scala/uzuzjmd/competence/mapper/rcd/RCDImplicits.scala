@@ -30,9 +30,9 @@ trait RCDImplicits {
     return buffer.toBuffer;
   }
 
-  implicit def arrayToBuffer(buffer: ArrayList[Rdceo]): Buffer[Rdceo] = {
-    return buffer.toBuffer;
-  }
+  //  protected implicit def arrayToBuffer(buffer: ArrayList[Rdceo]): Buffer[Rdceo] = {
+  //    return buffer.toBuffer;
+  //  }
 
   implicit def amyString1(x: Langstring): String = {
     return x.getValue()
