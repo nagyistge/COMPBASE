@@ -8,6 +8,12 @@ import uzuzjmd.competence.owl.access.MagicStrings;
 public class EvidenceServer {
 
 	public static void main(String[] args) {
+
+		System.setProperty("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.Log4JLogger");
+		System.setProperty("org.apache.commons.logging.LogFactory",
+				"org.apache.commons.logging.impl.LogFactoryImpl");
+
 		if (args.length != 4) {
 			System.out
 					.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword");
