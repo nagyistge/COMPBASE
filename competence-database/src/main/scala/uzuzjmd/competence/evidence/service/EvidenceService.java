@@ -1,10 +1,16 @@
 package uzuzjmd.competence.evidence.service;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
 
+@WebService(name = "EvidenceService", targetNamespace = "http://service.evidence.competence.uzuzjmd/")
 public interface EvidenceService {
-	public MoodleEvidence[] getEvidences(String course, String user);
+	@WebMethod
+	public MoodleEvidence[] getMoodleEvidences(String course, String user);
 
+	@WebMethod
 	public Evidence[] getEvidences(String user);
 }
