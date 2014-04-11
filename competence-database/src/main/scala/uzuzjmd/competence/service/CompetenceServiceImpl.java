@@ -15,7 +15,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 
-@WebService(endpointInterface = "uzuzjmd.service.competence.CompetenceService")
+@WebService(endpointInterface = "uzuzjmd.competence.service.CompetenceService")
 public class CompetenceServiceImpl implements CompetenceService {
 
 	static final Logger logger = LogManager
@@ -27,6 +27,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 		logger.info("Competences queried");
 		return CompetenceImporter
 				.getCompetencesFromCSVJava(MagicStrings.CSVLOCATION);
+
 	}
 
 	@Override
