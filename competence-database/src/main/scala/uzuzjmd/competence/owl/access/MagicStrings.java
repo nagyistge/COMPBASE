@@ -13,4 +13,5 @@ public class MagicStrings {
 	public static final String RULESFILE = "C:/dev/scalaworkspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules";
 	public static final String SINGLETONPREFIX = "I";
 	public static final String CSVLOCATION = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv";
+	public static final String MOODLEURL = "http://localhost/moodle/";
 }
