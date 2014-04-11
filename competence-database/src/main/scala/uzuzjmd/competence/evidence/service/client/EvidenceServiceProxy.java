@@ -19,8 +19,8 @@ public class EvidenceServiceProxy implements
 
 	private void _initEvidenceServiceProxy() {
 		try {
-			evidenceService = (new uzuzjmd.competence.evidence.service.client.EvidenceServiceImplServiceLocator())
-					.getEvidenceServiceImplPort();
+			evidenceService = (new uzuzjmd.competence.evidence.service.client.MoodleEvidenceServiceImplServiceLocator())
+					.getMoodleEvidenceServiceImplPort();
 			if (evidenceService != null) {
 				if (_endpoint != null)
 					((javax.xml.rpc.Stub) evidenceService)
@@ -52,6 +52,13 @@ public class EvidenceServiceProxy implements
 		if (evidenceService == null)
 			_initEvidenceServiceProxy();
 		return evidenceService;
+	}
+
+	public MoodleEvidence[] getUserEvidencesforMoodleCourse(
+			java.lang.String arg0) throws java.rmi.RemoteException {
+		if (evidenceService == null)
+			_initEvidenceServiceProxy();
+		return evidenceService.getUserEvidencesforMoodleCourse(arg0);
 	}
 
 	public MoodleEvidence[] getMoodleEvidences(java.lang.String arg0,
