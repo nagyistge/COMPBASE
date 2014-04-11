@@ -30,7 +30,7 @@ object RCD2OWL extends RCDImplicits {
   val logStream = new LogStream(logger, Level.DEBUG);
 
   def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
-    convert(rcdeos, manager);
+    convert(rcdeos.asScala, manager);
   }
 
   /**
