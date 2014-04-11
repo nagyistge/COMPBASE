@@ -9,7 +9,8 @@ public class MagicStrings {
 	public static final String ONTOLOGYFORMAT = "RDF/XML";
 	public static final String ONTOLOGYFILE = "mymodelrdf.owl";
 	public static final String SERVICEENDPOINT = "http://localhost:8081/WS/Competence";
-	public static final String RULESFILE = "I:/workspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules";
+	public static final String EVIDENCESERVICEENDPOINT = "http://localhost:8082/WS/Competence/Evidence";
+	public static final String RULESFILE = "C:/dev/scalaworkspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules";
 	public static final String SINGLETONPREFIX = "I";
-	public static final String CSVLOCATION = "I:/workspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv";
+	public static final String CSVLOCATION = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv";
 }
