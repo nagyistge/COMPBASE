@@ -24,43 +24,14 @@ public class MysqlConnect {
 	/**
 	 * Mit dieser Methode stellt man die Verbindung zu der Datenbank her.
 	 */
-	public void connect() {
-		if (isLokal) {
-			connectLokal();
-		} else {
+	public void connect(String connectionString) {
+		try {
 			try {
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-				} catch (ClassNotFoundException ex) {
-					logger.error(ex);
-				}
-				conn = DriverManager
-						.getConnection("jdbc:mysql://10.25.25.155:3306/mydb?user=schueler&password=schueler");
-				this.otherStatements("use snake;");
-			} catch (SQLException ex) {
-				System.out.println("SQLException: " + ex.getMessage());
-				System.out.println("SQLState: " + ex.getSQLState());
-				System.out.println("VendorError: " + ex.getErrorCode());
-				throw new Error("could not connect to mysql");
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException ex) {
+				logger.error(ex);
 			}
-		}
-	}
-
-	/**
-	 * Diese Methode verwendet Julian Dehne für seine lokale Testdatenbank
-	 */
-	public void connectLokal() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			logger.error(ex);
-
-		}
-
-		try {
-			conn = DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/mydb?user=root&password=voyager");
-			this.otherStatements("use snake;");
+			conn = DriverManager.getConnection(connectionString);
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
