@@ -5,14 +5,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Julian Dehne
  */
 public class MysqlConnect {
+
+	static final Logger logger = LogManager.getLogger(MysqlConnect.class
+			.getName());
 
 	public Connection conn = null;
 	public static Boolean isLokal = true;
@@ -28,8 +32,7 @@ public class MysqlConnect {
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 				} catch (ClassNotFoundException ex) {
-					Logger.getLogger(MysqlConnect.class.getName()).log(
-							Level.SEVERE, null, ex);
+					logger.error(ex);
 				}
 				conn = DriverManager
 						.getConnection("jdbc:mysql://10.25.25.155:3306/mydb?user=schueler&password=schueler");
@@ -50,8 +53,8 @@ public class MysqlConnect {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
+
 		}
 
 		try {
@@ -100,8 +103,7 @@ public class MysqlConnect {
 			}
 			return ps;
 		} catch (SQLException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
 		}
 		return null;
 	}
@@ -119,8 +121,7 @@ public class MysqlConnect {
 			PreparedStatement ps = addParameters(statement, args);
 			return new VereinfachtesResultSet(ps.executeQuery());
 		} catch (SQLException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
 		}
 		return null;
 	}
@@ -135,8 +136,7 @@ public class MysqlConnect {
 		try {
 			this.conn.createStatement().execute(statement);
 		} catch (SQLException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
 		}
 	}
 
@@ -153,8 +153,7 @@ public class MysqlConnect {
 		try {
 			return ps.executeUpdate();
 		} catch (SQLException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
 		}
 		return null;
 	}
@@ -172,8 +171,7 @@ public class MysqlConnect {
 		try {
 			ps.execute();
 		} catch (SQLException ex) {
-			Logger.getLogger(MysqlConnect.class.getName()).log(Level.SEVERE,
-					null, ex);
+			logger.error(ex);
 		}
 	}
 
