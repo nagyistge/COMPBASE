@@ -1,10 +1,22 @@
 package uzuzjmd.competence.evidence.model;
 
-import java.net.URL;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
+@XmlSeeAlso(uzuzjmd.competence.evidence.model.MoodleEvidence.class)
 public class Evidence {
+
+	public Evidence() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Evidence(String shortname, String string, String userId) {
+		this.shortname = shortname;
+		this.url = string;
+		this.userId = userId;
+	}
+
 	private String shortname;
-	private URL url;
+	private String url;
 	private String userId;
 
 	public String getShortname() {
@@ -15,11 +27,11 @@ public class Evidence {
 		this.shortname = shortname;
 	}
 
-	public URL getUrl() {
+	public String getUrl() {
 		return url;
 	}
 
-	public void setUrl(URL url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
