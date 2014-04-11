@@ -19,5 +19,9 @@ public class EvidenceClient {
 		EvidenceService service = evidenceServiceProxy.getEvidenceService();
 		MoodleEvidence[] evidences = service.getMoodleEvidences("2", "2");
 		System.out.println("fetched evidences");
+
+		MoodleEvidence[] evidences2 = service
+				.getUserEvidencesforMoodleCourse("2");
+		System.out.println("fetched evidences for whole course");
 	}
 }
