@@ -13,4 +13,7 @@ public interface EvidenceService {
 
 	@WebMethod
 	public Evidence[] getEvidences(String user);
+
+	@WebMethod
+	MoodleEvidence[] getUserEvidencesforMoodleCourse(String course);
 }

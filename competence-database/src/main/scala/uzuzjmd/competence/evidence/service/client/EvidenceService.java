@@ -11,9 +11,12 @@ import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
 
 public interface EvidenceService extends java.rmi.Remote {
-	public MoodleEvidence[] getMoodleEvidences(java.lang.String course,
-			java.lang.String user) throws java.rmi.RemoteException;
+	public MoodleEvidence[] getUserEvidencesforMoodleCourse(
+			java.lang.String arg0) throws java.rmi.RemoteException;
 
-	public Evidence[] getEvidences(java.lang.String user)
+	public MoodleEvidence[] getMoodleEvidences(java.lang.String arg0,
+			java.lang.String arg1) throws java.rmi.RemoteException;
+
+	public Evidence[] getEvidences(java.lang.String arg0)
 			throws java.rmi.RemoteException;
 }
