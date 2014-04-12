@@ -1,8 +1,10 @@
 package uzuzjmd.competence.evidence.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlSeeAlso(uzuzjmd.competence.evidence.model.Evidence.class)
+@XmlRootElement
 public class MoodleEvidence extends Evidence {
 
 	private String course;
