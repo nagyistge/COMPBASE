@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.jws.WebParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,8 +38,9 @@ public class CompetenceServiceRest {
 	}
 
 	@POST
+	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/add")
-	public void addRcdeo(@WebParam Rdceo input) {
+	public void addRcdeo(Rdceo input) {
 		System.out.println("Competences inserted");
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
 		competenceServiceImpl.insertCompetence(input);
