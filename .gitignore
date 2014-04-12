@@ -128,3 +128,6 @@ competence-gui/htdocs/moodle/mod/*
 
 
 
+competence-gui/competence-webapp/war/competence_webapp
+competence-gui/competence-webapp/gwt-unitCache
+competence-gui/competence-webapp/war/WEB-INF/deploy
