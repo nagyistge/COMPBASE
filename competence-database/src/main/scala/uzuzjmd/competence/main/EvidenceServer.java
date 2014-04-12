@@ -2,11 +2,15 @@ package uzuzjmd.competence.main;
 
 import java.io.IOException;
 
+import javax.xml.ws.Endpoint;
+
 import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceRestImpl;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
 
 public class EvidenceServer {
 
@@ -38,27 +42,19 @@ public class EvidenceServer {
 				moodleurl, moodledb, adminname, adminpassword);
 		MoodleEvidenceServiceRestImpl.moodleServiceImpl = evidenceServiceImpl;
 
-		// Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
-		// evidenceServiceImpl);
-		// System.out.println("publishing wsdl to "
-		// + MagicStrings.EVIDENCESERVICEENDPOINT);
+		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
+				evidenceServiceImpl);
+		System.out.println("publishing wsdl to "
+				+ MagicStrings.EVIDENCESERVICEENDPOINT);
 
-		// Map<String, Object> initParams = new HashMap<String, Object>();
-		// initParams.put("com.sun.jersey.config.property.packages",
-		// "uzuzjmd.competence.evidence.service");
-		// initParams.put("com.sun.jersey.config.property.packages",
-		// "uzuzjmd.competence.evidence.model");
-		// ResourceConfig config = new DefaultResourceConfig(
-		// MoodleEvidenceServiceImpl.class, MoodleEvidence.class,
-		// Evidence.class);
-		// config.getProperties().putAll(initParams);
-		// // config.setPropertiesAndFeatures(initParams);
-		// GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, config);
-		// GrizzlyServerFactory.createHttpServer();
-
-		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL);
+		ResourceConfig resourceConfig = new DefaultResourceConfig(
+				MoodleEvidenceServiceRestImpl.class);
+		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL,
+				resourceConfig);
 		System.out.println("publishing rest server to to "
 				+ MagicStrings.RESTURL);
+		System.out.println("Test this with2: " + MagicStrings.RESTURL
+				+ "/moodle/activities/json/2/2");
 
 		System.out.println("Press enter to exit");
 		System.in.read();
