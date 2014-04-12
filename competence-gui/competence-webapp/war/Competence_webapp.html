@@ -11,7 +11,7 @@
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="competence_webapp/gwt/clean/Competence_webapp.css">
+    <link type="text/css" rel="stylesheet" href="css/Competence_webapp.css">
 
     <!--                                           -->
     <!-- Any title is fine                         -->
@@ -21,8 +21,10 @@
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
     <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
+    <!-- be added before this line.                -->    
     <!--                                           -->
+    <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="js/preview.js"></script>    
     <script type="text/javascript" language="javascript" src="competence_webapp/competence_webapp.nocache.js"></script>
   </head>
 
@@ -45,6 +47,7 @@
     </noscript>
 
     <h1>Web Application Starter Project</h1>
+    <div id="rootContainer"></div>
 
     <table align="center">
       <tr>
