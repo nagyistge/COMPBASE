@@ -1,9 +1,14 @@
 package uzuzjmd.competence.main;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import uzuzjmd.competence.service.rest.CompetenceServiceRest;
+
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
 
 public class RestServer {
 
@@ -28,6 +33,8 @@ public class RestServer {
 			@Override
 			public void run() {
 				try {
+					ResourceConfig config = new DefaultResourceConfig(
+							CompetenceServiceRest.class);
 					GrizzlyServerFactory.createHttpServer(RestServer.url);
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
