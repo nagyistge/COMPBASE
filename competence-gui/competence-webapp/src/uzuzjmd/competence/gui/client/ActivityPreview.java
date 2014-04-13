@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -24,6 +25,7 @@ public class ActivityPreview extends FocusPanel implements MouseOverHandler,
 		setupActivityPreviewContent(url, aktivitätslabel);
 		this.addMouseOverHandler(this);
 		this.addMouseOutHandler(this);
+
 	}
 
 	private void setupActivityPreviewContent(String url, String aktivitätslabel) {
@@ -33,6 +35,7 @@ public class ActivityPreview extends FocusPanel implements MouseOverHandler,
 		Anchor anchor = new Anchor("show in moodle", url);
 		horizontalPanel.add(label);
 		horizontalPanel.add(anchor);
+		horizontalPanel.unsinkEvents(Event.ONMOUSEOUT | Event.ONMOUSEOVER);
 	}
 
 	private void setupPreviewPopup(String url) {
