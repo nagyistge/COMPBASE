@@ -8,6 +8,9 @@
 <module rename-to='competence_webapp'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
+<!--   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/> -->
+<!--   <inherits name="com.smartgwt.SmartGwt"/>   -->
+  <inherits name='com.gwtext.GwtExt'/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
@@ -15,7 +18,7 @@
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>
   <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->  
 
   <!-- Other module inherits                                      -->
 
@@ -28,4 +31,5 @@
 
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
+<!--   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/> -->
 </module>
