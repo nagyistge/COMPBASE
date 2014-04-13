@@ -35,18 +35,28 @@ h1 {
 
 
 .preview-container {
-	background: silver;
+	background: white;
 	opacity:1;	
     -moz-opacity:1.0;
     
-    width: 600px;
-    height: 400px;    
+    width: 400px;
+    height: 400px;  
+    
+    padding-top: 60px;
+    padding: 30px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+     
 
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+/*     position: absolute; */
+/*     top:0; */
+/*     bottom: 0; */
+/*     left: 0; */
+/*     right: 0; */
 
     margin: auto;
+}
+
+.preview-focus-panel {	
+	padding: 30px;		
 }
