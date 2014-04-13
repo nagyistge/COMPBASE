@@ -28,8 +28,10 @@ public class Competence_webapp implements EntryPoint {
 		container.add(label);
 
 		ActivityPreview activityPreview = new ActivityPreview(
-				"http://localhost/moodle/mod/assign/view.php?id=6");
-		activityPreview.add(new Label("hier ide Maus drüber halten"));
+				"http://localhost/moodle/mod/assign/view.php?id=6",
+				"assignmentpreview");
+		// Label labe2 = new Label("hier ide Maus drüber halten");
+		// activityPreview.add(labe2);
 		container.add(activityPreview);
 
 		// FlowPanel flowpanel = new FlowPanel();
