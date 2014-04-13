@@ -34,12 +34,13 @@ public class ActivityEntry extends Composite {
 		this.activityAnchor.setHref(url);
 		this.activityAnchor.setText(activityName);
 		this.activityIcon.getElement().setClassName(iconClass);
-		this.getElement().setClassName("activiyInFocus");
+		this.getElement().setClassName("activiyOffFocus");
 	}
 
 	@UiHandler("activityFocusPanel")
 	void onActivityFocusPanelMouseOver(MouseOverEvent event) {
 		// todo implement
+		this.getElement().setClassName("activiyInFocus");
 	}
 
 	@UiHandler("activityFocusPanel")
