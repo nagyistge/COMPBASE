@@ -2,6 +2,9 @@ package uzuzjmd.competence.evidence.service.moodle;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class MoodleContentResponse {
 
 	private int id; // Section ID

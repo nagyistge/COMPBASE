@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
+import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 
 @Path("/moodle")
@@ -58,6 +59,21 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	public MoodleContentResponseList getCourseContent(
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContents(course);
+	}
+
+	@Path("/contents/xml/{course}")
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	public MoodleContentResponse[] getCourseContentXML(
+			@PathParam("course") String course) {
+		MoodleContentResponseList list = moodleServiceImpl
+				.getCourseContents(course);
+		// return list;
+		return list.toArray(new MoodleContentResponse[0]);
+		// List<String> result = new ArrayList<>();
+		// result.add("Hallo");
+		// result.add("Welt");
+		// return result;
 	}
 
 	@Path("/activities/xml/{course}")
