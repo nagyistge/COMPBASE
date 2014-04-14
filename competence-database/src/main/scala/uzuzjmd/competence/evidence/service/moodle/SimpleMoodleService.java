@@ -11,12 +11,11 @@ import com.sun.jersey.api.client.WebResource;
 public class SimpleMoodleService {
 	private Token token;
 
-	public SimpleMoodleService(String moodledatabaseurl, String moodledb,
-			String adminname, String adminpassword) {
+	public SimpleMoodleService(String username, String userpassword) {
 		Client client = Client.create();
 		WebResource webResource = client.resource(MagicStrings.MOODLEURL
-				+ "login/token.php?username=" + adminname + "&password="
-				+ adminpassword + "&service=moodle_mobile_app");
+				+ "login/token.php?username=" + username + "&password="
+				+ userpassword + "&service=moodle_mobile_app");
 		ClientResponse response = webResource
 				.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 		if (response.getStatus() != 200) {
