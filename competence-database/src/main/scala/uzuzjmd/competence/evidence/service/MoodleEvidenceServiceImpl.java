@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
+import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
+import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
@@ -130,11 +132,16 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		ArrayList<MoodleEvidence> ergebnisAlsArray = new ArrayList<MoodleEvidence>();
 		while (result.next()) {
 			MoodleEvidence moodleEvidence = new MoodleEvidence(
-					result.getString("info"), MagicStrings.MOODLEURL + "mod/"
-							+ result.getString("module") + "/"
+					result.getString("module") + ": "
+							+ result.getString("info") + " am "
+							+ result.getString("DLA"), MagicStrings.MOODLEURL
+							+ "mod/" + result.getString("module") + "/"
 							+ result.getString("url"),
 					result.getString("userid"), result.getString("course"),
 					result.getString("module"));
+			moodleEvidence.setUsername(result.getString("firstname") + " "
+					+ result.getString("lastname"));
+
 			ergebnisAlsArray.add(moodleEvidence);
 		}
 		return ergebnisAlsArray;
@@ -154,5 +161,11 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		logger.info("trying to log in to moodle with connection string"
 				+ builder.toString());
 		connect.connect(builder.toString());
+	}
+
+	public MoodleContentResponseList getCourseContents(String courseId) {
+		SimpleMoodleService moodleService = new SimpleMoodleService(moodleURl,
+				moodledb, adminname, adminpassword);
+		return moodleService.getMoodleContents(courseId);
 	}
 }
