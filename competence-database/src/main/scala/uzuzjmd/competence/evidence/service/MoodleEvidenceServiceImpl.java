@@ -164,8 +164,8 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	}
 
 	public MoodleContentResponseList getCourseContents(String courseId) {
-		SimpleMoodleService moodleService = new SimpleMoodleService(moodleURl,
-				moodledb, adminname, adminpassword);
+		SimpleMoodleService moodleService = new SimpleMoodleService(adminname,
+				adminpassword);
 		return moodleService.getMoodleContents(courseId);
 	}
 }
