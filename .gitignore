@@ -133,4 +133,6 @@ competence-gui/competence-webapp/war/competence_webapp/*
 
 competence-gui/competence-webapp/gwt-unitCache
 competence-gui/competence-webapp/war/WEB-INF/deploy
-competence-gui/competence-webapp/lib/
+competence-gui/competence-webapp/lib/*
+!competence-gui/competence-webapp/lib/gwtext.jar
+
