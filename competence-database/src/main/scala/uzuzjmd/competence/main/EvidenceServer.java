@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.xml.ws.Endpoint;
 
 import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
-import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceRestImpl;
+import uzuzjmd.competence.evidence.service.rest.MoodleEvidenceServiceRestImpl;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
