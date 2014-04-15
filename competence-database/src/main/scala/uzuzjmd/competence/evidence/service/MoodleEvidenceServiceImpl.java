@@ -137,8 +137,8 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 							+ result.getString("DLA"), MagicStrings.MOODLEURL
 							+ "mod/" + result.getString("module") + "/"
 							+ result.getString("url"),
-					result.getString("userid"), result.getString("course"),
-					result.getString("module"));
+					result.getString("userid"), result.getString("DLA"),
+					result.getString("course"), result.getString("module"));
 			moodleEvidence.setUsername(result.getString("firstname") + " "
 					+ result.getString("lastname"));
 
