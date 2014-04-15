@@ -13,6 +13,7 @@ import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
+import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 
 @Path("/moodle")
 public class MoodleEvidenceServiceRestImpl implements EvidenceService {
@@ -93,7 +94,9 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 		MoodleContentResponseList listMoodleContent = moodleServiceImpl
 				.getCourseContents(course);
 
-		return null;
+		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
+				moodleEvidences);
+		return mapper.getUserTrees().toArray(new UserTree[0]);
 	}
 
 }
