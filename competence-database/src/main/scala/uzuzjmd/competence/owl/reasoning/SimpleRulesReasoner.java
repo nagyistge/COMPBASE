@@ -1,8 +1,5 @@
 package uzuzjmd.competence.owl.reasoning;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +17,6 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
-import com.hp.hpl.jena.reasoner.rulesys.Rule.ParserException;
 import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 
 public class SimpleRulesReasoner {
@@ -66,27 +62,27 @@ public class SimpleRulesReasoner {
 		reason();
 	}
 
-	/**
-	 * somehow not working use addRule Method
-	 * 
-	 * @deprecated
-	 * @return
-	 */
-	private List<Rule> createStaticRules() {
-		List<Rule> rules = null;
-		try {
-			rules = Rule.parseRules(Rule
-					.rulesParserFromReader(new BufferedReader(new FileReader(
-							MagicStrings.RULESFILE))));
-		} catch (ParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rules;
-	}
+	// /**
+	// * somehow not working use addRule Method
+	// *
+	// * @deprecated
+	// * @return
+	// */
+	// private List<Rule> createStaticRules() {
+	// List<Rule> rules = null;
+	// try {
+	// rules = Rule.parseRules(Rule
+	// .rulesParserFromReader(new BufferedReader(new FileReader(
+	// MagicStrings.RULESFILE))));
+	// } catch (ParserException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (FileNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// return rules;
+	// }
 
 	public synchronized void addRuleAsString(String rule) {
 		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);

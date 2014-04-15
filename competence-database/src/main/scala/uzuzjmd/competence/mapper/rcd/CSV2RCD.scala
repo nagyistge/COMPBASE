@@ -18,7 +18,7 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 
 object CSV2RCD {
-  def mapCompetence(csvCompetences: Buffer[FilteredCSVCompetence]): Buffer[Rdceo] = {
+  def mapCompetence(csvCompetences: Seq[FilteredCSVCompetence]): Seq[Rdceo] = {
     return csvCompetences.map(a => constructRDCEO(a));
   }
 
