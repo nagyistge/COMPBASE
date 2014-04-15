@@ -15,8 +15,8 @@ public class MoodleEvidence extends Evidence {
 	}
 
 	public MoodleEvidence(String shortname, String string, String userId,
-			String course, String activityTyp) {
-		super(shortname, string, userId);
+			String changed, String course, String activityTyp) {
+		super(shortname, string, userId, changed);
 		this.course = course;
 		this.activityTyp = activityTyp;
 	}
