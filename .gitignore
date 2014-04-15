@@ -136,3 +136,4 @@ competence-gui/competence-webapp/war/WEB-INF/deploy
 competence-gui/competence-webapp/lib/*
 !competence-gui/competence-webapp/lib/gwtext.jar
 
+competence-gui/competence-webapp/war/icons/modernicons/*
