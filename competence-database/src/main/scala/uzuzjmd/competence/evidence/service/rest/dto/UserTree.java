@@ -20,9 +20,9 @@ public class UserTree extends AbstractTreeEntry {
 	}
 
 	public UserTree(String name, String qtip, String icon,
-			List<ActivityTyp> activities) {
+			List<ActivityTyp> activityTypes) {
 		super(name, qtip, icon);
-		this.activities = activities;
+		this.activities = activityTypes;
 	}
 
 	public List<ActivityTyp> getActivities() {
