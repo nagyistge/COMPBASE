@@ -9,16 +9,19 @@ public class Evidence {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evidence(String shortname, String string, String userId) {
+	public Evidence(String shortname, String string, String userId,
+			String changed) {
 		this.shortname = shortname;
 		this.url = string;
 		this.userId = userId;
+		this.changed = changed;
 	}
 
 	private String shortname;
 	private String url;
 	private String userId;
 	private String username;
+	private String changed;
 
 	public String getShortname() {
 		return shortname;
@@ -50,5 +53,13 @@ public class Evidence {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getChanged() {
+		return changed;
+	}
+
+	public void setChanged(String changed) {
+		this.changed = changed;
 	}
 }
