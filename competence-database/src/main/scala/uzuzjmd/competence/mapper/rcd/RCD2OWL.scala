@@ -44,7 +44,8 @@ object RCD2OWL extends RCDImplicits {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  def convert(rcdeos: Buffer[Rdceo], manager: CompOntologyManager) {
+  def convert(rcdeos: Seq[Rdceo], manager: CompOntologyManager) {
+
     manager.begin()
     val logger = RCD2OWL.logger
     val logStream = RCD2OWL.logStream
@@ -52,7 +53,7 @@ object RCD2OWL extends RCDImplicits {
     val util = manager.getUtil()
     val ontModel = manager.getM()
 
-    val triples = getStatementTriples(rcdeos).map(RCDMaps.convertTriplesToOperators).filterNot(RCDFilter.isTripleWithBlanc)
+    val triples = getStatementTriples(rcdeos).view.map(RCDMaps.convertTriplesToOperators).filterNot(RCDFilter.isTripleWithBlanc)
     // debugging output
     triples.map(x => logger.trace("Triple: " + x._1 + " " + x._2 + " " + x._3))
 
@@ -94,19 +95,20 @@ object RCD2OWL extends RCDImplicits {
    *
    * @return triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
    */
-  private def getStatementTriples(rcdeos: Buffer[Rdceo]): Buffer[RCDFilter.CompetenceTriple] = {
+  private def getStatementTriples(rcdeos: Seq[Rdceo]): Buffer[RCDFilter.CompetenceTriple] = {
     // transform to pairs of titel and statement 
     val inputStatements = rcdeos.map(x => (x.getTitle(), x.getDefinition().asScala.head.getStatement().asScala)).map(x => flatStatements(x)).flatten
     // triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
-    val triples: Buffer[RCDFilter.CompetenceTriple] = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
-    triples
+    val triples = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))
+    val result = triples.toBuffer
+    return result
   }
 
   /**
    *
    *  classes erstellen
    */
-  private def createOntClassesForTitle(util: CompOntologyAccess, triples: Buffer[(String, String, String)]): Unit = {
+  private def createOntClassesForTitle(util: CompOntologyAccess, triples: Seq[(String, String, String)]): Unit = {
 
     // die mit subcompetence
     val triplesGroupedByTitles2a = triples.filter(RCDFilter.isSubClassTriple).groupBy(x => x._1)
@@ -121,7 +123,7 @@ object RCD2OWL extends RCDImplicits {
     triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1))
   }
 
-  private def createDescriptionElementOfRels(util: CompOntologyAccess, triplesWithObjectProperties: Buffer[(String, String, String)]) = {
+  private def createDescriptionElementOfRels(util: CompOntologyAccess, triplesWithObjectProperties: Seq[(String, String, String)]) = {
     triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).
       foreach(x => competenceDescriptionToOnt(x, util))
   }
@@ -130,7 +132,7 @@ object RCD2OWL extends RCDImplicits {
    * Die Triple entsprechen mehr oder weniger den RDF-Triplen, die die ObjectProperties ausmachen
    * vgl. RCDFilter.CompetenceTriple
    */
-  private def createObjectPropertiesForDefaultCases(util: CompOntologyAccess, triplesWithObjectProperties: Buffer[RCDFilter.CompetenceTriple]): Unit = {
+  private def createObjectPropertiesForDefaultCases(util: CompOntologyAccess, triplesWithObjectProperties: Seq[RCDFilter.CompetenceTriple]): Unit = {
     val defaultCasesObjectProperties = triplesWithObjectProperties.
       filterNot(RCDFilter.isDescriptionElementOfTriple).
       filterNot(RCDFilter.isMetaCatchwordOfTriple).

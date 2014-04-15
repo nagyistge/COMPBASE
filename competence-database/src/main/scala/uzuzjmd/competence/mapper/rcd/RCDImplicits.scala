@@ -26,8 +26,10 @@ trait RCDImplicits {
    *
    */
 
-  implicit def arrayToBuffer(buffer: Array[Rdceo]): Buffer[Rdceo] = {
-    return buffer.toBuffer;
+  type rcdeoView = scala.collection.SeqView[uzuzjmd.competence.rcd.generated.Rdceo, scala.collection.mutable.Buffer[uzuzjmd.competence.rcd.generated.Rdceo]]
+
+  implicit def arrayToBuffer(buffer: Array[Rdceo]): rcdeoView = {
+    return buffer.toBuffer.view;
   }
 
   //  protected implicit def arrayToBuffer(buffer: ArrayList[Rdceo]): Buffer[Rdceo] = {
