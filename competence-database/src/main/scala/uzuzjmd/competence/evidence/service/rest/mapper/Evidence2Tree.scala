@@ -13,22 +13,27 @@ import uzuzjmd.competence.owl.access.MagicStrings
 
 case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvidences: Array[MoodleEvidence]) {
   def getUserTrees(): java.util.List[UserTree] = {
-    moodleResponses.asScala.map(x => x.getModules().asScala).flatten.
-      filter(x => filterNoMachingEvidenceSets(moodleEvidences.toBuffer)).
-      map(moodleResponseToUserTree(moodleEvidences.toBuffer)).toList.asJava
+    val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten
+    val modules = filteredMoodleResponses.map(x => x.getModules().asScala).flatten.view // nur die mit Module
+    val filteredModules = modules.filterNot(x => x.getUrl().equals(null)); // nur die mit URL
+    val groupedEvidences = moodleEvidences.view.map(x => (x.getUrl(), x)) // key map nach url erstellt für evidenzen
+    val joinedPairs = filteredModules.map(filteredModules => (filteredModules, groupedEvidences.filter(x => filteredModules.getUrl().equals(x._1)))).
+      map(x => (x._1, x._2.toMap.values.toBuffer)) // nach url gejoined und die map wieder platt gemacht
+    val groupedPairsByUser = joinedPairs.map(pair => (pair._1, pair._2.groupBy(evidence => evidence.getUsername()))).toBuffer // nach dem namen gruppieren
+    //val groupedPairsByActivity = joinedPairs.map(pair => (pair._1, pair._2.groupBy(evidence => evidence.getActivityTyp()))).toBuffer // nach der aktivität gruppieren
+    val result = groupedPairsByUser.map(pair => pair._2.map(map => new UserTree(map._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", createActivityTypes(map._2, pair._1, map._1).asJava))).flatten //oberste hierarchieebene erstellen
+    return result.distinct.asJava;
   }
 
-  def moodleResponseToUserTree(moodleEvidences: Seq[MoodleEvidence])(moodleResponse: Module): UserTree = {
-    val moodleEvidencesView = moodleEvidences.view;
-    val matchingEvidence = moodleEvidencesView.find(x => x.getUrl().equals(moodleResponse.getUrl()))
-
-    // TODO
-    val activities = moodleEvidencesView.map(x => new ActivityEntry(moodleResponse.getName(), "Activität", MagicStrings.ICONPATHGWT + "/appbar.monitor.to.svg"))
-    val activityTypes = moodleEvidencesView.map(x => new ActivityTyp(moodleResponse.getModname(), "Aktivitätstyp", moodleResponse.getModicon(), activities.asJava))
-    new UserTree(matchingEvidence.head.getUsername(), "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", activityTypes.asJava)
+  def createActivityTypes(evidences: Buffer[MoodleEvidence], module: Module, user: String): Seq[ActivityTyp] = {
+    val groupedByActivityTyp = evidences.groupBy(evidence => evidence.getActivityTyp())
+    val result = groupedByActivityTyp.map(x => new ActivityTyp(module.getModname(), "Aktivitätstyp", module.getModicon(), createActivities(x._2, module.getName()).asJava))
+    return result.toSeq;
   }
 
-  def filterNoMachingEvidenceSets(moodleResponse: Module)(x: Buffer[MoodleEvidence]): Boolean = {
-    return x.map(z =>  z.getUrl()).contains(y => y.getUrl().equals(moodleResponse.getUrl()))
+  def createActivities(evidences: Buffer[MoodleEvidence], modReadableName: String): List[ActivityEntry] = {
+    val result = evidences.map(x => new ActivityEntry(modReadableName, "Activität", MagicStrings.ICONPATHGWT + "/appbar.monitor.to.svg", x.getUrl()))
+    return result.toList
   }
+
 }

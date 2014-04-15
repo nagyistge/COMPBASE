@@ -9,27 +9,28 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(AbstractTreeEntry.class)
 public class UserTree extends AbstractTreeEntry {
 
-	private List<ActivityTyp> activities;
+	private List<ActivityTyp> activityTypes;
 
 	public UserTree() {
 	}
 
 	public UserTree(List<ActivityTyp> activityTypes) {
 		super();
-		this.activities = activityTypes;
+		this.setActivityTypes(activityTypes);
 	}
 
 	public UserTree(String name, String qtip, String icon,
 			List<ActivityTyp> activityTypes) {
 		super(name, qtip, icon);
-		this.activities = activityTypes;
+		this.setActivityTypes(activityTypes);
 	}
 
-	public List<ActivityTyp> getActivities() {
-		return activities;
+	public List<ActivityTyp> getActivityTypes() {
+		return activityTypes;
 	}
 
-	public void setActivities(List<ActivityTyp> activities) {
-		this.activities = activities;
+	public void setActivityTypes(List<ActivityTyp> activityTypes) {
+		this.activityTypes = activityTypes;
 	}
+
 }

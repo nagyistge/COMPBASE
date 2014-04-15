@@ -43,4 +43,14 @@ public abstract class AbstractTreeEntry {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		return ((UserTree) arg0).getName().equals(this.getName());
+	}
+
+	@Override
+	public int hashCode() {
+		return getName().hashCode();
+	}
 }
