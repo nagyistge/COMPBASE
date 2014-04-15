@@ -31,7 +31,7 @@ object CompetenceImporter {
     val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
   }
 
-  def getCompetencesFromCSV(args: Array[String]): Buffer[Rdceo] = {
+  def getCompetencesFromCSV(args: Array[String]): Seq[Rdceo] = {
     return getCompetencesFromCSV(args.head);
   }
 
@@ -39,7 +39,7 @@ object CompetenceImporter {
     return getCompetencesFromCSV(csvLocation).toArray;
   }
 
-  def getCompetencesFromCSV(csvLocation: String): Buffer[Rdceo] = {
+  def getCompetencesFromCSV(csvLocation: String): Seq[Rdceo] = {
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
@@ -50,7 +50,7 @@ object CompetenceImporter {
 
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
-      map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences). // erstellt neue Klasse    
+      map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences).view. // erstellt neue Klasse    
       map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString).map(CompetenceMaps.cleanCatchwords))). //filtered leere Catchwords und überschrift
       map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
       map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;

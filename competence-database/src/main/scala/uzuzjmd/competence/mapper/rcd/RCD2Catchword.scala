@@ -16,7 +16,7 @@ object RCD2Catchword extends RCDImplicits {
    * Then it searches for all Operators of this Competence
    * Then it makes the operator inherit them
    */
-  def createMetaCatchwordRels(util: CompOntologyAccess, rcdeos: Buffer[Rdceo]) {
+  def createMetaCatchwordRels(util: CompOntologyAccess, rcdeos: Seq[Rdceo]) {
     rcdeos.foreach(recdeo2catchword(util))
   }
 
