@@ -16,7 +16,7 @@ object RCD2Operators extends RCDImplicits {
    * Then it searches for all Operators of this Competence
    * Then it makes the operator inherit them
    */
-  def createSubOperatorRels(util: CompOntologyAccess, rcdeos: Buffer[Rdceo]) {
+  def createSubOperatorRels(util: CompOntologyAccess, rcdeos: Seq[Rdceo]) {
     rcdeos.foreach(handleRcdeoSubOperators(util))
   }
 

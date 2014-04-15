@@ -120,7 +120,7 @@ public class CompOntologyManager {
 
 		logger.info("Base Ontology created");
 		logger.setLevel(Level.DEBUG);
-		m.write(logStream);
+		// m.write(logStream);
 
 		// TODO create Restrictions
 
