@@ -3,7 +3,6 @@ package uzuzjmd.competence.evidence.service;
 import java.util.ArrayList;
 
 import javax.jws.WebService;
-import javax.ws.rs.PathParam;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
@@ -14,8 +13,8 @@ import uzuzjmd.competence.evidence.model.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
-import uzuzjmd.competence.evidence.service.rest.Evidence2Tree;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
+import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
@@ -195,25 +194,23 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		return moodleService.getMoodleContents(courseId);
 	}
 
-	public UserTree[] getUserTree(@PathParam("course") String course) {
+	public UserTree[] getUserTree(String course) {
 		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
 		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
 
 		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
 				moodleEvidences);
-		return mapper.getUserTrees().toArray(new UserTree[0]);
+		 UserTree[] result =  mapper.getUserTrees().toArray(new UserTree[0]);
+		 return result;
 	}
 
-	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree(@PathParam("course") String course) {
-		return null;
-	}
 
-	public MoodleContentResponse[] getCourseContentXML(@PathParam("course") String course) {
+	public MoodleContentResponse[] getCourseContentXML(String course) {
 		MoodleContentResponseList list = getCourseContents(course);
 		return list.toArray(new MoodleContentResponse[0]);
 	}
 
-	public MoodleContentResponseList getCourseContent(@PathParam("course") String course) {
-		return null;
+	public MoodleContentResponseList getCourseContent(String course) {
+		return getCourseContents(course, adminname, adminLoginPassword);
 	}
 }
