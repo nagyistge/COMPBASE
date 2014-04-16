@@ -42,7 +42,7 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
 
   def createActivityTypes(evidences: Buffer[MoodleEvidence], module: Module, user: String): Seq[ActivityTyp] = {
     val groupedByActivityTyp = evidences.groupBy(evidence => evidence.getActivityTyp())
-    val result = groupedByActivityTyp.map(x => new ActivityTyp(module.getModname(), "Aktivitätstyp", module.getModicon(), createActivities(x._2, module.getName()).asJava))
+    val result = groupedByActivityTyp.map(x => new ActivityTyp(module.getModname().toUpperCase(), "Aktivitätstyp", module.getModicon(), createActivities(x._2, module.getName()).asJava))
     return result.toSeq;
   }
 
