@@ -139,3 +139,5 @@ competence-gui/competence-webapp/lib/*
 competence-gui/competence-webapp/war/icons/modernicons/*
 competence-gui/competence-webapp/.classpath
 competence-database/.cache
+competence-database/.cache
+competence-gui/competence-webapp/.classpath
