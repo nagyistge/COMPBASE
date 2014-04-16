@@ -1,11 +1,13 @@
 package uzuzjmd.competence.console.util
 
-import scala.collection.JavaConverters._
-import scala.collection.mutable.Buffer
 import java.util.ArrayList
+
+import scala.collection.JavaConverters.asScalaBufferConverter
+import scala.collection.mutable.Buffer
+
 import uzuzjmd.competence.csv.FilteredCSVCompetence
-import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.rcd.generated.Definition
+import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.rcd.generated.Statement
 
 object ConsoleOut {
