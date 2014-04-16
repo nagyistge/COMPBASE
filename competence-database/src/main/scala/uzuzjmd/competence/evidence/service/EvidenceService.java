@@ -22,14 +22,14 @@ public interface EvidenceService {
 	MoodleEvidence[] getUserEvidencesforMoodleCourse(String course);
 
 	@WebMethod
-	public abstract UserTree[] getUserTree(@PathParam("course") String course);
+	public abstract UserTree[] getUserTree(String course);
+
+//	@WebMethod
+//	public abstract MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree( String course);
 
 	@WebMethod
-	public abstract MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree(@PathParam("course") String course);
+	public abstract MoodleContentResponse[] getCourseContentXML(String course);
 
 	@WebMethod
-	public abstract MoodleContentResponse[] getCourseContentXML(@PathParam("course") String course);
-
-	@WebMethod
-	public abstract MoodleContentResponseList getCourseContent(@PathParam("course") String course);
+	public abstract MoodleContentResponseList getCourseContent( String course);
 }

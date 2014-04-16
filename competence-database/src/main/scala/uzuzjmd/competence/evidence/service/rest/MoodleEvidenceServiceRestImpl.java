@@ -65,21 +65,20 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContents(course);
 	}
-
+	
 	@Override
 	@Path("/contents/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_XML)	
 	public MoodleContentResponse[] getCourseContentXML(
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContentXML(course);
 	}
-
-	@Override
+		
 	@Path("/activities/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
-	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree(
+	@Produces(MediaType.APPLICATION_XML)	
+	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsXML(
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
@@ -87,7 +86,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Override
 	@Path("/activities/usertree/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_XML)	
 	public UserTree[] getUserTree(@PathParam("course") String course) {
 		return moodleServiceImpl.getUserTree(course);
 	}
