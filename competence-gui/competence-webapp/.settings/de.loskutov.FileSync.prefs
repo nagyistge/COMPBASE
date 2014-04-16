@@ -6,4 +6,5 @@ includeTeamPrivateFiles=false
 map|0=war/competence_webapp|,|,|,|,
 map|1=war/css|,|,|,|,
 map|2=war/js|,|,|,|,
+map|3=war/icons|,|,|,|,
 useCurrentDateForDestinationFiles=false
