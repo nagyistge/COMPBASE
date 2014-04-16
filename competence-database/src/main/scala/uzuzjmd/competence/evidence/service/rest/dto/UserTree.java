@@ -1,12 +1,16 @@
 package uzuzjmd.competence.evidence.service.rest.dto;
 
+import java.beans.Transient;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement(name="activity")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@XmlRootElement(name = "activity")
 @XmlSeeAlso(AbstractTreeEntry.class)
 public class UserTree extends AbstractTreeEntry {
 
@@ -26,8 +30,15 @@ public class UserTree extends AbstractTreeEntry {
 		this.setActivityTypes(activityTypes);
 	}
 
-	@XmlElement(name="activity")
+	@XmlElement(name = "activity")
 	public List<ActivityTyp> getActivityTypes() {
+		return activityTypes;
+	}
+
+	@Transient
+	@JsonIgnore
+	@XmlTransient
+	public List<ActivityTyp> getActivityTypez() {
 		return activityTypes;
 	}
 
