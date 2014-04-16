@@ -5,9 +5,6 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlneo4j"/>
-	<classpathentry kind="src" path="/java-rest-binding-master"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/competence-dependencies"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/competencedeps"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
