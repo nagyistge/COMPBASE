@@ -2,10 +2,11 @@ package uzuzjmd.competence.evidence.service.rest.dto;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlRootElement
+@XmlRootElement(name="activity")
 @XmlSeeAlso(AbstractTreeEntry.class)
 public class UserTree extends AbstractTreeEntry {
 
@@ -25,6 +26,7 @@ public class UserTree extends AbstractTreeEntry {
 		this.setActivityTypes(activityTypes);
 	}
 
+	@XmlElement(name="activity")
 	public List<ActivityTyp> getActivityTypes() {
 		return activityTypes;
 	}
