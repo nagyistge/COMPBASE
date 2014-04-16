@@ -1,10 +1,13 @@
 package uzuzjmd.competence.evidence.service.rest;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
@@ -13,7 +16,6 @@ import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
-import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 
 @Path("/moodle")
 public class MoodleEvidenceServiceRestImpl implements EvidenceService {
@@ -83,12 +85,24 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
-	@Override
+	@Override	
 	@Path("/activities/usertree/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)	
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-		return moodleServiceImpl.getUserTree(course);
+		 return moodleServiceImpl.getUserTree(course);	
 	}
+		
+	@Path("/activities/usertree/xml/crossdomain/{course}")
+	@GET
+	@Produces(MediaType.APPLICATION_XML)	
+	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
+		Response response = Response.status(200).
+	            entity(moodleServiceImpl.getUserTree(course)).	            
+	            header("Access-Control-Allow-Origin", "*").build();
+	    return response;	
+	}
+	
+
 
 }
