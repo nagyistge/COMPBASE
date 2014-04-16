@@ -141,3 +141,12 @@ competence-gui/competence-webapp/.classpath
 competence-database/.cache
 competence-database/.cache
 competence-gui/competence-webapp/.classpath
+
+competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhoneAssets/*
+competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsRT/*
+
+competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/*
+!competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg
+competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg/*
+!competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg
+gui/
