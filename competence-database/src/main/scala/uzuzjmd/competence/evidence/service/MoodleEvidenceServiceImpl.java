@@ -33,6 +33,8 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	private String moodledb;
 	private String adminname;
 	private String adminpassword;
+	private String adminLogin;
+	private String adminLoginPassword;
 
 	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb,
 			String adminname, String adminpassword) {
@@ -47,6 +49,14 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		this.moodledb = moodledb;
 		this.adminname = adminname;
 		this.adminpassword = adminpassword;
+	}
+
+	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb,
+			String adminname, String adminpassword, String adminLogin,
+			String adminLoginPassword) {
+		this(moodledatabaseurl, moodledb, adminname, adminpassword);
+		this.adminLogin = adminLogin;
+		this.adminLoginPassword = adminLoginPassword;
 	}
 
 	@Override
@@ -164,8 +174,20 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	}
 
 	public MoodleContentResponseList getCourseContents(String courseId) {
-		SimpleMoodleService moodleService = new SimpleMoodleService(adminname,
-				adminpassword);
+		if (this.adminLogin != null && this.adminLoginPassword != null) {
+			return getCourseContents(courseId, adminLogin, adminLoginPassword);
+		} else {
+			// assumes admin db name and admin moodle name are the same
+			SimpleMoodleService moodleService = new SimpleMoodleService(
+					adminname, adminpassword);
+			return moodleService.getMoodleContents(courseId);
+		}
+	}
+
+	public MoodleContentResponseList getCourseContents(String courseId,
+			String courseOwnerName, String courseOwnerPassword) {
+		SimpleMoodleService moodleService = new SimpleMoodleService(
+				courseOwnerName, courseOwnerPassword);
 		return moodleService.getMoodleContents(courseId);
 	}
 }

@@ -24,29 +24,58 @@ public class EvidenceServer {
 
 		if (args.length != 4) {
 			System.out
-					.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword");
+					.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
 		} else {
+
 			String moodleurl = args[0];
 			String moodledb = args[1];
 			String adminname = args[2];
 			String adminpassword = args[3];
-			startServer(moodleurl, moodledb, adminname, adminpassword);
+			if (args.length == 6) {
+				String adminlogin = args[4];
+				String adminloginpassword = args[5];
+				startServer(moodleurl, moodledb, adminname, adminpassword,
+						adminlogin, adminloginpassword);
+			} else {
+				startServer(moodleurl, moodledb, adminname, adminpassword);
+			}
 		}
 
 	}
 
 	private static void startServer(String moodleurl, String moodledb,
+			String adminname, String adminpassword, String adminlogin,
+			String adminloginpassword) throws IOException {
+		 MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
+		 publishServer(evidenceServiceImpl);
+	}
+
+	private static void startServer(String moodleurl, String moodledb,
 			String adminname, String adminpassword)
 			throws IllegalArgumentException, NullPointerException, IOException {
+		// start server
 		final MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(
 				moodleurl, moodledb, adminname, adminpassword);
+
+		publishServer(evidenceServiceImpl);
+
+	}
+
+	private static void publishServer(
+			final MoodleEvidenceServiceImpl evidenceServiceImpl)
+			throws IOException {
 		MoodleEvidenceServiceRestImpl.moodleServiceImpl = evidenceServiceImpl;
 
-		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
-				evidenceServiceImpl);
-		System.out.println("publishing wsdl to "
-				+ MagicStrings.EVIDENCESERVICEENDPOINT);
+		publishSoapServer(evidenceServiceImpl);
+		publishRestServer();
 
+		System.out.println("Press enter to exit");
+		System.in.read();
+
+		System.exit(1);
+	}
+
+	private static void publishRestServer() throws IOException {
 		ResourceConfig resourceConfig = new DefaultResourceConfig(
 				MoodleEvidenceServiceRestImpl.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL,
@@ -55,12 +84,14 @@ public class EvidenceServer {
 				+ MagicStrings.RESTURL);
 		System.out.println("Test this with2: " + MagicStrings.RESTURL
 				+ "/moodle/activities/json/2/2");
+	}
 
-		System.out.println("Press enter to exit");
-		System.in.read();
-
-		System.exit(1);
-
+	private static void publishSoapServer(
+			final MoodleEvidenceServiceImpl evidenceServiceImpl) {
+		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
+				evidenceServiceImpl);
+		System.out.println("publishing wsdl to "
+				+ MagicStrings.EVIDENCESERVICEENDPOINT);
 	}
 
 }
