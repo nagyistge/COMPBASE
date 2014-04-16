@@ -22,11 +22,10 @@ public class EvidenceServer {
 		System.setProperty("org.apache.commons.logging.LogFactory",
 				"org.apache.commons.logging.impl.LogFactoryImpl");
 
-		if (args.length != 4) {
+		if (args.length != 4 && args.length != 6) {
 			System.out
 					.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
 		} else {
-
 			String moodleurl = args[0];
 			String moodledb = args[1];
 			String adminname = args[2];

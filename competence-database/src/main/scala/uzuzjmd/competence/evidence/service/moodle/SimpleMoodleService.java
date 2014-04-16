@@ -28,9 +28,16 @@ public class SimpleMoodleService {
 	public MoodleContentResponseList getMoodleContents(String courseId) {
 		Client client = Client.create();
 		String moodleRestBase = getMoodleRestBase();
-		WebResource webResource = client.resource(MagicStrings.MOODLEURL
+		WebResource webResource = null;
+		try {
+		webResource = client.resource(MagicStrings.MOODLEURL
 				+ moodleRestBase + "core_course_get_contents&courseid="
 				+ courseId);
+		} catch (Exception e) {
+			System.err.println("Probably the moodle web services not configured properly");
+			e.printStackTrace();
+			System.exit(-1);			
+		} 
 		return webResource.accept(MediaType.APPLICATION_JSON).get(
 				MoodleContentResponseList.class);
 
