@@ -22,7 +22,22 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
     val groupedPairsByUser = joinedPairs.map(pair => (pair._1, pair._2.groupBy(evidence => evidence.getUsername()))).toBuffer // nach dem namen gruppieren
     //val groupedPairsByActivity = joinedPairs.map(pair => (pair._1, pair._2.groupBy(evidence => evidence.getActivityTyp()))).toBuffer // nach der aktivität gruppieren
     val result = groupedPairsByUser.map(pair => pair._2.map(map => new UserTree(map._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", createActivityTypes(map._2, pair._1, map._1).asJava))).flatten //oberste hierarchieebene erstellen
-    return result.distinct.asJava;
+    //    return result.distinct.asJava;
+    val groupedByUserTree = result.toList.groupBy(userTree => userTree.getName()).map(x => x._2.reduce((a: UserTree, b: UserTree) => createUserTree(a, b)))
+    return groupedByUserTree.toList.asJava;
+  }
+
+  def createUserTree(a: UserTree, b: UserTree): UserTree = {
+    val c = new UserTree(a.getName(), a.getQtip(), a.getIcon(),
+      (a.getActivityTypez().asScala ++ b.getActivityTypez().asScala).groupBy(x => x.getName()).
+        map(x => x._2.reduce((a: ActivityTyp, b: ActivityTyp) => createActivityTyp(a, b))).toList.asJava)
+    return c;
+  }
+
+  def createActivityTyp(a: ActivityTyp, b: ActivityTyp): ActivityTyp = {
+    val c = new ActivityTyp(a.getName(), a.getQtip(), a.getIcon(),
+      (a.getActivities().asScala ++ b.getActivities().asScala).asJava)
+    return c
   }
 
   def createActivityTypes(evidences: Buffer[MoodleEvidence], module: Module, user: String): Seq[ActivityTyp] = {
