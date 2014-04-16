@@ -57,6 +57,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
+	@Override
 	@Path("/contents/json/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -65,17 +66,16 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 		return moodleServiceImpl.getCourseContents(course);
 	}
 
+	@Override
 	@Path("/contents/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public MoodleContentResponse[] getCourseContentXML(
 			@PathParam("course") String course) {
-		MoodleContentResponseList list = moodleServiceImpl
-				.getCourseContents(course);
-		return list.toArray(new MoodleContentResponse[0]);
-
+		return moodleServiceImpl.getCourseContentXML(course);
 	}
 
+	@Override
 	@Path("/activities/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
@@ -84,19 +84,12 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
+	@Override
 	@Path("/activities/usertree/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-
-		MoodleEvidence[] moodleEvidences = moodleServiceImpl
-				.getUserEvidencesforMoodleCourse(course);
-		MoodleContentResponseList listMoodleContent = moodleServiceImpl
-				.getCourseContents(course);
-
-		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
-				moodleEvidences);
-		return mapper.getUserTrees().toArray(new UserTree[0]);
+		return moodleServiceImpl.getUserTree(course);
 	}
 
 }

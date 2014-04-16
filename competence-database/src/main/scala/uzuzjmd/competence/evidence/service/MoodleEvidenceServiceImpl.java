@@ -3,6 +3,7 @@ package uzuzjmd.competence.evidence.service;
 import java.util.ArrayList;
 
 import javax.jws.WebService;
+import javax.ws.rs.PathParam;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
@@ -10,8 +11,11 @@ import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
+import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
+import uzuzjmd.competence.evidence.service.rest.Evidence2Tree;
+import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
@@ -72,13 +76,7 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	 */
 	@Override
 	public MoodleEvidence[] getMoodleEvidences(String course, String user) {
-		logger.info("getting moodle evidences for course " + course + " user "
-				+ user);
-
-		MysqlConnect connect = new MysqlConnect();
-		connectToMoodleDB(connect);
-
-		connect.otherStatements("use " + moodledb);
+		MysqlConnect connect = initMysql(course, user);
 
 		// issue statement
 		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, "
@@ -102,14 +100,20 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 				.size()]);
 	}
 
-	@Override
-	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
-		logger.info("getting moodle evidences for course " + course);
+	private MysqlConnect initMysql(String course, String user) {
+		logger.info("getting moodle evidences for course " + course + " user "
+				+ user);
 
 		MysqlConnect connect = new MysqlConnect();
 		connectToMoodleDB(connect);
 
 		connect.otherStatements("use " + moodledb);
+		return connect;
+	}
+
+	@Override
+	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
+		MysqlConnect connect = initMysql(course, "adminuser");
 
 		// issue statement
 		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, firstaccess, lastaccess, lastlogin, currentlogin,"
@@ -189,5 +193,27 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		SimpleMoodleService moodleService = new SimpleMoodleService(
 				courseOwnerName, courseOwnerPassword);
 		return moodleService.getMoodleContents(courseId);
+	}
+
+	public UserTree[] getUserTree(@PathParam("course") String course) {
+		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
+		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
+
+		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
+				moodleEvidences);
+		return mapper.getUserTrees().toArray(new UserTree[0]);
+	}
+
+	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree(@PathParam("course") String course) {
+		return null;
+	}
+
+	public MoodleContentResponse[] getCourseContentXML(@PathParam("course") String course) {
+		MoodleContentResponseList list = getCourseContents(course);
+		return list.toArray(new MoodleContentResponse[0]);
+	}
+
+	public MoodleContentResponseList getCourseContent(@PathParam("course") String course) {
+		return null;
 	}
 }
