@@ -151,3 +151,4 @@ competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg/
 !competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg
 gui/
 gui/*
+/competence-gui/competence-webapp/war/nbproject/private/
