@@ -15,7 +15,7 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
   def getUserTrees(): java.util.List[UserTree] = {
     val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten
     val modules = filteredMoodleResponses.map(x => x.getModules().asScala).flatten.view // nur die mit Module
-    val filteredModules = modules.filterNot(x => x.getUrl().equals(null)); // nur die mit URL
+    val filteredModules = modules.filterNot(x => x.getUrl().equals(null)).filterNot(x => x.getModname().equals("competence")); // nur die mit URL
     val groupedEvidences = moodleEvidences.view.map(x => (x.getUrl(), x)) // key map nach url erstellt für evidenzen
     val joinedPairs = filteredModules.map(filteredModules => (filteredModules, groupedEvidences.filter(x => filteredModules.getUrl().equals(x._1)))).
       map(x => (x._1, x._2.toMap.values.toBuffer)) // nach url gejoined und die map wieder platt gemacht
@@ -47,7 +47,7 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
   }
 
   def createActivities(evidences: Buffer[MoodleEvidence], modReadableName: String): List[ActivityEntry] = {
-    val result = evidences.map(x => new ActivityEntry(modReadableName, "Activität", MagicStrings.ICONPATHGWT + "/appbar.monitor.to.svg", x.getUrl()))
+    val result = evidences.map(x => new ActivityEntry(modReadableName, "Activität", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", x.getUrl()))
     return result.toList
   }
 
