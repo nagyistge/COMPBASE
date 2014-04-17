@@ -7,13 +7,16 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.query.client.GQuery;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Function;
 //import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Template;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Tool;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -47,30 +50,10 @@ public class Competence_webapp implements EntryPoint {
 		treePanelContainer.setBorder(false);
 		treePanelContainer.setPaddings(15);
 
-		// final Store store = new SimpleStore(new String[]{"abbr",
-		// "activities "}, getCountries());
-		// store.load();
-
 		final Template template = new Template(
 				"<div class=\"x-combo-list-item\">"
 						+ "<img src=\"images/flags/{abbr}.gif\"> "
 						+ "{activities }<div class=\"x-clear\"></div></div>");
-
-		// ComboBox cb = new ComboBox();
-		// cb.setMinChars(1);
-		// cb.setFieldLabel("Countries");
-		// cb.setStore(store);
-		// cb.setDisplayField("activities ");
-		// cb.setMode(ComboBox.LOCAL);
-		// cb.setTriggerAction(ComboBox.ALL);
-		// cb.setEmptyText("Bitte Aktivit�ten ausw�hlen ");
-		// cb.setTypeAhead(true);
-		// cb.setSelectOnFocus(true);
-		// cb.setWidth(60);
-		// cb.setResizable(true);
-		// cb.setTpl(template);
-		// cb.setTitle("Activit�ten");
-		// cb.setAllowBlank(false);
 
 		final TreePanel treePanel = new TreePanel();
 		treePanel.setWidth(240);
@@ -112,24 +95,24 @@ public class Competence_webapp implements EntryPoint {
 				GQuery gqueryNode = $(".x-tree-node-anchor");
 				for (int i = 0; i < gqueryNode.length(); i++) {
 					Element element = gqueryNode.get(i);
-					GWT.log("attaching preview to"
-							+ element.getAttribute("target"));
-					if (element.getAttribute("target").trim() != "") {
-						Panel toolTipPanel = new Panel();
+					if (element.getAttribute("target").trim() != ""
+							&& element.hasAttribute("target")) {
+						GWT.log("attaching preview to target"
+								+ element.getAttribute("target"));
+						if (element.hasChildNodes()) {
+							String id = ((Element) element.getChild(0)).getId();
+							((Element) element.getChild(0))
+									.removeAttribute("qtip");
+							if (id == null) {
+								GWT.log("could not attach to child because of false structure");
+							} else {
+								GWT.log("attaching preview to id " + id);
+								Competence_webapp.showPreview(
+										element.getAttribute("target"),
+										".region-content", "#" + id);
 
-						ActivityEntry activitiesEntry = new ActivityEntry(
-								"http://localhost/moodle/mod/assign/view.php?id=6",
-								"assignment", "just an assignmen");
-						toolTipPanel.add(activitiesEntry);
-
-						ActivityTooltip activitiesTooltip = new ActivityTooltip(
-								"http://localhost/moodle/mod/assign/view.php?id=6",
-								"assignmentpreview");
-
-						element.getChild(0).appendChild(
-								toolTipPanel.getElement());
-
-						activitiesTooltip.init(toolTipPanel);
+							}
+						}
 
 					}
 				}
@@ -139,23 +122,9 @@ public class Competence_webapp implements EntryPoint {
 
 			@Override
 			public boolean doBeforeLoad(TreeLoader self, TreeNode node) {
-				// GQuery gqueryNode = $(".x-tree-node-anchor");
-				// for (int i = 0; i < gqueryNode.length(); i++) {
-				// Element element = gqueryNode.get(i);
-				// GWT.log("attaching preview to"
-				// + element.getAttribute("target"));
-				// if (element.getAttribute("target").trim() != "") {
-				// element.getChild(0).appendChild(panel1.getElement());
-				// activitiesTooltip.init(panel1);
-				// }
-				// }
-				// gqueryNode.after("hello people");
-
 				return true;
 			}
 		});
-
-		// loader.setAttributeMappings(new String[] { "@moodleUrl" });
 
 		final AsyncTreeNode root = new AsyncTreeNode("Aktivitäten", loader);
 		treePanel.setRootNode(root);
@@ -163,28 +132,20 @@ public class Competence_webapp implements EntryPoint {
 		root.expand();
 		treePanel.expandAll();
 
-		// treePanel.addTool(new Tool(Tool.REFRESH, new Function() {
-		// public void execute() {
-		// treePanel.getEl().mask("Loading", "x-mask-loading");
-		// root.reload();
-		// root.collapse(true, false);
-		// Timer timer = new Timer() {
-		// public void run() {
-		// treePanel.getEl().unmask();
-		// root.expand(true, true);
-		// }
-		// };
-		// timer.schedule(1000);
-		// }
-		// }, "Refresh"));
-
-		// TreeEditor treeEditor = new TreeEditor(treePanel, cb);
-
-		// panel = new Panel();
-		// panel.setBorder(false);
-		// panel.add(treePanel);
-
-		// container.add(panel);
+		treePanel.addTool(new Tool(Tool.REFRESH, new Function() {
+			public void execute() {
+				treePanel.getEl().mask("Loading", "x-mask-loading");
+				root.reload();
+				root.collapse(true, false);
+				Timer timer = new Timer() {
+					public void run() {
+						treePanel.getEl().unmask();
+						root.expand(true, true);
+					}
+				};
+				timer.schedule(10000);
+			}
+		}, "Refresh"));
 
 		FieldSet fieldSet = new FieldSet("Sort Direction");
 		fieldSet.setFrame(false);
@@ -245,8 +206,16 @@ public class Competence_webapp implements EntryPoint {
 
 		container.add(treePanelContainer);
 
-		// GQuery gqueryNode2 = $(".classy");
-		// gqueryNode2.after("hello classy people");
-
 	}
+
+	public static native void showPreview(String url, String selector,
+			String whereTo)/*-{
+		$wnd.preview(url, selector, whereTo);
+		//$wnd.previewdebug(url, selector, whereTo);
+
+	}-*/;
+
+	public static native void removePreview(String whereTo)/*-{
+		$wnd.removePreview(whereTo);
+	}-*/;
 }
