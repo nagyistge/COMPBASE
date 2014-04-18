@@ -21,7 +21,7 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-		ActivityPanel activityPanel = new ActivityPanel(
+		ActivityPanel2 activityPanel = new ActivityPanel2(
 				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2");
 		container.add(activityPanel);
 
