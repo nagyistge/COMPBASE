@@ -135,6 +135,7 @@ competence-gui/competence-webapp/gwt-unitCache
 competence-gui/competence-webapp/war/WEB-INF/deploy
 competence-gui/competence-webapp/lib/*
 !competence-gui/competence-webapp/lib/gwtext.jar
+!competence-gui/competence-webapp/lib/gwtquery-1.4.1
 
 competence-gui/competence-webapp/war/icons/modernicons/*
 competence-gui/competence-webapp/.classpath
@@ -152,3 +153,5 @@ competence-gui/competence-webapp/war/icons/WindowsIcons-master/WindowsPhone/svg/
 gui/
 gui/*
 /competence-gui/competence-webapp/war/nbproject/private/
+
+
