@@ -126,7 +126,9 @@ competence-gui/htdocs/moodle/*
 competence-gui/htdocs/moodle/mod/*
 !competence-gui/htdocs/moodle/mod/competence
 
-
+!competence-gui/
+!competence-gui/competence-webapp/
+!competence-gui/competence-webapp/src/
 
 competence-gui/competence-webapp/war/competence_webapp/*
 !competence-gui/competence-webapp/war/competence_webapp/gwt
