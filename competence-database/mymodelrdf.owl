@@ -291,8 +291,6 @@ und Entscheidungssituationen.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IBedingungsanalyse">
     <rdf:type rdf:resource="http://comp#Bedingungsanalyse"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_analysieren_die_Bedingungen_an_ihrer_Schule_hinsichtlich_der_Besonderheiten_f%C3%BCr_ihre_T%C3%A4tigkeit__"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_analysieren_die_Bedingungen_bez%C3%BCglich_Informatikunterricht_hinsichtlich_der_Ausstattung_mit_PCs_und_anderen_f%C3%BCr_den_Informatikunterricht_relevanter_Faktoren__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Itigkeit__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Ir_den_Informatikunterricht_relevanter_Faktoren__"/>
   </rdf:Description>
@@ -440,7 +438,6 @@ aufeinander ab</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ick">
     <rdf:type rdf:resource="http://comp#Schriftst%C3%BCck"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_protokollieren_eine_Unterrichtsstunde___Hierbei_trennen_sie_Beobachtung_und_Interpretation___Es_wird_vorher_ein_Beobachtungsziel_definiert__%C2%A0"/>
     <j.23:CatchwordOf rdf:resource="http://comp#I"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Lehrerinnen_und_Lehrer_planen_Unterricht_fach-_und_sachgerecht">
@@ -473,7 +470,6 @@ Die Lehramtsanwärter vermitteln  Lern- und Arbeitsstrategien</j.23:definition>
   <rdf:Description rdf:about="http://comp#Organisation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Organisation</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter_protokollieren_eine_Unterrichtsstunde___Hierbei_trennen_sie_Beobachtung_und_Interpretation___Es_wird_vorher_ein_Beobachtungsziel_definiert__%C2%A0">
@@ -592,7 +588,6 @@ Die Lehramtsanwärter unterstützen Verstehen und Transfer .</j.23:definition>
   <rdf:Description rdf:about="http://comp#Diagnostik">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diagnostik</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter_%C3%BCberpr%C3%BCfen_die_Qualit%C3%A4t_des_eigenen_Lehrens">
@@ -629,13 +624,11 @@ Aufgabenformen.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Itzung">
     <rdf:type rdf:resource="http://comp#Selbsteinsch%C3%A4tzung"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rten_reflektieren_nach_drei_Wochen_ihren_Lernfortschritt__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irten_reflektieren_nach_drei_Wochen_ihren_Lernfortschritt__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Bedingungsanalyse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bedingungsanalyse</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Pr%C3%A4ventivma%C3%9Fnahmen">
@@ -701,7 +694,6 @@ herzustellen und Gelerntes zu nutzen.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDiagnostik">
     <rdf:type rdf:resource="http://comp#Diagnostik"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_beschreiben_den_Lernstand_der_SuS_und_ihren_eigenen_Wissensstand__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_beschreiben_den_Lernstand_der_SuS_und_ihren_eigenen_Wissensstand__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter%C2%A0konzipieren_Aufgabenstellungen_kriteriengerecht__">
@@ -785,7 +777,6 @@ Die Lehramtsanwärter konzipieren Aufgabenstellungen kriteriengerecht.</j.23:de
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IRahmenlehrplan">
     <rdf:type rdf:resource="http://comp#Rahmenlehrplan"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_ordnen_die_Unterrichtseinheit_in_den_Rahmenlehrplan_ein__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_ordnen_die_Unterrichtseinheit_in_den_Rahmenlehrplan_ein__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Isituationsgerecht_ein">
@@ -801,11 +792,6 @@ Die Lehramtsanwärter konzipieren Aufgabenstellungen kriteriengerecht.</j.23:de
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDie_Lehramtsanw%C3%A4rter%C2%A0vermitteln_den_Sch%C3%BClerinnen_und_Sch%C3%BClern%C2%A0Methoden_des_selbstbestimmten%2C_eigenverantwortlichen_und_kooperativen_Lernens%C2%A0und_Arbeitens__">
     <rdf:type rdf:resource="http://comp#Die_Lehramtsanw%C3%A4rter%C2%A0vermitteln_den_Sch%C3%BClerinnen_und_Sch%C3%BClern%C2%A0Methoden_des_selbstbestimmten%2C_eigenverantwortlichen_und_kooperativen_Lernens%C2%A0und_Arbeitens__"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rten_reflektieren_nach_drei_Wochen_ihren_Lernfortschritt__">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -896,7 +882,6 @@ kooperative Weiterbildungsangebote</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IPlanung">
     <rdf:type rdf:resource="http://comp#Planung"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_ihren_Unterricht"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_ihren_Unterricht"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Umgangsregeln">
@@ -959,9 +944,6 @@ Unterrichtsentwicklung und Arbeitsentlastung</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IManagement">
     <rdf:type rdf:resource="http://comp#Management"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_eine_Unterrichtseinheit__"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_eine_Unterrichtssequenz__"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_ihren_Unterricht"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_eine_Unterrichtseinheit__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_eine_Unterrichtssequenz__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_ihren_Unterricht"/>
@@ -1048,7 +1030,6 @@ Die Lehramtsanwärter reflektieren den eigenen Medieneinsatz.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ILernpsychologie">
     <rdf:type rdf:resource="http://comp#Lernpsychologie"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_erkl%C3%A4ren_den_lernpsychologischen_Aufbau_ihres_Unterrichts__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Iren_den_lernpsychologischen_Aufbau_ihres_Unterrichts__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter_kennen_die_Bedeutung_geschlechtsspezifischer_Einfl%C3%BCsse_auf_Bildungs-_und_Erziehungsprozesse">
@@ -1127,7 +1108,6 @@ Jugendalters sowie Präventions- und Interventionsmöglichkeiten.</j.23:definiti
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDokumentation">
     <rdf:type rdf:resource="http://comp#Dokumentation"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_strukturieren_ihren_Unterricht%2C_indem_sie_eine_Verlaufstabelle_anlegen__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#I_indem_sie_eine_Verlaufstabelle_anlegen__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iund_Arbeitens__">
@@ -1272,7 +1252,6 @@ schulischer Projekte und Vorhaben</j.23:definition>
   <rdf:Description rdf:about="http://comp#Schriftst%C3%BCck">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schriftstück</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ider_Gestaltung_von_Bildungs-_und_Erziehungsprozessen">
@@ -1304,7 +1283,6 @@ Bildungssystems und von Schule als Organisation.</j.23:definition>
   <rdf:Description rdf:about="http://comp#I">
     <rdf:type rdf:resource="http://comp#Die_Lehramtsanw%C3%A4rter_protokollieren_eine_Unterrichtsstunde___Hierbei_trennen_sie_Beobachtung_und_Interpretation___Es_wird_vorher_ein_Beobachtungsziel_definiert__%C2%A0"/>
     <rdf:type rdf:resource="http://comp#Die_Lehramtsanw%C3%A4rter_%C2%A0kennen_die_rechtlichen_Rahmenbedingungen_ihrer_T%C3%A4tigkeit_%28z___B___Grundgesetz%2C%C2%A0Schulgesetze%29"/>
-    <rdf:type rdf:resource="http://comp#"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Lehramtsanw%C3%A4rter_verkn%C3%BCpfen_fachwissenschaftliche_undfachdidaktische_Argumente__">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1384,7 +1362,6 @@ Handlungsformen der Konfliktprävention und -lösung an.</j.23:definition>
   <rdf:Description rdf:about="http://comp#Didaktik">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Didaktik</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#____*_Abgabe_eines_Planungsdokumentes____*_M%C3%BCndliche_Pr%C3%A4sentation_der_Schule____*_Aufschl%C3%BCsselungen_der_Besonderheiten_der_Schule_kategorisiert_nach______Anwendungsf%C3%A4llen">
@@ -1404,8 +1381,6 @@ Handlungsformen der Konfliktprävention und -lösung an.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IOrganisation">
     <rdf:type rdf:resource="http://comp#Organisation"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_eine_Unterrichtseinheit__"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_planen_ihren_Unterricht"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_eine_Unterrichtseinheit__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_planen_ihren_Unterricht"/>
   </rdf:Description>
@@ -1417,7 +1392,6 @@ Die Lehramtsanwärter formulieren Aufgabenstellungen adressatengerecht</j.23:de
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IWissenschaftlichesArbeiten">
     <rdf:type rdf:resource="http://comp#WissenschaftlichesArbeiten"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_protokollieren_eine_Unterrichtsstunde___Hierbei_trennen_sie_Beobachtung_und_Interpretation___Es_wird_vorher_ein_Beobachtungsziel_definiert__%C2%A0"/>
     <j.23:CatchwordOf rdf:resource="http://comp#I"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Irter_strukturieren_Unterrichtsinhalte__">
@@ -1492,7 +1466,6 @@ Wertvorstellungen und Einstellungen</j.23:definition>
   <rdf:Description rdf:about="http://comp#Management">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Management</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter%C2%A0kennen_Methoden_der_Selbst-_und_Fremdevaluation">
@@ -1523,7 +1496,6 @@ Die Lehramtsanwärter kennen Methoden der Selbst- und Fremdevaluation</j.23:def
   <rdf:Description rdf:about="http://comp#Strukturierung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Strukturierung</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Itigkeit__">
@@ -1591,7 +1563,6 @@ der Grundlage transparenter Beurteilungsmaßstäbe</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Indung">
     <rdf:type rdf:resource="http://comp#NormativeBegr%C3%BCndung"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_ordnen_die_Unterrichtseinheit_in_den_Rahmenlehrplan_ein__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Irter_ordnen_die_Unterrichtseinheit_in_den_Rahmenlehrplan_ein__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter%C2%A0dokumentieren_f%C3%BCr_sich_und_andere_die%C2%A0eigene_Arbeit_und_ihre_Ergebnisse">
@@ -1896,7 +1867,6 @@ eigenverantwortliches Urteilen und Handeln schrittweise ein</j.23:definition>
   <rdf:Description rdf:about="http://comp#Rahmenlehrplan">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rahmenlehrplan</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDie_Lehramtsanw%C3%A4rter%C2%A0wenden_Bewertungsmodelle_und_Bewertungsma%C3%9Fst%C3%A4be_fach-_und_situationsgerecht%C2%A0an">
@@ -2013,7 +1983,6 @@ Arbeitens.</j.23:definition>
   <rdf:Description rdf:about="http://comp#WissenschaftlichesArbeiten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WissenschaftlichesArbeiten</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Irter_geben_qualifiziertes_Feedback__">
@@ -2194,7 +2163,6 @@ eigenen Fähigkeiten.</j.23:definition>
   <rdf:Description rdf:about="http://comp#NormativeBegr%C3%BCndung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NormativeBegründung</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iformulieren_Aufgabenstellungen_adressatengerecht">
@@ -2251,7 +2219,6 @@ Sie hängen Unterrichtsmaterialien an ihr Portfolio an.</j.23:definition>
   <rdf:Description rdf:about="http://comp#Lernpsychologie">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lernpsychologie</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Die_Lehramtsanw%C3%A4rter">
@@ -2323,7 +2290,6 @@ Ziele sowie die daraus abzuleitenden Standards kritisch.</j.23:definition>
   <rdf:Description rdf:about="http://comp#Planung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Planung</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Leistungs-_und_Lernmotivation">
@@ -2343,7 +2309,6 @@ Ziele sowie die daraus abzuleitenden Standards kritisch.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDidaktik">
     <rdf:type rdf:resource="http://comp#Didaktik"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_begr%C3%BCnden_ihre_Unterrichtsplanung_anhand_der_Lernstandsdiagnostik_und_dem_gew%C3%BCnschten_Kompetenzerwerb__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Inschten_Kompetenzerwerb__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iund_Unterricht">
@@ -2371,7 +2336,6 @@ besonderer Verantwortung und Verpflichtung</j.23:definition>
   <rdf:Description rdf:about="http://comp#Selbsteinsch%C3%A4tzung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Selbsteinschätzung</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDie_Lehramtsanw%C3%A4rter_%C2%A0vermitteln_Werte_und_Normen__">
@@ -2435,7 +2399,6 @@ und situationsgerecht an</j.23:definition>
   <rdf:Description rdf:about="http://comp#Dokumentation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <rdfs:subClassOf rdf:resource="http://comp#"/>
     <j.23:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dokumentation</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#I_Entwicklung_und_Sozialisation">
@@ -2636,7 +2599,6 @@ Lernprozess der SuS.</j.23:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IStrukturierung">
     <rdf:type rdf:resource="http://comp#Strukturierung"/>
-    <j.23:CatchwordOf rdf:resource="http://comp#IDie_Lehramtsanw%C3%A4rter_erkl%C3%A4ren_den_lernpsychologischen_Aufbau_ihres_Unterrichts__"/>
     <j.23:CatchwordOf rdf:resource="http://comp#Iren_den_lernpsychologischen_Aufbau_ihres_Unterrichts__"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Irter_beschreiben_den_Lernstand_der_SuS_und_ihren_eigenen_Wissensstand__">

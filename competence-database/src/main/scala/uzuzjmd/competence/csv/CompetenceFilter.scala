@@ -6,6 +6,6 @@ object CompetenceFilter {
    * Außerdem wird die erste Zeile der Exceltabelle ignoriert
    */
   def catchwordString(catchwordString: String): Boolean = {
-    return !catchwordString.trim().equals("") && !catchwordString.equals("Schlagwort")
+    return !catchwordString.equals("") && !catchwordString.trim().equals("") && !catchwordString.equals("Schlagwort")
   }
 }
