@@ -43,10 +43,12 @@ object RCD2Catchword extends RCDImplicits {
   private def handleCatchwordTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple) {
     val catchwordsIndividual: Individual = util.createSingleTonIndividualWithClass2(input._3)
     val competenceIndividual: Individual = util.createSingleTonIndividual(input._1)
-    val metacatchwordsClass: OntClass = util.createSingleTonIndividualWithClass(input._2, input._2)
-    metacatchwordsClass.addSuperClass(util.createOntClassForString(CompOntClass.Catchword.name()))
-    catchwordsIndividual.getOntClass().addSuperClass(metacatchwordsClass)
-    util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, CompObjectProperties.CatchwordOf)
+    if (!(input._2 == null) && !input._2.equals("")) {
+      val metacatchwordsClass: OntClass = util.createSingleTonIndividualWithClass(input._2, input._2)
+      metacatchwordsClass.addSuperClass(util.createOntClassForString(CompOntClass.Catchword.name()))
+      catchwordsIndividual.getOntClass().addSuperClass(metacatchwordsClass)
+      util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, CompObjectProperties.CatchwordOf)
+    }
   }
 
 }
