@@ -8,16 +8,19 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.rest.dto.CompetenceTree;
 
 /**
- * Root resource (exposed at "rcdeo" path)
+ * Root resource (exposed at "competences" path)
  */
-@Path("/rcdeo")
+@Path("/competences")
 public class CompetenceServiceRest {
 
 	/**
@@ -45,4 +48,15 @@ public class CompetenceServiceRest {
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
 		competenceServiceImpl.insertCompetence(input);
 	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/tree/xml/crossdomain/{course}")
+	public Response getCompetenceTree(@PathParam("course") String course) {
+		CompetenceTree[] result = CompetenceServiceWrapper.getCompetenceTree();
+		Response response = Response.status(200).entity(result)
+				.header("Access-Control-Allow-Origin", "*").build();
+		return response;
+	}
+
 }
