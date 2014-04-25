@@ -3,6 +3,12 @@ package uzuzjmd.competence.evidence.model;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+/**
+ * 
+ * @author Julian Dehne Diese Klasse implementiert das EvidenzInterface für
+ *         Moodle
+ * 
+ */
 @XmlSeeAlso(uzuzjmd.competence.evidence.model.Evidence.class)
 @XmlRootElement
 public class MoodleEvidence extends Evidence {

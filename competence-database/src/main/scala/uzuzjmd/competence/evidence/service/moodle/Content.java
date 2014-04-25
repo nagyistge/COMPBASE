@@ -1,5 +1,11 @@
 package uzuzjmd.competence.evidence.service.moodle;
 
+/**
+ * DTOs für den Moodle REST-Service
+ * 
+ * @author julian
+ * 
+ */
 public class Content {
 	private String author; // s //Content owner
 	private String content;// s Optional; // //Raw content, will be used when
@@ -7,7 +13,7 @@ public class Content {
 	private String filepath; // filepath
 	private int filesize; // filesize
 	private String fileurl; // s Optional //downloadable file url
-							private String license; // Content license
+	private String license; // Content license
 
 	private int sortorder; // Content sort order
 
@@ -100,15 +106,19 @@ public class Content {
 	public void setSortorder(int sortorder) {
 		this.sortorder = sortorder;
 	}
+
 	public void setTimecreated(int timecreated) {
 		this.timecreated = timecreated;
 	}
+
 	public void setTimemodified(int timemodified) {
 		this.timemodified = timemodified;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}

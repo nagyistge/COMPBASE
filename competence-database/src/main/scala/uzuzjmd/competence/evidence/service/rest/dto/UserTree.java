@@ -10,6 +10,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * XMl-mappbare DTOs für den eigenen REST-Service (Evidenzen)
+ * 
+ * @author julian
+ * 
+ */
 @XmlRootElement(name = "activity")
 @XmlSeeAlso(AbstractTreeEntry.class)
 public class UserTree extends AbstractTreeEntry {

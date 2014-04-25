@@ -5,8 +5,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+/**
+ * XMl-mappbare DTOs für den eigenen REST-Service (Evidenzen)
+ * 
+ * @author julian
+ * 
+ */
 @XmlSeeAlso(AbstractTreeEntry.class)
-
 public class ActivityTyp extends AbstractTreeEntry {
 
 	private List<ActivityEntry> activities;
@@ -26,7 +31,7 @@ public class ActivityTyp extends AbstractTreeEntry {
 		this.activities = activities;
 	}
 
-	@XmlElement(name="activityEntry")
+	@XmlElement(name = "activityEntry")
 	public List<ActivityEntry> getActivities() {
 		return activities;
 	}

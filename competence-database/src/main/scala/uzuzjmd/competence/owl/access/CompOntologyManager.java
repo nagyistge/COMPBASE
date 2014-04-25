@@ -22,8 +22,6 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDB;
 import com.hp.hpl.jena.tdb.TDBFactory;
-import com.hp.hpl.jena.vocabulary.OWL2;
-import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 
 public class CompOntologyManager {
@@ -64,10 +62,6 @@ public class CompOntologyManager {
 
 	}
 
-	public CompOntologyManager(Boolean fuseki) {
-
-	}
-
 	public Dataset getDataset() {
 		return dataset;
 	}
@@ -100,14 +94,6 @@ public class CompOntologyManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private SimpleRulesReasoner initRulesReasoning() {
-		rulesReasoner.addRuleAsString(
-				"(?a comp:LearnerOf ?b) -> (?b comp:LearnerOfInverse ?a)",
-				"operatorInverse");
-		rulesReasoner.reason();
-		return rulesReasoner;
 	}
 
 	public OntModel createBaseOntology() {
@@ -168,9 +154,9 @@ public class CompOntologyManager {
 				CompObjectProperties.SpecifiedByInverse);
 		getUtil().createObjectProperty(CompOntClass.Competence,
 				CompOntClass.Competence, CompObjectProperties.SimilarTo);
-		getM().getObjectProperty(
-				MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
-				.addProperty(RDF.type, OWL2.ReflexiveProperty);
+		// getM().getObjectProperty(
+		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
+		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
 	}
 
 	private void initClasses() {
