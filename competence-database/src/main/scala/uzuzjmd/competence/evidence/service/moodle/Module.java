@@ -2,6 +2,12 @@ package uzuzjmd.competence.evidence.service.moodle;
 
 import java.util.List;
 
+/**
+ * DTOs für den Moodle REST-Service
+ * 
+ * @author julian
+ * 
+ */
 public class Module {
 	private int availablefrom; // module availability start date
 	private int availableuntil; // Optional //module availability en date
@@ -109,6 +115,7 @@ public class Module {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public void setVisible(int visible) {
 		this.visible = visible;
 	}

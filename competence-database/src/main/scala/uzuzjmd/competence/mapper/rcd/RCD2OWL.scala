@@ -23,10 +23,15 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import java.util.ArrayList
 
+/**
+ *
+ * Diese Klasse mappt Daten im RDCEO-Format auf die Ontologie
+ */
+
 object RCD2OWL extends RCDImplicits {
 
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
-  logger.setLevel(Level.DEBUG)
+  logger.setLevel(Level.TRACE)
   val logStream = new LogStream(logger, Level.DEBUG);
 
   def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
@@ -67,9 +72,10 @@ object RCD2OWL extends RCDImplicits {
     logger.debug("SubOperator rels created")
     RCD2Catchword.createMetaCatchwordRels(util, rcdeos)
     logger.debug("metaoperator rels created")
-
     // data properties
     rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
+    logger.debug("definition properties created")
+
     manager.close()
   }
 

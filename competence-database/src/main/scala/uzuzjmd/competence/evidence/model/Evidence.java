@@ -2,6 +2,12 @@ package uzuzjmd.competence.evidence.model;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+/**
+ * Diese Klasse modelliert einen Kompetenznachweis
+ * 
+ * @author Julian Dehne
+ * 
+ */
 @XmlSeeAlso(uzuzjmd.competence.evidence.model.MoodleEvidence.class)
 public class Evidence {
 
@@ -17,11 +23,13 @@ public class Evidence {
 		this.changed = changed;
 	}
 
-	private String shortname;
-	private String url;
-	private String userId;
-	private String username;
-	private String changed;
+	private String shortname; // zur Anzeige
+	private String url; // die web referenzierbare url des Kompetenznachweises
+	private String userId; // eine Identifikation des Users (z.B. die ID des
+							// users in Moodle)
+	private String username; // der username zum anzeigen
+	private String changed; // das datum, wann der Kompetenznachweis erbracht
+							// wurde in Menschenlesbarer Form
 
 	public String getShortname() {
 		return shortname;

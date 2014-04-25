@@ -4,6 +4,12 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * DTOs für den Moodle REST-Service
+ * 
+ * @author julian
+ * 
+ */
 @XmlRootElement
 public class MoodleContentResponse {
 

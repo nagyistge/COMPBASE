@@ -2,7 +2,6 @@ package uzuzjmd.competence.evidence.service;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.ws.rs.PathParam;
 
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
@@ -21,15 +20,23 @@ public interface EvidenceService {
 	@WebMethod
 	MoodleEvidence[] getUserEvidencesforMoodleCourse(String course);
 
+	/**
+	 * Liefert eine XML-mappbaren UserTree zurück, der zeigt, welcher User
+	 * welche Aktivität durchführen kann
+	 * 
+	 * @param course
+	 * @return
+	 */
 	@WebMethod
 	public abstract UserTree[] getUserTree(String course);
 
-//	@WebMethod
-//	public abstract MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree( String course);
+	// @WebMethod
+	// public abstract MoodleEvidence[] getUserEvidencesforMoodleCourseAsTree(
+	// String course);
 
 	@WebMethod
 	public abstract MoodleContentResponse[] getCourseContentXML(String course);
 
 	@WebMethod
-	public abstract MoodleContentResponseList getCourseContent( String course);
+	public abstract MoodleContentResponseList getCourseContent(String course);
 }
