@@ -2,6 +2,13 @@ package uzuzjmd.competence.evidence.service.rest.dto;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * This is the mapping class for the GWT-Ext-Tree component produces xml fit for
+ * display in the tree
+ * 
+ * @author julian
+ * 
+ */
 public abstract class AbstractTreeEntry {
 	private String name;
 	private String qtip;
