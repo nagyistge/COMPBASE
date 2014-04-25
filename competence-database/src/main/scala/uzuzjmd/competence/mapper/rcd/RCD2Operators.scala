@@ -10,6 +10,9 @@ import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
 
+/**
+ * Diese Klasse mappt Operatoren im RDCEO-Format auf die Ontologie
+ */
 object RCD2Operators extends RCDImplicits {
   /**
    * Looks up Competence for each Title

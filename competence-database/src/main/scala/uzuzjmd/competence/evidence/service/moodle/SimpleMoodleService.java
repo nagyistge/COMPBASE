@@ -8,6 +8,12 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
+/**
+ * DTOs für den Moodle REST-Service
+ * 
+ * @author julian
+ * 
+ */
 public class SimpleMoodleService {
 	private Token token;
 
@@ -30,14 +36,15 @@ public class SimpleMoodleService {
 		String moodleRestBase = getMoodleRestBase();
 		WebResource webResource = null;
 		try {
-		webResource = client.resource(MagicStrings.MOODLEURL
-				+ moodleRestBase + "core_course_get_contents&courseid="
-				+ courseId);
+			webResource = client.resource(MagicStrings.MOODLEURL
+					+ moodleRestBase + "core_course_get_contents&courseid="
+					+ courseId);
 		} catch (Exception e) {
-			System.err.println("Probably the moodle web services not configured properly");
+			System.err
+					.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
-			System.exit(-1);			
-		} 
+			System.exit(-1);
+		}
 		return webResource.accept(MediaType.APPLICATION_JSON).get(
 				MoodleContentResponseList.class);
 

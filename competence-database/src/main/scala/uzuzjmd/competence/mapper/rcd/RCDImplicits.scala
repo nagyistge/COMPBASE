@@ -18,13 +18,13 @@ import uzuzjmd.competence.rcd.generated.Statementtext
 import uzuzjmd.competence.rcd.generated.Rdceo
 import java.util.ArrayList
 
+/**
+ * A bunch of useful toString - Methoden, um die Arbeit mit RCDEOs zu vereinfachen
+ * Wichtige Annahme: Die formell als Liste definierte Langstring-Liste besteht immer nur aus einem Element
+ * Wenn dies anders verwendet werden soll, gelten diese implicits nicht mehr
+ *
+ */
 trait RCDImplicits {
-  /**
-   * A bunch of useful toString - Methoden, um die Arbeit mit RCDEOs zu vereinfachen
-   * Wichtige Annahme: Die formell als Liste definierte Langstring-Liste besteht immer nur aus einem Element
-   * Wenn dies anders verwendet werden soll, gelten diese implicits nicht mehr
-   *
-   */
 
   type rcdeoView = scala.collection.SeqView[uzuzjmd.competence.rcd.generated.Rdceo, scala.collection.mutable.Buffer[uzuzjmd.competence.rcd.generated.Rdceo]]
 

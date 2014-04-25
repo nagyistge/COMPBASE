@@ -1,7 +1,11 @@
 package uzuzjmd.competence.csv
 
 object CompetenceFilter {
-	def catchwordString (catchwordString : String) : Boolean = {
-	  return  !catchwordString.trim().equals("") && !catchwordString.equals("Schlagwort")
-	}	
+  /**
+   * Mit dieser Methode kann man mit Scala leere Schlagworte filtern.
+   * Außerdem wird die erste Zeile der Exceltabelle ignoriert
+   */
+  def catchwordString(catchwordString: String): Boolean = {
+    return !catchwordString.trim().equals("") && !catchwordString.equals("Schlagwort")
+  }
 }

@@ -11,6 +11,10 @@ import uzuzjmd.competence.evidence.service.moodle.Module
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp
 import uzuzjmd.competence.owl.access.MagicStrings
 
+/**
+ * Diese Klasse mappt die Evidenzen aus der Moodle-Datenbank und von dem Moodle-RestService so, dass
+ * Die Evidenzen als GWT-Tree angezeigt werden können
+ */
 case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvidences: Array[MoodleEvidence]) {
   def getUserTrees(): java.util.List[UserTree] = {
     val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten

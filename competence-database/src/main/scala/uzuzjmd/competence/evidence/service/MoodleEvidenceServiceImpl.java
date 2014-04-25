@@ -195,15 +195,16 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	}
 
 	public UserTree[] getUserTree(String course) {
-		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
-		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
+		MoodleEvidence[] moodleEvidences = this
+				.getUserEvidencesforMoodleCourse(course);
+		MoodleContentResponseList listMoodleContent = this
+				.getCourseContents(course);
 
 		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
 				moodleEvidences);
-		 UserTree[] result =  mapper.getUserTrees().toArray(new UserTree[0]);
-		 return result;
+		UserTree[] result = mapper.getUserTrees().toArray(new UserTree[0]);
+		return result;
 	}
-
 
 	public MoodleContentResponse[] getCourseContentXML(String course) {
 		MoodleContentResponseList list = getCourseContents(course);
