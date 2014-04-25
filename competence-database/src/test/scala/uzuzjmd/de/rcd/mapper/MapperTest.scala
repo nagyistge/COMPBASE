@@ -10,14 +10,26 @@ import org.scalatest.junit.JUnitRunner
 import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.MagicStrings
 
 @RunWith(classOf[JUnitRunner])
 class MapperTest extends FunSuite with ShouldMatchers {
 
   test("The CSV import should run without errors") {
+
+    CompFileUtil.deleteTDB()
+
     val compOntManag = new CompOntologyManager()
     compOntManag.switchOnDebug()
-    CompetenceImporter.convertCSV("C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle.csv");
+
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    CompetenceImporter.convertCSV(MagicStrings.CSVLOCATION);
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
 
     compOntManag.begin()
     val fileUtil = new CompFileUtil(compOntManag.getM())
@@ -36,5 +48,4 @@ class MapperTest extends FunSuite with ShouldMatchers {
   //    List("fee", "fie", "foe", "fum") should have length (4)
   //  }
 }
-//}
 

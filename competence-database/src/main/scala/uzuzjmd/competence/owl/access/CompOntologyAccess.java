@@ -1,5 +1,8 @@
 package uzuzjmd.competence.owl.access;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -94,11 +97,11 @@ public class CompOntologyAccess {
 	 * @param propertyName
 	 * @return
 	 */
-	public ObjectProperty createObjectProperty(OntClass domain, OntClass range,
-			String propertyName) {
+	private ObjectProperty createObjectProperty(OntClass domain,
+			OntClass range, String propertyName) {
 
 		ObjectProperty property = manager.getM().createObjectProperty(
-				propertyName);
+				encode(propertyName));
 		property.setDomain(domain);
 		property.setRange(range);
 		return property;
@@ -189,10 +192,28 @@ public class CompOntologyAccess {
 		if (string.startsWith(MagicStrings.PREFIX)) {
 			System.out.println("das ist nicht ok");
 		}
+		/**
+		 * control character werden nicht akzeptiert und leerzeichen sind auch
+		 * nicht gut
+		 */
 		string = string.replaceAll(" ", "_").replaceAll("[\u0000-\u001f]", "");
-		IRIFactory factory = IRIFactory.uriImplementation();
+		IRIFactory factory = IRIFactory.iriImplementation();
+		try {
+			factory.setEncoding("utf8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(-1);
+		}
 		IRI iri = factory.construct(string);
-		return MagicStrings.PREFIX + iri.toString();
+		try {
+			return MagicStrings.PREFIX + iri.toASCIIString();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		throw new Error("could not encode");
+
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
@@ -213,7 +234,7 @@ public class CompOntologyAccess {
 		return manager.getM().getIndividual(encode(indivString));
 	}
 
-	public ObjectProperty getObjectPropertyForString(String objectProperty) {
+	private ObjectProperty getObjectPropertyForString(String objectProperty) {
 		return manager.getM().createObjectProperty(encode(objectProperty));
 	}
 
