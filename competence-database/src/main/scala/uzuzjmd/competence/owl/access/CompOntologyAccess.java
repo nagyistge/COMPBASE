@@ -1,7 +1,6 @@
 package uzuzjmd.competence.owl.access;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
+import java.net.URLEncoder;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -10,8 +9,6 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
 
-import com.hp.hpl.jena.iri.IRI;
-import com.hp.hpl.jena.iri.IRIFactory;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -188,7 +185,7 @@ public class CompOntologyAccess {
 		return createSingleTonIndividual(classOnt);
 	}
 
-	private String encode(String string) {
+	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX)) {
 			System.out.println("das ist nicht ok");
 		}
@@ -196,24 +193,9 @@ public class CompOntologyAccess {
 		 * control character werden nicht akzeptiert und leerzeichen sind auch
 		 * nicht gut
 		 */
-		string = string.replaceAll(" ", "_").replaceAll("[\u0000-\u001f]", "");
-		IRIFactory factory = IRIFactory.iriImplementation();
-		try {
-			factory.setEncoding("utf8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		IRI iri = factory.construct(string);
-		try {
-			return MagicStrings.PREFIX + iri.toASCIIString();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		throw new Error("could not encode");
-
+		string = string.replaceAll(" ", "_").replaceAll("[\u0000-\u001f]", "")
+				.replaceAll("\\.", "__");
+		return MagicStrings.PREFIX + URLEncoder.encode(string);
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
