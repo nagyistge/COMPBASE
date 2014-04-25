@@ -16,6 +16,7 @@ import uzuzjmd.competence.rcd.generated.Statement
 import uzuzjmd.competence.rcd.generated.Identifier
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.CompOntologyAccess
 
 /**
  * Diese Klasse mappt das Excel-Zwischenformat auf das RDCEO-Format
@@ -32,7 +33,7 @@ object CSV2RCD {
     //create titel (entspricht dem Individual der Competence-Klasse)
     val titel = new Title()
     val langstringsTitle = titel.getLangstring().asScala
-    langstringsTitle += (createLangString("Kompetenz" + filteredCSVCompetence.competence.hashCode()))
+    langstringsTitle += (createLangString(filteredCSVCompetence.competence))
     rdceo.setTitle(titel)
 
     //create description
@@ -50,7 +51,6 @@ object CSV2RCD {
     //create model
     val model = new Model
     model.setValue("http://www.kmk.org/bildung-schule/allgemeine-bildung/lehrer/lehrerbildung.html");
-    definition.setModel(model);
     //createStatments
     val statements = definition.getStatement().asScala
     statements.appendAll(filteredCSVCompetence.catchwordsFiltered.map(a => createStatement(a, CompOntClass.Catchword.name())))
