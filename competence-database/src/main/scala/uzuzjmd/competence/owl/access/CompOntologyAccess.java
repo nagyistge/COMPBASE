@@ -140,6 +140,9 @@ public class CompOntologyAccess {
 	 */
 	public OntClass createOntClassForString(String string,
 			String... definitions) {
+		if (string.equals("")) {
+			return null;
+		}
 		OntClass paper = manager.getM().createClass(encode(string));
 		if (definitions != null && definitions.length > 0) {
 			paper.addLiteral(manager.getM()
@@ -186,7 +189,7 @@ public class CompOntologyAccess {
 	}
 
 	public static String encode(String string) {
-		if (string.startsWith(MagicStrings.PREFIX)) {
+		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
 			System.out.println("das ist nicht ok");
 		}
 		/**
