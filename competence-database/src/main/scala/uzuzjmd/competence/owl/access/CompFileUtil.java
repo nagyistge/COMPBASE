@@ -1,8 +1,11 @@
 package uzuzjmd.competence.owl.access;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import org.apache.commons.io.FileUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -87,6 +90,17 @@ public class CompFileUtil {
 	 */
 	public void writeOntologyout() throws IOException {
 		writeOut(m);
+	}
+
+	public static void deleteTDB() {
+		String fileName = MagicStrings.TDBLocationPath;
+		// A File object to represent the filename
+		try {
+			FileUtils.deleteDirectory(new File(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
