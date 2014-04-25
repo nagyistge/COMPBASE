@@ -1,23 +1,21 @@
 import uzuzjmd.competence.service.rest.CompetenceServiceRest
 import scala.collection.JavaConverters._
-import scala.collection.JavaConverters._
 import uzuzjmd.competence.service.rest.dto.CompetenceTree
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import com.hp.hpl.jena.ontology.OntProperty
 //import uzuzjmd.competence.owl.access.Singletons
-import uzuzjmd.competence.owl.access.CompFileUtil;
+import uzuzjmd.competence.owl.access.CompFileUtil
+import uzuzjmd.competence.owl.ontology.Helper
 
 
-object Ont2CompetenceTree {;import org.scalaide.worksheet.runtime.library.WorksheetSupport._; def main(args: Array[String])=$execute{;$skip(580); 
-  println("Welcome to the Scala worksheet");$skip(107); 
-  
+object Ont2CompetenceTree {;import org.scalaide.worksheet.runtime.library.WorksheetSupport._; def main(args: Array[String])=$execute{;$skip(584); 
+  println("Welcome to the Scala worksheet");$skip(83); 
   //val ontologyManager = Singletons.ontologyManager
-  val ontologyManager = new CompOntologyManager();System.out.println("""ontologyManager  : uzuzjmd.competence.owl.access.CompOntologyManager = """ + $show(ontologyManager ));$skip(30); 
-  
-  ontologyManager.begin();$skip(69); 
-  
+ 
+  val helper = new Helper();System.out.println("""helper  : uzuzjmd.competence.owl.ontology.Helper = """ + $show(helper ));$skip(56); 
+  val ontologyManager = helper.getOntologyManagerInit();System.out.println("""ontologyManager  : uzuzjmd.competence.owl.access.CompOntologyManager = """ + $show(ontologyManager ));$skip(66); 
   
   val compFileUtil = new CompFileUtil(ontologyManager.getM());System.out.println("""compFileUtil  : uzuzjmd.competence.owl.access.CompFileUtil = """ + $show(compFileUtil ));$skip(34); 
   compFileUtil.writeOntologyout();$skip(94); 
@@ -37,6 +35,5 @@ object Ont2CompetenceTree {;import org.scalaide.worksheet.runtime.library.Worksh
     val result = definitions.filterNot(_ == null).map(x => new CompetenceTree(x.toString(), "Kompetenz", "", null));System.out.println("""result  : scala.collection.mutable.Buffer[uzuzjmd.competence.service.rest.dto.CompetenceTree] = """ + $show(result ));$skip(50); ;
     // todo implement
     ontologyManager.close()}
-     
   
 }
