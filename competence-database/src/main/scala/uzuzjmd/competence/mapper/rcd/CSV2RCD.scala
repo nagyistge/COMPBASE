@@ -17,6 +17,10 @@ import uzuzjmd.competence.rcd.generated.Identifier
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 
+/**
+ * Diese Klasse mappt das Excel-Zwischenformat auf das RDCEO-Format
+ *
+ */
 object CSV2RCD {
   def mapCompetence(csvCompetences: Seq[FilteredCSVCompetence]): Seq[Rdceo] = {
     return csvCompetences.map(a => constructRDCEO(a));
@@ -37,9 +41,9 @@ object CSV2RCD {
     rdceo.setDescription(description)
 
     //create identifier
-    val identifier = new Identifier
-    identifier.setValue(MagicStrings.PREFIX)
-    rdceo.setIdentifier(identifier)
+    //    val identifier = new Identifier
+    //    identifier.setValue(MagicStrings.PREFIX)
+    //    rdceo.setIdentifier(identifier)
 
     //create definition
     val definition = new Definition

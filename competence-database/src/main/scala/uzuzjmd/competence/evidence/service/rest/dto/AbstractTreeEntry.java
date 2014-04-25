@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  * This is the mapping class for the GWT-Ext-Tree component produces xml fit for
  * display in the tree
- * 
+ * XMl-mappbare DTOs für den eigenen REST-Service (Evidenzen)
  * @author julian
  * 
  */

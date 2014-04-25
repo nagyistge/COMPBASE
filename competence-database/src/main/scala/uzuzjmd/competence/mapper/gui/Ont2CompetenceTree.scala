@@ -7,6 +7,9 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import com.hp.hpl.jena.ontology.OntProperty
 
+/**
+ * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
+ */
 class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
   def getComptenceTree(): List[CompetenceTree] = {
     val competenceClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);

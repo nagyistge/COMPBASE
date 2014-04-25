@@ -1,11 +1,9 @@
 package uzuzjmd.competence.evidence.service.rest;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -17,6 +15,13 @@ import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 
+/**
+ * Implementiert den Moodle-RestService mit Grizzly Dies ist die Hauptklasse für
+ * die Rest-Services, die auf Moodle zugreifen
+ * 
+ * @author julian
+ * 
+ */
 @Path("/moodle")
 public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 
@@ -67,42 +72,40 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContents(course);
 	}
-	
+
 	@Override
 	@Path("/contents/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)	
+	@Produces(MediaType.APPLICATION_XML)
 	public MoodleContentResponse[] getCourseContentXML(
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContentXML(course);
 	}
-		
+
 	@Path("/activities/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)	
+	@Produces(MediaType.APPLICATION_XML)
 	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsXML(
 			@PathParam("course") String course) {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
-	@Override	
+	@Override
 	@Path("/activities/usertree/xml/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)	
+	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-		 return moodleServiceImpl.getUserTree(course);	
+		return moodleServiceImpl.getUserTree(course);
 	}
-		
+
 	@Path("/activities/usertree/xml/crossdomain/{course}")
 	@GET
-	@Produces(MediaType.APPLICATION_XML)	
+	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
-		Response response = Response.status(200).
-	            entity(moodleServiceImpl.getUserTree(course)).	            
-	            header("Access-Control-Allow-Origin", "*").build();
-	    return response;	
+		Response response = Response.status(200)
+				.entity(moodleServiceImpl.getUserTree(course))
+				.header("Access-Control-Allow-Origin", "*").build();
+		return response;
 	}
-	
-
 
 }

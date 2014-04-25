@@ -1,6 +1,5 @@
-package uzuzjmd.competence.owl.ontology;
+package uzuzjmd.competence.owl.access;
 
-import uzuzjmd.competence.owl.access.CompOntologyManager;
 
 public class Singletons {
 	public static final CompOntologyManager ontologyManager = new CompOntologyManager();

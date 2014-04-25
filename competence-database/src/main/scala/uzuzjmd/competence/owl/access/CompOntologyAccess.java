@@ -1,7 +1,5 @@
 package uzuzjmd.competence.owl.access;
 
-import java.net.URLEncoder;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -9,6 +7,8 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
 
+import com.hp.hpl.jena.iri.IRI;
+import com.hp.hpl.jena.iri.IRIFactory;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -23,8 +23,8 @@ public class CompOntologyAccess {
 			.getName());
 	private CompFileUtil fileUtil;
 
-	private CompetenceQueries queries;
 	private CompOntologyManager manager;
+	private CompetenceQueries queries;
 
 	/**
 	 * The QueriesObject and Model are dependencies
@@ -50,8 +50,7 @@ public class CompOntologyAccess {
 	public Individual createIndividualForString(
 			OntClass classNameWithoutPrefix, String individualName) {
 
-		return manager.getM().createIndividual(
-				encode(MagicStrings.PREFIX + individualName),
+		return manager.getM().createIndividual(encode(individualName),
 				classNameWithoutPrefix);
 	}
 
@@ -66,10 +65,9 @@ public class CompOntologyAccess {
 			OntClass ontClass, String individualName, String definition) {
 
 		Individual individual = manager.getM().createIndividual(
-				encode(MagicStrings.PREFIX + individualName), ontClass);
-		individual.addLiteral(
-				manager.getM().createProperty(
-						MagicStrings.PREFIX + "definition"), definition);
+				encode(individualName), ontClass);
+		individual.addLiteral(manager.getM().createProperty("definition"),
+				definition);
 		return individual;
 	}
 
@@ -100,7 +98,7 @@ public class CompOntologyAccess {
 			String propertyName) {
 
 		ObjectProperty property = manager.getM().createObjectProperty(
-				MagicStrings.PREFIX + propertyName);
+				propertyName);
 		property.setDomain(domain);
 		property.setRange(range);
 		return property;
@@ -142,27 +140,12 @@ public class CompOntologyAccess {
 	 */
 	public OntClass createOntClassForString(String string,
 			String... definitions) {
-		OntClass paper = manager.getM().createClass(
-				encode(MagicStrings.PREFIX + string));
+		OntClass paper = manager.getM().createClass(encode(string));
 		if (definitions != null && definitions.length > 0) {
-			paper.addLiteral(
-					manager.getM().createProperty(
-							MagicStrings.PREFIX + "definition"), definitions[0]);
+			paper.addLiteral(manager.getM()
+					.createProperty(encode("definition")), definitions[0]);
 		}
 		return paper;
-	}
-
-	/**
-	 * convenience method for accessing the underlying individual but only
-	 * String given
-	 * 
-	 * @param ontclass
-	 * @return
-	 */
-	public Individual createSingleTonIndividual(String ontclass) {
-
-		return createIndividualForString(getOntClassForString(ontclass),
-				MagicStrings.SINGLETONPREFIX + ontclass);
 	}
 
 	/**
@@ -173,14 +156,24 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createSingleTonIndividual(OntClass ontclass) {
-
 		return createIndividualForString(ontclass, MagicStrings.SINGLETONPREFIX
 				+ ontclass.getLocalName());
 	}
 
+	/**
+	 * convenience method for accessing the underlying individual but only
+	 * String given
+	 * 
+	 * @param ontclass
+	 * @return
+	 */
+	public Individual createSingleTonIndividual(String ontclass) {
+		return createIndividualForString(getOntClassForString(ontclass),
+				MagicStrings.SINGLETONPREFIX + ontclass);
+	}
+
 	public OntClass createSingleTonIndividualWithClass(String classname,
 			String... definitions) {
-
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		createSingleTonIndividual(classOnt);
 		return classOnt;
@@ -188,18 +181,21 @@ public class CompOntologyAccess {
 
 	public Individual createSingleTonIndividualWithClass2(String classname,
 			String... definitions) {
-
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		return createSingleTonIndividual(classOnt);
 	}
 
 	private String encode(String string) {
-		// return string;
-		return URLEncoder.encode(string);
+		if (string.startsWith(MagicStrings.PREFIX)) {
+			System.out.println("das ist nicht ok");
+		}
+		string = string.replaceAll(" ", "_").replaceAll("[\u0000-\u001f]", "");
+		IRIFactory factory = IRIFactory.uriImplementation();
+		IRI iri = factory.construct(string);
+		return MagicStrings.PREFIX + iri.toString();
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
-
 		return createOntClassForString(compOntClass.name());
 	}
 
@@ -214,15 +210,11 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual getIndividualForString(String indivString) {
-
-		return manager.getM().getIndividual(
-				encode(MagicStrings.PREFIX + indivString));
+		return manager.getM().getIndividual(encode(indivString));
 	}
 
 	public ObjectProperty getObjectPropertyForString(String objectProperty) {
-
-		return manager.getM().createObjectProperty(
-				encode(MagicStrings.PREFIX + objectProperty));
+		return manager.getM().createObjectProperty(encode(objectProperty));
 	}
 
 	/**
@@ -232,9 +224,7 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public OntClass getOntClassForString(String className) {
-
-		OntClass paper = manager.getM().getOntClass(
-				encode(MagicStrings.PREFIX + className));
+		OntClass paper = manager.getM().getOntClass(encode(className));
 		return paper;
 	}
 

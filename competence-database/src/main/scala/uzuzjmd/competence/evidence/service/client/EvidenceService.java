@@ -10,6 +10,12 @@ package uzuzjmd.competence.evidence.service.client;
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
 
+/**
+ * Dieses package enthält die Mapping Daten für den Soap-Service
+ * 
+ * @author julian
+ * 
+ */
 public interface EvidenceService extends java.rmi.Remote {
 	public MoodleEvidence[] getUserEvidencesforMoodleCourse(
 			java.lang.String arg0) throws java.rmi.RemoteException;
