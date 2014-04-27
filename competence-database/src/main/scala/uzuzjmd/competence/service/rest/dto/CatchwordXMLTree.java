@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -19,6 +20,12 @@ public class CatchwordXMLTree extends AbstractXMLTree<CatchwordXMLTree> {
 			List<CatchwordXMLTree> children) {
 		super(name, qtip, icon, children);
 
+	}
+	
+	@XmlElement(name="catchword")
+	@Override
+	public List<CatchwordXMLTree> getChildren() {		
+		return super.getChildren();
 	}
 
 }
