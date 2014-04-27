@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
 
@@ -66,6 +67,16 @@ public class CompetenceServiceRest {
 	@Path("/operatortree/xml/crossdomain/{course}")
 	public Response getOperatorTree(@PathParam("course") String course) {
 		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree();
+		Response response = Response.status(200).entity(result)
+				.header("Access-Control-Allow-Origin", "*").build();
+		return response;
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/catchwordtree/xml/crossdomain/{course}")
+	public Response getCatchwordTree(@PathParam("course") String course) {
+		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree();
 		Response response = Response.status(200).entity(result)
 				.header("Access-Control-Allow-Origin", "*").build();
 		return response;
