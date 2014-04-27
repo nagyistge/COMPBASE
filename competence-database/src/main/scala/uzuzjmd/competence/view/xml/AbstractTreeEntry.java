@@ -1,11 +1,13 @@
-package uzuzjmd.competence.evidence.service.rest.dto;
+package uzuzjmd.competence.view.xml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
+
 /**
  * This is the mapping class for the GWT-Ext-Tree component produces xml fit for
- * display in the tree
- * XMl-mappbare DTOs für den eigenen REST-Service (Evidenzen)
+ * display in the tree XMl-mappbare DTOs für den eigenen REST-Service
+ * 
  * @author julian
  * 
  */

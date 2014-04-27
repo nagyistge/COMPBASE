@@ -43,6 +43,14 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     subClasses should not be ('empty)
   }
 
+  test("the operator tree should not be empty") {
+
+  }
+
+  test("the catchword tree should not be empty") {
+
+  }
+
   //  test("A non-empty list should not be empty") {
   //    List(1, 2, 3) should not be ('empty)
   //    List("fee", "fie", "foe", "fum") should not be ('empty)

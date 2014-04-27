@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.shared.ActivityPanel2;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;

@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
+import uzuzjmd.competence.view.xml.AbstractTreeEntry;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**

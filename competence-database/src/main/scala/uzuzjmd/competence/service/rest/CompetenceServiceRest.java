@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.dto.CompetenceTree;
+import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -53,7 +53,7 @@ public class CompetenceServiceRest {
 	@GET
 	@Path("/tree/xml/crossdomain/{course}")
 	public Response getCompetenceTree(@PathParam("course") String course) {
-		CompetenceTree[] result = CompetenceServiceWrapper.getCompetenceTree();
+		CompetenceXMLTree[] result = CompetenceServiceWrapper.getCompetenceTree();
 		Response response = Response.status(200).entity(result)
 				.header("Access-Control-Allow-Origin", "*").build();
 		return response;
