@@ -3,6 +3,9 @@ package uzuzjmd.competence.view.xml;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 /**
  * This class is usefull because it can be mapped by jersey (whereas mapping the
  * scala trees I am not so sure)
@@ -10,6 +13,8 @@ import java.util.List;
  * @author julian
  * 
  */
+@XmlSeeAlso(AbstractTreeEntry.class)
+@XmlRootElement
 public class AbstractXMLTree<T extends AbstractXMLTree<T>> extends
 		AbstractTreeEntry {
 

@@ -11,7 +11,7 @@ import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
  * @author julian
  * 
  */
-public abstract class AbstractTreeEntry {
+public class AbstractTreeEntry {
 	private String name;
 	private String qtip;
 	private String icon;
