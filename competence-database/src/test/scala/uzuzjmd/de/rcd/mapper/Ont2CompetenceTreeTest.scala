@@ -12,6 +12,7 @@ import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree
+import uzuzjmd.competence.owl.ontology.CompOntClass
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
@@ -26,7 +27,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
 
     val mapper = new Ont2CompetenceTree(compOntManag)
 
-    val subClasses = mapper.getSubClassesOfCompetence()
+    val subClasses = mapper.getSubClasses(CompOntClass.Competence)
     subClasses should not be ('empty)
 
     val competenceTree = mapper.getComptenceTree
@@ -38,13 +39,16 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     val mapper = new Ont2CompetenceTree(compOntManag)
     compOntManag.begin()
-    val subClasses = mapper.getSubClassesOfCompetence()
+    val subClasses = mapper.getSubClasses(CompOntClass.Competence)
     compOntManag.close()
     subClasses should not be ('empty)
   }
 
   test("the operator tree should not be empty") {
-
+    val compOntManag = new CompOntologyManager()
+    val mapper = new Ont2CompetenceTree(compOntManag)
+    val result = mapper.getOperatorXMLTree
+    result should not be ('empty)
   }
 
   test("the catchword tree should not be empty") {
