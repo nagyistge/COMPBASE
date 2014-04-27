@@ -3,6 +3,8 @@ package uzuzjmd.competence.evidence.service.rest.dto;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import uzuzjmd.competence.view.xml.AbstractTreeEntry;
+
 /**
  * XMl-mappbare DTOs für den eigenen REST-Service (Evidenzen)
  * 
