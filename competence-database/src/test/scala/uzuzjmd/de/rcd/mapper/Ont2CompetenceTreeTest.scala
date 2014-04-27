@@ -52,7 +52,10 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   }
 
   test("the catchword tree should not be empty") {
-
+    val compOntManag = new CompOntologyManager()
+    val mapper = new Ont2CompetenceTree(compOntManag)
+    val result = mapper.getCatchwordXMLTree
+    result should not be ('empty)
   }
 
   //  test("A non-empty list should not be empty") {
