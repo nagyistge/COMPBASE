@@ -47,7 +47,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
     return competences
   }
 
-  def instantiate[A](clazz: java.lang.Class[A])(args: AnyRef*): Any = {
+  private def instantiate[A](clazz: java.lang.Class[A])(args: AnyRef*): Any = {
 
     val constructor = clazz.getDeclaredConstructors().toList.filter(x => x.getGenericParameterTypes().length == args.length).head
 
@@ -66,9 +66,6 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
 
     try {
       val instance = constructor.newInstance(args: _*)
-      if (!instance.isInstanceOf[OperatorXMLTree]) {
-        throw new Error("falscher Rückgabewert")
-      }
       return instance
     } catch {
       case e: Exception =>
@@ -83,18 +80,25 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
    * needs a Ontclass to start recursively collection subclasses
    * needs label and iconpath in order to create the view
    */
-  def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A]): A = {
+  private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A]): A = {
     if (subclass.getLocalName().equals("Nothing")) {
       println("wait for it");
     }
 
     val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + "definition")
     val definition = subclass.getPropertyValue(iProperty)
+
+    var definitionString = ""
+    if (definition == null) {
+      definitionString = "nodefinition"
+    } else {
+      definitionString = definition.asNode().getLiteralValue().toString()
+    }
     if (subclass.hasSubClass() && !subclass.listSubClasses(true).asScala.toList.head.getLocalName().equals("Nothing")) {
       val subberclasses = subclass.listSubClasses(true).toList().asScala.map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz)).toList
-      return instantiate[A](clazz)(definition.asNode().getLiteralValue().toString(), label, iconPath, subberclasses.asJava).asInstanceOf[A]
+      return instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
-    return instantiate[A](clazz)(definition.asNode().getLiteralValue().toString(), label, iconPath, new LinkedList).asInstanceOf[A]
+    return instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
   }
 
   /**
@@ -102,8 +106,6 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
    */
   def getOperatorXMLTree(): java.util.List[OperatorXMLTree] = {
     ontologyManager.begin()
-    // zu füllendes root element für die Rekursion
-    val operatorTree = (new OperatorXMLTree("Operatoren", "Operatoren", "iconpath", new LinkedList) :: List.empty)
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
     val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "nopathspecified", classOf[OperatorXMLTree])
@@ -113,7 +115,13 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager) {
   }
 
   def getCatchwordXMLTree(): java.util.List[CatchwordXMLTree] = {
-    return null
+    ontologyManager.begin()
+    // Klasse, in die rekursiv abgestiegen werden soll
+    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Catchword);
+    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "nopathspecified", classOf[CatchwordXMLTree])
+    ontologyManager.close()
+    val filteredResult = (result :: List.empty).filterNot(_ == null)
+    return filteredResult.asJava
   }
 
 }

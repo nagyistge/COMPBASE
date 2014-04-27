@@ -4,6 +4,7 @@ import java.util.List;
 
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
 
@@ -25,6 +26,16 @@ public class CompetenceServiceWrapper {
 
 		OperatorXMLTree[] tmpResult = ont2CompetenceTree.getOperatorXMLTree()
 				.toArray(new OperatorXMLTree[0]);
+		return tmpResult;
+	}
+
+	public static synchronized CatchwordXMLTree[] getCatchwordTree() {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(
+				compOntologyManager);
+
+		CatchwordXMLTree[] tmpResult = ont2CompetenceTree.getCatchwordXMLTree()
+				.toArray(new CatchwordXMLTree[0]);
 		return tmpResult;
 	}
 }
