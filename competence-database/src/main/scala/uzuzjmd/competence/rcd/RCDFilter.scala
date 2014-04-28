@@ -33,7 +33,7 @@ object RCDFilter {
   }
 
   def isMetaCatchwordOfTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.MetaCatchwordOf.equals(CompObjectProperties.valueOf(triple._2))
+    CompObjectProperties.MetaCatchwordOf.equals(CompObjectProperties.valueOf(triple._2)) || CompObjectProperties.MetaOperatorOf.equals(CompObjectProperties.valueOf(triple._2)) 
   }
 
   def isDescriptionElementOfTriple(triple: CompetenceTriple): Boolean = {

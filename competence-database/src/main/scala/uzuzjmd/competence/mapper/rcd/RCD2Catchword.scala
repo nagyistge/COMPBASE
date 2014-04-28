@@ -9,6 +9,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.rcd.RCDMaps
 
 /**
  * Diese Klasse mappt Schlagwörter im RDCEO-Format auf die Ontologie
@@ -20,26 +21,27 @@ object RCD2Catchword extends RCDImplicits {
    * Then it makes the operator inherit them
    */
   def createMetaCatchwordRels(util: CompOntologyAccess, rcdeos: Seq[Rdceo]) {
-    rcdeos.foreach(recdeo2catchword(util))
+    rcdeos.foreach(recdeo2catchword(util)(CompOntClass.Catchword)(CompOntClass.MetaCatchword))
+    rcdeos.foreach(recdeo2catchword(util)(CompOntClass.Operator)(CompOntClass.MetaOperator))
   }
 
  
-  private def recdeo2catchword(util: CompOntologyAccess)(rcdeo: Rdceo) {
+  private def recdeo2catchword(util: CompOntologyAccess)(compOntClass : CompOntClass) (metaClass : CompOntClass) (rcdeo: Rdceo) {
     // suboperatorTriples.foreach(handleSubOperatorTriple(util))
     val title = rcdeo.getTitle()
     val statements = rcdeo.getDefinition().asScala.head.getStatement().asScala.view.filterNot(statement=>statement.getStatementtext() == null).filterNot(statement => statement.getStatementtext().trim().equals(""))
-    val catchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.Catchword.name())).map(statement => statement.getStatementtext()).view
-    val metacatchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.MetaCatchword.name())).map(statement => statement.getStatementtext()).view
-    catchwords.foreach(catchwords => metacatchwords.foreach(metacatchwords => handleCatchwordTriple(util)(title, metacatchwords, catchwords)))    
+    val catchwords = statements.filter(statement => statement.getStatementname().equals(compOntClass.name())).map(statement => statement.getStatementtext()).view
+    val metacatchwords = statements.filter(statement => statement.getStatementname().equals(metaClass.name())).map(statement => statement.getStatementtext()).view
+    catchwords.foreach(catchwords => metacatchwords.foreach(metacatchwords => handleCatchwordTriple(util)(title, metacatchwords, catchwords)(RCDMaps.classToObjectProperty(compOntClass))))    
   }
 
   /**
    * suboperatortriples: x._1 competence, x._2 metacatchwords,  x._3 catchwords,
    * Hilfsfunktion  handleRcdeoCatchwords and Metacatchwords
    */
-  private def handleCatchwordTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple) {
+  private def handleCatchwordTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple) (compObjectProperties : CompObjectProperties ) {
     //println("title: " + input._1 + "		metacatchword:" + input._2 + "		catchword :" + input._3 )
-    val catchwordRootClass = util.createOntClassForString(CompOntClass.Catchword.name())
+    val catchwordRootClass = util.createOntClassForString(RCDMaps.objectPropertyToClass(compObjectProperties).name())
     val catchwordsIndividual: Individual = util.createSingleTonIndividualWithClass2(input._3)
     val catchwordClass: OntClass = util.createSingleTonIndividualWithClass(input._3)
     val competenceIndividual: Individual = util.createSingleTonIndividual(input._1)
@@ -49,7 +51,7 @@ object RCD2Catchword extends RCDImplicits {
       catchwordClass.addSuperClass(metacatchwordsClass)      
     }
     catchwordClass.addSuperClass(catchwordRootClass)
-    util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, CompObjectProperties.CatchwordOf)
+    util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, compObjectProperties)
   }
 
 }
