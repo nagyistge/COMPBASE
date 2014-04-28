@@ -23,32 +23,33 @@ object RCD2Catchword extends RCDImplicits {
     rcdeos.foreach(recdeo2catchword(util))
   }
 
-  /**
-   * maps the (sub)operator parts of the rcdeo to a model represantation
-   * Hilfsfunktion createSubOperatorRels
-   */
+ 
   private def recdeo2catchword(util: CompOntologyAccess)(rcdeo: Rdceo) {
     // suboperatorTriples.foreach(handleSubOperatorTriple(util))
     val title = rcdeo.getTitle()
-    val statements = rcdeo.getDefinition().asScala.head.getStatement().asScala
-    val catchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.Catchword.name())).map(statement => statement.getStatementtext())
-    val metacatchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.MetaCatchword.name())).map(statement => statement.getStatementtext())
-    catchwords.foreach(catchwords => metacatchwords.foreach(metacatchwords => handleCatchwordTriple(util)((title, metacatchwords, catchwords))))
+    val statements = rcdeo.getDefinition().asScala.head.getStatement().asScala.view.filterNot(statement=>statement.getStatementtext() == null).filterNot(statement => statement.getStatementtext().trim().equals(""))
+    val catchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.Catchword.name())).map(statement => statement.getStatementtext()).view
+    val metacatchwords = statements.filter(statement => statement.getStatementname().equals(CompOntClass.MetaCatchword.name())).map(statement => statement.getStatementtext()).view
+    catchwords.foreach(catchwords => metacatchwords.foreach(metacatchwords => handleCatchwordTriple(util)(title, metacatchwords, catchwords)))    
   }
 
   /**
    * suboperatortriples: x._1 competence, x._2 metacatchwords,  x._3 catchwords,
-   * Hilfsfunktion  handleRcdeoSubOperators
+   * Hilfsfunktion  handleRcdeoCatchwords and Metacatchwords
    */
   private def handleCatchwordTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple) {
+    //println("title: " + input._1 + "		metacatchword:" + input._2 + "		catchword :" + input._3 )
+    val catchwordRootClass = util.createOntClassForString(CompOntClass.Catchword.name())
     val catchwordsIndividual: Individual = util.createSingleTonIndividualWithClass2(input._3)
+    val catchwordClass: OntClass = util.createSingleTonIndividualWithClass(input._3)
     val competenceIndividual: Individual = util.createSingleTonIndividual(input._1)
     if (!(input._2 == null) && !input._2.equals("")) {
       val metacatchwordsClass: OntClass = util.createSingleTonIndividualWithClass(input._2, input._2)
-      metacatchwordsClass.addSuperClass(util.createOntClassForString(CompOntClass.Catchword.name()))
-      catchwordsIndividual.getOntClass().addSuperClass(metacatchwordsClass)
-      util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, CompObjectProperties.CatchwordOf)
+      metacatchwordsClass.addSuperClass(catchwordRootClass)      
+      catchwordClass.addSuperClass(metacatchwordsClass)      
     }
+    catchwordClass.addSuperClass(catchwordRootClass)
+    util.createObjectPropertyWithIndividual(catchwordsIndividual, competenceIndividual, CompObjectProperties.CatchwordOf)
   }
 
 }
