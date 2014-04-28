@@ -68,9 +68,9 @@ object RCD2OWL extends RCDImplicits {
     logger.debug("Classes for Titles created")
     createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
     logger.debug("ObjectProps for default cases created")
-    RCD2Operators.createSubOperatorRels(util, rcdeos)
-    logger.debug("SubOperator rels created")
+    //RCD2Operators.createSubOperatorRels(util, rcdeos)    
     RCD2Catchword.createMetaCatchwordRels(util, rcdeos)
+    logger.debug("SubOperator rels created")
     logger.debug("metaoperator rels created")
     // data properties
     rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
@@ -141,7 +141,7 @@ object RCD2OWL extends RCDImplicits {
   private def createObjectPropertiesForDefaultCases(util: CompOntologyAccess, triplesWithObjectProperties: Seq[RCDFilter.CompetenceTriple]): Unit = {
     val defaultCasesObjectProperties = triplesWithObjectProperties.
       filterNot(RCDFilter.isDescriptionElementOfTriple).
-      filterNot(RCDFilter.isMetaCatchwordOfTriple).
+      filterNot(RCDFilter.isMetaCatchwordOfTriple).      
       filterNot(RCDFilter.isSubClassTriple).
       filterNot(RCDFilter.isSubOperatorTriple)
     defaultCasesObjectProperties.foreach(handleDefaultCases(util))

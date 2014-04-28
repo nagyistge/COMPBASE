@@ -28,5 +28,6 @@ public enum CompObjectProperties {
 	BelongsToAreaInverse,	
 	HasCompetenceInverse,
 	SpecifiedByInverse,	
-	requiredForInverse
+	requiredForInverse,
+	MetaOperatorOf
 }
