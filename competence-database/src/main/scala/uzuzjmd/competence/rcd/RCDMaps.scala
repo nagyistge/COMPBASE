@@ -32,6 +32,7 @@ object RCDMaps {
       case CompOntClass.Operator => return CompObjectProperties.OperatorOf
       case CompOntClass.SubOperator => return CompObjectProperties.SubOperatorOf
       case CompOntClass.MetaOperator => return CompObjectProperties.MetaOperatorOf
+      case CompOntClass.CourseContext => return CompObjectProperties.CourseContextOf
       case default => return null
     }
   }

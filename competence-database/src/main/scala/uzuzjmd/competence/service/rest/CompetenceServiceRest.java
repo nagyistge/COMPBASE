@@ -113,6 +113,16 @@ public class CompetenceServiceRest {
 		return response;
 	}
 
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/coursecontext/xml/crossdomain/{course}")
+	public Response linkCompetencesToCourseContext(@QueryParam(value = "competences") List<String> competences) {
+		System.out.println("found" + competences);
+
+		// todo stuff here
+		return Response.ok("it has worked").header("Access-Control-Allow-Origin", "*").build();
+	}
+
 	private Response buildCrossDomainResponse(CatchwordXMLTree[] result) {
 		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
 		return response;
