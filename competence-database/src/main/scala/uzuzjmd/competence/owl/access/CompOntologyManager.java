@@ -26,8 +26,7 @@ import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 
 public class CompOntologyManager {
 
-	static final Logger logger = LogManager.getLogger(CompOntologyManager.class
-			.getName());
+	static final Logger logger = LogManager.getLogger(CompOntologyManager.class.getName());
 	static LogStream logStream = new LogStream(logger, Level.TRACE);
 
 	private CompOntologyAccess util;
@@ -115,45 +114,23 @@ public class CompOntologyManager {
 	}
 
 	private void initObjectProperties() {
-		getUtil().createObjectProperty(CompOntClass.Learner,
-				CompOntClass.Competence, CompObjectProperties.LearnerOf);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.Learner, CompObjectProperties.LearnerOfInverse);
-		getUtil().createObjectProperty(CompOntClass.Catchword,
-				CompOntClass.Competence, CompObjectProperties.CatchwordOf);
-		getUtil()
-				.createObjectProperty(CompOntClass.Competence,
-						CompOntClass.Catchword,
-						CompObjectProperties.CatchwordOfInverse);
-		getUtil().createObjectProperty(CompOntClass.Evidence,
-				CompOntClass.Competence, CompObjectProperties.EvidencOf);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.Evidence, CompObjectProperties.EvidencOfInverse);
-		getUtil().createObjectProperty(CompOntClass.Operator,
-				CompOntClass.Competence, CompObjectProperties.OperatorOf);
-		getUtil()
-				.createObjectProperty(CompOntClass.Operator,
-						CompOntClass.Competence,
-						CompObjectProperties.OperatorOfInverse);
-		getUtil().createObjectProperty(CompOntClass.DescriptionElement,
-				CompOntClass.CompetenceDescription,
-				CompObjectProperties.DescriptionElementOf);
-		getUtil().createObjectProperty(CompOntClass.CompetenceDescription,
-				CompOntClass.DescriptionElement,
-				CompObjectProperties.DescriptionElementOfInverse);
-		getUtil().createObjectProperty(CompOntClass.CompetenceDescription,
-				CompOntClass.Competence,
-				CompObjectProperties.CompetenceDescriptionOf);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.CompetenceDescription,
-				CompObjectProperties.CompetenceDescriptionOfInverse);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
-		getUtil().createObjectProperty(CompOntClass.CompetenceSpec,
-				CompOntClass.Competence,
-				CompObjectProperties.SpecifiedByInverse);
-		getUtil().createObjectProperty(CompOntClass.Competence,
-				CompOntClass.Competence, CompObjectProperties.SimilarTo);
+		getUtil().createObjectProperty(CompOntClass.Learner, CompOntClass.Competence, CompObjectProperties.LearnerOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Learner, CompObjectProperties.LearnerOfInverse);
+		getUtil().createObjectProperty(CompOntClass.Catchword, CompOntClass.Competence, CompObjectProperties.CatchwordOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Catchword, CompObjectProperties.CatchwordOfInverse);
+		getUtil().createObjectProperty(CompOntClass.Evidence, CompOntClass.Competence, CompObjectProperties.EvidencOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Evidence, CompObjectProperties.EvidencOfInverse);
+		getUtil().createObjectProperty(CompOntClass.Operator, CompOntClass.Competence, CompObjectProperties.OperatorOf);
+		getUtil().createObjectProperty(CompOntClass.Operator, CompOntClass.Competence, CompObjectProperties.OperatorOfInverse);
+		getUtil().createObjectProperty(CompOntClass.DescriptionElement, CompOntClass.CompetenceDescription, CompObjectProperties.DescriptionElementOf);
+		getUtil().createObjectProperty(CompOntClass.CompetenceDescription, CompOntClass.DescriptionElement, CompObjectProperties.DescriptionElementOfInverse);
+		getUtil().createObjectProperty(CompOntClass.CompetenceDescription, CompOntClass.Competence, CompObjectProperties.CompetenceDescriptionOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceDescription, CompObjectProperties.CompetenceDescriptionOfInverse);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
+		getUtil().createObjectProperty(CompOntClass.CompetenceSpec, CompOntClass.Competence, CompObjectProperties.SpecifiedByInverse);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.SimilarTo);
+
+		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.CourseContextOf);
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
 		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
@@ -175,13 +152,11 @@ public class CompOntologyManager {
 		dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
 		dataset.begin(ReadWrite.WRITE);
 		Model tdb = dataset.getDefaultModel();
-		setM(ModelFactory.createOntologyModel(
-				OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
+		setM(ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
 
 	}
 
-	private SimpleRulesReasoner initRulesFactory(
-			SimpleRulesReasoner rulesReasoner) {
+	private SimpleRulesReasoner initRulesFactory(SimpleRulesReasoner rulesReasoner) {
 		RuleFactory factory = new RuleFactory();
 		for (String ruleString : factory.getRuleStringss()) {
 			rulesReasoner.addRuleAsString(ruleString);
@@ -190,8 +165,7 @@ public class CompOntologyManager {
 	}
 
 	private void initializeOntologyModelInMemory() {
-		setM(ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
+		setM(ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
 
 	}
 
@@ -212,14 +186,12 @@ public class CompOntologyManager {
 	}
 
 	public void switchOffDebugg() {
-		rulesReasoner.getReasoner().setParameter(
-				ReasonerVocabulary.PROPtraceOn, false);
+		rulesReasoner.getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, false);
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
 	}
 
 	public void switchOnDebug() {
-		rulesReasoner.getReasoner().setParameter(
-				ReasonerVocabulary.PROPtraceOn, true);
+		rulesReasoner.getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, true);
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
 	}
 

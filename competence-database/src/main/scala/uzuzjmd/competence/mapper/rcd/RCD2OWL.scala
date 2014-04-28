@@ -76,6 +76,9 @@ object RCD2OWL extends RCDImplicits {
     rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
     logger.debug("definition properties created")
 
+    //    util.getIndividualForString("INothing").remove()
+    //    util.getOntClassForString("Nothing").remove()
+
     manager.close()
   }
 
@@ -141,7 +144,7 @@ object RCD2OWL extends RCDImplicits {
   private def createObjectPropertiesForDefaultCases(util: CompOntologyAccess, triplesWithObjectProperties: Seq[RCDFilter.CompetenceTriple]): Unit = {
     val defaultCasesObjectProperties = triplesWithObjectProperties.
       filterNot(RCDFilter.isDescriptionElementOfTriple).
-      filterNot(RCDFilter.isMetaCatchwordOfTriple).      
+      filterNot(RCDFilter.isMetaCatchwordOfTriple).
       filterNot(RCDFilter.isSubClassTriple).
       filterNot(RCDFilter.isSubOperatorTriple)
     defaultCasesObjectProperties.foreach(handleDefaultCases(util))
