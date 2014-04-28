@@ -10,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -38,8 +39,7 @@ public class CompetenceServiceRest {
 		System.out.println("Competences queried (rest)");
 		// return "Got it!";
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl
-				.getCompetences()));
+		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
 	}
 
 	@POST
@@ -54,31 +54,67 @@ public class CompetenceServiceRest {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/tree/xml/crossdomain/{course}")
-	public Response getCompetenceTree(@PathParam("course") String course) {
-		CompetenceXMLTree[] result = CompetenceServiceWrapper
-				.getCompetenceTree();
-		Response response = Response.status(200).entity(result)
-				.header("Access-Control-Allow-Origin", "*").build();
+	public Response getCompetenceTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+			@QueryParam(value = "selectedOperators") String selectedOperators) {
+
+		CompetenceXMLTree[] result = null;
+		String[] selectedCatchwordArray = null;
+		String[] selectedOperatorsArray = null;
+		if (selectedCatchwords == null || selectedOperators == null) {
+			result = CompetenceServiceWrapper.getCompetenceTree(null, null);
+		} else {
+			selectedCatchwordArray = selectedCatchwords.split(",");
+			selectedOperatorsArray = selectedOperators.split(",");
+			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwordArray, selectedOperatorsArray);
+		}
+
+		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/operatortree/xml/crossdomain/{course}")
-	public Response getOperatorTree(@PathParam("course") String course) {
-		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree();
-		Response response = Response.status(200).entity(result)
-				.header("Access-Control-Allow-Origin", "*").build();
+	public Response getOperatorTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+			@QueryParam(value = "selectedOperators") String selectedOperators) {
+
+		OperatorXMLTree[] result = null;
+		String[] selectedCatchwordArray = null;
+		String[] selectedOperatorsArray = null;
+		if (selectedCatchwords == null || selectedOperators == null) {
+			result = CompetenceServiceWrapper.getOperatorTree(null, null);
+		} else {
+			selectedCatchwordArray = selectedCatchwords.split(",");
+			selectedOperatorsArray = selectedOperators.split(",");
+			result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwordArray, selectedOperatorsArray);
+		}
+
+		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/catchwordtree/xml/crossdomain/{course}")
-	public Response getCatchwordTree(@PathParam("course") String course) {
-		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree();
-		Response response = Response.status(200).entity(result)
-				.header("Access-Control-Allow-Origin", "*").build();
+	public Response getCatchwordTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+			@QueryParam(value = "selectedOperators") String selectedOperators) {
+		CatchwordXMLTree[] result = null;
+		String[] selectedCatchwordArray = null;
+		String[] selectedOperatorsArray = null;
+		if (selectedCatchwords == null || selectedOperators == null) {
+			result = CompetenceServiceWrapper.getCatchwordTree(null, null);
+		} else {
+			selectedCatchwordArray = selectedCatchwords.split(",");
+			selectedOperatorsArray = selectedOperators.split(",");
+			result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwordArray, selectedOperatorsArray);
+		}
+
+		Response response = buildCrossDomainResponse(result);
+		return response;
+	}
+
+	private Response buildCrossDomainResponse(CatchwordXMLTree[] result) {
+		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
 		return response;
 	}
 
