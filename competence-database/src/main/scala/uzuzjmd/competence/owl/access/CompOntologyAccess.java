@@ -13,6 +13,9 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import com.hp.hpl.jena.util.iterator.Filter;
 
 public class CompOntologyAccess {
 
@@ -123,6 +126,34 @@ public class CompOntologyAccess {
 	}
 
 	/**
+	 * checks if relationship exists
+	 * 
+	 * @param individual
+	 * @param individual2
+	 * @param compObjectProperties
+	 */
+	public Boolean existsObjectPropertyWithIndividual(
+			Individual domainIndividual, final Individual rangeIndividual,
+			CompObjectProperties compObjectProperties) {
+
+		ObjectProperty result = getObjectPropertyForString(compObjectProperties
+				.name());
+		ExtendedIterator<Statement> linkedIndividuals = domainIndividual
+				.listProperties(result.asProperty()).filterKeep(
+						new Filter<Statement>() {
+							@Override
+							public boolean accept(Statement o) {
+								return o.getResource()
+										.getLocalName()
+										.equals(rangeIndividual.asResource()
+												.getLocalName());
+							}
+						});
+		Boolean exists = !linkedIndividuals.toSet().isEmpty();
+		return exists;
+	}
+
+	/**
 	 * creates class or returns class if exists
 	 * 
 	 * @param model
@@ -187,17 +218,19 @@ public class CompOntologyAccess {
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		return createSingleTonIndividual(classOnt);
 	}
-	
+
 	/**
-	 * creates/gets the corresponding ontclass for the given individual 
-	 * (assuming the ontclass is named as the individual without the singletonprefix)
-	 * wirkt erstmal hacky
+	 * creates/gets the corresponding ontclass for the given individual
+	 * (assuming the ontclass is named as the individual without the
+	 * singletonprefix) wirkt erstmal hacky
+	 * 
 	 * @param individual
 	 * @return
 	 */
 	@Deprecated
 	public OntClass createOntClassForIndividual(Individual individual) {
-		String typeClass = individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
+		String typeClass = individual.getLocalName().substring(
+				MagicStrings.SINGLETONPREFIX.length());
 		return createOntClassForString(typeClass);
 	}
 
