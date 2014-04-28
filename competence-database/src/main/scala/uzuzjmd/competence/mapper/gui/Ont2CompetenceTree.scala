@@ -20,12 +20,14 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String],
-  selectedOperatorsArray: java.util.List[String]) {
+class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String]) {
 
   val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
   val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
 
+  /**
+   * Hilfsfunktion, um eine generisch spezifizierte Klasse zu instantiieren
+   */
   private def instantiate[A](clazz: java.lang.Class[A])(args: AnyRef*): Any = {
 
     val constructor = clazz.getDeclaredConstructors().toList.filter(x => x.getGenericParameterTypes().length == args.length).head
@@ -77,19 +79,6 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
   }
 
-  /**
-   * returns the operatortree
-   */
-  def getOperatorXMLTree(): java.util.List[OperatorXMLTree] = {
-    ontologyManager.begin()
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "nopathspecified", classOf[OperatorXMLTree], containsCatchword)
-    ontologyManager.close()
-    val filteredResult = filterResults(result)
-    return filteredResult.asJava
-  }
-
   def hasLinks(ontClass: OntClass): Boolean = {
     val util = ontologyManager.getUtil()
     return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.CatchwordOf))
@@ -102,6 +91,19 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
   def containsOperator(ontClass: OntClass): Boolean = {
     return selectedOperatorsArray.contains(ontClass.getLocalName())
+  }
+
+  /**
+   * returns the operatortree
+   */
+  def getOperatorXMLTree(): java.util.List[OperatorXMLTree] = {
+    ontologyManager.begin()
+    // Klasse, in die rekursiv abgestiegen werden soll
+    val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "nopathspecified", classOf[OperatorXMLTree], containsCatchword)
+    ontologyManager.close()
+    val filteredResult = filterResults(result)
+    return filteredResult.asJava
   }
 
   /**
@@ -130,6 +132,9 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     return filteredResult.asJava
   }
 
+  /**
+   * Hilfsfunktion um Ergebnis zu säubern
+   */
   private def filterResults[A <: AbstractXMLTree[A]](result: A): List[A] = {
     val filteredResult = (result :: List.empty).filterNot(_ == null)
     filteredResult
