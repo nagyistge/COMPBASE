@@ -187,6 +187,19 @@ public class CompOntologyAccess {
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		return createSingleTonIndividual(classOnt);
 	}
+	
+	/**
+	 * creates/gets the corresponding ontclass for the given individual 
+	 * (assuming the ontclass is named as the individual without the singletonprefix)
+	 * wirkt erstmal hacky
+	 * @param individual
+	 * @return
+	 */
+	@Deprecated
+	public OntClass createOntClassForIndividual(Individual individual) {
+		String typeClass = individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
+		return createOntClassForString(typeClass);
+	}
 
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
@@ -230,6 +243,7 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public OntClass getOntClassForString(String className) {
+		manager.sync();
 		OntClass paper = manager.getM().getOntClass(encode(className));
 		return paper;
 	}

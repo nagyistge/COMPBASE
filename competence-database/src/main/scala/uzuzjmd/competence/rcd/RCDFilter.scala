@@ -9,9 +9,15 @@ object RCDFilter {
    */
   type CompetenceTriple = (String, String, String)
   /**
-   *   suboperatortriples: x._1 competence, x._2 operator,  x._3 suboperator,
+   *   suboperatortriples: x._1 competence, x._2 operator,  x._3 suboperator
    */
   type OperatorTriple = (String, String, String)
+  
+  /**
+   *  suboperatortriples: x._1 competence,x._2 metacatchwords,  x._3 catchwords
+   */
+  type Catchwordtriple = (String, String, String)
+  
   type CompetenceFilter = CompetenceTriple => Boolean
 
   def isObjectPropertyTriple(triple: CompetenceTriple): Boolean = {
