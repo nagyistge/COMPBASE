@@ -2,8 +2,10 @@ package uzuzjmd.de.rcd.mapper
 
 /*
 Testing the mapping
+
 */
 import org.scalatest.FunSuite
+import scala.collection.JavaConverters._
 import org.scalatest.matchers.ShouldMatchers
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -25,35 +27,38 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     compOntManag.getM().validate()
     compOntManag.close()
 
-    val mapper = new Ont2CompetenceTree(compOntManag)
-
-    val subClasses = mapper.getSubClasses(CompOntClass.Competence)
-    subClasses should not be ('empty)
-
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava)
     val competenceTree = mapper.getComptenceTree
     competenceTree should not be ('empty)
 
   }
 
-  test("get subClasses should not be empty") {
+  test("The filtered CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag)
+    compOntManag.switchOnDebug()
+
     compOntManag.begin()
-    val subClasses = mapper.getSubClasses(CompOntClass.Competence)
+    compOntManag.getM().validate()
     compOntManag.close()
-    subClasses should not be ('empty)
+
+    val catchwords = "Kooperation" :: "Diagnostik" :: List.empty
+    val operators = "bewerten" :: "kooperieren" :: List.empty
+    val mapper = new Ont2CompetenceTree(compOntManag, catchwords.asJava, operators.asJava)
+    val competenceTree = mapper.getComptenceTree
+    competenceTree should not be ('empty)
+
   }
 
   test("the operator tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag)
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava)
     val result = mapper.getOperatorXMLTree
     result should not be ('empty)
   }
 
   test("the catchword tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag)
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava)
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
   }
