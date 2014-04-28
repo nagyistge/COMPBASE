@@ -31,6 +31,7 @@ object RCDMaps {
       case CompOntClass.MetaCatchword => return CompObjectProperties.MetaCatchwordOf
       case CompOntClass.Operator => return CompObjectProperties.OperatorOf
       case CompOntClass.SubOperator => return CompObjectProperties.SubOperatorOf
+      case CompOntClass.MetaOperator => return CompObjectProperties.MetaOperatorOf
       case default => return null
     }
   }
