@@ -56,6 +56,7 @@ object CSV2RCD {
     statements.appendAll(filteredCSVCompetence.catchwordsFiltered.map(a => createStatement(a, CompOntClass.Catchword.name())))
     statements.append(createStatement(filteredCSVCompetence.evidencen, CompOntClass.Evidence.name()))
     statements.appendAll(filteredCSVCompetence.metacatchwords.map(a => createStatement(a, CompOntClass.MetaCatchword.name())))
+    statements.append(createStatement(filteredCSVCompetence.metaoperator, CompOntClass.MetaOperator.name()))
     statements.append(createStatement(filteredCSVCompetence.operator, CompOntClass.Operator.name()))
     statements.append(createStatement(filteredCSVCompetence.learner, CompOntClass.Learner.name()))
     rdceo.getDefinition().asScala += definition
