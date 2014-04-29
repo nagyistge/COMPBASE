@@ -63,15 +63,15 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    */
   private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean)): A = {
     val definitionString = getDefinitionString(subclass)
+    var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty && !subclass.listSubClasses().asScala.toList.head.getLocalName().equals("Nothing")) {
       val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
-      val result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
-      if (result.isInstanceOf[CompetenceXMLTree]) {
-        result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsoryString(subclass))
-      }
-      return result
+      result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
-    return instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
+    if (clazz.equals(classOf[CompetenceXMLTree])) {
+      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsoryString(subclass))
+    }
+    return result
 
   }
 
@@ -146,8 +146,12 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   private def getCompulsoryString(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
+    if (subclass.getURI().contains("Fremdevaluation")) {
+      println("hello my best friend");
+    }
     if (getPropertyString(subclass, "compulsory") != null) {
-      return getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
+      val result = getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
+      return result
     } else {
       return false;
     }
