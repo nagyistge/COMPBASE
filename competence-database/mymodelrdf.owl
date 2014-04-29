@@ -27,6 +27,7 @@ Arbeitens.</j.0:definition>
     <rdf:type rdf:resource="http://comp#CourseContext"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"und sie müssen noch viele dinge tun"</j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElementOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>

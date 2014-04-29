@@ -116,8 +116,9 @@ public class CompetenceServiceRest {
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/coursecontext/create/xml/crossdomain/{course}/{compulsory}")
-	public Response linkCompetencesToCourseContext(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @QueryParam(value = "competences") String competences) {
-		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsory);
+	public Response linkCompetencesToCourseContext(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @QueryParam(value = "competences") String competences,
+			@QueryParam(value = "requirements") String requirements) {
+		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsory, requirements);
 		// todo stuff here
 		return Response.ok("competences linked").header("Access-Control-Allow-Origin", "*").build();
 	}
