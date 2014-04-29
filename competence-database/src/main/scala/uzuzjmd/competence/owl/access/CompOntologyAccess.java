@@ -210,6 +210,25 @@ public class CompOntologyAccess {
 	// return createOntClassForString(typeClass);
 	// }
 
+	public OntClass getClass(CompOntClass compOntClass) {
+		return createOntClassForString(compOntClass.name());
+	}
+
+	// /**
+	// * creates/gets the corresponding ontclass for the given individual
+	// * (assuming the ontclass is named as the individual without the
+	// * singletonprefix) wirkt erstmal hacky
+	// *
+	// * @param individual
+	// * @return
+	// */
+	// @Deprecated
+	// public OntClass createOntClassForIndividual(Individual individual) {
+	// String typeClass =
+	// individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
+	// return createOntClassForString(typeClass);
+	// }
+
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
 			System.out.println("das ist nicht ok");
@@ -219,12 +238,8 @@ public class CompOntologyAccess {
 		 * nicht gut
 		 */
 		//
-		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__");
+		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "");
 		return (MagicStrings.PREFIX + string).replaceAll("_", "");
-	}
-
-	public OntClass getClass(CompOntClass compOntClass) {
-		return createOntClassForString(compOntClass.name());
 	}
 
 	public CompFileUtil getFileUtil() {
