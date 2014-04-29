@@ -109,6 +109,19 @@ public class CompOntologyAccess {
 	}
 
 	/**
+	 * delete the link
+	 * 
+	 * @param individual
+	 * @param individual2
+	 * @param compObjectProperties
+	 */
+	public ObjectProperty deleteObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+		ObjectProperty result = getObjectPropertyForString(compObjectProperties.name());
+		domainIndividual.removeProperty(result.asObjectProperty(), rangeIndividual);
+		return result;
+	}
+
+	/**
 	 * checks if relationship exists
 	 * 
 	 * @param individual
@@ -116,6 +129,9 @@ public class CompOntologyAccess {
 	 * @param compObjectProperties
 	 */
 	public Boolean existsObjectPropertyWithIndividual(Individual domainIndividual, final Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+		if ((domainIndividual == null) || (rangeIndividual == null) || (compObjectProperties == null)) {
+			return false;
+		}
 
 		ObjectProperty result = getObjectPropertyForString(compObjectProperties.name());
 		ExtendedIterator<Statement> linkedIndividuals = domainIndividual.listProperties(result.asProperty()).filterKeep(new Filter<Statement>() {
