@@ -102,8 +102,13 @@ public class CompetenceServiceWrapper {
 	}
 
 	private static void addRequirementLiteral(String requirements, CompOntologyManager compOntologyManager, Individual courseContextIndividual) {
-		Property requirementsLiteral = compOntologyManager.getM().createProperty(CompOntologyAccess.encode("requirements"));
+		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
 		courseContextIndividual.addLiteral(requirementsLiteral, requirements);
+	}
+
+	private static Property extractRequirementsLiteral(CompOntologyManager compOntologyManager) {
+		Property requirementsLiteral = compOntologyManager.getM().createProperty(CompOntologyAccess.encode("requirements"));
+		return requirementsLiteral;
 	}
 
 	private static void addCompulsoryLiteral(String compulsory, CompOntologyManager compOntologyManager, OntClass competenceClass) {
@@ -151,5 +156,15 @@ public class CompetenceServiceWrapper {
 		compOntologyManager.begin();
 		compOntologyManager.getM().enterCriticalSection(false);
 		return compOntologyManager;
+	}
+
+	public static String getRequirements(String course) {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+		Individual courseContextIndividual = createCourseContext(course, compOntologyManager.getUtil());
+		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
+		String result = courseContextIndividual.getProperty(requirementsLiteral).asTriple().getObject().getLiteralLexicalForm();
+		compOntologyManager.close();
+		return result;
 	}
 }
