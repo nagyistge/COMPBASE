@@ -1,6 +1,8 @@
 package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.shared.ActivityPanel2;
+import uzuzjmd.competence.gui.shared.CompetenceSelectionPanel;
+import uzuzjmd.competence.gui.shared.MyTreePanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -23,9 +25,19 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-		ActivityPanel2 activityPanel = new ActivityPanel2(
-				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2");
+		MyTreePanel activityPanel = new ActivityPanel2(
+				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2",
+				"Aktivitäten", "activityView", 300, "Aktivitäten");
 		container.add(activityPanel);
+
+		// Panel panel = new Panel();
+		// panel.setWidth(600);
+
+		MyTreePanel competencePanel = new CompetenceSelectionPanel(
+				"http://localhost:8084/competences/tree/xml/crossdomain/4",
+				"Kompetenzen", "competenceView", 600, "Kompetenzen");
+		// panel.add(competencePanel);
+		container.add(competencePanel);
 
 	}
 

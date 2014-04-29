@@ -102,8 +102,10 @@ public class CompetenceServiceWrapper {
 	}
 
 	private static void addRequirementLiteral(String requirements, CompOntologyManager compOntologyManager, Individual courseContextIndividual) {
-		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
-		courseContextIndividual.addLiteral(requirementsLiteral, requirements);
+		if (requirements != null) {
+			Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
+			courseContextIndividual.addLiteral(requirementsLiteral, requirements);
+		}
 	}
 
 	private static Property extractRequirementsLiteral(CompOntologyManager compOntologyManager) {
