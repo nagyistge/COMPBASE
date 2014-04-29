@@ -23,12 +23,6 @@ Die Lehramtsanwärter vermitteln den Schülerinnen und Schülern Methoden des 
 selbstbestimmten, eigenverantwortlichen und kooperativen Lernens und &#xD;
 Arbeitens.</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#4">
-    <rdf:type rdf:resource="http://comp#CourseContext"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
-    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"und sie müssen noch viele dinge tun"</j.0:requirements>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElementOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#CompetenceDescription"/>
@@ -1457,6 +1451,11 @@ Kommunikationsformen aus.</j.0:definition>
     <rdf:type rdf:resource="http://comp#Begabungsförderung"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IDieLehramtsanwärtererkennenBegabungenundkennenMöglichkeitenderBegabungsförderung"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CompulsoryOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#wenden">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
@@ -1593,6 +1592,9 @@ Die Lehramtsanwärter unterstützen Verstehen und Transfer .</j.0:definition>
 Die Lehramtsanwärter setzen unterschiedliche &#xD;
 Beratungsformen situationsgerecht ein</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICompetence">
+    <rdf:type rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkennendieBedeutunggeschlechtsspezifischerEinflüsseaufBildungsundErziehungsprozesse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -1682,7 +1684,6 @@ unterrichtsbezogene Vorhaben zu bearbeiten.</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter kennen Methoden der Selbst- und Fremdevaluation</j.0:definition>
-    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Istrukturieren">
     <rdf:type rdf:resource="http://comp#strukturieren"/>
@@ -1815,12 +1816,12 @@ der Grundlage transparenter Beurteilungsmaßstäbe</j.0:definition>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkonzipierenAufgabenstellungenkriteriengerecht">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterkonzipierenAufgabenstellungenkriteriengerecht"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkennenLerntheorienundFormendesLernens">
-    <rdf:type rdf:resource="http://comp#DieLehramtsanwärterkennenLerntheorienundFormendesLernens"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ikonzipieren">
     <rdf:type rdf:resource="http://comp#konzipieren"/>
     <j.0:OperatorOf rdf:resource="http://comp#IDieLehramtsanwärterkonzipierenAufgabenstellungenkriteriengerecht"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkennenLerntheorienundFormendesLernens">
+    <rdf:type rdf:resource="http://comp#DieLehramtsanwärterkennenLerntheorienundFormendesLernens"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärtererarbeitenmitdenSchülerinnenundSchülernRegelndesUmgangsmiteinander">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1864,6 +1865,9 @@ und situationsgerecht an</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterplanendieBedingungenunddenRahmenfürdenLernprozessderSuS">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterplanendieBedingungenunddenRahmenfürdenLernprozessderSuS"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#I3org227owlNothing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Nothing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LernenEntwicklungundSozialisation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2017,7 +2021,6 @@ selber haben. Sie setzen beides in Beziehung zu einander.</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der &#xD;
 Erarbeitung von Beratung/Empfehlung</j.0:definition>
-    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterstimmenLernmöglichkeitenundLernanforderungenaufeinanderab">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterstimmenLernmöglichkeitenundLernanforderungenaufeinanderab"/>
