@@ -129,8 +129,8 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.CompetenceSpec, CompObjectProperties.SpecifiedBy);
 		getUtil().createObjectProperty(CompOntClass.CompetenceSpec, CompOntClass.Competence, CompObjectProperties.SpecifiedByInverse);
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.SimilarTo);
-
 		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.CourseContextOf);
+		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.CompulsoryOf);
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
 		// .addProperty(RDF.type, OWL2.ReflexiveProperty);

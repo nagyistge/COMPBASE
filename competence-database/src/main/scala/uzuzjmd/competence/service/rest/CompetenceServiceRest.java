@@ -61,11 +61,11 @@ public class CompetenceServiceRest {
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getCompetenceTree(null, null);
+			result = CompetenceServiceWrapper.getCompetenceTree(null, null, course);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwordArray, selectedOperatorsArray);
+			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
 		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
@@ -82,11 +82,11 @@ public class CompetenceServiceRest {
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getOperatorTree(null, null);
+			result = CompetenceServiceWrapper.getOperatorTree(null, null, course);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwordArray, selectedOperatorsArray);
+			result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
 		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
@@ -102,11 +102,11 @@ public class CompetenceServiceRest {
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getCatchwordTree(null, null);
+			result = CompetenceServiceWrapper.getCatchwordTree(null, null, course);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwordArray, selectedOperatorsArray);
+			result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
 		Response response = buildCrossDomainResponse(result);
