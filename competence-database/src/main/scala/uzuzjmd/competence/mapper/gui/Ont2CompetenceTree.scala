@@ -20,10 +20,11 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String]) {
+class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String) {
 
   val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
   val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
+  val util = ontologyManager.getUtil()
 
   /**
    * Hilfsfunktion, um eine generisch spezifizierte Klasse zu instantiieren
@@ -69,7 +70,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
       result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
-      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsoryString(subclass))
+      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
     }
     return result
 
@@ -145,16 +146,17 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
   }
 
-  private def getCompulsoryString(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
-    if (subclass.getURI().contains("Fremdevaluation")) {
-      println("hello my best friend");
-    }
-    if (getPropertyString(subclass, "compulsory") != null) {
-      val result = getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
-      return result
-    } else {
-      return false;
-    }
+  private def getCompulsory(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
+
+    //    if (getPropertyString(subclass, "compulsory") != null) {
+    //      val result = getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
+    //      return result
+    //    } else {
+    //      return false;
+    //    }
+
+    return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass), CompObjectProperties.CompulsoryOf);
+
   }
 
   private def getPropertyString(subclass: com.hp.hpl.jena.ontology.OntClass, propertyName: String): Object = {
