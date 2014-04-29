@@ -1,7 +1,5 @@
 package uzuzjmd.competence.owl.access;
 
-import java.net.URLEncoder;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -49,7 +47,6 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createIndividualForString(OntClass ontClass, String individualName) {
-
 		return manager.getM().createIndividual(encode(individualName), ontClass);
 	}
 
@@ -166,7 +163,8 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createSingleTonIndividual(OntClass ontclass) {
-		return createIndividualForString(ontclass, MagicStrings.SINGLETONPREFIX + ontclass.getLocalName());
+		String singletonstring = MagicStrings.SINGLETONPREFIX + ontclass.getURI().substring(MagicStrings.PREFIX.length(), ontclass.getURI().length());
+		return createIndividualForString(ontclass, singletonstring);
 	}
 
 	/**
@@ -191,19 +189,26 @@ public class CompOntologyAccess {
 		return createSingleTonIndividual(classOnt);
 	}
 
-	/**
-	 * creates/gets the corresponding ontclass for the given individual
-	 * (assuming the ontclass is named as the individual without the
-	 * singletonprefix) wirkt erstmal hacky
-	 * 
-	 * @param individual
-	 * @return
-	 */
-	@Deprecated
-	public OntClass createOntClassForIndividual(Individual individual) {
-		String typeClass = individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
-		return createOntClassForString(typeClass);
+	public OntResult accessSingletonResource(String classname, String... definitions) {
+		OntClass classOnt = createOntClassForString(classname, definitions);
+		Individual individual = createSingleTonIndividual(classOnt);
+		return new OntResult(individual, classOnt);
 	}
+
+	// /**
+	// * creates/gets the corresponding ontclass for the given individual
+	// * (assuming the ontclass is named as the individual without the
+	// * singletonprefix) wirkt erstmal hacky
+	// *
+	// * @param individual
+	// * @return
+	// */
+	// @Deprecated
+	// public OntClass createOntClassForIndividual(Individual individual) {
+	// String typeClass =
+	// individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
+	// return createOntClassForString(typeClass);
+	// }
 
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
@@ -213,8 +218,16 @@ public class CompOntologyAccess {
 		 * control character werden nicht akzeptiert und leerzeichen sind auch
 		 * nicht gut
 		 */
-		string = string.replaceAll(" ", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__");
-		return MagicStrings.PREFIX + URLEncoder.encode(string);
+		//
+		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__");
+		// return MagicStrings.PREFIX + URLEncoder.encode(string);
+		// if (string.contains("Lehramts")) {
+		// System.out.println("so so");
+		// }
+		return (MagicStrings.PREFIX + string).replaceAll("_", "");
+		// return MagicStrings.PREFIX + URLParamEncoder.encode(string);
+		// return MagicStrings.PREFIX +
+		// URLParamEncoder.encodeURLComponent(string);
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
