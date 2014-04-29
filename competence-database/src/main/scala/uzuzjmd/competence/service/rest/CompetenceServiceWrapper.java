@@ -87,6 +87,10 @@ public class CompetenceServiceWrapper {
 
 		compOntologyManager.getM().validate();
 		compOntologyManager.close();
+		testResult(compOntologyManager);
+	}
+
+	private static void testResult(CompOntologyManager compOntologyManager) {
 		compOntologyManager.begin();
 
 		CompFileUtil compFileUtil = new CompFileUtil(compOntologyManager.getM());
