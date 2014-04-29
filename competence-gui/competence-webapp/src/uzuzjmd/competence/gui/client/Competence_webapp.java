@@ -25,7 +25,7 @@ public class Competence_webapp implements EntryPoint {
 		RootPanel container = RootPanel.get("rootContainer");
 
 		MyTreePanel activityPanel = new ActivityPanel2(
-				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2",
+				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2/nocache",
 				"Aktivitäten", "activityView", 300, "Aktivitäten");
 		container.add(activityPanel);
 

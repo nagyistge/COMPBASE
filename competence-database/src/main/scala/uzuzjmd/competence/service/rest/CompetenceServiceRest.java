@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -53,8 +54,8 @@ public class CompetenceServiceRest {
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/tree/xml/crossdomain/{course}")
-	public Response getCompetenceTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	@Path("/tree/xml/crossdomain/{course}/{cache}")
+	public Response getCompetenceTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
 
 		CompetenceXMLTree[] result = null;
@@ -68,14 +69,14 @@ public class CompetenceServiceRest {
 			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
+		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/operatortree/xml/crossdomain/{course}")
-	public Response getOperatorTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	@Path("/operatortree/xml/crossdomain/{course}/{cache}")
+	public Response getOperatorTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
 
 		OperatorXMLTree[] result = null;
@@ -89,14 +90,14 @@ public class CompetenceServiceRest {
 			result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
+		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/catchwordtree/xml/crossdomain/{course}")
-	public Response getCatchwordTree(@PathParam("course") String course, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	@Path("/catchwordtree/xml/crossdomain/{course}/{cache}")
+	public Response getCatchwordTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
 		CatchwordXMLTree[] result = null;
 		String[] selectedCatchwordArray = null;
@@ -109,7 +110,7 @@ public class CompetenceServiceRest {
 			result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = buildCrossDomainResponse(result);
+		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
 		return response;
 	}
 
@@ -145,15 +146,22 @@ public class CompetenceServiceRest {
 
 	@Produces(MediaType.TEXT_HTML)
 	@GET
-	@Path("/coursecontext/requirements/xml/crossdomain/{course}")
-	public Response getRequirements(@PathParam("course") String course) {
+	@Path("/coursecontext/requirements/xml/crossdomain/{course}/{cache}")
+	public Response getRequirements(@PathParam("course") String course, @PathParam("cache") String cache) {
 		String result = CompetenceServiceWrapper.getRequirements(course);
-		return buildCrossDomainResponse(result);
+		return buildCrossDomainResponse(result, cache.equals("cached"));
 	}
 
-	private Response buildCrossDomainResponse(Object result) {
-		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
-		return response;
-	}
+	private Response buildCrossDomainResponse(Object result, Boolean cache) {
+		if (cache) {
+			CacheControl control = new CacheControl();
+			control.setMaxAge(10000);
+			Response response = Response.status(200).entity(result).cacheControl(control).header("Access-Control-Allow-Origin", "*").build();
+			return response;
+		} else {
+			Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
+			return response;
+		}
 
+	}
 }
