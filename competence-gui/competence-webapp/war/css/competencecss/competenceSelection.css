@@ -1,0 +1,19 @@
+@CHARSET "ISO-8859-1";
+
+.operatorSelectionPanel {
+	
+}
+
+.catchwordSelectionPanel {
+	
+}
+
+.competenceFilterPanel {
+	
+}
+
+.competencePanel {
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
