@@ -127,8 +127,8 @@ competence-gui/htdocs/moodle/mod/*
 !competence-gui
 
 
-gui/
-gui/*
+# gui/
+# gui/*
 
 
 
