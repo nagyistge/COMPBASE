@@ -1,6 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,24 +11,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.owl.access.CompFileUtil;
-import uzuzjmd.competence.owl.access.CompOntologyAccess;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
-
-import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.ObjectProperty;
-import com.hp.hpl.jena.ontology.OntClass;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -126,47 +115,32 @@ public class CompetenceServiceRest {
 
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
-	@Path("/coursecontext/xml/crossdomain/{course}")
-	public Response linkCompetencesToCourseContext(@PathParam("course") String course, @QueryParam(value = "competences") String competences) {
-		System.out.println("found" + competences);
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		compOntologyManager.begin();
-		compOntologyManager.getM().enterCriticalSection(false);
-		CompOntologyAccess util = compOntologyManager.getUtil();
-
-		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
-		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
-
-		ObjectProperty courseContextOfProperty = compOntologyManager.getM().getObjectProperty(util.encode(CompObjectProperties.CourseContextOf.name()));
-		courseContextIndividual.removeAll(courseContextOfProperty);
-
-		if (competences == null) {
-			throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
-		}
-		for (String competence : competences.split(",")) {
-			Individual competenceIndividual = util.createSingleTonIndividual(competence);
-			util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
-		}
-
-		compOntologyManager.getM().leaveCriticalSection();
-
-		compOntologyManager.getM().validate();
-		compOntologyManager.close();
-		compOntologyManager.begin();
-
-		CompFileUtil compFileUtil = new CompFileUtil(compOntologyManager.getM());
-		try {
-			compFileUtil.writeOntologyout();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		compOntologyManager.close();
-
+	@Path("/coursecontext/create/xml/crossdomain/{course}/{compulsory}")
+	public Response linkCompetencesToCourseContext(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @QueryParam(value = "competences") String competences) {
+		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsory);
 		// todo stuff here
-		return Response.ok("it has worked").header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences linked").header("Access-Control-Allow-Origin", "*").build();
 	}
+
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/coursecontext/delete/xml/crossdomain/{course}")
+	public Response deleteCourseContext(@PathParam("course") String course) {
+		CompetenceServiceWrapper.delete(course);
+		// todo stuff here
+		return Response.ok("competences deleted").header("Access-Control-Allow-Origin", "*").build();
+	}
+
+	// @Consumes(MediaType.APPLICATION_XML)
+	// @POST
+	// @Path("/coursecontext/xml/crossdomain/{course}")
+	// public Response linkCompetencesToCourseContext(@PathParam("course")
+	// String course, @QueryParam(value = "competences") String competences) {
+	// CompetenceServiceWrapper.linkCompetencesToCourse(course, competences);
+	// // todo stuff here
+	// return Response.ok("it has worked").header("Access-Control-Allow-Origin",
+	// "*").build();
+	// }
 
 	private Response buildCrossDomainResponse(CatchwordXMLTree[] result) {
 		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
