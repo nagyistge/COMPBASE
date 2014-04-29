@@ -129,7 +129,7 @@ public class CompetenceServiceRest {
 	public Response deleteCourseContext(@PathParam("course") String course) {
 		CompetenceServiceWrapper.delete(course);
 		// todo stuff here
-		return Response.ok("competences deleted").header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences deleted from course:" + course).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 	// @Consumes(MediaType.APPLICATION_XML)
@@ -143,7 +143,15 @@ public class CompetenceServiceRest {
 	// "*").build();
 	// }
 
-	private Response buildCrossDomainResponse(CatchwordXMLTree[] result) {
+	@Produces(MediaType.TEXT_HTML)
+	@GET
+	@Path("/coursecontext/requirements/xml/crossdomain/{course}")
+	public Response getRequirements(@PathParam("course") String course) {
+		String result = CompetenceServiceWrapper.getRequirements(course);
+		return buildCrossDomainResponse(result);
+	}
+
+	private Response buildCrossDomainResponse(Object result) {
 		Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
 		return response;
 	}
