@@ -83,10 +83,16 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def containsCatchword(ontClass: OntClass): Boolean = {
+    if (selectedCatchwordArray.isEmpty()) {
+      return true;
+    }
     return selectedCatchwordArray.contains(ontClass.getLocalName())
   }
 
   def containsOperator(ontClass: OntClass): Boolean = {
+    if (selectedOperatorsArray.isEmpty()) {
+      return true;
+    }
     return selectedOperatorsArray.contains(ontClass.getLocalName())
   }
 
