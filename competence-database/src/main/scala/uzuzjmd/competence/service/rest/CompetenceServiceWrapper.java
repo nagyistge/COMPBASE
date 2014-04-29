@@ -19,7 +19,6 @@ import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
 
 import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.rdf.model.Property;
 
@@ -59,14 +58,37 @@ public class CompetenceServiceWrapper {
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
 
-	public static void linkCompetencesToCourse(String course, String competences, String compulsory) {
-		System.out.println("found" + competences);
+	public static void linkCompetencesToCourse(String course, String competences, String compulsory, String requirements) {
+		System.out.println("linking competences: " + competences);
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 
+		Individual courseContextIndividual = createCourseContext(course, util);
+		addRequirementLiteral(requirements, compOntologyManager, courseContextIndividual);
+		linkSingleCompetences(competences, compulsory, requirements, compOntologyManager, util, courseContextIndividual);
+
+		compOntologyManager.getM().leaveCriticalSection();
+		compOntologyManager.getM().validate();
+		compOntologyManager.close();
+		testResult(compOntologyManager);
+	}
+
+	/**
+	 * create course context (if not exists)
+	 * 
+	 * @param course
+	 * @param util
+	 * @return
+	 */
+	private static Individual createCourseContext(String course, CompOntologyAccess util) {
+
 		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
 		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
+		return courseContextIndividual;
+	}
 
+	private static void linkSingleCompetences(String competences, String compulsory, String requirements, CompOntologyManager compOntologyManager, CompOntologyAccess util,
+			Individual courseContextIndividual) {
 		if (competences == null) {
 			throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
 		}
@@ -75,19 +97,22 @@ public class CompetenceServiceWrapper {
 			Individual competenceIndividual = result.getIndividual();
 			OntClass competenceClass = result.getOntclass();
 			util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
-			Property literal = compOntologyManager.getM().createProperty(CompOntologyAccess.encode("compulsory"));
-			if (compulsory != null) {
-				competenceClass.addLiteral(literal, true);
-			} else {
-				competenceClass.addLiteral(literal, false);
-			}
+			addCompulsoryLiteral(compulsory, compOntologyManager, competenceClass);
 		}
+	}
 
-		compOntologyManager.getM().leaveCriticalSection();
+	private static void addRequirementLiteral(String requirements, CompOntologyManager compOntologyManager, Individual courseContextIndividual) {
+		Property requirementsLiteral = compOntologyManager.getM().createProperty(CompOntologyAccess.encode("requirements"));
+		courseContextIndividual.addLiteral(requirementsLiteral, requirements);
+	}
 
-		compOntologyManager.getM().validate();
-		compOntologyManager.close();
-		testResult(compOntologyManager);
+	private static void addCompulsoryLiteral(String compulsory, CompOntologyManager compOntologyManager, OntClass competenceClass) {
+		Property literal = compOntologyManager.getM().createProperty(CompOntologyAccess.encode("compulsory"));
+		if (compulsory != null) {
+			competenceClass.addLiteral(literal, true);
+		} else {
+			competenceClass.addLiteral(literal, false);
+		}
 	}
 
 	private static void testResult(CompOntologyManager compOntologyManager) {
@@ -107,12 +132,17 @@ public class CompetenceServiceWrapper {
 	public static void delete(String course) {
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
-		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
-		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
+		Individual courseContextIndividual = createCourseContext(course, util);
 
-		ObjectProperty courseContextOfProperty = compOntologyManager.getM().getObjectProperty(util.encode(CompObjectProperties.CourseContextOf.name()));
-		courseContextIndividual.removeAll(courseContextOfProperty);
+		// ObjectProperty courseContextOfProperty =
+		// compOntologyManager.getM().getObjectProperty(util.encode(CompObjectProperties.CourseContextOf.name()));
+		// courseContextIndividual.removeAll(courseContextOfProperty);
+
+		courseContextIndividual.remove();
+
 		compOntologyManager.close();
+
+		testResult(compOntologyManager);
 
 	}
 
