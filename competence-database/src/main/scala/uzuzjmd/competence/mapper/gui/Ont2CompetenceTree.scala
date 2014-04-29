@@ -62,18 +62,14 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * needs label and iconpath in order to create the view
    */
   private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean)): A = {
-    val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + "definition")
-    val definition = subclass.getPropertyValue(iProperty)
-
-    var definitionString = ""
-    if (definition == null) {
-      definitionString = "nodefinition"
-    } else {
-      definitionString = definition.asNode().getLiteralValue().toString()
-    }
+    val definitionString = getDefinitionString(subclass)
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty && !subclass.listSubClasses().asScala.toList.head.getLocalName().equals("Nothing")) {
       val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
-      return instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
+      val result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
+      if (result.isInstanceOf[CompetenceXMLTree]) {
+        result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsoryString(subclass))
+      }
+      return result
     }
     return instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
 
@@ -138,6 +134,30 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   private def filterResults[A <: AbstractXMLTree[A]](result: A): List[A] = {
     val filteredResult = (result :: List.empty).filterNot(_ == null)
     filteredResult
+  }
+
+  private def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass): String = {
+    if (getPropertyString(subclass, "definition") != null) {
+      return (getPropertyString(subclass, "definition").toString().replaceAll("[\n\r]", "")).replaceAll("[\n]", "")
+    } else {
+      return ""
+    }
+
+  }
+
+  private def getCompulsoryString(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
+    if (getPropertyString(subclass, "compulsory") != null) {
+      return getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
+    } else {
+      return false;
+    }
+  }
+
+  private def getPropertyString(subclass: com.hp.hpl.jena.ontology.OntClass, propertyName: String): Object = {
+    val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + propertyName)
+    val value = subclass.getPropertyValue(iProperty)
+    if (value == null) { return null }
+    else { return value.asNode().getLiteralValue() }
   }
 
 }
