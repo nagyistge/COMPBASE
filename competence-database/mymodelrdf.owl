@@ -23,6 +23,11 @@ Die Lehramtsanwärter vermitteln den Schülerinnen und Schülern Methoden des 
 selbstbestimmten, eigenverantwortlichen und kooperativen Lernens und &#xD;
 Arbeitens.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#4">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElementOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#CompetenceDescription"/>
@@ -1676,6 +1681,7 @@ unterrichtsbezogene Vorhaben zu bearbeiten.</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter kennen Methoden der Selbst- und Fremdevaluation</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Istrukturieren">
     <rdf:type rdf:resource="http://comp#strukturieren"/>
@@ -2010,6 +2016,7 @@ selber haben. Sie setzen beides in Beziehung zu einander.</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der &#xD;
 Erarbeitung von Beratung/Empfehlung</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterstimmenLernmöglichkeitenundLernanforderungenaufeinanderab">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterstimmenLernmöglichkeitenundLernanforderungenaufeinanderab"/>

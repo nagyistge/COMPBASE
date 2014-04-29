@@ -219,15 +219,8 @@ public class CompOntologyAccess {
 		 * nicht gut
 		 */
 		//
-		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__");
-		// return MagicStrings.PREFIX + URLEncoder.encode(string);
-		// if (string.contains("Lehramts")) {
-		// System.out.println("so so");
-		// }
+		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__");
 		return (MagicStrings.PREFIX + string).replaceAll("_", "");
-		// return MagicStrings.PREFIX + URLParamEncoder.encode(string);
-		// return MagicStrings.PREFIX +
-		// URLParamEncoder.encodeURLComponent(string);
 	}
 
 	public OntClass getClass(CompOntClass compOntClass) {
