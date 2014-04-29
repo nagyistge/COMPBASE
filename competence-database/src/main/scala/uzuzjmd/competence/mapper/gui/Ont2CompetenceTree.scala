@@ -63,10 +63,14 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * needs label and iconpath in order to create the view
    */
   private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean)): A = {
-    val definitionString = getDefinitionString(subclass)
+    val definitionString = getDefinitionString(subclass) match {
+      case "" => label
+      case x => x
+    }
+
     var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
-    if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty && !subclass.listSubClasses().asScala.toList.head.getLocalName().equals("Nothing")) {
-      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
+    if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
+      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
       result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
