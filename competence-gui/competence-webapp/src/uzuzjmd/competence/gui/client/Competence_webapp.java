@@ -1,10 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.shared.ActivityPanel2;
-import uzuzjmd.competence.gui.shared.CatchwordSelectionTree;
-import uzuzjmd.competence.gui.shared.CompetenceSelectionPanel;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
-import uzuzjmd.competence.gui.shared.OperatorSelectionPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -35,21 +32,8 @@ public class Competence_webapp implements EntryPoint {
 		// Panel panel = new Panel();
 		// panel.setWidth(600);
 
-		MyTreePanel competencePanel = new CompetenceSelectionPanel(
-				"http://localhost:8084/competences/tree/xml/crossdomain/4",
-				"Kompetenzen", "competenceView", 600, "Kompetenzen");
-		// panel.add(competencePanel);
-		container.add(competencePanel);
-
-		MyTreePanel operatorTree = new OperatorSelectionPanel(
-				"http://localhost:8084/competences/operatortree/xml/crossdomain/4",
-				"Operatoren", "operatorView", 200, "Operatoren");
-		container.add(operatorTree);
-
-		MyTreePanel catchwordTree = new CatchwordSelectionTree(
-				"http://localhost:8084/competences/catchwordtree/xml/crossdomain/4",
-				"Schlagworte", "catchwordView", 200, "Schlagworte");
-		container.add(catchwordTree);
+		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
+		container.add(competenceSelectionWidget);
 
 	}
 
