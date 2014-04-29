@@ -54,7 +54,7 @@ object CompetenceImporter {
       map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString).map(CompetenceMaps.cleanCatchwords))). //filtered leere Catchwords und überschrift
       map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
       map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
-      map(a => a.copy(evidencen = CompetenceMaps.cleanHTML(a.evidencen)))
+      map(a => a.copy(evidencen = CompetenceMaps.cleanHTML(a.evidencen))).filter(x => CompetenceFilter.operatorString(x.operator)).filter(x => !x.metaoperator.equals("Metaoperator"))
 
     //mapping CSVObjects to RCD
     val rcdeoCompetences = CSV2RCD.mapCompetence(filteredList)
