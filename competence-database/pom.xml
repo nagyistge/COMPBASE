@@ -320,6 +320,11 @@
 			<version>4.0.6</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.github.ansell.aterms</groupId>
 			<artifactId>shared-objects</artifactId>
 			<version>1.4.9-p1</version>

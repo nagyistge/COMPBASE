@@ -28,18 +28,18 @@ public class CompetenceSelectionWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		MyTreePanel competencePanel = new CompetenceSelectionPanel(
-				"http://localhost:8084/competences/tree/xml/crossdomain/4",
+				"http://localhost:8084/competences/tree/xml/crossdomain/4/nocache",
 				"Kompetenzen", "competenceView", 600, "Kompetenzen");
 		// panel.add(competencePanel);
 		competenceTreeCaptionPanel.add(competencePanel);
 
 		MyTreePanel operatorTree = new OperatorSelectionPanel(
-				"http://localhost:8084/competences/operatortree/xml/crossdomain/4",
+				"http://localhost:8084/competences/operatortree/xml/crossdomain/4/nocache",
 				"Operatoren", "operatorView", 160, "Operatoren");
 		operatorCaptionPanel.add(operatorTree);
 
 		MyTreePanel catchwordTree = new CatchwordSelectionTree(
-				"http://localhost:8084/competences/catchwordtree/xml/crossdomain/4",
+				"http://localhost:8084/competences/catchwordtree/xml/crossdomain/4/nocache",
 				"Schlagworte", "catchwordView", 200, "Schlagworte");
 		catchwordCaptionPanel.add(catchwordTree);
 	}

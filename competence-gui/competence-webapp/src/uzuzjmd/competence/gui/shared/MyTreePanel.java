@@ -146,7 +146,7 @@ public abstract class MyTreePanel extends Panel {
 						root.expand(true, true);
 					}
 				};
-				timer.schedule(10000);
+				timer.schedule(1000);
 			}
 		}, "Refresh"));
 	}
