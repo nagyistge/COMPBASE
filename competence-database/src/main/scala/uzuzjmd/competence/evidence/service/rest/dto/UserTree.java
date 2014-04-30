@@ -32,8 +32,7 @@ public class UserTree extends AbstractTreeEntry {
 		this.setActivityTypes(activityTypes);
 	}
 
-	public UserTree(String name, String qtip, String icon,
-			List<ActivityTyp> activityTypes) {
+	public UserTree(String name, String qtip, String icon, List<ActivityTyp> activityTypes) {
 		super(name, qtip, icon);
 		this.setActivityTypes(activityTypes);
 	}
@@ -52,6 +51,18 @@ public class UserTree extends AbstractTreeEntry {
 
 	public void setActivityTypes(List<ActivityTyp> activityTypes) {
 		this.activityTypes = activityTypes;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		return super.equals(arg0);
 	}
 
 }

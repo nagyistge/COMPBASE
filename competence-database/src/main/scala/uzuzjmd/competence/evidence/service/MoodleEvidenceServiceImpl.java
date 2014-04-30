@@ -1,6 +1,7 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import javax.jws.WebService;
 
@@ -19,8 +20,11 @@ import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
 
-/**
- * Eine sehr crude Art und Weise die Daten von Moodle zu bekommen. Dies könnte
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+
+/*
  * durch einen Moodle-Webservice oder PHP-Implementation vielleicht eleganter
  * gelöst werden. It just works.
  * 
@@ -30,17 +34,17 @@ import uzuzjmd.mysql.database.VereinfachtesResultSet;
 @WebService(endpointInterface = "uzuzjmd.competence.evidence.service.EvidenceService")
 public class MoodleEvidenceServiceImpl implements EvidenceService {
 
-	Logger logger = LogManager.getLogger(MoodleEvidenceServiceImpl.class
-			.getName());
-	private String moodleURl;
-	private String moodledb;
-	private String adminname;
-	private String adminpassword;
+	public static LoadingCache<String, UserTree[]> cacheImpl;
 	private String adminLogin;
 	private String adminLoginPassword;
+	private String adminname;
+	private String adminpassword;
+	Logger logger = LogManager.getLogger(MoodleEvidenceServiceImpl.class.getName());
+	private String moodledb;
+	private String moodleURl;
+	private Thread cacheThread;
 
-	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb,
-			String adminname, String adminpassword) {
+	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword) {
 		if (moodledatabaseurl.endsWith("/")) {
 			throw new Error("moodle database url should not end with /");
 		}
@@ -52,112 +56,14 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		this.moodledb = moodledb;
 		this.adminname = adminname;
 		this.adminpassword = adminpassword;
+		initCache();
+
 	}
 
-	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb,
-			String adminname, String adminpassword, String adminLogin,
-			String adminLoginPassword) {
+	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword, String adminLogin, String adminLoginPassword) {
 		this(moodledatabaseurl, moodledb, adminname, adminpassword);
 		this.adminLogin = adminLogin;
 		this.adminLoginPassword = adminLoginPassword;
-	}
-
-	@Override
-	public Evidence[] getEvidences(String user) {
-		logger.info("getting evidences" + " user " + user);
-
-		throw new NotImplementedException(
-				"this method on Evidenzserver is not implemented");
-	}
-
-	/**
-	 * Holt sich alle Kursdaten für den User if user
-	 */
-	@Override
-	public MoodleEvidence[] getMoodleEvidences(String course, String user) {
-		MysqlConnect connect = initMysql(course, user);
-
-		// issue statement
-		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, "
-				+ "firstaccess, lastaccess, lastlogin, currentlogin, "
-				+ "FROM_UNIXTIME(lastaccess,'%d/%m/%Y %H:%i:%s' )as DLA, "
-				+ "FROM_UNIXTIME(firstaccess,'%d/%m/%Y %H:%i:%s' )as DFA, "
-				+ "FROM_UNIXTIME(lastlogin,'%d/%m/%Y %H:%i:%s' )as DLL, "
-				+ "FROM_UNIXTIME(currentlogin,'%d/%m/%Y %H:%i:%s' )as DCL "
-				+ "FROM mdl_log , mdl_user "
-				+ "WHERE mdl_log.userid = mdl_user.id "
-				+ "AND mdl_user.id = ? "
-				+ "AND mdl_log.course= ?"
-				+ "ORDER BY time DESC LIMIT ? ";
-
-		VereinfachtesResultSet result = connect.issueSelectStatement(statement,
-				user, course, 100);
-
-		ArrayList<MoodleEvidence> ergebnisAlsArray = convertResultToEvidence(result);
-
-		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray
-				.size()]);
-	}
-
-	private MysqlConnect initMysql(String course, String user) {
-		logger.info("getting moodle evidences for course " + course + " user "
-				+ user);
-
-		MysqlConnect connect = new MysqlConnect();
-		connectToMoodleDB(connect);
-
-		connect.otherStatements("use " + moodledb);
-		return connect;
-	}
-
-	@Override
-	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
-		MysqlConnect connect = initMysql(course, "adminuser");
-
-		// issue statement
-		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, firstaccess, lastaccess, lastlogin, currentlogin,"
-				+ " FROM_UNIXTIME(lastaccess,'%d/%m/%Y %H:%i:%s' )as DLA,"
-				+ " FROM_UNIXTIME(firstaccess,'%d/%m/%Y %H:%i:%s' )as DFA,"
-				+ " FROM_UNIXTIME(lastlogin,'%d/%m/%Y %H:%i:%s' )as DLL,"
-				+ " FROM_UNIXTIME(currentlogin,'%d/%m/%Y %H:%i:%s' )as DCL"
-				+ " FROM mdl_log , mdl_user"
-				+ " INNER JOIN mdl_role_assignments ra ON ra.userid = mdl_user.id"
-				+ " INNER JOIN mdl_context ct ON ct.id = ra.contextid"
-				+ " INNER JOIN mdl_course c ON c.id = ct.instanceid"
-				+ " INNER JOIN mdl_role r ON r.id = ra.roleid"
-				+ " INNER JOIN mdl_course_categories cc ON cc.id = c.category"
-				+ " WHERE mdl_log.userid = mdl_user.id"
-				+ " AND mdl_log.course= ?"
-				+ " AND r.id =5"
-				+ " ORDER BY time DESC";
-
-		VereinfachtesResultSet result = connect.issueSelectStatement(statement,
-				course);
-
-		ArrayList<MoodleEvidence> ergebnisAlsArray = convertResultToEvidence(result);
-
-		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray
-				.size()]);
-	}
-
-	private ArrayList<MoodleEvidence> convertResultToEvidence(
-			VereinfachtesResultSet result) {
-		ArrayList<MoodleEvidence> ergebnisAlsArray = new ArrayList<MoodleEvidence>();
-		while (result.next()) {
-			MoodleEvidence moodleEvidence = new MoodleEvidence(
-					result.getString("module") + ": "
-							+ result.getString("info") + " am "
-							+ result.getString("DLA"), MagicStrings.MOODLEURL
-							+ "mod/" + result.getString("module") + "/"
-							+ result.getString("url"),
-					result.getString("userid"), result.getString("DLA"),
-					result.getString("course"), result.getString("module"));
-			moodleEvidence.setUsername(result.getString("firstname") + " "
-					+ result.getString("lastname"));
-
-			ergebnisAlsArray.add(moodleEvidence);
-		}
-		return ergebnisAlsArray;
 	}
 
 	private void connectToMoodleDB(MysqlConnect connect) {
@@ -171,9 +77,34 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		builder.append("&");
 		builder.append("password=");
 		builder.append(adminpassword);
-		logger.info("trying to log in to moodle with connection string"
-				+ builder.toString());
+		logger.debug("trying to log in to moodle with connection string" + builder.toString());
 		connect.connect(builder.toString());
+	}
+
+	private ArrayList<MoodleEvidence> convertResultToEvidence(VereinfachtesResultSet result) {
+		ArrayList<MoodleEvidence> ergebnisAlsArray = new ArrayList<MoodleEvidence>();
+		while (result.next()) {
+			MoodleEvidence moodleEvidence = new MoodleEvidence(result.getString("module") + ": " + result.getString("info") + " am " + result.getString("DLA"), MagicStrings.MOODLEURL + "mod/"
+					+ result.getString("module") + "/" + result.getString("url"), result.getString("userid"), result.getString("DLA"), result.getString("course"), result.getString("module"));
+			moodleEvidence.setUsername(result.getString("firstname") + " " + result.getString("lastname"));
+
+			ergebnisAlsArray.add(moodleEvidence);
+		}
+		return ergebnisAlsArray;
+	}
+
+	public UserTree[] getCachedUserTree(String course) {
+		try {
+			return cacheImpl.get(course);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		throw new Error("Cache not working");
+	}
+
+	public MoodleContentResponseList getCourseContent(String course) {
+		return getCourseContents(course, adminname, adminLoginPassword);
 	}
 
 	public MoodleContentResponseList getCourseContents(String courseId) {
@@ -181,29 +112,14 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 			return getCourseContents(courseId, adminLogin, adminLoginPassword);
 		} else {
 			// assumes admin db name and admin moodle name are the same
-			SimpleMoodleService moodleService = new SimpleMoodleService(
-					adminname, adminpassword);
+			SimpleMoodleService moodleService = new SimpleMoodleService(adminname, adminpassword);
 			return moodleService.getMoodleContents(courseId);
 		}
 	}
 
-	public MoodleContentResponseList getCourseContents(String courseId,
-			String courseOwnerName, String courseOwnerPassword) {
-		SimpleMoodleService moodleService = new SimpleMoodleService(
-				courseOwnerName, courseOwnerPassword);
+	public MoodleContentResponseList getCourseContents(String courseId, String courseOwnerName, String courseOwnerPassword) {
+		SimpleMoodleService moodleService = new SimpleMoodleService(courseOwnerName, courseOwnerPassword);
 		return moodleService.getMoodleContents(courseId);
-	}
-
-	public UserTree[] getUserTree(String course) {
-		MoodleEvidence[] moodleEvidences = this
-				.getUserEvidencesforMoodleCourse(course);
-		MoodleContentResponseList listMoodleContent = this
-				.getCourseContents(course);
-
-		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent,
-				moodleEvidences);
-		UserTree[] result = mapper.getUserTrees().toArray(new UserTree[0]);
-		return result;
 	}
 
 	public MoodleContentResponse[] getCourseContentXML(String course) {
@@ -211,7 +127,97 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		return list.toArray(new MoodleContentResponse[0]);
 	}
 
-	public MoodleContentResponseList getCourseContent(String course) {
-		return getCourseContents(course, adminname, adminLoginPassword);
+	@Override
+	public Evidence[] getEvidences(String user) {
+		logger.info("getting evidences" + " user " + user);
+
+		throw new NotImplementedException("this method on Evidenzserver is not implemented");
+	}
+
+	/**
+	 * Holt sich alle Kursdaten für den User if user
+	 */
+	@Override
+	public MoodleEvidence[] getMoodleEvidences(String course, String user) {
+		MysqlConnect connect = initMysql(course, user);
+
+		// issue statement
+		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, " + "firstaccess, lastaccess, lastlogin, currentlogin, "
+				+ "FROM_UNIXTIME(lastaccess,'%d/%m/%Y %H:%i:%s' )as DLA, " + "FROM_UNIXTIME(firstaccess,'%d/%m/%Y %H:%i:%s' )as DFA, " + "FROM_UNIXTIME(lastlogin,'%d/%m/%Y %H:%i:%s' )as DLL, "
+				+ "FROM_UNIXTIME(currentlogin,'%d/%m/%Y %H:%i:%s' )as DCL " + "FROM mdl_log , mdl_user " + "WHERE mdl_log.userid = mdl_user.id " + "AND mdl_user.id = ? " + "AND mdl_log.course= ?"
+				+ "ORDER BY time DESC LIMIT ? ";
+
+		VereinfachtesResultSet result = connect.issueSelectStatement(statement, user, course, 100);
+
+		ArrayList<MoodleEvidence> ergebnisAlsArray = convertResultToEvidence(result);
+
+		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray.size()]);
+	}
+
+	@Override
+	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
+		MysqlConnect connect = initMysql(course, "adminuser");
+
+		// issue statement
+		String statement = "SELECT mdl_log.*,FROM_UNIXTIME(mdl_log.time,'%d/%m/%Y %H:%i:%s' )as DATE,auth,firstname,lastname,email, firstaccess, lastaccess, lastlogin, currentlogin,"
+				+ " FROM_UNIXTIME(lastaccess,'%d/%m/%Y %H:%i:%s' )as DLA," + " FROM_UNIXTIME(firstaccess,'%d/%m/%Y %H:%i:%s' )as DFA," + " FROM_UNIXTIME(lastlogin,'%d/%m/%Y %H:%i:%s' )as DLL,"
+				+ " FROM_UNIXTIME(currentlogin,'%d/%m/%Y %H:%i:%s' )as DCL" + " FROM mdl_log , mdl_user" + " INNER JOIN mdl_role_assignments ra ON ra.userid = mdl_user.id"
+				+ " INNER JOIN mdl_context ct ON ct.id = ra.contextid" + " INNER JOIN mdl_course c ON c.id = ct.instanceid" + " INNER JOIN mdl_role r ON r.id = ra.roleid"
+				+ " INNER JOIN mdl_course_categories cc ON cc.id = c.category" + " WHERE mdl_log.userid = mdl_user.id" + " AND mdl_log.course= ?" + " AND r.id =5" + " ORDER BY time DESC";
+
+		VereinfachtesResultSet result = connect.issueSelectStatement(statement, course);
+
+		ArrayList<MoodleEvidence> ergebnisAlsArray = convertResultToEvidence(result);
+
+		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray.size()]);
+	}
+
+	public UserTree[] getUserTree(String course) {
+		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
+		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
+
+		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent, moodleEvidences);
+		UserTree[] result = mapper.getUserTrees().toArray(new UserTree[0]);
+		return result;
+	}
+
+	private void initCache() {
+		if (cacheImpl == null) {
+			cacheImpl = CacheBuilder.newBuilder().maximumSize(1000).build(new CacheLoader<String, UserTree[]>() {
+				public UserTree[] load(final String key) {
+					return getUserTree(key);
+				}
+			});
+		}
+		if (cacheThread == null) {
+			cacheThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						for (String key : cacheImpl.asMap().keySet()) {
+							cacheImpl.refresh(key);
+						}
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			cacheThread.start();
+		}
+
+	}
+
+	private MysqlConnect initMysql(String course, String user) {
+		logger.debug("getting moodle evidences for course " + course + " user " + user);
+
+		MysqlConnect connect = new MysqlConnect();
+		connectToMoodleDB(connect);
+
+		connect.otherStatements("use " + moodledb);
+		return connect;
 	}
 }
