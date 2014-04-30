@@ -6,7 +6,12 @@ import javax.xml.ws.Endpoint;
 
 import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.MoodleEvidenceServiceRestImpl;
+import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
+import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp;
+import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.view.xml.AbstractTreeEntry;
+import uzuzjmd.competence.view.xml.AbstractXMLTree;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.DefaultResourceConfig;
@@ -14,17 +19,13 @@ import com.sun.jersey.api.core.ResourceConfig;
 
 public class EvidenceServer {
 
-	public static void main(String[] args) throws IllegalArgumentException,
-			NullPointerException, IOException {
+	public static void main(String[] args) throws IllegalArgumentException, NullPointerException, IOException {
 
-		System.setProperty("org.apache.commons.logging.Log",
-				"org.apache.commons.logging.impl.Log4JLogger");
-		System.setProperty("org.apache.commons.logging.LogFactory",
-				"org.apache.commons.logging.impl.LogFactoryImpl");
+		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
+		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
 		if (args.length != 4 && args.length != 6) {
-			System.out
-					.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
+			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
 		} else {
 			String moodleurl = args[0];
 			String moodledb = args[1];
@@ -33,8 +34,7 @@ public class EvidenceServer {
 			if (args.length == 6) {
 				String adminlogin = args[4];
 				String adminloginpassword = args[5];
-				startServer(moodleurl, moodledb, adminname, adminpassword,
-						adminlogin, adminloginpassword);
+				startServer(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
 			} else {
 				startServer(moodleurl, moodledb, adminname, adminpassword);
 			}
@@ -42,27 +42,20 @@ public class EvidenceServer {
 
 	}
 
-	private static void startServer(String moodleurl, String moodledb,
-			String adminname, String adminpassword, String adminlogin,
-			String adminloginpassword) throws IOException {
-		 MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
-		 publishServer(evidenceServiceImpl);
+	private static void startServer(String moodleurl, String moodledb, String adminname, String adminpassword, String adminlogin, String adminloginpassword) throws IOException {
+		MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
+		publishServer(evidenceServiceImpl);
 	}
 
-	private static void startServer(String moodleurl, String moodledb,
-			String adminname, String adminpassword)
-			throws IllegalArgumentException, NullPointerException, IOException {
+	private static void startServer(String moodleurl, String moodledb, String adminname, String adminpassword) throws IllegalArgumentException, NullPointerException, IOException {
 		// start server
-		final MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(
-				moodleurl, moodledb, adminname, adminpassword);
+		final MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword);
 
 		publishServer(evidenceServiceImpl);
 
 	}
 
-	private static void publishServer(
-			final MoodleEvidenceServiceImpl evidenceServiceImpl)
-			throws IOException {
+	private static void publishServer(final MoodleEvidenceServiceImpl evidenceServiceImpl) throws IOException {
 		MoodleEvidenceServiceRestImpl.moodleServiceImpl = evidenceServiceImpl;
 
 		publishSoapServer(evidenceServiceImpl);
@@ -75,22 +68,16 @@ public class EvidenceServer {
 	}
 
 	private static void publishRestServer() throws IOException {
-		ResourceConfig resourceConfig = new DefaultResourceConfig(
-				MoodleEvidenceServiceRestImpl.class);
-		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL,
-				resourceConfig);
-		System.out.println("publishing rest server to to "
-				+ MagicStrings.RESTURL);
-		System.out.println("Test this with2: " + MagicStrings.RESTURL
-				+ "/moodle/activities/json/2/2");
+		ResourceConfig resourceConfig = new DefaultResourceConfig(MoodleEvidenceServiceRestImpl.class, UserTree.class, AbstractTreeEntry.class, AbstractXMLTree.class, ActivityTyp.class,
+				ActivityEntry.class);
+		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, resourceConfig);
+		System.out.println("publishing rest server to to " + MagicStrings.RESTURL);
+		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle/activities/json/2/2");
 	}
 
-	private static void publishSoapServer(
-			final MoodleEvidenceServiceImpl evidenceServiceImpl) {
-		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
-				evidenceServiceImpl);
-		System.out.println("publishing wsdl to "
-				+ MagicStrings.EVIDENCESERVICEENDPOINT);
+	private static void publishSoapServer(final MoodleEvidenceServiceImpl evidenceServiceImpl) {
+		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT, evidenceServiceImpl);
+		System.out.println("publishing wsdl to " + MagicStrings.EVIDENCESERVICEENDPOINT);
 	}
 
 }

@@ -34,16 +34,14 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public MoodleEvidence[] getMoodleEvidences(
-			@PathParam("course") String course, @PathParam("user") String user) {
+	public MoodleEvidence[] getMoodleEvidences(@PathParam("course") String course, @PathParam("user") String user) {
 		return moodleServiceImpl.getMoodleEvidences(course, user);
 	}
 
 	@Path("/activities/xml/{course}/{user}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public MoodleEvidence[] getMoodleEvidencesasXML(
-			@PathParam("course") String course, @PathParam("user") String user) {
+	public MoodleEvidence[] getMoodleEvidencesasXML(@PathParam("course") String course, @PathParam("user") String user) {
 		return moodleServiceImpl.getMoodleEvidences(course, user);
 	}
 
@@ -59,8 +57,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public MoodleEvidence[] getUserEvidencesforMoodleCourse(
-			@PathParam("course") String course) {
+	public MoodleEvidence[] getUserEvidencesforMoodleCourse(@PathParam("course") String course) {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
@@ -68,8 +65,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Path("/contents/json/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public MoodleContentResponseList getCourseContent(
-			@PathParam("course") String course) {
+	public MoodleContentResponseList getCourseContent(@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContents(course);
 	}
 
@@ -77,16 +73,14 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Path("/contents/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public MoodleContentResponse[] getCourseContentXML(
-			@PathParam("course") String course) {
+	public MoodleContentResponse[] getCourseContentXML(@PathParam("course") String course) {
 		return moodleServiceImpl.getCourseContentXML(course);
 	}
 
 	@Path("/activities/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsXML(
-			@PathParam("course") String course) {
+	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsXML(@PathParam("course") String course) {
 		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
 	}
 
@@ -95,16 +89,19 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-		return moodleServiceImpl.getUserTree(course);
+		// return moodleServiceImpl.getUserTree(course);
+		// result = cacheImpl.get(course, null);
+		return moodleServiceImpl.getCachedUserTree(course);
 	}
 
 	@Path("/activities/usertree/xml/crossdomain/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
-		Response response = Response.status(200)
-				.entity(moodleServiceImpl.getUserTree(course))
-				.header("Access-Control-Allow-Origin", "*").build();
+		Response response = Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).header("Access-Control-Allow-Origin", "*").build();
+		// Response response =
+		// Response.status(200).entity(moodleServiceImpl.getUserTree(course)).header("Access-Control-Allow-Origin",
+		// "*").build();
 		return response;
 	}
 

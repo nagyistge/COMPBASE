@@ -15,9 +15,16 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlRootElement
 public class MoodleContentResponseList extends ArrayList<MoodleContentResponse> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		return super.equals(arg0);
+	}
 
 }

@@ -156,6 +156,7 @@ public class CompetenceServiceRest {
 		if (cache) {
 			CacheControl control = new CacheControl();
 			control.setMaxAge(10000);
+
 			Response response = Response.status(200).entity(result).cacheControl(control).header("Access-Control-Allow-Origin", "*").build();
 			return response;
 		} else {
