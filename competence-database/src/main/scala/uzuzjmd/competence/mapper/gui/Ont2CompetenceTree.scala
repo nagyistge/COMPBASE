@@ -87,17 +87,19 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def containsCatchword(ontClass: OntClass): Boolean = {
-    if (selectedCatchwordArray.isEmpty()) {
-      return true;
-    }
-    return selectedCatchwordArray.contains(ontClass.getLocalName())
+//    if (selectedCatchwordArray.isEmpty()) {
+//      return true;
+//    }
+//    return selectedCatchwordArray.contains(ontClass.getLocalName())
+    return true;
   }
 
   def containsOperator(ontClass: OntClass): Boolean = {
-    if (selectedOperatorsArray.isEmpty()) {
-      return true;
-    }
-    return selectedOperatorsArray.contains(ontClass.getLocalName())
+//    if (selectedOperatorsArray.isEmpty()) {
+//      return true;
+//    }
+//    return selectedOperatorsArray.contains(ontClass.getLocalName())
+    return true;
   }
 
   /**

@@ -6,8 +6,8 @@ import com.gwtext.client.widgets.tree.XMLTreeLoader;
 public class OperatorSelectionPanel extends MyTreePanel {
 
 	public OperatorSelectionPanel(String databaseConnectionString,
-			String rootLabel, String className, Integer width, String title) {
-		super(databaseConnectionString, rootLabel, className, width, title);
+			String rootLabel, String className, Integer width, Integer height, String title) {
+		super(databaseConnectionString, rootLabel, className, width, height, title);
 	}
 
 	@Override
