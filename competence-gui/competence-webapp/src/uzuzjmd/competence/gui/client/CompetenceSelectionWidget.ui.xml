@@ -6,14 +6,16 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:CaptionPanel captionText="Kompetenzauswahl" styleName="competencePanel" >
-			<g:VerticalPanel ui:field="competenceTreeContainer">
-				<g:CaptionPanel captionText="New panel" ui:field="competenceTreeCaptionPanel"/>
-				<g:HorizontalPanel ui:field="competenceFilterPanel">
+			<g:VerticalPanel ui:field="competenceTreeContainer" verticalAlignment="ALIGN_TOP">
+				<g:HTMLPanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel"/>
+				<g:HorizontalPanel ui:field="competenceFilterPanel" >
 					<g:VerticalPanel ui:field="operatorPanel">
-						<g:CaptionPanel captionText="Operatoren" ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel"/>
-						<g:CheckBox text="verpflichtende Kompetenzen" ui:field="requiredFlagBox"/>
+						<g:HTMLPanel ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel"/>
+						<g:HTMLPanel styleName="competenceCompulsoryCheckbox" >
+							<g:CheckBox text="verpflichtende Kompetenzen" ui:field="requiredFlagBox" />
+						</g:HTMLPanel>
 					</g:VerticalPanel>
-					<g:CaptionPanel captionText="Schlagworte" ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
+					<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 		</g:CaptionPanel>		

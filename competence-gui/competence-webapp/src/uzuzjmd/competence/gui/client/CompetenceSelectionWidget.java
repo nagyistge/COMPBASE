@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.Panel;
 
 public class CompetenceSelectionWidget extends Composite {
 
@@ -29,25 +30,25 @@ public class CompetenceSelectionWidget extends Composite {
 
 		MyTreePanel competencePanel = new CompetenceSelectionPanel(
 				"http://localhost:8084/competences/tree/xml/crossdomain/4/nocache",
-				"Kompetenzen", "competenceView", 600, "Kompetenzen");
+				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");
 		// panel.add(competencePanel);
 		competenceTreeCaptionPanel.add(competencePanel);
 
 		MyTreePanel operatorTree = new OperatorSelectionPanel(
 				"http://localhost:8084/competences/operatortree/xml/crossdomain/4/nocache",
-				"Operatoren", "operatorView", 160, "Operatoren");
+				"Operatoren", "operatorView", 300, 150,  "Operatoren");
 		operatorCaptionPanel.add(operatorTree);
 
 		MyTreePanel catchwordTree = new CatchwordSelectionTree(
 				"http://localhost:8084/competences/catchwordtree/xml/crossdomain/4/nocache",
-				"Schlagworte", "catchwordView", 200, "Schlagworte");
+				"Schlagworte", "catchwordView", 325, 200, "Schlagworte");
 		catchwordCaptionPanel.add(catchwordTree);
 	}
 
 	@UiField
 	VerticalPanel competenceTreeContainer;
 	@UiField
-	CaptionPanel competenceTreeCaptionPanel;
+	Panel competenceTreeCaptionPanel;
 	@UiField
 	HorizontalPanel competenceFilterPanel;
 	@UiField
@@ -55,8 +56,8 @@ public class CompetenceSelectionWidget extends Composite {
 	@UiField
 	CheckBox requiredFlagBox;
 	@UiField
-	CaptionPanel catchwordCaptionPanel;
+	Panel catchwordCaptionPanel;
 	@UiField
-	CaptionPanel operatorCaptionPanel;
+	Panel operatorCaptionPanel;
 
 }
