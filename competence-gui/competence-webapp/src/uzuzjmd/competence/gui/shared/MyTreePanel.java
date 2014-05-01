@@ -27,6 +27,8 @@ public abstract class MyTreePanel extends Panel {
 
 	private Integer width;
 
+	private Integer height;
+
 	/**
 	 * 
 	 * 
@@ -35,14 +37,15 @@ public abstract class MyTreePanel extends Panel {
 	 * @param className
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
-			String className, Integer width, String title) {
+			String className, Integer width, Integer height, String title) {
 		super();
 		this.title = title;
 		this.width = width;
+		this.height = height;
 		this.databaseConnectionString = databaseConnectionString;
 		// test gwt ext
 
-		Panel treePanelContainer = new Panel();
+//		Panel treePanelContainer = new Panel();
 		// treePanelContainer.setBorder(false);
 		// treePanelContainer.setPaddings(15);
 
@@ -53,16 +56,18 @@ public abstract class MyTreePanel extends Panel {
 		root.expand();
 		treePanel.expandAll();
 		initReloadTool(treePanel, root);
-		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
-				width);
+//		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
+//				width);
+////
+//		Panel verticalPanel = new Panel();
+//		verticalPanel.setLayout(new VerticalLayout(15));
+//		verticalPanel.add(treePanel);
+//		// verticalPanel.add(buttonPanel);
+//		treePanelContainer.add(verticalPanel);
 
-		Panel verticalPanel = new Panel();
-		verticalPanel.setLayout(new VerticalLayout(15));
-		verticalPanel.add(treePanel);
-		// verticalPanel.add(buttonPanel);
-		treePanelContainer.add(verticalPanel);
-
-		this.add(treePanelContainer);
+//		treePanelContainer.add(treePanel);
+//		this.add(treePanelContainer);
+		this.add(treePanel);
 		this.getElement().setClassName(className);
 	}
 
@@ -161,7 +166,7 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setSelectionModel(new MultiSelectionModel());
 		treePanel.setShadow(false);
 		treePanel.setWidth(width);
-		treePanel.setHeight(300);
+		treePanel.setHeight(height);		
 		// treePanel.setAutoHeight(true);
 		treePanel.setAutoScroll(true);
 		treePanel.setDdScroll(true);
