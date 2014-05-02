@@ -1,9 +1,6 @@
-package uzuzjmd.competence.gui.client;
+package uzuzjmd.competence.gui.client.competenceSelection;
 
-import uzuzjmd.competence.gui.shared.CatchwordSelectionTree;
-import uzuzjmd.competence.gui.shared.CompetenceSelectionPanel;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
-import uzuzjmd.competence.gui.shared.OperatorSelectionPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
