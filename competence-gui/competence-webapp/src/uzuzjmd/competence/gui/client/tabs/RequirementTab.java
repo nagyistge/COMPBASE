@@ -1,5 +1,6 @@
 package uzuzjmd.competence.gui.client.tabs;
 
+import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 
 import com.google.gwt.core.client.GWT;
@@ -44,14 +45,14 @@ public class RequirementTab extends Composite {
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
 	
-	public RequirementTab() {
+	public RequirementTab(final ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.tabExplainationPanel
 				.add(new Label(
-						"Wählen Sie eine Kompetenz aus. Für diese wird angezeigt, welche Anforderungen erfüllt sein müssen, damit diese als erlangt gilt!"));
-		competenceSelectionWidget = new CompetenceSelectionWidget();
+						"Wählen Sie mit SHIFT-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!"));
+		competenceSelectionWidget = new CompetenceSelectionWidget(contextFactory);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
-		this.competenceSelectionAndRequirementPanel.setSize("auto", "auto");		
+//		this.competenceSelectionAndRequirementPanel.setSize("auto", "auto");		
 
 	}
 
