@@ -28,7 +28,11 @@ public abstract class MyTreePanel extends Panel {
 	private Integer width;
 
 	private Integer height;
+	
+	private XMLTreeLoader xmlLoader;
 
+	private AsyncTreeNode rootNode;
+	
 	/**
 	 * 
 	 * 
@@ -49,12 +53,17 @@ public abstract class MyTreePanel extends Panel {
 		// treePanelContainer.setBorder(false);
 		// treePanelContainer.setPaddings(15);
 
-		treePanel = initTreePanel();
+		treePanel = initTreePanel();		
 		final XMLTreeLoader loader = initXMLLoader();
+		xmlLoader = loader;
+		
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
+		rootNode = root;
 		treePanel.setRootNode(root);
 		root.expand();
 		treePanel.expandAll();
+		
+		
 		initReloadTool(treePanel, root);
 //		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
 //				width);
@@ -69,6 +78,11 @@ public abstract class MyTreePanel extends Panel {
 //		this.add(treePanelContainer);
 		this.add(treePanel);
 		this.getElement().setClassName(className);
+	}
+	
+	public void reload(String dataConnection) {
+		this.xmlLoader.setDataUrl(dataConnection);		
+		reloadTree(treePanel,rootNode);
 	}
 
 	protected abstract XMLTreeLoader initXMLLoader();
@@ -140,20 +154,26 @@ public abstract class MyTreePanel extends Panel {
 
 	protected void initReloadTool(final TreePanel treePanel,
 			final AsyncTreeNode root) {
-		treePanel.addTool(new Tool(Tool.REFRESH, new Function() {
+		Tool tool = new Tool(Tool.REFRESH, new Function() {
 			public void execute() {
-				treePanel.getEl().mask("Loading", "x-mask-loading");
-				root.reload();
-				root.collapse(true, false);
-				Timer timer = new Timer() {
-					public void run() {
-						treePanel.getEl().unmask();
-						root.expand(true, true);
-					}
-				};
-				timer.schedule(1000);
+				reloadTree(treePanel, root);
+			}			
+		}, "Refresh");		
+		treePanel.addTool(tool);
+	}
+	
+	private void reloadTree(final TreePanel treePanel,
+			final AsyncTreeNode root) {
+		treePanel.getEl().mask("Loading", "x-mask-loading");
+		root.reload();
+		root.collapse(true, false);
+		Timer timer = new Timer() {
+			public void run() {
+				treePanel.getEl().unmask();
+				root.expand(true, true);
 			}
-		}, "Refresh"));
+		};
+		timer.schedule(1000);
 	}
 
 	protected TreePanel initTreePanel() {
@@ -171,6 +191,7 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setAutoScroll(true);
 		treePanel.setDdScroll(true);
 		treePanel.setPaddings(8);
+		
 
 		// treePanel.getElement().setClassName("activityView");
 		return treePanel;

@@ -34,7 +34,8 @@ public class Competence_webapp implements EntryPoint {
 		// Panel panel = new Panel();
 		// panel.setWidth(600);
 
-		RequirementTab tab = new RequirementTab();
+		final ContextFactory contextFactory = new ContextFactory();
+		RequirementTab tab = new RequirementTab(contextFactory);
 		container.add(tab);
 		
 //		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
