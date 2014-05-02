@@ -1,4 +1,6 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.competenceSelection;
+
+import uzuzjmd.competence.gui.shared.MyTreePanel;
 
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
