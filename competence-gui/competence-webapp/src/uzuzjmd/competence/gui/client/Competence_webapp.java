@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.shared.ActivityPanel2;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
 
@@ -32,8 +34,11 @@ public class Competence_webapp implements EntryPoint {
 		// Panel panel = new Panel();
 		// panel.setWidth(600);
 
-		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
-		container.add(competenceSelectionWidget);
+		RequirementTab tab = new RequirementTab();
+		container.add(tab);
+		
+//		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
+//		container.add(competenceSelectionWidget);
 
 	}
 
