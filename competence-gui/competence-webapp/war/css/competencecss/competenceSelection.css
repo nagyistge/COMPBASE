@@ -9,15 +9,17 @@
 }
 
 .competenceSelectionPanel {
-	padding: 10px;
+	padding: 10px !important;
 }
 
 .competencePanel {
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	width: 650px;
-	height: 525px;
+	-webkit-border-radius: 15px !important;
+	-moz-border-radius: 15px !important;
+	border-radius: 15px !important;
+	border-style:outset !important;
+	border-width:thin !important;	
+	width: 675px !important;
+	height: 525px !important;
 }
 
 .competenceCompulsoryCheckbox {
@@ -27,4 +29,10 @@
 
 .gwt-CheckBox label {
     padding-left: 5px;
+}
+.gwt-VerticalSplitPanel {
+}
+
+.x-panel-body {
+   width: auto !important;
 }

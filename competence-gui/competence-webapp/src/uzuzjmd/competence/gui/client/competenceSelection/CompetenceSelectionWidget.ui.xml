@@ -4,8 +4,8 @@
 	<ui:style>	
 	}
 	</ui:style>
-	<g:HTMLPanel>
-		<g:CaptionPanel captionText="Kompetenzauswahl" styleName="competencePanel" >
+	<g:HTMLPanel styleName="competencePanel">
+		<g:CaptionPanel captionText="Kompetenzauswahl"  >
 			<g:VerticalPanel ui:field="competenceTreeContainer" verticalAlignment="ALIGN_TOP">
 				<g:HTMLPanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel"/>
 				<g:HorizontalPanel ui:field="competenceFilterPanel" >
