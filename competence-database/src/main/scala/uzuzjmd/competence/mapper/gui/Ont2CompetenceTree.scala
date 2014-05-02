@@ -109,7 +109,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "nopathspecified", classOf[OperatorXMLTree], containsCatchword)
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsCatchword)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -122,7 +122,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Catchword);
-    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "nopathspecified", classOf[CatchwordXMLTree], containsOperator)
+    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsOperator)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -135,7 +135,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "nopathspecified", classOf[CompetenceXMLTree], hasLinks)
+    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], hasLinks)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
