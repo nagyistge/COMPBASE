@@ -1,5 +1,8 @@
 package uzuzjmd.competence.gui.shared;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.gwtext.client.core.EventObject;
@@ -197,14 +200,23 @@ public abstract class MyTreePanel extends Panel {
 		return treePanel;
 	}
 
-	public TreeNode[] getSelectedNodes() {
+	private TreeNode[] getSelectedNodes() {
 		MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
 				.getSelectionModel();
 		TreeNode[] nodes = selectionModel.getSelectedNodes();
 		for (TreeNode treeNode : nodes) {
 			GWT.log("selected nodes" + treeNode.getText());
-		}
+		}		
 		return nodes;
 	}
+		
+	
+	public List<String> convertSelectedTreeToList() {
+		List<String> selectedTreeNodes = new LinkedList<String>();
+		for (TreeNode node : getSelectedNodes()) {
+			selectedTreeNodes.add(node.getText());
+		}
+		return selectedTreeNodes;
+	} 
 
 }

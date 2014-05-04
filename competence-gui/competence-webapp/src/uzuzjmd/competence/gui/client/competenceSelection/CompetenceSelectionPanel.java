@@ -1,11 +1,11 @@
 package uzuzjmd.competence.gui.client.competenceSelection;
 
-import uzuzjmd.competence.gui.shared.MyTreePanel;
+import uzuzjmd.competence.gui.shared.CheckableTreePanel;
 
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
 
-public class CompetenceSelectionPanel extends MyTreePanel {
+public class CompetenceSelectionPanel extends CheckableTreePanel {
 
 	public CompetenceSelectionPanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height, String title) {
