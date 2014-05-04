@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -40,7 +41,8 @@ public class CompetenceServiceRest {
 		System.out.println("Competences queried (rest)");
 		// return "Got it!";
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
+		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl
+				.getCompetences()));
 	}
 
 	@POST
@@ -54,75 +56,166 @@ public class CompetenceServiceRest {
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/tree/xml/crossdomain/{course}/{cache}")
-	public Response getCompetenceTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	@Path("/tree/xml/crossdomain/{course}/{compulsory}/{cache}")
+	public Response getCompetenceTree(
+			@PathParam("course") String course,
+			@PathParam("compulsory") String compulsory,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
+
+		Boolean compulsoryBoolean = false;
+		if (compulsory.equals("true")) {
+			compulsoryBoolean = true;
+		}
 
 		CompetenceXMLTree[] result = null;
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getCompetenceTree(null, null, course);
+			result = CompetenceServiceWrapper.getCompetenceTree(null, null,
+					course, compulsoryBoolean);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwordArray, selectedOperatorsArray, course);
+			result = CompetenceServiceWrapper.getCompetenceTree(
+					selectedCatchwordArray, selectedOperatorsArray, course,
+					compulsoryBoolean);
 		}
 
-		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
+		Response response = buildCrossDomainResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/operatortree/xml/crossdomain/{course}/{cache}")
-	public Response getOperatorTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	public Response getOperatorTree(
+			@PathParam("course") String course,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
 
 		OperatorXMLTree[] result = null;
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getOperatorTree(null, null, course);
+			result = CompetenceServiceWrapper.getOperatorTree(null, null,
+					course);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwordArray, selectedOperatorsArray, course);
+			result = CompetenceServiceWrapper.getOperatorTree(
+					selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
+		Response response = buildCrossDomainResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/catchwordtree/xml/crossdomain/{course}/{cache}")
-	public Response getCatchwordTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") String selectedCatchwords,
+	public Response getCatchwordTree(
+			@PathParam("course") String course,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") String selectedCatchwords,
 			@QueryParam(value = "selectedOperators") String selectedOperators) {
 		CatchwordXMLTree[] result = null;
 		String[] selectedCatchwordArray = null;
 		String[] selectedOperatorsArray = null;
 		if (selectedCatchwords == null || selectedOperators == null) {
-			result = CompetenceServiceWrapper.getCatchwordTree(null, null, course);
+			result = CompetenceServiceWrapper.getCatchwordTree(null, null,
+					course);
 		} else {
 			selectedCatchwordArray = selectedCatchwords.split(",");
 			selectedOperatorsArray = selectedOperators.split(",");
-			result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwordArray, selectedOperatorsArray, course);
+			result = CompetenceServiceWrapper.getCatchwordTree(
+					selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = buildCrossDomainResponse(result, cache.equals("cached"));
+		Response response = buildCrossDomainResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
+	/**
+	 * 
+	 * @param course
+	 * @param compulsory
+	 *            (optional)
+	 * @param competences
+	 * @param requirements
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/coursecontext/create/xml/crossdomain/{course}/{compulsory}")
-	public Response linkCompetencesToCourseContext(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @QueryParam(value = "competences") String competences,
+	public Response linkCompetencesToCourseContext(
+			@PathParam("course") String course,
+			@PathParam("compulsory") String compulsory,
+			@QueryParam(value = "competences") final List<String> competences,
 			@QueryParam(value = "requirements") String requirements) {
-		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsory, requirements);
+		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences,
+				compulsory, requirements);
 		// todo stuff here
-		return Response.ok("competences linked").header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences linked")
+				.header("Access-Control-Allow-Origin", "*").build();
 	}
+
+	/**
+	 * 
+	 * @param course
+	 * @param compulsory
+	 *            (optional)
+	 * @param competences
+	 * @param requirements
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/coursecontext/create/json/crossdomain/{course}/{compulsory}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response linkCompetencesToCourseContextJson(
+			@PathParam("course") String course,
+			@PathParam("compulsory") String compulsory,
+			@QueryParam(value = "competences") final List<String> competences,
+			@QueryParam(value = "requirements") String requirements) {
+		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences,
+				compulsory, requirements);
+		// todo stuff here
+		return Response.ok("competences linked")
+				.header("Access-Control-Allow-Origin", "*").build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/coursecontext/delete/json/crossdomain/{course}")
+	public Response deleteCourseContextJSON(@PathParam("course") String course) {
+		CompetenceServiceWrapper.delete(course);
+		// todo stuff here
+		return Response.ok("competences deleted from course:" + course)
+				.header("Access-Control-Allow-Origin", "*")
+				// .header("Access-Control-Allow-Methods",
+				// "POST, GET, UPDATE, DELETE, OPTIONS")
+				// .header("Access-Control-Allow-Headers",
+				// "content-type, x-http-method-override")
+				.build();
+	}
+
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@OPTIONS
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("/coursecontext/delete/json/crossdomain/{course}")
+//	public Response deleteCourseContextJSONOptions(
+//			@PathParam("course") String course) {
+//		CompetenceServiceWrapper.delete(course);
+//		// todo stuff here
+//		return Response.ok().build();
+//	}
 
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
@@ -130,7 +223,8 @@ public class CompetenceServiceRest {
 	public Response deleteCourseContext(@PathParam("course") String course) {
 		CompetenceServiceWrapper.delete(course);
 		// todo stuff here
-		return Response.ok("competences deleted from course:" + course).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences deleted from course:" + course)
+				.header("Access-Control-Allow-Origin", "*").build();
 	}
 
 	// @Consumes(MediaType.APPLICATION_XML)
@@ -147,7 +241,8 @@ public class CompetenceServiceRest {
 	@Produces(MediaType.TEXT_HTML)
 	@GET
 	@Path("/coursecontext/requirements/xml/crossdomain/{course}/{cache}")
-	public Response getRequirements(@PathParam("course") String course, @PathParam("cache") String cache) {
+	public Response getRequirements(@PathParam("course") String course,
+			@PathParam("cache") String cache) {
 		String result = CompetenceServiceWrapper.getRequirements(course);
 		return buildCrossDomainResponse(result, cache.equals("cached"));
 	}
@@ -157,10 +252,13 @@ public class CompetenceServiceRest {
 			CacheControl control = new CacheControl();
 			control.setMaxAge(10000);
 
-			Response response = Response.status(200).entity(result).cacheControl(control).header("Access-Control-Allow-Origin", "*").build();
+			Response response = Response.status(200).entity(result)
+					.cacheControl(control)
+					.header("Access-Control-Allow-Origin", "*").build();
 			return response;
 		} else {
-			Response response = Response.status(200).entity(result).header("Access-Control-Allow-Origin", "*").build();
+			Response response = Response.status(200).entity(result)
+					.header("Access-Control-Allow-Origin", "*").build();
 			return response;
 		}
 

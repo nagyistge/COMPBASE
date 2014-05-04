@@ -27,7 +27,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     compOntManag.getM().validate()
     compOntManag.close()
 
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4")
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false)
     val competenceTree = mapper.getComptenceTree
     competenceTree should not be ('empty)
 
@@ -43,7 +43,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
 
     val catchwords = "Kooperation" :: "Diagnostik" :: List.empty
     val operators = "bewerten" :: "kooperieren" :: List.empty
-    val mapper = new Ont2CompetenceTree(compOntManag, catchwords.asJava, operators.asJava, "4")
+    val mapper = new Ont2CompetenceTree(compOntManag, catchwords.asJava, operators.asJava, "4", false)
     val competenceTree = mapper.getComptenceTree
     competenceTree should not be ('empty)
 
@@ -51,14 +51,14 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
 
   test("the operator tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4")
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false)
     val result = mapper.getOperatorXMLTree
     result should not be ('empty)
   }
 
   test("the catchword tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4")
+    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false)
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
   }

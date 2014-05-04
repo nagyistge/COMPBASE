@@ -5937,3 +5937,25 @@ Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionW
       Compiling...
          Compilation completed in 0,01 seconds
       Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,07 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399064796746.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399064796746.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399064796746_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
