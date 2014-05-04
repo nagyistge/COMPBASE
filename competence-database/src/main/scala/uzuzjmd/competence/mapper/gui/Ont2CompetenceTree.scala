@@ -16,11 +16,12 @@ import java.util.LinkedList
 import scala.reflect.runtime.universe._
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.view.xml.DummyTree
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String) {
+class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory : java.lang.Boolean) {
 
   val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
   val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
@@ -70,11 +71,17 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
     var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
-      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
+      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList.filterNot(x=>x.getName().equals("dummy"))
       result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
       result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
+      if (compulsory != result.asInstanceOf[CompetenceXMLTree].getIsCompulsory() ) {
+        // do something very clever
+        val dummy = new DummyTree()
+        dummy.setName("dummy")
+        return dummy.asInstanceOf[A]
+      }
     }
     return result
 

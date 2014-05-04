@@ -1573,6 +1573,9 @@ Die Lehramtsanwärter unterstützen Verstehen und Transfer .</j.0:definition>
 Die Lehramtsanwärter setzen unterschiedliche &#xD;
 Beratungsformen situationsgerecht ein</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICompetence">
+    <rdf:type rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkennendieBedeutunggeschlechtsspezifischerEinflüsseaufBildungsundErziehungsprozesse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>

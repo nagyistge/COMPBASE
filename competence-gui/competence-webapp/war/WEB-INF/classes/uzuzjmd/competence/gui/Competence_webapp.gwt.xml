@@ -11,6 +11,7 @@
 <!--   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/> -->
 <!--   <inherits name="com.smartgwt.SmartGwt"/>   -->
   <inherits name='com.gwtext.GwtExt'/>
+  <inherits name='org.fusesource.restygwt.RestyGWT'/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
