@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.CompetenceServiceRest;
+import uzuzjmd.competence.service.rest.ResponseCorsFilter;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.DefaultResourceConfig;
@@ -21,12 +22,13 @@ public class RestServer {
 
 		ResourceConfig resourceConfig = new DefaultResourceConfig(
 				CompetenceServiceRest.class);
+		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURLCompetence,
 				resourceConfig);
-		System.out.println("publishing rest server to to "
+		System.out.println("publishing competence server to to "
 				+ MagicStrings.RESTURLCompetence);
 		System.out.println("Test this with: " + MagicStrings.RESTURLCompetence
-				+ "/competences" + "/tree/xml/crossdomain/{course}");
+				+ "/competences" + "/tree/xml/crossdomain/{course}/false/nocache");
 
 		System.out.println("Press enter to exit");
 		System.in.read();
