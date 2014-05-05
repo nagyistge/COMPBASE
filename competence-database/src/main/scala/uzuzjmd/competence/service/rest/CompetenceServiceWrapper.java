@@ -24,48 +24,40 @@ import com.hp.hpl.jena.rdf.model.Property;
 
 public class CompetenceServiceWrapper {
 
-	private static Ont2CompetenceTree initOnt2Mapper(String[] selectedCatchwordArray, String[] selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		List<String> catchwordarray = new LinkedList<String>();
-		if (selectedCatchwordArray != null) {
-			catchwordarray = Arrays.asList(selectedCatchwordArray);
-		}
-
-		List<String> operatorArray = new LinkedList<String>();
-		if (selectedOperatorsArray != null) {
-			operatorArray = Arrays.asList(selectedOperatorsArray);
-		}
-		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, catchwordarray, operatorArray, course, compulsoryBoolean);
+	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();		
+		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
 		return ont2CompetenceTree;
 	}
 
-	public static synchronized OperatorXMLTree[] getOperatorTree(String[] selectedCatchwordArray, String[] selectedOperatorsArray, String course) {
+	public static synchronized OperatorXMLTree[] getOperatorTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course) {
 		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false);
 		OperatorXMLTree[] tmpResult = ont2CompetenceTree.getOperatorXMLTree().toArray(new OperatorXMLTree[0]);
 		return tmpResult;
 	}
 
-	public static synchronized CatchwordXMLTree[] getCatchwordTree(String[] selectedCatchwordArray, String[] selectedOperatorsArray, String course) {
+	public static synchronized CatchwordXMLTree[] getCatchwordTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course) {
 		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false);
 		CatchwordXMLTree[] tmpResult = ont2CompetenceTree.getCatchwordXMLTree().toArray(new CatchwordXMLTree[0]);
 		return tmpResult;
 	}
 
-	public static CompetenceXMLTree[] getCompetenceTree(String[] selectedCatchwordArray, String[] selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
+	public static CompetenceXMLTree[] getCompetenceTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
 		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
 		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTree();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
 
-	public static void linkCompetencesToCourse(String course, List<String> competences, String compulsory, String requirements) {
+	public static void linkCompetencesToCourse(String course, List<String> competences, Boolean compulsoryBoolean, String requirements) {
+		
 		System.out.println("linking competences: " + competences);
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 
 		Individual courseContextIndividual = createCourseContext(course, util);
 		addRequirementLiteral(requirements, compOntologyManager, courseContextIndividual);
-		linkSingleCompetences(competences, compulsory, requirements, compOntologyManager, util, courseContextIndividual);
+		linkSingleCompetences(competences, compulsoryBoolean, requirements, compOntologyManager, util, courseContextIndividual);
 
 		compOntologyManager.getM().leaveCriticalSection();
 		compOntologyManager.getM().validate();
@@ -87,16 +79,17 @@ public class CompetenceServiceWrapper {
 		return courseContextIndividual;
 	}
 
-	private static void linkSingleCompetences(List<String> competences, String compulsory, String requirements, CompOntologyManager compOntologyManager, CompOntologyAccess util,
+	private static void linkSingleCompetences(List<String> competences, Boolean compulsoryBoolean, String requirements, CompOntologyManager compOntologyManager, CompOntologyAccess util,
 			Individual courseContextIndividual) {
 		if (competences == null || competences.isEmpty()) {
 			throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
 		}
+			
 		for (String competence : competences) {
 			OntResult result = util.accessSingletonResource(competence);
 			Individual competenceIndividual = result.getIndividual();
 			util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
-			addCompulsoryLiteral(compulsory, competenceIndividual, courseContextIndividual, compOntologyManager);
+			addCompulsoryLiteral(compulsoryBoolean, competenceIndividual, courseContextIndividual, compOntologyManager);
 		}
 	}
 
@@ -112,11 +105,8 @@ public class CompetenceServiceWrapper {
 		return requirementsLiteral;
 	}
 
-	private static void addCompulsoryLiteral(String compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {
-		// Property literal =
-		// compOntologyManager.getM().createProperty(CompOntologyAccess.encode("compulsory"));
-
-		if (compulsory != null) {
+	private static void addCompulsoryLiteral(Boolean compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {		
+		if (compulsory) {
 			compOntologyManager.getUtil().createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CompulsoryOf);
 		} else {
 			compOntologyManager.getUtil().deleteObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CompulsoryOf);
@@ -133,7 +123,6 @@ public class CompetenceServiceWrapper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		compOntologyManager.close();
 	}
 
@@ -141,15 +130,9 @@ public class CompetenceServiceWrapper {
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 		Individual courseContextIndividual = createCourseContext(course, util);
-
-		// ObjectProperty courseContextOfProperty =
-		// compOntologyManager.getM().getObjectProperty(util.encode(CompObjectProperties.CourseContextOf.name()));
-		// courseContextIndividual.removeAll(courseContextOfProperty);
-
+		
 		courseContextIndividual.remove();
-
 		compOntologyManager.close();
-
 		testResult(compOntologyManager);
 
 	}
