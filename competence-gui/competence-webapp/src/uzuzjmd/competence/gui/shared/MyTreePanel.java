@@ -87,6 +87,10 @@ public abstract class MyTreePanel extends Panel {
 		this.xmlLoader.setDataUrl(dataConnection);		
 		reloadTree(treePanel,rootNode);
 	}
+	
+	public void reload() {			
+		reloadTree(treePanel,rootNode);
+	}
 
 	protected abstract XMLTreeLoader initXMLLoader();
 

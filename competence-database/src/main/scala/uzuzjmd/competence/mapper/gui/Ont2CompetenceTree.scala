@@ -76,7 +76,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
       result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
-      if (compulsory != result.asInstanceOf[CompetenceXMLTree].getIsCompulsory() ) {
+      if (compulsory != null && compulsory != result.asInstanceOf[CompetenceXMLTree].getIsCompulsory() ) {
         // do something very clever
         val dummy = new DummyTree()
         dummy.setName("dummy")
