@@ -182,6 +182,10 @@ public abstract class MyTreePanel extends Panel {
 		};
 		timer.schedule(1000);
 	}
+	
+	public void reloadTree() {
+		reload();
+	}
 
 	protected TreePanel initTreePanel() {
 		final TreePanel treePanel = new TreePanel();
