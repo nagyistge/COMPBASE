@@ -2,9 +2,6 @@ package uzuzjmd.competence.service.rest;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
- 
-
-import org.glassfish.grizzly.http.Method;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
