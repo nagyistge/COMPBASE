@@ -83,7 +83,7 @@ public class CompetenceServiceRest {
 					compulsoryBoolean);
 		}
 
-		Response response = buildCrossDomainResponse(result,
+		Response response = buildCachedResponse(result,
 				cache.equals("cached"));
 		return response;
 	}
@@ -110,7 +110,7 @@ public class CompetenceServiceRest {
 					selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = buildCrossDomainResponse(result,
+		Response response = buildCachedResponse(result,
 				cache.equals("cached"));
 		return response;
 	}
@@ -136,7 +136,7 @@ public class CompetenceServiceRest {
 					selectedCatchwordArray, selectedOperatorsArray, course);
 		}
 
-		Response response = buildCrossDomainResponse(result,
+		Response response = buildCachedResponse(result,
 				cache.equals("cached"));
 		return response;
 	}
@@ -161,8 +161,7 @@ public class CompetenceServiceRest {
 		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences,
 				compulsory, requirements);
 		// todo stuff here
-		return Response.ok("competences linked")
-				.header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences linked").build();
 	}
 
 	/**
@@ -186,8 +185,7 @@ public class CompetenceServiceRest {
 		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences,
 				compulsory, requirements);
 		// todo stuff here
-		return Response.ok("competences linked")
-				.header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences linked").build();
 	}
 
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -198,24 +196,23 @@ public class CompetenceServiceRest {
 		CompetenceServiceWrapper.delete(course);
 		// todo stuff here
 		return Response.ok("competences deleted from course:" + course)
-				.header("Access-Control-Allow-Origin", "*")
-				// .header("Access-Control-Allow-Methods",
-				// "POST, GET, UPDATE, DELETE, OPTIONS")
-				// .header("Access-Control-Allow-Headers",
-				// "content-type, x-http-method-override")
+		// .header("Access-Control-Allow-Methods",
+		// "POST, GET, UPDATE, DELETE, OPTIONS")
+		// .header("Access-Control-Allow-Headers",
+		// "content-type, x-http-method-override")
 				.build();
 	}
 
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@OPTIONS
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Path("/coursecontext/delete/json/crossdomain/{course}")
-//	public Response deleteCourseContextJSONOptions(
-//			@PathParam("course") String course) {
-//		CompetenceServiceWrapper.delete(course);
-//		// todo stuff here
-//		return Response.ok().build();
-//	}
+	// @Consumes(MediaType.APPLICATION_JSON)
+	// @OPTIONS
+	// @Produces(MediaType.APPLICATION_JSON)
+	// @Path("/coursecontext/delete/json/crossdomain/{course}")
+	// public Response deleteCourseContextJSONOptions(
+	// @PathParam("course") String course) {
+	// CompetenceServiceWrapper.delete(course);
+	// // todo stuff here
+	// return Response.ok().build();
+	// }
 
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
@@ -223,8 +220,7 @@ public class CompetenceServiceRest {
 	public Response deleteCourseContext(@PathParam("course") String course) {
 		CompetenceServiceWrapper.delete(course);
 		// todo stuff here
-		return Response.ok("competences deleted from course:" + course)
-				.header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok("competences deleted from course:" + course).build();
 	}
 
 	// @Consumes(MediaType.APPLICATION_XML)
@@ -244,21 +240,19 @@ public class CompetenceServiceRest {
 	public Response getRequirements(@PathParam("course") String course,
 			@PathParam("cache") String cache) {
 		String result = CompetenceServiceWrapper.getRequirements(course);
-		return buildCrossDomainResponse(result, cache.equals("cached"));
+		return buildCachedResponse(result, cache.equals("cached"));
 	}
 
-	private Response buildCrossDomainResponse(Object result, Boolean cache) {
+	private Response buildCachedResponse(Object result, Boolean cache) {
 		if (cache) {
 			CacheControl control = new CacheControl();
 			control.setMaxAge(10000);
 
 			Response response = Response.status(200).entity(result)
-					.cacheControl(control)
-					.header("Access-Control-Allow-Origin", "*").build();
+					.cacheControl(control).build();
 			return response;
 		} else {
-			Response response = Response.status(200).entity(result)
-					.header("Access-Control-Allow-Origin", "*").build();
+			Response response = Response.status(200).entity(result).build();
 			return response;
 		}
 
