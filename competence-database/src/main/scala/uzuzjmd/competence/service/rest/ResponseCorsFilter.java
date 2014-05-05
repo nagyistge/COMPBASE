@@ -3,6 +3,9 @@ package uzuzjmd.competence.service.rest;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
  
+
+import org.glassfish.grizzly.http.Method;
+
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
@@ -10,9 +13,12 @@ import com.sun.jersey.spi.container.ContainerResponseFilter;
 public class ResponseCorsFilter implements ContainerResponseFilter {
  
     @Override
-    public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {
- 
+    public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {    	
         ResponseBuilder resp = Response.fromResponse(contResp.getResponse());
+//        if (req.getMethod().equals(Method.OPTIONS)) {
+//        	resp = Response.fromResponse(Response.ok().build());                	
+//    	}
+        
         resp.header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST");
  

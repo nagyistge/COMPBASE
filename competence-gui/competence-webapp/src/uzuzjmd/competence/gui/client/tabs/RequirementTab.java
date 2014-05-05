@@ -63,14 +63,15 @@ public class RequirementTab extends Composite {
 	@UiHandler("deleteContextButton")
 	void onDeleteContextButtonClick(ClickEvent event) {
 		competenceSelectionWidget.handleDeleteClick();
+		competenceSelectionWidget.reload();
 	}
 	
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
-		competenceSelectionWidget.handleSubmit(requirementTextArea.getText());
+		competenceSelectionWidget.handleSubmit(requirementTextArea.getText());		
 	}
 
 	public void setText(String text) {
-
+		
 	}
 }

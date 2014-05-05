@@ -14,6 +14,10 @@ import uzuzjmd.competence.gui.shared.MyTreePanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -28,7 +32,23 @@ import com.google.gwt.xml.client.Document;
 import com.gwtext.client.widgets.tree.TreeNode;
 
 public class CompetenceSelectionWidget extends Composite {
-	
+
+	interface CompetenceSelectionWidgetUiBinder extends
+			UiBinder<Widget, CompetenceSelectionWidget> {
+	}
+
+	private class OkFeedBack implements RequestCallback {
+		@Override
+		public void onError(Request request, Throwable exception) {
+			// TODO Auto-generated method stub
+			GWT.log(exception.getMessage());
+		}
+
+		@Override
+		public void onResponseReceived(Request request, Response response) {
+			GWT.log(response.getStatusText());
+		}
+	}
 
 	@UiField
 	VerticalPanel competenceTreeContainer;
@@ -40,23 +60,20 @@ public class CompetenceSelectionWidget extends Composite {
 	VerticalPanel operatorPanel;
 	@UiField
 	CheckBox requiredFlagBox;
+
 	@UiField
 	Panel catchwordCaptionPanel;
 	@UiField
 	Panel operatorCaptionPanel;
-	
 	private CompetenceSelectionPanel competenceTree;
 	private OperatorSelectionPanel operatorTree;
+
 	private CatchwordSelectionTree catchwordTree;
+
 	private ContextFactory contextFactory;
-	
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
-
-	interface CompetenceSelectionWidgetUiBinder extends
-			UiBinder<Widget, CompetenceSelectionWidget> {
-	}
 
 	public CompetenceSelectionWidget(final ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -87,6 +104,25 @@ public class CompetenceSelectionWidget extends Composite {
 		initCompulsoryFilter(contextFactory, competenceTree);
 	}
 
+	public void handleDeleteClick() {
+		Resource resourceCompulsory = new Resource(
+				contextFactory.getServerURL()
+						+ "/competences/coursecontext/delete/json/crossdomain/"
+						+ contextFactory.getCourseId());
+		try {
+			resourceCompulsory.post().send(new OkFeedBack());
+		} catch (RequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			GWT.log(e.getMessage());
+		}
+
+	}
+
+	public void handleSubmit(final String requirementText) {
+		sendNonCompulsoryNodesToServer(requirementText);
+	}
+
 	private void initCompulsoryFilter(final ContextFactory contextFactory,
 			final MyTreePanel competencePanel) {
 		// Hook up a handler to find out when it's clicked.
@@ -102,78 +138,63 @@ public class CompetenceSelectionWidget extends Composite {
 		});
 	}
 
-	
-	
-	public void handleSubmit(final String requirementText) {
-		sendNonCompulsoryNodesToServer(requirementText);		
-		
-		
-//		JSONValue request = ...
-
-//		resource.post().json(request).send(new JsonCallback() {
-//		    public void onSuccess(Method method, JSONValue response) {
-//		        System.out.println(response);
-//		    }
-//		    public void onFailure(Method method, Throwable exception) {
-//		        Window.alert("Error: "+exception);
-//		    }
-//		});
-		
-		// TODO
+	private void sendCompulsoryNodesToServer(final String requirementText) {
+		if (!competenceTree.getCheckedNodes().isEmpty()) {
+			Resource resourceCompulsory = new Resource(
+					contextFactory.getServerURL()
+							+ "/competences/coursecontext/create/json/crossdomain/"
+							+ contextFactory.getCourseId() + "/true");
+			try {
+				resourceCompulsory
+						.addQueryParam("requirements", requirementText)
+						.addQueryParams("competences",
+								competenceTree.getCheckedNodes()).post()
+						.send(new OkFeedBack());
+			} catch (RequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			GWT.log("not sending compulsory nodes because non selected");
+		}
 	}
 
 	private void sendNonCompulsoryNodesToServer(final String requirementText) {
-		Resource resource = new Resource( contextFactory.getServerURL() + "/competences/coursecontext/create/json/crossdomain/" + contextFactory.getCourseId()+ "/false");		
-		resource.addQueryParam("requirements", requirementText);
-		resource.addQueryParams("competences", competenceTree.convertSelectedTreeToList());		
-		resource.post().send(new JsonCallback() {
-			
-			@Override
-			public void onSuccess(Method method, JSONValue response) {
-				GWT.log(response.toString());							
-//				sendCompulsoryNodesToServer(requirementText);		
-			}
+		if (!competenceTree.convertSelectedTreeToList().isEmpty()) {
+			Resource resource = new Resource(contextFactory.getServerURL()
+					+ "/competences/coursecontext/create/json/crossdomain/"
+					+ contextFactory.getCourseId() + "/false");
+			try {
+				resource.addQueryParam("requirements", requirementText)
+						.addQueryParams("competences",
+								competenceTree.convertSelectedTreeToList())
+						.post().send(new RequestCallback() {
 
-			@Override
-			public void onFailure(Method method, Throwable exception) {
-				GWT.log(exception.toString());				
+							@Override
+							public void onError(Request request,
+									Throwable exception) {
+								GWT.log(exception.getMessage());
+							}
+
+							@Override
+							public void onResponseReceived(Request request,
+									Response response) {
+								GWT.log("successfully send non compulsory competences to server");
+								sendCompulsoryNodesToServer(requirementText);
+							}
+						});
+			} catch (RequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		});
+		} else {
+			sendCompulsoryNodesToServer(requirementText);
+		}
+
 	}
 
-	private void sendCompulsoryNodesToServer(
-			final String requirementText) {
-		Resource resourceCompulsory = new Resource( contextFactory.getServerURL() + "/competences/coursecontext/create/json/crossdomain/" + contextFactory.getCourseId()+ "/true");		
-		resourceCompulsory.addQueryParam("requirements", requirementText);
-		resourceCompulsory.addQueryParams("competences", competenceTree.getCheckedNodes());		
-		resourceCompulsory.post().send(new JsonCallback() {
-			
-			@Override
-			public void onSuccess(Method method, JSONValue response) {
-				GWT.log(response.toString());				
-			}
-			
-			@Override
-			public void onFailure(Method method, Throwable exception) {
-				GWT.log(exception.toString());				
-			}
-		});
-	}
-	
-	public void handleDeleteClick() {
-		Resource resourceCompulsory = new Resource( contextFactory.getServerURL() + "/competences/coursecontext/delete/json/crossdomain/" + contextFactory.getCourseId());		
-		resourceCompulsory.post().send(new JsonCallback() {			
-			@Override
-			public void onSuccess(Method method, JSONValue response) {
-				GWT.log(response.toString());				
-			}
-			
-			@Override
-			public void onFailure(Method method, Throwable exception) {
-				GWT.log(exception.toString());				
-			}
-		});
-		
+	public void reload() {
+		this.competenceTree.reload();
 	}
 
 }
