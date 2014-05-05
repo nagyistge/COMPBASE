@@ -11,8 +11,7 @@ public abstract class CheckableTreePanel extends MyTreePanel {
 			String rootLabel, String className, Integer width, Integer height,
 			String title) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title);
-		// TODO Auto-generated constructor stub
+				title);		
 	}
 
 	public List<String> getCheckedNodes() {
