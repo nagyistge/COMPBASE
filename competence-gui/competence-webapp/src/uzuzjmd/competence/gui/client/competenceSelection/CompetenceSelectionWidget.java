@@ -47,6 +47,7 @@ public class CompetenceSelectionWidget extends Composite {
 		@Override
 		public void onResponseReceived(Request request, Response response) {
 			GWT.log(response.getStatusText());
+			competenceTree.reloadTree();
 		}
 	}
 
@@ -81,22 +82,22 @@ public class CompetenceSelectionWidget extends Composite {
 
 		this.competenceTree = new CompetenceSelectionPanel(
 				contextFactory.getServerURL()
-						+ "/competences/tree/xml/crossdomain/"
-						+ contextFactory.getCourseId() + "/false/nocache",
-				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");
+						+ "/competences/xml/competencetree/"
+						+ contextFactory.getCourseId() + "/all/nocache",
+				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");		
 		// panel.add(competencePanel);
 		competenceTreeCaptionPanel.add(competenceTree);
 
 		this.operatorTree = new OperatorSelectionPanel(
 				contextFactory.getServerURL()
-						+ "/competences/operatortree/xml/crossdomain/"
+						+ "/competences/xml/operatortree/"
 						+ contextFactory.getCourseId() + "/nocache",
 				"Operatoren", "operatorView", 300, 150, "Operatoren");
 		operatorCaptionPanel.add(operatorTree);
 
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
-						+ "/competences/catchwordtree/xml/crossdomain/"
+						+ "/competences/xml/catchwordtree/"
 						+ contextFactory.getCourseId() + "/nocache",
 				"Schlagworte", "catchwordView", 325, 200, "Schlagworte");
 		catchwordCaptionPanel.add(catchwordTree);
@@ -107,7 +108,7 @@ public class CompetenceSelectionWidget extends Composite {
 	public void handleDeleteClick() {
 		Resource resourceCompulsory = new Resource(
 				contextFactory.getServerURL()
-						+ "/competences/coursecontext/delete/json/crossdomain/"
+						+ "/competences/json/coursecontext/delete/"
 						+ contextFactory.getCourseId());
 		try {
 			resourceCompulsory.post().send(new OkFeedBack());
@@ -131,7 +132,7 @@ public class CompetenceSelectionWidget extends Composite {
 			public void onClick(ClickEvent event) {
 				boolean checked = ((CheckBox) event.getSource()).getValue();
 				competencePanel.reload(contextFactory.getServerURL()
-						+ "/competences/tree/xml/crossdomain/"
+						+ "/competences/xml/competencetree/"
 						+ contextFactory.getCourseId() + "/" + checked
 						+ "/nocache");
 			}
@@ -142,7 +143,7 @@ public class CompetenceSelectionWidget extends Composite {
 		if (!competenceTree.getCheckedNodes().isEmpty()) {
 			Resource resourceCompulsory = new Resource(
 					contextFactory.getServerURL()
-							+ "/competences/coursecontext/create/json/crossdomain/"
+							+ "/competences/json/coursecontext/create/"
 							+ contextFactory.getCourseId() + "/true");
 			try {
 				resourceCompulsory
@@ -156,13 +157,14 @@ public class CompetenceSelectionWidget extends Composite {
 			}
 		} else {
 			GWT.log("not sending compulsory nodes because non selected");
+			competenceTree.reloadTree();
 		}
 	}
 
 	private void sendNonCompulsoryNodesToServer(final String requirementText) {
 		if (!competenceTree.convertSelectedTreeToList().isEmpty()) {
 			Resource resource = new Resource(contextFactory.getServerURL()
-					+ "/competences/coursecontext/create/json/crossdomain/"
+					+ "/competences/json/coursecontext/create/"
 					+ contextFactory.getCourseId() + "/false");
 			try {
 				resource.addQueryParam("requirements", requirementText)
@@ -194,7 +196,7 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	public void reload() {
-		this.competenceTree.reload();
+		this.competenceTree.reloadTree();
 	}
 
 }
