@@ -1,12 +1,6 @@
 package uzuzjmd.competence.gui.client.competenceSelection;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.fusesource.restygwt.client.JsonCallback;
-import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.XmlCallback;
 
 import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
@@ -18,8 +12,6 @@ import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -28,8 +20,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.xml.client.Document;
-import com.gwtext.client.widgets.tree.TreeNode;
 
 public class CompetenceSelectionWidget extends Composite {
 
@@ -84,7 +74,7 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
 						+ contextFactory.getCourseId() + "/all/nocache",
-				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");		
+				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");
 		// panel.add(competencePanel);
 		competenceTreeCaptionPanel.add(competenceTree);
 
@@ -131,10 +121,20 @@ public class CompetenceSelectionWidget extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				boolean checked = ((CheckBox) event.getSource()).getValue();
-				competencePanel.reload(contextFactory.getServerURL()
+				// competencePanel.reload(contextFactory.getServerURL()
+				// + "/competences/xml/competencetree/"
+				// + contextFactory.getCourseId() + "/" + checked
+				// + "/nocache");
+				competenceTreeCaptionPanel.clear();
+				competenceTree = new CompetenceSelectionPanel(contextFactory
+						.getServerURL()
 						+ "/competences/xml/competencetree/"
-						+ contextFactory.getCourseId() + "/" + checked
+						+ contextFactory.getCourseId()
+						+ "/"
+						+ checked
 						+ "/nocache");
+				competenceTreeCaptionPanel.add(competenceTree);
+
 			}
 		});
 	}
