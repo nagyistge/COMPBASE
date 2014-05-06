@@ -23,8 +23,8 @@ import uzuzjmd.competence.view.xml.DummyTree
  */
 class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean) {
 
-  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
-  val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
+  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_)).filterNot(_ == null)
+  val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_)).filterNot(_ == null)
   val util = ontologyManager.getUtil()
 
   /**
@@ -129,6 +129,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
     val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], hasLinks)
+    result.setIsCompulsory(compulsory);
     ontologyManager.close()
     val filteredResult = filterCompetenceTree(filterResults(result))
     return filteredResult.asJava
@@ -163,14 +164,6 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   private def getCompulsory(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
-
-    //    if (getPropertyString(subclass, "compulsory") != null) {
-    //      val result = getPropertyString(subclass, "compulsory").asInstanceOf[Boolean]
-    //      return result
-    //    } else {
-    //      return false;
-    //    }
-
     return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass), CompObjectProperties.CompulsoryOf);
 
   }

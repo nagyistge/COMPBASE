@@ -1,6 +1,8 @@
 package uzuzjmd.competence.owl.reasoning;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +17,9 @@ import uzuzjmd.competence.owl.access.MagicStrings;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.reasoner.Derivation;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
@@ -24,8 +29,7 @@ public class SimpleRulesReasoner {
 	/*
 	 * Logging
 	 */
-	public static final Logger logger = LogManager
-			.getLogger(SimpleRulesReasoner.class.getName());
+	public static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class.getName());
 	static LogStream logStream = new LogStream(logger, Level.DEBUG);
 
 	/**
@@ -34,8 +38,7 @@ public class SimpleRulesReasoner {
 	public GenericRuleReasoner reasoner;
 	private CompOntologyManager manager;
 
-	public SimpleRulesReasoner(CompOntologyManager manager, Boolean ruleLogging)
-			throws IOException {
+	public SimpleRulesReasoner(CompOntologyManager manager, Boolean ruleLogging) throws IOException {
 		this.manager = manager;
 		setupRulesReasoner(ruleLogging);
 	}
@@ -47,6 +50,7 @@ public class SimpleRulesReasoner {
 		if (!inf.getDeductionsModel().isEmpty()) {
 			logger.debug("RulesReasoner * * =>");
 			inf.getDeductionsModel().write(logStream, "N-TRIPLE", "comp:");
+			printTrace(inf);
 			logger.debug("RulesReasoner close");
 		}
 		return inf.getDeductionsModel();
@@ -59,7 +63,21 @@ public class SimpleRulesReasoner {
 		reasoner.setOWLTranslation(true); // not needed in RDFS case
 		reasoner.setTransitiveClosureCaching(true);
 		reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, ruleLogging);
+		reasoner.setTraceOn(ruleLogging);
 		reason();
+	}
+
+	public void printTrace(InfModel inf) {
+		PrintWriter out = new PrintWriter(System.out);
+		for (StmtIterator i = inf.listStatements(); i.hasNext();) {
+			Statement s = i.nextStatement();
+			System.out.println("Statement is " + s);
+			for (Iterator id = inf.getDerivation(s); id.hasNext();) {
+				Derivation deriv = (Derivation) id.next();
+				deriv.printTrace(out, true);
+			}
+		}
+		out.flush();
 	}
 
 	// /**

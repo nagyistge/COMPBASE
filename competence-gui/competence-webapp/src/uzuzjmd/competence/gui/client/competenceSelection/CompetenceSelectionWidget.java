@@ -3,18 +3,17 @@ package uzuzjmd.competence.gui.client.competenceSelection;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.ContextFactory;
-import uzuzjmd.competence.gui.shared.MyTreePanel;
 
+import com.github.gwtbootstrap.client.ui.RadioButton;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -45,17 +44,27 @@ public class CompetenceSelectionWidget extends Composite {
 	VerticalPanel competenceTreeContainer;
 	@UiField
 	Panel competenceTreeCaptionPanel;
+
+	@UiField
+	Panel competenceCompulsoryCheckbox;
 	@UiField
 	HorizontalPanel competenceFilterPanel;
 	@UiField
 	VerticalPanel operatorPanel;
-	@UiField
-	CheckBox requiredFlagBox;
+	// @UiField
+	// RadioButton requiredFlagBox;
 
 	@UiField
 	Panel catchwordCaptionPanel;
 	@UiField
 	Panel operatorCaptionPanel;
+	@UiField
+	RadioButton alleRadioButton;
+	@UiField
+	RadioButton verpflichtendeRadioButton;
+	@UiField
+	RadioButton nichtVerpflichtendeRadioButton;
+
 	private CompetenceSelectionPanel competenceTree;
 	private OperatorSelectionPanel operatorTree;
 
@@ -92,7 +101,8 @@ public class CompetenceSelectionWidget extends Composite {
 				"Schlagworte", "catchwordView", 325, 200, "Schlagworte");
 		catchwordCaptionPanel.add(catchwordTree);
 
-		initCompulsoryFilter(contextFactory, competenceTree);
+		// competenceCompulsoryCheckbox
+
 	}
 
 	public void handleDeleteClick() {
@@ -112,31 +122,6 @@ public class CompetenceSelectionWidget extends Composite {
 
 	public void handleSubmit(final String requirementText) {
 		sendNonCompulsoryNodesToServer(requirementText);
-	}
-
-	private void initCompulsoryFilter(final ContextFactory contextFactory,
-			final MyTreePanel competencePanel) {
-		// Hook up a handler to find out when it's clicked.
-		requiredFlagBox.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				boolean checked = ((CheckBox) event.getSource()).getValue();
-				// competencePanel.reload(contextFactory.getServerURL()
-				// + "/competences/xml/competencetree/"
-				// + contextFactory.getCourseId() + "/" + checked
-				// + "/nocache");
-				competenceTreeCaptionPanel.clear();
-				competenceTree = new CompetenceSelectionPanel(contextFactory
-						.getServerURL()
-						+ "/competences/xml/competencetree/"
-						+ contextFactory.getCourseId()
-						+ "/"
-						+ checked
-						+ "/nocache");
-				competenceTreeCaptionPanel.add(competenceTree);
-
-			}
-		});
 	}
 
 	private void sendCompulsoryNodesToServer(final String requirementText) {
@@ -195,8 +180,31 @@ public class CompetenceSelectionWidget extends Composite {
 
 	}
 
-	public void reload() {
-		this.competenceTree.reloadTree();
+	@UiHandler("alleRadioButton")
+	void onRadioButtonClick(ClickEvent event) {
+		String filter = "all";
+		updateFilteredPanel(filter);
 	}
 
+	@UiHandler("verpflichtendeRadioButton")
+	void onRadioButton_1Click(ClickEvent event) {
+		String filter = "true";
+		updateFilteredPanel(filter);
+	}
+
+	@UiHandler("nichtVerpflichtendeRadioButton")
+	void onRadioButton_2Click(ClickEvent event) {
+		String filter = "false";
+		updateFilteredPanel(filter);
+	}
+
+	private void updateFilteredPanel(String filter) {
+		competenceTreeCaptionPanel.clear();
+		competenceTree = new CompetenceSelectionPanel(
+				contextFactory.getServerURL()
+						+ "/competences/xml/competencetree/"
+						+ contextFactory.getCourseId() + "/" + filter
+						+ "/nocache");
+		competenceTreeCaptionPanel.add(competenceTree);
+	}
 }

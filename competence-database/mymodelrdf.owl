@@ -145,6 +145,17 @@ Rückmeldung über die eigene Unterrichtstätigkeit</j.0:definition>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterbeziehenLernendeaktivindenUnterrichtein">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterbeziehenLernendeaktivindenUnterrichtein"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#2">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihrepersönlichenberufsbezogenenWertvorstellungenundEinstellungen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärtersetzenArbeitszeitundArbeitsmittelzweckdienlichundökonomischein"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärternutzenformelleundinformelleindividuelleundkooperativeWeiterbildungsangebote"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihreFähigkeitenimHandlungsfeldSchuletheoretischundkonzipierendarausgeeigneteHandlungsmodelle"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihrepersönlichenberufsbezogenenWertvorstellungenundEinstellungen"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärtersetzenArbeitszeitundArbeitsmittelzweckdienlichundökonomischein"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihreFähigkeitenimHandlungsfeldSchuletheoretischundkonzipierendarausgeeigneteHandlungsmodelle"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Innovieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
@@ -1572,6 +1583,9 @@ Die Lehramtsanwärter unterstützen Verstehen und Transfer .</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter setzen unterschiedliche &#xD;
 Beratungsformen situationsgerecht ein</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICompetence">
+    <rdf:type rdf:resource="http://comp#Competence"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkennendieBedeutunggeschlechtsspezifischerEinflüsseaufBildungsundErziehungsprozesse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
