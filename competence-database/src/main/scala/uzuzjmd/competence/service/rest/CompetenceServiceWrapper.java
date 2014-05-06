@@ -19,6 +19,7 @@ import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Statement;
 
 public class CompetenceServiceWrapper {
 
@@ -96,6 +97,10 @@ public class CompetenceServiceWrapper {
 	private static void addRequirementLiteral(String requirements, CompOntologyManager compOntologyManager, Individual courseContextIndividual) {
 		if (requirements != null) {
 			Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
+			Statement prop = courseContextIndividual.getProperty(requirementsLiteral);
+			if (prop != null) {
+				compOntologyManager.getM().remove(prop);
+			}
 			courseContextIndividual.addLiteral(requirementsLiteral, requirements);
 		}
 	}

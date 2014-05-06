@@ -36,14 +36,12 @@ public class CompetenceServiceRestJSON {
 		System.out.println("Competences queried (rest)");
 		// return "Got it!";
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl
-				.getCompetences()));
+		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
 	}
-
-		
 
 	/**
 	 * Link the competences to a course context
+	 * 
 	 * @param course
 	 * @param compulsory
 	 *            (optional)
@@ -55,21 +53,18 @@ public class CompetenceServiceRestJSON {
 	@POST
 	@Path("/coursecontext/create/{course}/{compulsory}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToCourseContextJson(
-			@PathParam("course") String course,
-			@PathParam("compulsory") String compulsory,
-			@QueryParam(value = "competences") final List<String> competences,
-			@QueryParam(value = "requirements") String requirements) {
-		
+	public Response linkCompetencesToCourseContextJson(@PathParam("course") String course, @PathParam("compulsory") String compulsory,
+			@QueryParam(value = "competences") final List<String> competences, @QueryParam(value = "requirements") String requirements) {
+
 		Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences,
-				compulsoryBoolean, requirements);
+		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsoryBoolean, requirements);
 		// todo stuff here
 		return Response.ok("competences linked").build();
 	}
 
 	/**
 	 * DELETE the course context
+	 * 
 	 * @param course
 	 * @return
 	 */
@@ -81,21 +76,20 @@ public class CompetenceServiceRestJSON {
 		CompetenceServiceWrapper.delete(course);
 		return Response.ok("competences deleted from course:" + course).build();
 	}
-	
+
 	/**
 	 * GET the requirements for a course context
+	 * 
 	 * @param course
 	 * @param cache
 	 * @return
 	 */
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	@GET
-	@Path("/coursecontext/requirements/{course}/{cache}")
-	public Response getRequirements(@PathParam("course") String course,
-			@PathParam("cache") String cache) {
+	@Path("/coursecontext/requirements/{course}")
+	public String getRequirements(@PathParam("course") String course) {
 		String result = CompetenceServiceWrapper.getRequirements(course);
-		return RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		return result;
 	}
 
-	
 }

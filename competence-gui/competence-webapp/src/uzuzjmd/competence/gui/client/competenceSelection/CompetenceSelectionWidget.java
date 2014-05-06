@@ -4,6 +4,7 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.ContextFactory;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -64,6 +65,10 @@ public class CompetenceSelectionWidget extends Composite {
 	RadioButton verpflichtendeRadioButton;
 	@UiField
 	RadioButton nichtVerpflichtendeRadioButton;
+	@UiField
+	Button filterButton;
+	@UiField
+	Button resetButton;
 
 	private CompetenceSelectionPanel competenceTree;
 	private OperatorSelectionPanel operatorTree;
@@ -156,7 +161,6 @@ public class CompetenceSelectionWidget extends Composite {
 						.addQueryParams("competences",
 								competenceTree.convertSelectedTreeToList())
 						.post().send(new RequestCallback() {
-
 							@Override
 							public void onError(Request request,
 									Throwable exception) {
@@ -206,5 +210,13 @@ public class CompetenceSelectionWidget extends Composite {
 						+ contextFactory.getCourseId() + "/" + filter
 						+ "/nocache");
 		competenceTreeCaptionPanel.add(competenceTree);
+	}
+
+	@UiHandler("resetButton")
+	void onResetButtonClick(ClickEvent event) {
+	}
+
+	@UiHandler("filterButton")
+	void onFilterButtonClick(ClickEvent event) {
 	}
 }
