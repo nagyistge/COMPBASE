@@ -17,14 +17,17 @@ import scala.reflect.runtime.universe._
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.view.xml.DummyTree
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
 class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean) {
 
-  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_)).filterNot(_ == null)
-  val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_)).filterNot(_ == null)
+  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_))
+  val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
+  val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_))
   val util = ontologyManager.getUtil()
 
   /**
@@ -64,7 +67,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * needs label and iconpath in order to create the view
    */
   private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean)): A = {
-    val definitionString = getDefinitionString(subclass) match {
+    val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, ontologyManager) match {
       case "" => label
       case x => x
     }
@@ -154,25 +157,9 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     filteredResult
   }
 
-  private def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass): String = {
-    if (getPropertyString(subclass, "definition") != null) {
-      return (getPropertyString(subclass, "definition").toString().replaceAll("[\n\r]", "")).replaceAll("[\n]", "")
-    } else {
-      return ""
-    }
-
-  }
-
   private def getCompulsory(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
     return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass), CompObjectProperties.CompulsoryOf);
 
-  }
-
-  private def getPropertyString(subclass: com.hp.hpl.jena.ontology.OntClass, propertyName: String): Object = {
-    val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + propertyName)
-    val value = subclass.getPropertyValue(iProperty)
-    if (value == null) { return null }
-    else { return value.asNode().getLiteralValue() }
   }
 
 }
