@@ -39,6 +39,10 @@ public abstract class MyTreePanel extends Panel {
 
 	private AsyncTreeNode rootNode;
 
+	public TreePanel getTreePanel() {
+		return treePanel;
+	}
+	
 	/**
 	 * 
 	 * 
