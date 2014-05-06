@@ -5991,3 +5991,921 @@ Compiling...
    Compilation completed in 0,00 seconds
 Removing invalidated units
 Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3432 units from cache.
+Compiling...
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   60% complete (ETR: 4 seconds)
+   70% complete (ETR: 3 seconds)
+   80% complete (ETR: 3 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 14,11 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390997302.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390997302.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390997302_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390999831.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390999831.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399390999831_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Invoking generator com.google.gwt.uibinder.rebind.UiBinderGenerator
+      [ERROR] <g:RadioButton text='verpflichtende Kompetenzen' ui:field='requiredFlagBox'> missing required attribute(s): name: <g:RadioButton text='verpflichtende Kompetenzen' ui:field='requiredFlagBox'> (:15)
+[ERROR] Deferred binding failed for 'uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder'; expect subsequent failures
+Public resources found in...
+Translatable source found in...
+Found 3431 cached/archived units.  Used 3431 / 3432 units from cache.
+Compiling...
+   Compilation completed in 0,03 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.RequirementTab
+Invalid Unit: uzuzjmd.competence.gui.client.Competence_webapp
+Invalid units found: 2
+Compiling...
+   Compilation completed in 0,02 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Invoking generator com.google.gwt.uibinder.rebind.UiBinderGenerator
+      [ERROR] <g:RadioButton text='verpflichtende Kompetenzen' ui:field='requiredFlagBox'> missing required attribute(s): name: <g:RadioButton text='verpflichtende Kompetenzen' ui:field='requiredFlagBox'> (:15)
+[ERROR] Deferred binding failed for 'uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder'; expect subsequent failures
+Public resources found in...
+Translatable source found in...
+Found 3431 cached/archived units.  Used 3431 / 3432 units from cache.
+Compiling...
+   Compilation completed in 0,06 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.RequirementTab
+Invalid Unit: uzuzjmd.competence.gui.client.Competence_webapp
+Invalid units found: 2
+Compiling...
+   Compilation completed in 0,02 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,07 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121024.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121024.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121024_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121761.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121761.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391121761_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,19 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391206137.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391206137.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391206137_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391216206.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391216206.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391216206_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391219801.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391219801.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391219801_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560390.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560390.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560390_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560512.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560512.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391560512_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391667009.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391667009.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391667009_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391673374.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391673374.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391673374_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391675157.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391675157.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,11 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391675157_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391681702.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391681702.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391681702_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391684155.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391684155.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391684155_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391689766.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391689766.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391689766_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391691210.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391691210.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391691210_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391728932.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391728932.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391728932_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391736451.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391736451.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391736451_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391748754.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391748754.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391748754_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391752252.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391752252.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391752252_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391755055.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391755055.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391755055_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391770057.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391770057.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391770057_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391778796.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391778796.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399391778796_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020222.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020222.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020222_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020400.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020400.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392020400_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3431 cached/archived units.  Used 3431 / 3432 units from cache.
+Compiling...
+   Compilation completed in 0,09 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.RequirementTab
+Invalid Unit: uzuzjmd.competence.gui.client.Competence_webapp
+Invalid units found: 2
+Compiling...
+   Compilation completed in 0,01 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,11 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392035592.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392035592.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392035592_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392036575.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392036575.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399392036575_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Invoking generator com.google.gwt.uibinder.rebind.UiBinderGenerator
+      [ERROR] Package not found: com.github.gwtbootstrap.client.ui
+[ERROR] Deferred binding failed for 'uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder'; expect subsequent failures
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3665 units from cache.
+Compiling...
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   60% complete (ETR: 4 seconds)
+   70% complete (ETR: 3 seconds)
+   80% complete (ETR: 2 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 10,70 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393981904.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393981904.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393981904_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393982787.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393982787.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399393982787_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394000533.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394000533.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394000533_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394020837.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394020837.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394020837_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget.CompetenceSelectionWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394025884.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394025884.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget_CompetenceSelectionWidgetUiBinderImpl_designTime1399394025884_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units

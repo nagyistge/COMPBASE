@@ -8,8 +8,10 @@ import com.gwtext.client.widgets.tree.XMLTreeLoader;
 public class CatchwordSelectionTree extends MyTreePanel {
 
 	public CatchwordSelectionTree(String databaseConnectionString,
-			String rootLabel, String className, Integer width, Integer height, String title) {
-		super(databaseConnectionString, rootLabel, className, width, height, title);
+			String rootLabel, String className, Integer width, Integer height,
+			String title) {
+		super(databaseConnectionString, rootLabel, className, width, height,
+				title);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,7 +20,7 @@ public class CatchwordSelectionTree extends MyTreePanel {
 		final XMLTreeLoader loader = new XMLTreeLoader();
 		loader.setDataUrl(databaseConnectionString);
 		loader.setMethod(Connection.GET);
-		loader.setRootTag("catchwordXMLTrees");
+		loader.setRootTag("catchwordRoot");
 		loader.setFolderTitleMapping("@name");
 		loader.setFolderTag("catchword");
 		loader.setLeafTitleMapping("@name");

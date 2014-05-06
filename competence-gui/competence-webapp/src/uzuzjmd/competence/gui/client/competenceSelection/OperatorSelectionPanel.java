@@ -8,8 +8,10 @@ import com.gwtext.client.widgets.tree.XMLTreeLoader;
 public class OperatorSelectionPanel extends MyTreePanel {
 
 	public OperatorSelectionPanel(String databaseConnectionString,
-			String rootLabel, String className, Integer width, Integer height, String title) {
-		super(databaseConnectionString, rootLabel, className, width, height, title);
+			String rootLabel, String className, Integer width, Integer height,
+			String title) {
+		super(databaseConnectionString, rootLabel, className, width, height,
+				title);
 	}
 
 	@Override
@@ -17,7 +19,7 @@ public class OperatorSelectionPanel extends MyTreePanel {
 		final XMLTreeLoader loader = new XMLTreeLoader();
 		loader.setDataUrl(databaseConnectionString);
 		loader.setMethod(Connection.GET);
-		loader.setRootTag("operatorXMLTrees");
+		loader.setRootTag("operatorRoot");
 		loader.setFolderTitleMapping("@name");
 		loader.setFolderTag("operator");
 		loader.setLeafTitleMapping("@name");

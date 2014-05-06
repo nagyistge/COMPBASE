@@ -27,7 +27,8 @@ public class RuleFactory {
 	}
 
 	public String getCompulsoryInheritance() {
-		return "[compulsoryInheritance: (?a comp:CompulsoryOf ?b) (?b rdf:type ?d) (?d rdfs:subClassOf comp:Competence) (?d rdfs:subClassOf ?e) (?f rdf:type ?e) -> (?a comp:CompulsoryOf ?f)]";
+		return "[compulsoryInheritance: (?a comp:CompulsoryOf ?b) (?b rdf:type ?d) notEqual(?d,comp:Competence) (?d rdfs:subClassOf comp:Competence) (?d rdfs:subClassOf ?e) (?f rdf:type ?e)  (?e rdfs:subClassOf comp:Competence) "
+				+ "-> (?a comp:CompulsoryOf ?f)]";
 	}
 
 	public Set<String> getRuleStringss() {
