@@ -11,22 +11,23 @@ public class RuleFactory {
 
 	public RuleFactory() {
 		result = new HashSet<String>();
-		generateInverseRules();
+		// generateInverseRules();
 		// result.add(catchwordOfConclusions());
+		// result.add(getCompulsoryInheritance());
 	}
 
 	private void generateInverseRules() {
 		for (CompObjectProperties prop : CompObjectProperties.values()) {
 			if (!prop.name().endsWith("Inverse")) {
-				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:"
-						+ prop.name() + " ?b) -> (?b comp:" + prop.name()
-						+ "Inverse ?a)]");
+				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:" + prop.name() + " ?b) -> (?b comp:" + prop.name() + "Inverse ?a)]");
 			} else if (prop.name().endsWith("Inverse")) {
-				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:"
-						+ prop.name() + "Inverse ?b) -> (?b comp:"
-						+ prop.name() + " ?a)]");
+				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:" + prop.name() + "Inverse ?b) -> (?b comp:" + prop.name() + " ?a)]");
 			}
 		}
+	}
+
+	public String getCompulsoryInheritance() {
+		return "[compulsoryInheritance: (?a comp:CompulsoryOf ?b) (?b rdf:type ?d) (?d rdfs:subClassOf comp:Competence) (?d rdfs:subClassOf ?e) (?f rdf:type ?e) -> (?a comp:CompulsoryOf ?f)]";
 	}
 
 	public Set<String> getRuleStringss() {
@@ -38,9 +39,7 @@ public class RuleFactory {
 	}
 
 	public String catchwordOfConclusions() {
-		return "[catchwordTransition: (?a rdfs:subClassOf comp:Catchword)"
-				+ " (?a rdfs:subClassOf ?b) "
-				+ "-> (?b rdfs:subClassOf comp:Catchword)]";
+		return "[catchwordTransition: (?a rdfs:subClassOf comp:Catchword)" + " (?a rdfs:subClassOf ?b) " + "-> (?b rdfs:subClassOf comp:Catchword)]";
 	}
 
 }

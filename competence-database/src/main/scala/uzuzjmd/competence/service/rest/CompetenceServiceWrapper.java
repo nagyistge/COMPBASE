@@ -1,8 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
@@ -25,7 +23,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 public class CompetenceServiceWrapper {
 
 	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();		
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
 		return ont2CompetenceTree;
 	}
@@ -50,9 +48,10 @@ public class CompetenceServiceWrapper {
 	}
 
 	public static void linkCompetencesToCourse(String course, List<String> competences, Boolean compulsoryBoolean, String requirements) {
-		
+
 		System.out.println("linking competences: " + competences);
 		CompOntologyManager compOntologyManager = startManager();
+		compOntologyManager.startReasoning();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 
 		Individual courseContextIndividual = createCourseContext(course, util);
@@ -61,6 +60,7 @@ public class CompetenceServiceWrapper {
 
 		compOntologyManager.getM().leaveCriticalSection();
 		compOntologyManager.getM().validate();
+
 		compOntologyManager.close();
 		testResult(compOntologyManager);
 	}
@@ -84,7 +84,7 @@ public class CompetenceServiceWrapper {
 		if (competences == null || competences.isEmpty()) {
 			throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
 		}
-			
+
 		for (String competence : competences) {
 			OntResult result = util.accessSingletonResource(competence);
 			Individual competenceIndividual = result.getIndividual();
@@ -105,7 +105,7 @@ public class CompetenceServiceWrapper {
 		return requirementsLiteral;
 	}
 
-	private static void addCompulsoryLiteral(Boolean compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {		
+	private static void addCompulsoryLiteral(Boolean compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {
 		if (compulsory) {
 			compOntologyManager.getUtil().createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CompulsoryOf);
 		} else {
@@ -130,7 +130,7 @@ public class CompetenceServiceWrapper {
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 		Individual courseContextIndividual = createCourseContext(course, util);
-		
+
 		courseContextIndividual.remove();
 		compOntologyManager.close();
 		testResult(compOntologyManager);

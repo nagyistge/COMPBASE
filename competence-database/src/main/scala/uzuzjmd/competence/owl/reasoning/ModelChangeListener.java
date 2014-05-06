@@ -10,8 +10,7 @@ public class ModelChangeListener extends ChangedListener {
 	private SimpleRulesReasoner rulesReasoner;
 	private CompOntologyManager manager;
 
-	public ModelChangeListener(SimpleRulesReasoner rulesReasoner,
-			CompOntologyManager manager) {
+	public ModelChangeListener(SimpleRulesReasoner rulesReasoner, CompOntologyManager manager) {
 		this.rulesReasoner = rulesReasoner;
 		this.manager = manager;
 	}
@@ -19,8 +18,6 @@ public class ModelChangeListener extends ChangedListener {
 	@Override
 	public void addedStatement(Statement s) {
 		super.addedStatement(s);
-		manager.begin();
 		rulesReasoner.reason();
-		manager.close();
 	}
 }
