@@ -21,7 +21,13 @@
 							</g:VerticalPanel>
 						</g:HTMLPanel>
 					</g:VerticalPanel>
-					<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
+					<g:VerticalPanel>
+						<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
+						<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
+							<b:Button text="zurücksetzen" ui:field="resetButton"/>
+							<b:Button text="filtern" ui:field="filterButton"/>
+						</g:HorizontalPanel>
+					</g:VerticalPanel>
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 		</g:CaptionPanel>		
