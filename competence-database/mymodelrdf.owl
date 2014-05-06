@@ -147,13 +147,14 @@ Rückmeldung über die eigene Unterrichtstätigkeit</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#2">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterstrukturierenihrenUnterrichtindemsieeineVerlaufstabelleanlegen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterwählenInhalteundMethodenArbeitsundKommunikationsformenaus"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärtersetzenArbeitszeitundArbeitsmittelzweckdienlichundökonomischein"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärternutzenformelleundinformelleindividuelleundkooperativeWeiterbildungsangebote"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihreFähigkeitenimHandlungsfeldSchuletheoretischundkonzipierendarausgeeigneteHandlungsmodelle"/>
-    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterwählenInhalteundMethodenArbeitsundKommunikationsformenaus"/>
-    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihreFähigkeitenimHandlungsfeldSchuletheoretischundkonzipierendarausgeeigneteHandlungsmodelle"/>
-    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string">blöde frauen haben blöde männer</j.0:requirements>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieeinschlägigenBildungstheorien"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterwendenBewertungsmodelleundBewertungsmaßstäbefachundsituationsgerechtan"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieGrundlagenundStrukturendesBildungssystemsundvonSchulealsOrganisation"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieeinschlägigenBildungstheorien"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterwendenBewertungsmodelleundBewertungsmaßstäbefachundsituationsgerechtan"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Innovieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1848,6 +1849,9 @@ und situationsgerecht an</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterplanendieBedingungenunddenRahmenfürdenLernprozessderSuS">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterplanendieBedingungenunddenRahmenfürdenLernprozessderSuS"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#I3org227owlNothing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Nothing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LernenEntwicklungundSozialisation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

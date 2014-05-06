@@ -164,7 +164,12 @@ public class CompOntologyAccess {
 		if (string.equals("")) {
 			return null;
 		}
-		OntClass paper = manager.getM().createClass(encode(string));
+		OntClass paper = null;
+		try {
+			paper = manager.getM().createClass(encode(string));
+		} catch (NullPointerException e) {
+			System.out.println("und deine mudda");
+		}
 		if (definitions != null && definitions.length > 0) {
 			paper.addLiteral(manager.getM().createProperty(encode("definition")), definitions[0]);
 		}
@@ -183,17 +188,18 @@ public class CompOntologyAccess {
 		return createIndividualForString(ontclass, singletonstring);
 	}
 
-	/**
-	 * convenience method for accessing the underlying individual but only
-	 * String given
-	 * 
-	 * @param ontclass
-	 * @return
-	 */
-	@Deprecated
-	public Individual createSingleTonIndividual(String ontclass) {
-		return createIndividualForString(getOntClassForString(ontclass), MagicStrings.SINGLETONPREFIX + ontclass);
-	}
+	// /**
+	// * convenience method for accessing the underlying individual but only
+	// * String given
+	// *
+	// * @param ontclass
+	// * @return
+	// */
+	//
+	// public Individual createSingleTonIndividual(String ontclass) {
+	// return createIndividualForString(getOntClassForString(ontclass),
+	// MagicStrings.SINGLETONPREFIX + ontclass);
+	// }
 
 	public OntClass createSingleTonIndividualWithClass(String classname, String... definitions) {
 		OntClass classOnt = createOntClassForString(classname, definitions);
