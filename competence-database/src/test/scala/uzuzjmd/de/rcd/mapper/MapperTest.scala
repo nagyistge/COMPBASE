@@ -20,7 +20,6 @@ class MapperTest extends FunSuite with ShouldMatchers {
     CompFileUtil.deleteTDB()
 
     val compOntManag = new CompOntologyManager()
-    compOntManag.switchOnDebug()
 
     compOntManag.begin()
     compOntManag.getM().validate()
