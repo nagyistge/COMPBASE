@@ -16,14 +16,15 @@ import java.util.LinkedList
 import scala.reflect.runtime.universe._
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import scala.annotation.tailrec
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
 class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String) {
 
-  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
-  val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
+  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.view.filterNot(_ == null).filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_))
+  val selectedOperatorIndividuals = selectedOperatorsArray.asScala.view.filterNot(_ == null).filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_))
   val util = ontologyManager.getUtil()
 
   /**
@@ -69,9 +70,12 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     }
 
     var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
-    if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
-      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
-      result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
+    if (subclass.hasSubClass()) {
+      val subberclassesTMP = subclass.listSubClasses().asScala.toList.view
+      if (!subberclassesTMP.isEmpty) {
+        val subberclasses = subberclassesTMP.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList.asJava
+        result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses).asInstanceOf[A]
+      }
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
       result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
@@ -107,7 +111,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "nopathspecified", classOf[OperatorXMLTree], containsCatchword)
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg", classOf[OperatorXMLTree], containsCatchword)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -120,7 +124,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Catchword);
-    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "nopathspecified", classOf[CatchwordXMLTree], containsOperator)
+    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg", classOf[CatchwordXMLTree], containsOperator)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -133,7 +137,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "nopathspecified", classOf[CompetenceXMLTree], hasLinks)
+    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg", classOf[CompetenceXMLTree], hasLinks)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
