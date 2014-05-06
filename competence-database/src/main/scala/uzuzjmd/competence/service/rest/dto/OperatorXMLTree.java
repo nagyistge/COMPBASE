@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import uzuzjmd.competence.view.xml.AbstractXMLTree;
 
-@XmlRootElement(name = "operator")
+@XmlRootElement(name = "operatorRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
 public class OperatorXMLTree extends AbstractXMLTree<OperatorXMLTree> {
 
@@ -16,15 +16,14 @@ public class OperatorXMLTree extends AbstractXMLTree<OperatorXMLTree> {
 
 	}
 
-	public OperatorXMLTree(String name, String qtip, String icon,
-			List<OperatorXMLTree> children) {
+	public OperatorXMLTree(String name, String qtip, String icon, List<OperatorXMLTree> children) {
 		super(name, qtip, icon, children);
 
 	}
-	
-	@XmlElement(name="operator")
+
+	@XmlElement(name = "operator")
 	@Override
-	public List<OperatorXMLTree> getChildren() {		
+	public List<OperatorXMLTree> getChildren() {
 		return super.getChildren();
 	}
 

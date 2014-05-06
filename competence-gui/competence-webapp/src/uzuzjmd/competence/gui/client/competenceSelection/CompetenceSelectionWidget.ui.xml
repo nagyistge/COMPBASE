@@ -1,6 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+	>
 	<ui:style>	
 	}
 	</ui:style>
@@ -11,8 +13,12 @@
 				<g:HorizontalPanel ui:field="competenceFilterPanel" >
 					<g:VerticalPanel ui:field="operatorPanel">
 						<g:HTMLPanel ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel"/>
-						<g:HTMLPanel styleName="competenceCompulsoryCheckbox" >
-							<g:CheckBox text="verpflichtende Kompetenzen" ui:field="requiredFlagBox" />
+						<g:HTMLPanel ui:field="competenceCompulsoryCheckbox" styleName="competenceCompulsoryCheckbox" >
+							<g:VerticalPanel>
+								<b:RadioButton name="competenceFilter" text="alle" ui:field="alleRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="verpflichtende" ui:field="verpflichtendeRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="nicht verpflichtende" ui:field="nichtVerpflichtendeRadioButton"/>
+							</g:VerticalPanel>
 						</g:HTMLPanel>
 					</g:VerticalPanel>
 					<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>

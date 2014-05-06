@@ -26,7 +26,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		final XMLTreeLoader loader = new XMLTreeLoader();
 		loader.setDataUrl(databaseConnectionString);
 		loader.setMethod(Connection.GET);
-		loader.setRootTag("competenceXMLTrees");
+		loader.setRootTag("competenceRoot");
 		loader.setFolderTitleMapping("@name");
 		loader.setFolderTag("competence");
 		loader.setLeafTitleMapping("@name");

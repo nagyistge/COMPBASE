@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import uzuzjmd.competence.view.xml.AbstractXMLTree;
 
-@XmlRootElement(name = "competence")
+@XmlRootElement(name = "competenceRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
 public class CompetenceXMLTree extends AbstractXMLTree<CompetenceXMLTree> {
 

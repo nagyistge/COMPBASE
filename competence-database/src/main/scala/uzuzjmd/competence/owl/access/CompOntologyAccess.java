@@ -190,6 +190,7 @@ public class CompOntologyAccess {
 	 * @param ontclass
 	 * @return
 	 */
+	@Deprecated
 	public Individual createSingleTonIndividual(String ontclass) {
 		return createIndividualForString(getOntClassForString(ontclass), MagicStrings.SINGLETONPREFIX + ontclass);
 	}
