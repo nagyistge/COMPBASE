@@ -21,7 +21,7 @@ import uzuzjmd.competence.view.xml.DummyTree
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory : java.lang.Boolean) {
+class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean) {
 
   val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
   val selectedOperatorIndividuals = selectedOperatorsArray.asScala.filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividual(_)).filterNot(_ == null)
@@ -71,17 +71,11 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
     var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
-      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList.filterNot(x=>x.getName().equals("dummy"))
+      val subberclasses = subclass.listSubClasses().toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
       result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
       result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
-      if (compulsory != null && compulsory != result.asInstanceOf[CompetenceXMLTree].getIsCompulsory() ) {
-        // do something very clever
-        val dummy = new DummyTree()
-        dummy.setName("dummy")
-        return dummy.asInstanceOf[A]
-      }
     }
     return result
 
@@ -94,18 +88,10 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def containsCatchword(ontClass: OntClass): Boolean = {
-//    if (selectedCatchwordArray.isEmpty()) {
-//      return true;
-//    }
-//    return selectedCatchwordArray.contains(ontClass.getLocalName())
     return true;
   }
 
   def containsOperator(ontClass: OntClass): Boolean = {
-//    if (selectedOperatorsArray.isEmpty()) {
-//      return true;
-//    }
-//    return selectedOperatorsArray.contains(ontClass.getLocalName())
     return true;
   }
 
@@ -144,8 +130,19 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
     val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], hasLinks)
     ontologyManager.close()
-    val filteredResult = filterResults(result)
+    val filteredResult = filterCompetenceTree(filterResults(result))
     return filteredResult.asJava
+  }
+
+  def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
+    if (input.isEmpty || compulsory == null) {
+      return input;
+    } else {
+      val result = input.filter(x => x.getIsCompulsory().toString().equals(compulsory.toString))
+      result.foreach(x => x.setChildren(filterCompetenceTree(x.getChildren().asScala.toList).asJava))
+      return result
+    }
+
   }
 
   /**

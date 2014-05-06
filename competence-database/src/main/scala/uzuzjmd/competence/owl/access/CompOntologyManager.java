@@ -40,25 +40,21 @@ public class CompOntologyManager {
 	 * should be singleton
 	 */
 	public CompOntologyManager() {
-		// initialize Model
-		// initializeOntologyModelInMemory();
-
 		this.queries = new CompetenceQueries(getM());
 		this.util = new CompOntologyAccess(getM(), getQueries(), this);
+	}
 
+	public void startReasoning() {
 		// init simple Rules Reasoner
-		begin();
 		initReasoner();
+		switchOnDebug();
 		initRulesFactory(rulesReasoner);
-		close();
-		// switchOnDebug();
 
 		// apply rules whenever the model is changed
 		this.modelChangedListener = new ModelChangeListener(rulesReasoner, this);
 
 		// defaultmäßif ist derReasoner angeschaltet
 		registerReasoner();
-
 	}
 
 	public Dataset getDataset() {
@@ -75,15 +71,11 @@ public class CompOntologyManager {
 	}
 
 	public void unregisterReasoner() {
-		begin();
 		m.unregister(modelChangedListener);
-		close();
 	}
 
 	public void registerReasoner() {
-		begin();
 		m.register(modelChangedListener);
-		close();
 	}
 
 	private void initReasoner() {
