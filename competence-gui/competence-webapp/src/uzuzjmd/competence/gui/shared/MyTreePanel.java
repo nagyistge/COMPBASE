@@ -1,5 +1,8 @@
 package uzuzjmd.competence.gui.shared;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.gwtext.client.core.EventObject;
@@ -27,6 +30,12 @@ public abstract class MyTreePanel extends Panel {
 
 	private Integer width;
 
+	private Integer height;
+	
+	private XMLTreeLoader xmlLoader;
+
+	private AsyncTreeNode rootNode;
+	
 	/**
 	 * 
 	 * 
@@ -35,35 +44,52 @@ public abstract class MyTreePanel extends Panel {
 	 * @param className
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
-			String className, Integer width, String title) {
+			String className, Integer width, Integer height, String title) {
 		super();
 		this.title = title;
 		this.width = width;
+		this.height = height;
 		this.databaseConnectionString = databaseConnectionString;
 		// test gwt ext
 
-		Panel treePanelContainer = new Panel();
+//		Panel treePanelContainer = new Panel();
 		// treePanelContainer.setBorder(false);
 		// treePanelContainer.setPaddings(15);
 
-		treePanel = initTreePanel();
+		treePanel = initTreePanel();		
 		final XMLTreeLoader loader = initXMLLoader();
+		xmlLoader = loader;
+		
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
+		rootNode = root;
 		treePanel.setRootNode(root);
 		root.expand();
 		treePanel.expandAll();
+		
+		
 		initReloadTool(treePanel, root);
-		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
-				width);
+//		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
+//				width);
+////
+//		Panel verticalPanel = new Panel();
+//		verticalPanel.setLayout(new VerticalLayout(15));
+//		verticalPanel.add(treePanel);
+//		// verticalPanel.add(buttonPanel);
+//		treePanelContainer.add(verticalPanel);
 
-		Panel verticalPanel = new Panel();
-		verticalPanel.setLayout(new VerticalLayout(15));
-		verticalPanel.add(treePanel);
-		// verticalPanel.add(buttonPanel);
-		treePanelContainer.add(verticalPanel);
-
-		this.add(treePanelContainer);
+//		treePanelContainer.add(treePanel);
+//		this.add(treePanelContainer);
+		this.add(treePanel);
 		this.getElement().setClassName(className);
+	}
+	
+	public void reload(String dataConnection) {
+		this.xmlLoader.setDataUrl(dataConnection);		
+		reloadTree(treePanel,rootNode);
+	}
+	
+	public void reload() {			
+		reloadTree(treePanel,rootNode);
 	}
 
 	protected abstract XMLTreeLoader initXMLLoader();
@@ -135,20 +161,30 @@ public abstract class MyTreePanel extends Panel {
 
 	protected void initReloadTool(final TreePanel treePanel,
 			final AsyncTreeNode root) {
-		treePanel.addTool(new Tool(Tool.REFRESH, new Function() {
+		Tool tool = new Tool(Tool.REFRESH, new Function() {
 			public void execute() {
-				treePanel.getEl().mask("Loading", "x-mask-loading");
-				root.reload();
-				root.collapse(true, false);
-				Timer timer = new Timer() {
-					public void run() {
-						treePanel.getEl().unmask();
-						root.expand(true, true);
-					}
-				};
-				timer.schedule(1000);
+				reloadTree(treePanel, root);
+			}			
+		}, "Refresh");		
+		treePanel.addTool(tool);
+	}
+	
+	private void reloadTree(final TreePanel treePanel,
+			final AsyncTreeNode root) {
+		treePanel.getEl().mask("Loading", "x-mask-loading");
+		root.reload();
+		root.collapse(true, false);
+		Timer timer = new Timer() {
+			public void run() {
+				treePanel.getEl().unmask();
+				root.expand(true, true);
 			}
-		}, "Refresh"));
+		};
+		timer.schedule(1000);
+	}
+	
+	public void reloadTree() {
+		reload();
 	}
 
 	protected TreePanel initTreePanel() {
@@ -161,24 +197,34 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setSelectionModel(new MultiSelectionModel());
 		treePanel.setShadow(false);
 		treePanel.setWidth(width);
-		treePanel.setHeight(300);
+		treePanel.setHeight(height);		
 		// treePanel.setAutoHeight(true);
 		treePanel.setAutoScroll(true);
 		treePanel.setDdScroll(true);
 		treePanel.setPaddings(8);
+		
 
 		// treePanel.getElement().setClassName("activityView");
 		return treePanel;
 	}
 
-	public TreeNode[] getSelectedNodes() {
+	private TreeNode[] getSelectedNodes() {
 		MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
 				.getSelectionModel();
 		TreeNode[] nodes = selectionModel.getSelectedNodes();
 		for (TreeNode treeNode : nodes) {
 			GWT.log("selected nodes" + treeNode.getText());
-		}
+		}		
 		return nodes;
 	}
+		
+	
+	public List<String> convertSelectedTreeToList() {
+		List<String> selectedTreeNodes = new LinkedList<String>();
+		for (TreeNode node : getSelectedNodes()) {
+			selectedTreeNodes.add(node.getText());
+		}
+		return selectedTreeNodes;
+	} 
 
 }

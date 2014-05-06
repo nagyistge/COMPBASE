@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.shared.ActivityPanel2;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
 
@@ -24,16 +26,20 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-		MyTreePanel activityPanel = new ActivityPanel2(
-				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2/nocache",
-				"Aktivitäten", "activityView", 300, "Aktivitäten");
-		container.add(activityPanel);
+//		MyTreePanel activityPanel = new ActivityPanel2(
+//				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2",
+//				"Aktivitäten", "activityView", 300, "Aktivitäten");
+//		container.add(activityPanel);
 
 		// Panel panel = new Panel();
 		// panel.setWidth(600);
 
-		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
-		container.add(competenceSelectionWidget);
+		final ContextFactory contextFactory = new ContextFactory();
+		RequirementTab tab = new RequirementTab(contextFactory);
+		container.add(tab);
+		
+//		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
+//		container.add(competenceSelectionWidget);
 
 	}
 

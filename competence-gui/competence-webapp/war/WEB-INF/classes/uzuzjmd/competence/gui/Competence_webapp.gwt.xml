@@ -11,11 +11,12 @@
 <!--   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/> -->
 <!--   <inherits name="com.smartgwt.SmartGwt"/>   -->
   <inherits name='com.gwtext.GwtExt'/>
+  <inherits name='org.fusesource.restygwt.RestyGWT'/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
-  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+<!--   <inherits name='com.google.gwt.user.theme.clean.Clean'/> -->
   <inherits name='com.google.gwt.query.Query'/>
   <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
