@@ -14,6 +14,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
 import com.gwtext.client.core.Connection;
+import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeLoader;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
@@ -60,7 +61,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 	//
 	// }
 
-	private void setCompetenceSelected(final TreeNode node) {
+	public void setCompetenceSelected() {		
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/selected/" + contextFactory.getCourseId());
 		resource.get().send(new JsonCallback() {
@@ -75,10 +76,8 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 						list.add(jsonArray.get(i).toString());
 					}
 				}
-				toSelect = list;
-				if (toSelect.contains(node.getText())) {
-					node.select();
-				}
+				toSelect = list;				
+				doSelect(getTreePanel().getRootNode());
 
 			}
 
@@ -88,6 +87,25 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 			}
 		});
 	}
+
+	private void doSelect(TreeNode node) {
+		if (node != null) {
+//			if (toSelect.contains(node.getText())) {				
+//				MultiSelectionModel selectionModel = (MultiSelectionModel) getTreePanel().getSelectionModel();
+//				selectionModel.select(node, true);
+//			}
+			
+			MultiSelectionModel selectionModel = (MultiSelectionModel) getTreePanel().getSelectionModel();
+			selectionModel.select(node, true);
+		}
+		for (int i = 0; i < node.getChildNodes().length; i++) {
+			TreeNode child = (TreeNode) node.getChildNodes()[i];			
+			doSelect(child);			
+		}
+
+	}
+	
+	
 
 	@Override
 	protected XMLTreeLoader initXMLLoader() {
@@ -101,28 +119,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		loader.setLeafTag("competence");
 		loader.setQtipMapping("@qtip");
 		loader.setDisabledMapping("@disabled");
-		loader.setCheckedMapping("isCompulsory");
-		loader.addListener(new TreeLoaderListener() {
-
-			@Override
-			public void onLoadException(TreeLoader self, TreeNode node,
-					String response) {
-			}
-
-			@Override
-			public void onLoad(TreeLoader self, TreeNode node, String response) {
-				if (toSelect == null) {
-					setCompetenceSelected(node);
-				} else if (toSelect.contains(node.getText())) {
-					node.select();
-				}
-			}
-
-			@Override
-			public boolean doBeforeLoad(TreeLoader self, TreeNode node) {
-				return true;
-			}
-		});
+		loader.setCheckedMapping("isCompulsory");				
 		return loader;
 	}
 
