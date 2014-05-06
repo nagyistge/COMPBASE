@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.gwtext.client.widgets.tree.MultiSelectionModel;
 
 public class CompetenceSelectionWidget extends Composite {
 
@@ -210,8 +211,9 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
 						+ contextFactory.getCourseId() + "/" + filter
-						+ "/nocache" + queryString, contextFactory);
+						+ "/nocache" + queryString, contextFactory);		
 		competenceTreeCaptionPanel.add(competenceTree);
+		competenceTree.setCompetenceSelected();
 	}
 
 	@UiHandler("resetButton")
