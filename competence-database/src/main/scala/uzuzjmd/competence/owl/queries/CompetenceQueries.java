@@ -23,11 +23,8 @@ public class CompetenceQueries {
 
 	public CompetenceQueries(OntModel m) {
 		this.m = m;
-		queryprefix = "PREFIX comp: <" + MagicStrings.PREFIX + ">\n"
-				+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-				+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-				+ "PREFIX owl:<http://www.w3.org/2002/07/owl#>\n"
-				+ "PREFIX dc:<http://purl.org/dc/elements/1.1/>\n";
+		queryprefix = "PREFIX comp: <" + MagicStrings.PREFIX + ">\n" + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+				+ "PREFIX owl:<http://www.w3.org/2002/07/owl#>\n" + "PREFIX dc:<http://purl.org/dc/elements/1.1/>\n";
 	}
 
 	/**
@@ -42,8 +39,7 @@ public class CompetenceQueries {
 	 *            ObjectPropertyClassifier
 	 * @return relatedClasses
 	 */
-	public synchronized ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(
-			String domainClass, final CompObjectProperties compObjectProperties) {
+	public synchronized ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(String domainClass, final CompObjectProperties compObjectProperties) {
 		ConcurrentLinkedQueue<OntClass> result = new ConcurrentLinkedQueue<OntClass>();
 
 		getClassesForRange(domainClass, compObjectProperties, result);
@@ -57,30 +53,18 @@ public class CompetenceQueries {
 		return result;
 	}
 
-	private void getClassesForDomain(String domainClass,
-			final CompObjectProperties compObjectProperties,
-			ConcurrentLinkedQueue<OntClass> result) {
+	private void getClassesForDomain(String domainClass, final CompObjectProperties compObjectProperties, ConcurrentLinkedQueue<OntClass> result) {
 		// Create a new query for range
-		String queryString = queryprefix + "SELECT ?class " + "WHERE {"
-				+ "comp:" + compObjectProperties.name() + " rdfs:range  comp:"
-				+ domainClass + ".\n" + "comp:" + compObjectProperties.name()
-				+ " rdfs:domain ?class" + ".\n"
-				+ "FILTER (?class != owl:Thing)" + ".\n"
-				+ "FILTER (?class != rdfs:Resource)" + "\n" + "}";
+		String queryString = queryprefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range  comp:" + domainClass + ".\n" + "comp:" + compObjectProperties.name()
+				+ " rdfs:domain ?class" + ".\n" + "FILTER (?class != owl:Thing)" + ".\n" + "FILTER (?class != rdfs:Resource)" + "\n" + "}";
 
 		sparql(result, queryString, "?class", OntClass.class);
 	}
 
-	private void getClassesForRange(String domainClass,
-			final CompObjectProperties compObjectProperties,
-			ConcurrentLinkedQueue<OntClass> result) {
+	private void getClassesForRange(String domainClass, final CompObjectProperties compObjectProperties, ConcurrentLinkedQueue<OntClass> result) {
 		// Create a new query
-		String queryString = queryprefix + "SELECT ?class " + "WHERE {"
-				+ "comp:" + compObjectProperties.name() + " rdfs:range ?class"
-				+ ".\n" + "comp:" + compObjectProperties.name()
-				+ " rdfs:domain comp:" + domainClass + ".\n"
-				+ "FILTER (?class != owl:Thing)" + ".\n"
-				+ "FILTER (?class != rdfs:Resource)" + "\n" + "}";
+		String queryString = queryprefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range ?class" + ".\n" + "comp:" + compObjectProperties.name()
+				+ " rdfs:domain comp:" + domainClass + ".\n" + "FILTER (?class != owl:Thing)" + ".\n" + "FILTER (?class != rdfs:Resource)" + "\n" + "}";
 
 		sparql(result, queryString, "?class", OntClass.class);
 
@@ -95,15 +79,21 @@ public class CompetenceQueries {
 	 * @param ontClass
 	 * @return
 	 */
-	public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(
-			final CompObjectProperties compObjectProperties,
-			String rangeIndividualName) {
+	public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(final CompObjectProperties compObjectProperties, String rangeIndividualName) {
 		ConcurrentLinkedQueue<Individual> result = new ConcurrentLinkedQueue<Individual>();
 
 		// Create a new query
-		String queryString = queryprefix + "SELECT ?individual " + "WHERE {"
-				+ "?individual  comp:" + compObjectProperties.name() + " comp:"
-				+ rangeIndividualName + "}";
+		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + "?individual  comp:" + compObjectProperties.name() + " comp:" + rangeIndividualName + "}";
+
+		sparql(result, queryString, "?individual", Individual.class);
+		return result;
+	}
+
+	public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, final CompObjectProperties compObjectProperties) {
+		ConcurrentLinkedQueue<Individual> result = new ConcurrentLinkedQueue<Individual>();
+
+		// Create a new query
+		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + " comp:" + domainIndividual + " comp:" + compObjectProperties.name() + " ?individual" + "}";
 
 		sparql(result, queryString, "?individual", Individual.class);
 		return result;
@@ -118,9 +108,7 @@ public class CompetenceQueries {
 	 * @param variable
 	 * @param resultClass
 	 */
-	private synchronized <T extends RDFNode> void sparql(
-			ConcurrentLinkedQueue<T> result, String queryString,
-			String variable, Class<T> resultClass) {
+	private synchronized <T extends RDFNode> void sparql(ConcurrentLinkedQueue<T> result, String queryString, String variable, Class<T> resultClass) {
 		Query query = QueryFactory.create(queryString);
 
 		// Execute the query and obtain results

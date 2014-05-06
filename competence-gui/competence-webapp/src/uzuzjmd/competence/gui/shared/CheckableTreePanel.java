@@ -3,15 +3,17 @@ package uzuzjmd.competence.gui.shared;
 import java.util.LinkedList;
 import java.util.List;
 
+import uzuzjmd.competence.gui.client.ContextFactory;
+
 import com.gwtext.client.widgets.tree.TreeNode;
 
 public abstract class CheckableTreePanel extends MyTreePanel {
 
 	public CheckableTreePanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title) {
+			String title, ContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title);		
+				title, contextFactory);
 	}
 
 	public List<String> getCheckedNodes() {

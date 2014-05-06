@@ -3,6 +3,8 @@ package uzuzjmd.competence.gui.shared;
 import java.util.LinkedList;
 import java.util.List;
 
+import uzuzjmd.competence.gui.client.ContextFactory;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.gwtext.client.core.EventObject;
@@ -14,7 +16,6 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Radio;
-import com.gwtext.client.widgets.layout.VerticalLayout;
 import com.gwtext.client.widgets.tree.AsyncTreeNode;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
@@ -26,16 +27,18 @@ public abstract class MyTreePanel extends Panel {
 
 	protected String databaseConnectionString;
 
+	protected ContextFactory contextFactory;
+
 	public String title;
 
 	private Integer width;
 
 	private Integer height;
-	
+
 	private XMLTreeLoader xmlLoader;
 
 	private AsyncTreeNode rootNode;
-	
+
 	/**
 	 * 
 	 * 
@@ -44,52 +47,53 @@ public abstract class MyTreePanel extends Panel {
 	 * @param className
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
-			String className, Integer width, Integer height, String title) {
+			String className, Integer width, Integer height, String title,
+			ContextFactory contextFactory) {
 		super();
+		this.contextFactory = contextFactory;
 		this.title = title;
 		this.width = width;
 		this.height = height;
 		this.databaseConnectionString = databaseConnectionString;
 		// test gwt ext
 
-//		Panel treePanelContainer = new Panel();
+		// Panel treePanelContainer = new Panel();
 		// treePanelContainer.setBorder(false);
 		// treePanelContainer.setPaddings(15);
 
-		treePanel = initTreePanel();		
+		treePanel = initTreePanel();
 		final XMLTreeLoader loader = initXMLLoader();
 		xmlLoader = loader;
-		
+
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
 		rootNode = root;
 		treePanel.setRootNode(root);
 		root.expand();
 		treePanel.expandAll();
-		
-		
-		initReloadTool(treePanel, root);
-//		FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
-//				width);
-////
-//		Panel verticalPanel = new Panel();
-//		verticalPanel.setLayout(new VerticalLayout(15));
-//		verticalPanel.add(treePanel);
-//		// verticalPanel.add(buttonPanel);
-//		treePanelContainer.add(verticalPanel);
 
-//		treePanelContainer.add(treePanel);
-//		this.add(treePanelContainer);
+		initReloadTool(treePanel, root);
+		// FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
+		// width);
+		// //
+		// Panel verticalPanel = new Panel();
+		// verticalPanel.setLayout(new VerticalLayout(15));
+		// verticalPanel.add(treePanel);
+		// // verticalPanel.add(buttonPanel);
+		// treePanelContainer.add(verticalPanel);
+
+		// treePanelContainer.add(treePanel);
+		// this.add(treePanelContainer);
 		this.add(treePanel);
 		this.getElement().setClassName(className);
 	}
-	
+
 	public void reload(String dataConnection) {
-		this.xmlLoader.setDataUrl(dataConnection);		
-		reloadTree(treePanel,rootNode);
+		this.xmlLoader.setDataUrl(dataConnection);
+		reloadTree(treePanel, rootNode);
 	}
-	
-	public void reload() {			
-		reloadTree(treePanel,rootNode);
+
+	public void reload() {
+		reloadTree(treePanel, rootNode);
 	}
 
 	protected abstract XMLTreeLoader initXMLLoader();
@@ -164,13 +168,12 @@ public abstract class MyTreePanel extends Panel {
 		Tool tool = new Tool(Tool.REFRESH, new Function() {
 			public void execute() {
 				reloadTree(treePanel, root);
-			}			
-		}, "Refresh");		
+			}
+		}, "Refresh");
 		treePanel.addTool(tool);
 	}
-	
-	private void reloadTree(final TreePanel treePanel,
-			final AsyncTreeNode root) {
+
+	private void reloadTree(final TreePanel treePanel, final AsyncTreeNode root) {
 		treePanel.getEl().mask("Loading", "x-mask-loading");
 		root.reload();
 		root.collapse(true, false);
@@ -182,7 +185,7 @@ public abstract class MyTreePanel extends Panel {
 		};
 		timer.schedule(1000);
 	}
-	
+
 	public void reloadTree() {
 		reload();
 	}
@@ -197,12 +200,11 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setSelectionModel(new MultiSelectionModel());
 		treePanel.setShadow(false);
 		treePanel.setWidth(width);
-		treePanel.setHeight(height);		
+		treePanel.setHeight(height);
 		// treePanel.setAutoHeight(true);
 		treePanel.setAutoScroll(true);
 		treePanel.setDdScroll(true);
 		treePanel.setPaddings(8);
-		
 
 		// treePanel.getElement().setClassName("activityView");
 		return treePanel;
@@ -214,17 +216,22 @@ public abstract class MyTreePanel extends Panel {
 		TreeNode[] nodes = selectionModel.getSelectedNodes();
 		for (TreeNode treeNode : nodes) {
 			GWT.log("selected nodes" + treeNode.getText());
-		}		
+		}
 		return nodes;
 	}
-		
-	
+
+	public void clearSelections() {
+		MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
+				.getSelectionModel();
+		selectionModel.clearSelections();
+	}
+
 	public List<String> convertSelectedTreeToList() {
 		List<String> selectedTreeNodes = new LinkedList<String>();
 		for (TreeNode node : getSelectedNodes()) {
 			selectedTreeNodes.add(node.getText());
 		}
 		return selectedTreeNodes;
-	} 
+	}
 
 }

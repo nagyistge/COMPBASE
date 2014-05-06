@@ -76,6 +76,7 @@ public class CompetenceSelectionWidget extends Composite {
 	private CatchwordSelectionTree catchwordTree;
 
 	private ContextFactory contextFactory;
+	private String filter = "all";
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
@@ -84,28 +85,25 @@ public class CompetenceSelectionWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
 
-		this.competenceTree = new CompetenceSelectionPanel(
-				contextFactory.getServerURL()
-						+ "/competences/xml/competencetree/"
-						+ contextFactory.getCourseId() + "/all/nocache",
-				"Kompetenzen", "competenceView", 650, 250, "Kompetenzen");
-		// panel.add(competencePanel);
-		competenceTreeCaptionPanel.add(competenceTree);
+		updateFilteredPanel("all", null);
 
 		this.operatorTree = new OperatorSelectionPanel(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Operatoren", "operatorView", 300, 150, "Operatoren");
+				"Operatoren", "operatorView", 300, 150, "Operatoren",
+				contextFactory);
 		operatorCaptionPanel.add(operatorTree);
 
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Schlagworte", "catchwordView", 325, 200, "Schlagworte");
+				"Schlagworte", "catchwordView", 325, 200, "Schlagworte",
+				contextFactory);
 		catchwordCaptionPanel.add(catchwordTree);
 
+		this.alleRadioButton.setValue(true);
 		// competenceCompulsoryCheckbox
 
 	}
@@ -186,37 +184,58 @@ public class CompetenceSelectionWidget extends Composite {
 
 	@UiHandler("alleRadioButton")
 	void onRadioButtonClick(ClickEvent event) {
-		String filter = "all";
-		updateFilteredPanel(filter);
+		filter = "all";
+		updateFilteredPanel(filter, null);
 	}
 
 	@UiHandler("verpflichtendeRadioButton")
 	void onRadioButton_1Click(ClickEvent event) {
-		String filter = "true";
-		updateFilteredPanel(filter);
+		filter = "true";
+		updateFilteredPanel(filter, null);
 	}
 
 	@UiHandler("nichtVerpflichtendeRadioButton")
 	void onRadioButton_2Click(ClickEvent event) {
-		String filter = "false";
-		updateFilteredPanel(filter);
+		filter = "false";
+		updateFilteredPanel(filter, null);
 	}
 
-	private void updateFilteredPanel(String filter) {
+	private void updateFilteredPanel(String filter, String query) {
 		competenceTreeCaptionPanel.clear();
+		String queryString = "";
+		if (query != null) {
+			queryString += query;
+		}
 		competenceTree = new CompetenceSelectionPanel(
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
 						+ contextFactory.getCourseId() + "/" + filter
-						+ "/nocache");
+						+ "/nocache" + queryString, contextFactory);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
 
 	@UiHandler("resetButton")
 	void onResetButtonClick(ClickEvent event) {
+		updateFilteredPanel("all", null);
+		operatorTree.clearSelections();
+		catchwordTree.clearSelections();
 	}
 
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
+		String query = "?";
+		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
+			query += "selectedOperators=";
+			query += selectedOperator;
+			query += "&";
+		}
+		for (String selectedCatchwords : catchwordTree
+				.convertSelectedTreeToList()) {
+			query += "selectedCatchwords=";
+			query += selectedCatchwords;
+			query += "&";
+		}
+		query = query.substring(0, query.length() - 1);
+		updateFilteredPanel(filter, query);
 	}
 }

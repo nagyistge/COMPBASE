@@ -92,4 +92,20 @@ public class CompetenceServiceRestJSON {
 		return result;
 	}
 
+	/*
+	 * GET the selected competences for the selection
+	 * 
+	 * @param course
+	 * 
+	 * @param cache
+	 * 
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/selected/{course}")
+	public String[] getSelected(@PathParam("course") String course) {
+		return CompetenceServiceWrapper.getSelected(course);
+	}
+
 }
