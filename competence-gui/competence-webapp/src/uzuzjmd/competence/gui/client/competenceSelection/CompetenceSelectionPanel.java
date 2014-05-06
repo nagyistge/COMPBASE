@@ -8,9 +8,17 @@ import com.gwtext.client.widgets.tree.XMLTreeLoader;
 public class CompetenceSelectionPanel extends CheckableTreePanel {
 
 	public CompetenceSelectionPanel(String databaseConnectionString,
-			String rootLabel, String className, Integer width, Integer height, String title) {
-		super(databaseConnectionString, rootLabel, className, width, height, title);
+			String rootLabel, String className, Integer width, Integer height,
+			String title) {
+		super(databaseConnectionString, rootLabel, className, width, height,
+				title);
 		// TODO Auto-generated constructor stub
+	}
+
+	public CompetenceSelectionPanel(String dataString) {
+		// TODO Auto-generated constructor stub
+		super(dataString, "Kompetenzen", "competenceView", 650, 250,
+				"Kompetenzen");
 	}
 
 	@Override
