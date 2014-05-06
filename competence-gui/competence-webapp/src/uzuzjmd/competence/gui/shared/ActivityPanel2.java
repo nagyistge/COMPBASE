@@ -2,6 +2,7 @@ package uzuzjmd.competence.gui.shared;
 
 import static com.google.gwt.query.client.GQuery.$;
 import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.ContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -20,8 +21,10 @@ import com.gwtext.client.widgets.tree.event.TreeLoaderListener;
 public class ActivityPanel2 extends MyTreePanel {
 
 	public ActivityPanel2(String databaseConnectionString, String rootLabel,
-			String className, Integer width, Integer height, String title) {
-		super(databaseConnectionString, rootLabel, className, width, height, title);
+			String className, Integer width, Integer height, String title,
+			ContextFactory contextFactory) {
+		super(databaseConnectionString, rootLabel, className, width, height,
+				title, contextFactory);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,6 +58,7 @@ public class ActivityPanel2 extends MyTreePanel {
 
 			@Override
 			public void onLoad(TreeLoader self, TreeNode node, String response) {
+
 				GQuery gqueryNode = $(".x-tree-node-anchor");
 				for (int i = 0; i < gqueryNode.length(); i++) {
 					Element element = gqueryNode.get(i);

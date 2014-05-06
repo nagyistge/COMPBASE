@@ -1,17 +1,22 @@
 package uzuzjmd.competence.service.rest;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.ws.rs.WebApplicationException;
 
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree;
 import uzuzjmd.competence.owl.access.CompFileUtil;
 import uzuzjmd.competence.owl.access.CompOntologyAccess;
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.access.OntResult;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.owl.queries.CompetenceQueries;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
@@ -24,8 +29,15 @@ import com.hp.hpl.jena.rdf.model.Statement;
 public class CompetenceServiceWrapper {
 
 	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		CompOntologyManager compOntologyManager = startManager();
+		if (selectedCatchwordArray == null) {
+			selectedCatchwordArray = new LinkedList<String>();
+		}
+		if (selectedOperatorsArray == null) {
+			selectedOperatorsArray = new LinkedList<String>();
+		}
 		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
+		compOntologyManager.close();
 		return ont2CompetenceTree;
 	}
 
@@ -154,8 +166,28 @@ public class CompetenceServiceWrapper {
 		compOntologyManager.begin();
 		Individual courseContextIndividual = createCourseContext(course, compOntologyManager.getUtil());
 		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
-		String result = courseContextIndividual.getProperty(requirementsLiteral).asTriple().getObject().getLiteralLexicalForm();
+		Statement statement = courseContextIndividual.getProperty(requirementsLiteral);
+		String result = "";
+		if (statement != null) {
+			result = statement.asTriple().getObject().getLiteralLexicalForm();
+		}
 		compOntologyManager.close();
 		return result;
+	}
+
+	public static String[] getSelected(String course) {
+		CompOntologyManager compOntologyManager = startManager();
+		CompOntologyAccess util = compOntologyManager.getUtil();
+		CompetenceQueries queries = new CompetenceQueries(compOntologyManager.getM());
+		List<String> result = new LinkedList<String>();
+		ConcurrentLinkedQueue<Individual> competenceIndividuals = queries.getRelatedIndividualsDomainGiven(course, CompObjectProperties.CourseContextOf);
+		Iterator<Individual> it = competenceIndividuals.iterator();
+		while (it.hasNext()) {
+			Individual competenceIndividual = it.next();
+			OntClass competenceClass = competenceIndividual.getOntClass(true);
+			result.add(CompOntologyAccessScala.getDefinitionString(competenceClass, compOntologyManager));
+		}
+		compOntologyManager.close();
+		return result.toArray(new String[0]);
 	}
 }
