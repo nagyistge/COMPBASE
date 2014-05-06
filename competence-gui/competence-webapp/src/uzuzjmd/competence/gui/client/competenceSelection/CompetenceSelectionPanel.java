@@ -1,13 +1,15 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.competenceSelection;
+
+import uzuzjmd.competence.gui.shared.CheckableTreePanel;
 
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
 
-public class CatchwordSelectionTree extends MyTreePanel {
+public class CompetenceSelectionPanel extends CheckableTreePanel {
 
-	public CatchwordSelectionTree(String databaseConnectionString,
-			String rootLabel, String className, Integer width, String title) {
-		super(databaseConnectionString, rootLabel, className, width, title);
+	public CompetenceSelectionPanel(String databaseConnectionString,
+			String rootLabel, String className, Integer width, Integer height, String title) {
+		super(databaseConnectionString, rootLabel, className, width, height, title);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -16,14 +18,14 @@ public class CatchwordSelectionTree extends MyTreePanel {
 		final XMLTreeLoader loader = new XMLTreeLoader();
 		loader.setDataUrl(databaseConnectionString);
 		loader.setMethod(Connection.GET);
-		loader.setRootTag("catchwordXMLTrees");
+		loader.setRootTag("competenceXMLTrees");
 		loader.setFolderTitleMapping("@name");
-		loader.setFolderTag("catchword");
+		loader.setFolderTag("competence");
 		loader.setLeafTitleMapping("@name");
-		loader.setLeafTag("catchword");
+		loader.setLeafTag("competence");
 		loader.setQtipMapping("@qtip");
 		loader.setDisabledMapping("@disabled");
-		// loader.setCheckedMapping("isCompulsory");
+		loader.setCheckedMapping("isCompulsory");
 		// loader.setIconMapping("@icon");
 		// loader.setHrefMapping("moodleUrl");
 		// loader.setHrefTargetMapping("moodleUrl");
