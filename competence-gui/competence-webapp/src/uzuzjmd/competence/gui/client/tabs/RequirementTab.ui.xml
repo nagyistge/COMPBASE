@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:VerticalPanel>
+			<g:SimplePanel ui:field="tabExplainationPanel"
+				styleName="alert alert-info" />
+			<g:VerticalPanel ui:field="competenceSelectionAndRequirementPanel">
+				<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
+				<g:CaptionPanel ui:field="requirementTextBoxPlaceholder"
+					styleName="requirementTextArea" captionText="Anforderungen">
+					<g:ScrollPanel>
+						<g:TextArea ui:field="requirementTextArea" styleName="requirementTextAreaBox" />
+					</g:ScrollPanel>
+				</g:CaptionPanel>
+			</g:VerticalPanel>
+			<g:HorizontalPanel ui:field="buttonPanel">
+				<g:Button ui:field="submitButton">abschicken</g:Button>
+				<g:Button ui:field="deleteContextButton">Zuordnung für diesen Kurs löschen</g:Button>
+			</g:HorizontalPanel>
+		</g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
