@@ -212,7 +212,6 @@ public class CompetenceSelectionWidget extends Composite {
 						+ contextFactory.getCourseId() + "/" + filter
 						+ "/nocache" + queryString, contextFactory);
 		competenceTreeCaptionPanel.add(competenceTree);
-		competenceTree.setCompetenceSelected();
 	}
 
 	@UiHandler("resetButton")
