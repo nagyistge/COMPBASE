@@ -14,6 +14,7 @@ import uzuzjmd.competence.gui.shared.MyTreePanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -46,6 +47,7 @@ public class LinkEvidenceTab extends Composite {
 	private ContextFactory contextFactory;
 
 	final HashMap<String, String> activityMap = new HashMap<String, String>();
+	final HashMap<String, String> activityMapToUser = new HashMap<String, String>();
 
 	interface LinkEvidenceTabUiBinder extends UiBinder<Widget, LinkEvidenceTab> {
 	}
@@ -89,9 +91,11 @@ public class LinkEvidenceTab extends Composite {
 
 			@Override
 			public void onSuccess(Method arg0, Document arg1) {
-				Node activityListNode = arg1.getFirstChild().getFirstChild();
-
-				NodeList activityList = activityListNode.getChildNodes();
+				Node activityNode = null;
+				for (int k = 0; k < arg1.getFirstChild().getChildNodes()
+						.getLength(); k++)
+					activityNode = arg1.getFirstChild().getChildNodes().item(k);
+				NodeList activityList = activityNode.getChildNodes();
 				for (int i = 0; i < activityList.getLength(); i++) {
 					NodeList activityLeafs = activityList.item(i)
 							.getChildNodes();
@@ -101,11 +105,15 @@ public class LinkEvidenceTab extends Composite {
 								.getNodeValue();
 						String value = node.getFirstChild().getFirstChild()
 								.toString();
+						String uservalue = activityNode.getAttributes()
+								.getNamedItem("name").getNodeValue();
 						activityMap.put(key, value);
+						activityMapToUser.put(key, uservalue);
 					}
 				}
 				GWT.log("activity map initialized" + activityMap.toString());
-				// Window.alert(activityMap.toString());
+				Window.alert(activityMap.toString());
+				Window.alert(activityMapToUser.toString());
 
 			}
 
