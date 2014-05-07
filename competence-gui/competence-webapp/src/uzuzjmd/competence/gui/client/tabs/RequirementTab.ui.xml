@@ -10,7 +10,8 @@
 			<g:SimplePanel ui:field="tabExplainationPanel"
 				styleName="alert alert-info" />
 			<g:VerticalPanel ui:field="competenceSelectionAndRequirementPanel">
-				<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
+				<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"/>
+				<g:SimplePanel ui:field="hrDividerPanel"/>
 				<g:CaptionPanel ui:field="requirementTextBoxPlaceholder"
 					styleName="requirementTextArea" captionText="Anforderungen">
 					<g:ScrollPanel>
@@ -18,6 +19,7 @@
 					</g:ScrollPanel>
 				</g:CaptionPanel>
 			</g:VerticalPanel>
+			<g:SimplePanel ui:field="hrDividerPanel2"/>
 			<g:HorizontalPanel ui:field="buttonPanel">
 				<b:Button ui:field="submitButton">abschicken</b:Button>
 				<b:Button ui:field="deleteContextButton">Zuordnung für diesen Kurs löschen</b:Button>
