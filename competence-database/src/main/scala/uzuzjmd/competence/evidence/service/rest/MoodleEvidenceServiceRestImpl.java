@@ -98,10 +98,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
-		Response response = Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).header("Access-Control-Allow-Origin", "*").build();
-//		Response response =
-//		Response.status(200).entity(moodleServiceImpl.getUserTree(course)).header("Access-Control-Allow-Origin",
-//		"*").build();
+		Response response = Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
 		return response;
 	}
 
