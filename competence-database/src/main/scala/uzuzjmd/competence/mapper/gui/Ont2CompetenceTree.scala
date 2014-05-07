@@ -19,6 +19,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.view.xml.DummyTree
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
+import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
@@ -90,6 +91,11 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
       && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
   }
 
+  def hasCourse(ontClass: OntClass): Boolean = {
+    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, util)
+    return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
+  }
+
   def containsCatchword(ontClass: OntClass): Boolean = {
     return true;
   }
@@ -105,7 +111,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsCatchword)
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -118,7 +124,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Catchword);
-    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsOperator)
+    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsCatchword)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -128,14 +134,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * returns the competencetree
    */
   def getComptenceTree(): java.util.List[CompetenceXMLTree] = {
-    ontologyManager.begin()
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], hasLinks)
-    result.setIsCompulsory(compulsory);
-    ontologyManager.close()
-    val filteredResult = filterCompetenceTree(filterResults(result))
-    return filteredResult.asJava
+    getCompetenceTreeHelper(hasLinks)
   }
 
   def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
@@ -162,4 +161,20 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
   }
 
+  def getComptenceTreeForCourse(): java.util.List[CompetenceXMLTree] = {
+    getCompetenceTreeHelper(hasCourse)
+  }
+
+  private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[uzuzjmd.competence.service.rest.dto.CompetenceXMLTree] = {
+    ontologyManager.begin()
+    // Klasse, in die rekursiv abgestiegen werden soll
+    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
+    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow)
+    result.setIsCompulsory(compulsory);
+    ontologyManager.close()
+    val filteredResult = filterCompetenceTree(filterResults(result))
+    return filteredResult.asJava
+  }
+
 }
+
