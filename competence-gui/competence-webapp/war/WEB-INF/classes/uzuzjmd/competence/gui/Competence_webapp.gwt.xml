@@ -11,6 +11,11 @@
 	<inherits name='com.gwtext.GwtExt' />
 	<inherits name='org.fusesource.restygwt.RestyGWT' />
 	<inherits name='com.github.gwtbootstrap.Bootstrap' />
+	
+	<add-linker name="xsiframe" />
+	<set-configuration-property name="devModeRedirectEnabled" value="true" />
+	
+<!-- 	<set-property name="compiler.useSourceMaps" value="true" /> -->
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
