@@ -16,6 +16,7 @@ import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
+import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
 
 public class CompetenceSelectionPanel extends CheckableTreePanel {
 
@@ -24,7 +25,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 			String title, ContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
 				title, contextFactory);
-		// TODO Auto-generated constructor stub
+		treePanel.addListener(new MyTreePanelLister());
 	}
 
 	public CompetenceSelectionPanel(String dataString,
@@ -32,9 +33,10 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", 650, 250,
 				"Kompetenzen", contextFactory);
+		treePanel.addListener(new MyTreePanelLister());
 	}
 
-	public void setCompetenceSelected() {
+	public void setCompetenceSelected(final TreeNode node) {
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/selected/" + contextFactory.getCourseId());
 		resource.get().send(new JsonCallback() {
@@ -43,8 +45,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 			public void onSuccess(Method arg0, JSONValue arg1) {
 				ArrayList<String> list = new ArrayList<String>();
 				convertToList(arg1, list);
-				doSelect(getTreePanel().getRootNode(), list);
-
+				doSelect(node, list);
 			}
 
 			private void convertToList(JSONValue arg1, ArrayList<String> list) {
@@ -101,6 +102,13 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		loader.setDisabledMapping("@disabled");
 		loader.setCheckedMapping("isCompulsory");
 		return loader;
+	}
+
+	private class MyTreePanelLister extends TreePanelListenerAdapter {
+		@Override
+		public void onLoad(TreeNode node) {
+			setCompetenceSelected(node);
+		}
 	}
 
 }
