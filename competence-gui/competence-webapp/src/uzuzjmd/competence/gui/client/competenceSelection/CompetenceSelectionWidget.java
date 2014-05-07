@@ -77,13 +77,16 @@ public class CompetenceSelectionWidget extends Composite {
 
 	private ContextFactory contextFactory;
 	private String filter = "all";
+	private String selectedFilter = null;
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
 
-	public CompetenceSelectionWidget(final ContextFactory contextFactory) {
+	public CompetenceSelectionWidget(final ContextFactory contextFactory,
+			String selectedFilter) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
+		this.selectedFilter = selectedFilter;
 
 		updateFilteredPanel("all", null);
 
@@ -210,7 +213,8 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
 						+ contextFactory.getCourseId() + "/" + filter
-						+ "/nocache" + queryString, contextFactory);
+						+ "/nocache" + queryString, contextFactory,
+				selectedFilter);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
 
@@ -223,6 +227,7 @@ public class CompetenceSelectionWidget extends Composite {
 
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
+
 		String query = "?";
 		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
 			query += "selectedOperators=";

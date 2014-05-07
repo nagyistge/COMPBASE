@@ -55,7 +55,7 @@ public class RequirementTab extends Composite {
 				.add(new Label(
 						"Wählen Sie mit SHIFT-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!"));
 		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory);
+				contextFactory, "selected");
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		// this.competenceSelectionAndRequirementPanel.setSize("auto", "auto");
 
