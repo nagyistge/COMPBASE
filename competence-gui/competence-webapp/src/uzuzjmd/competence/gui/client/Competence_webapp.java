@@ -1,9 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
-import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
-import uzuzjmd.competence.gui.shared.ActivityPanel2;
-import uzuzjmd.competence.gui.shared.MyTreePanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -26,20 +24,24 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-//		MyTreePanel activityPanel = new ActivityPanel2(
-//				"http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2",
-//				"Aktivitäten", "activityView", 300, "Aktivitäten");
-//		container.add(activityPanel);
+		// MyTreePanel activityPanel = new ActivityPanel2(
+		// "http://localhost:8083/moodle/activities/usertree/xml/crossdomain/2",
+		// "Aktivitäten", "activityView", 300, "Aktivitäten");
+		// container.add(activityPanel);
 
 		// Panel panel = new Panel();
 		// panel.setWidth(600);
 
 		final ContextFactory contextFactory = new ContextFactory();
 		RequirementTab tab = new RequirementTab(contextFactory);
-		container.add(tab);
-		
-//		CompetenceSelectionWidget competenceSelectionWidget = new CompetenceSelectionWidget();
-//		container.add(competenceSelectionWidget);
+
+		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
+		// container.add(tab);
+		container.add(tab2);
+
+		// CompetenceSelectionWidget competenceSelectionWidget = new
+		// CompetenceSelectionWidget();
+		// container.add(competenceSelectionWidget);
 
 	}
 

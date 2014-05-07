@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
@@ -49,15 +50,25 @@ public class RequirementTab extends Composite {
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
 
+	@UiField
+	SimplePanel hrDividerPanel;
+	@UiField
+	SimplePanel hrDividerPanel2;
+
 	public RequirementTab(final ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.tabExplainationPanel
 				.add(new Label(
 						"Wählen Sie mit SHIFT-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!"));
+		HTML html = new HTML(
+				"<hr class=\"fancy-line\" style=\"width:100%;\" />");
+		this.hrDividerPanel2.add(html);
+		this.hrDividerPanel.add(html);
+
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, "selected");
 		// competenceSelectionWidget = new CompetenceSelectionWidget(
-		// contextFactory, "selected", "coursecontext/");
+		// contextFactory, null, "coursecontext/");
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		// this.competenceSelectionAndRequirementPanel.setSize("auto", "auto");
