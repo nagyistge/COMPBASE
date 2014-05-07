@@ -147,13 +147,13 @@ Rückmeldung über die eigene Unterrichtstätigkeit</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#2">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterstrukturierenihrenUnterrichtindemsieeineVerlaufstabelleanlegen"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterwählenInhalteundMethodenArbeitsundKommunikationsformenaus"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieeinschlägigenBildungstheorien"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterwendenBewertungsmodelleundBewertungsmaßstäbefachundsituationsgerechtan"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieGrundlagenundStrukturendesBildungssystemsundvonSchulealsOrganisation"/>
-    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterkennendieeinschlägigenBildungstheorien"/>
-    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterwendenBewertungsmodelleundBewertungsmaßstäbefachundsituationsgerechtan"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihrepersönlichenberufsbezogenenWertvorstellungenundEinstellungen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärtersetzenArbeitszeitundArbeitsmittelzweckdienlichundökonomischein"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterpraktizierenkollegialeBeratungalsHilfezurUnterrichtsentwicklungundArbeitsentlastung"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärternutzenformelleundinformelleindividuelleundkooperativeWeiterbildungsangebote"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihreFähigkeitenimHandlungsfeldSchuletheoretischundkonzipierendarausgeeigneteHandlungsmodelle"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterreflektierenihrepersönlichenberufsbezogenenWertvorstellungenundEinstellungen"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterpraktizierenkollegialeBeratungalsHilfezurUnterrichtsentwicklungundArbeitsentlastung"/>
     <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Innovieren">
