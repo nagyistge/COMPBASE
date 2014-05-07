@@ -1,7 +1,6 @@
 package uzuzjmd.competence.gui.client.competenceSelection;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
@@ -15,14 +14,10 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
-import com.gwtext.client.widgets.tree.TreeLoader;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
-import com.gwtext.client.widgets.tree.event.TreeLoaderListener;
 
 public class CompetenceSelectionPanel extends CheckableTreePanel {
-
-	private List<String> toSelect;
 
 	public CompetenceSelectionPanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
@@ -39,29 +34,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 				"Kompetenzen", contextFactory);
 	}
 
-	// @Override
-	// protected TreePanel initTreePanel() {
-	// // TODO Auto-generated method stub
-	// TreePanel treePanel = super.initTreePanel();
-	// treePanel.addListener(new MyTreeListenerAdaptor(contextFactory,
-	// treePanel));
-	// return treePanel;
-	// }
-
-	// private class MyTreeListenerAdaptor extends TreePanelListenerAdapter {
-	//
-	// private ContextFactory contextFactory;
-	// private TreePanel tree;
-	//
-	// public MyTreeListenerAdaptor(final ContextFactory contextFactory,
-	// final TreePanel tree) {
-	// this.contextFactory = contextFactory;
-	// this.tree = tree;
-	// }
-	//
-	// }
-
-	public void setCompetenceSelected() {		
+	public void setCompetenceSelected() {
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/selected/" + contextFactory.getCourseId());
 		resource.get().send(new JsonCallback() {
@@ -69,6 +42,12 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 			@Override
 			public void onSuccess(Method arg0, JSONValue arg1) {
 				ArrayList<String> list = new ArrayList<String>();
+				convertToList(arg1, list);
+				doSelect(getTreePanel().getRootNode(), list);
+
+			}
+
+			private void convertToList(JSONValue arg1, ArrayList<String> list) {
 				JSONArray jsonArray = (JSONArray) arg1;
 				if (jsonArray != null) {
 					int len = jsonArray.size();
@@ -76,9 +55,6 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 						list.add(jsonArray.get(i).toString());
 					}
 				}
-				toSelect = list;				
-				doSelect(getTreePanel().getRootNode());
-
 			}
 
 			@Override
@@ -88,24 +64,28 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		});
 	}
 
-	private void doSelect(TreeNode node) {
-		if (node != null) {
-//			if (toSelect.contains(node.getText())) {				
-//				MultiSelectionModel selectionModel = (MultiSelectionModel) getTreePanel().getSelectionModel();
-//				selectionModel.select(node, true);
-//			}
-			
-			MultiSelectionModel selectionModel = (MultiSelectionModel) getTreePanel().getSelectionModel();
-			selectionModel.select(node, true);
+	private void doSelect(TreeNode node, ArrayList<String> list) {
+		MultiSelectionModel selectionModel = (MultiSelectionModel) getTreePanel()
+				.getSelectionModel();
+		TreeNode found = treePanel.getNodeById(node.getId());
+		for (String selected : list) {
+			selected = cleanString(selected);
+			String nodeString = cleanString(found.getText());
+			if (selected.equals(nodeString)) {
+				selectionModel.select(node, true);
+			}
 		}
+
 		for (int i = 0; i < node.getChildNodes().length; i++) {
-			TreeNode child = (TreeNode) node.getChildNodes()[i];			
-			doSelect(child);			
+			TreeNode child = (TreeNode) node.getChildNodes()[i];
+			doSelect(child, list);
 		}
 
 	}
-	
-	
+
+	private String cleanString(String selected) {
+		return selected.trim().toLowerCase().replace("\"", "");
+	}
 
 	@Override
 	protected XMLTreeLoader initXMLLoader() {
@@ -119,7 +99,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		loader.setLeafTag("competence");
 		loader.setQtipMapping("@qtip");
 		loader.setDisabledMapping("@disabled");
-		loader.setCheckedMapping("isCompulsory");				
+		loader.setCheckedMapping("isCompulsory");
 		return loader;
 	}
 
