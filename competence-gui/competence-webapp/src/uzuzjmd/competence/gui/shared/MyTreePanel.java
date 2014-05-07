@@ -37,12 +37,12 @@ public abstract class MyTreePanel extends Panel {
 
 	private XMLTreeLoader xmlLoader;
 
-	private AsyncTreeNode rootNode;
+	protected AsyncTreeNode rootNode;
 
 	public TreePanel getTreePanel() {
 		return treePanel;
 	}
-	
+
 	/**
 	 * 
 	 * 
