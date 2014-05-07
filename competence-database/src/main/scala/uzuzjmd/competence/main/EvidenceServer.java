@@ -10,6 +10,7 @@ import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.service.rest.ResponseCorsFilter;
 import uzuzjmd.competence.view.xml.AbstractTreeEntry;
 import uzuzjmd.competence.view.xml.AbstractXMLTree;
 
@@ -70,6 +71,7 @@ public class EvidenceServer {
 	private static void publishRestServer() throws IOException {
 		ResourceConfig resourceConfig = new DefaultResourceConfig(MoodleEvidenceServiceRestImpl.class, UserTree.class, AbstractTreeEntry.class, AbstractXMLTree.class, ActivityTyp.class,
 				ActivityEntry.class);
+		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, resourceConfig);
 		System.out.println("publishing rest server to to " + MagicStrings.RESTURL);
 		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle/activities/json/2/2");
