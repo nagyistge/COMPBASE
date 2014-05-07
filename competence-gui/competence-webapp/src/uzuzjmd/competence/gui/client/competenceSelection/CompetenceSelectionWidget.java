@@ -78,6 +78,7 @@ public class CompetenceSelectionWidget extends Composite {
 	private ContextFactory contextFactory;
 	private String filter = "all";
 	private String selectedFilter = null;
+	private String competenceTreeFilter = "";
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
@@ -85,19 +86,37 @@ public class CompetenceSelectionWidget extends Composite {
 	public CompetenceSelectionWidget(final ContextFactory contextFactory,
 			String selectedFilter) {
 		initWidget(uiBinder.createAndBindUi(this));
+		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		// competenceCompulsoryCheckbox
+	}
+
+	/**
+	 * competennceFilter needs to end with /
+	 * 
+	 * @param contextFactory
+	 * @param selectedFilter
+	 * @param competenceTreeFilter
+	 */
+	public CompetenceSelectionWidget(final ContextFactory contextFactory,
+			String selectedFilter, String competenceTreeFilter) {
+		initWidget(uiBinder.createAndBindUi(this));
+		this.competenceTreeFilter = competenceTreeFilter;
+		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		// competenceCompulsoryCheckbox
+	}
+
+	private void initCompetenceSelectionWidget(
+			final ContextFactory contextFactory, String selectedFilter) {
 		this.contextFactory = contextFactory;
 		this.selectedFilter = selectedFilter;
 
 		updateFilteredPanel("all", null);
+		initOperatorTree(contextFactory);
+		initCatchwordTree(contextFactory);
+		this.alleRadioButton.setValue(true);
+	}
 
-		this.operatorTree = new OperatorSelectionPanel(
-				contextFactory.getServerURL()
-						+ "/competences/xml/operatortree/"
-						+ contextFactory.getCourseId() + "/nocache",
-				"Operatoren", "operatorView", 300, 150, "Operatoren",
-				contextFactory);
-		operatorCaptionPanel.add(operatorTree);
-
+	private void initCatchwordTree(final ContextFactory contextFactory) {
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
@@ -105,10 +124,16 @@ public class CompetenceSelectionWidget extends Composite {
 				"Schlagworte", "catchwordView", 325, 200, "Schlagworte",
 				contextFactory);
 		catchwordCaptionPanel.add(catchwordTree);
+	}
 
-		this.alleRadioButton.setValue(true);
-		// competenceCompulsoryCheckbox
-
+	private void initOperatorTree(final ContextFactory contextFactory) {
+		this.operatorTree = new OperatorSelectionPanel(
+				contextFactory.getServerURL()
+						+ "/competences/xml/operatortree/"
+						+ contextFactory.getCourseId() + "/nocache",
+				"Operatoren", "operatorView", 300, 150, "Operatoren",
+				contextFactory);
+		operatorCaptionPanel.add(operatorTree);
 	}
 
 	public void handleDeleteClick() {
@@ -212,9 +237,9 @@ public class CompetenceSelectionWidget extends Composite {
 		competenceTree = new CompetenceSelectionPanel(
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
-						+ contextFactory.getCourseId() + "/" + filter
-						+ "/nocache" + queryString, contextFactory,
-				selectedFilter);
+						+ competenceTreeFilter + contextFactory.getCourseId()
+						+ "/" + filter + "/nocache" + queryString,
+				contextFactory, selectedFilter);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
 

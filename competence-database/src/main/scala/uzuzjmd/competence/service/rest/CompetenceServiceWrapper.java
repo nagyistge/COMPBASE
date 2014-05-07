@@ -85,7 +85,7 @@ public class CompetenceServiceWrapper {
 	 * @param util
 	 * @return
 	 */
-	private static Individual createCourseContext(String course, CompOntologyAccess util) {
+	public static Individual createCourseContext(String course, CompOntologyAccess util) {
 
 		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
 		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
@@ -176,6 +176,7 @@ public class CompetenceServiceWrapper {
 	}
 
 	public static String[] getSelected(String course) {
+
 		CompOntologyManager compOntologyManager = startManager();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 		CompetenceQueries queries = new CompetenceQueries(compOntologyManager.getM());
@@ -189,5 +190,12 @@ public class CompetenceServiceWrapper {
 		}
 		compOntologyManager.close();
 		return result.toArray(new String[0]);
+	}
+
+	public static CompetenceXMLTree[] getCompetenceTreeForCourse(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean) {
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTreeForCourse();
+		assert (!tmpResult.isEmpty());
+		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
 }

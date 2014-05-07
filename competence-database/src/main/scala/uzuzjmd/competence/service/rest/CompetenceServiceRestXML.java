@@ -52,25 +52,36 @@ public class CompetenceServiceRestXML {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/{course}/{compulsory}/{cache}")
-	public Response getCompetenceTree(
-			@PathParam("course") String course,
-			@PathParam("compulsory") String compulsory,
-			@PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
-			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
+	public Response getCompetenceTree(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper.getCompetenceTree(
-					selectedCatchwords, selectedOperators, course, null);
+			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, null);
 		} else {
 			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords,
-					selectedOperators, course, compulsoryBoolean);
+			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
 		}
-		
-		Response response = RestUtil.buildCachedResponse(result,
-				cache.equals("cached"));
+
+		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		return response;
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/competencetree/coursecontext/{course}/{compulsory}/{cache}")
+	public Response getCompetenceTreeForCourse(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
+
+		CompetenceXMLTree[] result = null;
+		if (compulsory.equals("all")) {
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(selectedCatchwords, selectedOperators, course, null);
+		} else {
+			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+		}
+
+		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
 		return response;
 	}
 
@@ -86,17 +97,12 @@ public class CompetenceServiceRestXML {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/operatortree/{course}/{cache}")
-	public Response getOperatorTree(
-			@PathParam("course") String course,
-			@PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+	public Response getOperatorTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree(
-				selectedCatchwords, selectedOperators, course);
+		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwords, selectedOperators, course);
 
-		Response response = RestUtil.buildCachedResponse(result,
-				cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
 		return response;
 	}
 
@@ -112,15 +118,10 @@ public class CompetenceServiceRestXML {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/catchwordtree/{course}/{cache}")
-	public Response getCatchwordTree(
-			@PathParam("course") String course,
-			@PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+	public Response getCatchwordTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree(
-				selectedCatchwords, selectedOperators, course);
-		Response response = RestUtil.buildCachedResponse(result,
-				cache.equals("cached"));
+		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwords, selectedOperators, course);
+		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
 		return response;
 	}
 
