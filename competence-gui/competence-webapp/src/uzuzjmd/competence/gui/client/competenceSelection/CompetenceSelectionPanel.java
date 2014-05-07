@@ -20,6 +20,9 @@ import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
 
 public class CompetenceSelectionPanel extends CheckableTreePanel {
 
+	private String selectedFilter;
+
+	@Deprecated
 	public CompetenceSelectionPanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
 			String title, ContextFactory contextFactory) {
@@ -28,41 +31,50 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
+	public void setSelectedFilter(String selectedFilter) {
+		this.selectedFilter = selectedFilter;
+	}
+
 	public CompetenceSelectionPanel(String dataString,
-			ContextFactory contextFactory) {
+			ContextFactory contextFactory, String selectedFilter) {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", 650, 250,
 				"Kompetenzen", contextFactory);
+		this.selectedFilter = selectedFilter;
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
-	public void setCompetenceSelected(final TreeNode node) {
-		Resource resource = new Resource(contextFactory.getServerURL()
-				+ "/competences/json/selected/" + contextFactory.getCourseId());
-		resource.get().send(new JsonCallback() {
+	private void setCompetenceSelected(final TreeNode node) {
+		if (selectedFilter != null) {
+			Resource resource = new Resource(contextFactory.getServerURL()
+					+ "/competences/json/" + selectedFilter + "/"
+					+ contextFactory.getCourseId());
+			resource.get().send(new JsonCallback() {
 
-			@Override
-			public void onSuccess(Method arg0, JSONValue arg1) {
-				ArrayList<String> list = new ArrayList<String>();
-				convertToList(arg1, list);
-				doSelect(node, list);
-			}
+				@Override
+				public void onSuccess(Method arg0, JSONValue arg1) {
+					ArrayList<String> list = new ArrayList<String>();
+					convertToList(arg1, list);
+					doSelect(node, list);
+				}
 
-			private void convertToList(JSONValue arg1, ArrayList<String> list) {
-				JSONArray jsonArray = (JSONArray) arg1;
-				if (jsonArray != null) {
-					int len = jsonArray.size();
-					for (int i = 0; i < len; i++) {
-						list.add(jsonArray.get(i).toString());
+				private void convertToList(JSONValue arg1,
+						ArrayList<String> list) {
+					JSONArray jsonArray = (JSONArray) arg1;
+					if (jsonArray != null) {
+						int len = jsonArray.size();
+						for (int i = 0; i < len; i++) {
+							list.add(jsonArray.get(i).toString());
+						}
 					}
 				}
-			}
 
-			@Override
-			public void onFailure(Method arg0, Throwable arg1) {
-				GWT.log("could not get selected competences from server");
-			}
-		});
+				@Override
+				public void onFailure(Method arg0, Throwable arg1) {
+					GWT.log("could not get selected competences from server");
+				}
+			});
+		}
 	}
 
 	private void doSelect(TreeNode node, ArrayList<String> list) {
