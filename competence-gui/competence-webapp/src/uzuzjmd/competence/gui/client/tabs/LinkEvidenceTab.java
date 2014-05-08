@@ -14,7 +14,6 @@ import uzuzjmd.competence.gui.shared.MyTreePanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -112,9 +111,6 @@ public class LinkEvidenceTab extends Composite {
 					}
 				}
 				GWT.log("activity map initialized" + activityMap.toString());
-				Window.alert(activityMap.toString());
-				Window.alert(activityMapToUser.toString());
-
 			}
 
 			@Override

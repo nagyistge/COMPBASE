@@ -92,7 +92,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def hasCourse(ontClass: OntClass): Boolean = {
-    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, util)
+    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
     return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
   }
 
