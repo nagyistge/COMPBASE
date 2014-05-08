@@ -12,4 +12,8 @@ public class ContextFactory {
 	public String getEvidenceServerURL() {
 		return "http://localhost:8083";
 	}
+
+	public String getRole() {
+		return "teacher";
+	}
 }

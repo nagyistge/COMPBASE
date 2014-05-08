@@ -13,6 +13,7 @@ import uzuzjmd.competence.owl.access.CompFileUtil;
 import uzuzjmd.competence.owl.access.CompOntologyAccess;
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.owl.access.CompOntologyManagerFactory;
 import uzuzjmd.competence.owl.access.OntResult;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
@@ -29,7 +30,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 public class CompetenceServiceWrapper {
 
 	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
-		CompOntologyManager compOntologyManager = startManager();
+		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		if (selectedCatchwordArray == null) {
 			selectedCatchwordArray = new LinkedList<String>();
 		}
@@ -63,11 +64,11 @@ public class CompetenceServiceWrapper {
 	public static void linkCompetencesToCourse(String course, List<String> competences, Boolean compulsoryBoolean, String requirements) {
 
 		System.out.println("linking competences: " + competences);
-		CompOntologyManager compOntologyManager = startManager();
+		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		compOntologyManager.startReasoning();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 
-		Individual courseContextIndividual = createCourseContext(course, util);
+		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
 		addRequirementLiteral(requirements, compOntologyManager, courseContextIndividual);
 		linkSingleCompetences(competences, compulsoryBoolean, requirements, compOntologyManager, util, courseContextIndividual);
 
@@ -85,8 +86,8 @@ public class CompetenceServiceWrapper {
 	 * @param util
 	 * @return
 	 */
-	public static Individual createCourseContext(String course, CompOntologyAccess util) {
-
+	public static Individual createCourseContext(String course, CompOntologyManager compOntologyManager) {
+		CompOntologyAccess util = compOntologyManager.getUtil();
 		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
 		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
 		return courseContextIndividual;
@@ -144,9 +145,8 @@ public class CompetenceServiceWrapper {
 	}
 
 	public static void delete(String course) {
-		CompOntologyManager compOntologyManager = startManager();
-		CompOntologyAccess util = compOntologyManager.getUtil();
-		Individual courseContextIndividual = createCourseContext(course, util);
+		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
+		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
 
 		courseContextIndividual.remove();
 		compOntologyManager.close();
@@ -154,17 +154,10 @@ public class CompetenceServiceWrapper {
 
 	}
 
-	private static CompOntologyManager startManager() {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		compOntologyManager.begin();
-		compOntologyManager.getM().enterCriticalSection(false);
-		return compOntologyManager;
-	}
-
 	public static String getRequirements(String course) {
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
-		Individual courseContextIndividual = createCourseContext(course, compOntologyManager.getUtil());
+		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
 		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
 		Statement statement = courseContextIndividual.getProperty(requirementsLiteral);
 		String result = "";
@@ -177,8 +170,7 @@ public class CompetenceServiceWrapper {
 
 	public static String[] getSelected(String course) {
 
-		CompOntologyManager compOntologyManager = startManager();
-		CompOntologyAccess util = compOntologyManager.getUtil();
+		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		CompetenceQueries queries = new CompetenceQueries(compOntologyManager.getM());
 		List<String> result = new LinkedList<String>();
 		ConcurrentLinkedQueue<Individual> competenceIndividuals = queries.getRelatedIndividualsDomainGiven(course, CompObjectProperties.CourseContextOf);
