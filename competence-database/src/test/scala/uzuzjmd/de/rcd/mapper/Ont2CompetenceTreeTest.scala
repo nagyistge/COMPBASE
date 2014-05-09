@@ -13,13 +13,14 @@ import uzuzjmd.competence.owl.dao.TeacherRole
 import org.scalatest.junit.JUnitRunner
 import org.specs2.specification.After
 import org.specs2.mutable.After
+import uzuzjmd.competence.owl.dao.User
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
 
   test("The CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    
+
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()
@@ -31,7 +32,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   }
 
   test("The filtered CompetenceTree should not be empty") {
-    val compOntManag = new CompOntologyManager()    
+    val compOntManag = new CompOntologyManager()
 
     compOntManag.begin()
     compOntManag.getM().validate()
@@ -58,7 +59,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
   }
-  
+
   test("the singletondao should persist without error") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
@@ -70,9 +71,21 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     teacherRole.persist
     teacherRole.persist.getIndividual() should not be null
     teacherRole.persist.getOntclass() should not be null
-    compOntManag.close()    
+    compOntManag.close()
   }
-  
+
+  test("the regular dao should persist without error") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User("me", teacherRole, compOntManag)
+    user.persist
+    user.exists should not be false
+    user.delete
+    user.exists should not be true
+    compOntManag.close()
+  }
+
   def showResult() {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
