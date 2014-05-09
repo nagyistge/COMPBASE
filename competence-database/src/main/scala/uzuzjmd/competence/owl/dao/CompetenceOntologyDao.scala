@@ -17,12 +17,18 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   }
 
   def delete {
-    val individual = persist()
-    individual.remove()
-    deleteMore()
+    if (exists) {
+      val individual = comp.getM().getIndividual(identifier)
+      individual.remove()
+      deleteMore()
+    }
   }
 
   protected def deleteMore()
   protected def persistMore()
+
+  def exists(): Boolean = {    
+    return comp.getM().getIndividual(identifier) != null
+  }
 
 }

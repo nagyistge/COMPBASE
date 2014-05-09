@@ -1,5 +1,8 @@
 package uzuzjmd.competence.owl.dao
 
-class TeacherRole extends Role {
+import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.owl.access.CompOntologyManager
+
+class TeacherRole(comp: CompOntologyManager) extends Role(comp, CompOntClass.TeacherRole) {
 
 }

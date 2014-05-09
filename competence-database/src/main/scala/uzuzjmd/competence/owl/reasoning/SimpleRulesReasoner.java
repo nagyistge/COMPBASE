@@ -124,5 +124,10 @@ public class SimpleRulesReasoner {
 	public GenericRuleReasoner getReasoner() {
 		return reasoner;
 	}
+	
+	public void switchOnDebug() {
+		getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, true);
+		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
+	}
 
 }

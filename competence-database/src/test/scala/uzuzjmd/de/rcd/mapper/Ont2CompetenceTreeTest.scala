@@ -1,28 +1,25 @@
 package uzuzjmd.de.rcd.mapper
 
-/*
-Testing the mapping
-
-*/
-import org.scalatest.FunSuite
-import scala.collection.JavaConverters._
-import org.scalatest.matchers.ShouldMatchers
+import scala.collection.JavaConverters.seqAsJavaListConverter
+import org.junit.AfterClass
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.main.CompetenceImporter
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.MagicStrings
+import org.scalatest.FunSuite
+import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree
-import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.owl.access.CompFileUtil
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.dao.StudentRole
+import uzuzjmd.competence.owl.dao.TeacherRole
+import org.scalatest.junit.JUnitRunner
+import org.specs2.specification.After
+import org.specs2.mutable.After
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
 
   test("The CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    compOntManag.switchOnDebug()
-
+    
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()
@@ -34,8 +31,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   }
 
   test("The filtered CompetenceTree should not be empty") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.switchOnDebug()
+    val compOntManag = new CompOntologyManager()    
 
     compOntManag.begin()
     compOntManag.getM().validate()
@@ -61,6 +57,28 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false)
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
+  }
+  
+  test("the singletondao should persist without error") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val studentRole = new StudentRole(compOntManag)
+    studentRole.persist
+    studentRole.persist.getIndividual() should not be null
+    studentRole.persist.getOntclass() should not be null
+    val teacherRole = new TeacherRole(compOntManag)
+    teacherRole.persist
+    teacherRole.persist.getIndividual() should not be null
+    teacherRole.persist.getOntclass() should not be null
+    compOntManag.close()    
+  }
+  
+  def showResult() {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val fileUtil = new CompFileUtil(compOntManag.getM())
+    fileUtil.writeOntologyout()
+    compOntManag.close()
   }
 
   //  test("A non-empty list should not be empty") {
