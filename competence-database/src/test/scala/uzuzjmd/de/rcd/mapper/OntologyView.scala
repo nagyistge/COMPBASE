@@ -18,7 +18,6 @@ class OntologyView extends FunSuite with ShouldMatchers {
   test("The CSV import should run without errors") {
 
     val compOntManag = new CompOntologyManager()
-    compOntManag.switchOnDebug()
 
     compOntManag.begin()
     compOntManag.getM().validate()

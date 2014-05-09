@@ -47,7 +47,7 @@ public class CompOntologyManager {
 	public void startReasoning() {
 		// init simple Rules Reasoner
 		initReasoner();
-		switchOnDebug();
+		rulesReasoner.switchOnDebug();
 		initRulesFactory(rulesReasoner);
 
 		// apply rules whenever the model is changed
@@ -182,10 +182,7 @@ public class CompOntologyManager {
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
 	}
 
-	public void switchOnDebug() {
-		rulesReasoner.getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, true);
-		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
-	}
+
 
 	public void sync() {
 		TDB.sync(dataset);
