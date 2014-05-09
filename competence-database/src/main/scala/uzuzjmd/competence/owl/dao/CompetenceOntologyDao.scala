@@ -6,29 +6,38 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.owl.access.CompOntologyManagerFactory
 import com.hp.hpl.jena.ontology.Individual
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
-abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, identifier: String) {
+abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, identifier: String) extends Dao (comp) {
   val util = comp.getUtil()
 
   def persist(): Individual = {
     val ontClass = util.createOntClass(compOntClass)
+    val result = util.createIndividualForString(ontClass, identifier)
     persistMore()
-    return util.createIndividualForString(ontClass, identifier)
+    return result
   }
 
   def delete {
     if (exists) {
-      val individual = comp.getM().getIndividual(identifier)
+      val individual = util.getIndividualForString(identifier)      
       individual.remove()
       deleteMore()
     }
   }
+  
+
 
   protected def deleteMore()
   protected def persistMore()
 
-  def exists(): Boolean = {    
-    return comp.getM().getIndividual(identifier) != null
+  def exists(): Boolean = {
+    val result = util.getIndividualForString(identifier)
+    return result != null
+  }
+  
+  def createIndividual : Individual = {
+     return persist()
   }
 
 }
