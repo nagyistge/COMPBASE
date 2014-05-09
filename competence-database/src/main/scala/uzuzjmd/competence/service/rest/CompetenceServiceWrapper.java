@@ -103,7 +103,7 @@ public class CompetenceServiceWrapper {
 			OntResult result = util.accessSingletonResource(competence);
 			Individual competenceIndividual = result.getIndividual();
 			util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
-			addCompulsoryLiteral(compulsoryBoolean, competenceIndividual, courseContextIndividual, compOntologyManager);
+			handleCompulsoryLink(compulsoryBoolean, competenceIndividual, courseContextIndividual, compOntologyManager);
 		}
 	}
 
@@ -123,7 +123,7 @@ public class CompetenceServiceWrapper {
 		return requirementsLiteral;
 	}
 
-	private static void addCompulsoryLiteral(Boolean compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {
+	private static void handleCompulsoryLink(Boolean compulsory, Individual competenceIndividual, Individual courseContextIndividual, CompOntologyManager compOntologyManager) {
 		if (compulsory) {
 			compOntologyManager.getUtil().createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CompulsoryOf);
 		} else {
