@@ -217,6 +217,12 @@ public class CompOntologyAccess {
 		Individual individual = createSingleTonIndividual(classOnt);
 		return new OntResult(individual, classOnt);
 	}
+	
+	public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass) {
+		OntClass classOnt = createOntClass(compOntClass);
+		Individual individual = createSingleTonIndividual(classOnt);
+		return new OntResult(individual, classOnt);
+	}
 
 	// /**
 	// * creates/gets the corresponding ontclass for the given individual
