@@ -140,3 +140,4 @@ competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/rpcPolicyM
 competence-database/.cache
 competence-gui/competence-webapp/.gwt/.gwt-log
 competence-gui/htdocs/moodle/mod/competence
+competence-database/mymodelrdf.owl
