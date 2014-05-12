@@ -3,7 +3,11 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
 
-class EvidenceActivity(val url: String, val printableName: String, comp: CompOntologyManager) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, url) {
+class EvidenceActivity(val url: String, val printableName: String, comp: CompOntologyManager) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, printableName) {
+
+  def URL = "url"
+  def PRINTABLENAME = "printableName"
+
   @Override
   protected def deleteMore() {
     //TODO
@@ -11,6 +15,7 @@ class EvidenceActivity(val url: String, val printableName: String, comp: CompOnt
 
   @Override
   protected def persistMore() {
-    //TODO  
+    addDataField(URL, url)
+    addDataField(PRINTABLENAME, printableName)
   }
 }
