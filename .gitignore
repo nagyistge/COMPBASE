@@ -137,3 +137,6 @@ competence-gui/htdocs/moodle/mod/*
 *gwt-unitCache*
 *.symbolMap
 competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/rpcPolicyManifest/manifest.txt
+competence-database/.cache
+competence-gui/competence-webapp/.gwt/.gwt-log
+competence-gui/htdocs/moodle/mod/competence
