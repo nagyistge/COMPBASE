@@ -14,6 +14,9 @@ import org.scalatest.junit.JUnitRunner
 import org.specs2.specification.After
 import org.specs2.mutable.After
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.owl.dao.Role
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
@@ -63,7 +66,8 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   test("the singletondao should persist without error") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
-    val studentRole = new StudentRole(compOntManag)
+    val role = new Role(compOntManag, CompOntClass.Role);
+    val studentRole = new StudentRole(compOntManag, role)
     studentRole.persist
     studentRole.persist.getIndividual() should not be null
     studentRole.persist.getOntclass() should not be null
@@ -72,6 +76,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     teacherRole.persist.getIndividual() should not be null
     teacherRole.persist.getOntclass() should not be null
     compOntManag.close()
+    showResult
   }
 
   test("the regular dao should persist without error") {
@@ -84,6 +89,22 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     user.delete
     user.exists should not be true
     compOntManag.close()
+    showResult
+  }
+  
+  test("if a dao is linked the link should exist") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User("me", teacherRole, compOntManag)
+    user.persist
+    user.exists should not be false
+    teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
+    user.delete
+    teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
+    user.exists should not be true
+    compOntManag.close()
+    showResult
   }
 
   def showResult() {
