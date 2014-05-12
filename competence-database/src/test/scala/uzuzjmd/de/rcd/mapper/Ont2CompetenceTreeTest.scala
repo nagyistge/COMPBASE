@@ -17,6 +17,7 @@ import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.dao.Role
+import uzuzjmd.competence.owl.dao.Comment
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
@@ -108,6 +109,23 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     teacherRole.deleteEdge(CompObjectProperties.RoleOf, user)
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
+    compOntManag.close()
+    showResult
+  }
+
+  test("if a comment is persisted it should have its datafields in place") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val testkommentar = "mein testkommentar"
+    val comment = new Comment(System.currentTimeMillis(), testkommentar, compOntManag)
+    comment.persist
+    comment.exists should not be false
+    val testkommentar2 = comment.getDataField(comment.TEXT)
+    comment.getDataField(comment.TEXT).equals(testkommentar) should not be false
+    (comment.getDataField(comment.DATECRATED) != null) should not be false
+    comment.deleteDataField(comment.TEXT)
+    (comment.getDataField(comment.TEXT) != null) should not be true
+    comment.hasDataField(comment.TEXT) should not be true
     compOntManag.close()
     showResult
   }

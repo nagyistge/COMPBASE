@@ -21,7 +21,7 @@ class AbstractEvidenceLink(val creator: User,
 
   @Override
   protected def persistMore() {
-    //TODO  
+
   }
 
 }
