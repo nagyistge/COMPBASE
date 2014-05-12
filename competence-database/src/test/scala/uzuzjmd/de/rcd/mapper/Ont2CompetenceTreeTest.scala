@@ -18,6 +18,10 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.dao.Role
 import uzuzjmd.competence.owl.dao.Comment
+import uzuzjmd.competence.owl.dao.EvidenceActivity
+import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
+import uzuzjmd.competence.owl.dao.StudentRole
+import uzuzjmd.competence.owl.dao.CourseContext
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
@@ -126,6 +130,30 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     comment.deleteDataField(comment.TEXT)
     (comment.getDataField(comment.TEXT) != null) should not be true
     comment.hasDataField(comment.TEXT) should not be true
+    compOntManag.close()
+    showResult
+  }
+
+  test("if a evidence link is created this should not cause errors") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val testkommentar = "mein testkommentar"
+    val comment = new Comment(System.currentTimeMillis(), testkommentar, compOntManag)
+    val testkommentar2 = "mein testkommentar2"
+    val comment2 = new Comment(System.currentTimeMillis(), testkommentar2, compOntManag)
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User("me", teacherRole, compOntManag)
+    val studentRole = new StudentRole(compOntManag)
+    val userstudent = new User("studentme", studentRole, compOntManag)
+    val coursecontext = new CourseContext("2", compOntManag)
+
+    val evidenceActivity = new EvidenceActivity("http://testest", "meine testaktivität", compOntManag)
+    val link = new AbstractEvidenceLink(user, userstudent, coursecontext, (comment :: comment :: Nil), evidenceActivity, System.currentTimeMillis(), false, compOntManag, CompOntClass.AbstractEvidenceLink)
+    link.persist
+    link.exists should not be false
+    link.delete
+    link.exists should not be true
+
     compOntManag.close()
     showResult
   }
