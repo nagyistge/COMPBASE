@@ -5,20 +5,24 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.OntResult
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
+import uzuzjmd.competence.owl.access.MagicStrings
 
-class CompetenceOntologySingletonDao(comp: CompOntologyManager, compOntClass: CompOntClass, superClass: CompetenceOntologySingletonDao) extends Dao(comp) {
+abstract class CompetenceOntologySingletonDao(comp: CompOntologyManager, compOntClass: CompOntClass) extends Dao(comp) {
   val util = comp.getUtil()
 
-  def persist(): OntResult = {
+  def persist(more: Boolean): OntResult = {
     val result = util.accessSingletonResourceWithClass(compOntClass)
-    if (superClass != null) {
-      val ontSuperClass = superClass.persist.getOntclass()
-      result.getOntclass().addSuperClass(ontSuperClass)
+    if (more) {
+      persistMore
     }
     return result
   }
 
   def createIndividual: Individual = {
-    return persist.getIndividual()
+    return persist(false).getIndividual()
+  }
+
+  def exists(): Boolean = {
+    return util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name()) != null
   }
 }

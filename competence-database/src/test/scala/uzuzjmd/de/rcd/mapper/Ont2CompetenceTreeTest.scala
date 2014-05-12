@@ -66,15 +66,14 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   test("the singletondao should persist without error") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
-    val role = new Role(compOntManag, CompOntClass.Role);
-    val studentRole = new StudentRole(compOntManag, role)
-    studentRole.persist
-    studentRole.persist.getIndividual() should not be null
-    studentRole.persist.getOntclass() should not be null
+    val studentRole = new StudentRole(compOntManag)
+    studentRole.persist(true)
+    studentRole.persist(false).getIndividual() should not be null
+    studentRole.persist(false).getOntclass() should not be null
     val teacherRole = new TeacherRole(compOntManag)
-    teacherRole.persist
-    teacherRole.persist.getIndividual() should not be null
-    teacherRole.persist.getOntclass() should not be null
+    teacherRole.persist(true)
+    teacherRole.persist(false).getIndividual() should not be null
+    teacherRole.persist(false).getOntclass() should not be null
     compOntManag.close()
     showResult
   }
@@ -91,7 +90,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     compOntManag.close()
     showResult
   }
-  
+
   test("if a dao is linked the link should exist") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
@@ -101,8 +100,14 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
     user.delete
+    user.exists should not be true
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
     user.exists should not be true
+    user.persist
+    teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
+    teacherRole.deleteEdge(CompObjectProperties.RoleOf, user)
+    user.exists should not be false
+    teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
     compOntManag.close()
     showResult
   }

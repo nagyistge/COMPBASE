@@ -217,7 +217,7 @@ public class CompOntologyAccess {
 		Individual individual = createSingleTonIndividual(classOnt);
 		return new OntResult(individual, classOnt);
 	}
-	
+
 	public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass) {
 		OntClass classOnt = createOntClass(compOntClass);
 		Individual individual = createSingleTonIndividual(classOnt);
@@ -260,7 +260,7 @@ public class CompOntologyAccess {
 
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
-			System.out.println("das ist nicht ok");
+			System.out.println("OntClass should not start with Prefix or empty string");
 		}
 		/**
 		 * control character werden nicht akzeptiert und leerzeichen sind auch

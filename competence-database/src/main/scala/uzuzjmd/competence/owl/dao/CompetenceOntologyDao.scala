@@ -19,14 +19,13 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
   def delete {
     if (exists) {
+      deleteMore()
       val individual = util.getIndividualForString(identifier)
       individual.remove()
-      deleteMore()
     }
   }
 
   protected def deleteMore()
-  protected def persistMore()
 
   def exists(): Boolean = {
     val result = util.getIndividualForString(identifier)
