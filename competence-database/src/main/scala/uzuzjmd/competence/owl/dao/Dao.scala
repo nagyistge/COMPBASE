@@ -16,6 +16,18 @@ abstract class Dao(comp: CompOntologyManager) {
     comp.getUtil().createObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
   }
 
+  def createEdgeWith(domain: Dao, edgeType: CompObjectProperties) {
+    val domainIndividual = domain.createIndividual
+    val rangeIndividual = createIndividual
+    comp.getUtil().createObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
+  }
+
+  def deleteEdgeWith(domain: Dao, edgeType: CompObjectProperties) {
+    val domainIndividual = domain.createIndividual
+    val rangeIndividual = createIndividual
+    comp.getUtil().deleteObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
+  }
+
   def deleteEdge(edgeType: CompObjectProperties, range: Dao) {
     val domainIndividual = createIndividual
     val rangeIndividual = range.createIndividual
@@ -26,6 +38,15 @@ abstract class Dao(comp: CompOntologyManager) {
     if (this.exists && range.exists) {
       val domainIndividual = createIndividual
       val rangeIndividual = range.createIndividual
+      val result = comp.getUtil().existsObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
+      return result
+    } else { return false }
+  }
+
+  def hasEdge(domain: Dao, edgeType: CompObjectProperties): Boolean = {
+    if (this.exists && domain.exists) {
+      val domainIndividual = domain.createIndividual
+      val rangeIndividual = createIndividual
       val result = comp.getUtil().existsObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
       return result
     } else { return false }
