@@ -7,6 +7,10 @@ import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.owl.access.CompOntologyManagerFactory
 import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import com.hp.hpl.jena.rdf.model.Statement
+import com.hp.hpl.jena.rdf.model.Literal
+import com.hp.hpl.jena.rdf.model.Property
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, identifier: String) extends Dao(comp) {
   val util = comp.getUtil()
