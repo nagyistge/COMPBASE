@@ -215,6 +215,11 @@ aufeinander ab</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Schulentwicklung"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Verantwortung</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#61297397">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1399890608999</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1399890704535</j.0:datecreated>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterpraktizierenkollegialeBeratungalsHilfezurUnterrichtsentwicklungundArbeitsentlastung">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterpraktizierenkollegialeBeratungalsHilfezurUnterrichtsentwicklungundArbeitsentlastung"/>
   </rdf:Description>
