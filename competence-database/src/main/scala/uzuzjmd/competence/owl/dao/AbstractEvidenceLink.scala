@@ -4,14 +4,18 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.access.CompOntologyAccess
 
-class AbstractEvidenceLink(val comp: CompOntologyManager, identifier: String, val creator: User = null,
+case class AbstractEvidenceLink(
+  val comp: CompOntologyManager,
+  identifier2: String,
+  val creator: User = null,
   val linkedUser: User = null,
   val courseContexts: CourseContext = null,
   val comments: List[Comment] = null,
   val evidenceActivity: EvidenceActivity = null,
   val dateCreated: java.lang.Long = null,
-  val isValidated: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier) {
+  val isValidated: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
 
   def CREATED = "datecreated"
   def ISVALIDATED = "isValidated"
