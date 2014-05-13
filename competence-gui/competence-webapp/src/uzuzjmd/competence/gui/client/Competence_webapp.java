@@ -36,8 +36,8 @@ public class Competence_webapp implements EntryPoint {
 		RequirementTab tab = new RequirementTab(contextFactory);
 
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		// container.add(tab);
-		container.add(tab2);
+		container.add(tab);
+		// container.add(tab2);
 
 		// CompetenceSelectionWidget competenceSelectionWidget = new
 		// CompetenceSelectionWidget();

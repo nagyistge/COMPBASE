@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import uzuzjmd.competence.view.xml.AbstractXMLTree;
+import uzuzjmd.java.collections.SortedList;
 
 @XmlRootElement(name = "operatorRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
@@ -23,7 +24,7 @@ public class OperatorXMLTree extends AbstractXMLTree<OperatorXMLTree> {
 
 	@XmlElement(name = "operator")
 	@Override
-	public List<OperatorXMLTree> getChildren() {
+	public SortedList<OperatorXMLTree> getChildren() {
 		return super.getChildren();
 	}
 
