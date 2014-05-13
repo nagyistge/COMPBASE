@@ -110,7 +110,7 @@ public class CompetenceServiceRestJSON {
 	}
 
 	/**
-	 * Link the competences to a course context
+	 * Link the competences to evidences
 	 * 
 	 * @param course
 	 * @param compulsory
@@ -121,10 +121,10 @@ public class CompetenceServiceRestJSON {
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("/link/create/{course}/{creator}")
+	@Path("/link/create/{course}/{creator}/{linkedUser}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @QueryParam(value = "competences") final List<String> competences,
-			@QueryParam(value = "evidences") final List<String> evidences) {
+	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("linkedUser") String linkedUser,
+			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
 		// TODO
 		// todo stuff here
