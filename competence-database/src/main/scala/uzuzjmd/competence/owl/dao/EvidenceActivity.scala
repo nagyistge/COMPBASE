@@ -3,7 +3,7 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
 
-class EvidenceActivity(val url: String, val printableName: String, comp: CompOntologyManager) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, printableName) {
+class EvidenceActivity(comp: CompOntologyManager, val printableName: String, val name: String = null, val url: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, printableName) {
 
   def URL = "url"
   def PRINTABLENAME = "printableName"
@@ -17,5 +17,13 @@ class EvidenceActivity(val url: String, val printableName: String, comp: CompOnt
   protected def persistMore() {
     addDataField(URL, url)
     addDataField(PRINTABLENAME, printableName)
+  }
+
+  def getFullDao(): CompetenceOntologyDao = {
+    if (getDataField(name) != null && getDataField(url) != null) {
+      return new EvidenceActivity(comp, printableName, getDataField(name).toString(), getDataField(url).toString())
+    } else {
+      return this;
+    }
   }
 }
