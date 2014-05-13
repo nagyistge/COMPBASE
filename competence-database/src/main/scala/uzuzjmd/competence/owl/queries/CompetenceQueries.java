@@ -81,6 +81,7 @@ public class CompetenceQueries {
 	 */
 	public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(final CompObjectProperties compObjectProperties, String rangeIndividualName) {
 		ConcurrentLinkedQueue<Individual> result = new ConcurrentLinkedQueue<Individual>();
+		// rangeIndividualName = CompOntologyAccess.encode(rangeIndividualName);
 
 		// Create a new query
 		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + "?individual  comp:" + compObjectProperties.name() + " comp:" + rangeIndividualName + "}";
@@ -91,6 +92,7 @@ public class CompetenceQueries {
 
 	public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, final CompObjectProperties compObjectProperties) {
 		ConcurrentLinkedQueue<Individual> result = new ConcurrentLinkedQueue<Individual>();
+		// domainIndividual = CompOntologyAccess.encode(domainIndividual);
 
 		// Create a new query
 		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + " comp:" + domainIndividual + " comp:" + compObjectProperties.name() + " ?individual" + "}";

@@ -46,7 +46,7 @@ class AbstractEvidenceLink(val comp: CompOntologyManager, identifier: String, va
   }
 
   @Override
-  def getFullDao(): CompetenceOntologyDao = {
+  def getFullDao(): AbstractEvidenceLink = {
     val comments = getAssociatedStandardDaosAsDomain(CompObjectProperties.CommentOf, classOf[Comment])
     val creator = getAssociatedStandardDaosAsRange(CompObjectProperties.createdBy, classOf[User]).head
     val courseContext = getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext])
