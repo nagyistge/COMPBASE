@@ -121,7 +121,9 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val testkommentar = "mein testkommentar"
-    val comment = new Comment(System.currentTimeMillis(), testkommentar, compOntManag)
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User("me", teacherRole, compOntManag)
+    val comment = new Comment(user, System.currentTimeMillis(), testkommentar, compOntManag)
     comment.persist
     comment.exists should not be false
     val testkommentar2 = comment.getDataField(comment.TEXT)
@@ -137,22 +139,20 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
   test("if a evidence link is created this should not cause errors") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
-    val testkommentar = "mein testkommentar"
-    val comment = new Comment(System.currentTimeMillis(), testkommentar, compOntManag)
-    val testkommentar2 = "mein testkommentar2"
-    val comment2 = new Comment(System.currentTimeMillis(), testkommentar2, compOntManag)
-    val teacherRole = new TeacherRole(compOntManag)
-    val user = new User("me", teacherRole, compOntManag)
     val studentRole = new StudentRole(compOntManag)
     val userstudent = new User("studentme", studentRole, compOntManag)
+    val testkommentar = "mein testkommentar"
+    val comment = new Comment(userstudent, System.currentTimeMillis(), testkommentar, compOntManag)
+    val testkommentar2 = "mein testkommentar2"
+    val comment2 = new Comment(userstudent, System.currentTimeMillis(), testkommentar2, compOntManag)
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User("me", teacherRole, compOntManag)
     val coursecontext = new CourseContext("2", compOntManag)
 
     val evidenceActivity = new EvidenceActivity("http://testest", "meine testaktivität", compOntManag)
     val link = new AbstractEvidenceLink(user, userstudent, coursecontext, (comment :: comment :: Nil), evidenceActivity, System.currentTimeMillis(), false, compOntManag, CompOntClass.AbstractEvidenceLink)
     link.persist
     link.exists should not be false
-    link.delete
-    link.exists should not be true
 
     compOntManag.close()
     showResult

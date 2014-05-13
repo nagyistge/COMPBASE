@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import uzuzjmd.competence.view.xml.AbstractXMLTree;
+import uzuzjmd.java.collections.SortedList;
 
 @XmlRootElement(name = "catchwordRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
@@ -23,7 +24,7 @@ public class CatchwordXMLTree extends AbstractXMLTree<CatchwordXMLTree> {
 
 	@XmlElement(name = "catchword")
 	@Override
-	public List<CatchwordXMLTree> getChildren() {
+	public SortedList<CatchwordXMLTree> getChildren() {
 		return super.getChildren();
 	}
 
