@@ -11,9 +11,11 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.rdf.model.Property
+import java.net.URLEncoder
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
   val util = comp.getUtil()
+  val encodedstring = identifier.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
 
   def persist(): Individual = {
     val result = createIndividual
@@ -24,7 +26,7 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   def delete {
     if (exists) {
       deleteMore()
-      val individual = util.getIndividualForString(identifier)
+      val individual = util.getIndividualForString(encodedstring)
       individual.remove()
     }
   }
@@ -32,17 +34,18 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   protected def deleteMore()
 
   def exists(): Boolean = {
-    val result = util.getIndividualForString(identifier)
+    val result = util.getIndividualForString(encodedstring)
     return result != null
   }
 
   def createIndividual: Individual = {
     val ontClass = util.createOntClass(compOntClass)
-    return util.createIndividualForString(ontClass, identifier)
+
+    return util.createIndividualForString(ontClass, encodedstring)
   }
 
   def getId: String = {
-    return identifier;
+    return encodedstring;
   }
 
   def getFullDao(): CompetenceOntologyDao

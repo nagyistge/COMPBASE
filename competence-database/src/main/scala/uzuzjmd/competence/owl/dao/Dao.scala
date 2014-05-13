@@ -9,6 +9,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.scalahacks.ScalaHacksInScala
 import uzuzjmd.scalahacks.ScalaHacks
+import uzuzjmd.competence.owl.queries.CompetenceQueries
 
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
@@ -98,13 +99,15 @@ abstract class Dao(comp: CompOntologyManager) {
   private def getAssociatedIndividuals(edgeType: CompObjectProperties, range: Dao): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    return comp.getUtil().getQueries().getRelatedIndividuals(edgeType, range.getId).toArray(individualDummy).toList
+    val queries = new CompetenceQueries(comp.getM())
+    return queries.getRelatedIndividuals(edgeType, range.getId).toArray(individualDummy).toList
   }
 
   private def getAssociatedIndividuals(domain: Dao, edgeType: CompObjectProperties): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    return comp.getUtil().getQueries().getRelatedIndividualsDomainGiven(domain.getId, edgeType).toArray(individualDummy).toList
+    val queries = new CompetenceQueries(comp.getM())
+    return queries.getRelatedIndividualsDomainGiven(domain.getId, edgeType).toArray(individualDummy).toList
   }
 
   /**
@@ -112,7 +115,7 @@ abstract class Dao(comp: CompOntologyManager) {
    */
   protected def getAssociatedStandardDaosAsDomain[T <: CompetenceOntologyDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
     val assocIndividuals = getAssociatedIndividuals(edgeType, this)
-    val result = assocIndividuals.map(x => ScalaHacksInScala.instantiate(clazz)(comp, x.getURI()).asInstanceOf[T]).map(x => x.getFullDao)
+    val result = assocIndividuals.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
   }
 
@@ -121,7 +124,7 @@ abstract class Dao(comp: CompOntologyManager) {
    */
   protected def getAssociatedStandardDaosAsRange[T <: CompetenceOntologyDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
-    val result = ontClasses.map(x => ScalaHacksInScala.instantiate(clazz)(comp, x.getURI()).asInstanceOf[T]).map(x => x.getFullDao)
+    val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
   }
 
