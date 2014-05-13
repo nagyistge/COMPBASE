@@ -11,4 +11,9 @@ class StudentRole(comp: CompOntologyManager) extends Role(comp, CompOntClass.Stu
     role.persist(false)
     addSuperClass(role)
   }
+
+  @Override
+  def getFullDao(): Dao = {
+    return this
+  }
 }
