@@ -150,7 +150,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val user = new User(compOntManag, "me", teacherRole)
     val coursecontext = new CourseContext(compOntManag, "2")
 
-    val evidenceActivity = new EvidenceActivity(compOntManag, "meine testaktivität", "http://testest")
+    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
     link.persist
     link.exists should not be false
@@ -178,12 +178,15 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val testkommentar2 = "mein testkommentar2"
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
     val coursecontext = new CourseContext(compOntManag, "2")
-
-    val evidenceActivity = new EvidenceActivity(compOntManag, "meine testaktivitat", "http://testest")
-    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
+    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
+    val link = new AbstractEvidenceLink(compOntManag, (user.name + evidenceActivity.printableName), user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
     link.persist
+    comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    // now getting it by example
     val exampleLink = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName)
     val fullExampleLink = exampleLink.getFullDao
+
     fullExampleLink.creator should not be null
     fullExampleLink.getAllActivities should not be ('empty)
     fullExampleLink.getAllCourseContexts should not be ('empty)
