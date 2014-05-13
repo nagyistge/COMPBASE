@@ -13,7 +13,7 @@ class AbstractEvidenceLink(val creator: User,
   val dateCreated: java.lang.Long,
   val isValidated: java.lang.Boolean,
   val comp: CompOntologyManager,
-  val compOntClass: CompOntClass) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, creator.name + evidenceActivity.printableName) {
+  val compOntClass: CompOntClass) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, linkedUser.name + evidenceActivity.printableName) {
 
   def CREATED = "datecreated"
   def ISVALIDATED = "isValidated"
@@ -32,6 +32,7 @@ class AbstractEvidenceLink(val creator: User,
       comments.foreach(x => createEdgeWith(x, CompObjectProperties.CommentOf))
     }
     linkedUser.persist
+    createEdgeWith(linkedUser, CompObjectProperties.UserOfLink)
     creator.persist
     createEdgeWith(CompObjectProperties.createdBy, creator)
     courseContexts.persist

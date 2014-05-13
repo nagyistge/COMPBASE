@@ -105,7 +105,30 @@ public class CompetenceServiceRestJSON {
 	@GET
 	@Path("/selected/{course}")
 	public String[] getSelected(@PathParam("course") String course) {
+
 		return CompetenceServiceWrapper.getSelected(course);
+	}
+
+	/**
+	 * Link the competences to a course context
+	 * 
+	 * @param course
+	 * @param compulsory
+	 *            (optional)
+	 * @param competences
+	 * @param requirements
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/link/create/{course}/{creator}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @QueryParam(value = "competences") final List<String> competences,
+			@QueryParam(value = "evidences") final List<String> evidences) {
+
+		// TODO
+		// todo stuff here
+		return Response.ok("competences linked").build();
 	}
 
 }
