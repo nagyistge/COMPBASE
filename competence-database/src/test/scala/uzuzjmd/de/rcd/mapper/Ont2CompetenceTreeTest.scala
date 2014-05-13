@@ -87,7 +87,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User("me", teacherRole, compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
     user.persist
     user.exists should not be false
     user.delete
@@ -100,7 +100,7 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User("me", teacherRole, compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
     user.persist
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
@@ -122,8 +122,8 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val testkommentar = "mein testkommentar"
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User("me", teacherRole, compOntManag)
-    val comment = new Comment(user, System.currentTimeMillis(), testkommentar, compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
+    val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
     comment.persist
     comment.exists should not be false
     val testkommentar2 = comment.getDataField(comment.TEXT)
@@ -140,22 +140,27 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val studentRole = new StudentRole(compOntManag)
-    val userstudent = new User("studentme", studentRole, compOntManag)
+    val userstudent = new User(compOntManag, "studentme", studentRole)
     val testkommentar = "mein testkommentar"
-    val comment = new Comment(userstudent, System.currentTimeMillis(), testkommentar, compOntManag)
+    val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
-    val comment2 = new Comment(userstudent, System.currentTimeMillis(), testkommentar2, compOntManag)
+    val comment2 = new Comment(compOntManag, testkommentar2, user, System.currentTimeMillis())
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User("me", teacherRole, compOntManag)
-    val coursecontext = new CourseContext("2", compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
 
-    val evidenceActivity = new EvidenceActivity("http://testest", "meine testaktivität", compOntManag)
-    val link = new AbstractEvidenceLink(user, userstudent, coursecontext, (comment :: comment :: Nil), evidenceActivity, System.currentTimeMillis(), false, compOntManag, CompOntClass.AbstractEvidenceLink)
+    val evidenceActivity = new EvidenceActivity(compOntManag, "meine testaktivität", "http://testest")
+    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
     link.persist
     link.exists should not be false
 
     compOntManag.close()
     showResult
+  }
+
+  test("if a string is given the identified dao should be returnable") {
+    val compOntManag = new CompOntologyManager()
+    val user = new User(compOntManag, "me")
   }
 
   def showResult() {

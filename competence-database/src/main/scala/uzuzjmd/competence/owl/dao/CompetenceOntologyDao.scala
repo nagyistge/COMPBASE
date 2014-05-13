@@ -12,7 +12,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.rdf.model.Property
 
-abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, identifier: String) extends Dao(comp) {
+abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
   val util = comp.getUtil()
 
   def persist(): Individual = {
@@ -40,5 +40,11 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     val ontClass = util.createOntClass(compOntClass)
     return util.createIndividualForString(ontClass, identifier)
   }
+
+  def getId: String = {
+    return identifier;
+  }
+
+  def getFullDao(): CompetenceOntologyDao
 
 }

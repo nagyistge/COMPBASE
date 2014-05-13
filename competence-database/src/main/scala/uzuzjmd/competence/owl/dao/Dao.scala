@@ -6,9 +6,13 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
+import com.hp.hpl.jena.ontology.OntClass
+import uzuzjmd.scalahacks.ScalaHacksInScala
+import uzuzjmd.scalahacks.ScalaHacks
 
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
+  def getId: String;
 
   def createEdgeWith(edgeType: CompObjectProperties, range: Dao) {
     val domainIndividual = createIndividual
@@ -89,6 +93,36 @@ abstract class Dao(comp: CompOntologyManager) {
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
     val prop: Statement = createIndividual.getProperty(literal);
     return (literal, prop)
+  }
+
+  private def getAssociatedIndividuals(edgeType: CompObjectProperties, range: Dao): List[Individual] = {
+    val hacks = new ScalaHacks;
+    val individualDummy = hacks.getIndividualArray()
+    return comp.getUtil().getQueries().getRelatedIndividuals(edgeType, range.getId).toArray(individualDummy).toList
+  }
+
+  private def getAssociatedIndividuals(domain: Dao, edgeType: CompObjectProperties): List[Individual] = {
+    val hacks = new ScalaHacks;
+    val individualDummy = hacks.getIndividualArray()
+    return comp.getUtil().getQueries().getRelatedIndividualsDomainGiven(domain.getId, edgeType).toArray(individualDummy).toList
+  }
+
+  /**
+   * assumes that alle dao classes have a constructor available that only takes the ontclass and the manager
+   */
+  protected def getAssociatedStandardDaosAsDomain[T <: CompetenceOntologyDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
+    val assocIndividuals = getAssociatedIndividuals(edgeType, this)
+    val result = assocIndividuals.map(x => ScalaHacksInScala.instantiate(clazz)(comp, x.getURI()).asInstanceOf[T]).map(x => x.getFullDao)
+    return result.asInstanceOf[List[T]]
+  }
+
+  /**
+   * assumes that alle dao classes have a constructor available that only thakes the ontclass and the manager
+   */
+  protected def getAssociatedStandardDaosAsRange[T <: CompetenceOntologyDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
+    val ontClasses = getAssociatedIndividuals(this, edgeType)
+    val result = ontClasses.map(x => ScalaHacksInScala.instantiate(clazz)(comp, x.getURI()).asInstanceOf[T]).map(x => x.getFullDao)
+    return result.asInstanceOf[List[T]]
   }
 
 }

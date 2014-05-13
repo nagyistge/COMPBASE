@@ -4,7 +4,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
-class User(val name: String, role: Role, comp: CompOntologyManager) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
+class User(comp: CompOntologyManager, val name: String, role: Role = null) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
   def NAME = "name"
 
   @Override
@@ -17,5 +17,15 @@ class User(val name: String, role: Role, comp: CompOntologyManager) extends Comp
     val thisIndividual = createIndividual
     role.createEdgeWith(CompObjectProperties.RoleOf, this)
     addDataField(NAME, name)
+  }
+
+  @Override
+  def getFullDao(): CompetenceOntologyDao = {
+    val teacherRole = new TeacherRole(comp)
+    if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
+      return new User(comp, name, teacherRole)
+    } else {
+      return new User(comp, name, new StudentRole(comp))
+    }
   }
 }
