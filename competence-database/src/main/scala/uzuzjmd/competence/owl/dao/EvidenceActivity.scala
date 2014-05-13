@@ -2,8 +2,9 @@ package uzuzjmd.competence.owl.dao
 
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.CompOntologyAccess
 
-class EvidenceActivity(comp: CompOntologyManager, val printableName: String, val url: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, printableName) {
+case class EvidenceActivity(comp: CompOntologyManager, val url: String, val printableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, url) {
 
   def URL = "url"
   def PRINTABLENAME = "printableName"

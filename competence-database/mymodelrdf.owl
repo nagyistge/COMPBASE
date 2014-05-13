@@ -385,6 +385,11 @@ eigenverantwortliches Urteilen und Handeln schrittweise ein</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter reflektieren ihr eigenes Verhalten vor der Klasse.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#httptestest">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://testest</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">meine testaktivitat</j.0:printableName>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Diagnostik">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>

@@ -2,8 +2,9 @@ package uzuzjmd.competence.owl.dao
 
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.owl.access.CompOntologyAccess
 
-class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, name) {
+case class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, name) {
   @Override
   protected def deleteMore() {
     //TODO
