@@ -1,4 +1,4 @@
-package uzuzjmd.de.rcd.mapper
+package uzuzjmd.competence.tests
 
 import scala.collection.JavaConverters.seqAsJavaListConverter
 import org.junit.AfterClass
