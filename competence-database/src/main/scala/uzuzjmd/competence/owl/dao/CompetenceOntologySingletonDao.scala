@@ -7,11 +7,16 @@ import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 
-abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass) extends Dao(comp) {
+abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
 
   def persist(more: Boolean): OntResult = {
-    val result = util.accessSingletonResourceWithClass(compOntClass)
+    var result: OntResult = null
+    if (identifier == null) {
+      result = util.accessSingletonResourceWithClass(compOntClass)
+    } else {
+      result = util.accessSingletonResource(identifier)
+    }
     if (more) {
       persistMore
     }

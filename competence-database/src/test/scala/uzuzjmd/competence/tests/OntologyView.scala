@@ -1,4 +1,4 @@
-package uzuzjmd.de.rcd.mapper
+package uzuzjmd.competence.tests
 
 /*
 Testing the mapping
