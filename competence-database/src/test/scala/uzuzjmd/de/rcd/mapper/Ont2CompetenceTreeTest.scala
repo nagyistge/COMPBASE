@@ -22,6 +22,7 @@ import uzuzjmd.competence.owl.dao.EvidenceActivity
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.dao.TeacherRole
 
 @RunWith(classOf[JUnitRunner])
 class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
@@ -142,9 +143,9 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val studentRole = new StudentRole(compOntManag)
     val userstudent = new User(compOntManag, "studentme", studentRole)
     val testkommentar = "mein testkommentar"
-    val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
+    val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
-    val comment2 = new Comment(compOntManag, testkommentar2, user, System.currentTimeMillis())
+    val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
     val teacherRole = new TeacherRole(compOntManag)
     val user = new User(compOntManag, "me", teacherRole)
     val coursecontext = new CourseContext(compOntManag, "2")
@@ -153,14 +154,45 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
     link.persist
     link.exists should not be false
-
+    link.delete
+    evidenceActivity.delete
+    evidenceActivity.exists should not be true
     compOntManag.close()
     showResult
   }
 
-  test("if a string is given the identified dao should be returnable") {
+  test("if a string is given the identified full dao should be returnable") {
     val compOntManag = new CompOntologyManager()
-    val user = new User(compOntManag, "me")
+    compOntManag.begin()
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
+    user.persist
+    val user2 = new User(compOntManag, "me")
+    val fullUser = user2.getFullDao
+    fullUser.role.equals(teacherRole) should not be false
+    // and now a more complicated example
+    val studentRole = new StudentRole(compOntManag)
+    val userstudent = new User(compOntManag, "studentme", studentRole)
+    val testkommentar = "mein testkommentar"
+    val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
+    val testkommentar2 = "mein testkommentar2"
+    val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
+    val coursecontext = new CourseContext(compOntManag, "2")
+
+    val evidenceActivity = new EvidenceActivity(compOntManag, "meine testaktivitat", "http://testest")
+    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
+    link.persist
+    val exampleLink = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName)
+    val fullExampleLink = exampleLink.getFullDao
+    fullExampleLink.creator should not be null
+    fullExampleLink.getAllActivities should not be ('empty)
+    fullExampleLink.getAllCourseContexts should not be ('empty)
+    fullExampleLink.getAllLinkedUsers should not be ('empty)
+    fullExampleLink.getAllLinkedUsers.head.equals(userstudent) should not be false
+    link.delete
+
+    compOntManag.close()
+    showResult
   }
 
   def showResult() {
