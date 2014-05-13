@@ -48,6 +48,4 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     return encodedstring;
   }
 
-  def getFullDao(): CompetenceOntologyDao
-
 }

@@ -10,4 +10,9 @@ class TeacherRole(comp: CompOntologyManager) extends Role(comp, CompOntClass.Tea
     role.persist(false)
     addSuperClass(role)
   }
+
+  @Override
+  def getFullDao(): Dao = {
+    return this
+  }
 }

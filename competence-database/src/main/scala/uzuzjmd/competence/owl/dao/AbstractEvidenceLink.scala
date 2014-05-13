@@ -8,14 +8,15 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 
 case class AbstractEvidenceLink(
   val comp: CompOntologyManager,
-  identifier2: String,
+  val identifier2: String,
   val creator: User = null,
   val linkedUser: User = null,
   val courseContexts: CourseContext = null,
   val comments: List[Comment] = null,
   val evidenceActivity: EvidenceActivity = null,
   val dateCreated: java.lang.Long = null,
-  val isValidated: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
+  val isValidated: java.lang.Boolean = null,
+  val competence: Competence = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
 
   def CREATED = "datecreated"
   def ISVALIDATED = "isValidated"
@@ -40,6 +41,7 @@ case class AbstractEvidenceLink(
     createEdgeWith(CompObjectProperties.LinkOfCourseContext, courseContexts)
     evidenceActivity.persist
     createEdgeWith(evidenceActivity, CompObjectProperties.ActivityOf)
+    createEdgeWith(CompObjectProperties.linksCompetence, competence)
     addDataField(CREATED, dateCreated)
     addDataField(ISVALIDATED, isValidated)
   }
@@ -68,6 +70,10 @@ case class AbstractEvidenceLink(
 
   def getAllCourseContexts(): List[CourseContext] = {
     return getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext])
+  }
+
+  def getAllLinkedCompetences(): List[Competence] = {
+    return getAssociatedStandardDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence]).map(x => x.getFullDao.asInstanceOf[Competence])
   }
 
 }

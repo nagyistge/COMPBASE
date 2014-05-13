@@ -14,6 +14,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
+import uzuzjmd.competence.owl.dao.Comment;
+import uzuzjmd.competence.owl.dao.Competence;
+import uzuzjmd.competence.owl.dao.CourseContext;
+import uzuzjmd.competence.owl.dao.EvidenceActivity;
+import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 
@@ -126,9 +133,23 @@ public class CompetenceServiceRestJSON {
 	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("linkedUser") String linkedUser,
 			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
-		// TODO
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+		for (String evidence : evidences) {
+			for (String competence : competences) {
+				User creatorUser = new User(compOntologyManager, creator, null);
+				User linkedUserUser = new User(compOntologyManager, linkedUser, null);
+				CourseContext courseContext = new CourseContext(compOntologyManager, course);
+				scala.collection.immutable.List<Comment> comments = null;
+				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
+				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
+				AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(compOntologyManager, (evidence + competence), creatorUser, linkedUserUser, courseContext, comments,
+						evidenceActivity, Long.valueOf(System.currentTimeMillis()), Boolean.valueOf(false), competenceDao);
+				abstractEvidenceLink.persist();
+			}
+		}
 		// todo stuff here
+		compOntologyManager.close();
 		return Response.ok("competences linked").build();
 	}
-
 }
