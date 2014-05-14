@@ -5,7 +5,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 
-case class Comment(comp: CompOntologyManager, text: String, creator: User, created: java.lang.Long) extends CompetenceOntologyDao(comp, CompOntClass.Comment, text) {
+case class Comment(comp: CompOntologyManager, text: String, creator: User = null, created: java.lang.Long = null) extends CompetenceOntologyDao(comp, CompOntClass.Comment, text) {
 
   def DATECRATED = "datecreated"
   def TEXT = "text"
