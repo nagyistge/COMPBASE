@@ -31,17 +31,17 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
-	public void setSelectedFilter(String selectedFilter) {
-		this.selectedFilter = selectedFilter;
-	}
-
 	public CompetenceSelectionPanel(String dataString,
 			ContextFactory contextFactory, String selectedFilter) {
 		// TODO Auto-generated constructor stub
-		super(dataString, "Kompetenzen", "competenceView", 650, 250,
+		super(dataString, "Kompetenzen", "competenceView", 650, 150,
 				"Kompetenzen", contextFactory);
 		this.selectedFilter = selectedFilter;
 		treePanel.addListener(new MyTreePanelLister());
+	}
+
+	public void setSelectedFilter(String selectedFilter) {
+		this.selectedFilter = selectedFilter;
 	}
 
 	private void setCompetenceSelected(final TreeNode node) {

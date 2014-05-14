@@ -20,6 +20,7 @@
 				</g:CaptionPanel>
 			</g:VerticalPanel>
 			<g:SimplePanel ui:field="hrDividerPanel2"/>
+			<g:FocusPanel ui:field="warningPlaceHolder"/>
 			<g:HorizontalPanel ui:field="buttonPanel">
 				<b:Button ui:field="submitButton">abschicken</b:Button>
 				<b:Button ui:field="deleteContextButton">Zuordnung für diesen Kurs löschen</b:Button>
