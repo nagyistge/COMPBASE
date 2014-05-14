@@ -72,6 +72,7 @@ abstract class Dao(comp: CompOntologyManager) {
 
   def addDataField(key: String, value: Object) {
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    createIndividual.removeAll(literal)
     createIndividual.addLiteral(literal, value);
   }
   def getDataField(key: String): Object = {
