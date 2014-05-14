@@ -41,6 +41,7 @@ case class AbstractEvidenceLink(
     createEdgeWith(CompObjectProperties.LinkOfCourseContext, courseContexts)
     evidenceActivity.persist
     createEdgeWith(evidenceActivity, CompObjectProperties.ActivityOf)
+    competence.persist(false)
     createEdgeWith(CompObjectProperties.linksCompetence, competence)
     addDataField(CREATED, dateCreated)
     addDataField(ISVALIDATED, isValidated)
