@@ -7,13 +7,13 @@
     border-style:outset !important;
     border-width:thin !important;	
     padding: 10px !important;
-    margin-top: 30px;
-    margin-bottom: 20px;
+/*     margin-top: 30px; */
+/*     margin-bottom: 20px; */
 }
 
 .requirementTextAreaBox {
     width: 645px !important;
-    height: 205px !important;    
+    height: 105px !important;    
 }
 
 hr.fancy-line { 

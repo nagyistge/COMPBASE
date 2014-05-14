@@ -16,4 +16,8 @@ public class ContextFactory {
 	public String getRole() {
 		return "teacher";
 	}
+
+	public String getUser() {
+		return "6";
+	}
 }
