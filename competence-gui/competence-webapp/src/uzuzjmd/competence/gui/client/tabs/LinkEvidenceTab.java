@@ -1,6 +1,8 @@
 package uzuzjmd.competence.gui.client.tabs;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
@@ -9,12 +11,22 @@ import org.fusesource.restygwt.client.XmlCallback;
 import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.shared.ActivityPanel2;
-import uzuzjmd.competence.gui.shared.MyTreePanel;
 
+import com.github.gwtbootstrap.client.ui.Alert;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.base.HtmlWidget;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -42,11 +54,17 @@ public class LinkEvidenceTab extends Composite {
 	SimplePanel tabExplainationPanel;
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
+	@UiField
+	Button submitButton;
+	@UiField
+	FocusPanel warningPlaceholder;
 	private CompetenceSelectionWidget competenceSelectionWidget;
 	private ContextFactory contextFactory;
 
-	final HashMap<String, String> activityMap = new HashMap<String, String>();
+	final HashMap<String, String> activityMapToUrl = new HashMap<String, String>();
 	final HashMap<String, String> activityMapToUser = new HashMap<String, String>();
+	private ActivityPanel2 activityPanel;
+	private HtmlWidget alert;
 
 	interface LinkEvidenceTabUiBinder extends UiBinder<Widget, LinkEvidenceTab> {
 	}
@@ -71,10 +89,10 @@ public class LinkEvidenceTab extends Composite {
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 
 		String moodleEvidenceUrl = getMoodleEvidenceServerUrl();
-		MyTreePanel activityPanel = new ActivityPanel2(moodleEvidenceUrl,
-				"Aktivitäten", "activityView", 650, 250, "Aktivitäten",
-				contextFactory);
+		activityPanel = new ActivityPanel2(moodleEvidenceUrl, "Aktivitäten",
+				"activityView", 650, 150, "Aktivitäten", contextFactory);
 		activityPlaceholder.add(activityPanel);
+
 	}
 
 	private String getMoodleEvidenceServerUrl() {
@@ -106,11 +124,12 @@ public class LinkEvidenceTab extends Composite {
 								.toString();
 						String uservalue = activityNode.getAttributes()
 								.getNamedItem("name").getNodeValue();
-						activityMap.put(key, value);
+						activityMapToUrl.put(key, value);
 						activityMapToUser.put(key, uservalue);
 					}
 				}
-				GWT.log("activity map initialized" + activityMap.toString());
+				GWT.log("activity map initialized"
+						+ activityMapToUrl.toString());
 			}
 
 			@Override
@@ -118,5 +137,61 @@ public class LinkEvidenceTab extends Composite {
 				GWT.log("could not get moodle evidences");
 			}
 		});
+	}
+
+	@UiHandler("submitButton")
+	void onSubmitButtonClick(ClickEvent event) {
+		List<String> competences = this.competenceSelectionWidget
+				.getSelectedCompetences();
+		List<String> activityEvidenceKeys = this.activityPanel
+				.convertSelectedTreeToList();
+		if (competences.isEmpty()) {
+			alert = new Alert("Es wurden keine Kompetenzen ausgewählt!");
+			warningPlaceholder.add(alert);
+		} else if (activityEvidenceKeys.isEmpty()) {
+			alert = new Alert("Es wurden keine Aktivitäten ausgewählt!");
+			warningPlaceholder.add(alert);
+		} else {
+			String creator = contextFactory.getUser();
+			String course = contextFactory.getCourseId() + "";
+			for (String key : activityEvidenceKeys) {
+				List<String> activityPairs = new LinkedList<String>();
+				activityPairs.add(activityMapToUrl.get(key) + "," + key);
+				String linkedUser = activityMapToUser.get(key);
+				Resource resource = new Resource(contextFactory.getServerURL()
+						+ "/competences/json/link/create/" + course + "/"
+						+ creator + "/" + linkedUser);
+				try {
+					resource.addQueryParams("competences", competences)
+							.addQueryParams("evidences", activityPairs).post()
+							.send(new OkFeedBack());
+				} catch (RequestException e) {
+					GWT.log(e.getMessage());
+				}
+			}
+		}
+	}
+
+	private class OkFeedBack implements RequestCallback {
+		@Override
+		public void onError(Request request, Throwable exception) {
+			// TODO Auto-generated method stub
+			GWT.log(exception.getMessage());
+		}
+
+		@Override
+		public void onResponseReceived(Request request, Response response) {
+			GWT.log(response.getStatusText());
+		}
+	}
+
+	@UiHandler("warningPlaceholder")
+	void onWarningPlaceholderClick(ClickEvent event) {
+		warningPlaceholder.remove(alert);
+	}
+
+	@UiHandler("warningPlaceholder")
+	void onWarningPlaceholderMouseOut(MouseOutEvent event) {
+		warningPlaceholder.remove(alert);
 	}
 }

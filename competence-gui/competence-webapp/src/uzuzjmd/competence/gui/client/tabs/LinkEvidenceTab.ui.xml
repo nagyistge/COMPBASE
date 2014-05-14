@@ -16,8 +16,9 @@
 					<g:HTMLPanel width="auto" height="auto" ui:field="activityPlaceholder"/>
 				</g:CaptionPanel>
 				<g:SimplePanel ui:field="hrPanelContainer2"/>
+				<g:FocusPanel ui:field="warningPlaceholder" width="auto" height="auto"/>
 				<g:HorizontalPanel ui:field="buttonContainer">
-					<b:Button>markierte verknüpfen und abschicken</b:Button>
+					<b:Button ui:field="submitButton">markierte verknüpfen und abschicken</b:Button>
 					<b:Button text="Pfade für markierte Kompetenzen definieren"/>
 				</g:HorizontalPanel>								
 			</g:VerticalPanel>

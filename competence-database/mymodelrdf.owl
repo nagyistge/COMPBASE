@@ -161,6 +161,13 @@ Rückmeldung über die eigene Unterrichtstätigkeit</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#2">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärteranalysierendieBedingungenbezüglichInformatikunterrichthinsichtlichderAusstattungmitPCsundanderenfürdenInformatikunterrichtrelevanterFaktoren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterbeschreibendenLernstandderSuSundihreneigenenWissensstand"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterbeachtendiekulturelleundsozialeVielfaltinderjeweiligenLerngruppe"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterbenennenSchwerpunktederRahmenlehrplänedereinzelnenFächer"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärteranalysierendieBedingungenbezüglichInformatikunterrichthinsichtlichderAusstattungmitPCsundanderenfürdenInformatikunterrichtrelevanterFaktoren"/>
+    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterbeachtendiekulturelleundsozialeVielfaltinderjeweiligenLerngruppe"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Innovieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

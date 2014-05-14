@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client.competenceSelection;
 
+import java.util.List;
+
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.ContextFactory;
@@ -121,7 +123,7 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Schlagworte", "catchwordView", 325, 200, "Schlagworte",
+				"Schlagworte", "catchwordView", 325, 130, "Schlagworte",
 				contextFactory);
 		catchwordCaptionPanel.add(catchwordTree);
 	}
@@ -131,7 +133,7 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Operatoren", "operatorView", 300, 150, "Operatoren",
+				"Operatoren", "operatorView", 300, 80, "Operatoren",
 				contextFactory);
 		operatorCaptionPanel.add(operatorTree);
 	}
@@ -252,7 +254,6 @@ public class CompetenceSelectionWidget extends Composite {
 
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
-
 		String query = "?";
 		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
 			query += "selectedOperators=";
@@ -267,5 +268,9 @@ public class CompetenceSelectionWidget extends Composite {
 		}
 		query = query.substring(0, query.length() - 1);
 		updateFilteredPanel(filter, query);
+	}
+
+	public List<String> getSelectedCompetences() {
+		return this.competenceTree.convertSelectedTreeToList();
 	}
 }
