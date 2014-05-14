@@ -47,8 +47,12 @@ case class AbstractEvidenceLink(
   }
 
   def linkComments(comments: List[Comment]) {
-    comments.foreach(x => x.persist)
-    comments.foreach(x => createEdgeWith(x, CompObjectProperties.CommentOf))
+    comments.foreach(linkComment)
+  }
+
+  def linkComment(comment: Comment) {
+    comment.persist
+    createEdgeWith(comment, CompObjectProperties.CommentOf)
   }
 
   @Override

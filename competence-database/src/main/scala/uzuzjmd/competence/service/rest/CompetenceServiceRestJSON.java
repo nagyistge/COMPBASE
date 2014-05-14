@@ -19,6 +19,7 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
 import uzuzjmd.competence.owl.dao.Comment;
 import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
+import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.owl.dao.EvidenceActivity;
 import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
@@ -66,7 +67,7 @@ public class CompetenceServiceRestJSON {
 		Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
 		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsoryBoolean, requirements);
 		// todo stuff here
-		return Response.ok("competences linked").build();
+		return Response.ok("competences linked to course").build();
 	}
 
 	/**
@@ -117,13 +118,12 @@ public class CompetenceServiceRestJSON {
 	}
 
 	/**
-	 * Link the competences to evidences
 	 * 
 	 * @param course
-	 * @param compulsory
-	 *            (optional)
+	 * @param creator
+	 * @param linkedUser
 	 * @param competences
-	 * @param requirements
+	 * @param evidences
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -133,9 +133,7 @@ public class CompetenceServiceRestJSON {
 	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("linkedUser") String linkedUser,
 			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		compOntologyManager.begin();
-		compOntologyManager.getM().enterCriticalSection(false);
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				User creatorUser = new User(compOntologyManager, creator, null);
@@ -149,9 +147,33 @@ public class CompetenceServiceRestJSON {
 				abstractEvidenceLink.persist();
 			}
 		}
+		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("competences linked to evidences").build();
+	}
+
+	private void closeManagerInCriticalMode(CompOntologyManager compOntologyManager) {
 		compOntologyManager.getM().leaveCriticalSection();
-		// todo stuff here
 		compOntologyManager.close();
-		return Response.ok("competences linked").build();
+	}
+
+	private CompOntologyManager initManagerInCriticalMode() {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+		compOntologyManager.getM().enterCriticalSection(false);
+		return compOntologyManager;
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/link/comment/{linkId}/{user}")
+	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		User creator = new User(compOntologyManager, user, null).getFullDao();
+		Comment comment = new Comment(compOntologyManager, text, creator, System.currentTimeMillis());
+		comment.persist();
+		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
+		abstractEvidenceLink.linkComment(comment);
+		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("competences linked to evidences").build();
 	}
 }
