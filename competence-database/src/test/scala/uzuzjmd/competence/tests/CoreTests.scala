@@ -23,9 +23,10 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.dao.Competence
 
 @RunWith(classOf[JUnitRunner])
-class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
+class CoreTests extends FunSuite with ShouldMatchers {
 
   test("The CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
@@ -150,8 +151,9 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val user = new User(compOntManag, "me", teacherRole)
     val coursecontext = new CourseContext(compOntManag, "2")
 
+    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
+    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
     link.persist
     link.exists should not be false
     link.delete
@@ -179,7 +181,8 @@ class Ont2CompetenceTreeTest extends FunSuite with ShouldMatchers {
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
     val coursecontext = new CourseContext(compOntManag, "2")
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    val link = new AbstractEvidenceLink(compOntManag, (user.name + evidenceActivity.printableName), user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false)
+    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val link = new AbstractEvidenceLink(compOntManag, (user.name + evidenceActivity.printableName), user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
     link.persist
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
