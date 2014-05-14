@@ -15,7 +15,7 @@ import uzuzjmd.competence.owl.access.MagicStrings
 @RunWith(classOf[JUnitRunner])
 class OntologyView extends FunSuite with ShouldMatchers {
 
-  test("The CSV import should run without errors") {
+  test("the ontology write process should be ok") {
 
     val compOntManag = new CompOntologyManager()
 
