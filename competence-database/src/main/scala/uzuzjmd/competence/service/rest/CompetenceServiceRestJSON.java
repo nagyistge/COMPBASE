@@ -135,6 +135,7 @@ public class CompetenceServiceRestJSON {
 
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
+		compOntologyManager.getM().enterCriticalSection(false);
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				User creatorUser = new User(compOntologyManager, creator, null);
@@ -148,6 +149,7 @@ public class CompetenceServiceRestJSON {
 				abstractEvidenceLink.persist();
 			}
 		}
+		compOntologyManager.getM().leaveCriticalSection();
 		// todo stuff here
 		compOntologyManager.close();
 		return Response.ok("competences linked").build();
