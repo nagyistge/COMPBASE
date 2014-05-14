@@ -15,6 +15,7 @@ import uzuzjmd.competence.gui.shared.ActivityPanel2;
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.base.HtmlWidget;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -146,30 +147,60 @@ public class LinkEvidenceTab extends Composite {
 		List<String> activityEvidenceKeys = this.activityPanel
 				.convertSelectedTreeToList();
 		if (competences.isEmpty()) {
-			alert = new Alert("Es wurden keine Kompetenzen ausgewählt!");
+			alert = new Alert("Es wurden keine Kompetenzen ausgewählt!",
+					AlertType.ERROR);
 			warningPlaceholder.add(alert);
 		} else if (activityEvidenceKeys.isEmpty()) {
-			alert = new Alert("Es wurden keine Aktivitäten ausgewählt!");
+			alert = new Alert("Es wurden keine Aktivitäten ausgewählt!",
+					AlertType.ERROR);
 			warningPlaceholder.add(alert);
 		} else {
 			String creator = contextFactory.getUser();
 			String course = contextFactory.getCourseId() + "";
-			for (String key : activityEvidenceKeys) {
-				List<String> activityPairs = new LinkedList<String>();
-				activityPairs.add(activityMapToUrl.get(key) + "," + key);
-				String linkedUser = activityMapToUser.get(key);
-				Resource resource = new Resource(contextFactory.getServerURL()
-						+ "/competences/json/link/create/" + course + "/"
-						+ creator + "/" + linkedUser);
-				try {
-					resource.addQueryParams("competences", competences)
-							.addQueryParams("evidences", activityPairs).post()
-							.send(new OkFeedBack());
-				} catch (RequestException e) {
-					GWT.log(e.getMessage());
+			Boolean isLeaf = checkIfActivityLeafSelected(activityEvidenceKeys);
+			if (isLeaf) {
+				for (String key : activityEvidenceKeys) {
+					createAbstractEvidenceLink(competences, creator, course,
+							key);
 				}
+			} else {
+				alert = new Alert(
+						"Die direkte Zuordnung von Aktivitätstypen oder Usern zu Kompetenzen wird noch nicht unterstützt! Wir arbeiten daran! Wählen sie bitte nur konkrete Aktivitäten!",
+						AlertType.ERROR);
+				warningPlaceholder.add(alert);
 			}
 		}
+	}
+
+	private void createAbstractEvidenceLink(List<String> competences,
+			String creator, String course, String key) {
+		List<String> activityPairs = new LinkedList<String>();
+		activityPairs.add(activityMapToUrl.get(key) + "," + key);
+		String linkedUser = activityMapToUser.get(key);
+		Resource resource = new Resource(contextFactory.getServerURL()
+				+ "/competences/json/link/create/" + course + "/" + creator
+				+ "/" + linkedUser);
+		try {
+			resource.addQueryParams("competences", competences)
+					.addQueryParams("evidences", activityPairs).post()
+					.send(new OkFeedBack());
+		} catch (RequestException e) {
+			GWT.log(e.getMessage());
+		}
+		alert = new Alert("Die Kompetenzen wurden erfolgreich verknüpft",
+				AlertType.SUCCESS);
+		warningPlaceholder.add(alert);
+	}
+
+	private Boolean checkIfActivityLeafSelected(
+			List<String> activityEvidenceKeys) {
+		Boolean isLeaf = true;
+		for (String key : activityEvidenceKeys) {
+			if (!activityMapToUrl.containsKey(key)) {
+				isLeaf = false;
+			}
+		}
+		return isLeaf;
 	}
 
 	private class OkFeedBack implements RequestCallback {

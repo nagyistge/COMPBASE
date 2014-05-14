@@ -19,8 +19,12 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
   @Override
   protected def persistMore() {
     val thisIndividual = createIndividual
-    role.createEdgeWith(CompObjectProperties.RoleOf, this)
-    addDataField(NAME, name)
+    if (role != null) {
+      role.createEdgeWith(CompObjectProperties.RoleOf, this)
+    }
+    if (name != null) {
+      addDataField(NAME, name)
+    }
   }
 
   @Override
