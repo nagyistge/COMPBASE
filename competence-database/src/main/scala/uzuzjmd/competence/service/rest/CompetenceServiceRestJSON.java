@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
 import uzuzjmd.competence.owl.dao.Comment;
@@ -24,6 +25,7 @@ import uzuzjmd.competence.owl.dao.EvidenceActivity;
 import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -151,18 +153,6 @@ public class CompetenceServiceRestJSON {
 		return Response.ok("competences linked to evidences").build();
 	}
 
-	private void closeManagerInCriticalMode(CompOntologyManager compOntologyManager) {
-		compOntologyManager.getM().leaveCriticalSection();
-		compOntologyManager.close();
-	}
-
-	private CompOntologyManager initManagerInCriticalMode() {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		compOntologyManager.begin();
-		compOntologyManager.getM().enterCriticalSection(false);
-		return compOntologyManager;
-	}
-
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/comment/{linkId}/{user}")
@@ -176,4 +166,52 @@ public class CompetenceServiceRestJSON {
 		closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("competences linked to evidences").build();
 	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/link/validate/{linkId}/{user}")
+	public Response validateLink(@PathParam("linkId") String linkId) {
+		Boolean isvalid = true;
+		return handleLinkValidation(linkId, isvalid);
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/link/invalidate/{linkId}/{user}")
+	public Response invalidateLink(@PathParam("linkId") String linkId) {
+		Boolean isvalid = false;
+		return handleLinkValidation(linkId, isvalid);
+	}
+
+	@GET
+	@Path("/link/overview/{user}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CompetenceLinksMap getCompetenceLinksMap(@PathParam("user") String user) {
+		CompOntologyManager comp = new CompOntologyManager();
+		Ont2CompetenceLinkMap competenceLinkMap = new Ont2CompetenceLinkMap(comp, user);
+		CompetenceLinksMap map = competenceLinkMap.getCompetenceLinkMap();
+		return map;
+
+	}
+
+	private Response handleLinkValidation(String linkId, Boolean isvalid) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
+		abstractEvidenceLink.addDataField(abstractEvidenceLink.ISVALIDATED(), isvalid);
+		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("link updated").build();
+	}
+
+	private void closeManagerInCriticalMode(CompOntologyManager compOntologyManager) {
+		compOntologyManager.getM().leaveCriticalSection();
+		compOntologyManager.close();
+	}
+
+	private CompOntologyManager initManagerInCriticalMode() {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+		compOntologyManager.getM().enterCriticalSection(false);
+		return compOntologyManager;
+	}
+
 }

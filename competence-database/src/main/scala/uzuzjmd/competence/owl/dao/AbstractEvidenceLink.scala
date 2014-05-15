@@ -62,7 +62,7 @@ case class AbstractEvidenceLink(
     val creator = getAssociatedStandardDaosAsRange(CompObjectProperties.createdBy, classOf[User]).head
     val courseContext = getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext])
     val evidenceActivity = getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity])
-    return new AbstractEvidenceLink(comp, identifier, creator.getFullDao, null, null, comments, null)
+    return new AbstractEvidenceLink(comp, identifier, creator.getFullDao, null, null, comments, null, getDataFieldLong(CREATED), getDataFieldBoolean(ISVALIDATED), null)
   }
 
   def getAllLinkedUsers(): List[User] = {
@@ -78,7 +78,7 @@ case class AbstractEvidenceLink(
   }
 
   def getAllLinkedCompetences(): List[Competence] = {
-    return getAssociatedStandardDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence]).map(x => x.getFullDao.asInstanceOf[Competence])
+    return getAssociatedSingletonDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence]).map(x => x.getFullDao.asInstanceOf[Competence])
   }
 
 }

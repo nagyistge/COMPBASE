@@ -5,7 +5,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 
-case class Comment(comp: CompOntologyManager, text: String, creator: User = null, created: java.lang.Long = null) extends CompetenceOntologyDao(comp, CompOntClass.Comment, text) {
+case class Comment(comp: CompOntologyManager, val text: String, val creator: User = null, val created: java.lang.Long = null) extends CompetenceOntologyDao(comp, CompOntClass.Comment, text) {
 
   def DATECRATED = "datecreated"
   def TEXT = "text"
@@ -24,7 +24,7 @@ case class Comment(comp: CompOntologyManager, text: String, creator: User = null
     addDataField(TEXT, text)
   }
 
-  def getFullDao(): CompetenceOntologyDao = {
+  def getFullDao(): Comment = {
     val creator = getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfComment, classOf[User]).head
     val dateCreated = getDataField(DATECRATED).toString()
     return new Comment(comp, text, creator, java.lang.Long.parseLong(dateCreated))

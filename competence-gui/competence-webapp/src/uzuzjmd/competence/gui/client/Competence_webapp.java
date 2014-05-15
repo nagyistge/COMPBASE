@@ -1,5 +1,8 @@
 package uzuzjmd.competence.gui.client;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 
@@ -42,6 +45,9 @@ public class Competence_webapp implements EntryPoint {
 		// CompetenceSelectionWidget competenceSelectionWidget = new
 		// CompetenceSelectionWidget();
 		// container.add(competenceSelectionWidget);
+
+		LinkedList<String> stuff = new LinkedList<>();
+		Arrays.sort(stuff.toArray());
 
 	}
 
