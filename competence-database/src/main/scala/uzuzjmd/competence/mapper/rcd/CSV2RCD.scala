@@ -75,7 +75,7 @@ object CSV2RCD {
 
   def createLangString(toConvert: String): Langstring = {
     val langstring = new Langstring
-    langstring.setValue(toConvert)
+    langstring.setValue(toConvert.replaceAll("\r\n", ""))
     return langstring;
   }
 
