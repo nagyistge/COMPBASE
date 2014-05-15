@@ -20,9 +20,9 @@ case class EvidenceActivity(comp: CompOntologyManager, val url: String, val prin
     addDataField(PRINTABLENAME, printableName)
   }
 
-  def getFullDao(): CompetenceOntologyDao = {
-    if (getDataField(PRINTABLENAME) != null && getDataField(url) != null) {
-      return new EvidenceActivity(comp, getDataField(PRINTABLENAME).toString(), getDataField(url).toString())
+  def getFullDao(): EvidenceActivity = {
+    if (getDataField(PRINTABLENAME) != null && getDataField(URL) != null) {
+      return new EvidenceActivity(comp, getDataField(PRINTABLENAME), getDataField(URL))
     } else {
       return this;
     }

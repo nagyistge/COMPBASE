@@ -6,6 +6,9 @@ import uzuzjmd.competence.owl.access.OntResult
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import com.hp.hpl.jena.rdf.model.Property
+import com.hp.hpl.jena.rdf.model.Statement
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -21,6 +24,16 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
       persistMore
     }
     return result
+  }
+
+  /**
+   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
+   */
+  @Override
+  def getPropertyPair(key: String): (Property, Statement) = {
+    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    val prop: Statement = persist(false).getOntclass().getProperty(literal);
+    return (literal, prop)
   }
 
   def createIndividual: Individual = {
