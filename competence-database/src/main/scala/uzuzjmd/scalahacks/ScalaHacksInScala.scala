@@ -75,6 +75,14 @@ object ScalaHacksInScala {
           println("hello my friend")
       }
 
+      case 10 => try {
+        return constructor.newInstance(comp, identifier, null, null, null, null, null, null, null, null)
+      } catch {
+        case e: Exception =>
+          e.printStackTrace()
+          println("hello my friend")
+      }
+
     }
 
     throw new Error("error with instantiation of class" + clazz)

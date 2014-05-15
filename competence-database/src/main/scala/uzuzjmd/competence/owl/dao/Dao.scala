@@ -14,6 +14,12 @@ import uzuzjmd.competence.owl.queries.CompetenceQueries
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
   def getId: String;
+  def getPropertyPair(key: String): (Property, Statement)
+  protected def persistMore()
+
+  def getFullDao(): Dao
+
+  def exists(): Boolean;
 
   def createEdgeWith(edgeType: CompObjectProperties, range: Dao) {
     val domainIndividual = createIndividual
@@ -64,18 +70,13 @@ abstract class Dao(comp: CompOntologyManager) {
     }
   }
 
-  protected def persistMore()
-
-  def getFullDao(): Dao
-
-  def exists(): Boolean;
-
   def addDataField(key: String, value: Object) {
+    deleteDataField(key)
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
     //    createIndividual.removeAll(literal)
     createIndividual.addLiteral(literal, value);
   }
-  def getDataField(key: String): Object = {
+  def getDataField(key: String): String = {
     val tmpResult = getPropertyPair(key)
     if (tmpResult._2 == null) {
       return null;
@@ -91,6 +92,14 @@ abstract class Dao(comp: CompOntologyManager) {
     return tmpResult._2.getBoolean();
   }
 
+  def getDataFieldLong(key: String): java.lang.Long = {
+    val tmpResult = getPropertyPair(key)
+    if (tmpResult._2 == null) {
+      return null;
+    }
+    return tmpResult._2.getLong();
+  }
+
   def deleteDataField(key: String) = {
     val tmpResult = getPropertyPair(key)
     if (tmpResult._2 != null) {
@@ -100,12 +109,6 @@ abstract class Dao(comp: CompOntologyManager) {
 
   def hasDataField(key: String): Boolean = {
     return getDataField(key) != null
-  }
-
-  private def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    val prop: Statement = createIndividual.getProperty(literal);
-    return (literal, prop)
   }
 
   private def getAssociatedIndividuals(edgeType: CompObjectProperties, range: Dao): List[Individual] = {
@@ -132,11 +135,29 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   /**
+   * assumes that alle dao classes have a constructor available that only takes the ontclass and the manager
+   */
+  protected def getAssociatedSingletonDaosAsDomain[T <: CompetenceOntologySingletonDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
+    val assocIndividuals = getAssociatedIndividuals(edgeType, this)
+    val result = assocIndividuals.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
+    return result.asInstanceOf[List[T]]
+  }
+
+  /**
    * assumes that alle dao classes have a constructor available that only thakes the ontclass and the manager
    */
   protected def getAssociatedStandardDaosAsRange[T <: Dao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
     val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
+    return result.asInstanceOf[List[T]]
+  }
+
+  /**
+   * assumes that alle dao classes have a constructor available that only thakes the ontclass and the manager
+   */
+  protected def getAssociatedSingletonDaosAsRange[T <: CompetenceOntologySingletonDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
+    val ontClasses = getAssociatedIndividuals(this, edgeType)
+    val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
   }
 

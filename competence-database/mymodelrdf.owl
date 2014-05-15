@@ -161,8 +161,6 @@ Rückmeldung über die eigene Unterrichtstätigkeit</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#2">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:CompulsoryOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Innovieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -308,6 +306,12 @@ definiert. </j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter benennen Schwerpunkte der Rahmenlehrpläne der &#xD;
 einzelnen Fächer.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meintestkommentar2">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1400174684017</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
+    <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Schulentwicklung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
@@ -391,6 +395,7 @@ eigenverantwortliches Urteilen und Handeln schrittweise ein</j.0:definition>
     <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
     <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://testest</j.0:url>
     <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">meine testaktivitat</j.0:printableName>
+    <j.0:ActivityOf rdf:resource="http://comp#hellolinkId"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Diagnostik">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -490,6 +495,14 @@ Die Lehramtsanwärter geben qualifiziertes Feedback.</j.0:definition>
   <rdf:Description rdf:about="http://comp#IbeschreibenAnzahlderPCs">
     <rdf:type rdf:resource="http://comp#beschreibenAnzahlderPCs"/>
     <j.0:EvidencOf rdf:resource="http://comp#IDieLehramtsanwärteranalysierendieBedingungenbezüglichInformatikunterrichthinsichtlichderAusstattungmitPCsundanderenfürdenInformatikunterrichtrelevanterFaktoren"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#hellolinkId">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1400174684017</j.0:datecreated>
+    <j.0:createdBy rdf:resource="http://comp#me"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#2"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LearnerOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -632,11 +645,6 @@ fachdidaktische Argumente.</j.0:definition>
   <rdf:Description rdf:about="http://comp#IIndividuelleBetreuung">
     <rdf:type rdf:resource="http://comp#IndividuelleBetreuung"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IDieLehramtsanwärterunterstützenindividuell"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#studentstudent">
-    <rdf:type rdf:resource="http://comp#User"/>
-    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">student student</j.0:name>
-    <j.0:UserOfLink rdf:resource="http://comp#httplocalhostmoodlemodforumviewphpid1NewsforumDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterfördernSchülerinnenundSchülergezielt">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterfördernSchülerinnenundSchülergezielt"/>
@@ -1131,12 +1139,6 @@ von Schülerinnen und Schülern</j.0:definition>
     <rdf:type rdf:resource="http://comp#Umgangsregeln"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IDieLehramtsanwärtererarbeitenmitdenSchülerinnenundSchülernRegelndesUmgangsmiteinander"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#httplocalhostmoodlemodforumviewphpid1">
-    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
-    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://localhost/moodle/mod/forum/view.php?id=1</j.0:url>
-    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">News forum</j.0:printableName>
-    <j.0:ActivityOf rdf:resource="http://comp#httplocalhostmoodlemodforumviewphpid1NewsforumDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärterwendenimkonkretenFallStrategienundHandlungsformenderKonfliktpräventionundlösungan">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -1326,6 +1328,9 @@ Die Lehramtsanwärter vermitteln  Lern- und Arbeitsstrategien</j.0:definition>
   <rdf:Description rdf:about="http://comp#studentme">
     <rdf:type rdf:resource="http://comp#User"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">studentme</j.0:name>
+    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar"/>
+    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar2"/>
+    <j.0:UserOfLink rdf:resource="http://comp#hellolinkId"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iintegrieren">
     <rdf:type rdf:resource="http://comp#integrieren"/>
@@ -1395,6 +1400,12 @@ Begabungsförderung</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">    * Korrekte Zitierweise des Rahmenlehrplans (RLP)&#xD;
     * Korrekte Zuordnung zu Inhalten des RLP</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meintestkommentar">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1400174684017</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
+    <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Unterrichten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1749,15 +1760,6 @@ unterrichtsbezogene Vorhaben zu bearbeiten.</j.0:definition>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&#xD;
 Die Lehramtsanwärter kennen Methoden der Selbst- und Fremdevaluation</j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#httplocalhostmoodlemodforumviewphpid1NewsforumDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung">
-    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <j.0:createdBy rdf:resource="http://comp#6"/>
-    <j.0:LinkOfCourseContext rdf:resource="http://comp#2"/>
-    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1400065999623</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1400070243241</j.0:datecreated>
-    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Istrukturieren">
     <rdf:type rdf:resource="http://comp#strukturieren"/>
@@ -2366,10 +2368,6 @@ jeweiligen Lerngruppe.</j.0:definition>
   <rdf:Description rdf:about="http://comp#IAbgabeeinesPlanungsdokumentesMündlichePräsentationderSchuleAufschlüsselungenderBesonderheitenderSchulekategorisiertnachAnwendungsfällen">
     <rdf:type rdf:resource="http://comp#AbgabeeinesPlanungsdokumentesMündlichePräsentationderSchuleAufschlüsselungenderBesonderheitenderSchulekategorisiertnachAnwendungsfällen"/>
     <j.0:EvidencOf rdf:resource="http://comp#IDieLehramtsanwärteranalysierendieBedingungenanihrerSchulehinsichtlichderBesonderheitenfürihreTätigkeit"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#6">
-    <rdf:type rdf:resource="http://comp#User"/>
-    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6</j.0:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Benachteiligungen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
