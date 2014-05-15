@@ -24,6 +24,8 @@ import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap
+import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -166,28 +168,13 @@ class CoreTests extends FunSuite with ShouldMatchers {
   test("if a string is given the identified full dao should be returnable") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
-    val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
-    user.persist
-    val user2 = new User(compOntManag, "me")
-    val fullUser = user2.getFullDao
-    fullUser.role.equals(teacherRole) should not be false
-    // and now a more complicated example
+    val linkId = "hellolinkId"
     val studentRole = new StudentRole(compOntManag)
     val userstudent = new User(compOntManag, "studentme", studentRole)
-    val testkommentar = "mein testkommentar"
-    val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
-    val testkommentar2 = "mein testkommentar2"
-    val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
-    val link = new AbstractEvidenceLink(compOntManag, (user.name + evidenceActivity.printableName), user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
-    link.persist
-    comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
-    comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    val link = createAbstract(compOntManag, linkId, userstudent)
+
     // now getting it by example
-    val exampleLink = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName)
+    val exampleLink = new AbstractEvidenceLink(compOntManag, linkId)
     val fullExampleLink = exampleLink.getFullDao
 
     fullExampleLink.creator should not be null
@@ -201,12 +188,51 @@ class CoreTests extends FunSuite with ShouldMatchers {
     showResult
   }
 
-  def showResult() {
+  test("the competencelinksmap should not be empty") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val linkId = "hellolinkId"
+    val userId = "studentme"
+    val studentRole = new StudentRole(compOntManag)
+    val userstudent = new User(compOntManag, userId, studentRole)
+    val link = createAbstract(compOntManag, linkId, userstudent)
+    compOntManag.close()
+    val mapper = new Ont2CompetenceLinkMap(compOntManag, userId)
+    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().keySet() should not be ('empty)
+    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().values() should not be ('empty)
+    //    link.delete
+    showResult
+  }
+
+  private def showResult() {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val fileUtil = new CompFileUtil(compOntManag.getM())
     fileUtil.writeOntologyout()
     compOntManag.close()
+  }
+
+  private def createAbstract(compOntManag: CompOntologyManager, linkId: String, userstudent: User): AbstractEvidenceLink = {
+
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User(compOntManag, "me", teacherRole)
+    user.persist
+    val user2 = new User(compOntManag, "me")
+    val fullUser = user2.getFullDao
+    fullUser.role.equals(teacherRole) should not be false
+    // and now a more complicated example    
+    val testkommentar = "mein testkommentar"
+    val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
+    val testkommentar2 = "mein testkommentar2"
+    val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
+    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val link = new AbstractEvidenceLink(compOntManag, linkId, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
+    link.persist
+    comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    return link
   }
 
   //  test("A non-empty list should not be empty") {

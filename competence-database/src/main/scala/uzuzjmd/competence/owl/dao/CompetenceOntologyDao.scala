@@ -17,6 +17,13 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   val util = comp.getUtil()
   val encodedstring = identifier.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
 
+  @Override
+  def getPropertyPair(key: String): (Property, Statement) = {
+    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    val prop: Statement = createIndividual.getProperty(literal);
+    return (literal, prop)
+  }
+
   def persist(): Individual = {
     val result = createIndividual
     persistMore()

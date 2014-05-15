@@ -36,4 +36,8 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
       return new User(comp, name, new StudentRole(comp))
     }
   }
+
+  def getAssociatedLinks(): List[AbstractEvidenceLink] = {
+    return getAssociatedStandardDaosAsRange(CompObjectProperties.UserOfLink, classOf[AbstractEvidenceLink])
+  }
 }

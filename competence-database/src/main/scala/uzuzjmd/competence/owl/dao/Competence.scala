@@ -3,6 +3,9 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
+import com.hp.hpl.jena.rdf.model.Property
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import com.hp.hpl.jena.rdf.model.Statement
 
 class Competence(compManager: CompOntologyManager, identifier: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifier) {
 
@@ -17,7 +20,7 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
 
   @Override
   def getFullDao(): Dao = {
-    return new Competence(compManager, identifier, getDataField(DEFINITION).toString(), getDataFieldBoolean(COMPULSORY))
+    return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
   }
 
 }
