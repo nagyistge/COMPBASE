@@ -120,6 +120,7 @@ public class CompetenceServiceRestJSON {
 	}
 
 	/**
+	 * link a competence and a Competence-Evidence-Activity
 	 * 
 	 * @param course
 	 * @param creator
@@ -153,6 +154,14 @@ public class CompetenceServiceRestJSON {
 		return Response.ok("competences linked to evidences").build();
 	}
 
+	/**
+	 * add a comment to a link
+	 * 
+	 * @param linkId
+	 * @param user
+	 * @param text
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/comment/{linkId}/{user}")
@@ -164,9 +173,13 @@ public class CompetenceServiceRestJSON {
 		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
 		abstractEvidenceLink.linkComment(comment);
 		closeManagerInCriticalMode(compOntologyManager);
-		return Response.ok("competences linked to evidences").build();
+		return Response.ok("link commented").build();
 	}
 
+	/*
+	 * validate a link (this should only be done by teacher role (which should
+	 * be checked in the frontend)
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/validate/{linkId}/{user}")
@@ -175,6 +188,14 @@ public class CompetenceServiceRestJSON {
 		return handleLinkValidation(linkId, isvalid);
 	}
 
+	/**
+	 * 
+	 * invalidate a link (this should only be done by teacher role (which should
+	 * be checked in the frontend)
+	 * 
+	 * @param linkId
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/invalidate/{linkId}/{user}")
@@ -183,6 +204,13 @@ public class CompetenceServiceRestJSON {
 		return handleLinkValidation(linkId, isvalid);
 	}
 
+	/**
+	 * gets the competencelinks map in order to show the overview for a
+	 * specified user
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@GET
 	@Path("/link/overview/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -191,7 +219,6 @@ public class CompetenceServiceRestJSON {
 		Ont2CompetenceLinkMap competenceLinkMap = new Ont2CompetenceLinkMap(comp, user);
 		CompetenceLinksMap map = competenceLinkMap.getCompetenceLinkMap();
 		return map;
-
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
