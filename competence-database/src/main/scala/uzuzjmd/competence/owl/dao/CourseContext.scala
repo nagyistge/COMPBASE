@@ -3,6 +3,7 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 case class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, name) {
   @Override
@@ -17,5 +18,9 @@ case class CourseContext(comp: CompOntologyManager, val name: String) extends Co
 
   def getFullDao(): CompetenceOntologyDao = {
     return this;
+  }
+
+  def getLinkedCompetences(): List[Competence] = {
+    return getAssociatedStandardDaosAsRange(CompObjectProperties.CourseContextOf, classOf[Competence])
   }
 }

@@ -141,3 +141,10 @@ competence-database/.cache
 competence-gui/competence-webapp/.gwt/.gwt-log
 competence-gui/htdocs/moodle/mod/competence
 competence-database/mymodelrdf.owl
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/*
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/0FD9C48E6C4CD6F6B06A97D21A517CD9_sourceMap0.json
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/261E3C3F7EF360797717AA1D511AB9AB_sourceMap0.json
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/5CE7958EEBE61B9C9935C0469CEA6C36_sourceMap0.json
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/9313EED216C737F3988F5F84554C3011_sourceMap0.json
+competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/FC3EEAEC25CA90D2EE105F068F0168A1_sourceMap0.json
+competence-gui/competence-webapp/.gwt/.gwt-log
