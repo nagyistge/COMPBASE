@@ -1,6 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.ws.rs.WebApplicationException;
 
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree;
-import uzuzjmd.competence.owl.access.CompFileUtil;
 import uzuzjmd.competence.owl.access.CompOntologyAccess;
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
@@ -76,7 +74,7 @@ public class CompetenceServiceWrapper {
 		compOntologyManager.getM().validate();
 
 		compOntologyManager.close();
-		testResult(compOntologyManager);
+		// testResult(compOntologyManager);
 	}
 
 	/**
@@ -134,25 +132,25 @@ public class CompetenceServiceWrapper {
 		}
 	}
 
-	private static void testResult(CompOntologyManager compOntologyManager) {
-		compOntologyManager.begin();
-
-		CompFileUtil compFileUtil = new CompFileUtil(compOntologyManager.getM());
-		try {
-			compFileUtil.writeOntologyout();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		compOntologyManager.close();
-	}
+	// private static void testResult(CompOntologyManager compOntologyManager) {
+	// compOntologyManager.begin();
+	//
+	// CompFileUtil compFileUtil = new CompFileUtil(compOntologyManager.getM());
+	// try {
+	// compFileUtil.writeOntologyout();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// compOntologyManager.close();
+	// }
 
 	public static void delete(String course) {
 		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		CourseContext courseContext = new CourseContext(compOntologyManager, course);
 		courseContext.delete();
 		compOntologyManager.close();
-		testResult(compOntologyManager);
+		// testResult(compOntologyManager);
 
 	}
 

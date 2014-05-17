@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
+import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
 import uzuzjmd.competence.owl.dao.Comment;
@@ -22,10 +23,14 @@ import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.owl.dao.EvidenceActivity;
+import uzuzjmd.competence.owl.dao.Role;
+import uzuzjmd.competence.owl.dao.StudentRole;
+import uzuzjmd.competence.owl.dao.TeacherRole;
 import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.dto.ProgressMap;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -131,17 +136,23 @@ public class CompetenceServiceRestJSON {
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("/link/create/{course}/{creator}/{linkedUser}")
+	@Path("/link/create/{course}/{creator}/{role}/{linkedUser}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("linkedUser") String linkedUser,
+	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("role") String role, @PathParam("linkedUser") String linkedUser,
 			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		Role creatorRole = null;
+		if (role.equals("student")) {
+			creatorRole = new StudentRole(compOntologyManager);
+		} else {
+			creatorRole = new TeacherRole(compOntologyManager);
+		}
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				CourseContext courseContext = new CourseContext(compOntologyManager, course);
-				User creatorUser = new User(compOntologyManager, creator, null, courseContext);
-				User linkedUserUser = new User(compOntologyManager, linkedUser, null, courseContext);
+				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext);
+				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext);
 				scala.collection.immutable.List<Comment> comments = null;
 				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
 				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
@@ -219,6 +230,15 @@ public class CompetenceServiceRestJSON {
 		Ont2CompetenceLinkMap competenceLinkMap = new Ont2CompetenceLinkMap(comp, user);
 		CompetenceLinksMap map = competenceLinkMap.getCompetenceLinkMap();
 		return map;
+	}
+
+	@GET
+	@Path("/link/progress/{course}")
+	public ProgressMap getProgressM(@PathParam("course") String course, @QueryParam("competences") List<String> selectedCompetences) {
+		CompOntologyManager comp = initManagerInCriticalMode();
+		Ont2ProgressMap map = new Ont2ProgressMap(comp, course, selectedCompetences);
+		closeManagerInCriticalMode(comp);
+		return map.getProgressMap();
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
