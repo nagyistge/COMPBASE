@@ -234,11 +234,15 @@ public class CompetenceServiceRestJSON {
 
 	@GET
 	@Path("/link/progress/{course}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public ProgressMap getProgressM(@PathParam("course") String course, @QueryParam("competences") List<String> selectedCompetences) {
+		ProgressMap result = null;
 		CompOntologyManager comp = initManagerInCriticalMode();
 		Ont2ProgressMap map = new Ont2ProgressMap(comp, course, selectedCompetences);
+		result = map.getProgressMap();
 		closeManagerInCriticalMode(comp);
-		return map.getProgressMap();
+		return result;
+
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {

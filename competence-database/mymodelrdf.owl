@@ -282,6 +282,12 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter benennen Schwerpunkte der Rahmenlehrpläne der einzelnen Fächer.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meintestkommentar2">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1400345607983</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Schulentwicklung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
@@ -353,6 +359,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#httptestest">
     <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#hellolinkId"/>
     <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://testest</j.0:url>
     <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">meine testaktivitat</j.0:printableName>
   </rdf:Description>
@@ -453,6 +460,14 @@
   <rdf:Description rdf:about="http://comp#IbeschreibenAnzahlderPCs">
     <rdf:type rdf:resource="http://comp#beschreibenAnzahlderPCs"/>
     <j.0:EvidencOf rdf:resource="http://comp#IDieLehramtsanwärteranalysierendieBedingungenbezüglichInformatikunterrichthinsichtlichderAusstattungmitPCsundanderenfürdenInformatikunterrichtrelevanterFaktoren"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#hellolinkId">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#me"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1400345608023</j.0:datecreated>
+    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LearnerOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -1227,7 +1242,9 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#studentme">
     <rdf:type rdf:resource="http://comp#User"/>
-    <j.0:UserOfLink rdf:resource="http://comp#httpsupertestevidencesomeforumseintragDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
+    <j.0:UserOfLink rdf:resource="http://comp#hellolinkId"/>
+    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar"/>
+    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar2"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">studentme</j.0:name>
     <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
   </rdf:Description>
@@ -1294,6 +1311,12 @@
     <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">    * Korrekte Zitierweise des Rahmenlehrplans (RLP)    * Korrekte Zuordnung zu Inhalten des RLP</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meintestkommentar">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1400345607983</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Unterrichten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
@@ -1357,12 +1380,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkennendierechtlichenRahmenbedingungenihrerTätigkeitzBGrundgesetzSchulgesetze">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterkennendierechtlichenRahmenbedingungenihrerTätigkeitzBGrundgesetzSchulgesetze"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#httpsupertestevidence">
-    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
-    <j.0:ActivityOf rdf:resource="http://comp#httpsupertestevidencesomeforumseintragDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
-    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://supertestevidence</j.0:url>
-    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">someforumseintrag</j.0:printableName>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterverständigensichaufBeurteilungsgrundsätzemitKolleginnenundKollegen">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärterverständigensichaufBeurteilungsgrundsätzemitKolleginnenundKollegen"/>
@@ -1471,12 +1488,6 @@
     <rdfs:subClassOf rdf:resource="http://comp#DifferenzierungIntegrationundFörderung"/>
     <rdfs:subClassOf rdf:resource="http://comp#DiagnostikBeurteilungundBeratung"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Differenzierung</j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#httpsupertestevidencesomeforumseintragDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation">
-    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkennenMethodenderSelbstundFremdevaluation"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1400344914334</j.0:datecreated>
-    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDidaktikundMethodik">
     <rdf:type rdf:resource="http://comp#DidaktikundMethodik"/>
