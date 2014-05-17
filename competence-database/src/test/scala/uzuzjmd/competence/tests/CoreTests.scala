@@ -26,6 +26,7 @@ import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
+import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -228,6 +229,24 @@ class CoreTests extends FunSuite with ShouldMatchers {
     showResult
   }
 
+  test("progresbarmap should not be empty") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    val linkId = "hellolinkId"
+    val userId = "studentme"
+    val studentRole = new StudentRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
+    val link = createAbstract(compOntManag, linkId, userstudent)
+    compOntManag.close()
+    val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil
+    val competenceListString = competenceList.map(x => x.getFullDao.definition).asJava
+    val mapper = new Ont2ProgressMap(compOntManag, coursecontext.name, competenceListString)
+    mapper.getProgressMap() should not be null
+    mapper.getProgressMap().values() should not be ('empty)
+    println("progressbarexample" + mapper.getProgressMap.keySet().iterator().next() + ":" + mapper.getProgressMap.values().iterator().next());
+  }
+
   private def showResult() {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
@@ -253,6 +272,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
     val link = new AbstractEvidenceLink(compOntManag, linkId, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
     link.persist
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
