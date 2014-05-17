@@ -239,12 +239,15 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
+    compOntManag.begin()
     val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil
     val competenceListString = competenceList.map(x => x.getFullDao.definition).asJava
     val mapper = new Ont2ProgressMap(compOntManag, coursecontext.name, competenceListString)
     mapper.getProgressMap() should not be null
     mapper.getProgressMap().values() should not be ('empty)
     println("progressbarexample" + mapper.getProgressMap.keySet().iterator().next() + ":" + mapper.getProgressMap.values().iterator().next());
+    compOntManag.close()
+    showResult
   }
 
   private def showResult() {
@@ -256,7 +259,6 @@ class CoreTests extends FunSuite with ShouldMatchers {
   }
 
   private def createAbstract(compOntManag: CompOntologyManager, linkId: String, userstudent: User): AbstractEvidenceLink = {
-
     val coursecontext = new CourseContext(compOntManag, "2")
     val teacherRole = new TeacherRole(compOntManag)
     val user = new User(compOntManag, "me", teacherRole, coursecontext)
