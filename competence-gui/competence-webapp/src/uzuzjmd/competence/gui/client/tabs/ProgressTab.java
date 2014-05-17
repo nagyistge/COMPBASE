@@ -11,10 +11,13 @@ import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidg
 import uzuzjmd.competence.gui.client.progressView.ProgressEntry;
 import uzuzjmd.competence.gui.shared.JsonUtil;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -41,6 +44,8 @@ public class ProgressTab extends Composite {
 	Panel competenceSelectionPanelPlaceholder;
 	@UiField
 	FocusPanel warningPlaceholder;
+	@UiField
+	Button filterButton;
 	private CompetenceSelectionWidget competenceSelectionWidget;
 	private ContextFactory contextFactory;
 
@@ -64,27 +69,41 @@ public class ProgressTab extends Composite {
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 
+		showProgressEntries(contextFactory);
+
+	}
+
+	private void showProgressEntries(final ContextFactory contextFactory) {
+		progressPlaceHolder.clear();
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/progress/"
 				+ contextFactory.getCourseId());
-		resource.get().send(new JsonCallback() {
+		resource.addQueryParams("competences",
+				competenceSelectionWidget.getSelectedCompetences()).get()
+				.send(new JsonCallback() {
 
-			@Override
-			public void onSuccess(Method arg0, JSONValue arg1) {
-				Map<String, String> userProgressMap = JsonUtil.toMap(arg1);
-				for (String userName : userProgressMap.keySet()) {
-					progressPlaceHolder.add(new ProgressEntry(userName, Double
-							.valueOf(userProgressMap.get(userName))));
-				}
-			}
+					@Override
+					public void onSuccess(Method arg0, JSONValue arg1) {
+						Map<String, String> userProgressMap = JsonUtil
+								.toMap(arg1);
+						for (String userName : userProgressMap.keySet()) {
+							progressPlaceHolder.add(new ProgressEntry(userName,
+									Double.valueOf(userProgressMap
+											.get(userName))));
+						}
+					}
 
-			@Override
-			public void onFailure(Method arg0, Throwable arg1) {
-				GWT.log("could not get progress map from server for course context"
-						+ contextFactory.getCourseId());
+					@Override
+					public void onFailure(Method arg0, Throwable arg1) {
+						GWT.log("could not get progress map from server for course context"
+								+ contextFactory.getCourseId());
 
-			}
-		});
+					}
+				});
+	}
 
+	@UiHandler("filterButton")
+	void onFilterButtonClick(ClickEvent event) {
+		showProgressEntries(contextFactory);
 	}
 }
