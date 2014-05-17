@@ -123,6 +123,14 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.SimilarTo);
 		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.CourseContextOf);
 		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.CompulsoryOf);
+		getUtil().createObjectProperty(CompOntClass.AbstractEvidenceLink, CompOntClass.CourseContext, CompObjectProperties.LinkOfCourseContext);
+		getUtil().createObjectProperty(CompOntClass.EvidenceActivity, CompOntClass.AbstractEvidenceLink, CompObjectProperties.ActivityOf);
+		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.AbstractEvidenceLink, CompObjectProperties.UserOfLink);
+		getUtil().createObjectProperty(CompOntClass.AbstractEvidenceLink, CompOntClass.User, CompObjectProperties.createdBy);
+		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.Comment, CompObjectProperties.UserOfComment);
+		getUtil().createObjectProperty(CompOntClass.Comment, CompOntClass.AbstractEvidenceLink, CompObjectProperties.CommentOf);
+		getUtil().createObjectProperty(CompOntClass.Role, CompOntClass.User, CompObjectProperties.RoleOf);
+
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
 		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
@@ -181,8 +189,6 @@ public class CompOntologyManager {
 		rulesReasoner.getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, false);
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
 	}
-
-
 
 	public void sync() {
 		TDB.sync(dataset);
