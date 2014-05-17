@@ -161,7 +161,7 @@ public class LinkEvidenceTab extends Composite {
 			if (isLeaf) {
 				for (String key : activityEvidenceKeys) {
 					createAbstractEvidenceLink(competences, creator, course,
-							key);
+							key, contextFactory.getRole());
 				}
 			} else {
 				alert = new Alert(
@@ -173,13 +173,13 @@ public class LinkEvidenceTab extends Composite {
 	}
 
 	private void createAbstractEvidenceLink(List<String> competences,
-			String creator, String course, String key) {
+			String creator, String course, String key, String creatorRole) {
 		List<String> activityPairs = new LinkedList<String>();
 		activityPairs.add(activityMapToUrl.get(key) + "," + key);
 		String linkedUser = activityMapToUser.get(key);
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/create/" + course + "/" + creator
-				+ "/" + linkedUser);
+				+ "/" + creatorRole + "/" + linkedUser);
 		try {
 			resource.addQueryParams("competences", competences)
 					.addQueryParams("evidences", activityPairs).post()
