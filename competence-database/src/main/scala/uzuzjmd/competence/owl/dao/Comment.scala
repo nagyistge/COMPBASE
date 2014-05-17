@@ -26,7 +26,7 @@ case class Comment(comp: CompOntologyManager, val text: String, val creator: Use
 
   def getFullDao(): Comment = {
     val creator = getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfComment, classOf[User]).head
-    val dateCreated = getDataField(DATECRATED).toString()
+    val dateCreated = getDataField(DATECRATED)
     return new Comment(comp, text, creator, java.lang.Long.parseLong(dateCreated))
   }
 }
