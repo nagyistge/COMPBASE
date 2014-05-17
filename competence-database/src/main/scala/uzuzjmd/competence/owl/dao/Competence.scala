@@ -19,7 +19,7 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   }
 
   @Override
-  def getFullDao(): Dao = {
+  def getFullDao(): Competence = {
     return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
   }
 
