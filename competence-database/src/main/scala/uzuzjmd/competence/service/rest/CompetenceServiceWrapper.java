@@ -15,8 +15,8 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.access.CompOntologyManagerFactory;
 import uzuzjmd.competence.owl.access.OntResult;
+import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
@@ -87,10 +87,13 @@ public class CompetenceServiceWrapper {
 	 * @return
 	 */
 	public static Individual createCourseContext(String course, CompOntologyManager compOntologyManager) {
-		CompOntologyAccess util = compOntologyManager.getUtil();
-		OntClass courseContextClass = util.createOntClass(CompOntClass.CourseContext);
-		Individual courseContextIndividual = util.createIndividualForString(courseContextClass, course);
-		return courseContextIndividual;
+		// CompOntologyAccess util = compOntologyManager.getUtil();
+		// OntClass courseContextClass =
+		// util.createOntClass(CompOntClass.CourseContext);
+		// Individual courseContextIndividual =
+		// util.createIndividualForString(courseContextClass, course);
+		CourseContext courseContext = new CourseContext(compOntologyManager, course);
+		return courseContext.createIndividual();
 	}
 
 	private static void linkSingleCompetences(List<String> competences, Boolean compulsoryBoolean, String requirements, CompOntologyManager compOntologyManager, CompOntologyAccess util,
@@ -146,9 +149,8 @@ public class CompetenceServiceWrapper {
 
 	public static void delete(String course) {
 		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
-		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
-
-		courseContextIndividual.remove();
+		CourseContext courseContext = new CourseContext(compOntologyManager, course);
+		courseContext.delete();
 		compOntologyManager.close();
 		testResult(compOntologyManager);
 
