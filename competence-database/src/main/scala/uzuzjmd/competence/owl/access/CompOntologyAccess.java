@@ -262,6 +262,7 @@ public class CompOntologyAccess {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
 			System.out.println("OntClass should not start with Prefix or empty string");
 		}
+
 		/**
 		 * control character werden nicht akzeptiert und leerzeichen sind auch
 		 * nicht gut

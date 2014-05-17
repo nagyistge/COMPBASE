@@ -30,6 +30,24 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
 
+  test("if a user is persisted, the course context should be acessable") {
+
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+
+    val teacherRole = new TeacherRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    coursecontext.persist
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    user.persist()
+    val user2 = new User(compOntManag, "me")
+    val fullUser = user2.getFullDao
+    fullUser.equals(user) should not be false
+    user.delete
+    coursecontext.delete
+    compOntManag.close()
+  }
+
   test("The CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
 
@@ -91,7 +109,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
     user.persist
     user.exists should not be false
     user.delete
@@ -104,8 +123,9 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
-    user.persist
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    user.persist()
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
     user.delete
@@ -126,7 +146,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val testkommentar = "mein testkommentar"
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
     val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
     comment.persist
     comment.exists should not be false
@@ -144,14 +165,14 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val studentRole = new StudentRole(compOntManag)
-    val userstudent = new User(compOntManag, "studentme", studentRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "studentme", studentRole, coursecontext)
     val testkommentar = "mein testkommentar"
     val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
-    val coursecontext = new CourseContext(compOntManag, "2")
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
 
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
@@ -170,7 +191,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val linkId = "hellolinkId"
     val studentRole = new StudentRole(compOntManag)
-    val userstudent = new User(compOntManag, "studentme", studentRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "studentme", studentRole, coursecontext)
     val link = createAbstract(compOntManag, linkId, userstudent)
 
     // now getting it by example
@@ -181,7 +203,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     fullExampleLink.getAllActivities should not be ('empty)
     fullExampleLink.getAllCourseContexts should not be ('empty)
     fullExampleLink.getAllLinkedUsers should not be ('empty)
-    fullExampleLink.getAllLinkedUsers.head.equals(userstudent) should not be false
+    val linkedUser = fullExampleLink.getAllLinkedUsers.head
+    linkedUser.equals(userstudent) should not be false
     link.delete
 
     compOntManag.close()
@@ -194,7 +217,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val linkId = "hellolinkId"
     val userId = "studentme"
     val studentRole = new StudentRole(compOntManag)
-    val userstudent = new User(compOntManag, userId, studentRole)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
     val mapper = new Ont2CompetenceLinkMap(compOntManag, userId)
@@ -214,8 +238,9 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
   private def createAbstract(compOntManag: CompOntologyManager, linkId: String, userstudent: User): AbstractEvidenceLink = {
 
+    val coursecontext = new CourseContext(compOntManag, "2")
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
     user.persist
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
@@ -225,7 +250,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
-    val coursecontext = new CourseContext(compOntManag, "2")
+
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val link = new AbstractEvidenceLink(compOntManag, linkId, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
