@@ -1,6 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
+import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -26,8 +27,8 @@ public class Competence_webapp implements EntryPoint {
 		final ContextFactory contextFactory = new ContextFactory();
 		RequirementTab tab = new RequirementTab(contextFactory);
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-
-		container.add(tab);
+		ProgressTab tab3 = new ProgressTab(contextFactory);
+		container.add(tab3);
 	}
 
 	public static native void showPreview(String url, String selector,
