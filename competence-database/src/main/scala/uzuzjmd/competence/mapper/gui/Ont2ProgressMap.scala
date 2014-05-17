@@ -5,11 +5,12 @@ import uzuzjmd.competence.service.rest.dto.ProgressMap
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.User
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.dao.StudentRole
 
 class Ont2ProgressMap(comp: CompOntologyManager, val course: String, val selectedCompetences: java.util.List[String]) {
   val courseDao = new CourseContext(comp, course)
   val linkedCompetences = courseDao.getLinkedCompetences
-  val userOfCourseContext = courseDao.getLinkedUser
+  val userOfCourseContext = courseDao.getLinkedUser.filter(x=>x.role.equals(new StudentRole(comp)))
 
   def getProgressMap(): ProgressMap = {
     val numberOfLinks = getNumberOfCompetencesLinkedToCourse
