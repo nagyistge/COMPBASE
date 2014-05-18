@@ -92,7 +92,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	private String getMoodleEvidenceServerUrl() {
 		String moodleEvidenceUrl = contextFactory.getEvidenceServerURL()
 				+ "/moodle/activities/usertree/xml/crossdomain/"
-				+ contextFactory.getCourseId();
+				+ contextFactory.getMoodleCourseId();
 		return moodleEvidenceUrl;
 	}
 
