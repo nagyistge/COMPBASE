@@ -26,12 +26,9 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -39,7 +36,7 @@ import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 
-public class LinkEvidenceTab extends Composite {
+public class LinkEvidenceTab extends CompetenceTab {
 
 	private static LinkEvidenceTabUiBinder uiBinder = GWT
 			.create(LinkEvidenceTabUiBinder.class);
@@ -76,13 +73,9 @@ public class LinkEvidenceTab extends Composite {
 
 		getActivityUrlMap();
 
-		this.tabExplainationPanel
-				.add(new Label(
-						"Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer."));
-
-		HTML html = new HTML(
-				"<hr class=\"fancy-line\" style=\"width:100%;\" />");
-		this.HrPanelContainer.add(html);
+		String infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
+		fillInfoTab(infoText, tabExplainationPanel);
+		initHrLines(HrPanelContainer);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, null, "coursecontext/");
