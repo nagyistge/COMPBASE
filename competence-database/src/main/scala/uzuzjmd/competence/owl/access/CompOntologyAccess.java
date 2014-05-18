@@ -260,7 +260,7 @@ public class CompOntologyAccess {
 
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
-			System.out.println("OntClass should not start with Prefix or empty string");
+			throw new Error("OntClass should not start with Prefix or empty string");
 		}
 
 		/**

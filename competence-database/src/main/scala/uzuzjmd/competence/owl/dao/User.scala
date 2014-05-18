@@ -37,7 +37,12 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
   def getFullDao(): User = {
     val teacherRole = new TeacherRole(comp)
     val queries = new CompetenceQueries(comp.getM())
-    val courseContext2 = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext]).head
+    val courseContext2 = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext]).head;
+    //    val courseContext2 = associatedContexts match {
+    //      case null => null
+    //      case Nil => null
+    //      case default => default.head
+    //    }
     if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
       return new User(comp, name, teacherRole, courseContext2)
     } else {

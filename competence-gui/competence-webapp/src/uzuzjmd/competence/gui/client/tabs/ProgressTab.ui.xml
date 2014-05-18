@@ -7,8 +7,7 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
-		<g:SimplePanel ui:field="tabExplainationPanel"
-			styleName="alert alert-info" />
+		<g:SimplePanel ui:field="tabExplainationPanel"/>
 		<g:VerticalPanel ui:field="competenceSelectionAndActivity">
 			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
 			<g:SimplePanel ui:field="HrPanelContainer" />

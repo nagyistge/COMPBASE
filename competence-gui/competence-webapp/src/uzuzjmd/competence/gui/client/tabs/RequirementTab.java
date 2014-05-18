@@ -17,18 +17,15 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class RequirementTab extends Composite {
+public class RequirementTab extends CompetenceTab {
 
 	interface RequirementTabUiBinder extends UiBinder<Widget, RequirementTab> {
 	}
@@ -66,22 +63,19 @@ public class RequirementTab extends Composite {
 
 	public RequirementTab(final ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.tabExplainationPanel
-				.add(new Label(
-						"Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!"));
-		HTML html = new HTML(
-				"<hr class=\"fancy-line\" style=\"width:100%;\" />");
-		this.hrDividerPanel2.add(html);
-		this.hrDividerPanel.add(html);
+		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
+		fillInfoTab(infoText, tabExplainationPanel);
+
+		initHrLines(hrDividerPanel);
+		initHrLines(hrDividerPanel2);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, "selected");
-		// competenceSelectionWidget = new CompetenceSelectionWidget(
-		// contextFactory, null, "coursecontext/");
-
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
-		// this.competenceSelectionAndRequirementPanel.setSize("auto", "auto");
+		initRequirementTextfield(contextFactory);
+	}
 
+	private void initRequirementTextfield(final ContextFactory contextFactory) {
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/coursecontext/requirements/"
 				+ contextFactory.getCourseId());
