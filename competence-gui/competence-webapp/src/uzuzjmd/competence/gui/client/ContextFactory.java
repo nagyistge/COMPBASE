@@ -1,7 +1,11 @@
 package uzuzjmd.competence.gui.client;
 
 public class ContextFactory {
-	public int getCourseId() {
+	public String getCourseId() {
+		return "n2";
+	}
+
+	public int getMoodleCourseId() {
 		return 2;
 	}
 
@@ -18,6 +22,6 @@ public class ContextFactory {
 	}
 
 	public String getUser() {
-		return "6";
+		return "new userme";
 	}
 }
