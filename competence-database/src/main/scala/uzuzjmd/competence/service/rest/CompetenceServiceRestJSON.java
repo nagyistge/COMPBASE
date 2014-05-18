@@ -120,7 +120,6 @@ public class CompetenceServiceRestJSON {
 	@GET
 	@Path("/selected/{course}")
 	public String[] getSelected(@PathParam("course") String course) {
-
 		return CompetenceServiceWrapper.getSelected(course);
 	}
 
