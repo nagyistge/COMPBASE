@@ -11,23 +11,23 @@ import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidg
 import uzuzjmd.competence.gui.client.progressView.ProgressEntry;
 import uzuzjmd.competence.gui.shared.JsonUtil;
 
+import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ProgressTab extends Composite {
+public class ProgressTab extends CompetenceTab {
 
 	private static ProgressTabUiBinder uiBinder = GWT
 			.create(ProgressTabUiBinder.class);
@@ -46,6 +46,8 @@ public class ProgressTab extends Composite {
 	FocusPanel warningPlaceholder;
 	@UiField
 	Button filterButton;
+
+	private Alert alert;
 	private CompetenceSelectionWidget competenceSelectionWidget;
 	private ContextFactory contextFactory;
 
@@ -56,13 +58,9 @@ public class ProgressTab extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		this.contextFactory = contextFactory;
-		this.tabExplainationPanel
-				.add(new Label(
-						"Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden."));
-
-		HTML html = new HTML(
-				"<hr class=\"fancy-line\" style=\"width:100%;\" />");
-		this.HrPanelContainer.add(html);
+		String infoText = "Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden.";
+		fillInfoTab(infoText, tabExplainationPanel);
+		initHrLines(HrPanelContainer);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, null, "coursecontext/");
@@ -91,6 +89,9 @@ public class ProgressTab extends Composite {
 									Double.valueOf(userProgressMap
 											.get(userName))));
 						}
+						alert = new Alert("Erfolgreich gefiltert",
+								AlertType.SUCCESS);
+						warningPlaceholder.add(alert);
 					}
 
 					@Override
@@ -98,6 +99,10 @@ public class ProgressTab extends Composite {
 						GWT.log("could not get progress map from server for course context"
 								+ contextFactory.getCourseId());
 
+						alert = new Alert(
+								"Es gab Probleme bei der Datenbank, kontaktieren Sie einen Entwickler",
+								AlertType.ERROR);
+						warningPlaceholder.add(alert);
 					}
 				});
 	}
@@ -105,5 +110,15 @@ public class ProgressTab extends Composite {
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
 		showProgressEntries(contextFactory);
+	}
+
+	@UiHandler("warningPlaceholder")
+	void onWarningPlaceholderMouseOut(MouseOutEvent event) {
+		warningPlaceholder.remove(alert);
+	}
+
+	@UiHandler("warningPlaceholder")
+	void onWarningPlaceholderClick(ClickEvent event) {
+		warningPlaceholder.remove(alert);
 	}
 }

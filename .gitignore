@@ -148,3 +148,7 @@ competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps
 competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/9313EED216C737F3988F5F84554C3011_sourceMap0.json
 competence-gui/competence-webapp/war/WEB-INF/deploy/competence_webapp/symbolMaps/FC3EEAEC25CA90D2EE105F068F0168A1_sourceMap0.json
 competence-gui/competence-webapp/.gwt/.gwt-log
+competence-gui/competence-webapp/.gwt/.gwt-log
+competence-gui/competence-webapp/war/competence_webapp/gwt/clean/
+competence-gui/competence-webapp/war/competence_webapp/competence_webapp.nocache.js
+competence-database/mymodelrdf.owl

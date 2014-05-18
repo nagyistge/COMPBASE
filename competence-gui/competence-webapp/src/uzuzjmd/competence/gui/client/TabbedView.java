@@ -4,7 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -15,11 +15,11 @@ public class TabbedView extends Composite {
 	@UiField
 	TabLayoutPanel tabPanel;
 	@UiField
-	SimplePanel requirementTabPlaceholder;
+	HTMLPanel requirementTabPlaceholder;
 	@UiField
-	SimplePanel linkTabPlaceholder;
+	HTMLPanel linkTabPlaceholder;
 	@UiField
-	SimplePanel progressTabPlaceholder;
+	HTMLPanel progressTabPlaceholder;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}

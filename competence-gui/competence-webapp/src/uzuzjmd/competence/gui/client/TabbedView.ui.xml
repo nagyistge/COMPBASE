@@ -7,22 +7,23 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:TabLayoutPanel barHeight="2" barUnit="EM" width="auto" height="auto" ui:field="tabPanel">
+		<g:TabLayoutPanel barHeight="2" barUnit="EM" width="700px"
+			height="951px" ui:field="tabPanel">
 			<g:tab>
 				<g:header>Anforderungen</g:header>
-				<g:SimplePanel ui:field="requirementTabPlaceholder"/>
+				<g:HTMLPanel width="1600px" height="951px"  ui:field="requirementTabPlaceholder"/>
 			</g:tab>
 			<g:tab>
 				<g:header>Pfade</g:header>
-				<g:SimplePanel ui:field="pathTabPlaceholder"/>
+				<g:HTMLPanel width="1600px" height="951px"  ui:field="pathTabPlaceholder"/>
 			</g:tab>
 			<g:tab>
 				<g:header>Zuordnung</g:header>
-				<g:SimplePanel ui:field="linkTabPlaceholder"/>
+				<g:HTMLPanel width="1600px" height="951px"  ui:field="linkTabPlaceholder"/>
 			</g:tab>
 			<g:tab>
 				<g:header>Teilnehmer</g:header>
-				<g:SimplePanel ui:field="progressTabPlaceholder"/>
+				<g:HTMLPanel width="1600px" height="951px"  ui:field="progressTabPlaceholder"/>
 			</g:tab>
 		</g:TabLayoutPanel>
 		

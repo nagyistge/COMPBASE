@@ -28,7 +28,19 @@ public class Competence_webapp implements EntryPoint {
 		RequirementTab tab = new RequirementTab(contextFactory);
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
 		ProgressTab tab3 = new ProgressTab(contextFactory);
-		container.add(tab3);
+		// container.add(tab2);
+		TabbedView tabbedView = new TabbedView();
+		tabbedView.linkTabPlaceholder.add(tab2);
+		tabbedView.progressTabPlaceholder.add(tab3);
+		tabbedView.requirementTabPlaceholder.add(tab);
+
+		tabbedView.tabPanel.selectTab(0, true);
+		tabbedView.tabPanel.selectTab(1, true);
+		tabbedView.tabPanel.selectTab(2, true);
+		tabbedView.tabPanel.selectTab(3, true);
+		tabbedView.tabPanel.selectTab(0);
+
+		container.add(tabbedView);
 	}
 
 	public static native void showPreview(String url, String selector,
