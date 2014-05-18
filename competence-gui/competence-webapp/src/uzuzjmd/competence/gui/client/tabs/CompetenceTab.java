@@ -3,14 +3,25 @@ package uzuzjmd.competence.gui.client.tabs;
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class CompetenceTab extends Composite {
 
+	private String alertWidth = "625px";
+
 	protected Alert fillInfoTab(String infoText, SimplePanel panel) {
 		Alert info = new Alert(infoText, AlertType.INFO, false);
-		info.setWidth("625px");
+		info.setWidth(alertWidth);
+		panel.add(info);
+		return info;
+	}
+
+	protected Alert createAlert(String infoText, FocusPanel panel,
+			AlertType alertType) {
+		Alert info = new Alert(infoText, alertType);
+		info.setWidth(alertWidth);
 		panel.add(info);
 		return info;
 	}
