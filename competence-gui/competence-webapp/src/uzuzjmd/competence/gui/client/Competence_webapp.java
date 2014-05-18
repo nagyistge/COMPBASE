@@ -28,7 +28,12 @@ public class Competence_webapp implements EntryPoint {
 		RequirementTab tab = new RequirementTab(contextFactory);
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
 		ProgressTab tab3 = new ProgressTab(contextFactory);
-		// container.add(tab2);
+		// container.add(tab);
+		initTabbedView(container, tab, tab2, tab3);
+	}
+
+	private void initTabbedView(RootPanel container, RequirementTab tab,
+			LinkEvidenceTab tab2, ProgressTab tab3) {
 		TabbedView tabbedView = new TabbedView();
 		tabbedView.linkTabPlaceholder.add(tab2);
 		tabbedView.progressTabPlaceholder.add(tab3);
