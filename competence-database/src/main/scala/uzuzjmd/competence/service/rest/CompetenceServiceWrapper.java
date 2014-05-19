@@ -61,7 +61,6 @@ public class CompetenceServiceWrapper {
 
 	public static void linkCompetencesToCourse(String course, List<String> competences, Boolean compulsoryBoolean, String requirements) {
 
-		System.out.println("linking competences: " + competences);
 		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		compOntologyManager.startReasoning();
 		CompOntologyAccess util = compOntologyManager.getUtil();
