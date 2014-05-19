@@ -89,16 +89,18 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-		// return moodleServiceImpl.getUserTree(course);
+		return moodleServiceImpl.getUserTree(course);
 		// result = cacheImpl.get(course, null);
-		return moodleServiceImpl.getCachedUserTree(course);
+		// return moodleServiceImpl.getCachedUserTree(course);
 	}
 
 	@Path("/activities/usertree/xml/crossdomain/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
-		Response response = Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
+		Response response = Response.status(200).entity(moodleServiceImpl.getUserTree(course)).build();
+		// Response response =
+		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
 		return response;
 	}
 

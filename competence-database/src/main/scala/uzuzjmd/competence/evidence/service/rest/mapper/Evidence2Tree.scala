@@ -16,7 +16,41 @@ import uzuzjmd.competence.owl.access.MagicStrings
  * Die Evidenzen als GWT-Tree angezeigt werden können
  */
 case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvidences: Array[MoodleEvidence]) {
+  val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten
+  val modules = filteredMoodleResponses.map(x => x.getModules().asScala).flatten.view // nur die mit Module	
+  // url->modicon map erstellen
+  val modiconMap = modules.map(x => x.getModplural() -> x.getModicon()).toMap
+  // url->printableName erstellen
+  val printableNameMap = modules.map(x => x.getUrl() -> x.getName()).toMap
+  // modname -> modnamePluralMap erstellen
+  val pluralMap = modules.map(x => x.getModname() -> x.getModplural()).toMap.filterKeys(key => (!key.equals("competence")))
+
   def getUserTrees(): java.util.List[UserTree] = {
+    val groupedByUser = moodleEvidences.filterNot(x => x.getActivityTyp().equals("course")).groupBy(evidence => evidence.getUsername())
+    val groupedByModAndMappedToPlural = groupedByUser.map(x => (x._1, x._2.groupBy(x => x.getActivityTyp()).map(y => (getValueFromMap(y._1)(pluralMap), y._2.map(z => z.getUrl()).distinct))))
+    return groupedByModAndMappedToPlural.map(x => new UserTree(x._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", activityTypEntryMapToActivityTyp(x._2))).toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+  }
+
+  def getValueFromMap(key: String)(map: Map[String, String]): String = {
+    return map.get(key) match {
+      case Some(i) => return i;
+      case None => return "notfound";
+    };
+  }
+
+  def activityTypEntryMapToActivityTyp(activityTypMap: Map[String, Array[String]]): java.util.List[ActivityTyp] = {
+    return activityTypMap.map(y => new ActivityTyp(y._1, "Aktivitätstyp", getValueFromMap(y._1)(modiconMap), createActivityEntries(y._2))).toList.filterNot(x => x.getName().equals(x.getIcon())).filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+  }
+
+  def createActivityEntries(urls: Array[String]): java.util.List[ActivityEntry] = {
+    return urls.map(url => new ActivityEntry(getValueFromMap(url)(printableNameMap), "Activität", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", url)).toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+  }
+
+  def printMap(map: Map[String, String]) {
+    map.foreach(x => println("Key: " + x._1 + "  value:" + x._2))
+  }
+
+  def getUserTreesOld(): java.util.List[UserTree] = {
     val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten
     val modules = filteredMoodleResponses.map(x => x.getModules().asScala).flatten.view // nur die mit Module
     val filteredModules = modules.filterNot(x => x.getUrl().equals(null)).filterNot(x => x.getModname().equals("competence")); // nur die mit URL
