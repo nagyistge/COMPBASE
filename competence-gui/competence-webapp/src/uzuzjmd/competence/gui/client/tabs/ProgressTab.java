@@ -121,4 +121,8 @@ public class ProgressTab extends CompetenceTab {
 	void onWarningPlaceholderClick(ClickEvent event) {
 		warningPlaceholder.remove(alert);
 	}
+
+	public void reload() {
+		competenceSelectionWidget.reload();
+	}
 }
