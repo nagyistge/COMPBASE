@@ -86,7 +86,7 @@ public class ProgressTab extends CompetenceTab {
 								.toMap(arg1);
 						for (String userName : userProgressMap.keySet()) {
 							progressPlaceHolder.add(new ProgressEntry(userName,
-									Double.valueOf(userProgressMap
+									Integer.valueOf(userProgressMap
 											.get(userName))));
 						}
 						alert = new Alert("Erfolgreich gefiltert",
