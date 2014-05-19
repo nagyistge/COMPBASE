@@ -72,8 +72,8 @@ public class CompetenceSelectionWidget extends Composite {
 	@UiField
 	Button resetButton;
 
-	private CompetenceSelectionPanel competenceTree;
-	private OperatorSelectionPanel operatorTree;
+	private CompetenceSelectionTree competenceTree;
+	private OperatorSelectionTree operatorTree;
 
 	private CatchwordSelectionTree catchwordTree;
 
@@ -129,7 +129,7 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	private void initOperatorTree(final ContextFactory contextFactory) {
-		this.operatorTree = new OperatorSelectionPanel(
+		this.operatorTree = new OperatorSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
 						+ contextFactory.getCourseId() + "/nocache",
@@ -236,7 +236,7 @@ public class CompetenceSelectionWidget extends Composite {
 		if (query != null) {
 			queryString += query;
 		}
-		competenceTree = new CompetenceSelectionPanel(
+		competenceTree = new CompetenceSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/"
 						+ competenceTreeFilter + contextFactory.getCourseId()

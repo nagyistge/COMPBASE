@@ -6,9 +6,9 @@ import uzuzjmd.competence.gui.shared.MyTreePanel;
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
 
-public class OperatorSelectionPanel extends MyTreePanel {
+public class OperatorSelectionTree extends MyTreePanel {
 
-	public OperatorSelectionPanel(String databaseConnectionString,
+	public OperatorSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
 			String title, ContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
