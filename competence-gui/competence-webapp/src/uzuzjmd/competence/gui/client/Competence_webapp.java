@@ -45,6 +45,7 @@ public class Competence_webapp implements EntryPoint {
 		tabbedView.tabPanel.selectTab(3, true);
 		tabbedView.tabPanel.selectTab(0);
 
+		// container.add(tab2);
 		container.add(tabbedView);
 	}
 
@@ -52,7 +53,6 @@ public class Competence_webapp implements EntryPoint {
 			String whereTo)/*-{
 		$wnd.preview(url, selector, whereTo);
 		//$wnd.previewdebug(url, selector, whereTo);
-
 	}-*/;
 
 }

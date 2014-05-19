@@ -27,7 +27,7 @@ public class ProgressEntry extends Composite {
 	interface ProgressEntryUiBinder extends UiBinder<Widget, ProgressEntry> {
 	}
 
-	public ProgressEntry(String userName, Double progress) {
+	public ProgressEntry(String userName, int progress) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.userNameLabel.setText(userName);
 		this.progressBar = new ProgressBar(Style.ANIMATED);
