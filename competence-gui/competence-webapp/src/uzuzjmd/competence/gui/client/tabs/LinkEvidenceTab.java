@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
+import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.evidenceView.ActivityTree;
@@ -157,6 +158,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 					AlertType.SUCCESS);
 			warningPlaceholder.add(alert);
 			GWT.log("erfolgreich Kompetenzen verknüpft");
+			Competence_webapp.reloadController.reload();
 		}
 	}
 
@@ -168,5 +170,9 @@ public class LinkEvidenceTab extends CompetenceTab {
 	@UiHandler("warningPlaceholder")
 	void onWarningPlaceholderMouseOut(MouseOutEvent event) {
 		warningPlaceholder.remove(alert);
+	}
+
+	public void reload() {
+		competenceSelectionWidget.reload();
 	}
 }
