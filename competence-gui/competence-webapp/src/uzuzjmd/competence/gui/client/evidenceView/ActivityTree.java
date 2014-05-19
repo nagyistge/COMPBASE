@@ -1,13 +1,19 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.evidenceView;
 
 import static com.google.gwt.query.client.GQuery.$;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.shared.MyTreePanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.query.client.GQuery;
 import com.gwtext.client.core.Connection;
+import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeLoader;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
@@ -18,9 +24,9 @@ import com.gwtext.client.widgets.tree.event.TreeLoaderListener;
  * @author Julian Dehne
  * 
  */
-public class ActivityPanel2 extends MyTreePanel {
+public class ActivityTree extends MyTreePanel {
 
-	public ActivityPanel2(String databaseConnectionString, String rootLabel,
+	public ActivityTree(String databaseConnectionString, String rootLabel,
 			String className, Integer width, Integer height, String title,
 			ContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
@@ -45,6 +51,34 @@ public class ActivityPanel2 extends MyTreePanel {
 		loader.setHrefTargetMapping("moodleUrl");
 
 		return initPreviewHack(loader);
+	}
+
+	public List<Evidence> getSelectedEvidences() {
+		List<Evidence> evidences = new LinkedList<Evidence>();
+		MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
+				.getSelectionModel();
+		TreeNode[] nodes = selectionModel.getSelectedNodes();
+		for (TreeNode treeNode : nodes) {
+			if (treeNode.isLeaf()) {
+				evidences.add(new Evidence(treeNode.getText(), treeNode
+						.getFirstChild().getAttribute("name"), treeNode
+						.getParentNode().getParentNode().getAttribute("name")));
+			}
+		}
+		return evidences;
+	}
+
+	public List<String> getAllowedNodeNames() {
+		List<String> result = new LinkedList<String>();
+		MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
+				.getSelectionModel();
+		TreeNode[] nodes = selectionModel.getSelectedNodes();
+		for (TreeNode treeNode : nodes) {
+			if (treeNode.getUI().getEl().hasTagName("activityEntry")) {
+				result.add(treeNode.getText());
+			}
+		}
+		return result;
 	}
 
 	private XMLTreeLoader initPreviewHack(final XMLTreeLoader loader) {
