@@ -73,7 +73,6 @@ public class CompetenceServiceRestJSON {
 
 		Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
 		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsoryBoolean, requirements);
-		// todo stuff here
 		return Response.ok("competences linked to course").build();
 	}
 
