@@ -60,9 +60,10 @@ public class ActivityTree extends MyTreePanel {
 		TreeNode[] nodes = selectionModel.getSelectedNodes();
 		for (TreeNode treeNode : nodes) {
 			if (treeNode.isLeaf()) {
-				evidences.add(new Evidence(treeNode.getText(), treeNode
-						.getFirstChild().getAttribute("name"), treeNode
-						.getParentNode().getParentNode().getAttribute("name")));
+				evidences.add(new Evidence(treeNode.getText(), treeNode.getUI()
+						.getAnchor().getAttribute("target"),
+						((TreeNode) ((TreeNode) treeNode.getParentNode())
+								.getParentNode()).getText()));
 			}
 		}
 		return evidences;

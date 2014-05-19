@@ -14,6 +14,7 @@ public class CompetenceTab extends Composite {
 	protected Alert fillInfoTab(String infoText, SimplePanel panel) {
 		Alert info = new Alert(infoText, AlertType.INFO, false);
 		info.setWidth(alertWidth);
+		info.getElement();
 		panel.add(info);
 		return info;
 	}
