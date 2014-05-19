@@ -18,12 +18,12 @@ import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
 import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
 
-public class CompetenceSelectionPanel extends CheckableTreePanel {
+public class CompetenceSelectionTree extends CheckableTreePanel {
 
 	private String selectedFilter;
 
 	@Deprecated
-	public CompetenceSelectionPanel(String databaseConnectionString,
+	public CompetenceSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
 			String title, ContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
@@ -31,7 +31,7 @@ public class CompetenceSelectionPanel extends CheckableTreePanel {
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
-	public CompetenceSelectionPanel(String dataString,
+	public CompetenceSelectionTree(String dataString,
 			ContextFactory contextFactory, String selectedFilter) {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", 650, 150,
