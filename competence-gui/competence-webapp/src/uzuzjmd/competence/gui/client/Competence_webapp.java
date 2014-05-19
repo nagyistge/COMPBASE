@@ -3,6 +3,7 @@ package uzuzjmd.competence.gui.client;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
+import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Competence_webapp implements EntryPoint {
 
 	private NodeList<Element> element;
+	public static ReloadController reloadController;
 
 	/**
 	 * This is the entry point method.
@@ -25,9 +27,11 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 		final ContextFactory contextFactory = new ContextFactory();
-		RequirementTab tab = new RequirementTab(contextFactory);
+
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
 		ProgressTab tab3 = new ProgressTab(contextFactory);
+		reloadController = new ReloadController(null, tab2, tab3);
+		RequirementTab tab = new RequirementTab(contextFactory);
 		// container.add(tab);
 		initTabbedView(container, tab, tab2, tab3);
 	}
