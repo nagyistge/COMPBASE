@@ -73,6 +73,7 @@ public class RequirementTab extends CompetenceTab {
 				contextFactory, "selected");
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		initRequirementTextfield(contextFactory);
+
 	}
 
 	private void initRequirementTextfield(final ContextFactory contextFactory) {
