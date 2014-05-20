@@ -32,6 +32,8 @@ public class EvidenceLinkEntry extends Composite {
 	Button createCommentButton;
 	@UiField
 	ToggleButton validateButton;
+	@UiField
+	Button deleteButton;
 
 	interface EvidenceLinkEntryUiBinder extends
 			UiBinder<Widget, EvidenceLinkEntry> {
