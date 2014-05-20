@@ -55,6 +55,9 @@ public class ProgressEntry extends Composite {
 		popup.setGlassEnabled(true);
 		// popup.center();
 		popup.setVisible(false);
+		// popup.setWidth("725px");
+		popup.setHeight("400px");
+		// popup.setStyleName("evidencePopup");
 	}
 
 	private void initProgressBar(int progress) {
