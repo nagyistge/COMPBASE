@@ -8,8 +8,7 @@
 		<g:VerticalPanel>
 			<g:CaptionPanel captionText="Kompetenzübersicht für jemanden"
 				ui:field="captionPanel">
-				<g:DecoratedStackPanel width="5cm" height="3cm"
-					ui:field="evidenceStackPanel" />
+				<g:DecoratedStackPanel ui:field="evidenceStackPanel" />
 			</g:CaptionPanel>
 			<g:SimplePanel ui:field="hrPanelContainer" />
 			<g:FlowPanel>
