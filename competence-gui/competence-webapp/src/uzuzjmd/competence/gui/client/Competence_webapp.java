@@ -19,6 +19,7 @@ public class Competence_webapp implements EntryPoint {
 
 	private NodeList<Element> element;
 	public static ReloadController reloadController;
+	public static final ContextFactory contextFactory = new ContextFactory();
 
 	/**
 	 * This is the entry point method.
@@ -26,7 +27,6 @@ public class Competence_webapp implements EntryPoint {
 	public void onModuleLoad() {
 
 		RootPanel container = RootPanel.get("rootContainer");
-		final ContextFactory contextFactory = new ContextFactory();
 
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
 		ProgressTab tab3 = new ProgressTab(contextFactory);

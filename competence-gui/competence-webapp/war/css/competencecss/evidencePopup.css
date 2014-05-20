@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+/* .evidencePopup { */
+/* 	width: 625px; */
+/* } */
+
+/* .evidenceStackPanel { */
+/* 	width: 625px; */
+/* } */
+
+.evidenceEntry {
+	padding-right: 10px !important;
+	width: 150px !important;
+	padding-left: 5px !important;	
+	margin-bottom: 10px !important;
+} 
+
+.validityColumn {
+	width: 50px !important;
+	margin-right: 40px !important;
+	margin-bottom: 10px !important;
+}
+
+/* .icon-thumbs-down { */
+/*     transform:scale(2.0,2.0) !important; */
+/*     -ms-transform:scale(2.0,2.0) !important; IE 9 */
+/*     -moz-transform:scale(2.0,2.0) !important; Firefox */
+/*     -webkit-transform:scale(2.0,2.0) !important; Safari and Chrome */
+/*     -o-transform:scale(2.0,2.0) !important; Opera */
+/* } */

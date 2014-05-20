@@ -34,7 +34,6 @@ public class EvidenceLinkWidget extends Composite {
 					competenceLinksView.getComments(), competenceLinksView
 							.getValidated()));
 		}
-
 	}
 
 }
