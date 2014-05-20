@@ -1,6 +1,5 @@
-package uzuzjmd.competence.evidence.model;
+package uzuzjmd.competence.gui.shared;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * Diese Klasse modelliert einen Kompetenznachweis
@@ -8,7 +7,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author Julian Dehne
  * 
  */
-@XmlSeeAlso(uzuzjmd.competence.evidence.model.MoodleEvidence.class)
 public class Evidence {
 
 	public Evidence() {

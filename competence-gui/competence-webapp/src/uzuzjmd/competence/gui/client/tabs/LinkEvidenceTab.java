@@ -9,8 +9,8 @@ import org.fusesource.restygwt.client.Resource;
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
-import uzuzjmd.competence.gui.client.evidenceView.ActivityTree;
-import uzuzjmd.competence.gui.client.evidenceView.Evidence;
+import uzuzjmd.competence.gui.client.linkView.ActivityTree;
+import uzuzjmd.competence.gui.shared.Evidence;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -123,9 +123,8 @@ public class LinkEvidenceTab extends CompetenceTab {
 	private void createAbstractEvidenceLink(List<String> competences,
 			Evidence evidence, ContextFactory contextFactory2) {
 		List<String> activityPairs = new LinkedList<String>();
-		activityPairs
-				.add(evidence.getPrintableName() + "," + evidence.getUrl());
-		String linkedUser = evidence.getUser();
+		activityPairs.add(evidence.getShortname() + "," + evidence.getUrl());
+		String linkedUser = evidence.getUserId();
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/create/"
 				+ contextFactory2.getCourseId() + "/"

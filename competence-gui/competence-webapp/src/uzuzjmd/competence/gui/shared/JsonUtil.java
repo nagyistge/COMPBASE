@@ -43,4 +43,16 @@ public class JsonUtil {
 		}
 		return map;
 	}
+
+	public static Map<String, JSONValue> toJsonMap(JSONValue parsed) {
+		Map<String, JSONValue> map = new HashMap<String, JSONValue>();
+		JSONObject jsonObj = parsed.isObject();
+		if (jsonObj != null) {
+			for (String key : jsonObj.keySet()) {
+				map.put(key, jsonObj.get(key));
+			}
+		}
+		return map;
+	}
+
 }
