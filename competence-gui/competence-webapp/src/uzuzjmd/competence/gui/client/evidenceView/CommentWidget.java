@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client.evidenceView;
 
+import uzuzjmd.competence.gui.shared.dto.CommentEntry;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
@@ -13,7 +15,7 @@ public class CommentWidget extends Composite {
 	interface CommentWidgetUiBinder extends UiBinder<Widget, CommentWidget> {
 	}
 
-	public CommentWidget() {
+	public CommentWidget(CommentEntry comment) {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 

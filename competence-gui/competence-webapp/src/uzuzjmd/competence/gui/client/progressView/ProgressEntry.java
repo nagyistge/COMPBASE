@@ -1,5 +1,6 @@
 package uzuzjmd.competence.gui.client.progressView;
 
+import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel;
 
 import com.github.gwtbootstrap.client.ui.Button;
@@ -30,12 +31,15 @@ public class ProgressEntry extends Composite {
 	private ProgressBar progressBar;
 	private String userName;
 	private PopupPanel popup;
+	private ContextFactory contextFactory;
 
 	interface ProgressEntryUiBinder extends UiBinder<Widget, ProgressEntry> {
 	}
 
-	public ProgressEntry(String userName, int progress) {
+	public ProgressEntry(String userName, int progress,
+			ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.contextFactory = contextFactory;
 		this.userName = userName;
 		this.userNameLabel.setText(userName);
 		initProgressBar(progress);
@@ -45,11 +49,11 @@ public class ProgressEntry extends Composite {
 	private void initPopupPanel(String userName) {
 		popup = new PopupPanel();
 		EvidenceStackPanel evidenceStackPanel = new EvidenceStackPanel(popup,
-				userName);
+				userName, contextFactory);
 		popup.add(evidenceStackPanel);
 		popup.setAnimationEnabled(true);
 		popup.setGlassEnabled(true);
-		popup.center();
+		// popup.center();
 		popup.setVisible(false);
 	}
 
