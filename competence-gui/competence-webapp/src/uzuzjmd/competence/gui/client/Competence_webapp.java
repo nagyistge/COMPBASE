@@ -32,6 +32,9 @@ public class Competence_webapp implements EntryPoint {
 		ProgressTab tab3 = new ProgressTab(contextFactory);
 		reloadController = new ReloadController(null, tab2, tab3);
 		RequirementTab tab = new RequirementTab(contextFactory);
+		// modal.hide();
+		// modal.setVisible(false);
+
 		// container.add(tab);
 		initTabbedView(container, tab, tab2, tab3);
 	}
@@ -50,7 +53,9 @@ public class Competence_webapp implements EntryPoint {
 		tabbedView.tabPanel.selectTab(0);
 
 		// container.add(tab2);
+
 		container.add(tabbedView);
+
 	}
 
 	public static native void showPreview(String url, String selector,
