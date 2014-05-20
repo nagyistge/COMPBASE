@@ -8,10 +8,10 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:HorizontalPanel>
-			<g:Label text="New Label" ui:field="activityTyp"/>
-			<g:SimplePanel ui:field="evidenceHref"/>
-			<g:VerticalPanel ui:field="commentsVerticalPanel"/>
-			<g:ToggleButton text="valide"/>
+			<b:Label text="New Label" ui:field="activityTyp" width="100"/>
+			<g:SimplePanel ui:field="evidenceHref" width="100"/>
+			<g:VerticalPanel ui:field="commentsVerticalPanel" width="150"/>
+			<g:ToggleButton text="valide" ui:field="validateButton"/>
 			<b:Button ui:field="createCommentButton" text="kommentieren"/>
 		</g:HorizontalPanel>
 	</g:HTMLPanel>

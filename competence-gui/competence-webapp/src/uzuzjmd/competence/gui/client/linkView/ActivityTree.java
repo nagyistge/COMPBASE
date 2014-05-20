@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.client.evidenceView;
+package uzuzjmd.competence.gui.client.linkView;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.shared.Evidence;
 import uzuzjmd.competence.gui.shared.MyTreePanel;
 
 import com.google.gwt.core.client.GWT;
