@@ -172,6 +172,7 @@ public class CompetenceServiceRestJSON {
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/comment/{linkId}/{user}")
 	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text) {

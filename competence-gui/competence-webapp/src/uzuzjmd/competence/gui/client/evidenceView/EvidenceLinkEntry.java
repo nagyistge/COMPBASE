@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -35,6 +36,8 @@ public class EvidenceLinkEntry extends Composite {
 	ToggleButton validateButton;
 	@UiField
 	Button deleteButton;
+	@UiField
+	ScrollPanel commentWidgetPlaceholder;
 	private String previewAnchor;
 	private String evidenceUrl;
 	private StackPanelReloader stackPanelReloader;
@@ -45,7 +48,7 @@ public class EvidenceLinkEntry extends Composite {
 
 	public EvidenceLinkEntry(String abstractLinkId, String evidenceTitel,
 			String evidenceUrl, List<CommentEntry> list, Boolean validated,
-			StackPanelReloader stackPanelReloader) {
+			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.activityTyp.setText(evidenceTitel);
 		this.evidenceUrl = evidenceUrl;
@@ -68,6 +71,12 @@ public class EvidenceLinkEntry extends Composite {
 			validateButton.setHTML("<i class=\"icon-thumbs-down\"></i>");
 		}
 		this.stackPanelReloader = stackPanelReloader;
+
+		CommentWidget commentWidget = new CommentWidget(stackPanelReloader,
+				abstractLinkId, userName);
+		this.commentWidgetPlaceholder.add(commentWidget);
+		commentWidgetPlaceholder.setVisible(false);
+
 	}
 
 	@UiHandler("validateButton")
@@ -82,5 +91,6 @@ public class EvidenceLinkEntry extends Composite {
 
 	@UiHandler("createCommentButton")
 	void onCreateCommentButtonClick(ClickEvent event) {
+		this.commentWidgetPlaceholder.setVisible(true);
 	}
 }

@@ -30,7 +30,7 @@ class StackPanelReloader {
 		loadEvidencesFromServer(username, context);
 	}
 
-	private void loadEvidencesFromServer(String userName,
+	private void loadEvidencesFromServer(final String userName,
 			final ContextFactory context) {
 		Resource resource = new Resource(context.getServerURL()
 				+ "/competences/json/link/overview/" + userName);
@@ -43,12 +43,13 @@ class StackPanelReloader {
 				CompetenceLinksMap competenceLinksMap = codec.decode(arg1);
 				for (String competenceName : competenceLinksMap
 						.getMapUserCompetenceLinks().keySet()) {
-					decoratedStackPanel
-							.add(new EvidenceLinkWidget(competenceLinksMap
+					decoratedStackPanel.add(
+							new EvidenceLinkWidget(competenceLinksMap
 									.getMapUserCompetenceLinks().get(
 											competenceName),
 									new StackPanelReloader(decoratedStackPanel,
-											username, context)), competenceName);
+											username, context), userName),
+							competenceName);
 				}
 
 			}

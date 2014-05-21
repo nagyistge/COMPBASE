@@ -13,7 +13,7 @@
 				<g:SimplePanel styleName="evidenceEntry">
 					<b:Label text="Evidenzlink" type="INFO" />
 				</g:SimplePanel>
-				<g:SimplePanel   styleName="evidenceEntry">
+				<g:SimplePanel   styleName="commentEntry">
 					<b:Label text="Kommentare" type="INFO" />
 				</g:SimplePanel>
 				<g:SimplePanel   styleName="validityColumn">
