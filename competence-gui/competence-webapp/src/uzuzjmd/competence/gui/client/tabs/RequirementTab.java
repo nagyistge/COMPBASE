@@ -114,10 +114,6 @@ public class RequirementTab extends CompetenceTab {
 		warningPlaceHolder.add(alert);
 	}
 
-	public void setText(String text) {
-
-	}
-
 	@UiHandler("warningPlaceHolder")
 	void onWarningPlaceHolderClick(ClickEvent event) {
 		warningPlaceHolder.remove(alert);

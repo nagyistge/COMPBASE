@@ -10,16 +10,23 @@
 
 .evidenceEntry {
 	padding-right: 10px !important;
-	width: 150px !important;
+	width: 120px !important;
 	padding-left: 5px !important;	
 	margin-bottom: 10px !important;
 } 
 
 .activity-preview {
 	padding-right: 10px !important;
-	width: 150px !important;
+	width: 120px !important;
 	padding-left: 5px !important;	
 	margin-bottom: 10px !important;
+}
+
+.commentEntry {
+	padding-right: 10px !important;
+	width: 200px !important;
+	padding-left: 5px !important;	
+	margin-bottom: 10px !important;	
 }
 
 .validityColumn {
@@ -27,6 +34,12 @@
 	margin-right: 40px !important;
 	margin-bottom: 10px !important;
 }
+
+.commentTextAreaBox {
+    width: 625px !important;
+    height: 85px;           
+}
+
 
 /* .icon-thumbs-down { */
 /*     transform:scale(2.0,2.0) !important; */
