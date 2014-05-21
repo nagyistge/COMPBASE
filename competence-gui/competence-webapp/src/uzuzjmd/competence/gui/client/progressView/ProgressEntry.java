@@ -56,7 +56,7 @@ public class ProgressEntry extends Composite {
 		// popup.center();
 		popup.setVisible(false);
 		// popup.setWidth("725px");
-		popup.setHeight("400px");
+		// popup.setHeight("400px");
 		// popup.setStyleName("evidencePopup");
 	}
 
