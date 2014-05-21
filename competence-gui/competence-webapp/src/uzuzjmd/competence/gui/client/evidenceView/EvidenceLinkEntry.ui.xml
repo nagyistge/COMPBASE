@@ -11,7 +11,7 @@
 			<g:SimplePanel styleName="evidenceEntry" >
 				<b:Label text="New Label" ui:field="activityTyp" width="100%" height="100%" />
 			</g:SimplePanel>
-			<g:SimplePanel styleName="evidenceEntry">
+			<g:SimplePanel styleName="activity-preview">
 				<g:SimplePanel ui:field="evidenceHref" width="100%"  height="100%" />
 			</g:SimplePanel>
 			<g:SimplePanel styleName="evidenceEntry">
