@@ -14,8 +14,8 @@
 			<g:SimplePanel styleName="activity-preview">
 				<g:SimplePanel ui:field="evidenceHref" width="100%"  height="100%" />
 			</g:SimplePanel>
-			<g:SimplePanel styleName="evidenceEntry">
-				<g:VerticalPanel ui:field="commentsVerticalPanel" width="100%"  height="100%" />
+			<g:SimplePanel styleName="commentEntry">
+				<g:VerticalPanel ui:field="commentsVerticalPanel" width="100%" height="100%" />
 			</g:SimplePanel>
 			<g:SimplePanel styleName="validityColumn" >
 				<g:ToggleButton ui:field="validateButton"/>
@@ -27,5 +27,6 @@
 				<b:Button ui:field="deleteButton" text="löschen"/>
 			</g:SimplePanel>
 		</g:HorizontalPanel>
+		<g:ScrollPanel ui:field="commentWidgetPlaceholder" width="auto" height="auto"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 
