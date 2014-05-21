@@ -41,6 +41,16 @@ function preview(page_url, selector, divwhereto) {
     })
 }
 
+//function preview(page_url,selector,divwhereto) {
+//	$.get(page_url, function(data){
+//		   $(divwhereto).html($(data).find(selector).html());
+//	})	
+//}
+//
+//function removePreview(divwhereto) {
+//	$(divwhereto).remove();
+//}
+
 function previewdebug(page_url, selector, divwhereto) {
     $(divwhereto).qtip({
         content: 'Some basic content for the tooltip' + page_url, // Give it some content,        
