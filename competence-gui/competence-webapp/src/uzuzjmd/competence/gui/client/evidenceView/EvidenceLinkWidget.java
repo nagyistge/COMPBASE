@@ -20,19 +20,22 @@ public class EvidenceLinkWidget extends Composite {
 	HorizontalPanel titelPanel;
 	@UiField
 	VerticalPanel verticalPanel;
+	private List<CompetenceLinksView> competenceLinksView;
 
 	interface EvidenceLinkWidgetUiBinder extends
 			UiBinder<Widget, EvidenceLinkWidget> {
 	}
 
-	public EvidenceLinkWidget(List<CompetenceLinksView> list) {
+	public EvidenceLinkWidget(List<CompetenceLinksView> list,
+			StackPanelReloader stackPanelReloader) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.competenceLinksView = list;
 		for (CompetenceLinksView competenceLinksView : list) {
 			this.verticalPanel.add(new EvidenceLinkEntry(competenceLinksView
 					.getAbstractLinkId(), competenceLinksView
 					.getEvidenceTitel(), competenceLinksView.getEvidenceUrl(),
 					competenceLinksView.getComments(), competenceLinksView
-							.getValidated()));
+							.getValidated(), stackPanelReloader));
 		}
 	}
 
