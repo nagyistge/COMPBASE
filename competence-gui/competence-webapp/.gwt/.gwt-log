@@ -17021,3 +17021,972 @@ Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidget
       Compiling...
          Compilation completed in 0,01 seconds
       Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201765.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201765.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201765_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201884.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201884.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706201884_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628256.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628256.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628256_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628432.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628432.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400706628432_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400707742000.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400707742000.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400707742000_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3686 units from cache.
+Compiling...
+   30% complete (ETR: 8 seconds)
+   30% complete (ETR: 8 seconds)
+   30% complete (ETR: 8 seconds)
+   30% complete (ETR: 8 seconds)
+   40% complete (ETR: 8 seconds)
+   50% complete (ETR: 6 seconds)
+   60% complete (ETR: 4 seconds)
+   70% complete (ETR: 3 seconds)
+   80% complete (ETR: 2 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 13,27 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708658708.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708658708.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708658708_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget.CommentWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708659756.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708659756.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.CommentWidget_CommentWidgetUiBinderImpl_designTime1400708659756_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 3686 units from cache.
+Compiling...
+   Compilation completed in 4,53 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757399767.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757399767.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757399767_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757403054.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757403054.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757403054_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3686 cached/archived units.  Used 3686 / 3686 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,06 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757416474.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757416474.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757416474_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757417604.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757417604.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757417604_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3685 cached/archived units.  Used 3685 / 3686 units from cache.
+Compiling...
+   Compilation completed in 0,01 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757480584.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757480584.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757480584_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757481653.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757481653.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757481653_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3685 cached/archived units.  Used 3685 / 3686 units from cache.
+Compiling...
+   Compilation completed in 0,01 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757543215.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757543215.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757543215_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757544326.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757544326.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757544326_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3685 cached/archived units.  Used 3685 / 3686 units from cache.
+Compiling...
+   Compilation completed in 0,02 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757557193.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757557193.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757557193_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757558149.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757558149.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757558149_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757659160.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757659160.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757659160_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757671660.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757671660.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757671660_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757715570.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757715570.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757715570_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757726857.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757726857.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400757726857_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,08 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758119807.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758119807.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758119807_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758127022.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758127022.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758127022_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,14 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758131453.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758131453.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,32 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758131453_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758145205.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758145205.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758145205_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758177891.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758177891.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758177891_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758474727.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758474727.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758474727_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,06 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758478700.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758478700.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758478700_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,06 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758490859.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758490859.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400758490859_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653518.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653518.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653518_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry.EvidenceLinkEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653636.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653636.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry_EvidenceLinkEntryUiBinderImpl_designTime1400759653636_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3689 units from cache.
+Compiling...
+   40% complete (ETR: 7 seconds)
+   40% complete (ETR: 8 seconds)
+   40% complete (ETR: 8 seconds)
+   40% complete (ETR: 8 seconds)
+   40% complete (ETR: 8 seconds)
+   50% complete (ETR: 7 seconds)
+   60% complete (ETR: 6 seconds)
+   70% complete (ETR: 4 seconds)
+   80% complete (ETR: 3 seconds)
+   90% complete (ETR: 2 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 18,01 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,13 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget.EvidenceLinkWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783088847.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783088847.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783088847_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget.EvidenceLinkWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783089710.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783089710.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783089710_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget.EvidenceLinkWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783127002.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783127002.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783127002_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget.EvidenceLinkWidgetUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783131689.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783131689.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget_EvidenceLinkWidgetUiBinderImpl_designTime1400783131689_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3688 cached/archived units.  Used 3688 / 3689 units from cache.
+Compiling...
+   Compilation completed in 0,01 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,07 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel.EvidenceStackPanelUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,08 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783804739.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783804739.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783804739_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel.EvidenceStackPanelUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783805770.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783805770.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel_EvidenceStackPanelUiBinderImpl_designTime1400783805770_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
