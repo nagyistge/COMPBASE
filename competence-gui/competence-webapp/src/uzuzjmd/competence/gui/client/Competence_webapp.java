@@ -44,7 +44,8 @@ public class Competence_webapp implements EntryPoint {
 		popup.setAnimationEnabled(true);
 		popup.setGlassEnabled(true);
 		popup.setVisible(true);
-		container.add(popup);
+		// container.add(popup);
+		container.add(evidenceStackPanel);
 
 	}
 
