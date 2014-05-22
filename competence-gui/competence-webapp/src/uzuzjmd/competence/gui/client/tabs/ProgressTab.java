@@ -67,11 +67,12 @@ public class ProgressTab extends CompetenceTab {
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 
-		showProgressEntries(contextFactory);
+		showProgressEntries(contextFactory, true);
 
 	}
 
-	private void showProgressEntries(final ContextFactory contextFactory) {
+	private void showProgressEntries(final ContextFactory contextFactory,
+			final boolean firstShow) {
 		progressPlaceHolder.clear();
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/progress/"
@@ -89,9 +90,11 @@ public class ProgressTab extends CompetenceTab {
 									Integer.valueOf(userProgressMap
 											.get(userName)), contextFactory));
 						}
-						alert = new Alert("Erfolgreich gefiltert",
-								AlertType.SUCCESS);
-						warningPlaceholder.add(alert);
+						if (!firstShow) {
+							alert = new Alert("Erfolgreich gefiltert",
+									AlertType.SUCCESS);
+							warningPlaceholder.add(alert);
+						}
 					}
 
 					@Override
@@ -109,7 +112,7 @@ public class ProgressTab extends CompetenceTab {
 
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
-		showProgressEntries(contextFactory);
+		showProgressEntries(contextFactory, false);
 	}
 
 	@UiHandler("warningPlaceholder")

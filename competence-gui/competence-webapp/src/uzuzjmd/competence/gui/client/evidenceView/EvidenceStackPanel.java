@@ -52,7 +52,7 @@ public class EvidenceStackPanel extends Composite {
 		this.container = container;
 
 		StackPanelReloader stackPanelReloader = new StackPanelReloader(
-				evidenceStackPanel, userName, context);
+				evidenceStackPanel, userName, context, null);
 		stackPanelReloader.reload();
 	}
 
