@@ -15,6 +15,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 class StackPanelReloader {
 	private DecoratedStackPanel decoratedStackPanel;
@@ -65,8 +67,15 @@ class StackPanelReloader {
 					.getMapUserCompetenceLinks().keySet()) {
 				List<CompetenceLinksView> links = competenceLinksMap
 						.getMapUserCompetenceLinks().get(competenceName);
-				decoratedStackPanel.add(new EvidenceLinkWidget(links,
-						stackPanelReloader, username), competenceName);
+				Panel panel = new SimplePanel();
+				// panel.setStylePrimaryName("accordion-group");
+				EvidenceLinkWidget evidenceWidget = new EvidenceLinkWidget(
+						links, stackPanelReloader, username);
+				panel.add(evidenceWidget);
+				decoratedStackPanel.add(panel,
+						"<div class=\"stackTitlePicture\"></div>"
+								+ "<div class=\"stackTitle\">" + competenceName
+								+ "</div>", true);
 			}
 		}
 

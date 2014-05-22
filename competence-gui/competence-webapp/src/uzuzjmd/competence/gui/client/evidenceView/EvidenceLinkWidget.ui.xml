@@ -7,20 +7,29 @@
 	<g:HTMLPanel>
 		<g:VerticalPanel ui:field="verticalPanel">
 			<g:HorizontalPanel ui:field="titelPanel">
-				<g:SimplePanel  styleName="evidenceEntry">
-					<b:Label text="Aktivitätstyp" type="INFO"/>
+				<g:SimplePanel styleName="evidenceEntry">
+					<g:HTML wordWrap="true" width="100%" height="100%">
+						<h4>Aktivitätstyp</h4>
+					</g:HTML>
+					<!-- <b:Label text="Aktivitätstyp" type="INFO"/> -->
 				</g:SimplePanel>
 				<g:SimplePanel styleName="evidenceEntry">
-					<b:Label text="Evidenzlink" type="INFO" />
+					<g:HTML wordWrap="true" width="100%" height="100%">
+						<h4>Evidenzlink</h4>
+					</g:HTML>
 				</g:SimplePanel>
-				<g:SimplePanel   styleName="commentEntry">
-					<b:Label text="Kommentare" type="INFO" />
+				<g:SimplePanel styleName="commentEntry">					
+					<g:HTML wordWrap="true" width="100%" height="100%">
+						<h4>Kommentare</h4>
+					</g:HTML>
 				</g:SimplePanel>
-				<g:SimplePanel   styleName="validityColumn">
-					<b:Label text="Validität" type="INFO"  />
+				<g:SimplePanel styleName="validityColumn">					
+					<g:HTML wordWrap="true" width="100%" height="100%">
+						<h4>Validität</h4>
+					</g:HTML>
 				</g:SimplePanel>
 				<g:SimplePanel styleName="evidenceEntry" />
-				<g:SimplePanel  styleName="evidenceEntry"/>
+				<g:SimplePanel styleName="evidenceEntry" />
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
