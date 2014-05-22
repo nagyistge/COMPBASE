@@ -204,3 +204,8 @@ competence-gui/competence-webapp/war/competence_webapp/prettify/lang-xq.js
 competence-gui/competence-webapp/war/competence_webapp/prettify/lang-yaml.js
 competence-gui/competence-webapp/war/competence_webapp/prettify/prettify.css
 competence-gui/competence-webapp/war/competence_webapp/prettify/prettify.js
+competence-gui/competence-webapp/.classpath
+competence-gui/competence-webapp/.gwt/.gwt-log
+competence-gui/competence-webapp/war/competence_webapp/competence_webapp.devmode.js
+competence-gui/competence-webapp/war/competence_webapp/competence_webapp.nocache.js
+competence-gui/competence-webapp/war/competence_webapp/compilation-mappings.txt
