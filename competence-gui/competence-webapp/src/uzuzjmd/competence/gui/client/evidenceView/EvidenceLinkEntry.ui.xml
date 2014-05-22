@@ -13,7 +13,7 @@
 			</g:SimplePanel>
 			<g:SimplePanel styleName="activity-preview">
 				<g:SimplePanel ui:field="evidenceHref" width="100%"  height="100%" />
-			</g:SimplePanel>
+			</g:SimplePanel>		
 			<g:SimplePanel styleName="commentEntry">
 				<g:VerticalPanel ui:field="commentsVerticalPanel" width="100%" height="100%" />
 			</g:SimplePanel>
@@ -28,5 +28,7 @@
 			</g:SimplePanel>
 		</g:HorizontalPanel>
 		<g:ScrollPanel ui:field="commentWidgetPlaceholder" width="auto" height="auto"/>
+		<g:FocusPanel ui:field="errorPanelPlaceHolder" visible="false"/>
+		<g:FocusPanel ui:field="successPanelPlaceholder" visible="false"/>	
 	</g:HTMLPanel>
 </ui:UiBinder> 
