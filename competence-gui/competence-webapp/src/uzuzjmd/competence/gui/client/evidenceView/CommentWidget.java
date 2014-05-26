@@ -49,7 +49,7 @@ public class CommentWidget extends CompetenceTab {
 
 	@UiHandler("cancelButton")
 	void onCancelButtonClick(ClickEvent event) {
-		setVisible(false);
+		stackPanelReloader.reload();
 	}
 
 	@UiHandler("submitButton")
