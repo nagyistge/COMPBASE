@@ -11,6 +11,7 @@ import uzuzjmd.competence.owl.dao.Comment
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap
 import java.util.HashMap
+import java.util.TreeMap
 
 class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
   def getCompetenceLinkMap(): CompetenceLinksMap = {
@@ -20,7 +21,7 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
     val maps = links.map(link => (link -> link.getAllLinkedCompetences)).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
     val resultScala = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).asJava)).toMap.asJava
-    val map = new HashMap[String, java.util.List[CompetenceLinksView]]
+    val map = new TreeMap[String, java.util.List[CompetenceLinksView]]
     map.putAll(resultScala)
     val result = new CompetenceLinksMap(map);
     comp.close()
