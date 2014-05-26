@@ -2,26 +2,33 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import java.util.List;
 
+import org.fusesource.restygwt.client.Resource;
+
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.shared.dto.CommentEntry;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.base.IconAnchor;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.github.gwtbootstrap.client.ui.constants.LabelType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -38,7 +45,7 @@ public class EvidenceLinkEntry extends Composite {
 	@UiField
 	Button createCommentButton;
 	@UiField
-	ToggleButton validateButton;
+	Button validateButton;
 	@UiField
 	Button deleteButton;
 	@UiField
@@ -50,6 +57,9 @@ public class EvidenceLinkEntry extends Composite {
 	private String previewAnchor;
 	private String evidenceUrl;
 	private StackPanelReloader stackPanelReloader;
+	private String abstractLinkId;
+	private String userName;
+	private Boolean validated;
 
 	interface EvidenceLinkEntryUiBinder extends
 			UiBinder<Widget, EvidenceLinkEntry> {
@@ -64,6 +74,9 @@ public class EvidenceLinkEntry extends Composite {
 		initCommentWidget(abstractLinkId, userName);
 		initSubmitCommentMessages(stackPanelReloader.commentEntryWasSuccess,
 				abstractLinkId);
+		this.abstractLinkId = abstractLinkId;
+		this.userName = userName;
+		this.validated = validated;
 	}
 
 	private void initCommentWidget(String abstractLinkId, String userName) {
@@ -89,13 +102,22 @@ public class EvidenceLinkEntry extends Composite {
 		}
 	}
 
-	private void initContent(String evidenceTitel, String evidenceUrl,
+	private void initContent(String evidenceTitel, final String evidenceUrl,
 			List<CommentEntry> list, Boolean validated) {
 		this.activityTyp.setText(evidenceTitel);
 		this.evidenceUrl = evidenceUrl;
 
-		Label previewLabel = new Label("Preview");
-		previewLabel.setType(LabelType.IMPORTANT);
+		IconAnchor previewLabel = new IconAnchor();
+		previewLabel.setText("Als Tab öffnen");
+		previewLabel.setTarget(evidenceUrl);
+		previewLabel.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.open(evidenceUrl, "_blank", "");
+			}
+		});
+
 		previewAnchor = ".activity-preview";
 		evidenceHref.add(previewLabel);
 
@@ -104,17 +126,48 @@ public class EvidenceLinkEntry extends Composite {
 					+ commentEntry.getUserName() + "</b>: "
 					+ commentEntry.getCommentName()));
 		}
-		validateButton.setValue(validated);
 
+		setButtonImage(validated);
+	}
+
+	private void setButtonImage(Boolean validated) {
 		if (validated) {
-			validateButton.setHTML("<i class=\"icon-thumbs-up\"></i>");
+			validateButton.add(new HTML("<i class=\"icon-thumbs-up\"></i>"));
 		} else {
-			validateButton.setHTML("<i class=\"icon-thumbs-down\"></i>");
+			validateButton.add(new HTML("<i class=\"icon-thumbs-down\"></i>"));
 		}
 	}
 
 	@UiHandler("validateButton")
 	void onValidateButtonClick(ClickEvent event) {
+
+		String shouldValidate = null;
+		if (!validated) {
+			shouldValidate = "validate";
+		} else {
+			shouldValidate = "invalidate";
+		}
+		Resource resource = new Resource(
+				Competence_webapp.contextFactory.getServerURL()
+						+ "/competences/json/link/" + shouldValidate + "/"
+						+ abstractLinkId);
+		try {
+			resource.post().send(new RequestCallback() {
+
+				@Override
+				public void onResponseReceived(Request request,
+						Response response) {
+					stackPanelReloader.reload();
+				}
+
+				@Override
+				public void onError(Request request, Throwable exception) {
+
+				}
+			});
+		} catch (RequestException e) {
+
+		}
 	}
 
 	@Override
@@ -150,5 +203,29 @@ public class EvidenceLinkEntry extends Composite {
 	void onSuccessPanelPlaceholderClick(ClickEvent event) {
 		successPanelPlaceholder.setVisible(false);
 		stackPanelReloader.setCommentEntryWasSuccess(null);
+	}
+
+	@UiHandler("deleteButton")
+	void onDeleteButtonClick(ClickEvent event) {
+		Resource resource = new Resource(
+				Competence_webapp.contextFactory.getServerURL()
+						+ "/competences/json/link/delete/" + abstractLinkId);
+		try {
+			resource.post().send(new RequestCallback() {
+
+				@Override
+				public void onResponseReceived(Request request,
+						Response response) {
+					stackPanelReloader.reload();
+				}
+
+				@Override
+				public void onError(Request request, Throwable exception) {
+
+				}
+			});
+		} catch (RequestException e) {
+
+		}
 	}
 }
