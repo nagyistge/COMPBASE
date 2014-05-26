@@ -239,6 +239,10 @@ public class CompetenceServiceRestJSON {
 		CompOntologyManager comp = new CompOntologyManager();
 		Ont2CompetenceLinkMap competenceLinkMap = new Ont2CompetenceLinkMap(comp, user);
 		CompetenceLinksMap map = competenceLinkMap.getCompetenceLinkMap();
+		// for (List<CompetenceLinksView> linkCollections :
+		// map.getMapUserCompetenceLinks().values()) {
+		// Collections.sort(linkCollections);
+		// }
 		return map;
 	}
 
