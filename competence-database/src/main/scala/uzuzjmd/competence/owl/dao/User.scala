@@ -8,11 +8,10 @@ import uzuzjmd.competence.owl.queries.CompetenceQueries
 import uzuzjmd.scalahacks.ScalaHacks
 import com.hp.hpl.jena.ontology.Individual
 
-case class User(comp: CompOntologyManager, val name: String, val role: Role = null, val courseContext: CourseContext = null) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
+case class User(comp: CompOntologyManager, val name: String, val role: Role = null, val courseContext: CourseContext = null, val readableName : String = null) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
 
   def NAME = "name"
 
-  addDataField(NAME, name)
 
   @Override
   protected def deleteMore() {
@@ -28,8 +27,10 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     if (role != null) {
       role.createEdgeWith(CompObjectProperties.RoleOf, this)
     }
-    if (name != null) {
-      addDataField(NAME, name)
+    if (readableName != null) {
+      addDataField(NAME, readableName)
+    } else {
+      addDataField(NAME, identifierBeforeParsing)
     }
   }
 
@@ -43,10 +44,11 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     //      case Nil => null
     //      case default => default.head
     //    }
+    val readableName = getDataField(NAME)
     if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
-      return new User(comp, name, teacherRole, courseContext2)
+      return new User(comp, name, teacherRole, courseContext2, readableName)
     } else {
-      return new User(comp, name, new StudentRole(comp), courseContext2)
+      return new User(comp, name, new StudentRole(comp), courseContext2, readableName)
     }
   }
 
