@@ -20,9 +20,9 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
     val maps = links.map(link => (link -> link.getAllLinkedCompetences)).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
-    val resultScala = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).asJava)).toMap.asJava
+    val resultScala = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).asJava)).toMap
     val map = new TreeMap[String, java.util.List[CompetenceLinksView]]
-    map.putAll(resultScala)
+    map.putAll(resultScala.asJava)
     val result = new CompetenceLinksMap(map);
     comp.close()
     return result

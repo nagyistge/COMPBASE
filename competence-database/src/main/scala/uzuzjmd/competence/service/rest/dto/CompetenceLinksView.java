@@ -4,7 +4,7 @@ import java.util.List;
 
 import uzuzjmd.java.collections.SortedList;
 
-public class CompetenceLinksView {
+public class CompetenceLinksView implements Comparable {
 	private String abstractLinkId;
 	private String evidenceTitel;
 	private String evidenceUrl;
@@ -58,6 +58,15 @@ public class CompetenceLinksView {
 
 	public void setAbstractLinkId(String abstractLinkId) {
 		this.abstractLinkId = abstractLinkId;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		CompetenceLinksView toCompare = (CompetenceLinksView) arg0;
+		if (toCompare.getEvidenceTitel().equals(this.getEvidenceTitel())) {
+			return 0;
+		}
+		return toCompare.getEvidenceTitel().hashCode() > this.getEvidenceTitel().hashCode() ? 1 : -1;
 	}
 
 }
