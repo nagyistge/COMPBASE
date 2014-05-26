@@ -213,3 +213,4 @@ competence-gui/competence-webapp/.classpath
 competence-gui/competence-webapp/.gwt/.gwt-log
 competence-database/mymodelrdf.owl
 competence-gui/competence-webapp/war/competence_webapp/competence_webapp.devmode.js
+competence-database/src/main/scala/uzuzjmd/competence/owl/access/MagicStrings.java
