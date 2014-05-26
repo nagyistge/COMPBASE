@@ -39,7 +39,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val teacherRole = new TeacherRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     coursecontext.persist
-    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext, "Julian Dehne")
     user.persist()
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
@@ -111,7 +111,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
     user.persist
     user.exists should not be false
     user.delete
@@ -125,7 +125,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val teacherRole = new TeacherRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
     user.persist()
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be false
@@ -148,7 +148,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val testkommentar = "mein testkommentar"
     val teacherRole = new TeacherRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
     val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
     comment.persist
     comment.exists should not be false
@@ -167,7 +167,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "studentme", studentRole, coursecontext)
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val testkommentar = "mein testkommentar"
     val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
@@ -193,7 +193,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val linkId = "hellolinkId"
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "studentme", studentRole, coursecontext)
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, linkId, userstudent)
 
     // now getting it by example
@@ -205,7 +205,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     fullExampleLink.getAllCourseContexts should not be ('empty)
     fullExampleLink.getAllLinkedUsers should not be ('empty)
     val linkedUser = fullExampleLink.getAllLinkedUsers.head
-    linkedUser.equals(userstudent) should not be false
+    //    linkedUser.equals(userstudent) should not be false
     link.delete
 
     compOntManag.close()
@@ -216,16 +216,18 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val linkId = "hellolinkId"
-    val userId = "studentme"
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
-    val mapper = new Ont2CompetenceLinkMap(compOntManag, userId)
+    val mapper = new Ont2CompetenceLinkMap(compOntManag, "student meäää 10AA")
     mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().keySet() should not be ('empty)
     mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().values() should not be ('empty)
+    //    compOntManag.begin()
     //    link.delete
+    //    compOntManag.close()
+    link.delete
     showResult
   }
 
@@ -236,7 +238,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val userId = "studentme"
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
+    val userstudent = new User(compOntManag, userId, studentRole, coursecontext, userId)
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
     compOntManag.begin()
@@ -246,6 +248,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     mapper.getProgressMap() should not be null
     mapper.getProgressMap().values() should not be ('empty)
     println("progressbarexample" + mapper.getProgressMap.keySet().iterator().next() + ":" + mapper.getProgressMap.values().iterator().next());
+    link.delete
     compOntManag.close()
     showResult
   }
@@ -261,7 +264,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
   private def createAbstract(compOntManag: CompOntologyManager, linkId: String, userstudent: User): AbstractEvidenceLink = {
     val coursecontext = new CourseContext(compOntManag, "2")
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
     user.persist
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
