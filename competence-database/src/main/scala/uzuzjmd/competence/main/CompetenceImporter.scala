@@ -13,10 +13,11 @@ import scala.collection.mutable.Buffer
 import uzuzjmd.competence.csv.CompetenceMaps
 import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.csv.CompetenceFilter
+import uzuzjmd.competence.owl.access.CompFileUtil
 
 object CompetenceImporter {
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]) {    
     convertCSVArray(args)
   }
 

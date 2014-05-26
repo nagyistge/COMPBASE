@@ -15,6 +15,7 @@ import java.net.URLEncoder
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
   val util = comp.getUtil()
+  val identifierBeforeParsing = identifier
   val encodedstring = identifier.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
 
   @Override
