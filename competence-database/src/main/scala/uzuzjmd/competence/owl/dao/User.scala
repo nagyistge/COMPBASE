@@ -8,10 +8,9 @@ import uzuzjmd.competence.owl.queries.CompetenceQueries
 import uzuzjmd.scalahacks.ScalaHacks
 import com.hp.hpl.jena.ontology.Individual
 
-case class User(comp: CompOntologyManager, val name: String, val role: Role = null, val courseContext: CourseContext = null, val readableName : String = null) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
+case class User(comp: CompOntologyManager, val name: String, val role: Role = null, val courseContext: CourseContext = null, val readableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.User, name) {
 
   def NAME = "name"
-
 
   @Override
   protected def deleteMore() {
@@ -39,11 +38,6 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     val teacherRole = new TeacherRole(comp)
     val queries = new CompetenceQueries(comp.getM())
     val courseContext2 = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext]).head;
-    //    val courseContext2 = associatedContexts match {
-    //      case null => null
-    //      case Nil => null
-    //      case default => default.head
-    //    }
     val readableName = getDataField(NAME)
     if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
       return new User(comp, name, teacherRole, courseContext2, readableName)
