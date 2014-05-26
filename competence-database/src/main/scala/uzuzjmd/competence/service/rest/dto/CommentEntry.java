@@ -3,12 +3,12 @@ package uzuzjmd.competence.service.rest.dto;
 public class CommentEntry {
 	private String userName;
 	private String commentName;
-	private Long created;
+	private long created;
 
-	public CommentEntry(String userName, String commentName, Long created) {
+	public CommentEntry(String userName, String commentName, long created) {
 		this.userName = userName;
 		this.commentName = commentName;
-		this.created = created;
+		this.created = created;		
 	}
 
 	public String getUserName() {
@@ -27,7 +27,7 @@ public class CommentEntry {
 		this.commentName = commentName;
 	}
 
-	public Long getCreated() {
+	public long getCreated() {
 		return created;
 	}
 

@@ -149,8 +149,8 @@ public class CompetenceServiceRestJSON {
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				CourseContext courseContext = new CourseContext(compOntologyManager, course);
-				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext);
-				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext);
+				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext, null).getFullDao();
+				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext, null).getFullDao();
 				scala.collection.immutable.List<Comment> comments = null;
 				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
 				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
@@ -178,8 +178,8 @@ public class CompetenceServiceRestJSON {
 	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
-		User creator = new User(compOntologyManager, user, null, abstractEvidenceLink.courseContexts()).getFullDao();
-		Comment comment = new Comment(compOntologyManager, text, creator, System.currentTimeMillis());
+		User creator = new User(compOntologyManager, user, null, abstractEvidenceLink.courseContexts(), null).getFullDao();
+		Comment comment = new Comment(compOntologyManager, text, creator, System.currentTimeMillis(), text);
 		comment.persist();
 		abstractEvidenceLink.linkComment(comment);
 		closeManagerInCriticalMode(compOntologyManager);

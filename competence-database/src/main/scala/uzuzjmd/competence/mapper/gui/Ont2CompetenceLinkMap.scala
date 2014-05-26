@@ -36,7 +36,8 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
 
   def mapCommentToCommentEntry(input: Comment): CommentEntry = {
     val fullComment = input.getFullDao
-    val result = new CommentEntry(fullComment.creator.identifier, fullComment.text, fullComment.created)
+    val creatorName = fullComment.creator.getFullDao.readableName
+    val result = new CommentEntry(creatorName, fullComment.textReadable, fullComment.created)
     return result
   }
 
