@@ -5,7 +5,8 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/gwtext.jar"/>
 	<classpathentry kind="lib" path="lib/gwtquery-1.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/dev/gwt-2.5.1/gwt-codeserver.jar"/>
+	<classpathentry kind="lib" path="C:/dev/scalaworkspace/resty-gwt-master/restygwt/target/restygwt-1.5-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/gwt-bootstrap-2.3.2.1-ownbuildwithfix.jar"/>
-	<classpathentry kind="lib" path="lib/restygwt-1.3.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

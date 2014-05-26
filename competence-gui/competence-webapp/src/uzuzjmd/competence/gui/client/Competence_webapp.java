@@ -1,6 +1,5 @@
 package uzuzjmd.competence.gui.client;
 
-import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
@@ -9,7 +8,6 @@ import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 //import com.gwtext.client.core.Function;
@@ -30,22 +28,22 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-		// LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		// ProgressTab tab3 = new ProgressTab(contextFactory);
-		// reloadController = new ReloadController(null, tab2, tab3);
-		// RequirementTab tab = new RequirementTab(contextFactory);
-		// container.add(tab);
-		// initTabbedView(container, tab, tab2, tab3);
+		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
+		ProgressTab tab3 = new ProgressTab(contextFactory);
+		reloadController = new ReloadController(null, tab2, tab3);
+		RequirementTab tab = new RequirementTab(contextFactory);
+		container.add(tab);
+		initTabbedView(container, tab, tab2, tab3);
 
-		PopupPanel popup = new PopupPanel();
-		EvidenceStackPanel evidenceStackPanel = new EvidenceStackPanel(popup,
-				"studentstudent", contextFactory);
-		popup.add(evidenceStackPanel);
-		popup.setAnimationEnabled(true);
-		popup.setGlassEnabled(true);
-		popup.setVisible(true);
+		// PopupPanel popup = new PopupPanel();
+		// EvidenceStackPanel evidenceStackPanel = new EvidenceStackPanel(popup,
+		// "studentmeäää1AA", contextFactory);
+		// popup.add(evidenceStackPanel);
+		// popup.setAnimationEnabled(true);
+		// popup.setGlassEnabled(true);
+		// popup.setVisible(true);
 		// container.add(popup);
-		container.add(evidenceStackPanel);
+		// container.add(evidenceStackPanel);
 
 	}
 

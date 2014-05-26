@@ -101,7 +101,7 @@ public class EvidenceLinkEntry extends Composite {
 
 		for (CommentEntry commentEntry : list) {
 			commentsVerticalPanel.add(new HTML("<b>"
-					+ commentEntry.getUserName() + "</b>:"
+					+ commentEntry.getUserName() + "</b>: "
 					+ commentEntry.getCommentName()));
 		}
 		validateButton.setValue(validated);
