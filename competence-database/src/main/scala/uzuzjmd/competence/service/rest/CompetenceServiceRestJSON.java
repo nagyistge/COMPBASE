@@ -149,8 +149,8 @@ public class CompetenceServiceRestJSON {
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				CourseContext courseContext = new CourseContext(compOntologyManager, course);
-				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext, null).getFullDao();
-				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext, null).getFullDao();
+				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext, creator);
+				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext, linkedUser);
 				scala.collection.immutable.List<Comment> comments = null;
 				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
 				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
@@ -192,7 +192,7 @@ public class CompetenceServiceRestJSON {
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("/link/validate/{linkId}/{user}")
+	@Path("/link/validate/{linkId}")
 	public Response validateLink(@PathParam("linkId") String linkId) {
 		Boolean isvalid = true;
 		return handleLinkValidation(linkId, isvalid);
@@ -208,10 +208,21 @@ public class CompetenceServiceRestJSON {
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("/link/invalidate/{linkId}/{user}")
+	@Path("/link/invalidate/{linkId}")
 	public Response invalidateLink(@PathParam("linkId") String linkId) {
 		Boolean isvalid = false;
 		return handleLinkValidation(linkId, isvalid);
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/link/delete/{linkId}")
+	public Response deleteLink(@PathParam("linkId") String linkId) {
+		CompOntologyManager manager = initManagerInCriticalMode();
+		AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(manager, linkId, null, null, null, null, null, null, null, null);
+		abstractEvidenceLink.delete();
+		manager.close();
+		return Response.ok("link deleted").build();
 	}
 
 	/**

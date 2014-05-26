@@ -24,6 +24,7 @@ class StackPanelReloader {
 	private ContextFactory context;
 	public Boolean commentEntryWasSuccess;
 	public String commentEntryIdLastUpdated = "";
+	private int selected;
 
 	public StackPanelReloader(DecoratedStackPanel decoratedStackPanel,
 			String username, ContextFactory context,
@@ -35,6 +36,7 @@ class StackPanelReloader {
 	}
 
 	public void reload() {
+		selected = decoratedStackPanel.getSelectedIndex();
 		this.decoratedStackPanel.clear();
 		loadEvidencesFromServer(username, context);
 	}
@@ -76,6 +78,7 @@ class StackPanelReloader {
 						"<div class=\"stackTitlePicture\"></div>"
 								+ "<div class=\"stackTitle\">" + competenceName
 								+ "</div>", true);
+				decoratedStackPanel.showStack(selected);
 			}
 		}
 
