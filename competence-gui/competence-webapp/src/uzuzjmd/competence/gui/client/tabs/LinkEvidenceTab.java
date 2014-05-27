@@ -125,11 +125,13 @@ public class LinkEvidenceTab extends CompetenceTab {
 		List<String> activityPairs = new LinkedList<String>();
 		activityPairs.add(evidence.getShortname() + "," + evidence.getUrl());
 		String linkedUser = evidence.getUserId();
-		Resource resource = new Resource(contextFactory.getServerURL()
+		String createLink = contextFactory.getServerURL()
 				+ "/competences/json/link/create/"
 				+ contextFactory2.getCourseId() + "/"
 				+ contextFactory2.getUser() + "/" + contextFactory2.getRole()
-				+ "/" + linkedUser);
+				+ "/" + linkedUser;
+		Window.alert(createLink);
+		Resource resource = new Resource(createLink);
 		try {
 			resource.addQueryParams("competences", competences)
 					.addQueryParams("evidences", activityPairs).post()

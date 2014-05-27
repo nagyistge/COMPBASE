@@ -68,8 +68,8 @@ public class Competence_webapp implements EntryPoint {
 
 	public static native void showPreview(String url, String selector,
 			String whereTo)/*-{
-		//		$wnd.preview(url, selector, whereTo);
-		$wnd.previewdebug(url, selector, whereTo);
+		$wnd.preview(url, selector, whereTo);
+		//		$wnd.previewdebug(url, selector, whereTo);
 	}-*/;
 
 	public static void showMoodlePreview(String url, String whereTo) {
