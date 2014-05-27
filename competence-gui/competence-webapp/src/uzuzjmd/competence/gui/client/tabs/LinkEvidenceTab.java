@@ -130,7 +130,6 @@ public class LinkEvidenceTab extends CompetenceTab {
 				+ contextFactory2.getCourseId() + "/"
 				+ contextFactory2.getUser() + "/" + contextFactory2.getRole()
 				+ "/" + linkedUser;
-		Window.alert(createLink);
 		Resource resource = new Resource(createLink);
 		try {
 			resource.addQueryParams("competences", competences)

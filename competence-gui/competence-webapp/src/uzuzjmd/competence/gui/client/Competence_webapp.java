@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Competence_webapp implements EntryPoint {
 
 	private NodeList<Element> element;
+	private static ProgressTab tab3;
 	public static ReloadController reloadController;
 	public static final ContextFactory contextFactory = new ContextFactory();
 
@@ -29,7 +30,7 @@ public class Competence_webapp implements EntryPoint {
 		RootPanel container = RootPanel.get("rootContainer");
 
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		ProgressTab tab3 = new ProgressTab(contextFactory);
+		tab3 = new ProgressTab(contextFactory);
 		reloadController = new ReloadController(null, tab2, tab3);
 		RequirementTab tab = new RequirementTab(contextFactory);
 		container.add(tab);
@@ -45,6 +46,10 @@ public class Competence_webapp implements EntryPoint {
 		// container.add(popup);
 		// container.add(evidenceStackPanel);
 
+	}
+
+	public static ProgressTab getProgressTab() {
+		return tab3;
 	}
 
 	private void initTabbedView(RootPanel container, RequirementTab tab,
