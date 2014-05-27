@@ -71,7 +71,7 @@ public class ProgressTab extends CompetenceTab {
 
 	}
 
-	private void showProgressEntries(final ContextFactory contextFactory,
+	public void showProgressEntries(final ContextFactory contextFactory,
 			final boolean firstShow) {
 		progressPlaceHolder.clear();
 		Resource resource = new Resource(contextFactory.getServerURL()
@@ -127,5 +127,6 @@ public class ProgressTab extends CompetenceTab {
 
 	public void reload() {
 		competenceSelectionWidget.reload();
+		showProgressEntries(contextFactory, false);
 	}
 }
