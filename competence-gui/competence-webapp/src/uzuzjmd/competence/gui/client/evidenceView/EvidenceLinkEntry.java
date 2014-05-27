@@ -130,8 +130,13 @@ public class EvidenceLinkEntry extends CompetenceTab {
 					+ commentEntry.getUserName() + "</b>: "
 					+ commentEntry.getCommentName()));
 		}
+		if (Competence_webapp.contextFactory.getRole().equals("teacher")) {
+			setButtonImage(validated);
+		} else {
+			deleteButton.setVisible(false);
+			validateButton.setVisible(false);
+		}
 
-		setButtonImage(validated);
 	}
 
 	private void setButtonImage(Boolean validated) {

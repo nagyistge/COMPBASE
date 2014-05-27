@@ -23,13 +23,13 @@
 						<h4>Kommentare</h4>
 					</g:HTML>
 				</g:SimplePanel>
-				<g:SimplePanel styleName="validityColumn">					
+				<g:SimplePanel styleName="validityColumn" ui:field="validityPanelHeader">					
 					<g:HTML wordWrap="true" width="100%" height="100%">
 						<h4>Validität</h4>
 					</g:HTML>
 				</g:SimplePanel>
-				<g:SimplePanel styleName="evidenceEntry" />
-				<g:SimplePanel styleName="evidenceEntry" />
+				<g:SimplePanel styleName="evidenceEntry" ui:field="deletePanelHeader"/>
+<!-- 				<g:SimplePanel styleName="evidenceEntry" /> -->
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
