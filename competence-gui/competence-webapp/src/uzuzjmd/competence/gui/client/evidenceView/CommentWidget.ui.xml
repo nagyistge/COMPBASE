@@ -15,8 +15,7 @@
 						<b:Button text="Kommentar abschicken" ui:field="submitButton" />
 						<b:Button ui:field="cancelButton">abbrechen</b:Button>
 					</g:FlowPanel>
-				</g:FlowPanel>
-				<g:SimplePanel height="30px"  ui:field="hrPanelContainer" />
+				</g:FlowPanel>				
 			</g:VerticalPanel>
 		</g:CaptionPanel>
 	</g:HTMLPanel>

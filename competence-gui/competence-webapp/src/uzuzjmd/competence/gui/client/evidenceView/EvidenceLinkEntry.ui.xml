@@ -27,8 +27,9 @@
 				<b:Button ui:field="deleteButton" text="löschen"/>
 			</g:SimplePanel>
 		</g:HorizontalPanel>
-		<g:ScrollPanel ui:field="commentWidgetPlaceholder" width="auto" height="auto"/>
+		<g:ScrollPanel ui:field="commentWidgetPlaceholder" styleName="commentWidgetPlaceholder" width="auto" height="auto"/>
 		<g:FocusPanel ui:field="errorPanelPlaceHolder" visible="false"/>
 		<g:FocusPanel ui:field="successPanelPlaceholder" visible="false"/>	
+		<g:SimplePanel height="30px"  ui:field="hrPanelContainer" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

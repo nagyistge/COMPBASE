@@ -16,7 +16,6 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class CommentWidget extends CompetenceTab {
@@ -25,8 +24,7 @@ public class CommentWidget extends CompetenceTab {
 			.create(CommentWidgetUiBinder.class);
 	@UiField
 	TextArea commentTextArea;
-	@UiField
-	SimplePanel hrPanelContainer;
+
 	@UiField
 	Button cancelButton;
 	@UiField
@@ -42,7 +40,7 @@ public class CommentWidget extends CompetenceTab {
 			String linkId, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.stackPanelReloader = stackPanelReloader;
-		initHrLines(hrPanelContainer);
+
 		this.linkId = linkId;
 		this.userName = userName;
 	}
