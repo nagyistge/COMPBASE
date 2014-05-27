@@ -7,8 +7,6 @@
 	<g:HTMLPanel>
 		<g:SimplePanel ui:field="tabExplainationPanel" />
 		<g:VerticalPanel ui:field="competenceSelectionAndActivity">
-			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
-			<g:SimplePanel ui:field="HrPanelContainer" />
 			<g:CaptionPanel captionText="Fortschritt" styleName="requirementTextArea"
 				width="auto" height="auto">
 				<g:HTMLPanel width="auto" height="auto">
@@ -18,10 +16,12 @@
 					</g:ScrollPanel>
 				</g:HTMLPanel>
 			</g:CaptionPanel>
+			<g:SimplePanel ui:field="HrPanelContainer" />
+			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
 			<g:SimplePanel ui:field="hrPanelContainer2" />
 			<g:FocusPanel ui:field="warningPlaceholder" width="auto"
 				height="auto" />
-			<b:Button text="Fortschrittsübersicht filtern" ui:field="filterButton" />			
+			<b:Button text="Fortschrittsübersicht filtern" ui:field="filterButton" />
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
