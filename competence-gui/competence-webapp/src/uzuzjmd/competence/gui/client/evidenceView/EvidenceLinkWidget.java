@@ -2,6 +2,7 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import java.util.List;
 
+import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
@@ -9,6 +10,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -20,6 +22,10 @@ public class EvidenceLinkWidget extends Composite {
 	HorizontalPanel titelPanel;
 	@UiField
 	VerticalPanel verticalPanel;
+	@UiField
+	SimplePanel validityPanelHeader;
+	@UiField
+	SimplePanel deletePanelHeader;
 
 	interface EvidenceLinkWidgetUiBinder extends
 			UiBinder<Widget, EvidenceLinkWidget> {
@@ -29,6 +35,10 @@ public class EvidenceLinkWidget extends Composite {
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initCompetenceLinksView(list, stackPanelReloader, userName);
+		if (Competence_webapp.contextFactory.getRole().equals("student")) {
+			validityPanelHeader.setVisible(false);
+			deletePanelHeader.setVisible(false);
+		}
 	}
 
 	private void initCompetenceLinksView(List<CompetenceLinksView> list,

@@ -52,13 +52,18 @@ public class Competence_webapp implements EntryPoint {
 		TabbedView tabbedView = new TabbedView();
 		tabbedView.linkTabPlaceholder.add(tab2);
 		tabbedView.progressTabPlaceholder.add(tab3);
-		tabbedView.requirementTabPlaceholder.add(tab);
+		if (!Competence_webapp.contextFactory.getRole().equals("student")) {
+			tabbedView.requirementTabPlaceholder.add(tab);
+		} else {
+			tabbedView.tabPanel.remove(0);
+			tab.setVisible(false);
+		}
 
-		tabbedView.tabPanel.selectTab(0, true);
-		tabbedView.tabPanel.selectTab(1, true);
-		tabbedView.tabPanel.selectTab(2, true);
-		tabbedView.tabPanel.selectTab(3, true);
-		tabbedView.tabPanel.selectTab(0);
+		// tabbedView.tabPanel.selectTab(0, true);
+		// tabbedView.tabPanel.selectTab(1, true);
+		// tabbedView.tabPanel.selectTab(2, true);
+		// tabbedView.tabPanel.selectTab(3, true);
+		// tabbedView.tabPanel.selectTab(0);
 
 		// container.add(tab2);
 
