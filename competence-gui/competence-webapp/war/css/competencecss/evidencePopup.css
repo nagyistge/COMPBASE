@@ -48,7 +48,8 @@
 
 
 .gwt-StackPanelItem-selected > table > tbody > tr.stackItemMiddle > td.stackItemMiddleCenter > div > div.stackTitlePicture {
-	background-image: url(../../icons/notSelectedStackPanel.png) !important;
+	background-image: url(../../icons/notSelectedStackPanel.png);
+        background-repeat:no-repeat !important;
 	width: 30px;
 	height: 30px;
 	float: left;

@@ -1,27 +1,63 @@
 package uzuzjmd.competence.gui.client;
 
 public class ContextFactory {
-	public String getCourseId() {
-		return "n2";
+
+	private int courseId;
+	private String serverUrl;
+	private String evidenceServerUrl;
+	private String role;
+	private String userName;
+
+	public ContextFactory() {
+		this.courseId = getCourseIdFromContext();
+		this.serverUrl = getServerUrlFromContext();
+		this.evidenceServerUrl = getEvidenceServerUrlFromContext();
+		this.role = getRoleFromContext();
+		this.userName = getUserFromContext();
 	}
 
-	public int getMoodleCourseId() {
-		return 2;
+	public String getCourseId() {
+		return "n" + courseId;
+	}
+
+	public String getMoodleCourseId() {
+		return courseId + "";
 	}
 
 	public String getServerURL() {
-		return "http://localhost:8084";
+		return serverUrl;
 	}
 
 	public String getEvidenceServerURL() {
-		return "http://localhost:8083";
+		return evidenceServerUrl;
 	}
 
 	public String getRole() {
-		return "teacher";
+		return role;
 	}
 
 	public String getUser() {
-		return "new userme";
+		return userName;
 	}
+
+	private native int getCourseIdFromContext()/*-{
+		return $wnd.courseId;
+	}-*/;
+
+	private native String getServerUrlFromContext()/*-{
+		return $wnd.serverUrl;
+	}-*/;
+
+	private native String getEvidenceServerUrlFromContext()/*-{
+		return $wnd.evidenceServerUrl;
+	}-*/;
+
+	private native String getRoleFromContext()/*-{
+		return $wnd.role;
+	}-*/;
+
+	private native String getUserFromContext()/*-{
+		return $wnd.user;
+	}-*/;
+
 }

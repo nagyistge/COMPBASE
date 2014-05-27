@@ -51,7 +51,6 @@ public class EvidenceServer {
 	private static void startServer(String moodleurl, String moodledb, String adminname, String adminpassword) throws IllegalArgumentException, NullPointerException, IOException {
 		// start server
 		final MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword);
-
 		publishServer(evidenceServiceImpl);
 
 	}
