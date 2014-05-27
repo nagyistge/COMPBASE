@@ -5,6 +5,7 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
 import uzuzjmd.competence.gui.shared.dto.CommentEntry;
 
 import com.github.gwtbootstrap.client.ui.Alert;
@@ -24,7 +25,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class EvidenceLinkEntry extends Composite {
+public class EvidenceLinkEntry extends CompetenceTab {
 
 	private static EvidenceLinkEntryUiBinder uiBinder = GWT
 			.create(EvidenceLinkEntryUiBinder.class);
@@ -54,6 +54,8 @@ public class EvidenceLinkEntry extends Composite {
 	FocusPanel errorPanelPlaceHolder;
 	@UiField
 	FocusPanel successPanelPlaceholder;
+	@UiField
+	SimplePanel hrPanelContainer;
 	private String previewAnchor;
 	private String evidenceUrl;
 	private StackPanelReloader stackPanelReloader;
@@ -117,6 +119,8 @@ public class EvidenceLinkEntry extends Composite {
 				Window.open(evidenceUrl, "_blank", "");
 			}
 		});
+
+		initHrLines(hrPanelContainer);
 
 		previewAnchor = ".activity-preview";
 		evidenceHref.add(previewLabel);
