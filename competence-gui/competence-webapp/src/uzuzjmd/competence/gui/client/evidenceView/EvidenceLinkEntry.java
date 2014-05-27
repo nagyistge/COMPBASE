@@ -91,10 +91,10 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	private void initSubmitCommentMessages(Boolean commentEntryWasSuccess,
 			String abstractLinkId) {
 		successPanelPlaceholder.add(new Alert(
-				"Der Kommentar wurde erfolgreich eingetragen",
+				"Der Kommentar wurde erfolgreich eingetragen!",
 				AlertType.SUCCESS));
 		errorPanelPlaceHolder.add(new Alert(
-				"Es gab ein Problem, kontaktien Sie einen Entwickler",
+				"Es gab ein Problem, kontaktieren Sie einen Entwickler",
 				AlertType.ERROR));
 
 		if (commentEntryWasSuccess != null
