@@ -10,18 +10,36 @@ import uzuzjmd.competence.service.rest.dto.CommentEntry
 import uzuzjmd.competence.owl.dao.Comment
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap
+import scala.collection.breakOut
 import java.util.HashMap
 import java.util.TreeMap
+import java.util.SortedSet
+import scala.reflect.internal.util.Collections
+import java.util.TreeSet
+import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
 
 class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
+
+  def toSortedSet[A](input: List[CompetenceLinksView]): SortedSet[CompetenceLinksView] = {
+    val sorted = java.util.Collections.synchronizedSortedSet(new TreeSet(new CompetenceLinksViewComparator));
+    sorted.addAll(input.asJava)
+    return sorted
+  }
+
+  implicit def toMap(input: Map[String, List[CompetenceLinksView]]): Map[String, java.util.SortedSet[CompetenceLinksView]] = {
+    val result: Map[String, java.util.SortedSet[CompetenceLinksView]] = Map.empty
+    result ++ input.mapValues(toSortedSet)
+  }
+
   def getCompetenceLinkMap(): CompetenceLinksMap = {
     comp.begin()
+
     val userDap = new User(comp, user)
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
     val maps = links.map(link => (link -> link.getAllLinkedCompetences)).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
-    val resultScala = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).asJava)).toMap
-    val map = new TreeMap[String, java.util.List[CompetenceLinksView]]
+    val resultScala: scala.collection.immutable.Map[String, SortedSet[CompetenceLinksView]] = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView)))
+    val map = new TreeMap[String, java.util.SortedSet[CompetenceLinksView]]
     map.putAll(resultScala.asJava)
     val result = new CompetenceLinksMap(map);
     comp.close()
