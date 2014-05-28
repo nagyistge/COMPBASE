@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.shared.widgets;
 
 import java.util.LinkedList;
 import java.util.List;
