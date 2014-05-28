@@ -87,14 +87,17 @@ public class MyGraphPanel extends Composite {
 	public void setGraph(Graph graph) {
 		JavascriptUtil util = new JavascriptUtil();
 		JSONObject json = util.toJSON((Graph) graph);
-		setGraph(json.getJavaScriptObject(), canvasId);
+		setGraph(json.getJavaScriptObject(), canvasId,
+				glassPanelContainer.getOffsetWidth() - 10,
+				glassPanelContainer.getOffsetHeight() - 10);
 	}
 
 	/**
 	 * nativ js calls
 	 */
-	private native void setGraph(JavaScriptObject json, String canvasId) /*-{
-		return $wnd.setGraph(json, canvasId);
+	private native void setGraph(JavaScriptObject json, String canvasId,
+			Integer width, Integer height) /*-{
+		return $wnd.setGraph(json, canvasId, width, height);
 	}-*/;
 
 	// depends on getJSON
