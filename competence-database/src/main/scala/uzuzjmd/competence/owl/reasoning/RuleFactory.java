@@ -14,6 +14,11 @@ public class RuleFactory {
 		// generateInverseRules();
 		// result.add(catchwordOfConclusions());
 		// result.add(getCompulsoryInheritance());
+		result.add(getPrerequisiteConclusion());
+		result.add(getNotRequireTransition1());
+		result.add(getNotRequireTransition2());
+		result.add(getNotRequireTransition3());
+		result.add(getNotAllowedCreationRule());
 	}
 
 	private void generateInverseRules() {
@@ -43,6 +48,29 @@ public class RuleFactory {
 		return "[catchwordTransition: (?a rdfs:subClassOf comp:Catchword)" + " (?a rdfs:subClassOf ?b) " + "-> (?b rdfs:subClassOf comp:Catchword)]";
 	}
 
+	public String getPrerequisiteConclusion() {
+		return "[requireTransition: (?a comp:PrerequisiteOf ?b) (?b comp:PrerequisiteOf ?c) -> (?a comp:PrerequisiteOf ?c)]";
+	}
+
+	public String getNotRequireTransition1() {
+		return "[notrequireTransition1: (?a comp:NotPrerequisiteOf ?b) (?b comp:PrerequisiteOf ?c) (?a comp:PrerequisiteOf ?c) -> remove(2)]";
+	}
+
+	public String getNotRequireTransition2() {
+		return "[notrequireTransition1: (?a comp:PrerequisiteOf ?b) (?b comp:NotPrerequisiteOf ?c) (?a comp:PrerequisiteOf ?c) -> remove(0)]";
+	}
+
+	public String getNotRequireTransition3() {
+		return "[notrequireTransition1: (?a comp:PrerequisiteOf ?b) (?b comp:PrerequisiteOf ?c) (?a comp:NotPrerequisiteOf ?c) -> remove(1)]";
+	}
+
+	public String getNotAllowedCreationRule() {
+		return "[notallowedcreation: (?a comp:PrerequisiteOf ?b) (?user rdf:type comp:User) -> (?user comp:NotAllowedToView ?a)]";
+	}
+
+	public String getNotAllowedLinkRule() {
+		return "[notallowedlink: (?user comp:NotAllowedToView ?a) (?a comp:PrerequisiteOf ?b) (?user rdf:type comp:User) (?user comp:UserOfLink ?a) -> remove(0)]";
+	}
 }
 
 // create inverse relationships
