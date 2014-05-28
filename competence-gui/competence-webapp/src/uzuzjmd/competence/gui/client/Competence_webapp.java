@@ -1,9 +1,12 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
+import uzuzjmd.competence.gui.shared.widgets.Graph;
+import uzuzjmd.competence.gui.shared.widgets.MyGraphPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -29,12 +32,12 @@ public class Competence_webapp implements EntryPoint {
 
 		RootPanel container = RootPanel.get("rootContainer");
 
-		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		tab3 = new ProgressTab(contextFactory);
-		reloadController = new ReloadController(null, tab2, tab3);
-		RequirementTab tab = new RequirementTab(contextFactory);
-		container.add(tab);
-		initTabbedView(container, tab, tab2, tab3);
+		// LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
+		// tab3 = new ProgressTab(contextFactory);
+		// reloadController = new ReloadController(null, tab2, tab3);
+		// RequirementTab tab = new RequirementTab(contextFactory);
+		// container.add(tab);
+		// initTabbedView(container, tab, tab2, tab3);
 
 		// PopupPanel popup = new PopupPanel();
 		// EvidenceStackPanel evidenceStackPanel = new EvidenceStackPanel(popup,
@@ -45,6 +48,16 @@ public class Competence_webapp implements EntryPoint {
 		// popup.setVisible(true);
 		// container.add(popup);
 		// container.add(evidenceStackPanel);
+
+		Graph dummy = new Graph();
+		dummy.addTriple("A", "B", "requirement", true);
+		dummy.addTriple("A", "C", "requirement", true);
+		dummy.addTriple("A", "B", "requirement", true);
+
+		MyGraphPanel graphPanel = new MyGraphPanel(new CompetenceClickPanel(),
+				new CompetenceClickPanel());
+		container.add(graphPanel);
+		graphPanel.setGraph(dummy);
 
 	}
 
