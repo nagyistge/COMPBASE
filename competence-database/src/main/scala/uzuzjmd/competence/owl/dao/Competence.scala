@@ -37,4 +37,12 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
   }
 
+  def getRequiredCompetencesAsArray(): Array[String] = {
+    return getRequiredCompetences().map(x => x.getDataField(x.definition)).toArray;
+  }
+
+  def isLinkedAsRequired(): Boolean = {
+    return !(getRequiredCompetences.isEmpty && getAssociatedSingletonDaosAsRange(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty);
+  }
+
 }
