@@ -11,7 +11,6 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -164,23 +163,23 @@ public class MyGraphPanel extends Composite {
 	// widget.addClickMenu(this.menu, x, y);
 	// }
 
-	/**
-	 * Handelt das MouseEvent auf dem Graphen (Menus sollen verschwinden, wenn
-	 * die Mouse die Gegend verl�sst
-	 * 
-	 * @param event
-	 */
-	@UiHandler("focusPanel1")
-	void onFocusPanel1MouseMove(MouseMoveEvent event) {
-		if (this.x != null && this.y != null) {
-			if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
-					this.x, this.y)) {
-				widget.removeClickMenu();
-				this.ctrlClicked = false;
-				this.shiftKey = false;
-			}
-		}
-	}
+	// /**
+	// * Handelt das MouseEvent auf dem Graphen (Menus sollen verschwinden, wenn
+	// * die Mouse die Gegend verl�sst
+	// *
+	// * @param event
+	// */
+	// @UiHandler("focusPanel1")
+	// void onFocusPanel1MouseMove(MouseMoveEvent event) {
+	// if (this.x != null && this.y != null) {
+	// if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
+	// this.x, this.y)) {
+	// widget.removeClickMenu();
+	// this.ctrlClicked = false;
+	// this.shiftKey = false;
+	// }
+	// }
+	// }
 
 	/**
 	 * 
