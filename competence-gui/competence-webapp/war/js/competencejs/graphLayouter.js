@@ -10,8 +10,9 @@ function appendGraph(id, width, height, data) {
                 "font-size": 15
             }
         };
-        var nodeId1 = data.graph[k].node1;
-        g.addEdge(nodeId1, data.graph[k].node2, st);
+        var nodeId1 = data.graph[k].node1id;
+        var nodeId2 = data.graph[k].node2id;
+        g.addEdge(nodeId1, nodeId2, st);
     }
     /* layout the graph using the Spring layout implementation */
     var layouter = new Graph.Layout.Spring(g);
