@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import uzuzjmd.competence.gui.client.TabbedView;
 
+import com.github.gwtbootstrap.client.ui.Label;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Node;
@@ -20,6 +21,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MyGraphPanel extends Composite {
@@ -63,8 +65,8 @@ public class MyGraphPanel extends Composite {
 	public boolean ctrlClicked = false;
 	private Collection<String> selectedElements;
 	private boolean shiftKey;
-	private ClickMenu optionMenuCtrlClick;
-	private ClickMenu optionMenuNormalClick;
+	private ContentLoader optionMenuCtrlClick;
+	private ContentLoader optionMenuNormalClick;
 
 	private String canvasId = "canvas";
 
@@ -144,20 +146,23 @@ public class MyGraphPanel extends Composite {
 			if (this.ctrlClicked) {
 				optionMenuCtrlClick.setId(id);
 				optionMenuCtrlClick.setNodeId(nodeId);
-				showMenu(optionMenuCtrlClick);
+				optionMenuCtrlClick.loadContent();
 			} else {
+				PopupPanel pop = new PopupPanel();
+				pop.add(new Label("helloooo"));
+				pop.show();
 				optionMenuNormalClick.setId(id);
 				optionMenuNormalClick.setNodeId(nodeId);
-				showMenu(optionMenuNormalClick);
+				optionMenuNormalClick.loadContent();
 			}
 		}
-		focusPanel1.setFocus(false);
+		// focusPanel1.setFocus(false);
 	}
 
-	private void showMenu(Composite clickMenu) {
-		this.menu = clickMenu;
-		widget.addClickMenu(this.menu, x, y);
-	}
+	// private void showMenu(Composite clickMenu) {
+	// this.menu = clickMenu;
+	// widget.addClickMenu(this.menu, x, y);
+	// }
 
 	/**
 	 * Handelt das MouseEvent auf dem Graphen (Menus sollen verschwinden, wenn

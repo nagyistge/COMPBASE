@@ -21,12 +21,10 @@ public class JavascriptUtil {
 			JSONObject obj = new JSONObject();
 			JSONString fromNode = new JSONString(triple.fromNode);
 			JSONString toNode = new JSONString(triple.toNode);
-			// JSONString label = new JSONString(triple.label);
-			JSONString label = new JSONString("");
+			JSONString label = new JSONString(triple.label);
 			obj.put("node1", fromNode);
 			obj.put("node2", toNode);
-			// obj.put("directed", JSONBoolean.getInstance(triple.directed));
-			obj.put("directed", JSONBoolean.getInstance(false));
+			obj.put("directed", JSONBoolean.getInstance(triple.directed));
 			obj.put("label", label);
 			triples.set(i, obj);
 			i++;
