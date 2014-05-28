@@ -1,3 +1,0 @@
-# Module kompetenzmanager
-# RPC service class, partial path of RPC policy file
-de.unipotsdam.kompetenzmanager.client.viewcontroller.GraphBackend, FF2DE53ED53229DDAC9E44BDBB7E080A.gwt.rpc
