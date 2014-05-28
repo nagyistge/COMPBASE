@@ -1,35 +1,27 @@
-var redraw, g, renderer, st;
-function appendGraph(id,width, height, data) {
-	
+var redraw, g, renderer;
+function appendGraph(id, width, height, data) {
     // daten aus json lesen und in Graph einspeisen        
     g = new Graph();
-    for( var k=0; k<data.graph.length; k++ ) {
-//        st = {
-//            directed: data.graph[k].directed,        	
-//            label: data.graph[k].label,
-//            "label-style" : {
-//                "font-size": 20
-//            }            
-//        }
-        st = {
-                directed: true,        	
-                label: "Voraussetzung für",
-                "label-style" : {
-                    "font-size": 15
-                }            
+    for (var k = 0; k < data.graph.length; k++) {
+        var st = {
+            directed: data.graph[k].directed,
+            label: data.graph[k].label,
+            "label-style": {
+                "font-size": 15
             }
-        
-        g.addEdge(data.graph[k].node1, data.graph[k].node2,st);       
-    }             
-  
-
+        };
+        var nodeId1 = data.graph[k].node1;
+        g.addEdge(nodeId1, data.graph[k].node2, st);
+    }
     /* layout the graph using the Spring layout implementation */
     var layouter = new Graph.Layout.Spring(g);
     /* draw the graph using the RaphaelJS draw implementation */
-    renderer = new Graph.Renderer.Raphael(id, g, width, height);    
+    renderer = new Graph.Renderer.Raphael(id, g, width, height);
 //    layouter.layout();
 //    renderer.draw();       
     return g;
 }
-       
+
+
+
     
