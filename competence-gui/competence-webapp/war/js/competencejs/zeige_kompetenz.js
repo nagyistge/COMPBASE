@@ -12,10 +12,9 @@ var myFinalDataMap = {};
 // });
 // }
 
-function setGraph(json,canvasId) {
+function setGraph(json,canvasId, width, height) {
 	var data = eval(json);
-	var graph = appendGraph(canvasId, $(document).width() - 20, $(document)
-			.height() - 60, data);
+	var graph = appendGraph(canvasId, width, height, data);
 	myPaintedGraphMap[canvasId] = graph;
 	myFinalDataMap[canvasId] = data;	
 }
