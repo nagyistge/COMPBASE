@@ -12,32 +12,56 @@ var myFinalDataMap = {};
 // });
 // }
 
-
-$.fn.qtip.styles.competenceNode = { // Last part is the name of the style         
-   textAlign: 'center',        
-//   tip: 'leftBottom',   
-   name: 'dark' // Inherit the rest of the attributes from the preset dark style
+$.fn.qtip.styles.competenceNode = {// Last part is the name of the style
+    textAlign: 'center',
+    // tip: 'leftBottom',
+    name: 'dark' // Inherit the rest of the attributes from the preset dark
+            // style
 }
 
-function addTooltips() {
+function addTooltips(data) {
     var a = document.getElementById("canvas").getElementsByTagName("svg");
-    $('#C', a).qtip({     
-        content: 'Some basic content for the tooltip', // Give it some
-        hide: {
-            fixed: true, // Make it fixed so it can be hovered over            
-            when: { event: 'unfocus'} 
-        },   
-        show: { delay: 1000 },
-        style: 'competenceNode'
-    });     
-};
+    for (var k = 0; k < data.graph.length; k++) {
+        var label = data.graph[k].node1;
+        $('#' + data.graph[k].node1id, a).qtip({
+            content: label, // Give it some
+            hide: {
+                fixed: true, // Make it fixed so it can be hovered over
+                when: {
+                    event: 'unfocus'
+                }
+            },
+            show: {
+                delay: 1000
+            },
+            style: 'competenceNode'
+        });                
+    }
+    for (var k = 0; k < data.graph.length; k++) {
+        var label = data.graph[k].node2;
+        $('#' + data.graph[k].node2id, a).qtip({
+            content: label, // Give it some
+            hide: {
+                fixed: true, // Make it fixed so it can be hovered over
+                when: {
+                    event: 'unfocus'
+                }
+            },
+            show: {
+                delay: 1000
+            },
+            style: 'competenceNode'
+        });                
+    }    
+}
+;
 
 function setGraph(json, canvasId, width, height) {
     var data = eval(json);
     var graph = appendGraph(canvasId, width, height, data);
     myPaintedGraphMap[canvasId] = graph;
     myFinalDataMap[canvasId] = data;
-    addTooltips();
+    addTooltips(data);
 }
 
 function existsNode(x, y, canvasId) {

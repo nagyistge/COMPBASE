@@ -149,7 +149,7 @@ public class MyGraphPanel extends Composite {
 				optionMenuCtrlClick.loadContent();
 			} else {
 				PopupPanel pop = new PopupPanel();
-				pop.add(new Label("helloooo"));
+				pop.add(new Label("helloooo" + nodeId));
 				pop.show();
 				optionMenuNormalClick.setId(id);
 				optionMenuNormalClick.setNodeId(nodeId);
