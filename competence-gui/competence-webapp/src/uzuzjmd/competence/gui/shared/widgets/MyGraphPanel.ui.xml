@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel width="1800" height="950">
+		<g:AbsolutePanel height="794px" width="1600px" ui:field="absolutePanel">			
+<!-- 			<g:at left="10" top="74"> -->
+<!-- 				<g:VerticalPanel width="230px" height="85px"> -->
+<!-- 						<g:Button ui:field="searchButton">Begriffssuche</g:Button> -->
+<!-- 						<g:TextArea width="210px" height="36px" ui:field="searchTextField"/> -->
+<!-- 					</g:VerticalPanel> -->
+<!-- 			</g:at> -->
+			<g:at left="246" top="74">
+				<g:AbsolutePanel width="1038px" height="608px" ui:field="glassPanelContainer">
+					<g:at left="0" top="0">
+						<g:FocusPanel ui:field="focusPanel1" width="877px" height="598px">
+							<g:SimplePanel width="849px" height="572px"/>
+						</g:FocusPanel>
+					</g:at>
+					<g:at left="901" top="499">
+						<g:Button width="96px" height="45px" ui:field="resetButton">reset</g:Button>
+					</g:at>					
+				</g:AbsolutePanel>
+			</g:at>					
+<!-- 			<g:at left="10" top="415"> -->
+<!-- 				<g:AbsolutePanel width="230px" height="237px"> -->
+<!-- 					<g:at left="0" top="45"> -->
+<!-- 						<g:ScrollPanel width="203px" height="76px" ui:field="SelectedListPanel"> -->
+<!-- 							<g:FlowPanel width="193px" height="71px" ui:field="VerticalPanel"/> -->
+<!-- 						</g:ScrollPanel> -->
+<!-- 					</g:at> -->
+<!-- 					<g:at left="0" top="10"> -->
+<!-- 						<g:Label text="Bis jetzt ausgewählt:"/> -->
+<!-- 					</g:at> -->
+<!-- 					<g:at left="0" top="138"> -->
+<!-- 						<g:Button ui:field="deleteSelection" width="67px" height="28px">löschen</g:Button> -->
+<!-- 					</g:at> -->
+<!-- 					<g:at left="71" top="138"> -->
+<!-- 						<g:Button width="77px" height="28px" ui:field="auswahlTaggen">taggen</g:Button> -->
+<!-- 					</g:at>					 -->
+<!-- 				</g:AbsolutePanel> -->
+<!-- 			</g:at> -->
+		</g:AbsolutePanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
