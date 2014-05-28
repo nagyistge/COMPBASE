@@ -26,6 +26,8 @@ public class JavascriptUtil {
 			obj.put("node2", toNode);
 			obj.put("directed", JSONBoolean.getInstance(triple.directed));
 			obj.put("label", label);
+			obj.put("node1id", new JSONString(triple.fromNode.hashCode() + ""));
+			obj.put("node2id", new JSONString(triple.toNode.hashCode() + ""));
 			triples.set(i, obj);
 			i++;
 		}
@@ -33,7 +35,8 @@ public class JavascriptUtil {
 		JSONArray nodes = new JSONArray();
 		int j = 0;
 		for (GraphNode node : graph.nodes) {
-			JSONString nodeLabel = new JSONString(node.getLabel());
+			JSONString nodeLabel = new JSONString(node.getLabel().hashCode()
+					+ "");
 			JSONObject obj = new JSONObject();
 			obj.put("node", nodeLabel);
 			nodes.set(j, obj);
@@ -42,5 +45,4 @@ public class JavascriptUtil {
 		json.put("nodes", nodes);
 		return json;
 	}
-
 }
