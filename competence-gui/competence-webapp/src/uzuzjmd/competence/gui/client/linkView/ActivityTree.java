@@ -8,7 +8,7 @@ import java.util.List;
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.shared.Evidence;
-import uzuzjmd.competence.gui.shared.MyTreePanel;
+import uzuzjmd.competence.gui.shared.widgets.MyTreePanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;

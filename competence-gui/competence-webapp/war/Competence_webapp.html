@@ -5,122 +5,129 @@
 <!-- with a "Quirks Mode" doctype is not supported. -->
 
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <!-- <meta http-equiv="X-UA-Compatible" content="IE=9" /> -->
-        <meta http-equiv="X-UA-Compatible" content="IE=9">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=9" /> -->
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 
 
-        <!-- including bootstrap -->
-        <!-- Latest compiled and minified CSS -->
+<!-- including bootstrap -->
+<!-- Latest compiled and minified CSS -->
 <!--         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
 
-        <!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified JavaScript -->
 
 
-        <!-- Stylesheets -->
-        <!-- <link type="text/css" rel="stylesheet" href="css/competencecss/Competence_webapp.css"> -->
-        <link type="text/css" rel="stylesheet"
-              href="js/columntree/column-tree.css">
-        <link type="text/css" rel="stylesheet" href="css/GwtExt.css">
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/progressTab.css">
-        <link rel="stylesheet" type="text/css"
-              href="js/resources/css/ext-all.css" />
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/activity.css">
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/preview.css">
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/competenceSelection.css">
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/requirementTab.css">
-        <link type="text/css" rel="stylesheet"
-              href="css/competencecss/evidencePopup.css">
+<!-- Stylesheets -->
+<!-- <link type="text/css" rel="stylesheet" href="css/competencecss/Competence_webapp.css"> -->
+<link type="text/css" rel="stylesheet"
+	href="js/columntree/column-tree.css">
+<link type="text/css" rel="stylesheet" href="css/GwtExt.css">
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/progressTab.css">
+<link rel="stylesheet" type="text/css"
+	href="js/resources/css/ext-all.css" />
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/activity.css">
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/preview.css">
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/competenceSelection.css">
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/requirementTab.css">
+<link type="text/css" rel="stylesheet"
+	href="css/competencecss/evidencePopup.css">
 
-        <!--den Kontext übergeben-->
-        <script type="text/javascript" language="javascript">
-            var courseId = 2;
-            var serverUrl = "http://localhost:8084";
-            var evidenceServerUrl = "http://localhost:8083";
-            var role = "teacher";
-            var user = "new userme";
-        </script>
+<!--den Kontext übergeben-->
+<script type="text/javascript" language="javascript">
+	var courseId = 2;
+	var serverUrl = "http://localhost:8084";
+	var evidenceServerUrl = "http://localhost:8083";
+	var role = "teacher";
+	var user = "new userme";
+</script>
 
-        <!-- gwt Exteinsions for the trees -->
-        <script type="text/javascript" src="js/adapter/yui/yui-utilities.js"></script>
-        <script type="text/javascript" src="js/adapter/yui/ext-yui-adapter.js"></script>
-        <script type="text/javascript" src="js/ext-all.js"></script>
-        <script type="text/javascript" language="javascript"
-        src="js/columntree/ColumnNodeUI.js"></script>
+<script type="text/javascript" src="js/dracula/js/raphael-min.js"></script>
+<script type="text/javascript" src="js/dracula/js/dracula_graffle.js"></script>
+<!-- <script type="text/javascript" src="jquery-1.7.1.js"></script> -->
+<script type="text/javascript" src="js/dracula/js/dracula_graph.js"></script>
+<script type="text/javascript" src="js/graphLayouter.js"></script>
+<script type="text/javascript" src="js/zeige_kompetenz.js"></script>
 
-        <!-- Javascript files and extension frameworks -->
-        <!-- <script type="text/javascript" language="javascript" -->
-        <!-- 	src="js/jquery-1.3.2.min.js"></script> -->
-        <script type="text/javascript" language="javascript"
-        src="js/jquery11.js"></script>
-        <script type="text/javascript" language="javascript"
-        src="js/jquery11migrate.js"></script>
-        <script type="text/javascript" language="javascript"
-        src="js/jquery.qtip-1.0.0-rc3.min.js"></script>
-        <script type="text/javascript" language="javascript"
-        src="js/competencejs/preview.js"></script>
+<!-- gwt Exteinsions for the trees -->
+<script type="text/javascript" src="js/adapter/yui/yui-utilities.js"></script>
+<script type="text/javascript" src="js/adapter/yui/ext-yui-adapter.js"></script>
+<script type="text/javascript" src="js/ext-all.js"></script>
+<script type="text/javascript" language="javascript"
+	src="js/columntree/ColumnNodeUI.js"></script>
 
-
-
-
-        <!--[if lt IE 9] -->
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-
-
-        <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
-        <!-- gylphicon icons where provided by bootstrap -->
-        <!-- HAVE a look HERE. http://glyphicons.com/ -->
+<!-- Javascript files and extension frameworks -->
+<!-- <script type="text/javascript" language="javascript" -->
+<!-- 	src="js/jquery-1.3.2.min.js"></script> -->
+<script type="text/javascript" language="javascript"
+	src="js/jquery11.js"></script>
+<script type="text/javascript" language="javascript"
+	src="js/jquery11migrate.js"></script>
+<script type="text/javascript" language="javascript"
+	src="js/jquery.qtip-1.0.0-rc3.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="js/competencejs/preview.js"></script>
 
 
 
 
-        <!--                                           -->
-        <!-- This script loads your compiled module.   -->
-        <!-- If you add any GWT meta tags, they must   -->
-        <!-- be added before this line.                -->
-        <!--                                           -->
-        <script type="text/javascript" language="javascript"
-        src="competence_webapp/competence_webapp.nocache.js"></script>
+<!--[if lt IE 9] -->
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+
+<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+<!-- gylphicon icons where provided by bootstrap -->
+<!-- HAVE a look HERE. http://glyphicons.com/ -->
+
+
+
+
+<!--                                           -->
+<!-- This script loads your compiled module.   -->
+<!-- If you add any GWT meta tags, they must   -->
+<!-- be added before this line.                -->
+<!--                                           -->
+<script type="text/javascript" language="javascript"
+	src="competence_webapp/competence_webapp.nocache.js"></script>
 
 
 
 
 
 
-        <!--                                           -->
-        <!-- Any title is fine                         -->
-        <!--                                           -->
-        <title>Kompetenzverwaltung</title>
+<!--                                           -->
+<!-- Any title is fine                         -->
+<!--                                           -->
+<title>Kompetenzverwaltung</title>
 
-    </head>
+</head>
 
-    <!--                                           -->
-    <!-- The body can have arbitrary html, or      -->
-    <!-- you can leave the body empty if you want  -->
-    <!-- to create a completely dynamic UI.        -->
-    <!--                                           -->
-    <body>
+<!--                                           -->
+<!-- The body can have arbitrary html, or      -->
+<!-- you can leave the body empty if you want  -->
+<!-- to create a completely dynamic UI.        -->
+<!--                                           -->
+<body>
 
-        <!-- OPTIONAL: include this if you want history support -->
-        <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
-                style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+	<!-- OPTIONAL: include this if you want history support -->
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
-        <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-        <noscript>
-        <div
-            style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-            Your web browser must have JavaScript enabled in order for this
-            application to display correctly.</div>
-        </noscript>
+	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+	<noscript>
+		<div
+			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+			Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</div>
+	</noscript>
 
-        <!-- 	<h1>Web Application Starter Project</h1> -->
-        <div id="rootContainer"></div>
+	<!-- 	<h1>Web Application Starter Project</h1> -->
+	<div id="rootContainer"></div>
 
-    </body>
+</body>
 </html>

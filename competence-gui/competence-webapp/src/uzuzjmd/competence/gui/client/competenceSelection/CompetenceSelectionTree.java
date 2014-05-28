@@ -7,7 +7,7 @@ import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.ContextFactory;
-import uzuzjmd.competence.gui.shared.CheckableTreePanel;
+import uzuzjmd.competence.gui.shared.widgets.CheckableTreePanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
