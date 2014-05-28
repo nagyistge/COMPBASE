@@ -18,6 +18,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -73,6 +74,8 @@ public class CompetenceSelectionWidget extends Composite {
 	Button filterButton;
 	@UiField
 	Button resetButton;
+	@UiField
+	CaptionPanel captionPanel;
 
 	private CompetenceSelectionTree competenceTree;
 	private OperatorSelectionTree operatorTree;
@@ -107,6 +110,14 @@ public class CompetenceSelectionWidget extends Composite {
 		this.competenceTreeFilter = competenceTreeFilter;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		// competenceCompulsoryCheckbox
+	}
+
+	public CompetenceSelectionWidget(final ContextFactory contextFactory,
+			String selectedFilter, String competenceTreeFilter, String title) {
+		initWidget(uiBinder.createAndBindUi(this));
+		this.competenceTreeFilter = competenceTreeFilter;
+		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		this.captionPanel.setCaptionHTML(title);
 	}
 
 	private void initCompetenceSelectionWidget(

@@ -19,7 +19,6 @@
 					</g:at>
 				</g:AbsolutePanel>
 			</g:at>
-		</g:AbsolutePanel>
-		<g:Button ui:field="resetButton">reset</g:Button>
+		</g:AbsolutePanel>		
 	</g:HTMLPanel>
 </ui:UiBinder> 

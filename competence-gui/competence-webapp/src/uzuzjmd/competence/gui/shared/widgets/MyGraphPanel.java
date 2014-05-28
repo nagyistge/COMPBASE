@@ -17,7 +17,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -40,9 +39,6 @@ public class MyGraphPanel extends Composite {
 	FocusPanel focusPanel1;
 	@UiField
 	AbsolutePanel glassPanelContainer;
-
-	@UiField
-	Button resetButton;
 
 	public MyGraphPanel widget;
 
