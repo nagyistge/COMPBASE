@@ -23,4 +23,18 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
   }
 
+  def addRequiredCompetence(competence: Competence) {
+    deleteEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf)
+    createEdgeWith(competence, CompObjectProperties.PrerequisiteOf)
+  }
+
+  def addNotRequiredCompetence(competence: Competence) {
+    deleteEdgeWith(competence, CompObjectProperties.PrerequisiteOf)
+    createEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf)
+  }
+
+  def getRequiredCompetences(): List[Competence] = {
+    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
+  }
+
 }

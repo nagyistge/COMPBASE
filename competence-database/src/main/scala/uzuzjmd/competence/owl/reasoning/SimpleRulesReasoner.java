@@ -30,7 +30,7 @@ public class SimpleRulesReasoner {
 	 * Logging
 	 */
 	public static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class.getName());
-	static LogStream logStream = new LogStream(logger, Level.DEBUG);
+	public static LogStream logStream = new LogStream(logger, Level.DEBUG);
 
 	/**
 	 * properties
@@ -71,7 +71,7 @@ public class SimpleRulesReasoner {
 		PrintWriter out = new PrintWriter(System.out);
 		for (StmtIterator i = inf.listStatements(); i.hasNext();) {
 			Statement s = i.nextStatement();
-			System.out.println("Statement is " + s);
+			// System.out.println("Statement is " + s);
 			for (Iterator id = inf.getDerivation(s); id.hasNext();) {
 				Derivation deriv = (Derivation) id.next();
 				deriv.printTrace(out, true);
@@ -124,7 +124,7 @@ public class SimpleRulesReasoner {
 	public GenericRuleReasoner getReasoner() {
 		return reasoner;
 	}
-	
+
 	public void switchOnDebug() {
 		getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, true);
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);

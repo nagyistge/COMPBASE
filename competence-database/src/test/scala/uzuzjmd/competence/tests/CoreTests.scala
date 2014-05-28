@@ -222,8 +222,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
     val mapper = new Ont2CompetenceLinkMap(compOntManag, "student meäää 10AA")
-    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().keySet() should not be ('empty)
-    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().values() should not be ('empty)
+    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().entrySet() should not be ('empty)
     //    compOntManag.begin()
     //    link.delete
     //    compOntManag.close()
@@ -235,10 +234,9 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
     val linkId = "hellolinkId"
-    val userId = "studentme"
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, userId, studentRole, coursecontext, userId)
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, linkId, userstudent)
     compOntManag.close()
     compOntManag.begin()
@@ -246,9 +244,65 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val competenceListString = competenceList.map(x => x.getFullDao.definition).asJava
     val mapper = new Ont2ProgressMap(compOntManag, coursecontext.name, competenceListString)
     mapper.getProgressMap() should not be null
-    mapper.getProgressMap().values() should not be ('empty)
-    println("progressbarexample" + mapper.getProgressMap.keySet().iterator().next() + ":" + mapper.getProgressMap.values().iterator().next());
+    mapper.getProgressMap().entrySet() should not be ('empty)
     link.delete
+    compOntManag.close()
+    showResult
+  }
+
+  test("if a requires b and b requires c, a should require c") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    compOntManag.getM().enterCriticalSection(false);
+    compOntManag.startReasoning();
+    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+    competenceC.addRequiredCompetence(competenceB)
+    competenceB.addRequiredCompetence(competenceA)
+    competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
+    compOntManag.close()
+    showResult
+  }
+
+  test("testing the rules") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+    compOntManag.getM().enterCriticalSection(false);
+    compOntManag.startReasoning();
+    compOntManag.switchOffDebugg();
+    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+    competenceC.addRequiredCompetence(competenceB)
+    competenceB.addRequiredCompetence(competenceA)
+    // testing basic transition
+    competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
+
+    // testing not transition 1
+    competenceB.addNotRequiredCompetence(competenceA)
+    competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be true
+
+    // testing basic transition
+    competenceB.addRequiredCompetence(competenceA)
+    competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
+
+    // testing not transition 2
+    competenceC.addNotRequiredCompetence(competenceB)
+    competenceB.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be true
+
+    // testing basic transition
+    competenceC.addRequiredCompetence(competenceB)
+    competenceB.addRequiredCompetence(competenceA)
+    competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
+
+    // testing the create link transition
+    val linkId = "hellolinkId"
+    val studentRole = new StudentRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+    val link = createAbstract(compOntManag, linkId, userstudent)
+
     compOntManag.close()
     showResult
   }
