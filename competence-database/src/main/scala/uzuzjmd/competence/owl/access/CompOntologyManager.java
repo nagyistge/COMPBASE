@@ -130,6 +130,9 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.Comment, CompObjectProperties.UserOfComment);
 		getUtil().createObjectProperty(CompOntClass.Comment, CompOntClass.AbstractEvidenceLink, CompObjectProperties.CommentOf);
 		getUtil().createObjectProperty(CompOntClass.Role, CompOntClass.User, CompObjectProperties.RoleOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.PrerequisiteOf);
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.NotPrerequisiteOf);
+		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.Competence, CompObjectProperties.NotAllowedToView);
 
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
@@ -188,6 +191,7 @@ public class CompOntologyManager {
 	public void switchOffDebugg() {
 		rulesReasoner.getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, false);
 		SimpleRulesReasoner.logger.setLevel(Level.ERROR);
+		SimpleRulesReasoner.logStream = new LogStream(logger, Level.ERROR);
 	}
 
 	public void sync() {
