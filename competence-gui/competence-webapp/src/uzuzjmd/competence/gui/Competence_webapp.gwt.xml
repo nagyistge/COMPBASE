@@ -29,6 +29,7 @@
 	<set-property name="compiler.useSourceMaps" value="true" />
 
 	<!-- Other module inherits -->
+	<set-property name="bootstrap.responsiveDesign" value="true"/>
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='uzuzjmd.competence.gui.client.Competence_webapp' />
