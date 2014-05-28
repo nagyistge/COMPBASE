@@ -32,7 +32,7 @@ function addTooltips(data) {
                 }
             },
             show: {
-                delay: 1000
+                delay: 800
             },
             style: 'competenceNode'
         });                

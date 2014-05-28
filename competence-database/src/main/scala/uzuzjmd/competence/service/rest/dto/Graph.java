@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class Graph implements IsSerializable {
+public class Graph {
 	public HashSet<GraphTriple> triples;
 	public HashSet<GraphNode> nodes;
 
@@ -23,10 +21,8 @@ public class Graph implements IsSerializable {
 	 * @param label
 	 * @param directed
 	 */
-	public void addTriple(String fromNode, String toNode, String label,
-			Boolean directed) {
-		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label,
-				directed);
+	public void addTriple(String fromNode, String toNode, String label, Boolean directed) {
+		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label, directed);
 		GraphNode fromNode1 = new GraphNode(fromNode);
 		GraphNode toNode1 = new GraphNode(toNode);
 		this.triples.add(graphTriple);
@@ -55,7 +51,7 @@ public class Graph implements IsSerializable {
 			this.triples.addAll(graph.triples);
 		}
 	}
-	
+
 	public Graph addConnectingTriples(Graph graph) {
 		for (GraphTriple graphTriple : graph.triples) {
 			if (this.nodes.contains(new GraphNode(graphTriple.fromNode))) {
@@ -86,8 +82,7 @@ public class Graph implements IsSerializable {
 		Collection<GraphTriple> toRemove = new HashSet<GraphTriple>();
 		while (it.hasNext())
 			graphTriple = it.next();
-		if (graphTriple.fromNode.equals(targetNode.getLabel())
-				|| graphTriple.toNode.equals(targetNode.getLabel())) {
+		if (graphTriple.fromNode.equals(targetNode.getLabel()) || graphTriple.toNode.equals(targetNode.getLabel())) {
 			toRemove.add(graphTriple);
 		}
 		this.triples.removeAll(toRemove);

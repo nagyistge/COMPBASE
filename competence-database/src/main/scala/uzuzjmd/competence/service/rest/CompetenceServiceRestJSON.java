@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
@@ -30,6 +31,7 @@ import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.dto.Graph;
 import uzuzjmd.competence.service.rest.dto.ProgressMap;
 
 /**
@@ -250,13 +252,101 @@ public class CompetenceServiceRestJSON {
 	@Path("/link/progress/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProgressMap getProgressM(@PathParam("course") String course, @QueryParam("competences") List<String> selectedCompetences) {
+
 		ProgressMap result = null;
 		CompOntologyManager comp = initManagerInCriticalMode();
 		Ont2ProgressMap map = new Ont2ProgressMap(comp, course, selectedCompetences);
 		result = map.getProgressMap();
 		closeManagerInCriticalMode(comp);
 		return result;
+	}
 
+	/**
+	 * creates the given relationship
+	 * 
+	 * @param course
+	 * @param linkedCompetence
+	 * @param selectedCompetences
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/prerequisite/create/{course}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("competences") List<String> selectedCompetences) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		compOntologyManager.startReasoning();
+		compOntologyManager.switchOffDebugg();
+		Competence competence = new Competence(compOntologyManager, linkedCompetence, null, null);
+		for (String string : selectedCompetences) {
+			Competence preCompetence = new Competence(compOntologyManager, string, null, null);
+			competence.addRequiredCompetence(preCompetence);
+		}
+		compOntologyManager.close();
+		return Response.ok("prerequisite created").build();
+	}
+
+	/**
+	 * deletes the given relationship
+	 * 
+	 * @param course
+	 * @param linkedCompetence
+	 * @param selectedCompetences
+	 * 
+	 * @param course
+	 * @param linkedCompetence
+	 * @param selectedCompetences
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/prerequisite/delete/{course}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deletePrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("competences") List<String> selectedCompetences) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		compOntologyManager.startReasoning();
+		compOntologyManager.switchOffDebugg();
+		Competence competence = new Competence(compOntologyManager, linkedCompetence, null, null);
+		for (String string : selectedCompetences) {
+			Competence preCompetence = new Competence(compOntologyManager, string, null, null);
+			competence.addNotRequiredCompetence(preCompetence);
+		}
+		compOntologyManager.close();
+		return Response.ok("prerequisite deleted").build();
+	}
+
+	/**
+	 * returns the whole graph (given filter)
+	 * 
+	 * @param selectedCompetences
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/prerequisite/graph/{course}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Graph getPrerequisiteGraph(@QueryParam("competences") List<String> selectedCompetences, @PathParam("course") String course) {
+		CompOntologyManager comp = new CompOntologyManager();
+		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(comp, selectedCompetences, course);
+		return mapper.getCompetenceGraph();
+	}
+
+	/**
+	 * gets the prerequisites for the given competence
+	 * 
+	 * @param forCompetence
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/prerequisite/required/{course}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String[] getRequiredCompetences(@QueryParam("competence") String forCompetence) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		compOntologyManager.startReasoning();
+		compOntologyManager.switchOffDebugg();
+		Competence competence = new Competence(compOntologyManager, forCompetence, null, null);
+		String[] requiredCompetences = competence.getRequiredCompetencesAsArray();
+		compOntologyManager.close();
+		return requiredCompetences;
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
