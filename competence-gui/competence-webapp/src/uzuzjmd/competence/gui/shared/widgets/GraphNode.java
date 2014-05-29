@@ -1,8 +1,6 @@
 package uzuzjmd.competence.gui.shared.widgets;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class GraphNode implements IsSerializable {
+public class GraphNode {
 
 	public GraphNode() {
 	}

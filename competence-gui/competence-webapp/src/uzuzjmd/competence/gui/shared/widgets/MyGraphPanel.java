@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -85,6 +86,11 @@ public class MyGraphPanel extends Composite {
 		JavascriptUtil util = new JavascriptUtil();
 		JSONObject json = util.toJSON((Graph) graph);
 		setGraph(json.getJavaScriptObject(), canvasId,
+				glassPanelContainer.getOffsetWidth() - 10,
+				glassPanelContainer.getOffsetHeight() - 10);
+	}
+	public void setGraph(JSONValue graph) {		
+		setGraph(graph.isObject().getJavaScriptObject(), canvasId,
 				glassPanelContainer.getOffsetWidth() - 10,
 				glassPanelContainer.getOffsetHeight() - 10);
 	}

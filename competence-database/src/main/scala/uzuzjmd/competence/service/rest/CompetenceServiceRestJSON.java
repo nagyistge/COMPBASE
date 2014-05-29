@@ -272,7 +272,7 @@ public class CompetenceServiceRestJSON {
 	@POST
 	@Path("/prerequisite/create/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("competences") List<String> selectedCompetences) {
+	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("selectedCompetences") List<String> selectedCompetences) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		compOntologyManager.startReasoning();
 		compOntologyManager.switchOffDebugg();
@@ -323,7 +323,7 @@ public class CompetenceServiceRestJSON {
 	@GET
 	@Path("/prerequisite/graph/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Graph getPrerequisiteGraph(@QueryParam("competences") List<String> selectedCompetences, @PathParam("course") String course) {
+	public Graph getPrerequisiteGraph(@QueryParam("selectedCompetences") List<String> selectedCompetences, @PathParam("course") String course) {
 		CompOntologyManager comp = new CompOntologyManager();
 		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(comp, selectedCompetences, course);
 		return mapper.getCompetenceGraph();
