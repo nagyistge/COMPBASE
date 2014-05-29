@@ -1,5 +1,12 @@
 package uzuzjmd.competence.gui.client.tabs;
 
+import java.util.LinkedList;
+
+import org.fusesource.restygwt.client.JsonCallback;
+import org.fusesource.restygwt.client.Method;
+import org.fusesource.restygwt.client.Resource;
+
+import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget;
@@ -9,6 +16,7 @@ import uzuzjmd.competence.gui.shared.widgets.MyGraphPanel;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -51,8 +59,7 @@ public class GraphTab extends Composite {
 		competenceCreationPopup.setGlassEnabled(true);
 		competenceCreationPopup.add(new CompetenceLinkCreationWidget(
 				competenceCreationPopup));
-		competenceCreationPopup.hide();
-
+		competenceCreationPopup.hide();				
 	}
 
 	@Override
@@ -68,6 +75,23 @@ public class GraphTab extends Composite {
 				"requirement", true);
 		dummy.addTriple("C", "D", "requirement", true);
 		graphPanel.setGraph(dummy);
+		
+		Resource resource = new Resource(Competence_webapp.contextFactory.getServerURL()+ "/competences/json/prerequisite/graph/"+Competence_webapp.contextFactory.getCourseId());
+		resource.addQueryParams("selectedCompetences", new LinkedList<String>()).get().send(new JsonCallback() {
+			
+			@Override
+			public void onSuccess(Method method, JSONValue response) {				
+				graphPanel.setGraph(response);
+			}
+			
+			@Override
+			public void onFailure(Method method, Throwable exception) {
+				// TODO Auto-generated method stub
+				GWT.log("konnte Graph nicht erstellen");
+			}
+		});
+		
+		
 
 	}
 
