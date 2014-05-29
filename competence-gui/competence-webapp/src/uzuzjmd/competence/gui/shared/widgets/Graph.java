@@ -1,14 +1,23 @@
 package uzuzjmd.competence.gui.shared.widgets;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class Graph implements IsSerializable {
+public class Graph {
 	public HashSet<GraphTriple> triples;
 	public HashSet<GraphNode> nodes;
+	
+	private HashMap<Integer, String> nodeIdValues = new HashMap<Integer, String>();
+
+	public HashMap<Integer, String> getNodeIdValues() {
+		return nodeIdValues;
+	}
+
+	public void setNodeIdValues(HashMap<Integer, String> nodeIdValues) {
+		this.nodeIdValues = nodeIdValues;
+	}
 
 	public Graph() {
 		this.triples = new HashSet<GraphTriple>(10000);
@@ -23,10 +32,10 @@ public class Graph implements IsSerializable {
 	 * @param label
 	 * @param directed
 	 */
-	public void addTriple(String fromNode, String toNode, String label,
-			Boolean directed) {
-		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label,
-				directed);
+	public void addTriple(String fromNode, String toNode, String label, Boolean directed) {
+		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label, directed);
+		nodeIdValues.put(fromNode.hashCode(), fromNode);
+		nodeIdValues.put(toNode.hashCode(), toNode);
 		GraphNode fromNode1 = new GraphNode(fromNode);
 		GraphNode toNode1 = new GraphNode(toNode);
 		this.triples.add(graphTriple);
@@ -55,7 +64,7 @@ public class Graph implements IsSerializable {
 			this.triples.addAll(graph.triples);
 		}
 	}
-	
+
 	public Graph addConnectingTriples(Graph graph) {
 		for (GraphTriple graphTriple : graph.triples) {
 			if (this.nodes.contains(new GraphNode(graphTriple.fromNode))) {
@@ -86,8 +95,7 @@ public class Graph implements IsSerializable {
 		Collection<GraphTriple> toRemove = new HashSet<GraphTriple>();
 		while (it.hasNext())
 			graphTriple = it.next();
-		if (graphTriple.fromNode.equals(targetNode.getLabel())
-				|| graphTriple.toNode.equals(targetNode.getLabel())) {
+		if (graphTriple.fromNode.equals(targetNode.getLabel()) || graphTriple.toNode.equals(targetNode.getLabel())) {
 			toRemove.add(graphTriple);
 		}
 		this.triples.removeAll(toRemove);
