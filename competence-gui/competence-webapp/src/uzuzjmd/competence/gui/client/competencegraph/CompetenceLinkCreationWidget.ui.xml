@@ -26,8 +26,10 @@
 					</g:HorizontalPanel>
 				</b:Row>
 			</b:Container>
+			<g:FocusPanel ui:field="warningPlaceholderPanel"/>
 			<g:HorizontalPanel>
-				<b:Button ui:field="submitButton">Die Verknüpfungen erstellen</b:Button>
+				<b:Button ui:field="submitButton">Markierte Verknüpfungen erstellen</b:Button>
+<!-- 				<b:Button ui:field="deleteButton">Markierte Verknüpfungen löschen</b:Button> -->
 				<b:Button ui:field="cancelButton">abbrechen</b:Button>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>

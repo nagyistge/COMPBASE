@@ -1,12 +1,23 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class Graph {
 	public HashSet<GraphTriple> triples;
 	public HashSet<GraphNode> nodes;
+	
+	private HashMap<Integer, String> nodeIdValues = new HashMap<Integer, String>();
+
+	public HashMap<Integer, String> getNodeIdValues() {
+		return nodeIdValues;
+	}
+
+	public void setNodeIdValues(HashMap<Integer, String> nodeIdValues) {
+		this.nodeIdValues = nodeIdValues;
+	}
 
 	public Graph() {
 		this.triples = new HashSet<GraphTriple>(10000);
@@ -23,6 +34,8 @@ public class Graph {
 	 */
 	public void addTriple(String fromNode, String toNode, String label, Boolean directed) {
 		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label, directed);
+		nodeIdValues.put(fromNode.hashCode(), fromNode);
+		nodeIdValues.put(toNode.hashCode(), toNode);
 		GraphNode fromNode1 = new GraphNode(fromNode);
 		GraphNode toNode1 = new GraphNode(toNode);
 		this.triples.add(graphTriple);
