@@ -22,7 +22,7 @@ $.fn.qtip.styles.competenceNode = {// Last part is the name of the style
 function addTooltips(data) {
     var a = document.getElementById("canvas").getElementsByTagName("svg");
     for (var k = 0; k < data.triples.length; k++) {
-        var label = data.triples[k].node1;
+        var label = data.triples[k].fromNode;
         $('#' + data.triples[k].node1id, a).qtip({
             content: label, // Give it some
             hide: {
@@ -38,7 +38,7 @@ function addTooltips(data) {
         });                
     }
     for (var k = 0; k < data.triples.length; k++) {
-        var label = data.triples[k].node2;
+        var label = data.triples[k].toNode;
         $('#' + data.triples[k].node2id, a).qtip({
             content: label, // Give it some
             hide: {
