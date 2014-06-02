@@ -10,7 +10,6 @@ import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget;
-import uzuzjmd.competence.gui.shared.widgets.Graph;
 import uzuzjmd.competence.gui.shared.widgets.MyGraphPanel;
 
 import com.github.gwtbootstrap.client.ui.Button;
@@ -64,18 +63,11 @@ public class GraphTab extends Composite {
 
 	@Override
 	protected void onAttach() {
-		super.onAttach();
-		Graph dummy = new Graph();
-		dummy.addTriple("A", "B", "requirement", true);
-		dummy.addTriple("A", "C", "requirement", true);
-		dummy.addTriple("A", "B", "requirement", true);
-		dummy.addTriple(
-				"D",
-				"Bundzwanzigojojojojojojojojojojo ojojojojo ojojojojo jojojojoj ojojojojo",
-				"requirement", true);
-		dummy.addTriple("C", "D", "requirement", true);
-		graphPanel.setGraph(dummy);
-		
+		super.onAttach();			
+		loadGraphFromServer();			
+	}
+
+	private void loadGraphFromServer() {
 		Resource resource = new Resource(Competence_webapp.contextFactory.getServerURL()+ "/competences/json/prerequisite/graph/"+Competence_webapp.contextFactory.getCourseId());
 		resource.addQueryParams("selectedCompetences", new LinkedList<String>()).get().send(new JsonCallback() {
 			
@@ -90,9 +82,6 @@ public class GraphTab extends Composite {
 				GWT.log("konnte Graph nicht erstellen");
 			}
 		});
-		
-		
-
 	}
 
 	@UiHandler("addCompetencesButton")

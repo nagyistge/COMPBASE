@@ -1,6 +1,5 @@
 package uzuzjmd.competence.service.rest.dto;
 
-import java.util.HashMap;
 
 public class GraphTriple {
 

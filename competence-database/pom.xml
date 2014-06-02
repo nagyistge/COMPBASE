@@ -402,7 +402,11 @@
 		</dependency>
 
 
-
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>shared</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 

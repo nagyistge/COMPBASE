@@ -2,16 +2,16 @@ var redraw, g, renderer;
 function appendGraph(id, width, height, data) {
     // daten aus json lesen und in Graph einspeisen        
     g = new Graph();
-    for (var k = 0; k < data.graph.length; k++) {
+    for (var k = 0; k < data.triples.length; k++) {
         var st = {
-            directed: data.graph[k].directed,
-            label: data.graph[k].label,
+            directed: data.triples[k].directed,
+            label: data.triples[k].label,
             "label-style": {
                 "font-size": 15
             }
         };
-        var nodeId1 = data.graph[k].node1id;
-        var nodeId2 = data.graph[k].node2id;
+        var nodeId1 = data.triples[k].node1id;
+        var nodeId2 = data.triples[k].node2id;
         g.addEdge(nodeId1, nodeId2, st);
     }
     /* layout the graph using the Spring layout implementation */

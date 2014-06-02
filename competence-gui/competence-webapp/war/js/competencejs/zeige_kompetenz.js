@@ -21,9 +21,9 @@ $.fn.qtip.styles.competenceNode = {// Last part is the name of the style
 
 function addTooltips(data) {
     var a = document.getElementById("canvas").getElementsByTagName("svg");
-    for (var k = 0; k < data.graph.length; k++) {
-        var label = data.graph[k].node1;
-        $('#' + data.graph[k].node1id, a).qtip({
+    for (var k = 0; k < data.triples.length; k++) {
+        var label = data.triples[k].node1;
+        $('#' + data.triples[k].node1id, a).qtip({
             content: label, // Give it some
             hide: {
                 fixed: true, // Make it fixed so it can be hovered over
@@ -37,9 +37,9 @@ function addTooltips(data) {
             style: 'competenceNode'
         });                
     }
-    for (var k = 0; k < data.graph.length; k++) {
-        var label = data.graph[k].node2;
-        $('#' + data.graph[k].node2id, a).qtip({
+    for (var k = 0; k < data.triples.length; k++) {
+        var label = data.triples[k].node2;
+        $('#' + data.triples[k].node2id, a).qtip({
             content: label, // Give it some
             hide: {
                 fixed: true, // Make it fixed so it can be hovered over
@@ -57,7 +57,7 @@ function addTooltips(data) {
 ;
 
 function setGraph(json, canvasId, width, height) {
-    var data = eval(json);
+    var data = eval(json);    
     var graph = appendGraph(canvasId, width, height, data);
     myPaintedGraphMap[canvasId] = graph;
     myFinalDataMap[canvasId] = data;

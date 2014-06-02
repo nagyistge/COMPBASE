@@ -5,6 +5,7 @@ import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
+import uzuzjmd.competence.service.rest.dto.Graph;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Element;
@@ -77,6 +78,8 @@ public class Competence_webapp implements EntryPoint {
 		// container.add(tab2);
 
 		container.add(tabbedView);
+		
+		Graph graph = new Graph();
 
 	}
 
