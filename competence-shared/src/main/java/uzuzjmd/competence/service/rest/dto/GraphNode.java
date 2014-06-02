@@ -2,11 +2,14 @@ package uzuzjmd.competence.service.rest.dto;
 
 public class GraphNode {
 
+	private int id;
+
 	public GraphNode() {
 	}
 
 	public GraphNode(String label) {
 		this.setLabel(label);
+		this.id = label.hashCode();
 	}
 
 	private String label;
@@ -32,9 +35,14 @@ public class GraphNode {
 
 	public void setLabel(String label) {
 		this.label = encode(label);
+		this.id = label.hashCode();
 	}
 
 	private String encode(String label2) {
 		return label2.replaceAll(" ", "-");
+	}
+	
+	public int getId() {
+		return id;
 	}
 }
