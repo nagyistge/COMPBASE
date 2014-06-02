@@ -23,6 +23,8 @@ public class CompetenceClickPanel extends ClickMenu {
 	public CompetenceClickPanel() {
 		initWidget(uiBinder.createAndBindUi(this));		
 		this.buttonWrapper.setVisible(true);
+		this.buttonWrapper.setStyleName("competenceLinkButtonWrapper", true);
+		this.setStyleName("competenceLinkButtonWrapper", true);
 		
 	}
 
