@@ -146,13 +146,16 @@ public class MyGraphPanel extends Composite {
 				optionMenuCtrlClick.setId(id);
 				optionMenuCtrlClick.setNodeId(nodeId);
 				optionMenuCtrlClick.loadContent();
-			} else {
-				PopupPanel pop = new PopupPanel();
-				pop.add(new Label("helloooo" + nodeId));
-				pop.show();
+				if (optionMenuCtrlClick instanceof Composite) {
+					addClickMenu((Composite) optionMenuCtrlClick);
+				}
+			} else {			
 				optionMenuNormalClick.setId(id);
 				optionMenuNormalClick.setNodeId(nodeId);
 				optionMenuNormalClick.loadContent();
+				if (optionMenuNormalClick instanceof Composite) {
+					addClickMenu((Composite) optionMenuNormalClick);
+				}
 			}
 		}
 		// focusPanel1.setFocus(false);
