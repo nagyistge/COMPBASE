@@ -4,13 +4,13 @@ import java.util.Collection;
 
 import uzuzjmd.competence.gui.client.TabbedView;
 
-import com.github.gwtbootstrap.client.ui.Label;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -19,7 +19,6 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MyGraphPanel extends Composite {
@@ -54,7 +53,7 @@ public class MyGraphPanel extends Composite {
 	// TODO refactor
 	private Integer x;
 	private Integer y;
-	
+
 	public TabbedView tabbed;
 	public boolean ctrlClicked = false;
 	private Collection<String> selectedElements;
@@ -80,14 +79,14 @@ public class MyGraphPanel extends Composite {
 		this.widget = this;
 	}
 
-//	public void setGraph(Graph graph) {
-//		JavascriptUtil util = new JavascriptUtil();
-//		JSONObject json = util.toJSON((Graph) graph);
-//		setGraph(json.getJavaScriptObject(), canvasId,
-//				glassPanelContainer.getOffsetWidth() - 10,
-//				glassPanelContainer.getOffsetHeight() - 10);
-//	}
-	public void setGraph(JSONValue graph) {		
+	// public void setGraph(Graph graph) {
+	// JavascriptUtil util = new JavascriptUtil();
+	// JSONObject json = util.toJSON((Graph) graph);
+	// setGraph(json.getJavaScriptObject(), canvasId,
+	// glassPanelContainer.getOffsetWidth() - 10,
+	// glassPanelContainer.getOffsetHeight() - 10);
+	// }
+	public void setGraph(JSONValue graph) {
 		setGraph(graph.isObject().getJavaScriptObject(), canvasId,
 				glassPanelContainer.getOffsetWidth() - 10,
 				glassPanelContainer.getOffsetHeight() - 10);
@@ -149,13 +148,15 @@ public class MyGraphPanel extends Composite {
 				if (optionMenuCtrlClick instanceof Composite) {
 					addClickMenu((Composite) optionMenuCtrlClick);
 				}
-			} else {			
+				this.focusPanel1.setFocus(false);
+			} else {
 				optionMenuNormalClick.setId(id);
 				optionMenuNormalClick.setNodeId(nodeId);
 				optionMenuNormalClick.loadContent();
 				if (optionMenuNormalClick instanceof Composite) {
 					addClickMenu((Composite) optionMenuNormalClick);
 				}
+				this.focusPanel1.setFocus(false);
 			}
 		}
 		// focusPanel1.setFocus(false);
@@ -166,23 +167,23 @@ public class MyGraphPanel extends Composite {
 	// widget.addClickMenu(this.menu, x, y);
 	// }
 
-	// /**
-	// * Handelt das MouseEvent auf dem Graphen (Menus sollen verschwinden, wenn
-	// * die Mouse die Gegend verl�sst
-	// *
-	// * @param event
-	// */
-	// @UiHandler("focusPanel1")
-	// void onFocusPanel1MouseMove(MouseMoveEvent event) {
-	// if (this.x != null && this.y != null) {
-	// if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
-	// this.x, this.y)) {
-	// widget.removeClickMenu();
-	// this.ctrlClicked = false;
-	// this.shiftKey = false;
-	// }
-	// }
-	// }
+	/**
+	 * Handelt das MouseEvent auf dem Graphen (Menus sollen verschwinden, wenn
+	 * die Mouse die Gegend verl�sst
+	 * 
+	 * @param event
+	 */
+	@UiHandler("focusPanel1")
+	void onFocusPanel1MouseMove(MouseMoveEvent event) {
+		if (this.x != null && this.y != null) {
+			if (!GeometryUtil.inRange(event.getClientX(), event.getClientY(),
+					this.x, this.y)) {
+				widget.removeClickMenu();
+				this.ctrlClicked = false;
+				this.shiftKey = false;
+			}
+		}
+	}
 
 	/**
 	 * 
@@ -247,7 +248,6 @@ public class MyGraphPanel extends Composite {
 		Node graph = this.canvasDiv.getChild(0);
 		this.canvasDiv.removeChild(graph);
 	}
-
 
 	@UiHandler("focusPanel1")
 	void onFocusPanel1KeyPress(KeyPressEvent event) {
