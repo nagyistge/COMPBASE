@@ -23,16 +23,16 @@ function addTooltips(data) {
     var a = document.getElementById("canvas").getElementsByTagName("svg");
     for (var k = 0; k < data.triples.length; k++) {
         var label = data.triples[k].fromNode;
-        $('#' + data.triples[k].node1id, a).qtip({
+        $('#' + data.triples[k].node1id, a).append("<div></div>").qtip({
             content: label, // Give it some
             hide: {
-                fixed: true, // Make it fixed so it can be hovered over
+                fixed: false, // Make it fixed so it can be hovered over
                 when: {
                     event: 'unfocus'
                 }
             },
             show: {
-                delay: 800
+                delay: 1000
             },
             style: 'competenceNode'
         });                
