@@ -58,7 +58,8 @@ public class GraphTab extends Composite {
 		competenceCreationPopup.setGlassEnabled(true);
 		competenceCreationPopup.add(new CompetenceLinkCreationWidget(
 				competenceCreationPopup));
-		competenceCreationPopup.hide();				
+		competenceCreationPopup.hide();		
+		this.setStyleName("graphTab", true);
 	}
 
 	@Override
