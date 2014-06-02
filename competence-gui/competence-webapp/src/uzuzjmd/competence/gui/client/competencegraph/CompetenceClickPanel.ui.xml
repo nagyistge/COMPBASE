@@ -6,12 +6,10 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:DecoratorPanel ui:field="buttonWrapper">
-			<g:VerticalPanel width="100" height="30">
+			<g:VerticalPanel>
 				<b:Button loadingText="Kompetenzen werden geladen..."
-					width="100%" height="100%" ui:field="deleteRequirementsButton"
-					text="Voraussetzungen löschen"></b:Button>
-				<b:Button loadingText="Kompetenzen werden geladen..."
-					width="100%" height="100%" text="Voraussetungen erstellen"
+					ui:field="deleteRequirementsButton" text="Voraussetzungen löschen"></b:Button>
+				<b:Button loadingText="Kompetenzen werden geladen..." text="Voraussetungen erstellen"
 					ui:field="createRequirmentsbutton"></b:Button>
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
