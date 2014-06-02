@@ -11,3 +11,12 @@ and open the template in the editor.
 .qtip-wrapper {
     left:90px;
 }
+
+.competenceLinkButtonWrapper {
+	z-index:999999 !important;
+}
+
+.graphTab {
+	padding-right: 100px;
+	padding-bottom: 50px;
+}

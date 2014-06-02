@@ -77,6 +77,7 @@ public class MyGraphPanel extends Composite {
 		this.canvasDiv = this.focusPanel1.getElement();
 		this.canvasDiv.setId(canvasId);
 		this.widget = this;
+		this.focusPanel1.setStyleName("focusPanel1", true);
 	}
 
 	// public void setGraph(Graph graph) {
