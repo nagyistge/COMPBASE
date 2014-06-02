@@ -9,6 +9,8 @@
 	<!-- <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/> -->
 	<!-- <inherits name="com.smartgwt.SmartGwt"/> -->
 	<inherits name='com.gwtext.GwtExt' />
+	<inherits name='com.gwtext.GwtExt' />
+	<inherits name='SharedPojos' />
 	<inherits name='org.fusesource.restygwt.RestyGWT' />
 	<inherits name='com.github.gwtbootstrap.Bootstrap' />
 	

@@ -11,7 +11,6 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -55,8 +54,7 @@ public class MyGraphPanel extends Composite {
 	// TODO refactor
 	private Integer x;
 	private Integer y;
-
-	private Graph storedGraph;
+	
 	public TabbedView tabbed;
 	public boolean ctrlClicked = false;
 	private Collection<String> selectedElements;
@@ -82,13 +80,13 @@ public class MyGraphPanel extends Composite {
 		this.widget = this;
 	}
 
-	public void setGraph(Graph graph) {
-		JavascriptUtil util = new JavascriptUtil();
-		JSONObject json = util.toJSON((Graph) graph);
-		setGraph(json.getJavaScriptObject(), canvasId,
-				glassPanelContainer.getOffsetWidth() - 10,
-				glassPanelContainer.getOffsetHeight() - 10);
-	}
+//	public void setGraph(Graph graph) {
+//		JavascriptUtil util = new JavascriptUtil();
+//		JSONObject json = util.toJSON((Graph) graph);
+//		setGraph(json.getJavaScriptObject(), canvasId,
+//				glassPanelContainer.getOffsetWidth() - 10,
+//				glassPanelContainer.getOffsetHeight() - 10);
+//	}
 	public void setGraph(JSONValue graph) {		
 		setGraph(graph.isObject().getJavaScriptObject(), canvasId,
 				glassPanelContainer.getOffsetWidth() - 10,
@@ -247,13 +245,6 @@ public class MyGraphPanel extends Composite {
 		this.canvasDiv.removeChild(graph);
 	}
 
-	private void setStoredGraph(Graph storedGraph) {
-		this.storedGraph = storedGraph;
-	}
-
-	public Graph getStoredGraph() {
-		return storedGraph;
-	}
 
 	@UiHandler("focusPanel1")
 	void onFocusPanel1KeyPress(KeyPressEvent event) {
