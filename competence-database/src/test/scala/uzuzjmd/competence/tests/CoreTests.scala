@@ -27,6 +27,7 @@ import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
+import uzuzjmd.competence.owl.dao.CourseContext
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -271,9 +272,14 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.getM().enterCriticalSection(false);
     compOntManag.startReasoning();
     compOntManag.switchOffDebugg();
+    
+    val courseContext = new CourseContext(compOntManag, "n2");            
     val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceA)
     val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceB)
     val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceB)
     competenceC.addRequiredCompetence(competenceB)
     competenceB.addRequiredCompetence(competenceA)
     // testing basic transition

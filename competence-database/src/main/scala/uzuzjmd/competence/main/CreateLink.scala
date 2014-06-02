@@ -18,34 +18,53 @@ object CreateLink {
 
   def main(args: Array[String]): Unit = {
     val compOntManag = new CompOntologyManager
-//   compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
+    //   compOntManag.begin()
+    //    compOntManag.getM().validate()
+    //    compOntManag.close()
+    //
     CompFileUtil.deleteTDB()
-    
+
     CompetenceImporter.convertCSV(MagicStrings.CSVLOCATION);
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()
-//
-//    compOntManag.begin()
-//    val fileUtil = new CompFileUtil(compOntManag.getM())
-//    fileUtil.writeOntologyout()
-//    compOntManag.close()
+    //
+    //    compOntManag.begin()
+    //    val fileUtil = new CompFileUtil(compOntManag.getM())
+    //    fileUtil.writeOntologyout()
+    //    compOntManag.close()
 
+    //    compOntManag.begin()
+    //    val linkId = "hellolinkId"
+    //    val userId = "Hendrik Geßner"
+    //    val studentRole = new StudentRole(compOntManag)
+    //    val coursecontext = new CourseContext(compOntManag, "n2")
+    //    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
+    //    userstudent.persist
+    //    val link = createAbstract(compOntManag, linkId, userstudent)
+    //    val mapper = new Ont2CompetenceLinkMap(compOntManag, userId)
+    //    compOntManag.close()
+    //    
     compOntManag.begin()
-    val linkId = "hellolinkId"
-    val userId = "Hendrik Geßner"
-    val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "n2")
-    val userstudent = new User(compOntManag, userId, studentRole, coursecontext)
-    userstudent.persist
-    val link = createAbstract(compOntManag, linkId, userstudent)
-    val mapper = new Ont2CompetenceLinkMap(compOntManag, userId)
+    compOntManag.getM().enterCriticalSection(false);
+    compOntManag.startReasoning();
+    compOntManag.switchOffDebugg();
+
+    val courseContext = new CourseContext(compOntManag, "n2");
+    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceA)
+    val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceB)
+    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceC)
+
+    competenceC.addRequiredCompetence(competenceB)
+    competenceB.addRequiredCompetence(competenceA)
+
     compOntManag.close()
+
     //    link.delete
-//    showResult
+    //    showResult
   }
 
   private def showResult() {

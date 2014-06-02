@@ -72,13 +72,14 @@ function getNodeAtPosition(x, y, canvasId) {
     var finalData = myFinalDataMap[canvasId];
     var paintedGraph = myPaintedGraphMap[canvasId];
     for (var i = 0; i < finalData.nodes.length; i++) {
-        var id = finalData.nodes[i].node;
+        var id = finalData.nodes[i].id;
         var nodeX = paintedGraph.nodes[id].point[0]; // todo insert js
         // position method
         var nodeY = paintedGraph.nodes[id].point[1];
         if (Math.abs(x - nodeX) < 20 && (Math.abs(nodeY - y) < 20)) {
-            var nodeId = paintedGraph.nodes[id];
-            return nodeId;
+            var nodePainted = paintedGraph.nodes[id];
+            var result = finalData.nodeIdValues[nodePainted.id];
+            return result;
         }
     }
     return false;
@@ -86,5 +87,5 @@ function getNodeAtPosition(x, y, canvasId) {
 
 function getNodeIdAtPosition(x, y, canvasId) {
     var node = getNodeAtPosition(x, y, canvasId);
-    return node.id;
+    return node;
 }
