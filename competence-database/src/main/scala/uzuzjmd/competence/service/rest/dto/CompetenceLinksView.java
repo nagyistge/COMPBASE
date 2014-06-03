@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
 
+import uzuzjmd.competence.service.rest.client.CommentEntry;
 import uzuzjmd.java.collections.SortedList;
 
 public class CompetenceLinksView implements Comparable {

@@ -2,9 +2,9 @@ package uzuzjmd.competence.mapper.gui
 
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.service.rest.dto.Graph
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.service.rest.client.Graph
 
 class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.util.List[String], course: String) {
   def getCompetenceGraph(): Graph = {
@@ -17,8 +17,8 @@ class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.u
     return result;
   }
 
-  def selectionFilter(x: Competence) : Boolean =  {
-      return selectedCompetences.contains(x.getDataField(x.definition)) || selectedCompetences.isEmpty()
+  def selectionFilter(x: Competence): Boolean = {
+    return selectedCompetences.contains(x.getDataField(x.definition)) || selectedCompetences.isEmpty()
   }
 
 }
