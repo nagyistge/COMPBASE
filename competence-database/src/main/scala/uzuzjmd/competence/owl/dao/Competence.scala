@@ -45,4 +45,8 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return !(getRequiredCompetences.isEmpty && getAssociatedSingletonDaosAsRange(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty);
   }
 
+  def isAllowed(): Boolean = {
+    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty
+  }
+
 }
