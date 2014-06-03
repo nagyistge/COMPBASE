@@ -30,9 +30,9 @@ import uzuzjmd.competence.owl.dao.TeacherRole;
 import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.rest.client.Graph;
+import uzuzjmd.competence.service.rest.client.ProgressMap;
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
-import uzuzjmd.competence.service.rest.dto.Graph;
-import uzuzjmd.competence.service.rest.dto.ProgressMap;
 
 /**
  * Root resource (exposed at "competences" path)
