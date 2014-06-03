@@ -7,15 +7,15 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
-		<g:HorizontalPanel ui:field="competenceEntryHorizontalPanel">
-			<g:SimplePanel styleName="numberLabel" ui:field="competenceNumber"/>
-			<g:SimplePanel ui:field="competenceText"/>
-			<g:SimplePanel>
-				<b:Button icon="TRASH" loadingText="Lösche die Kompetenzen..." width="100%" height="100%" ui:field="deleteButton"></b:Button>
-			</g:SimplePanel>
-			<g:SimplePanel>
-				<b:Button icon="LINK" loadingText="Kompetenzen werden geladen..." width="100%" height="100%" ui:field="prerequisiteCreationButton"></b:Button>
-			</g:SimplePanel>		
+		<g:DecoratorPanel stylePrimaryName="competenceEntry" width="100%" height="100%">
+			<g:HorizontalPanel ui:field="competenceEntryHorizontalPanel" width="100%" height="100%">
+			<g:SimplePanel ui:field="competenceNumber" stylePrimaryName="numberLabel"/>
+			<g:SimplePanel ui:field="competenceText" stylePrimaryName="competenceText"/>
+			<g:FlowPanel>
+				<b:Button icon="TRASH" loadingText="Lösche die Kompetenzen..." ui:field="deleteButton"></b:Button>
+				<b:Button icon="LINK" loadingText="Kompetenzen werden geladen..." ui:field="prerequisiteCreationButton"></b:Button>
+			</g:FlowPanel>		
 		</g:HorizontalPanel>
+		</g:DecoratorPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

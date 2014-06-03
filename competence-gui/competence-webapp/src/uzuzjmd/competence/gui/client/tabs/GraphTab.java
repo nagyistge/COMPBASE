@@ -3,6 +3,7 @@ package uzuzjmd.competence.gui.client.tabs;
 import java.util.LinkedList;
 
 import org.fusesource.restygwt.client.JsonCallback;
+import org.fusesource.restygwt.client.JsonEncoderDecoder;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
@@ -11,6 +12,7 @@ import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget;
 import uzuzjmd.competence.gui.shared.widgets.MyGraphPanel;
+import uzuzjmd.competence.service.rest.client.Graph;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
@@ -39,8 +41,13 @@ public class GraphTab extends Composite {
 	Button filterCompetencesButton;
 	@UiField
 	Button refreshButton;
+	@UiField
+	VerticalPanel listedCompetencesPlaceholder;
 	private MyGraphPanel graphPanel;
 	private PopupPanel competenceCreationPopup;
+
+	public interface GraphCodec extends JsonEncoderDecoder<Graph> {
+	}
 
 	interface GraphTabUiBinder extends UiBinder<Widget, GraphTab> {
 	}
@@ -51,7 +58,6 @@ public class GraphTab extends Composite {
 		graphPanel = new MyGraphPanel(new CompetenceClickPanel(),
 				new CompetenceClickPanel());
 		graphPanelPlaceHolder.add(graphPanel);
-		this.verticalPanel.add(new CompetenceEntry());
 
 		// create competenceCreationPopup
 		competenceCreationPopup = new PopupPanel(false, false);
@@ -78,6 +84,7 @@ public class GraphTab extends Composite {
 
 					@Override
 					public void onSuccess(Method method, JSONValue response) {
+						initCompetenceList(response);
 						graphPanel.setGraph(response);
 					}
 
@@ -89,8 +96,29 @@ public class GraphTab extends Composite {
 				});
 	}
 
+	private void initCompetenceList(JSONValue response) {
+		GraphCodec codec = GWT.create(GraphCodec.class);
+		Graph graph = codec.decode(response);
+		for (Integer key : graph.getNodeIdValues().keySet()) {
+			listedCompetencesPlaceholder.add(new CompetenceEntry(key + "",
+					graph.getNodeIdValues().get(key)));
+		}
+	}
+
 	@UiHandler("addCompetencesButton")
 	void onAddCompetencesButtonClick(ClickEvent event) {
 		competenceCreationPopup.show();
+	}
+
+	@UiHandler("filterCompetencesButton")
+	void onFilterCompetencesButtonClick(ClickEvent event) {
+
+	}
+
+	@UiHandler("refreshButton")
+	void onRefreshButtonClick(ClickEvent event) {
+		graphPanel.removeGraph();
+		listedCompetencesPlaceholder.clear();
+		loadGraphFromServer();
 	}
 }

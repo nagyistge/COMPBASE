@@ -28,11 +28,11 @@ public class CompetenceEntry extends Composite {
 	interface CompetenceEntryUiBinder extends UiBinder<Widget, CompetenceEntry> {
 	}
 
-	public CompetenceEntry() {
+	public CompetenceEntry(String id, String text) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.competenceEntryHorizontalPanel.setStyleName("-1372101603", true);
-		this.competenceNumber.add(new HTML("-1372101603"));
-		this.competenceText.add(new HTML("Ich bin eine Kompetenz"));
+		this.competenceEntryHorizontalPanel.setStyleName(id, true);
+		this.competenceNumber.add(new HTML(id));
+		this.competenceText.add(new HTML(text));
 	}
 
 }
