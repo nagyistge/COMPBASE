@@ -1,38 +1,46 @@
 package uzuzjmd.competence.gui.client.competencegraph;
 
+import uzuzjmd.competence.gui.client.tabs.GraphTab;
 import uzuzjmd.competence.gui.shared.widgets.ClickMenu;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.Modal;
-import com.github.gwtbootstrap.client.ui.constants.BackdropType;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CompetenceClickPanel extends ClickMenu {
 
 	private String idClicked;
 	private String nodeClicked;
-	
+	private PopupPanel competenceDeletePopup;
+	private CompetencePrerequisiteDeleteBinder competencePrerequisiteDeleteBinder;
 
-	public CompetenceClickPanel() {
-		initWidget(uiBinder.createAndBindUi(this));		
+	public CompetenceClickPanel(GraphTab graphTab) {
+		initWidget(uiBinder.createAndBindUi(this));
 		this.buttonWrapper.setVisible(true);
 		this.buttonWrapper.setStyleName("competenceLinkButtonWrapper", true);
 		this.setStyleName("competenceLinkButtonWrapper", true);
-		
+		competenceDeletePopup = new PopupPanel(false, false);
+		competencePrerequisiteDeleteBinder = new CompetencePrerequisiteDeleteBinder(
+				competenceDeletePopup, graphTab, nodeClicked);
+		competenceDeletePopup.add(competencePrerequisiteDeleteBinder);
+		competenceDeletePopup.hide();
 	}
 
 	private static CompetenceClickPanelUiBinder uiBinder = GWT
 			.create(CompetenceClickPanelUiBinder.class);
-	@UiField Button deleteRequirementsButton;
-	@UiField Button createRequirmentsbutton;
-	@UiField DecoratorPanel buttonWrapper;
+	@UiField
+	Button deleteRequirementsButton;
+	@UiField
+	Button createRequirmentsbutton;
+	@UiField
+	DecoratorPanel buttonWrapper;
 
 	interface CompetenceClickPanelUiBinder extends
 			UiBinder<Widget, CompetenceClickPanel> {
@@ -55,13 +63,13 @@ public class CompetenceClickPanel extends ClickMenu {
 
 	@Override
 	public void loadContent() {
-		// TODO Auto-generated method stub			
-
 	}
 
 	@UiHandler("deleteRequirementsButton")
 	void onDeleteRequirementsButtonClick(ClickEvent event) {
+		competenceDeletePopup.show();
 	}
+
 	@UiHandler("createRequirmentsbutton")
 	void onCreateRequirmentsbuttonClick(ClickEvent event) {
 	}

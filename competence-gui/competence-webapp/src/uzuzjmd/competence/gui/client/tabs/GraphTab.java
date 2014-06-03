@@ -58,8 +58,8 @@ public class GraphTab extends Composite {
 	public GraphTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		graphPanel = new MyGraphPanel(new CompetenceClickPanel(),
-				new CompetenceClickPanel());
+		graphPanel = new MyGraphPanel(new CompetenceClickPanel(this),
+				new CompetenceClickPanel(this));
 		graphPanelPlaceHolder.add(graphPanel);
 
 		// create competenceCreationPopup
