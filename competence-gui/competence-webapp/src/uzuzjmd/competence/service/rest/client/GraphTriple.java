@@ -1,4 +1,4 @@
-package uzuzjmd.competence.service.rest.dto;
+package uzuzjmd.competence.service.rest.client;
 
 
 public class GraphTriple {
