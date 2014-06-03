@@ -22542,3 +22542,584 @@ Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_Competen
       Compiling...
          Compilation completed in 0,01 seconds
       Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3703 units from cache.
+Compiling...
+   40% complete (ETR: 5 seconds)
+   40% complete (ETR: 5 seconds)
+   40% complete (ETR: 5 seconds)
+   40% complete (ETR: 5 seconds)
+   40% complete (ETR: 5 seconds)
+   50% complete (ETR: 5 seconds)
+   60% complete (ETR: 5 seconds)
+   70% complete (ETR: 4 seconds)
+   80% complete (ETR: 2 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 14,92 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,09 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,11 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813792397.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813792397.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813792397_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 1,50 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813793499.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813793499.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813793499_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813826087.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813826087.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813826087_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813837657.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813837657.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401813837657_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3701 cached/archived units.  Used 3701 / 3703 units from cache.
+Compiling...
+   Compilation completed in 0,06 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.TabbedView
+Invalid units found: 1
+Compiling...
+   Compilation completed in 0,03 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814690800.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814690800.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814690800_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814691536.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814691536.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814691536_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814722197.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814722197.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814722197_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814724791.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814724791.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401814724791_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815334954.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815334954.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815334954_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335065.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335065.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335065_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335834.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335834.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815335834_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815352028.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815352028.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815352028_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815361874.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815361874.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815361874_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815364195.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815364195.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815364195_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815367043.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815367043.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815367043_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815369842.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815369842.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815369842_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry.CompetenceEntryUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815370972.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815370972.Template
+         Generating method body for html1()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry_CompetenceEntryUiBinderImpl_designTime1401815370972_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815439712.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815439712.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815439712_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815633260.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815633260.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815633260_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815635547.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815635547.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815635547_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815656001.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815656001.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815656001_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815678653.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815678653.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401815678653_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162821.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162821.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162821_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162939.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162939.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816162939_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816163720.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816163720.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816163720_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816175696.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816175696.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816175696_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab.GraphTabUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816180149.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816180149.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.tabs.GraphTab_GraphTabUiBinderImpl_designTime1401816180149_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
