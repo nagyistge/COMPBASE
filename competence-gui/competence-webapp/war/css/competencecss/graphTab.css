@@ -21,3 +21,32 @@ and open the template in the editor.
 	padding-right: 100px;
 	padding-bottom: 50px;
 }
+
+.numberLabel{
+   padding-right: 10px !important;	
+}
+
+.competenceText{
+   width: 500px !important;
+}
+
+.deleteCompetenceFromViewButton{      
+}
+
+.createLinkForCompetenceButton{
+    width: 20px !important;      
+}
+
+.competenceEntry {	
+	margin-bottom:  6px !important;
+	-webkit-border-radius: 15px !important;
+	-moz-border-radius: 15px !important;
+	border-radius: 15px !important;
+	border-style: outset !important;
+	border-width: thin !important;
+	width: 675px !important;	
+}
+
+.graphScrollPanel{
+	margin-top: 20px;
+}
