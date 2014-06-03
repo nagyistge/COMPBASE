@@ -66,7 +66,7 @@ public class GraphTab extends Composite {
 		competenceCreationPopup = new PopupPanel(false, false);
 		competenceCreationPopup.setGlassEnabled(true);
 		competenceCreationPopup.add(new CompetenceLinkCreationWidget(
-				competenceCreationPopup));
+				competenceCreationPopup, this));
 		competenceCreationPopup.hide();
 		this.setStyleName("graphTab", true);
 
