@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -305,6 +306,12 @@ public class CompetenceServiceRestJSON {
 		compOntologyManager.startReasoning();
 		compOntologyManager.switchOffDebugg();
 		Competence competence = new Competence(compOntologyManager, linkedCompetence, null, null);
+		if (selectedCompetences == null || selectedCompetences.isEmpty()) {
+			selectedCompetences = new LinkedList<String>();
+			for (String string : competence.getRequiredCompetencesAsArray()) {
+				selectedCompetences.add(string);
+			}
+		}
 		for (String string : selectedCompetences) {
 			Competence preCompetence = new Competence(compOntologyManager, string, null, null);
 			competence.addNotRequiredCompetence(preCompetence);
