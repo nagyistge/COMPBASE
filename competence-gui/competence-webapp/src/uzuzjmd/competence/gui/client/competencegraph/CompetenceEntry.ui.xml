@@ -7,13 +7,9 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
-		<g:HorizontalPanel>
-			<g:SimplePanel styleName="numberLabel">
-				<b:Label type="INFO" width="100%" height="100%" ui:field="numberLabel">Number</b:Label>
-			</g:SimplePanel>
-			<g:SimplePanel>
-				<b:Label type="INFO" width="100%" height="100%" ui:field="competenceTextLabel">Kompetenztext</b:Label>
-			</g:SimplePanel>
+		<g:HorizontalPanel ui:field="competenceEntryHorizontalPanel">
+			<g:SimplePanel styleName="numberLabel" ui:field="competenceNumber"/>
+			<g:SimplePanel ui:field="competenceText"/>
 			<g:SimplePanel>
 				<b:Button icon="TRASH" loadingText="Lösche die Kompetenzen..." width="100%" height="100%" ui:field="deleteButton"></b:Button>
 			</g:SimplePanel>
