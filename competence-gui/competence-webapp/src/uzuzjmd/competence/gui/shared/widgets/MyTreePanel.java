@@ -71,6 +71,7 @@ public abstract class MyTreePanel extends Panel {
 
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
 		rootNode = root;
+
 		treePanel.setRootNode(root);
 		root.expand();
 		treePanel.expandAll();
