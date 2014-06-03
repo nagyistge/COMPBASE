@@ -1,11 +1,13 @@
 package uzuzjmd.competence.gui.client.competencegraph;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.tabs.GraphTab;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -43,28 +45,31 @@ public class CompetenceLinkCreationWidget extends Composite {
 	Button submitButton;
 	@UiField
 	Button cancelButton;
-	@UiField FocusPanel warningPlaceholderPanel;
+	@UiField
+	FocusPanel warningPlaceholderPanel;
 
 	private CompetenceSelectionWidget requiredCompetenceSelectionWidget;
 	private CompetenceSelectionWidget followingCompetenceSelectionWidget;
 	private PopupPanel parent;
+	private GraphTab graphtab;
 
 	interface CompetenceLinkCreationWidgetUiBinder extends
 			UiBinder<Widget, CompetenceLinkCreationWidget> {
 	}
 
-	public CompetenceLinkCreationWidget(PopupPanel parent) {
+	public CompetenceLinkCreationWidget(PopupPanel parent, GraphTab graphtab) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.graphtab = graphtab;
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null, "coursecontext/",
-				"Vorausgesetzte Kompetenzen");
+				Competence_webapp.contextFactory, null,
+				"coursecontextnofilter/", "Vorausgesetzte Kompetenzen");
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null, "coursecontext/",
-				"Nachfolgende Kompetenzen");
+				Competence_webapp.contextFactory, null,
+				"coursecontextnofilter/", "Nachfolgende Kompetenzen");
 		followingCompetences.add(followingCompetenceSelectionWidget);
 		followingCompetences2.add(followingCompetenceSelectionWidget);
 	}
@@ -81,14 +86,17 @@ public class CompetenceLinkCreationWidget extends Composite {
 						+ Competence_webapp.contextFactory.getCourseId());
 		if (requiredCompetences.isEmpty()) {
 			warningPlaceholderPanel.clear();
-			warningPlaceholderPanel.add(new  Alert("Es wurden keine Kompetenzen als Voraussetzung ausgewählt",
-			 AlertType.WARNING));						
+			warningPlaceholderPanel.add(new Alert(
+					"Es wurden keine Kompetenzen als Voraussetzung ausgewählt",
+					AlertType.WARNING));
 		} else {
 			for (String linkedCompetence : followingCompetences) {
 				if (requiredCompetences.contains(linkedCompetence)) {
 					warningPlaceholderPanel.clear();
-					warningPlaceholderPanel.add(new  Alert("Eine Kompetenz darf keine Voraussetzung für sich selber sein",
-					 AlertType.WARNING));
+					warningPlaceholderPanel
+							.add(new Alert(
+									"Eine Kompetenz darf keine Voraussetzung für sich selber sein",
+									AlertType.WARNING));
 				} else {
 					try {
 						resource.addQueryParam("linkedCompetence",
@@ -101,6 +109,7 @@ public class CompetenceLinkCreationWidget extends Composite {
 									public void onResponseReceived(
 											Request request, Response response) {
 										parent.hide();
+										graphtab.reload(new LinkedList<String>());
 									}
 
 									@Override
@@ -130,10 +139,12 @@ public class CompetenceLinkCreationWidget extends Composite {
 		requiredCompetenceSelectionWidget.reload();
 		followingCompetenceSelectionWidget.reload();
 	}
+
 	@UiHandler("warningPlaceholderPanel")
 	void onWarningPlaceholderPanelClick(ClickEvent event) {
 		warningPlaceholderPanel.clear();
 	}
+
 	@UiHandler("warningPlaceholderPanel")
 	void onWarningPlaceholderPanelMouseOut(MouseOutEvent event) {
 		warningPlaceholderPanel.clear();
