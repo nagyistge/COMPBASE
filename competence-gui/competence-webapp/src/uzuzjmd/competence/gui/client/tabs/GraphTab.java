@@ -1,6 +1,7 @@
 package uzuzjmd.competence.gui.client.tabs;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.JsonEncoderDecoder;
@@ -10,6 +11,7 @@ import org.fusesource.restygwt.client.Resource;
 import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
+import uzuzjmd.competence.gui.client.competencegraph.CompetenceGraphFilterPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget;
 import uzuzjmd.competence.gui.shared.widgets.MyGraphPanel;
 import uzuzjmd.competence.service.rest.client.Graph;
@@ -45,6 +47,7 @@ public class GraphTab extends Composite {
 	VerticalPanel listedCompetencesPlaceholder;
 	private MyGraphPanel graphPanel;
 	private PopupPanel competenceCreationPopup;
+	private PopupPanel competenceFilterPopup;
 
 	public interface GraphCodec extends JsonEncoderDecoder<Graph> {
 	}
@@ -66,20 +69,27 @@ public class GraphTab extends Composite {
 				competenceCreationPopup));
 		competenceCreationPopup.hide();
 		this.setStyleName("graphTab", true);
+
+		competenceFilterPopup = new PopupPanel(false, false);
+		competenceFilterPopup.setGlassEnabled(true);
+		competenceFilterPopup.add(new CompetenceGraphFilterPanel(this,
+				competenceFilterPopup));
+		competenceFilterPopup.hide();
+
 	}
 
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		loadGraphFromServer();
+		reload(new LinkedList<String>());
 	}
 
-	public void loadGraphFromServer() {
+	public void loadGraphFromServer(List<String> selectedCompetences) {
 		Resource resource = new Resource(
 				Competence_webapp.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/graph/"
 						+ Competence_webapp.contextFactory.getCourseId());
-		resource.addQueryParams("selectedCompetences", new LinkedList<String>())
+		resource.addQueryParams("selectedCompetences", selectedCompetences)
 				.get().send(new JsonCallback() {
 
 					@Override
@@ -112,13 +122,17 @@ public class GraphTab extends Composite {
 
 	@UiHandler("filterCompetencesButton")
 	void onFilterCompetencesButtonClick(ClickEvent event) {
-
+		this.competenceFilterPopup.show();
 	}
 
 	@UiHandler("refreshButton")
 	void onRefreshButtonClick(ClickEvent event) {
+		reload(new LinkedList<String>());
+	}
+
+	public void reload(List<String> selectedCompetences) {
 		graphPanel.removeGraph();
 		listedCompetencesPlaceholder.clear();
-		loadGraphFromServer();
+		loadGraphFromServer(selectedCompetences);
 	}
 }

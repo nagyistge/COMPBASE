@@ -87,13 +87,18 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def hasLinks(ontClass: OntClass): Boolean = {
-    val competence = new Competence(ontologyManager, ontClass.getLocalName())
     val util = ontologyManager.getUtil()
     return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.CatchwordOf))
-      && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)) && competence.isAllowed())
+      && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
   }
 
-  def hasCourse(ontClass: OntClass): Boolean = {
+  def allowedAndCourse(ontClass: OntClass): Boolean = {
+    val competence = new Competence(ontologyManager, ontClass.getLocalName())
+    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
+    return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf) && competence.isAllowed()
+  }
+
+  def hasLinksAndCourse(ontClass: OntClass): Boolean = {
     val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
     return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
   }
@@ -164,7 +169,11 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def getComptenceTreeForCourse(): java.util.List[CompetenceXMLTree] = {
-    getCompetenceTreeHelper(hasCourse)
+    getCompetenceTreeHelper(allowedAndCourse)
+  }
+
+  def getCompetenceTreeForCourseNoFilter: java.util.List[CompetenceXMLTree] = {
+    getCompetenceTreeHelper(hasLinksAndCourse)
   }
 
   private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[uzuzjmd.competence.service.rest.dto.CompetenceXMLTree] = {

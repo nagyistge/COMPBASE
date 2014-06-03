@@ -10,7 +10,7 @@ class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.u
   def getCompetenceGraph(): Graph = {
     comp.begin();
     val courseContext = new CourseContext(comp, course)
-    val comptenes = courseContext.getLinkedCompetences.view.filter(selectionFilter).filter(x => x.isLinkedAsRequired)
+    val comptenes = courseContext.getLinkedCompetences.view.filter(x => x.isLinkedAsRequired).filter(selectionFilter)
     val result = new Graph()
     val requiredmap = comptenes.map(x => (x, x.getRequiredCompetences)).foreach(y => y._2.foreach(z => result.addTriple(z.getDataField(z.DEFINITION), y._1.getDataField(y._1.DEFINITION), "Voraussetzung für", true)))
     comp.close()
@@ -18,7 +18,8 @@ class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.u
   }
 
   def selectionFilter(x: Competence): Boolean = {
-    return selectedCompetences.contains(x.getDataField(x.definition)) || selectedCompetences.isEmpty()
+    val competenceDefinition = x.getDataField(x.DEFINITION)
+    return selectedCompetences.contains(competenceDefinition) || selectedCompetences.isEmpty()
   }
 
 }
