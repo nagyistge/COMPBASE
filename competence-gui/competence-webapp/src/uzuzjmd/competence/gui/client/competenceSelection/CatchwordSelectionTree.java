@@ -26,7 +26,7 @@ public class CatchwordSelectionTree extends MyTreePanel {
 		loader.setFolderTag("catchword");
 		loader.setLeafTitleMapping("@name");
 		loader.setLeafTag("catchword");
-		loader.setQtipMapping("@qtip");
+		loader.setQtipMapping("@treetipp");
 		loader.setDisabledMapping("@disabled");
 		// loader.setCheckedMapping("isCompulsory");
 		// loader.setIconMapping("@icon");

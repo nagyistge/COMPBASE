@@ -110,7 +110,7 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		loader.setFolderTag("competence");
 		loader.setLeafTitleMapping("@name");
 		loader.setLeafTag("competence");
-		loader.setQtipMapping("@qtip");
+		loader.setQtipMapping("@treetipp");
 		loader.setDisabledMapping("@disabled");
 		loader.setCheckedMapping("isCompulsory");
 		return loader;
