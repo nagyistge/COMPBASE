@@ -2,6 +2,8 @@ package uzuzjmd.competence.service.rest.dto;
 
 import java.util.Comparator;
 
+import uzuzjmd.competence.service.rest.client.CommentEntry;
+
 public class CommentEntryComparator implements Comparator<CommentEntry> {
 
 	@Override
