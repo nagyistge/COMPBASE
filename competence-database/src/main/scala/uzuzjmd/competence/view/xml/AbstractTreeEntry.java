@@ -35,7 +35,7 @@ public class AbstractTreeEntry {
 		return name;
 	}
 
-	@XmlAttribute
+	@XmlAttribute(name = "treetipp")
 	public String getQtip() {
 		return qtip;
 	}
