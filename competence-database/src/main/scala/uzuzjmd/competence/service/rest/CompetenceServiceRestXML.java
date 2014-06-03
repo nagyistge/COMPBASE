@@ -85,6 +85,24 @@ public class CompetenceServiceRestXML {
 		return response;
 	}
 
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}")
+	public Response getCompetenceTreeForCourseWithoutFilter(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
+
+		CompetenceXMLTree[] result = null;
+		if (compulsory.equals("all")) {
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords, selectedOperators, course, null);
+		} else {
+			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+		}
+
+		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		return response;
+	}
+
 	/**
 	 * Get the GUI operator tree
 	 * 
