@@ -58,31 +58,35 @@ public class GraphTab extends Composite {
 		competenceCreationPopup.setGlassEnabled(true);
 		competenceCreationPopup.add(new CompetenceLinkCreationWidget(
 				competenceCreationPopup));
-		competenceCreationPopup.hide();		
+		competenceCreationPopup.hide();
 		this.setStyleName("graphTab", true);
 	}
 
 	@Override
 	protected void onAttach() {
-		super.onAttach();			
-		loadGraphFromServer();			
+		super.onAttach();
+		loadGraphFromServer();
 	}
 
-	private void loadGraphFromServer() {
-		Resource resource = new Resource(Competence_webapp.contextFactory.getServerURL()+ "/competences/json/prerequisite/graph/"+Competence_webapp.contextFactory.getCourseId());
-		resource.addQueryParams("selectedCompetences", new LinkedList<String>()).get().send(new JsonCallback() {
-			
-			@Override
-			public void onSuccess(Method method, JSONValue response) {				
-				graphPanel.setGraph(response);
-			}
-			
-			@Override
-			public void onFailure(Method method, Throwable exception) {
-				// TODO Auto-generated method stub
-				GWT.log("konnte Graph nicht erstellen");
-			}
-		});
+	public void loadGraphFromServer() {
+		Resource resource = new Resource(
+				Competence_webapp.contextFactory.getServerURL()
+						+ "/competences/json/prerequisite/graph/"
+						+ Competence_webapp.contextFactory.getCourseId());
+		resource.addQueryParams("selectedCompetences", new LinkedList<String>())
+				.get().send(new JsonCallback() {
+
+					@Override
+					public void onSuccess(Method method, JSONValue response) {
+						graphPanel.setGraph(response);
+					}
+
+					@Override
+					public void onFailure(Method method, Throwable exception) {
+						// TODO Auto-generated method stub
+						GWT.log("konnte Graph nicht erstellen");
+					}
+				});
 	}
 
 	@UiHandler("addCompetencesButton")
