@@ -44,7 +44,7 @@ public class ActivityTree extends MyTreePanel {
 		loader.setFolderTag("activity");
 		loader.setLeafTitleMapping("@name");
 		loader.setLeafTag("activityEntry");
-		loader.setQtipMapping("@qtip");
+		loader.setQtipMapping("@treetipp");
 		loader.setDisabledMapping("@disabled");
 		loader.setCheckedMapping("@checked");
 		loader.setIconMapping("@icon");
