@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.tabs.GraphTab;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -20,6 +22,8 @@ public class TabbedView extends Composite {
 	HTMLPanel linkTabPlaceholder;
 	@UiField
 	HTMLPanel progressTabPlaceholder;
+	@UiField
+	HTMLPanel pathTabPlaceholder;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
@@ -31,6 +35,18 @@ public class TabbedView extends Composite {
 	public TabbedView(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 
+	}
+
+	@Override
+	protected void onAttach() {
+		// TODO Auto-generated method stub
+		super.onAttach();
+		initGraph();
+	}
+
+	public void initGraph() {
+		GraphTab graphTab = new GraphTab();
+		pathTabPlaceholder.add(graphTab);
 	}
 
 }

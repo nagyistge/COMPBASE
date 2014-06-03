@@ -1,6 +1,5 @@
 package uzuzjmd.competence.gui.client;
 
-import uzuzjmd.competence.gui.client.tabs.GraphTab;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
@@ -29,26 +28,14 @@ public class Competence_webapp implements EntryPoint {
 	public void onModuleLoad() {
 
 		RootPanel container = RootPanel.get("rootContainer");
+		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
+		tab3 = new ProgressTab(contextFactory);
+		reloadController = new ReloadController(null, tab2, tab3);
+		RequirementTab tab = new RequirementTab(contextFactory);
+		initTabbedView(container, tab, tab2, tab3);
 
-		// LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		// tab3 = new ProgressTab(contextFactory);
-		// reloadController = new ReloadController(null, tab2, tab3);
-		// RequirementTab tab = new RequirementTab(contextFactory);
-		// container.add(tab);
-		// initTabbedView(container, tab, tab2, tab3);
-
-		// PopupPanel popup = new PopupPanel();
-		// EvidenceStackPanel evidenceStackPanel = new EvidenceStackPanel(popup,
-		// "studentmeäää1AA", contextFactory);
-		// popup.add(evidenceStackPanel);
-		// popup.setAnimationEnabled(true);
-		// popup.setGlassEnabled(true);
-		// popup.setVisible(true);
-		// container.add(popup);
-		// container.add(evidenceStackPanel);
-
-		GraphTab graphTab = new GraphTab();
-		container.add(graphTab);
+		// GraphTab graphTab = new GraphTab();
+		// container.add(graphTab);
 
 	}
 
@@ -61,6 +48,7 @@ public class Competence_webapp implements EntryPoint {
 		TabbedView tabbedView = new TabbedView();
 		tabbedView.linkTabPlaceholder.add(tab2);
 		tabbedView.progressTabPlaceholder.add(tab3);
+
 		if (!Competence_webapp.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(tab);
 		} else {
@@ -77,7 +65,6 @@ public class Competence_webapp implements EntryPoint {
 		// container.add(tab2);
 
 		container.add(tabbedView);
-
 	}
 
 	public static native void showPreview(String url, String selector,

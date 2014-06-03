@@ -7,10 +7,10 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:AbsolutePanel height="450px" width="600px"
+		<g:AbsolutePanel height="550px" width="700px"
 			ui:field="absolutePanel">
 			<g:at left="0" top="0">
-				<g:AbsolutePanel height="400px" width="500px"
+				<g:AbsolutePanel height="500px" width="600px"
 					ui:field="glassPanelContainer">
 					<g:at left="0" top="0">
 						<g:FocusPanel ui:field="focusPanel1">

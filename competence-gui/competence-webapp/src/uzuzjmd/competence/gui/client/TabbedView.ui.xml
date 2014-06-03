@@ -15,7 +15,7 @@
 			</g:tab>
 			<g:tab>
 				<g:header>Pfade</g:header>
-				<g:HTMLPanel width="1600px" height="951px"  ui:field="pathTabPlaceholder"/>
+				<g:HTMLPanel ui:field="pathTabPlaceholder"/>
 			</g:tab>
 			<g:tab>
 				<g:header>Zuordnung</g:header>
