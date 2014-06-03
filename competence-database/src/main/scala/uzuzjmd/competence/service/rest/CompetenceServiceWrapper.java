@@ -189,4 +189,11 @@ public class CompetenceServiceWrapper {
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
+
+	public static CompetenceXMLTree[] getCompetenceTreeForCourseNoFilter(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean) {
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getCompetenceTreeForCourseNoFilter();
+		assert (!tmpResult.isEmpty());
+		return tmpResult.toArray(new CompetenceXMLTree[0]);
+	}
 }
