@@ -20,6 +20,7 @@ import uzuzjmd.competence.view.xml.DummyTree
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
+import uzuzjmd.competence.owl.dao.Competence
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
@@ -86,9 +87,10 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def hasLinks(ontClass: OntClass): Boolean = {
+    val competence = new Competence(ontologyManager, ontClass.getLocalName())
     val util = ontologyManager.getUtil()
     return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.CatchwordOf))
-      && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
+      && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)) && competence.isAllowed())
   }
 
   def hasCourse(ontClass: OntClass): Boolean = {
