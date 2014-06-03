@@ -88,9 +88,7 @@ public class MyGraphPanel extends Composite {
 	// glassPanelContainer.getOffsetHeight() - 10);
 	// }
 	public void setGraph(JSONValue graph) {
-		setGraph(graph.isObject().getJavaScriptObject(), canvasId,
-				glassPanelContainer.getOffsetWidth() - 10,
-				glassPanelContainer.getOffsetHeight() - 10);
+		setGraph(graph.isObject().getJavaScriptObject(), canvasId, 500, 400);
 	}
 
 	/**
