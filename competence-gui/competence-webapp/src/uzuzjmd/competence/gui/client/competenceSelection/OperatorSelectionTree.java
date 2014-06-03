@@ -25,7 +25,7 @@ public class OperatorSelectionTree extends MyTreePanel {
 		loader.setFolderTag("operator");
 		loader.setLeafTitleMapping("@name");
 		loader.setLeafTag("operator");
-		loader.setQtipMapping("@treetipp");
+		// loader.setQtipMapping("@treetipp");
 		loader.setDisabledMapping("@disabled");
 		// loader.setCheckedMapping("isCompulsory");
 		// loader.setIconMapping("@icon");
