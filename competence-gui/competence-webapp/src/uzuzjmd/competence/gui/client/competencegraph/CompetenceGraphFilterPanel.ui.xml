@@ -4,9 +4,9 @@
 	<ui:style>
 	
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel width="600">
 		<g:VerticalPanel>
-			<b:Alert type="INFO" width="100%" height="100%" ui:field="infoAlert">Wählen Sie die Kompetenzen aus, nach denen gefiltert werden soll und clicken Sie auf das Filter-Symbol!</b:Alert>
+			<b:Alert type="INFO" ui:field="infoAlert">Wählen Sie die Kompetenzen aus, nach denen gefiltert werden soll und clicken Sie auf das Filter-Symbol!</b:Alert>
 			<g:SimplePanel ui:field="filteredCompetencesPlaceholder"/>
 			<g:HorizontalPanel>
 				<b:Button icon="FILTER" loadingText="lade Kompetenzen aus der Datenbank"
