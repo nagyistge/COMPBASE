@@ -51,7 +51,10 @@ public class CompetencePrerequisiteDeleteBinder extends Composite {
 
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
-		parent.hide();
+		deleteRequirements(competenceSelected);
+	}
+
+	private void deleteRequirements(String competenceSelected) {
 		Resource resource = new Resource(
 				Competence_webapp.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/delete/"
