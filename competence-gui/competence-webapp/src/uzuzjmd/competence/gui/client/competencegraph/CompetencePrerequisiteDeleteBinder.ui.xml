@@ -6,15 +6,18 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:VerticalPanel>
-			<b:Alert heading="Voraussetzungen löschen!" type="INFO" close="false">Wollen
-			Sie alle Voraussetzungen für diese Kompetenz löschen? Zur Wahrung der
-			Konsistenz könnten weitere Verbindungen gelöscht werden!
-		</b:Alert>
+			<b:Alert heading="Voraussetzungen löschen!" type="WARNING"
+				close="false">Wollen
+				Sie alle Voraussetzungen für diese Kompetenz löschen?
+				Zur Wahrung der
+				Konsistenz könnten weitere Verbindungen gelöscht
+				werden!
+			</b:Alert>
 			<g:HorizontalPanel>
-			<b:Button ui:field="submitButton">Verknüpfungen löschen</b:Button>
-			<!-- <b:Button ui:field="deleteButton">Markierte Verknüpfungen löschen</b:Button> -->
-			<b:Button ui:field="cancelButton">abbrechen</b:Button>
-		</g:HorizontalPanel>
+				<b:Button ui:field="submitButton">löschen</b:Button>
+				<!-- <b:Button ui:field="deleteButton">Markierte Verknüpfungen löschen</b:Button> -->
+				<b:Button ui:field="cancelButton">abbrechen</b:Button>
+			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
