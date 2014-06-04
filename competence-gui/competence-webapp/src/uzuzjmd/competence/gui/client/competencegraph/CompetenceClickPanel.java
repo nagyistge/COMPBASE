@@ -28,7 +28,7 @@ public class CompetenceClickPanel extends ClickMenu {
 		this.setStyleName("competenceLinkButtonWrapper", true);
 		competenceDeletePopup = new PopupPanel(false, false);
 		competencePrerequisiteDeleteBinder = new CompetencePrerequisiteDeleteBinder(
-				competenceDeletePopup, graphTab, nodeClicked);
+				competenceDeletePopup, graphTab);
 		competenceDeletePopup.add(competencePrerequisiteDeleteBinder);
 		competenceDeletePopup.hide();
 	}
@@ -59,6 +59,7 @@ public class CompetenceClickPanel extends ClickMenu {
 	@Override
 	public void setNodeId(String nodeId) {
 		this.nodeClicked = nodeId;
+		this.competencePrerequisiteDeleteBinder.setCompetenceSelected(nodeId);
 	}
 
 	@Override
