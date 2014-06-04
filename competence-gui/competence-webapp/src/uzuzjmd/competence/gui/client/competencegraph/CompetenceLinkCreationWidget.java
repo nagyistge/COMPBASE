@@ -80,57 +80,76 @@ public class CompetenceLinkCreationWidget extends Composite {
 				.getSelectedCompetences();
 		List<String> followingCompetences = followingCompetenceSelectionWidget
 				.getSelectedCompetences();
-		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
-						+ "/competences/json/prerequisite/create/"
-						+ Competence_webapp.contextFactory.getCourseId());
+
 		if (requiredCompetences.isEmpty()) {
 			warningPlaceholderPanel.clear();
 			warningPlaceholderPanel.add(new Alert(
 					"Es wurden keine Kompetenzen als Voraussetzung ausgewählt",
 					AlertType.WARNING));
 		} else {
-			for (String linkedCompetence : followingCompetences) {
-				if (requiredCompetences.contains(linkedCompetence)) {
-					warningPlaceholderPanel.clear();
-					warningPlaceholderPanel
-							.add(new Alert(
-									"Eine Kompetenz darf keine Voraussetzung für sich selber sein",
-									AlertType.WARNING));
-				} else {
-					try {
-						resource.addQueryParam("linkedCompetence",
-								linkedCompetence)
-								.addQueryParams("selectedCompetences",
-										requiredCompetences).post()
-								.send(new RequestCallback() {
-
-									@Override
-									public void onResponseReceived(
-											Request request, Response response) {
-										parent.hide();
-										graphtab.reload(new LinkedList<String>());
-									}
-
-									@Override
-									public void onError(Request request,
-											Throwable exception) {
-										PopupPanel popupPanel = new PopupPanel(
-												true);
-										popupPanel
-												.add(new Alert(
-														"Es gab einen Fehler beim Speichern. Kontaktieren Sie einen Entwickler!",
-														AlertType.ERROR));
-									};
-								});
-					} catch (RequestException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+			Boolean isNoSelfReferenced = checkForSelfReference(
+					requiredCompetences, followingCompetences);
+			if (!isNoSelfReferenced) {
+				warningPlaceholderPanel.clear();
+				warningPlaceholderPanel
+						.add(new Alert(
+								"Eine Kompetenz darf keine Voraussetzung für sich selber sein",
+								AlertType.WARNING));
+			} else {
+				sendRequirementLinkToServer(requiredCompetences,
+						followingCompetences);
 			}
 		}
 
+	}
+
+	private Boolean checkForSelfReference(List<String> requiredCompetences,
+			List<String> followingCompetences) {
+		Boolean isNoSelfReferenced = true;
+		for (String linkedCompetence : followingCompetences) {
+			if (requiredCompetences.contains(linkedCompetence)) {
+				isNoSelfReferenced = false;
+			}
+		}
+		return isNoSelfReferenced;
+	}
+
+	private void sendRequirementLinkToServer(List<String> requiredCompetences,
+			List<String> followingCompetences) {
+		for (String linkedCompetence : followingCompetences) {
+			try {
+				Resource resource = new Resource(
+						Competence_webapp.contextFactory.getServerURL()
+								+ "/competences/json/prerequisite/create/"
+								+ Competence_webapp.contextFactory
+										.getCourseId());
+				resource.addQueryParam("linkedCompetence", linkedCompetence)
+						.addQueryParams("selectedCompetences",
+								requiredCompetences).post()
+						.send(new RequestCallback() {
+
+							@Override
+							public void onResponseReceived(Request request,
+									Response response) {
+								parent.hide();
+								graphtab.reload(new LinkedList<String>());
+							}
+
+							@Override
+							public void onError(Request request,
+									Throwable exception) {
+								PopupPanel popupPanel = new PopupPanel(true);
+								popupPanel
+										.add(new Alert(
+												"Es gab einen Fehler beim Speichern. Kontaktieren Sie einen Entwickler!",
+												AlertType.ERROR));
+							};
+						});
+			} catch (RequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@UiHandler("cancelButton")

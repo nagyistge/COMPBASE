@@ -23485,3 +23485,380 @@ Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDe
       Compiling...
          Compilation completed in 0,01 seconds
       Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 2719 units from cache.
+Compiling...
+   0% complete (ETR: 46 seconds)
+   10% complete (ETR: 46 seconds)
+   20% complete (ETR: 29 seconds)
+   30% complete (ETR: 22 seconds)
+   40% complete (ETR: 15 seconds)
+   50% complete (ETR: 12 seconds)
+   60% complete (ETR: 9 seconds)
+   70% complete (ETR: 6 seconds)
+   80% complete (ETR: 4 seconds)
+   90% complete (ETR: 2 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 43,69 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 2719 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 2719 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 2719 units from cache.
+Compiling...
+   20% complete (ETR: 12 seconds)
+   20% complete (ETR: 12 seconds)
+   20% complete (ETR: 12 seconds)
+   30% complete (ETR: 12 seconds)
+   40% complete (ETR: 11 seconds)
+   50% complete (ETR: 8 seconds)
+   60% complete (ETR: 6 seconds)
+   70% complete (ETR: 4 seconds)
+   80% complete (ETR: 3 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 20,77 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 2719 units from cache.
+Compiling...
+   Compilation completed in 0,02 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 2719 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+Translatable source found in...
+Found 2719 cached/archived units.  Used 2719 / 3704 units from cache.
+Compiling...
+   Compilation completed in 3,38 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880490938.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880490938.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,05 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880490938_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,07 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880492948.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880492948.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880492948_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880499741.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880499741.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880499741_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880502236.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880502236.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880502236_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880503334.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880503334.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880503334_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880505090.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880505090.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880505090_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552182.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552182.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552182_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552339.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552339.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880552339_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880578070.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880578070.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401880578070_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3702 cached/archived units.  Used 3702 / 3704 units from cache.
+Compiling...
+   Compilation completed in 0,02 seconds
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881587834.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881587834.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881587834_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881588717.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881588717.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881588717_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881602395.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881602395.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881602395_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder.CompetencePrerequisiteDeleteBinderUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881604441.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881604441.Template
+         Generating method body for html1()
+         Generating method body for html2()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,04 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder_CompetencePrerequisiteDeleteBinderUiBinderImpl_designTime1401881604441_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
