@@ -1,5 +1,6 @@
 package uzuzjmd.competence.gui.client.tabs;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -109,7 +110,8 @@ public class GraphTab extends Composite {
 	private void initCompetenceList(JSONValue response) {
 		GraphCodec codec = GWT.create(GraphCodec.class);
 		Graph graph = codec.decode(response);
-		for (Integer key : graph.getNodeIdValues().keySet()) {
+		for (Integer key : new HashSet<Integer>(graph.getNodeIdValues()
+				.keySet())) {
 			listedCompetencesPlaceholder.add(new CompetenceEntry(key + "",
 					graph.getNodeIdValues().get(key)));
 		}
