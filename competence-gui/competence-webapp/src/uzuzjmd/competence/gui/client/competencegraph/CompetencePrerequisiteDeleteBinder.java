@@ -33,15 +33,25 @@ public class CompetencePrerequisiteDeleteBinder extends Composite {
 	private GraphTab graphTab;
 
 	public CompetencePrerequisiteDeleteBinder(PopupPanel parent,
-			GraphTab graphTab, String competenceSelected) {
+			GraphTab graphTab) {
 		initWidget(uiBinder.createAndBindUi(this));
+		parent.center();
 		this.parent = parent;
-		this.competenceSelected = competenceSelected;
 		this.graphTab = graphTab;
+	}
+
+	@Override
+	protected void onAttach() {
+		super.onAttach();
+	}
+
+	public void setCompetenceSelected(String competenceSelected) {
+		this.competenceSelected = competenceSelected;
 	}
 
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
+		parent.hide();
 		Resource resource = new Resource(
 				Competence_webapp.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/delete/"

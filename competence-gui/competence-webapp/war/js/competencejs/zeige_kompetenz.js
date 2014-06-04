@@ -56,6 +56,9 @@ function addTooltips(data) {
 
 
 function setGraph(json, canvasId, width, height) {
+	myPaintedGraphMap = {};
+	myFinalDataMap = {};	
+	
     var data = eval(json);    
     var graph = appendGraph(canvasId, width, height, data);
     myPaintedGraphMap[canvasId] = graph;
