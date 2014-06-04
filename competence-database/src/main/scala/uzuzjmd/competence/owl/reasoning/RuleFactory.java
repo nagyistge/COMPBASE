@@ -14,6 +14,8 @@ public class RuleFactory {
 		// generateInverseRules();
 		// result.add(catchwordOfConclusions());
 		// result.add(getCompulsoryInheritance());
+		result.add(getNotSelfReferencedCreationRule());
+		result.add(getNotSelfReferencedCreationRule2());
 		result.add(getPrerequisiteConclusion());
 		result.add(getNotRequireTransition1());
 		result.add(getNotRequireTransition2());
@@ -66,6 +68,14 @@ public class RuleFactory {
 
 	public String getNotAllowedCreationRule() {
 		return "[notallowedcreation: (?a comp:PrerequisiteOf ?b) (?user rdf:type comp:User) -> (?user comp:NotAllowedToView ?a)]";
+	}
+
+	public String getNotSelfReferencedCreationRule() {
+		return "[notselfreferenced: (?a comp:PrerequisiteOf ?a)  -> remove(0)]";
+	}
+
+	public String getNotSelfReferencedCreationRule2() {
+		return "[notselfreferenced2: (?a comp:NotAllowedToView ?a)  -> remove(0)]";
 	}
 
 	public String getNotAllowedLinkRule() {
