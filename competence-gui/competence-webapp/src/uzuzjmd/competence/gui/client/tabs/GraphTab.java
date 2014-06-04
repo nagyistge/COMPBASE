@@ -113,7 +113,7 @@ public class GraphTab extends Composite {
 		for (Integer key : new HashSet<Integer>(graph.getNodeIdValues()
 				.keySet())) {
 			listedCompetencesPlaceholder.add(new CompetenceEntry(key + "",
-					graph.getNodeIdValues().get(key)));
+					graph.getNodeIdValues().get(key), this));
 		}
 	}
 
