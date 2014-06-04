@@ -38,7 +38,7 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   }
 
   def getRequiredCompetencesAsArray(): Array[String] = {
-    return getRequiredCompetences().map(x => x.getDataField(x.definition)).toArray;
+    return getRequiredCompetences().map(x => x.getDataField(x.DEFINITION)).toArray;
   }
 
   def isLinkedAsRequired(): Boolean = {
