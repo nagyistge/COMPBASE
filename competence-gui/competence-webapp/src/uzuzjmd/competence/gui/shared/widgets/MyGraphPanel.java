@@ -36,8 +36,6 @@ public class MyGraphPanel extends Composite {
 	AbsolutePanel absolutePanel;
 	@UiField
 	FocusPanel focusPanel1;
-	@UiField
-	AbsolutePanel glassPanelContainer;
 
 	public MyGraphPanel widget;
 
@@ -80,15 +78,8 @@ public class MyGraphPanel extends Composite {
 		this.focusPanel1.setStyleName("focusPanel1", true);
 	}
 
-	// public void setGraph(Graph graph) {
-	// JavascriptUtil util = new JavascriptUtil();
-	// JSONObject json = util.toJSON((Graph) graph);
-	// setGraph(json.getJavaScriptObject(), canvasId,
-	// glassPanelContainer.getOffsetWidth() - 10,
-	// glassPanelContainer.getOffsetHeight() - 10);
-	// }
 	public void setGraph(JSONValue graph) {
-		setGraph(graph.isObject().getJavaScriptObject(), canvasId, 500, 400);
+		setGraph(graph.isObject().getJavaScriptObject(), canvasId, 625, 550);
 	}
 
 	/**
@@ -214,23 +205,6 @@ public class MyGraphPanel extends Composite {
 			this.absolutePanel.remove(this.menu);
 			this.menu = null;
 		}
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param dataEntryField
-	 * @param x
-	 * @param y
-	 */
-	public void addDataEntryField(Composite dataEntryField) {
-		this.dataEntryField = dataEntryField;
-		this.absolutePanel
-				.add(this.dataEntryField, widget.absolutePanel
-						.getWidgetLeft(widget.glassPanelContainer) + 20,
-						widget.absolutePanel
-								.getWidgetTop(widget.glassPanelContainer) + 20);
-
 	}
 
 	/**
