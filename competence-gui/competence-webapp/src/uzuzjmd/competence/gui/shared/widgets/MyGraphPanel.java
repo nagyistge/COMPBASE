@@ -79,7 +79,7 @@ public class MyGraphPanel extends Composite {
 	}
 
 	public void setGraph(JSONValue graph) {
-		setGraph(graph.isObject().getJavaScriptObject(), canvasId, 625, 550);
+		setGraph(graph.isObject().getJavaScriptObject(), canvasId, 475, 475);
 	}
 
 	/**

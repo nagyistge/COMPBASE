@@ -27,7 +27,7 @@ and open the template in the editor.
 }
 
 .competenceText{
-   width: 500px !important;
+   width: 450px !important;
 }
 
 .deleteCompetenceFromViewButton{      
@@ -38,15 +38,17 @@ and open the template in the editor.
 }
 
 .competenceEntry {	
-	margin-bottom:  6px !important;
-	-webkit-border-radius: 15px !important;
-	-moz-border-radius: 15px !important;
-	border-radius: 15px !important;
-	border-style: outset !important;
-	border-width: thin !important;
-	width: 675px !important;	
+	margin:  6px !important;
+/* 	-webkit-border-radius: 15px !important; */
+/* 	-moz-border-radius: 15px !important; */
+/* 	border-radius: 15px !important; */
+/* 	border-style: outset !important; */
+/* 	border-width: thin !important; */
+	width: 650px !important;	
 }
 
 .graphScrollPanel{
-	margin-top: 20px;
+	margin-top: 10px;
+	height: 250px !important;
+	margin-bottom: 20px;		
 }
