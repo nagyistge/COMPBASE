@@ -9,7 +9,7 @@
 			<g:VerticalPanel>
 				<b:Button loadingText="Kompetenzen werden geladen..."
 					ui:field="deleteRequirementsButton" text="Voraussetzungen löschen"></b:Button>
-				<b:Button loadingText="Kompetenzen werden geladen..." text="Voraussetungen erstellen"
+				<b:Button loadingText="Kompetenzen werden geladen..." text="Voraussetzungen erstellen"
 					ui:field="createRequirmentsbutton"></b:Button>
 			</g:VerticalPanel>
 		</g:DecoratorPanel>
