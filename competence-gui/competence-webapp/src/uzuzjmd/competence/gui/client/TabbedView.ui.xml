@@ -11,7 +11,7 @@
 			height="951px" ui:field="tabPanel">
 			<g:tab>
 				<g:header>Anforderungen</g:header>
-				<g:HTMLPanel width="1600px" height="951px"  ui:field="requirementTabPlaceholder"/>
+				<g:HTMLPanel width="1600px" height="100%"  ui:field="requirementTabPlaceholder"/>
 			</g:tab>
 			<g:tab>
 				<g:header>Pfade</g:header>

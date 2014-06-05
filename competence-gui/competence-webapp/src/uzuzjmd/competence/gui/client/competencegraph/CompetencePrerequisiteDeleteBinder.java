@@ -40,6 +40,15 @@ public class CompetencePrerequisiteDeleteBinder extends Composite {
 		this.graphTab = graphTab;
 	}
 
+	public CompetencePrerequisiteDeleteBinder(PopupPanel parent,
+			GraphTab graphTab, String text) {
+		initWidget(uiBinder.createAndBindUi(this));
+		parent.center();
+		this.parent = parent;
+		this.graphTab = graphTab;
+		this.competenceSelected = text;
+	}
+
 	@Override
 	protected void onAttach() {
 		super.onAttach();
