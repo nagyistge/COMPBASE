@@ -20,6 +20,8 @@ public class CompetenceClickPanel extends ClickMenu {
 	private String nodeClicked;
 	private PopupPanel competenceDeletePopup;
 	private CompetencePrerequisiteDeleteBinder competencePrerequisiteDeleteBinder;
+	private PopupPanel competenceCreatePopup;
+	private CompetencePrerequisiteCreateBinder competencePrerequisiteCreateBinder;
 
 	public CompetenceClickPanel(GraphTab graphTab) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -31,6 +33,12 @@ public class CompetenceClickPanel extends ClickMenu {
 				competenceDeletePopup, graphTab);
 		competenceDeletePopup.add(competencePrerequisiteDeleteBinder);
 		competenceDeletePopup.hide();
+
+		competenceCreatePopup = new PopupPanel(false, false);
+		competencePrerequisiteCreateBinder = new CompetencePrerequisiteCreateBinder(
+				competenceCreatePopup, graphTab, null);
+		competenceCreatePopup.add(competencePrerequisiteCreateBinder);
+		competenceCreatePopup.hide();
 	}
 
 	private static CompetenceClickPanelUiBinder uiBinder = GWT
@@ -60,6 +68,7 @@ public class CompetenceClickPanel extends ClickMenu {
 	public void setNodeId(String nodeId) {
 		this.nodeClicked = nodeId;
 		this.competencePrerequisiteDeleteBinder.setCompetenceSelected(nodeId);
+		this.competencePrerequisiteCreateBinder.setCompetenceSelected(nodeId);
 	}
 
 	@Override
@@ -73,5 +82,6 @@ public class CompetenceClickPanel extends ClickMenu {
 
 	@UiHandler("createRequirmentsbutton")
 	void onCreateRequirmentsbuttonClick(ClickEvent event) {
+		competenceCreatePopup.show();
 	}
 }
