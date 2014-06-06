@@ -5,7 +5,6 @@ import org.apache.log4j.LogManager
 import org.apache.log4j.Logger
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
-import edu.uci.ics.jung.io.graphml.Metadata
 import com.hp.hpl.jena.ontology.OntModel
 import com.hp.hpl.jena.ontology.ObjectProperty
 import com.hp.hpl.jena.ontology.OntClass
