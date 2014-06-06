@@ -152,7 +152,7 @@ public class CompOntologyManager {
 	 * @return
 	 */
 	public void begin() {
-		dataset = TDBFactory.createDataset(MagicStrings.TDBLocation);
+		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.WRITE);
 		Model tdb = dataset.getDefaultModel();
 		setM(ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
