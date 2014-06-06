@@ -1,0 +1,34 @@
+Wissensmodellierung
+===================
+
+Wissensmanagement und Kompetenzmanagment
+
+BUILDING the project
+ - install the companion project 
+ 	
+ 	<groupId>uzuzjmd.competence</groupId>
+	<artifactId>shared</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+- package the competence-database project with: clean package -Dmaven.test.skip=true
+
+STARTING the project
+ java -jar CompetenceServer.jar [path to TDB location]
+ java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword]
+ java -jar EvidenceServer.jar localhost bitnami_moodle root voyager
+ 
+USING the project
+
+deploy the moodle app as specified in the README of https://github.com/uzuzjmd/competence
+
+[Some coding hacks you should know]
+Encoding Verfahren (Stand 26.05.2014)
+	- Identifier werden (alt) in CompOntologyAccess encodiert. Wenn die Formatierung des Strings zum Display wichtig ist, wird eine lesbare Form
+	als Dataproperty "definition abgespeichert"
+	- Die DAO-Schicht kodiert die Identifier in CompetenceOntologyDao (ähnlich zu dem alten Verfahren)
+	- Fuer SingleTonDaos werden die Identifier nach dem alten Verfahren (oben) kodiert
+	- Identifier d�rfen nicht mit einem Sonderzeichen oder einer Zahl beginnen
+	- Moodle Kurs Ids werden als "n"+Id kodiert. 
+
+Festgelegte Strings (Stand 26.05.2014)
+Prefixe, Dateinamen ... etc sind in der Klasse MagicStrings als default definiert
