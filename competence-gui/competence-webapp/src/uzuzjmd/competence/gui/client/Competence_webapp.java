@@ -54,6 +54,8 @@ public class Competence_webapp implements EntryPoint {
 			tabbedView.pathTabPlaceholder.setVisible(false);
 		} else {
 			tabbedView.tabPanel.remove(0);
+			tabbedView.tabPanel.remove(0);
+			// tabbedView.tabPanel.remove(1);
 			tab.setVisible(false);
 		}
 
@@ -76,5 +78,6 @@ public class Competence_webapp implements EntryPoint {
 
 	public static void showMoodlePreview(String url, String whereTo) {
 		showPreview(url, ".region-content", whereTo);
+		showPreview(url, ".region-main", whereTo);
 	}
 }
