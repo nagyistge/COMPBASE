@@ -51,6 +51,7 @@ public class Competence_webapp implements EntryPoint {
 
 		if (!Competence_webapp.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(tab);
+			tabbedView.pathTabPlaceholder.setVisible(false);
 		} else {
 			tabbedView.tabPanel.remove(0);
 			tab.setVisible(false);
