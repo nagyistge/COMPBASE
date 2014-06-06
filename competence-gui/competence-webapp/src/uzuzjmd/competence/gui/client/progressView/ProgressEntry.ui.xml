@@ -5,7 +5,7 @@
 	>
 	<g:HTMLPanel>
 		<g:HorizontalPanel width="auto" height="auto" spacing="40" verticalAlignment="ALIGN_MIDDLE">
-			<g:SimplePanel width="auto" height="auto">
+			<g:SimplePanel width="auto" height="auto" stylePrimaryName="userLabel">
 				<b:Label text="New Label" ui:field="userNameLabel" horizontalAlignment="ALIGN_LEFT" type="INFO" width="100%" height="100%"/>
 			</g:SimplePanel>
 			<g:SimplePanel styleName="progressBar" ui:field="progressBarPlaceholder" width="auto" height="auto"/>
