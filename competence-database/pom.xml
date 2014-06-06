@@ -191,11 +191,11 @@
 			<artifactId>jericho-html</artifactId>
 			<version>3.1</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jgrapht</groupId> -->
-<!-- 			<artifactId>jgrapht-jdk1.5</artifactId> -->
-<!-- 			<version>0.7.3</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jgrapht</groupId> -->
+		<!-- <artifactId>jgrapht-jdk1.5</artifactId> -->
+		<!-- <version>0.7.3</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.github.ansell.jjtraveler</groupId>
 			<artifactId>jjtraveler</artifactId>
@@ -236,7 +236,7 @@
 			<artifactId>opencsv</artifactId>
 			<version>2.3</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>msv</groupId>
 			<artifactId>relaxngDatatype</artifactId>
@@ -252,22 +252,12 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.10.3</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>javax.servlet</groupId> -->
-		<!-- <artifactId>servlet-api</artifactId> -->
-		<!-- <version>2.5</version> -->
-		<!-- </dependency> -->
 
-		<!-- <dependency> -->
-		<!-- <groupId>tomcat</groupId> -->
-		<!-- <artifactId>servlet</artifactId> -->
-		<!-- <version>4.0.6</version> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>12.0</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -303,32 +293,18 @@
 			<artifactId>xsdlib</artifactId>
 			<version>20030225</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-context</artifactId> -->
-		<!-- <version>${org.springframework.version}</version> -->
-		<!-- <scope>runtime</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.glassfish.jersey.bundles.repackaged</groupId> -->
-		<!-- <artifactId>jersey-guava</artifactId> -->
-		<!-- <version>2.7</version> -->
-		<!-- </dependency> -->
 
-
-
-		<!-- <dependency> -->
-		<!-- <groupId>com.sun.jersey</groupId> -->
-		<!-- <artifactId>jersey-client</artifactId> -->
-		<!-- <version>1.18.1</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.17</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
@@ -393,21 +369,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.13</version>
-				<configuration>
-					<useFile>false</useFile>
-					<disableXmlReport>true</disableXmlReport>
-					<!-- If you have classpath issue like NoDefClassError,... -->
-					<!-- useManifestOnlyJar>false</useManifestOnlyJar -->
-					<includes>
-						<include>**/*Test.*</include>
-						<include>**/*Suite.*</include>
-					</includes>
-				</configuration>
-			</plugin>
+
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -420,103 +382,177 @@
 
 
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<!-- <version>2.2-beta-5</version> -->
-				<!-- <configuration> -->
-				<!-- <archive> -->
-				<!-- <manifest> -->
-				<!-- <mainClass>uzuzjmd.up.competence.competence_server.Starter</mainClass> -->
-				<!-- </manifest> -->
-				<!-- </archive> -->
-				<!-- <descriptorRefs> -->
-				<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
-				<!-- </descriptorRefs> -->
-				<!-- </configuration> -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
-					<finalName>toolbox</finalName>
-					<appendAssemblyId>false</appendAssemblyId>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					<!-- put your configurations here -->
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
 				<executions>
 					<execution>
-						<id>SoapClient</id>
+						<id>competence-server</id>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<finalName>SoapClient</finalName>
-							<archive>
-								<manifest>
-									<mainClass>uzuzjmd.competence.main.SoapClient</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</execution>
-					<execution>
-						<id>SoapServer</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>TestServer</finalName>
-							<archive>
-								<manifest>
-									<mainClass>uzuzjmd.competence.main.SoapServer</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</execution>
-					<execution>
-						<id>RestServer</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>RestServer</finalName>
-							<archive>
-								<manifest>
+							<outputFile>target/CompetenceServer.jar</outputFile>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>uzuzjmd.competence.main.RestServer</mainClass>
-								</manifest>
-							</archive>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+							</transformers>
 						</configuration>
 					</execution>
 					<execution>
-						<id>FusekiServer</id>
+						<id>evidence-server</id>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<finalName>FusekiServer</finalName>
-							<archive>
-								<manifest>
-									<mainClass>uzuzjmd.competence.main.FusekiServer</mainClass>
-								</manifest>
-							</archive>
-						</configuration>
-					</execution>
-					<execution>
-						<id>CSVImporter</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>CSVImporter</finalName>
-							<archive>
-								<manifest>
-									<mainClass>uzuzjmd.competence.main.CompetenceImporter</mainClass>
-								</manifest>
-							</archive>
+							<outputFile>target/EvidenceServer.jar</outputFile>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>uzuzjmd.competence.main.EvidenceServer</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+							</transformers>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
+
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-assembly-plugin</artifactId> -->
+			<!-- <version>2.2-beta-5</version> -->
+			<!-- <configuration> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.up.competence.competence_server.Starter</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- <descriptorRefs> -->
+			<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
+			<!-- </descriptorRefs> -->
+			<!-- </configuration> -->
+			<!-- <configuration> -->
+			<!-- <finalName>toolbox</finalName> -->
+			<!-- <appendAssemblyId>false</appendAssemblyId> -->
+			<!-- <descriptorRefs> -->
+			<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
+			<!-- </descriptorRefs> -->
+			<!-- </configuration> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>SoapClient</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>single</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <finalName>SoapClient</finalName> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.competence.main.SoapClient</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- <execution> -->
+			<!-- <id>SoapServer</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>single</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <finalName>TestServer</finalName> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.competence.main.SoapServer</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- <execution> -->
+			<!-- <id>RestServer</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>single</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <finalName>RestServer</finalName> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.competence.main.RestServer</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- <execution> -->
+			<!-- <id>FusekiServer</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>single</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <finalName>FusekiServer</finalName> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.competence.main.FusekiServer</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- <execution> -->
+			<!-- <id>CSVImporter</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>single</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <finalName>CSVImporter</finalName> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <mainClass>uzuzjmd.competence.main.CompetenceImporter</mainClass> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 
 		</plugins>
 	</build>
