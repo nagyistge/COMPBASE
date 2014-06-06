@@ -113,7 +113,9 @@ public class ActivityTree extends MyTreePanel {
 								Competence_webapp.showPreview(
 										element.getAttribute("target"),
 										".region-content", "#" + id);
-
+								// Competence_webapp.showPreview(
+								// element.getAttribute("target"),
+								// ".region-main", "#" + id);
 							}
 						}
 
