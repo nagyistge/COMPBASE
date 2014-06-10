@@ -5,8 +5,8 @@
 	
 	</ui:style>
 	<g:HTMLPanel height="100%" width="100%">
-		<g:VerticalPanel>
-			<b:Alert heading="Voraussetungen erstellen" type="INFO"
+		<g:VerticalPanel height="100%" width="100%">
+			<b:Alert heading="Voraussetzungen erstellen" type="INFO"
 				close="false">Wählen Sie oben die Kompetenzen aus, die für die Kompetenzen
 				unten als Voraussetungen gelten sollen! Die Konsistenz der
 				Zuordnungen werden automatisch überprüft!</b:Alert>
@@ -20,16 +20,19 @@
 			</b:Container>
 			<b:Container showOn="DESKTOP">
 				<b:Row>
-					<g:HorizontalPanel>
-						<g:SimplePanel ui:field="requiredKompetenzesPlaceholder2" />
-						<g:SimplePanel ui:field="followingCompetences2" />
-					</g:HorizontalPanel>
+					<g:SimplePanel ui:field="horizontalPanelContainer"
+						styleName="horizontalPanelContainer">
+						<g:HorizontalPanel height="100%" width="100%">
+							<g:SimplePanel ui:field="requiredKompetenzesPlaceholder2" />
+							<g:SimplePanel ui:field="followingCompetences2" />
+						</g:HorizontalPanel>
+					</g:SimplePanel>
 				</b:Row>
 			</b:Container>
-			<g:FocusPanel ui:field="warningPlaceholderPanel"/>
+			<g:FocusPanel ui:field="warningPlaceholderPanel" />
 			<g:HorizontalPanel>
 				<b:Button ui:field="submitButton">Markierte Verknüpfungen erstellen</b:Button>
-<!-- 				<b:Button ui:field="deleteButton">Markierte Verknüpfungen löschen</b:Button> -->
+				<!-- <b:Button ui:field="deleteButton">Markierte Verknüpfungen löschen</b:Button> -->
 				<b:Button ui:field="cancelButton">abbrechen</b:Button>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
