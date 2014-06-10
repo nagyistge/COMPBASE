@@ -1,5 +1,7 @@
 BUILDING the project
  - install the project competence-shared  		
+ - install jena dependencies from https://github.com/apache/jena.git
+  (see also https://jena.apache.org/download/maven.html)
  - package the competence-database project with: clean package -Dmaven.test.skip=true
 
 STARTING the project
