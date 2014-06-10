@@ -177,12 +177,26 @@ public class CompetenceServiceRestJSON {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	@Path("/link/comment/{linkId}/{user}")
-	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text) {
+	@Path("/link/comment/{linkId}/{user}/{coursecontext}/{role}")
+	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text, @PathParam("courseContext") String courseContext,
+			@PathParam("role") String role) {
+		CompOntologyManager comp = new CompOntologyManager();
+		comp.begin();
+		Role creatorRole = null;
+		if (role.equals("student")) {
+			creatorRole = new StudentRole(comp);
+		} else {
+			creatorRole = new TeacherRole(comp);
+		}
+		CourseContext coursecontext = new CourseContext(comp, courseContext);
+		User creator = new User(comp, user, creatorRole, coursecontext, user);
+		creator.persist();
+		comp.close();
+		// creator = creator.getFullDao();
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
-		User creator = new User(compOntologyManager, user, null, abstractEvidenceLink.courseContexts(), null).getFullDao();
-		Comment comment = new Comment(compOntologyManager, text, creator, System.currentTimeMillis(), text);
+		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(comp, linkId);
+		User creator2 = new User(comp, user, null, abstractEvidenceLink.courseContexts(), null).getFullDao();
+		Comment comment = new Comment(compOntologyManager, text, creator2, System.currentTimeMillis(), text);
 		comment.persist();
 		abstractEvidenceLink.linkComment(comment);
 		closeManagerInCriticalMode(compOntologyManager);
