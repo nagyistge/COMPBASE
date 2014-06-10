@@ -7,12 +7,10 @@
 	<g:HTMLPanel>
 		<g:SimplePanel ui:field="tabExplainationPanel" />
 		<g:VerticalPanel ui:field="competenceSelectionAndActivity">
-			<g:CaptionPanel captionText="Fortschritt" styleName="requirementTextArea"
-				width="auto" height="auto">
-				<g:HTMLPanel width="auto" height="auto">
-					<g:ScrollPanel width="auto" height="auto">
-						<g:VerticalPanel width="100%" height="100%"
-							ui:field="progressPlaceHolder" />
+			<g:CaptionPanel captionText="Fortschritt" stylePrimaryName="progressEntryArea">
+				<g:HTMLPanel stylePrimaryName="progressEntryAreaPanel">
+					<g:ScrollPanel stylePrimaryName="progressEntryAreaPanel">
+						<g:VerticalPanel ui:field="progressPlaceHolder" stylePrimaryName="progressEntryAreaPanel" />
 					</g:ScrollPanel>
 				</g:HTMLPanel>
 			</g:CaptionPanel>

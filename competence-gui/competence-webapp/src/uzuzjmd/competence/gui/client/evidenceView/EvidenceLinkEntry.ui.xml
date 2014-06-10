@@ -8,8 +8,7 @@
 	</ui:style>
 	<g:HTMLPanel >
 		<g:HorizontalPanel>
-			<g:SimplePanel styleName="evidenceEntry" >
-				<b:Label text="New Label" ui:field="activityTyp" width="100%" height="100%" />
+			<g:SimplePanel styleName="evidenceEntry" ui:field="textPlaceholder">				
 			</g:SimplePanel>
 			<g:SimplePanel styleName="activity-preview">
 				<g:SimplePanel ui:field="evidenceHref" width="100%"  height="100%" />
