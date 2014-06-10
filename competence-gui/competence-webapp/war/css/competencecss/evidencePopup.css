@@ -6,13 +6,26 @@
 /* .evidenceStackPanel { */
 /* 	width: 625px; */
 /* } */
-.evidenceEntry {
-    padding-right: 10px !important;
-    min-width: 200px !important;
+.evidenceEntry {    
+    width: 200px !important;
     padding-left: 5px !important;
-    padding-right: 25px !important;
+    padding-right: 35px !important;
     margin-bottom: 10px !important;
 }
+
+.evidenceEntryHeader {    
+    width: 235px !important;
+    padding-left: 5px !important;    
+    margin-bottom: 10px !important;
+}
+
+.evidenceLinkHeader {
+	padding-left: 5px !important;    
+    margin-bottom: 10px !important;
+    min-width: 85px !important;
+    padding-right: 35px !important;
+}
+
 
 .activity-preview {
     padding-right: 10px !important;
@@ -21,6 +34,7 @@
     margin-bottom: 10px !important;
 }
 
+
 .commentEntry {
     padding-right: 2px !important;
     width: 320px !important;
@@ -28,10 +42,22 @@
     margin-bottom: 10px !important;
 }
 
+
+.commentEntryHeader {    
+    width: 320px !important;    
+    margin-bottom: 10px !important;
+}
+
 .validityColumn {
     width: 70px !important;
     margin-right: 5px !important;
-    margin-bottom: 10px !important;
+    margin-left: 25px !important;
+    margin-bottom: 10px !important;    
+}
+
+
+.validityColumnHeader {
+	width: 70px !important;
 }
 
 .commentTextAreaBox {
@@ -42,6 +68,7 @@
 
 .stackTitlePicture {
     background-image: url(../../icons/selectedStackPanel.png);
+    background-repeat:no-repeat !important;
     width: 30px;
     height: 30px;
     float: left;

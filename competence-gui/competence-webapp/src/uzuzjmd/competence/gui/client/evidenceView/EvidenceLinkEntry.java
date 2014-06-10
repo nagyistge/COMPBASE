@@ -10,7 +10,6 @@ import uzuzjmd.competence.gui.shared.dto.CommentEntry;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.Label;
 import com.github.gwtbootstrap.client.ui.base.IconAnchor;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
@@ -36,8 +35,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 
 	private static EvidenceLinkEntryUiBinder uiBinder = GWT
 			.create(EvidenceLinkEntryUiBinder.class);
-	@UiField
-	Label activityTyp;
+
 	@UiField
 	SimplePanel evidenceHref;
 	@UiField
@@ -56,6 +54,9 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	FocusPanel successPanelPlaceholder;
 	@UiField
 	SimplePanel hrPanelContainer;
+
+	@UiField
+	SimplePanel textPlaceholder;
 	private String previewAnchor;
 	private String evidenceUrl;
 	private StackPanelReloader stackPanelReloader;
@@ -106,7 +107,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 
 	private void initContent(String evidenceTitel, final String evidenceUrl,
 			List<CommentEntry> list, Boolean validated) {
-		this.activityTyp.setText(evidenceTitel);
+		this.textPlaceholder.add(new HTML(evidenceTitel));
 		this.evidenceUrl = evidenceUrl;
 
 		IconAnchor previewLabel = new IconAnchor();
@@ -130,13 +131,11 @@ public class EvidenceLinkEntry extends CompetenceTab {
 					+ commentEntry.getUserName() + "</b>: "
 					+ commentEntry.getCommentName()));
 		}
-		if (Competence_webapp.contextFactory.getRole().equals("teacher")) {
-			setButtonImage(validated);
-		} else {
+		setButtonImage(validated);
+		if (!Competence_webapp.contextFactory.getRole().equals("teacher")) {
 			deleteButton.setVisible(false);
-			validateButton.setVisible(false);
+			validateButton.setEnabled(false);
 		}
-
 	}
 
 	private void setButtonImage(Boolean validated) {
