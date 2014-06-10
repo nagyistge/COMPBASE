@@ -15,17 +15,17 @@
 						<g:HTMLPanel ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel"/>
 						<g:HTMLPanel ui:field="competenceCompulsoryCheckbox" styleName="competenceCompulsoryCheckbox" >
 							<g:VerticalPanel>
-								<b:RadioButton name="competenceFilter" text="alle" ui:field="alleRadioButton"/>
-								<b:RadioButton name="competenceFilter" text="verpflichtende" ui:field="verpflichtendeRadioButton"/>
-								<b:RadioButton name="competenceFilter" text="nicht verpflichtende" ui:field="nichtVerpflichtendeRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="alle anzeigen" ui:field="alleRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="verpflichtende anzeigen" ui:field="verpflichtendeRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="nicht verpflichtende anzeigen" ui:field="nichtVerpflichtendeRadioButton"/>
 							</g:VerticalPanel>
 						</g:HTMLPanel>
 					</g:VerticalPanel>
 					<g:VerticalPanel>
 						<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
 						<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
-							<b:Button text="zurücksetzen" ui:field="resetButton"/>
-							<b:Button text="filtern" ui:field="filterButton"/>
+							<b:Button icon="REFRESH" text="zurücksetzen" ui:field="resetButton"/>
+							<b:Button icon="FILTER" text="filtern" ui:field="filterButton"/>
 						</g:HorizontalPanel>
 					</g:VerticalPanel>
 				</g:HorizontalPanel>

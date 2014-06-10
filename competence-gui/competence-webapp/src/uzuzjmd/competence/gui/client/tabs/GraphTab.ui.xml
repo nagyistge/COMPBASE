@@ -22,7 +22,7 @@
 						ui:field="addCompetencesButton"></b:Button>
 					<b:Button icon="FILTER" loadingText="lade Kompetenzen aus der Datenbank"
 						ui:field="filterCompetencesButton"></b:Button>
-					<b:Button icon="REPEAT" loadingText="lade Kompetenzen aus der Datenbank"
+					<b:Button icon="REFRESH" loadingText="lade Kompetenzen aus der Datenbank"
 						ui:field="refreshButton"></b:Button>
 				</g:VerticalPanel>
 			</g:HorizontalPanel>
