@@ -19,7 +19,7 @@
 			<g:SimplePanel ui:field="hrPanelContainer2" />
 			<g:FocusPanel ui:field="warningPlaceholder" width="auto"
 				height="auto" />
-			<b:Button text="Fortschrittsübersicht filtern" ui:field="filterButton" />
+			<b:Button icon="FILTER" text="Fortschrittsübersicht filtern" ui:field="filterButton" />
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

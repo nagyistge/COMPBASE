@@ -17,7 +17,7 @@
 			<g:FocusPanel ui:field="warningPlaceholder" width="auto"
 				height="auto" />
 			<g:HorizontalPanel ui:field="buttonContainer">
-				<b:Button ui:field="submitButton">markierte verknüpfen und abschicken</b:Button>				
+				<b:Button icon="LINK" ui:field="submitButton">markierte Kompetenzen und Aktivitäten verknüpfen</b:Button>				
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
