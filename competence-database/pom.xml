@@ -24,6 +24,12 @@
 		<org.springframework.version>3.2.4.RELEASE</org.springframework.version>
 	</properties>
 
+	<scm>
+		<connection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</connection>
+		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</developerConnection>
+		<url>https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</url>
+	</scm>
+
 
 	<repositories>
 		<repository>
