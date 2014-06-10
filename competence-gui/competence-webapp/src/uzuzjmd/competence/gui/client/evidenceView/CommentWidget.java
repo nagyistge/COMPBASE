@@ -55,7 +55,7 @@ public class CommentWidget extends CompetenceTab {
 		Resource resource = new Resource(
 				Competence_webapp.contextFactory.getServerURL()
 						+ "/competences/json/link/comment/" + linkId + "/"
-						+ userName);
+						+ Competence_webapp.contextFactory.getUser());
 		try {
 			resource.addQueryParam("text", commentTextArea.getText()).post()
 					.send(new RequestCallback() {
