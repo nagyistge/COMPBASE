@@ -47,6 +47,8 @@ public class CompetenceLinkCreationWidget extends Composite {
 	Button cancelButton;
 	@UiField
 	FocusPanel warningPlaceholderPanel;
+	@UiField
+	SimplePanel horizontalPanelContainer;
 
 	private CompetenceSelectionWidget requiredCompetenceSelectionWidget;
 	private CompetenceSelectionWidget followingCompetenceSelectionWidget;
