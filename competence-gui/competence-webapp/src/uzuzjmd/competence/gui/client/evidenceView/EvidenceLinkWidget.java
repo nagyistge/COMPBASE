@@ -36,8 +36,10 @@ public class EvidenceLinkWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		initCompetenceLinksView(list, stackPanelReloader, userName);
 		if (Competence_webapp.contextFactory.getRole().equals("student")) {
-			validityPanelHeader.setVisible(false);
-			deletePanelHeader.setVisible(false);
+			// validityPanelHeader.setVisible(false);
+			// deletePanelHeader.setVisible(false);
+			// deletePanelHeader.setTitle("");
+			// deletePanelHeader.clear();
 		}
 	}
 

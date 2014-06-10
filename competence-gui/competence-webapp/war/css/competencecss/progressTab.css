@@ -11,3 +11,18 @@
 .userLabel {
 	min-width:150px;
 }
+
+.progressEntryArea {
+	 -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    border-radius: 15px !important;
+    border-style:outset !important;
+    border-width:thin !important;	
+    padding: 10px !important;
+/*     margin-top: 30px; */
+    margin-bottom: 10px;    
+}
+
+.progressEntryAreaPanel {
+	max-height: 150px !important;
+}
