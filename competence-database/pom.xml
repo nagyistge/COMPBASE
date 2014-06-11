@@ -24,13 +24,6 @@
 		<org.springframework.version>3.2.4.RELEASE</org.springframework.version>
 	</properties>
 
-	<scm>
-		<connection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</connection>
-		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</developerConnection>
-		<url>https://svn.apache.org/repos/asf/jena/tags/jena-2.11.2-SNAPSHOT/jena-fuseki</url>
-	</scm>
-
-
 	<repositories>
 		<repository>
 			<id>jboss.public</id>
@@ -185,15 +178,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
-			<artifactId>apache-jena-libs</artifactId>
-			<type>pom</type>
+			<artifactId>apache-jena-libs</artifactId>			
 			<!-- <version>2.10.0</version> -->
-			<version>2.11.2-SNAPSHOT</version>
+			<version>2.11.2</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-fuseki</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.htmlparser.jericho</groupId>
