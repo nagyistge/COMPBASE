@@ -65,13 +65,13 @@
 			<artifactId>restygwt</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.fusesource.restygwt</groupId> -->
-<!-- 			<artifactId>restygwt</artifactId> -->
-<!-- 			<version>1.5-SNAPSHOT</version> -->
-<!-- 		</dependency> -->
-		
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.fusesource.restygwt</groupId> -->
+		<!-- <artifactId>restygwt</artifactId> -->
+		<!-- <version>1.5-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>com.googlecode.gwtquery</groupId>
 			<artifactId>gwtquery</artifactId>
@@ -82,12 +82,12 @@
 			<!-- <classifier>2.1.0</classifier> -->
 			<!-- <classifier>2.0.1</classifier> -->
 		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>uzuzjmd.competence</groupId> -->
-<!-- 			<artifactId>shared</artifactId> -->
-<!-- 			<version>0.0.1-SNAPSHOT</version> -->
-<!-- 		</dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>shared</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -128,13 +128,13 @@
 			<version>2.3.2.0</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>uzuzjmd.downloaded</groupId> -->
-<!-- 			<artifactId>raphaelgwt-r42</artifactId> -->
-<!-- 			<version>0.01</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/raphaelgwt-r42.jar</systemPath> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.downloaded</groupId> -->
+		<!-- <artifactId>raphaelgwt-r42</artifactId> -->
+		<!-- <version>0.01</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/raphaelgwt-r42.jar</systemPath> -->
+		<!-- </dependency> -->
 
 		<!-- <dependency> -->
 		<!-- <groupId>uzuzjmd.downloaded</groupId> -->
@@ -144,13 +144,13 @@
 		<!-- <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gwtext.jar</systemPath> -->
 		<!-- </dependency> -->
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>uzuzjmd.downloaded</groupId> -->
-<!-- 			<artifactId>gwtext</artifactId> -->
-<!-- 			<version>0.01</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gwt-bootstrap-2.3.2.1-ownbuildwithfix.jar</systemPath> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.downloaded</groupId> -->
+		<!-- <artifactId>gwtext</artifactId> -->
+		<!-- <version>0.01</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gwt-bootstrap-2.3.2.1-ownbuildwithfix.jar</systemPath> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -191,6 +191,7 @@
 				<version>2.4</version>
 				<configuration>
 					<webappDirectory>${webappDirectory}</webappDirectory>
+					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -201,7 +202,7 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
-			</plugin>
+			</plugin>			
 		</plugins>
 	</build>
 
