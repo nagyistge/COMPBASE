@@ -17,7 +17,8 @@ class MapperTest extends FunSuite with ShouldMatchers {
 
   test("The CSV import should run without errors") {
 
-    CompFileUtil.deleteTDB()
+    // change this, if you want to really reset the database
+    //    CompFileUtil.deleteTDB()
 
     val compOntManag = new CompOntologyManager()
 
