@@ -310,12 +310,6 @@
 			<version>1.17</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>uzuzjmd.competence</groupId> -->
-<!-- 			<artifactId>shared</artifactId> -->
-<!-- 			<version>0.0.1-SNAPSHOT</version> -->
-<!-- 		</dependency> -->
-
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>gui</artifactId>
@@ -349,13 +343,13 @@
 					<!-- Run scala compiler in the process-test-resources phase, so that 
 						dependencies on scala classes can be resolved later in the (Java) test-compile 
 						phase -->
-					<execution>
-						<id>scala-test-compile</id>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
+<!-- 					<execution> -->
+<!-- 						<id>scala-test-compile</id> -->
+<!-- 						<phase>process-test-resources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>testCompile</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
 				</executions>
 			</plugin>
 
@@ -464,107 +458,7 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-assembly-plugin</artifactId> -->
-			<!-- <version>2.2-beta-5</version> -->
-			<!-- <configuration> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.up.competence.competence_server.Starter</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- <descriptorRefs> -->
-			<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
-			<!-- </descriptorRefs> -->
-			<!-- </configuration> -->
-			<!-- <configuration> -->
-			<!-- <finalName>toolbox</finalName> -->
-			<!-- <appendAssemblyId>false</appendAssemblyId> -->
-			<!-- <descriptorRefs> -->
-			<!-- <descriptorRef>jar-with-dependencies</descriptorRef> -->
-			<!-- </descriptorRefs> -->
-			<!-- </configuration> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>SoapClient</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <finalName>SoapClient</finalName> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.competence.main.SoapClient</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- <execution> -->
-			<!-- <id>SoapServer</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <finalName>TestServer</finalName> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.competence.main.SoapServer</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- <execution> -->
-			<!-- <id>RestServer</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <finalName>RestServer</finalName> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.competence.main.RestServer</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- <execution> -->
-			<!-- <id>FusekiServer</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <finalName>FusekiServer</finalName> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.competence.main.FusekiServer</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- <execution> -->
-			<!-- <id>CSVImporter</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <finalName>CSVImporter</finalName> -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <mainClass>uzuzjmd.competence.main.CompetenceImporter</mainClass> -->
-			<!-- </manifest> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
-
+			
 		</plugins>
 	</build>
 </project>
