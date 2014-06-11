@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:VerticalPanel>
+			<g:SimplePanel ui:field="tabExplainationPanel"/>
+			<g:VerticalPanel ui:field="competenceSelectionAndRequirementPanel">
+				<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"/>
+				<g:SimplePanel ui:field="hrDividerPanel"/>
+				<g:CaptionPanel ui:field="requirementTextBoxPlaceholder"
+					styleName="requirementTextArea" captionText="Anforderungen">
+					<g:ScrollPanel>
+						<g:TextArea ui:field="requirementTextArea" styleName="requirementTextAreaBox" />
+					</g:ScrollPanel>
+				</g:CaptionPanel>
+			</g:VerticalPanel>
+			<g:SimplePanel ui:field="hrDividerPanel2"/>
+			<g:FocusPanel ui:field="warningPlaceHolder"/>
+			<g:HorizontalPanel ui:field="buttonPanel">
+				<b:Button icon="PLUS" ui:field="submitButton">markierte Kompetenzen dem Kurs hinzufügen</b:Button>
+				<b:Button icon="TRASH" ui:field="deleteContextButton">Zuordnung für diesen Kurs löschen</b:Button>
+			</g:HorizontalPanel>
+		</g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
