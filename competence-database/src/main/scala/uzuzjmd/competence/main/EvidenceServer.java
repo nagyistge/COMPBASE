@@ -29,6 +29,8 @@ public class EvidenceServer {
 			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
 		} else {
 			String moodleurl = args[0];
+			MagicStrings.MOODLEURL = moodleurl;
+
 			String moodledb = args[1];
 			String adminname = args[2];
 			String adminpassword = args[3];
