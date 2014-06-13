@@ -25,11 +25,11 @@ public class EvidenceServer {
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
-		if (args.length != 4 && args.length != 6) {
-			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodleurl moodledb adminname adminpassword [adminlogin adminloginpassword]");
+		if (args.length != 5 && args.length != 7) {
+			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl");
 		} else {
 			String moodleurl = args[0];
-			MagicStrings.MOODLEURL = moodleurl;
+			MagicStrings.MOODLEURL = args[args.length - 1];
 
 			String moodledb = args[1];
 			String adminname = args[2];
