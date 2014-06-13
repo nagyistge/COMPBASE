@@ -35,7 +35,8 @@ public class SimpleMoodleService {
 		String moodleRestBase = getMoodleRestBase();
 		WebResource webResource = null;
 		try {
-			webResource = client.resource(MagicStrings.MOODLEURL + moodleRestBase + "core_course_get_contents&courseid=" + courseId);
+			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "core_course_get_contents&courseid=" + courseId;
+			webResource = client.resource(requestString);
 		} catch (Exception e) {
 			System.err.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
