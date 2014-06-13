@@ -14,10 +14,11 @@ import uzuzjmd.competence.csv.CompetenceMaps
 import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.csv.CompetenceFilter
 import uzuzjmd.competence.owl.access.CompFileUtil
+import uzuzjmd.competence.owl.access.MagicStrings
 
 object CompetenceImporter {
 
-  def main(args: Array[String]) {    
+  def main(args: Array[String]) {
     convertCSVArray(args)
   }
 
@@ -26,6 +27,9 @@ object CompetenceImporter {
   }
 
   private def convertCSVArray(args: Array[String]) {
+    if (args.length > 1) {
+      MagicStrings.TDBLocationPath = args(1)
+    }
     val rcdeoCompetences = getCompetencesFromCSV(args)
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
