@@ -84,7 +84,7 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 	private ArrayList<MoodleEvidence> convertResultToEvidence(VereinfachtesResultSet result) {
 		ArrayList<MoodleEvidence> ergebnisAlsArray = new ArrayList<MoodleEvidence>();
 		while (result.next()) {
-			MoodleEvidence moodleEvidence = new MoodleEvidence(result.getString("module") + ": " + result.getString("info") + " am " + result.getString("DLA"), MagicStrings.MOODLEURL + "mod/"
+			MoodleEvidence moodleEvidence = new MoodleEvidence(result.getString("module") + ": " + result.getString("info") + " am " + result.getString("DLA"), MagicStrings.MOODLEURL + "/mod/"
 					+ result.getString("module") + "/" + result.getString("url"), result.getString("userid"), result.getString("DLA"), result.getString("course"), result.getString("module"));
 			moodleEvidence.setUsername(result.getString("firstname") + " " + result.getString("lastname"));
 
