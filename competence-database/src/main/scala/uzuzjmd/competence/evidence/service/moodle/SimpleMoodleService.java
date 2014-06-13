@@ -19,16 +19,15 @@ public class SimpleMoodleService {
 
 	public SimpleMoodleService(String username, String userpassword) {
 		Client client = Client.create();
-		WebResource webResource = client.resource(MagicStrings.MOODLEURL
-				+ "login/token.php?username=" + username + "&password="
-				+ userpassword + "&service=moodle_mobile_app");
-		ClientResponse response = webResource
-				.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+		String connectionPath = MagicStrings.MOODLEURL + "/login/token.php?username=" + username + "&password=" + userpassword + "&service=moodle_mobile_app";
+		System.out.println("getting token with" + connectionPath);
+		WebResource webResource = client.resource(connectionPath);
+		ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 		if (response.getStatus() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ response.getStatus());
+			throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
 		}
 		token = response.getEntity(Token.class);
+
 	}
 
 	public MoodleContentResponseList getMoodleContents(String courseId) {
@@ -36,23 +35,18 @@ public class SimpleMoodleService {
 		String moodleRestBase = getMoodleRestBase();
 		WebResource webResource = null;
 		try {
-			webResource = client.resource(MagicStrings.MOODLEURL
-					+ moodleRestBase + "core_course_get_contents&courseid="
-					+ courseId);
+			webResource = client.resource(MagicStrings.MOODLEURL + moodleRestBase + "core_course_get_contents&courseid=" + courseId);
 		} catch (Exception e) {
-			System.err
-					.println("Probably the moodle web services not configured properly");
+			System.err.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(
-				MoodleContentResponseList.class);
+		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleContentResponseList.class);
 
 	}
 
 	private String getMoodleRestBase() {
-		String moodleRestBase = "webservice/rest/server.php?moodlewsrestformat=json&wstoken="
-				+ token.get("token") + "&wsfunction=";
+		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + token.get("token") + "&wsfunction=";
 		return moodleRestBase;
 	}
 }
