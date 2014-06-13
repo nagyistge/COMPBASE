@@ -29,12 +29,11 @@ public class EvidenceServer {
 			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl");
 		} else {
 			String moodleurl = args[0];
-			MagicStrings.MOODLEURL = args[args.length - 1];
-
 			String moodledb = args[1];
 			String adminname = args[2];
 			String adminpassword = args[3];
-			if (args.length == 6) {
+			MagicStrings.MOODLEURL = args[args.length - 1];
+			if (args.length == 7) {
 				String adminlogin = args[4];
 				String adminloginpassword = args[5];
 				startServer(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
