@@ -141,7 +141,11 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * returns the competencetree
    */
   def getComptenceTree(): java.util.List[CompetenceXMLTree] = {
-    getCompetenceTreeHelper(hasLinks)
+    if (selectedCatchwordArray.isEmpty() && selectedOperatorsArray.isEmpty()) {
+      getCompetenceTreeHelper(hasLinks)
+    } else {
+    	getCompetenceTreeHelperNoTree(hasLinks)
+    }
   }
 
   def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
