@@ -18,7 +18,8 @@ object CompetenceMaps {
       competenceBeans.getMetaoperator(),
       competenceBeans.getEvidenzen(),
       competenceBeans.getCompetenceArea().split("##").toList,
-      "Die Lehramtsanwärter")
+      "Die Lehramtsanwärter",
+      competenceBeans.getSuperCompetence())
   }
 
   /**

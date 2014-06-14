@@ -26,7 +26,7 @@ import com.google.common.cache.LoadingCache;
 
 /*
  * durch einen Moodle-Webservice oder PHP-Implementation vielleicht eleganter
- * gelöst werden. It just works.
+ * gelöst werden. Es wird vor allem die Kurs-Log-Tabelle von Moodle ausgelesen, um die letzten Aktivitäten zu bekommen
  * 
  * @author Julian Dehne
  * 

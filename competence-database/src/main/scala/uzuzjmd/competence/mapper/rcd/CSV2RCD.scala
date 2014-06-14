@@ -17,6 +17,7 @@ import uzuzjmd.competence.rcd.generated.Identifier
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 /**
  * Diese Klasse mappt das Excel-Zwischenformat auf das RDCEO-Format
@@ -59,6 +60,7 @@ object CSV2RCD {
     statements.append(createStatement(filteredCSVCompetence.metaoperator, CompOntClass.MetaOperator.name()))
     statements.append(createStatement(filteredCSVCompetence.operator, CompOntClass.Operator.name()))
     statements.append(createStatement(filteredCSVCompetence.learner, CompOntClass.Learner.name()))
+    statements.append(createStatement(filteredCSVCompetence.supercompetence, CompObjectProperties.SubCompetenceOf.name()))
     rdceo.getDefinition().asScala += definition
     // createMetaData
     val rdceoSchema = new Rdceoschema
