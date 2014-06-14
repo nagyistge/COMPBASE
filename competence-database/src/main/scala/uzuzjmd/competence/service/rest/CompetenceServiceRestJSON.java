@@ -143,12 +143,7 @@ public class CompetenceServiceRestJSON {
 			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		Role creatorRole = null;
-		if (role.equals("student")) {
-			creatorRole = new StudentRole(compOntologyManager);
-		} else {
-			creatorRole = new TeacherRole(compOntologyManager);
-		}
+		Role creatorRole = convertRole(role, compOntologyManager);
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				CourseContext courseContext = new CourseContext(compOntologyManager, course);
@@ -180,27 +175,68 @@ public class CompetenceServiceRestJSON {
 	@Path("/link/comment/{linkId}/{user}/{courseContext}/{role}")
 	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text, @PathParam("courseContext") String courseContext,
 			@PathParam("role") String role) {
+
+		createUserIfNotExists(user, courseContext, role);
+
+		createComment(linkId, user, text, courseContext, role);
+		return Response.ok("link commented").build();
+	}
+
+	private void createComment(String linkId, String user, String text, String courseContext, String role) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		// debug
+		// CompFileUtil fileUtil = new CompFileUtil(compOntologyManager.getM());
+		// try {
+		// fileUtil.writeOntologyout();
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// end debug
+
+		Role creatorRole2 = convertRole(role, compOntologyManager);
+		CourseContext coursecontext2 = new CourseContext(compOntologyManager, courseContext);
+		User creator2 = new User(compOntologyManager, user, creatorRole2, coursecontext2, user);
+		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
+		Comment comment = new Comment(compOntologyManager, text, creator2, System.currentTimeMillis(), text);
+		comment.persist();
+		abstractEvidenceLink.linkComment(comment);
+
+		// // debug
+		// CompFileUtil fileUtil2 = new
+		// CompFileUtil(compOntologyManager.getM());
+		// try {
+		// fileUtil2.writeOntologyout();
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// end debug
+		closeManagerInCriticalMode(compOntologyManager);
+	}
+
+	private void createUserIfNotExists(String user, String courseContext, String role) {
 		CompOntologyManager comp = initManagerInCriticalMode();
-		Role creatorRole = null;
-		if (role.equals("student")) {
-			creatorRole = new StudentRole(comp);
-		} else {
-			creatorRole = new TeacherRole(comp);
-		}
+		Role creatorRole = convertRole(role, comp);
 		creatorRole.persist(false);
 		CourseContext coursecontext = new CourseContext(comp, courseContext);
 		coursecontext.persist();
 		User creator = new User(comp, user, creatorRole, coursecontext, user);
 		creator.persist();
 		comp.close();
-		// creator = creator.getFullDao();
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(comp, linkId);
-		Comment comment = new Comment(compOntologyManager, text, creator, System.currentTimeMillis(), text);
-		comment.persist();
-		abstractEvidenceLink.linkComment(comment);
-		closeManagerInCriticalMode(compOntologyManager);
-		return Response.ok("link commented").build();
+	}
+
+	private Role convertRole(String role, CompOntologyManager comp) {
+		Role creatorRole = null;
+		if (role.equals("student")) {
+			creatorRole = new StudentRole(comp);
+		} else {
+			creatorRole = new TeacherRole(comp);
+		}
+		return creatorRole;
 	}
 
 	/*
