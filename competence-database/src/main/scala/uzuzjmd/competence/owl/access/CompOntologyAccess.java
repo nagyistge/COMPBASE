@@ -26,6 +26,10 @@ public class CompOntologyAccess {
 	private CompOntologyManager manager;
 	private CompetenceQueries queries;
 
+	public CompOntologyManager getManager() {
+		return manager;
+	}
+
 	/**
 	 * The QueriesObject and Model are dependencies
 	 * 

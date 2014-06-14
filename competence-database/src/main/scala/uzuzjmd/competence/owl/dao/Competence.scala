@@ -15,7 +15,12 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   @Override
   protected def persistMore() {
     val competenceRoot = new CompetenceInstance(comp)
-    persist(false).getOntclass().addSuperClass(competenceRoot.persist(false).getOntclass())
+    val ontClass = persist(false).getOntclass()
+    ontClass.addSuperClass(competenceRoot.persist(false).getOntclass())
+    if (definition != null) {
+      //addDataField(DEFINITION, definition) legacy problem
+      compManager.getUtil().createOntClassForString(definition, definition)
+    }
   }
 
   @Override
@@ -47,6 +52,12 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
 
   def isAllowed(): Boolean = {
     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty
+  }
+
+  def addSuperCompetence(superCompetence: Competence): Competence = {
+    persist(false).getOntclass().addSuperClass(superCompetence.persist(true).getOntclass())
+    persist(false)
+    return this
   }
 
 }
