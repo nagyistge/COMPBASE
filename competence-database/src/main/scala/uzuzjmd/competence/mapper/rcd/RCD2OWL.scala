@@ -22,6 +22,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import java.util.ArrayList
+import uzuzjmd.competence.owl.dao.Competence
 
 /**
  *
@@ -122,7 +123,8 @@ object RCD2OWL extends RCDImplicits {
     // die mit subcompetence
     val triplesGroupedByTitles2a = triples.filter(RCDFilter.isSubClassTriple).groupBy(x => x._1)
     // we assume, that the triple text contains the super-class
-    triplesGroupedByTitles2a.foreach(titleMap => titleMap._2.foreach(triple => util.createOntClassForString(titleMap._1).addSuperClass(util.getOntClassForString(triple._3))))
+    //triplesGroupedByTitles2a.foreach(titleMap => titleMap._2.foreach(triple => util.createOntClassForString(titleMap._1).addSuperClass(util.getOntClassForString(triple._3))))
+    triplesGroupedByTitles2a.foreach(titleMap => titleMap._2.foreach(triple => new Competence(util.getManager(), titleMap._1, titleMap._1, false).addSuperClass(new Competence(util.getManager(), triple._3, triple._3, false))))
 
     // die ohne subcompetence
     val triplesGroupedByTitles2b = triples.filterNot(RCDFilter.isSubClassTriple).groupBy(x => x._1)
