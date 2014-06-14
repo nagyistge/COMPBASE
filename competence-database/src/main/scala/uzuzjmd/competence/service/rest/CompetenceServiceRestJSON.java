@@ -180,15 +180,16 @@ public class CompetenceServiceRestJSON {
 	@Path("/link/comment/{linkId}/{user}/{courseContext}/{role}")
 	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text, @PathParam("courseContext") String courseContext,
 			@PathParam("role") String role) {
-		CompOntologyManager comp = new CompOntologyManager();
-		comp.begin();
+		CompOntologyManager comp = initManagerInCriticalMode();
 		Role creatorRole = null;
 		if (role.equals("student")) {
 			creatorRole = new StudentRole(comp);
 		} else {
 			creatorRole = new TeacherRole(comp);
 		}
+		creatorRole.persist(false);
 		CourseContext coursecontext = new CourseContext(comp, courseContext);
+		coursecontext.persist();
 		User creator = new User(comp, user, creatorRole, coursecontext, user);
 		creator.persist();
 		comp.close();
