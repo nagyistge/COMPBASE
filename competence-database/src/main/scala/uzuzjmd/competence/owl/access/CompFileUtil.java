@@ -52,11 +52,10 @@ public class CompFileUtil {
 			// "<?xml version=\"1.0\"?>\r\n\r\n\r\n<!DOCTYPE rdf:RDF [\r\n    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\r\n    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\r\n    <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\r\n    <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\r\n]>\r\n";
 			// out.write(preamble.getBytes());
 
-//			m.write(System.out, MagicStrings.ONTOLOGYFORMAT);
+			// m.write(System.out, MagicStrings.ONTOLOGYFORMAT);
 			m.write(out, MagicStrings.ONTOLOGYFORMAT);
 
-			System.out.println("Written Ontology to "
-					+ MagicStrings.ONTOLOGYFILE);
+			System.out.println("Written Ontology to " + MagicStrings.ONTOLOGYFILE + "at millis" + System.currentTimeMillis());
 
 			// RDFWriter w = m.getWriter("RDF/XML");
 			// w.setProperty("allowBadURIs", "true");
