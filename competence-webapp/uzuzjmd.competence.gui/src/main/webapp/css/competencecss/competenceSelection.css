@@ -9,17 +9,18 @@
 }
 
 .competenceSelectionPanel {
-	padding: 10px !important;
+/* 	padding: 10px !important; */
 }
 
 .competencePanel {
+	padding: 10px !important;
 	-webkit-border-radius: 15px !important;
 	-moz-border-radius: 15px !important;
 	border-radius: 15px !important;
 	border-style: outset !important;
 	border-width: thin !important;
-	min-width: 675px !important;
-	min-height: 300px !important;
+/* 	min-width: 675px !important; */
+	min-height: 300px !important;	
 }
 
 

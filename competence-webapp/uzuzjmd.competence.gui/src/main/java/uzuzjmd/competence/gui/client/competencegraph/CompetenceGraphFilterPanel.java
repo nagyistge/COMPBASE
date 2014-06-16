@@ -40,7 +40,7 @@ public class CompetenceGraphFilterPanel extends Composite {
 
 		filterCompetencesWidget = new CompetenceSelectionWidget(
 				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "Kompetenzen filtern");
+				"coursecontextnofilter/", "  Kompetenzen filtern");
 		filteredCompetencesPlaceholder.add(filterCompetencesWidget);
 
 	}

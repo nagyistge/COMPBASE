@@ -83,7 +83,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	private void initMoodleEvidenceWidget(ContextFactory contextFactory) {
 		String moodleEvidenceUrl = getMoodleEvidenceServerUrl();
 		activityPanel = new ActivityTree(moodleEvidenceUrl, "Aktivitäten",
-				"activityView", 650, 180, "Aktivitäten", contextFactory);
+				"activityView", 655, 180, "Aktivitäten", contextFactory);
 		activityPlaceholder.add(activityPanel);
 	}
 
