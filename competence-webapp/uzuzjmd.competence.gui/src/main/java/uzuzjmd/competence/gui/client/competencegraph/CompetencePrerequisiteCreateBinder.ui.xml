@@ -16,7 +16,7 @@
 			<g:FocusPanel ui:field="warningPlaceholderPanel"/>			
 			<g:HorizontalPanel>
 				<b:Button ui:field="submitButton">Markierte Verknüpfungen erstellen</b:Button>
-				<b:Button ui:field="cancelButton">abbrechen</b:Button>
+				<b:Button ui:field="cancelButton">Abbrechen</b:Button>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>

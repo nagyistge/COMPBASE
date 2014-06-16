@@ -13,7 +13,7 @@
 					</g:SimplePanel>
 					<g:FlowPanel>
 						<b:Button text="Kommentar abschicken" ui:field="submitButton" />
-						<b:Button ui:field="cancelButton">abbrechen</b:Button>
+						<b:Button ui:field="cancelButton">Abbrechen</b:Button>
 					</g:FlowPanel>
 				</g:FlowPanel>				
 			</g:VerticalPanel>

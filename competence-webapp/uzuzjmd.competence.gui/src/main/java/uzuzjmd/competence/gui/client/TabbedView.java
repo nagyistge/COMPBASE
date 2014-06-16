@@ -1,6 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
+import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -45,8 +46,8 @@ public class TabbedView extends Composite {
 	}
 
 	public void initGraph() {
-		GraphTab graphTab = new GraphTab();
-		pathTabPlaceholder.add(graphTab);
+		ReloadController.graphTab = new GraphTab();
+		pathTabPlaceholder.add(ReloadController.graphTab);
 	}
 
 }
