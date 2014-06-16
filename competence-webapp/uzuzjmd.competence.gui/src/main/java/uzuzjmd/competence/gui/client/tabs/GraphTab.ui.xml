@@ -7,7 +7,7 @@
 	<g:HTMLPanel>
 		<g:VerticalPanel ui:field="verticalPanel">
 			<b:Alert heading="Lernpfade" type="INFO" close="false">Mit einem Klick auf
-				eine vorhandene Kompetenz können sie diese mit einer anderen
+				eine vorhandene Kompetenz können Sie diese mit einer anderen
 				verknüpfen. Dies gibt den Lernenden einen Pfad vor. Dieses Vorgehen
 				ist optional. Nachdem eine Abhängigkeit erstellt wurde, können die Kompetenzen nur noch in dieser Reihenfolge verknüpft werden und nachfolgende Kompetenzen sind in dem Zuordnung-Tab nicht sichtbar!</b:Alert>
 			<g:ScrollPanel stylePrimaryName="graphScrollPanel" >

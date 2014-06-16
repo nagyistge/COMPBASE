@@ -63,7 +63,7 @@ public class RequirementTab extends CompetenceTab {
 
 	public RequirementTab(final ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
-		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschrieben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
+		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
 
 		initHrLines(hrDividerPanel);
