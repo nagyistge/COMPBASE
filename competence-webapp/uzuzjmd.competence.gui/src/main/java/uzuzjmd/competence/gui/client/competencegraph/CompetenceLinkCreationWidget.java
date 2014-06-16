@@ -170,4 +170,9 @@ public class CompetenceLinkCreationWidget extends Composite {
 	void onWarningPlaceholderPanelMouseOut(MouseOutEvent event) {
 		warningPlaceholderPanel.clear();
 	}
+
+	public void reload() {
+		requiredCompetenceSelectionWidget.reload();
+		followingCompetenceSelectionWidget.reload();
+	}
 }

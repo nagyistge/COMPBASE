@@ -12,7 +12,7 @@
 			</g:CaptionPanel>
 			<g:SimplePanel ui:field="hrPanelContainer" />
 			<g:FlowPanel>
-				<b:Button ui:field="closeButton" text="schließen" />
+				<b:Button ui:field="closeButton" text="Schließen" />
 			</g:FlowPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>

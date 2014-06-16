@@ -26,7 +26,6 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -68,8 +67,12 @@ public class LinkEvidenceTab extends CompetenceTab {
 	public LinkEvidenceTab(ContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
-
-		String infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
+		String infoText = "";
+		if (Competence_webapp.contextFactory.getRole().equals("teacher")) {
+			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
+		} else {
+			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das bestehen des Kurses verpflichtend sind!";
+		}
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 		initCompetenceSelectionWidget(contextFactory);
@@ -107,7 +110,6 @@ public class LinkEvidenceTab extends CompetenceTab {
 				.getSelectedCompetences();
 		List<Evidence> evidences = this.activityPanel.getSelectedEvidences();
 		if (competences.isEmpty() || evidences.isEmpty()) {
-			Window.alert("competences are empty");
 			alert = new Alert(
 					"Es müssen Kompetenzen und Aktivitäten ausgewählt werden!",
 					AlertType.ERROR);

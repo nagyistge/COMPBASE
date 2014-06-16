@@ -10,7 +10,7 @@
 			</g:SimplePanel>
 			<g:SimplePanel styleName="progressBar" ui:field="progressBarPlaceholder" width="auto" height="auto"/>
 			<g:SimplePanel width="auto" height="auto">
-				<b:Button ui:field="showEvidencesButton" width="100%" height="100%">zeige Evidenzen</b:Button>
+				<b:Button ui:field="showEvidencesButton" width="100%" height="100%">Zeige Evidenzen</b:Button>
 			</g:SimplePanel>
 		</g:HorizontalPanel>
 	</g:HTMLPanel>

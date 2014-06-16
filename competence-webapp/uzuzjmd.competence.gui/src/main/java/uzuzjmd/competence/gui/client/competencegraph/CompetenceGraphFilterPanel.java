@@ -55,4 +55,8 @@ public class CompetenceGraphFilterPanel extends Composite {
 		parent.hide();
 		graphTab.reload(filterCompetencesWidget.getSelectedCompetences());
 	}
+
+	public void reload() {
+		filterCompetencesWidget.reload();
+	}
 }
