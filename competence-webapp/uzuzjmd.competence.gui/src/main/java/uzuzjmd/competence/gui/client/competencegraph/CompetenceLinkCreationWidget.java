@@ -65,13 +65,13 @@ public class CompetenceLinkCreationWidget extends Composite {
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "Vorausgesetzte Kompetenzen");
+				"coursecontextnofilter/", "  Vorausgesetzte Kompetenzen");
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "Nachfolgende Kompetenzen");
+				"coursecontextnofilter/", "  Nachfolgende Kompetenzen");
 		followingCompetences.add(followingCompetenceSelectionWidget);
 		followingCompetences2.add(followingCompetenceSelectionWidget);
 	}

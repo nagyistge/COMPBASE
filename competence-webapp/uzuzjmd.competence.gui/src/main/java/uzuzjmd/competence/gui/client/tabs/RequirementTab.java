@@ -47,7 +47,7 @@ public class RequirementTab extends CompetenceTab {
 	@UiField
 	Button deleteContextButton;
 	@UiField
-	TextArea requirementTextArea;
+	TextArea requirementTextAreaWidget;
 
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
@@ -84,7 +84,7 @@ public class RequirementTab extends CompetenceTab {
 
 			@Override
 			public void onSuccess(Method arg0, String arg1) {
-				requirementTextArea.setText(arg1);
+				requirementTextAreaWidget.setText(arg1);
 			}
 
 			@Override
@@ -108,7 +108,8 @@ public class RequirementTab extends CompetenceTab {
 
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
-		competenceSelectionWidget.handleSubmit(requirementTextArea.getText());
+		competenceSelectionWidget.handleSubmit(requirementTextAreaWidget
+				.getText());
 		alert = new Alert("Die Verknüpfungen wurden erfolgreich erstellt",
 				AlertType.SUCCESS);
 		warningPlaceHolder.add(alert);
