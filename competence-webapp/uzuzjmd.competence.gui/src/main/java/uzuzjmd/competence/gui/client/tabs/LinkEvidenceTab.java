@@ -71,7 +71,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		if (Competence_webapp.contextFactory.getRole().equals("teacher")) {
 			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
 		} else {
-			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das bestehen des Kurses verpflichtend sind!";
+			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das Bestehen des Kurses verpflichtend sind!";
 		}
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
