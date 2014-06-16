@@ -10,22 +10,23 @@
 		<g:CaptionPanel captionText="Kompetenzauswahl" ui:field="captionPanel"  >
 			<g:VerticalPanel ui:field="competenceTreeContainer" verticalAlignment="ALIGN_TOP">
 				<g:HTMLPanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel"/>
-				<g:HorizontalPanel ui:field="competenceFilterPanel" >
-					<g:VerticalPanel ui:field="operatorPanel">
-						<g:HTMLPanel ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel"/>
-						<g:HTMLPanel ui:field="competenceCompulsoryCheckbox" styleName="competenceCompulsoryCheckbox" >
-							<g:VerticalPanel>
-								<b:RadioButton name="competenceFilter" text="alle anzeigen" ui:field="alleRadioButton"/>
-								<b:RadioButton name="competenceFilter" text="verpflichtende anzeigen" ui:field="verpflichtendeRadioButton"/>
-								<b:RadioButton name="competenceFilter" text="nicht verpflichtende anzeigen" ui:field="nichtVerpflichtendeRadioButton"/>
+				<g:SimplePanel ui:field="toggleButtonPlaceholder" stylePrimaryName="toggleButton"/>
+				<g:HorizontalPanel ui:field="competenceFilterPanel" height="100%" >
+					<g:VerticalPanel ui:field="operatorPanel" height="100%">
+						<g:HTMLPanel ui:field="operatorCaptionPanel" styleName="operatorSelectionPanel" height="100%"/>
+						<g:HTMLPanel ui:field="competenceCompulsoryCheckbox" styleName="competenceCompulsoryCheckbox" height="100%" >
+							<g:VerticalPanel height="100%">
+								<b:RadioButton name="competenceFilter" text="Alle anzeigen" ui:field="alleRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="Verpflichtende anzeigen" ui:field="verpflichtendeRadioButton"/>
+								<b:RadioButton name="competenceFilter" text="Nicht verpflichtende anzeigen" ui:field="nichtVerpflichtendeRadioButton"/>
 							</g:VerticalPanel>
 						</g:HTMLPanel>
 					</g:VerticalPanel>
-					<g:VerticalPanel>
-						<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel"/>
-						<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
-							<b:Button icon="REFRESH" text="zurücksetzen" ui:field="resetButton"/>
-							<b:Button icon="FILTER" text="filtern" ui:field="filterButton"/>
+					<g:VerticalPanel height="100%">
+						<g:HTMLPanel ui:field="catchwordCaptionPanel" styleName="catchwordSelectionPanel" height="100%"/>
+						<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER" height="100%">
+							<b:Button icon="REFRESH" text="Zurücksetzen" ui:field="resetButton"/>
+							<b:Button icon="FILTER" text="Filtern" ui:field="filterButton"/>
 						</g:HorizontalPanel>
 					</g:VerticalPanel>
 				</g:HorizontalPanel>

@@ -7,17 +7,16 @@
 	<g:HTMLPanel>
 		<g:SimplePanel ui:field="tabExplainationPanel"/>
 		<g:VerticalPanel ui:field="competenceSelectionAndActivity">
-			<g:CaptionPanel captionText="Aktivitäten" styleName="requirementTextArea"
-				width="auto" height="auto">
-				<g:HTMLPanel width="auto" height="auto" ui:field="activityPlaceholder" />
-			</g:CaptionPanel>					
+			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
 			<g:SimplePanel ui:field="HrPanelContainer" />
-			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>			
+			<g:CaptionPanel captionText="Aktivitäten" styleName="requirementTextArea">
+				<g:HTMLPanel ui:field="activityPlaceholder" />
+			</g:CaptionPanel>														
 			<g:SimplePanel ui:field="hrPanelContainer2" />
 			<g:FocusPanel ui:field="warningPlaceholder" width="auto"
 				height="auto" />
 			<g:HorizontalPanel ui:field="buttonContainer">
-				<b:Button icon="LINK" ui:field="submitButton">markierte Kompetenzen und Aktivitäten verknüpfen</b:Button>				
+				<b:Button icon="LINK" ui:field="submitButton">Markierte Kompetenzen und Aktivitäten verknüpfen</b:Button>				
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>

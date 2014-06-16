@@ -9,9 +9,9 @@
 			<b:Alert type="INFO" ui:field="infoAlert">Wählen Sie die Kompetenzen aus, nach denen gefiltert werden soll und clicken Sie auf das Filter-Symbol!</b:Alert>
 			<g:SimplePanel ui:field="filteredCompetencesPlaceholder"/>
 			<g:HorizontalPanel>
-				<b:Button icon="FILTER" text="filtern" loadingText="lade Kompetenzen aus der Datenbank"
+				<b:Button icon="FILTER" text="Filtern" loadingText="lade Kompetenzen aus der Datenbank"
 					ui:field="filterButton"></b:Button>
-				<b:Button ui:field="cancelButton">abbrechen</b:Button>
+				<b:Button ui:field="cancelButton">Abbrechen</b:Button>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>

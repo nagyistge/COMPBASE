@@ -90,6 +90,13 @@ public abstract class MyTreePanel extends Panel {
 		// this.add(treePanelContainer);
 		this.add(treePanel);
 		this.getElement().setClassName(className);
+		treePanel.getEl().mask("Loading", "x-mask-loading");
+		Timer timer = new Timer() {
+			public void run() {
+				treePanel.getEl().unmask();
+			}
+		};
+		timer.schedule(5000);
 	}
 
 	public void reload(String dataConnection) {

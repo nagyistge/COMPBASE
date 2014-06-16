@@ -21,7 +21,7 @@
 			<g:SimplePanel ui:field="hrDividerPanel2"/>
 			<g:FocusPanel ui:field="warningPlaceHolder"/>
 			<g:HorizontalPanel ui:field="buttonPanel">
-				<b:Button icon="PLUS" ui:field="submitButton">markierte Kompetenzen dem Kurs hinzufügen</b:Button>
+				<b:Button icon="PLUS" ui:field="submitButton">Markierte Kompetenzen dem Kurs hinzufügen</b:Button>
 				<b:Button icon="TRASH" ui:field="deleteContextButton">Zuordnung für diesen Kurs löschen</b:Button>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>

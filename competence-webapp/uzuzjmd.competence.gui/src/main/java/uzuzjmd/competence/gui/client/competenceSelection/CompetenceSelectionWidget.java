@@ -11,6 +11,8 @@ import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
@@ -22,6 +24,8 @@ import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -76,6 +80,8 @@ public class CompetenceSelectionWidget extends Composite {
 	Button resetButton;
 	@UiField
 	CaptionPanel captionPanel;
+	@UiField
+	SimplePanel toggleButtonPlaceholder;
 
 	private CompetenceSelectionTree competenceTree;
 	private OperatorSelectionTree operatorTree;
@@ -129,6 +135,17 @@ public class CompetenceSelectionWidget extends Composite {
 		initOperatorTree(contextFactory);
 		initCatchwordTree(contextFactory);
 		this.alleRadioButton.setValue(true);
+		ToggleButton toggleButton = new ToggleButton("Filter ausklappen",
+				"Filter einklappen");
+		competenceFilterPanel.setVisible(false);
+		toggleButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				competenceFilterPanel.setVisible(event.getValue());
+			}
+		});
+		toggleButtonPlaceholder.add(toggleButton);
 	}
 
 	private void initCatchwordTree(final ContextFactory contextFactory) {
@@ -136,7 +153,7 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Schlagworte", "catchwordView", 325, 130, "Schlagworte",
+				"Schlagworte", "catchwordView", 325, 250, "Schlagworte",
 				contextFactory);
 		catchwordCaptionPanel.add(catchwordTree);
 	}
@@ -146,7 +163,7 @@ public class CompetenceSelectionWidget extends Composite {
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
 						+ contextFactory.getCourseId() + "/nocache",
-				"Operatoren", "operatorView", 300, 80, "Operatoren",
+				"Operatoren", "operatorView", 300, 200, "Operatoren",
 				contextFactory);
 		operatorCaptionPanel.add(operatorTree);
 	}

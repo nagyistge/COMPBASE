@@ -49,6 +49,8 @@ public class GraphTab extends Composite {
 	private MyGraphPanel graphPanel;
 	private PopupPanel competenceCreationPopup;
 	private PopupPanel competenceFilterPopup;
+	private CompetenceLinkCreationWidget competenceLinkCreationWidget;
+	private CompetenceGraphFilterPanel competencegraphFilterPanel;
 
 	public interface GraphCodec extends JsonEncoderDecoder<Graph> {
 	}
@@ -66,15 +68,17 @@ public class GraphTab extends Composite {
 		// create competenceCreationPopup
 		competenceCreationPopup = new PopupPanel(false, false);
 		competenceCreationPopup.setGlassEnabled(true);
-		competenceCreationPopup.add(new CompetenceLinkCreationWidget(
-				competenceCreationPopup, this));
+		competenceLinkCreationWidget = new CompetenceLinkCreationWidget(
+				competenceCreationPopup, this);
+		competenceCreationPopup.add(competenceLinkCreationWidget);
 		competenceCreationPopup.hide();
 		this.setStyleName("graphTab", true);
 
 		competenceFilterPopup = new PopupPanel(false, false);
 		competenceFilterPopup.setGlassEnabled(true);
-		competenceFilterPopup.add(new CompetenceGraphFilterPanel(this,
-				competenceFilterPopup));
+		competencegraphFilterPanel = new CompetenceGraphFilterPanel(this,
+				competenceFilterPopup);
+		competenceFilterPopup.add(competencegraphFilterPanel);
 		competenceFilterPopup.hide();
 
 	}
@@ -136,5 +140,10 @@ public class GraphTab extends Composite {
 		graphPanel.removeGraph();
 		listedCompetencesPlaceholder.clear();
 		loadGraphFromServer(selectedCompetences);
+	}
+
+	public void reloadPopups() {
+		competenceLinkCreationWidget.reload();
+		competencegraphFilterPanel.reload();
 	}
 }
