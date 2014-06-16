@@ -1,19 +1,25 @@
 @CHARSET "ISO-8859-1";
 
-.requirementTextArea {  
-    -webkit-border-radius: 15px !important;
-    -moz-border-radius: 15px !important;
-    border-radius: 15px !important;
-    border-style:outset !important;
-    border-width:thin !important;	
-    padding: 10px !important;
-/*     margin-top: 30px; */
-    margin-bottom: 10px;
+legend {
+	padding-left: 10px !important;
+	width: 95% !important;
 }
 
-.requirementTextAreaBox {
-    width: 645px !important;
-    height: 105px !important;    
+.requirementTextArea {  
+   -webkit-border-radius: 15px !important;
+	-moz-border-radius: 15px !important;
+	border-radius: 15px !important;
+	border-style: outset !important;
+	border-width: thin !important;		
+	min-width: 690px !important;
+	min-height: 135px !important;	
+}
+
+
+.requirementTextAreaBox {	
+	margin: 10px !important;
+    min-width: 635px !important;
+    min-height: 105px !important;    	
 }
 
 hr.fancy-line { 
