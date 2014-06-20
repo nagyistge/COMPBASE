@@ -55,6 +55,7 @@ public class CompetenceServiceRestXML {
 	public Response getCompetenceTree(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
 			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
+		long beforeTime = System.currentTimeMillis();
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
 			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, null);
@@ -62,7 +63,8 @@ public class CompetenceServiceRestXML {
 			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
 			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
 		}
-
+		long afterTime = System.currentTimeMillis();
+		System.out.println((afterTime - beforeTime));
 		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
 		return response;
 	}
