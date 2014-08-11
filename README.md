@@ -2,8 +2,8 @@ Wissensmodellierung
 ===================
 
 BUILDING the project
- - install the project competence-shared  		
- - package the competence-database project with: clean package -Dmaven.test.skip=true
+ - install the project competence-application with: clean package -Dmaven.test.skip=true.
+ - This will compile all required projects but might take a while.		
 
 STARTING the project
 
