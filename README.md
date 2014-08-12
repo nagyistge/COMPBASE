@@ -9,9 +9,9 @@ STARTING the project
 
 java -jar CompetenceServer.jar [path to TDB location]
 
-java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword]
+java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword] [fullapplicationpath]
  
-java -jar EvidenceServer.jar localhost bitnami_moodle root voyager
+java -jar EvidenceServer.jar localhost bitnami_moodle root voyager https://someurl/moodle
 
 
 CONFIGURING YOUR SERVER
