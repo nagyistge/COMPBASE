@@ -12,6 +12,18 @@ java -jar CompetenceServer.jar [path to TDB location]
 java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword]
  
 java -jar EvidenceServer.jar localhost bitnami_moodle root voyager
+
+
+CONFIGURING YOUR SERVER
+
+Put these lines in your http.conf or open the ports mentioned. The ports can be changed in MagicString.java.
+
+ProxyPass  /competence http://localhost:8084
+ProxyPassReverse /competence http://localhost:8084
+
+ProxyPass  /evidence http://localhost:8083
+ProxyPassReverse /evidence http://localhost:8083
+
  
 USING the project
 
