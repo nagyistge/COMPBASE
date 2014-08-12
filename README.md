@@ -7,6 +7,8 @@ BUILDING the project
 
 STARTING the project
 
+[optional] java -jar CompetenceImporter [pathtoCSV] [pathtotdb]
+
 java -jar CompetenceServer.jar [path to TDB location]
 
 java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword] [fullapplicationpath]
