@@ -6,6 +6,7 @@ import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -18,21 +19,31 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Competence_webapp implements EntryPoint {
 
 	private NodeList<Element> element;
-	private static ProgressTab tab3;
+	private static ProgressTab progessTab;
 	public static ReloadController reloadController;
-	public static final ContextFactory contextFactory = new ContextFactory();
+	public static ContextFactory contextFactory;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 
+		MyConstants myConstants = GWT.create(MyConstants.class);
+
+		if (myConstants.contextImplementation().equals("moodle")) {
+			contextFactory = new MoodleContextFactory();
+		}
+
+		if (myConstants.contextImplementation().equals("liferay")) {
+			contextFactory = new LiferayContextFactory();
+		}
+
 		RootPanel container = RootPanel.get("rootContainer");
 		LinkEvidenceTab tab2 = new LinkEvidenceTab(contextFactory);
-		tab3 = new ProgressTab(contextFactory);
-		reloadController = new ReloadController(null, tab2, tab3);
+		progessTab = new ProgressTab(contextFactory);
+		reloadController = new ReloadController(null, tab2, progessTab);
 		RequirementTab tab = new RequirementTab(contextFactory);
-		initTabbedView(container, tab, tab2, tab3);
+		initTabbedView(container, tab, tab2, progessTab);
 
 		// GraphTab graphTab = new GraphTab();
 		// container.add(graphTab);
@@ -40,7 +51,7 @@ public class Competence_webapp implements EntryPoint {
 	}
 
 	public static ProgressTab getProgressTab() {
-		return tab3;
+		return progessTab;
 	}
 
 	private void initTabbedView(RootPanel container, RequirementTab tab,

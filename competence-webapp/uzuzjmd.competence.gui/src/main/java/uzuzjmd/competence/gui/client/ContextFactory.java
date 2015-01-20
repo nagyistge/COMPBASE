@@ -1,6 +1,8 @@
 package uzuzjmd.competence.gui.client;
 
-public class ContextFactory {
+import com.google.gwt.core.shared.GWT;
+
+public abstract class ContextFactory {
 
 	private int courseId;
 	private String serverUrl;
@@ -14,7 +16,24 @@ public class ContextFactory {
 		this.evidenceServerUrl = getEvidenceServerUrlFromContext();
 		this.role = getRoleFromContext();
 		this.userName = getUserFromContext();
+
+		GWT.log("using moodle context factory as default2");
 	}
+
+	public abstract String getUserFromContext();
+
+	public abstract String getRoleFromContext();
+
+	public abstract String getEvidenceServerUrlFromContext();
+
+	public abstract String getServerUrlFromContext();
+
+	/**
+	 * in moodle this is the course id in liferay this is the site id
+	 * 
+	 * @return
+	 */
+	public abstract int getCourseIdFromContext();
 
 	public String getCourseId() {
 		return "n" + courseId;
@@ -39,25 +58,5 @@ public class ContextFactory {
 	public String getUser() {
 		return userName;
 	}
-
-	private native int getCourseIdFromContext()/*-{
-		return $wnd.courseId;
-	}-*/;
-
-	private native String getServerUrlFromContext()/*-{
-		return $wnd.serverUrl;
-	}-*/;
-
-	private native String getEvidenceServerUrlFromContext()/*-{
-		return $wnd.evidenceServerUrl;
-	}-*/;
-
-	private native String getRoleFromContext()/*-{
-		return $wnd.role;
-	}-*/;
-
-	private native String getUserFromContext()/*-{
-		return $wnd.user;
-	}-*/;
 
 }
