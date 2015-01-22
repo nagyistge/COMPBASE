@@ -10,24 +10,23 @@ import javax.ws.rs.core.Response;
 import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.EvidenceService;
-import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 
 /**
- * Implementiert den Moodle-RestService mit Grizzly Dies ist die Hauptklasse für
- * die Rest-Services, die auf Moodle zugreifen
+ * Implementiert den Moodle-RestService mit Grizzly. Dies ist die Hauptklasse
+ * für die Rest-Services, die auf Moodle oder Liferay zugreifen
  * 
- * @author julian
+ * @author Julian Dehne
  * 
  */
 @Path("/moodle")
-public class MoodleEvidenceServiceRestImpl implements EvidenceService {
+public class EvidenceServiceRestServerImpl implements EvidenceService {
 
-	public static MoodleEvidenceServiceImpl moodleServiceImpl;
+	public static EvidenceService evidenceService;
 
-	public MoodleEvidenceServiceRestImpl() {
+	public EvidenceServiceRestServerImpl() {
 	}
 
 	@Path("/activities/json/{course}/{user}")
@@ -35,14 +34,14 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public MoodleEvidence[] getMoodleEvidences(@PathParam("course") String course, @PathParam("user") String user) {
-		return moodleServiceImpl.getMoodleEvidences(course, user);
+		return evidenceService.getMoodleEvidences(course, user);
 	}
 
 	@Path("/activities/xml/{course}/{user}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public MoodleEvidence[] getMoodleEvidencesasXML(@PathParam("course") String course, @PathParam("user") String user) {
-		return moodleServiceImpl.getMoodleEvidences(course, user);
+		return evidenceService.getMoodleEvidences(course, user);
 	}
 
 	@Path("/other/{user}")
@@ -50,7 +49,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Evidence[] getEvidences(@PathParam("user") String user) {
-		return moodleServiceImpl.getEvidences(user);
+		return evidenceService.getEvidences(user);
 	}
 
 	@Path("/activities/json/{course}")
@@ -58,7 +57,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public MoodleEvidence[] getUserEvidencesforMoodleCourse(@PathParam("course") String course) {
-		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
+		return evidenceService.getUserEvidencesforMoodleCourse(course);
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public MoodleContentResponseList getCourseContent(@PathParam("course") String course) {
-		return moodleServiceImpl.getCourseContents(course);
+		return evidenceService.getCourseContents(course);
 	}
 
 	@Override
@@ -74,14 +73,14 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public MoodleContentResponse[] getCourseContentXML(@PathParam("course") String course) {
-		return moodleServiceImpl.getCourseContentXML(course);
+		return evidenceService.getCourseContentXML(course);
 	}
 
 	@Path("/activities/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public MoodleEvidence[] getUserEvidencesforMoodleCourseAsXML(@PathParam("course") String course) {
-		return moodleServiceImpl.getUserEvidencesforMoodleCourse(course);
+		return evidenceService.getUserEvidencesforMoodleCourse(course);
 	}
 
 	@Override
@@ -89,7 +88,7 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course) {
-		return moodleServiceImpl.getUserTree(course);
+		return evidenceService.getUserTree(course);
 		// result = cacheImpl.get(course, null);
 		// return moodleServiceImpl.getCachedUserTree(course);
 	}
@@ -98,10 +97,16 @@ public class MoodleEvidenceServiceRestImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
-		Response response = Response.status(200).entity(moodleServiceImpl.getUserTree(course)).build();
+		Response response = Response.status(200).entity(evidenceService.getUserTree(course)).build();
 		// Response response =
 		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
 		return response;
+	}
+
+	@Override
+	public MoodleContentResponseList getCourseContents(String course) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
