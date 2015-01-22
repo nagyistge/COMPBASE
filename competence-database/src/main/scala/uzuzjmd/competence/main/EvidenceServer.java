@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import javax.xml.ws.Endpoint;
 
-import uzuzjmd.competence.evidence.service.MoodleEvidenceServiceImpl;
-import uzuzjmd.competence.evidence.service.rest.MoodleEvidenceServiceRestImpl;
+import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
@@ -45,19 +45,19 @@ public class EvidenceServer {
 	}
 
 	private static void startServer(String moodleurl, String moodledb, String adminname, String adminpassword, String adminlogin, String adminloginpassword) throws IOException {
-		MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
+		MoodleEvidenceRestServiceImpl evidenceServiceImpl = new MoodleEvidenceRestServiceImpl(moodleurl, moodledb, adminname, adminpassword, adminlogin, adminloginpassword);
 		publishServer(evidenceServiceImpl);
 	}
 
 	private static void startServer(String moodleurl, String moodledb, String adminname, String adminpassword) throws IllegalArgumentException, NullPointerException, IOException {
 		// start server
-		final MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(moodleurl, moodledb, adminname, adminpassword);
+		final MoodleEvidenceRestServiceImpl evidenceServiceImpl = new MoodleEvidenceRestServiceImpl(moodleurl, moodledb, adminname, adminpassword);
 		publishServer(evidenceServiceImpl);
 
 	}
 
-	private static void publishServer(final MoodleEvidenceServiceImpl evidenceServiceImpl) throws IOException {
-		MoodleEvidenceServiceRestImpl.moodleServiceImpl = evidenceServiceImpl;
+	private static void publishServer(final MoodleEvidenceRestServiceImpl evidenceServiceImpl) throws IOException {
+		EvidenceServiceRestServerImpl.evidenceService = evidenceServiceImpl;
 
 		publishSoapServer(evidenceServiceImpl);
 		publishRestServer();
@@ -69,7 +69,7 @@ public class EvidenceServer {
 	}
 
 	private static void publishRestServer() throws IOException {
-		ResourceConfig resourceConfig = new DefaultResourceConfig(MoodleEvidenceServiceRestImpl.class, UserTree.class, AbstractTreeEntry.class, AbstractXMLTree.class, ActivityTyp.class,
+		ResourceConfig resourceConfig = new DefaultResourceConfig(EvidenceServiceRestServerImpl.class, UserTree.class, AbstractTreeEntry.class, AbstractXMLTree.class, ActivityTyp.class,
 				ActivityEntry.class);
 		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, resourceConfig);
@@ -77,7 +77,7 @@ public class EvidenceServer {
 		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle/activities/json/2/2");
 	}
 
-	private static void publishSoapServer(final MoodleEvidenceServiceImpl evidenceServiceImpl) {
+	private static void publishSoapServer(final MoodleEvidenceRestServiceImpl evidenceServiceImpl) {
 		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT, evidenceServiceImpl);
 		System.out.println("publishing wsdl to " + MagicStrings.EVIDENCESERVICEENDPOINT);
 	}
