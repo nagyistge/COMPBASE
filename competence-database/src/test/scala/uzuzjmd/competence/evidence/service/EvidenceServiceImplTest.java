@@ -6,7 +6,7 @@ public class EvidenceServiceImplTest {
 
 	@Test
 	public void test() {
-		MoodleEvidenceServiceImpl evidenceServiceImpl = new MoodleEvidenceServiceImpl(
+		MoodleEvidenceRestServiceImpl evidenceServiceImpl = new MoodleEvidenceRestServiceImpl(
 				"localhost", "bitnami_moodle", "root", "voyager");
 		evidenceServiceImpl.getMoodleEvidences("2", "2");
 	}
