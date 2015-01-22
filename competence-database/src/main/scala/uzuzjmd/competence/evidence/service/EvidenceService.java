@@ -39,4 +39,7 @@ public interface EvidenceService {
 
 	@WebMethod
 	public abstract MoodleContentResponseList getCourseContent(String course);
+
+	@WebMethod
+	public MoodleContentResponseList getCourseContents(String course);
 }

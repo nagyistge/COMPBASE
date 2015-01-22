@@ -32,19 +32,19 @@ import com.google.common.cache.LoadingCache;
  * 
  */
 @WebService(endpointInterface = "uzuzjmd.competence.evidence.service.EvidenceService")
-public class MoodleEvidenceServiceImpl implements EvidenceService {
+public class MoodleEvidenceRestServiceImpl implements EvidenceService {
 
 	public static LoadingCache<String, UserTree[]> cacheImpl;
 	private String adminLogin;
 	private String adminLoginPassword;
 	private String adminname;
 	private String adminpassword;
-	Logger logger = LogManager.getLogger(MoodleEvidenceServiceImpl.class.getName());
+	Logger logger = LogManager.getLogger(MoodleEvidenceRestServiceImpl.class.getName());
 	private String moodledb;
 	private String moodleURl;
 	private Thread cacheThread;
 
-	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword) {
+	public MoodleEvidenceRestServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword) {
 		if (moodledatabaseurl.endsWith("/")) {
 			throw new Error("moodle database url should not end with /");
 		}
@@ -57,10 +57,9 @@ public class MoodleEvidenceServiceImpl implements EvidenceService {
 		this.adminname = adminname;
 		this.adminpassword = adminpassword;
 		initCache();
-
 	}
 
-	public MoodleEvidenceServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword, String adminLogin, String adminLoginPassword) {
+	public MoodleEvidenceRestServiceImpl(String moodledatabaseurl, String moodledb, String adminname, String adminpassword, String adminLogin, String adminLoginPassword) {
 		this(moodledatabaseurl, moodledb, adminname, adminpassword);
 		this.adminLogin = adminLogin;
 		this.adminLoginPassword = adminLoginPassword;
