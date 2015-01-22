@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.xml.ws.Endpoint;
 
+import uzuzjmd.competence.evidence.service.EvidenceService;
+import uzuzjmd.competence.evidence.service.LiferayEvidenceService;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
@@ -25,8 +27,15 @@ public class EvidenceServer {
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
-		if (args.length != 5 && args.length != 7) {
-			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl");
+		if (args.length == 3) {
+			String liferayAdminName = args[0];
+			String liferayAdminPassword = args[1];
+			String liferayUrl = args[2];
+			EvidenceService evidenceServiceImpl = new LiferayEvidenceService(liferayAdminName, liferayAdminPassword, liferayUrl);
+			publishServer(evidenceServiceImpl);
+		} else if (args.length != 5 && args.length != 7) {
+			System.out
+					.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl \n oder liferayadminuser liferayadminpassword liferayurl (z.b. test test http://localhost:8080)");
 		} else {
 			String moodleurl = args[0];
 			String moodledb = args[1];
@@ -56,7 +65,7 @@ public class EvidenceServer {
 
 	}
 
-	private static void publishServer(final MoodleEvidenceRestServiceImpl evidenceServiceImpl) throws IOException {
+	private static void publishServer(final EvidenceService evidenceServiceImpl) throws IOException {
 		EvidenceServiceRestServerImpl.evidenceService = evidenceServiceImpl;
 
 		publishSoapServer(evidenceServiceImpl);
@@ -77,7 +86,7 @@ public class EvidenceServer {
 		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle/activities/json/2/2");
 	}
 
-	private static void publishSoapServer(final MoodleEvidenceRestServiceImpl evidenceServiceImpl) {
+	private static void publishSoapServer(final EvidenceService evidenceServiceImpl) {
 		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT, evidenceServiceImpl);
 		System.out.println("publishing wsdl to " + MagicStrings.EVIDENCESERVICEENDPOINT);
 	}
