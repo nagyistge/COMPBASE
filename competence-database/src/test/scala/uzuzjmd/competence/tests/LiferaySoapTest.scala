@@ -25,6 +25,7 @@ class LiferaySoapTest extends FunSuite with ShouldMatchers {
     val result = endpoint.getGroupUsersActivities(11204, -1, -1)
     val resultList = Nil ++ result
     resultList should not be ('empty)
+    resultList.toList.head.getType()
     resultList.toList.foreach(x => print(x.getExtraData()))
 
   }
