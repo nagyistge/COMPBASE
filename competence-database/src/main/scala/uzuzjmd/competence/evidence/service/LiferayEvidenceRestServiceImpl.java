@@ -1,6 +1,8 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.axis.client.Stub;
 
@@ -13,13 +15,13 @@ import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import com.liferay.portlet.social.model.SocialActivitySoap;
 import com.liferay.portlet.social.service.http.SocialActivityServiceSoapProxy;
 
-public class LiferayEvidenceService implements EvidenceService {
+public class LiferayEvidenceRestServiceImpl implements EvidenceService {
 	private String adminUserName;
 	private String adminPassword;
 	private String liferayURL;
 	private SocialActivityServiceSoapProxy endpoint;
 
-	public LiferayEvidenceService(String adminUserName, String adminPassword, String liferayURL) {
+	public LiferayEvidenceRestServiceImpl(String adminUserName, String adminPassword, String liferayURL) {
 		super();
 		this.adminUserName = adminUserName;
 		this.adminPassword = adminPassword;
@@ -63,6 +65,7 @@ public class LiferayEvidenceService implements EvidenceService {
 		}
 
 		// todo convert them into the tree
+		List<UserTree> result = new ArrayList<UserTree>();
 
 		return null;
 	}
