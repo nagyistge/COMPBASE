@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.xml.ws.Endpoint;
 
 import uzuzjmd.competence.evidence.service.EvidenceService;
-import uzuzjmd.competence.evidence.service.LiferayEvidenceService;
+import uzuzjmd.competence.evidence.service.LiferayEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
@@ -31,7 +31,7 @@ public class EvidenceServer {
 			String liferayAdminName = args[0];
 			String liferayAdminPassword = args[1];
 			String liferayUrl = args[2];
-			EvidenceService evidenceServiceImpl = new LiferayEvidenceService(liferayAdminName, liferayAdminPassword, liferayUrl);
+			EvidenceService evidenceServiceImpl = new LiferayEvidenceRestServiceImpl(liferayAdminName, liferayAdminPassword, liferayUrl);
 			publishServer(evidenceServiceImpl);
 		} else if (args.length != 5 && args.length != 7) {
 			System.out
