@@ -8,6 +8,8 @@ import scala.collection.JavaConverters._
 import com.liferay.portlet.social.service.http.SocialActivityServiceSoapServiceLocator
 import com.liferay.portlet.social.service.http.Portlet_Social_SocialActivityServiceSoapBindingStub
 import org.apache.axis.client.Stub
+import com.liferay.portal.service.http.UserServiceSoapProxy
+import org.apache.xalan.xsltc.compiler.ForEach
 
 @RunWith(classOf[JUnitRunner])
 class LiferaySoapTest extends FunSuite with ShouldMatchers {
@@ -26,8 +28,17 @@ class LiferaySoapTest extends FunSuite with ShouldMatchers {
     val resultList = Nil ++ result
     resultList should not be ('empty)
     resultList.toList.head.getType()
-    resultList.toList.foreach(x => print(x.getExtraData()))
+    resultList.toList.foreach(x => println(x.getExtraData() + "," + x.getUserId() + "," + x.getType()))
 
+  }
+
+  test("if liferay group interface is called no error should occur") {
+    val endpoint = new UserServiceSoapProxy("http://localhost:8080/api/axis/Portal_UserService?wsdl")
+    endpoint.getUserServiceSoap().asInstanceOf[Stub].setUsername("elistest")
+    endpoint.getUserServiceSoap().asInstanceOf[Stub].setPassword("eLiS14")
+    val result = endpoint.getGroupUsers(11204)
+    val resultList = Nil ++ result
+    result.toList.foreach(x => println(x.getLastName()))
   }
 
   //  test("The CompetenceTree should not be empty") {
