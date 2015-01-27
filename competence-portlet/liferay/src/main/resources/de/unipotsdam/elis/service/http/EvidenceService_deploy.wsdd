@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_UPServices_EvidenceService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.elis.unipotsdam.de" xmlns:cmp-ns="http://model.elis.unipotsdam.de" qname="ns:ArrayOf_tns2_EvidenceSoap" type="java:de.unipotsdam.elis.model.EvidenceSoap[]" innerType="cmp-ns:EvidenceSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.elis.unipotsdam.de" qname="ns:EvidenceSoap" type="java:de.unipotsdam.elis.model.EvidenceSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.elis.unipotsdam.de" xmlns:rtns="urn:http.service.elis.unipotsdam.de" xmlns:tns2="http://model.elis.unipotsdam.de" name="getGroupEvidences" qname="operNS:getGroupEvidences" returnQName="getGroupEvidencesReturn" returnType="rtns:ArrayOf_tns2_EvidenceSoap" returnItemType="tns2:EvidenceSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="groupId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.elis.unipotsdam.de" name="helloWorld" qname="operNS:helloWorld" soapAction=""> </operation>
+		<parameter name="allowedMethods" value="getGroupEvidences helloWorld" />
+		<parameter name="className" value="de.unipotsdam.elis.service.http.EvidenceServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.elis.unipotsdam.de,urn:http.service.elis.unipotsdam.de" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="EvidenceServiceSoap" />
+		<parameter name="wsdlServiceElement" value="EvidenceServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_UPServices_EvidenceService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.elis.unipotsdam.de" />
+	</service>
+</deployment>
