@@ -34,8 +34,8 @@ public class EvidenceServer {
 			EvidenceService evidenceServiceImpl = new LiferayEvidenceRestServiceImpl(liferayAdminName, liferayAdminPassword, liferayUrl);
 			publishServer(evidenceServiceImpl);
 		} else if (args.length != 5 && args.length != 7) {
-			System.out
-					.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl \n oder liferayadminuser liferayadminpassword liferayurl (z.b. test test http://localhost:8080)");
+			System.out.println("Die Verwendung lautet java -jar EvidenceServerJar moodlename moodledb adminname adminpassword [adminlogin adminloginpassword] moodleurl"
+					+ " \n oder liferayadminuser liferayadminpassword liferayurl (z.b. test test http://localhost:8080)");
 		} else {
 			String moodleurl = args[0];
 			String moodledb = args[1];
@@ -83,7 +83,7 @@ public class EvidenceServer {
 		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, resourceConfig);
 		System.out.println("publishing rest server to to " + MagicStrings.RESTURL);
-		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle/activities/json/2/2");
+		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle" + "/activities/usertree/xml/{groupId bzw. Kursid}");
 	}
 
 	private static void publishSoapServer(final EvidenceService evidenceServiceImpl) {

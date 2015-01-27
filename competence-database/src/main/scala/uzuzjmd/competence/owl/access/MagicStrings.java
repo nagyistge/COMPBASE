@@ -22,5 +22,6 @@ public class MagicStrings {
 	public static final String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String ICONPATHGWT = "icons/WindowsIcons-master/WindowsPhone/svg";
+	public static final String USERICONPATH = "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png";
 
 }
