@@ -5,8 +5,8 @@ import static com.google.gwt.query.client.GQuery.$;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.client.NativeContext;
 import uzuzjmd.competence.gui.shared.Evidence;
 import uzuzjmd.competence.gui.shared.widgets.MyTreePanel;
 
@@ -110,7 +110,7 @@ public class ActivityTree extends MyTreePanel {
 								GWT.log("could not attach to child because of false structure");
 							} else {
 								GWT.log("attaching preview to id " + id);
-								Competence_webapp.showPreview(
+								NativeContext.showPreview(
 										element.getAttribute("target"),
 										".region-content", "#" + id);
 								// Competence_webapp.showPreview(

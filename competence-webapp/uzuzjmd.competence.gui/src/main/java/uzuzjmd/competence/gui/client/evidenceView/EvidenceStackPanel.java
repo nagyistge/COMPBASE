@@ -2,8 +2,8 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksMap;
 
 import com.github.gwtbootstrap.client.ui.Button;
@@ -60,7 +60,7 @@ public class EvidenceStackPanel extends Composite {
 	@UiHandler("closeButton")
 	void onCloseButtonClick(ClickEvent event) {
 		container.hide();
-		Competence_webapp.getProgressTab().showProgressEntries(
-				Competence_webapp.contextFactory, true);
+		Controller.progessTab.showProgressEntries(Controller.contextFactory,
+				true);
 	}
 }

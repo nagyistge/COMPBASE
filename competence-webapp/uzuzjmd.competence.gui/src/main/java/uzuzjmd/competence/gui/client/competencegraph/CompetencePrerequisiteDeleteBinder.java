@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
 
 import com.google.gwt.core.client.GWT;
@@ -65,9 +65,9 @@ public class CompetencePrerequisiteDeleteBinder extends Composite {
 
 	private void deleteRequirements(String competenceSelected) {
 		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/delete/"
-						+ Competence_webapp.contextFactory.getCourseId());
+						+ Controller.contextFactory.getCourseId());
 		try {
 			resource.addQueryParam("linkedCompetence", competenceSelected)
 					.post().send(new RequestCallback() {

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.client.Controller;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
@@ -46,7 +46,7 @@ public class CompetenceSelectionWidget extends Composite {
 		public void onResponseReceived(Request request, Response response) {
 			GWT.log(response.getStatusText());
 			competenceTree.reloadTree();
-			Competence_webapp.reloadController.reload();
+			Controller.reloadController.reload();
 		}
 	}
 
@@ -206,7 +206,7 @@ public class CompetenceSelectionWidget extends Composite {
 		} else {
 			GWT.log("not sending compulsory nodes because non selected");
 			competenceTree.reloadTree();
-			Competence_webapp.reloadController.reload();
+			Controller.reloadController.reload();
 		}
 	}
 

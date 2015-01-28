@@ -9,7 +9,7 @@ import org.fusesource.restygwt.client.JsonEncoderDecoder;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceGraphFilterPanel;
@@ -91,9 +91,9 @@ public class GraphTab extends Composite {
 
 	public void loadGraphFromServer(List<String> selectedCompetences) {
 		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/graph/"
-						+ Competence_webapp.contextFactory.getCourseId());
+						+ Controller.contextFactory.getCourseId());
 		resource.addQueryParams("selectedCompetences", selectedCompetences)
 				.get().send(new JsonCallback() {
 
