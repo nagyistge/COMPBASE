@@ -1,6 +1,6 @@
 package uzuzjmd.competence.gui.client.competencegraph;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
 
@@ -39,8 +39,8 @@ public class CompetenceGraphFilterPanel extends Composite {
 		this.graphTab = graphtab;
 
 		filterCompetencesWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "  Kompetenzen filtern");
+				Controller.contextFactory, null, "coursecontextnofilter/",
+				"  Kompetenzen filtern");
 		filteredCompetencesPlaceholder.add(filterCompetencesWidget);
 
 	}

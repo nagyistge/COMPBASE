@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
 import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.linkView.ActivityTree;
 import uzuzjmd.competence.gui.shared.Evidence;
@@ -68,7 +68,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
 		String infoText = "";
-		if (Competence_webapp.contextFactory.getRole().equals("teacher")) {
+		if (Controller.contextFactory.getRole().equals("teacher")) {
 			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
 		} else {
 			infoText = "Ordnen Sie die Kursaktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das Bestehen des Kurses verpflichtend sind!";
@@ -160,7 +160,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 					AlertType.SUCCESS);
 			warningPlaceholder.add(alert);
 			GWT.log("erfolgreich Kompetenzen verknüpft");
-			Competence_webapp.reloadController.reload();
+			Controller.reloadController.reload();
 		}
 	}
 

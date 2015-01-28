@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
+import uzuzjmd.competence.gui.client.NativeContext;
 import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
 import uzuzjmd.competence.gui.shared.dto.CommentEntry;
 
@@ -132,7 +133,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 					+ commentEntry.getCommentName()));
 		}
 		setButtonImage(validated);
-		if (!Competence_webapp.contextFactory.getRole().equals("teacher")) {
+		if (!Controller.contextFactory.getRole().equals("teacher")) {
 			deleteButton.setVisible(false);
 			validateButton.setEnabled(false);
 		}
@@ -156,7 +157,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 			shouldValidate = "invalidate";
 		}
 		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/link/" + shouldValidate + "/"
 						+ abstractLinkId);
 		try {
@@ -181,7 +182,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		Competence_webapp.showMoodlePreview(evidenceUrl, previewAnchor);
+		NativeContext.showMoodlePreview(evidenceUrl, previewAnchor);
 	}
 
 	@UiHandler("createCommentButton")
@@ -216,7 +217,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	@UiHandler("deleteButton")
 	void onDeleteButtonClick(ClickEvent event) {
 		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/link/delete/" + abstractLinkId);
 		try {
 			resource.post().send(new RequestCallback() {

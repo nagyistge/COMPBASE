@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
 
@@ -64,14 +64,14 @@ public class CompetenceLinkCreationWidget extends Composite {
 		this.graphtab = graphtab;
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "  Vorausgesetzte Kompetenzen");
+				Controller.contextFactory, null, "coursecontextnofilter/",
+				"  Vorausgesetzte Kompetenzen");
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "  Nachfolgende Kompetenzen");
+				Controller.contextFactory, null, "coursecontextnofilter/",
+				"  Nachfolgende Kompetenzen");
 		followingCompetences.add(followingCompetenceSelectionWidget);
 		followingCompetences2.add(followingCompetenceSelectionWidget);
 	}
@@ -121,10 +121,9 @@ public class CompetenceLinkCreationWidget extends Composite {
 		for (String linkedCompetence : followingCompetences) {
 			try {
 				Resource resource = new Resource(
-						Competence_webapp.contextFactory.getServerURL()
+						Controller.contextFactory.getServerURL()
 								+ "/competences/json/prerequisite/create/"
-								+ Competence_webapp.contextFactory
-										.getCourseId());
+								+ Controller.contextFactory.getCourseId());
 				resource.addQueryParam("linkedCompetence", linkedCompetence)
 						.addQueryParams("selectedCompetences",
 								requiredCompetences).post()
