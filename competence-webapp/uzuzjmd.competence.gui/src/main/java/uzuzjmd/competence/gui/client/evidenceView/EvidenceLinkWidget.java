@@ -2,7 +2,7 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
@@ -35,7 +35,7 @@ public class EvidenceLinkWidget extends Composite {
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initCompetenceLinksView(list, stackPanelReloader, userName);
-		if (Competence_webapp.contextFactory.getRole().equals("student")) {
+		if (Controller.contextFactory.getRole().equals("student")) {
 			// validityPanelHeader.setVisible(false);
 			// deletePanelHeader.setVisible(false);
 			// deletePanelHeader.setTitle("");

@@ -2,7 +2,7 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
 
 import com.github.gwtbootstrap.client.ui.Button;
@@ -53,11 +53,11 @@ public class CommentWidget extends CompetenceTab {
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
 		Resource resource = new Resource(
-				Competence_webapp.contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/link/comment/" + linkId + "/"
-						+ Competence_webapp.contextFactory.getUser() + "/"
-						+ Competence_webapp.contextFactory.getCourseId() + "/"
-						+ Competence_webapp.contextFactory.getRole());
+						+ Controller.contextFactory.getUser() + "/"
+						+ Controller.contextFactory.getCourseId() + "/"
+						+ Controller.contextFactory.getRole());
 		try {
 			resource.addQueryParam("text", commentTextArea.getText()).post()
 					.send(new RequestCallback() {
