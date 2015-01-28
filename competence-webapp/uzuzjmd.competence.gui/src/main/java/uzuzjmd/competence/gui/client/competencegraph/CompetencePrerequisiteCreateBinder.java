@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Competence_webapp;
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
 
@@ -59,8 +59,8 @@ public class CompetencePrerequisiteCreateBinder extends Composite {
 		this.graphtab = graphtab;
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Competence_webapp.contextFactory, null,
-				"coursecontextnofilter/", "Vorausgesetzte Kompetenzen");
+				Controller.contextFactory, null, "coursecontextnofilter/",
+				"Vorausgesetzte Kompetenzen");
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 		this.followingCompetence = followingCompetence;
 	}
@@ -111,10 +111,9 @@ public class CompetencePrerequisiteCreateBinder extends Composite {
 		for (String linkedCompetence : followingCompetences) {
 			try {
 				Resource resource = new Resource(
-						Competence_webapp.contextFactory.getServerURL()
+						Controller.contextFactory.getServerURL()
 								+ "/competences/json/prerequisite/create/"
-								+ Competence_webapp.contextFactory
-										.getCourseId());
+								+ Controller.contextFactory.getCourseId());
 				resource.addQueryParam("linkedCompetence", linkedCompetence)
 						.addQueryParams("selectedCompetences",
 								requiredCompetences).post()
