@@ -24,9 +24,11 @@ import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceU
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedPortletSession;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
@@ -45,50 +47,43 @@ public class CompetencePortletUI extends UI {
 	private static Log log = LogFactoryUtil.getLog(CompetencePortletUI.class);
 
 	@Override
-	protected void init(VaadinRequest request) {
-		final String portletContextName = getPortletContextName(request);
-		final Integer numOfRegisteredUsers = getPortalCountOfRegisteredUsers();
+	protected void init(VaadinRequest request) {		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
-		setContent(layout);
-
-		final Button button = new Button("Click Me liferay yeah yeah");
-		button.addClickListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				layout.addComponent(new Label(
-						"Hello, World!<br>This is portlet "
-								+ portletContextName
-								+ ".<br>This portal has "
-								+ numOfRegisteredUsers
-								+ " registered users (according to the data returned by Liferay API call).",
-						ContentMode.HTML));
-
-			}
-		});
-		layout.addComponent(button);
-
-		// test liferay evidence persistence
-
-		// Evidence evidence = EvidenceLocalServiceUtil.createEvidence(Syste);
-		// evidence.setActivityTyp("gruppenarbeit");
-		// evidence.setLink("test2");
-		// try {
-		// EvidenceLocalServiceUtil.updateEvidence(evidence);
-		// } catch (SystemException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// layout.addComponent(new
-		// Label("we sucessfully persisted the evidence"));
-
-		// com.liferay.portal.service.ServiceContext serviceContext = new
-		// com.liferay.portal.service.ServiceContext();
-		// serviceContext.setScopeGroupId(11204l);
-		// serviceContext.setUserId(PrincipalThreadLocal.getUserId());
-
+		setContent(layout);		
+		
 		final ThemeDisplay themeDisplay = (ThemeDisplay) request
 				.getAttribute(WebKeys.THEME_DISPLAY);
+		System.out.println(themeDisplay.getServerName()+themeDisplay.getServerPort()+request.getContextPath());
+		
+		String serverPath = "http://"+themeDisplay.getServerName() + ":"+themeDisplay.getServerPort()+request.getContextPath();
+		
+		
+		String user = "default";
+		try {
+			user = UserLocalServiceUtil.getUser(PrincipalThreadLocal.getUserId()).getLogin();
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		BrowserFrame browser = new BrowserFrame("", new ExternalResource(serverPath+"/Competence_webapp.html?user="+user));
+		browser.setWidth("1000px");
+		browser.setHeight("900px");		
+	
+		layout.addComponent(browser);
+		
+		updateActivities(request, themeDisplay);
+	}
+	
+
+
+	private void updateActivities(VaadinRequest request, ThemeDisplay themeDisplay) {
+		
 		com.liferay.portal.service.ServiceContext serviceContext;
 		try {
 			serviceContext = ServiceContextFactory.getInstance(themeDisplay
@@ -138,26 +133,5 @@ public class CompetencePortletUI extends UI {
 		return Jsoup.parse(input.getTitle()).getElementsByTag("body").text().split(",")[0].split(" a ")[1];
 	}
 
-	private String getPortletContextName(VaadinRequest request) {
-		WrappedPortletSession wrappedPortletSession = (WrappedPortletSession) request
-				.getWrappedSession();
-		PortletSession portletSession = wrappedPortletSession
-				.getPortletSession();
-
-		final PortletContext context = portletSession.getPortletContext();
-		final String portletContextName = context.getPortletContextName();
-		return portletContextName;
-	}
-
-	private Integer getPortalCountOfRegisteredUsers() {
-		Integer result = null;
-
-		try {
-			result = UserLocalServiceUtil.getUsersCount();
-		} catch (SystemException e) {
-			log.error(e);
-		}
-
-		return result;
-	}
+	
 }
