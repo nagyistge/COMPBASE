@@ -4,6 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>Competence Management Portlet</display-name>
 
+	<welcome-file-list>
+		<welcome-file>Competence_webapp.html</welcome-file>
+	</welcome-file-list>
+	
+	
 	<servlet>
 		<servlet-name>VaadinServlet</servlet-name>
 		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
