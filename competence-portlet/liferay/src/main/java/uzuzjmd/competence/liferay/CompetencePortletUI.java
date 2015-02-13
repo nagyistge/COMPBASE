@@ -53,11 +53,11 @@ public class CompetencePortletUI extends UI {
 		setContent(layout);		
 		
 		final ThemeDisplay themeDisplay = (ThemeDisplay) request
-				.getAttribute(WebKeys.THEME_DISPLAY);
-		System.out.println(themeDisplay.getServerName()+themeDisplay.getServerPort()+request.getContextPath());
+				.getAttribute(WebKeys.THEME_DISPLAY);		
 		
 		String serverPath = "http://"+themeDisplay.getServerName() + ":"+themeDisplay.getServerPort()+request.getContextPath();
 		
+		System.out.println(serverPath);
 		
 		String user = "default";
 		try {
