@@ -72,8 +72,8 @@ public class CompetencePortletUI extends UI {
 		
 		
 		BrowserFrame browser = new BrowserFrame("", new ExternalResource(serverPath+"/Competence_webapp.html?user="+user));
-		browser.setWidth("1000px");
-		browser.setHeight("900px");		
+		browser.setWidth("1200px");
+		browser.setHeight("400px");				
 	
 		layout.addComponent(browser);
 		
