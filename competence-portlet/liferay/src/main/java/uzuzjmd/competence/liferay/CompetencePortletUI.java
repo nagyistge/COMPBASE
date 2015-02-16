@@ -22,6 +22,8 @@ import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+import com.vaadin.annotations.JavaScript;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.ExternalResource;
@@ -31,7 +33,9 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -39,6 +43,38 @@ import de.unipotsdam.elis.NoSuchEvidenceException;
 import de.unipotsdam.elis.model.Evidence;
 import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 
+@StyleSheet({		
+		"css/competencecss/progressTab.css",
+		"js/resources/css/ext-all.css",
+		"css/competencecss/activity.css",
+		"css/competencecss/preview.css",
+		"css/competencecss/competenceSelection.css",
+		"css/competencecss/requirementTab.css",
+		"css/competencecss/evidencePopup.css",
+		"css/competencecss/graphTab.css", 
+		"js/columntree/column-tree.css", 
+	    "gwtcss/GwtExt.css", 
+	    "gwtcss/css/bootstrap.min.css",
+	    "gwtcss/css/font-awesome.min.css",
+	    "gwtcss/gwt/clean/clean.css",
+	    "gwtcss/gwt/standard/standard.css",
+		})
+@JavaScript({
+	    "vaadin://js/adapter/yui/yui-utilities.js",
+		"vaadin://js/adapter/yui/ext-yui-adapter.js",
+		"vaadin://js/ext-all.js",
+		"vaadin://js/columntree/ColumnNodeUI.js",
+		"vaadin://js/jquery11.js",
+		"vaadin://js/jquery11migrate.js",
+		"vaadin://js/jquery.qtip-1.0.0-rc3.min.js",
+		"vaadin://js/competencejs/preview.js",
+		"http://html5shim.googlecode.com/svn/trunk/html5.js",		
+		"vaadin://js/competencejs/zeige_kompetenz.js",
+		"vaadin://js/dracula/js/raphael-min2.js",
+		"vaadin://js/dracula/js/dracula_graffle.js",
+		"vaadin://js/dracula/js/dracula_graph.js",
+		"vaadin://js/competencejs/graphLayouter.js",
+		"vaadin://js/gwtjs/competence_webapp.nocache.js"})
 @Theme("competencetheme")
 @SuppressWarnings("serial")
 @Widgetset("uzuzjmd.competence.liferay.AppWidgetSet")
@@ -47,21 +83,23 @@ public class CompetencePortletUI extends UI {
 	private static Log log = LogFactoryUtil.getLog(CompetencePortletUI.class);
 
 	@Override
-	protected void init(VaadinRequest request) {		
+	protected void init(VaadinRequest request) {
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
-		setContent(layout);		
-		
+		setContent(layout);
+
 		final ThemeDisplay themeDisplay = (ThemeDisplay) request
-				.getAttribute(WebKeys.THEME_DISPLAY);		
-		
-		String serverPath = "http://"+themeDisplay.getServerName() + ":"+themeDisplay.getServerPort()+request.getContextPath();
-		
+				.getAttribute(WebKeys.THEME_DISPLAY);
+
+		String serverPath = "http://" + themeDisplay.getServerName() + ":"
+				+ themeDisplay.getServerPort() + request.getContextPath();
+
 		System.out.println(serverPath);
-		
+
 		String user = "default";
 		try {
-			user = UserLocalServiceUtil.getUser(PrincipalThreadLocal.getUserId()).getLogin();
+			user = UserLocalServiceUtil.getUser(
+					PrincipalThreadLocal.getUserId()).getLogin();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,21 +107,32 @@ public class CompetencePortletUI extends UI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		BrowserFrame browser = new BrowserFrame("", new ExternalResource(serverPath+"/Competence_webapp.html?user="+user));
-		browser.setWidth("1200px");
-		browser.setHeight("400px");				
-	
-		layout.addComponent(browser);
-		
+
+		// BrowserFrame browser = new BrowserFrame("", new
+		// ExternalResource(serverPath+"/Competence_webapp.html?user="+user));
+		// browser.setWidth("1200px");
+		// browser.setHeight("400px");
+
+		// layout.addComponent(browser);
+
+		Panel panel = new Panel();
+		panel.setSizeUndefined();
+		layout.addComponent(panel);
+
+		// Create custom layout from "layoutname.html" template.
+		CustomLayout custom = new CustomLayout("Competence_webapp");
+		custom.addStyleName("Competence_webapp");		
+		custom.setSizeFull();
+
+		// Use it as the layout of the Panel.
+		panel.setContent(custom);
+
 		updateActivities(request, themeDisplay);
 	}
-	
 
+	private void updateActivities(VaadinRequest request,
+			ThemeDisplay themeDisplay) {
 
-	private void updateActivities(VaadinRequest request, ThemeDisplay themeDisplay) {
-		
 		com.liferay.portal.service.ServiceContext serviceContext;
 		try {
 			serviceContext = ServiceContextFactory.getInstance(themeDisplay
@@ -95,24 +144,27 @@ public class CompetencePortletUI extends UI {
 			for (SocialActivity socialActivity : activities) {
 				SocialActivityFeedEntry interpretedActivity = SocialActivityInterpreterLocalServiceUtil
 						.interpret(StringPool.BLANK, socialActivity,
-								serviceContext);				
+								serviceContext);
 				try {
 					Evidence evidence = null;
 					try {
-						evidence = EvidenceLocalServiceUtil.getEvidence(socialActivity.getActivityId());
-					}
-					catch (NoSuchEvidenceException e) {					
-						evidence = EvidenceLocalServiceUtil.createEvidence(socialActivity.getActivityId());											
+						evidence = EvidenceLocalServiceUtil
+								.getEvidence(socialActivity.getActivityId());
+					} catch (NoSuchEvidenceException e) {
+						evidence = EvidenceLocalServiceUtil
+								.createEvidence(socialActivity.getActivityId());
 					}
 					evidence.setLink(interpretedActivity.getLink());
 					evidence.setTitle(socialActivity.getExtraData().split(":")[1]);
 					evidence.setActivityTyp(cleanActivityTyp(interpretedActivity));
-					evidence.setCreateDate(new Date(socialActivity.getCreateDate()));			
+					evidence.setCreateDate(new Date(socialActivity
+							.getCreateDate()));
 					evidence.setGroupId(serviceContext.getScopeGroupId());
 					evidence.setCompanyId(serviceContext.getCompanyId());
 					evidence.setUserId(socialActivity.getUserId());
-					evidence.setUserName(UserLocalServiceUtil.getUser(socialActivity.getUserId()).getFullName());					
-					EvidenceLocalServiceUtil.updateEvidence(evidence);										
+					evidence.setUserName(UserLocalServiceUtil.getUser(
+							socialActivity.getUserId()).getFullName());
+					EvidenceLocalServiceUtil.updateEvidence(evidence);
 				} catch (NullPointerException e) {
 
 				}
@@ -128,10 +180,17 @@ public class CompetencePortletUI extends UI {
 			e1.printStackTrace();
 		}
 	}
-	
-	private String cleanActivityTyp (SocialActivityFeedEntry input) {		
-		return Jsoup.parse(input.getTitle()).getElementsByTag("body").text().split(",")[0].split(" a ")[1];
-	}
 
+	private String cleanActivityTyp(SocialActivityFeedEntry input) {
+		return Jsoup.parse(input.getTitle()).getElementsByTag("body").text()
+				.split(",")[0].split(" a ")[1];
+	}
 	
+	private native void jsniFunction()
+	/*-{
+	           
+	}-*/;
+
+
+
 }
