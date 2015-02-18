@@ -2,9 +2,9 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksMap;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
@@ -33,7 +33,7 @@ public class EvidenceStackPanel extends Composite {
 	Button closeButton;
 	private PopupPanel container;
 	private String userName;
-	private ContextFactory context;
+	private LMSContextFactory context;
 
 	public interface CompetenceLinksMapCodec extends
 			JsonEncoderDecoder<CompetenceLinksMap> {
@@ -44,7 +44,7 @@ public class EvidenceStackPanel extends Composite {
 	}
 
 	public EvidenceStackPanel(PopupPanel container, String userName,
-			ContextFactory context) {
+			LMSContextFactory context) {
 		this.userName = userName;
 		this.context = context;
 		initWidget(uiBinder.createAndBindUi(this));

@@ -3,23 +3,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>uzuzjmd.competence</groupId>
-  <artifactId>competence-application</artifactId>
+  <artifactId>competence-shared</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
 
-  <name>competence-application</name>
-  <url>https://github.com/uzuzjmd?tab=repositories</url>
+  <name>competence-shared</name>
+  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
-  <modules>
-	<module>../competence-shared</module>
-	<module>../competence-portlet/liferay</module>
-  	<module>../competence-webapp/uzuzjmd.competence.gui</module>
-  	<!-- <module>../competence-database</module> -->
-  </modules>
 
   <dependencies>
     <dependency>

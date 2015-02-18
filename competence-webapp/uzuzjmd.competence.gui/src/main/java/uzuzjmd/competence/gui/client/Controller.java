@@ -5,12 +5,14 @@ import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
+import uzuzjmd.competence.shared.ContextFactoryHolder;
+import uzuzjmd.competence.shared.LMSContextFactory;
 import com.google.gwt.core.client.GWT;
 
 public class Controller {
 	public static ProgressTab progessTab;
 	public static ReloadController reloadController;
-	public static ContextFactory contextFactory;
+	public static LMSContextFactory contextFactory;
 	public static LinkEvidenceTab linkEvidenceTab;
 	public static RequirementTab requirementTab;
 
@@ -22,7 +24,7 @@ public class Controller {
 		}
 
 		if (myConstants.contextImplementation().equals("liferay")) {
-			Controller.contextFactory = new LiferayContextFactory();
+			Controller.contextFactory = ContextFactoryHolder.contextFactory;
 		}
 
 		Controller.progessTab = new ProgressTab(Controller.contextFactory);

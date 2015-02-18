@@ -3,7 +3,7 @@ package uzuzjmd.competence.gui.shared.widgets;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
@@ -27,7 +27,7 @@ public abstract class MyTreePanel extends Panel {
 
 	protected String databaseConnectionString;
 
-	protected ContextFactory contextFactory;
+	protected LMSContextFactory contextFactory;
 
 	public String title;
 
@@ -52,7 +52,7 @@ public abstract class MyTreePanel extends Panel {
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
 			String className, Integer width, Integer height, String title,
-			ContextFactory contextFactory) {
+			LMSContextFactory contextFactory) {
 		super();
 		this.contextFactory = contextFactory;
 		this.title = title;
