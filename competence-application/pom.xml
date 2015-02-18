@@ -15,9 +15,9 @@
   </properties>
   
   <modules>
-	<module>../competence-shared</module>
-	<module>../competence-portlet/liferay</module>
-  	<module>../competence-webapp/uzuzjmd.competence.gui</module>
+<!-- 	<module>../competence-shared</module> -->
+	<module>../competence-webapp/uzuzjmd.competence.gui</module>
+	<module>../competence-portlet/liferay</module>  	
   	<!-- <module>../competence-database</module> -->
   </modules>
 

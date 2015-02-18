@@ -5,7 +5,7 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;

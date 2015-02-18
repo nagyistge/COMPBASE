@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared.widgets;
+package uzuzjmd.competence.gui.client.shared.widgets;
 
 public interface ContentLoader {
 	public abstract void setId(String id);

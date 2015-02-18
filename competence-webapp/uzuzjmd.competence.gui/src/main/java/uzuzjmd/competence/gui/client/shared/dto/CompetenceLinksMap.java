@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared.dto;
+package uzuzjmd.competence.gui.client.shared.dto;
 
 import java.util.HashMap;
 import java.util.List;

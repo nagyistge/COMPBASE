@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared.widgets;
+package uzuzjmd.competence.gui.client.shared.widgets;
 
 import java.util.Collection;
 
