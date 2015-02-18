@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared.widgets;
+package uzuzjmd.competence.gui.client.shared.widgets;
 
 public class GeometryUtil {
 	public static Boolean inRange(Integer x1, Integer y1, Integer x2, Integer y2) {

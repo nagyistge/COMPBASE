@@ -3,8 +3,8 @@ package uzuzjmd.competence.gui.client.evidenceView;
 import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
 import uzuzjmd.competence.gui.client.Controller;
-import uzuzjmd.competence.gui.shared.dto.CompetenceLinksMap;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.shared.dto.CompetenceLinksMap;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;

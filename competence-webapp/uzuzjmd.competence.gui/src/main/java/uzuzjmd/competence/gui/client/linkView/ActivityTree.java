@@ -5,10 +5,10 @@ import static com.google.gwt.query.client.GQuery.$;
 import java.util.LinkedList;
 import java.util.List;
 
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 import uzuzjmd.competence.gui.client.NativeContext;
-import uzuzjmd.competence.gui.shared.Evidence;
-import uzuzjmd.competence.gui.shared.widgets.MyTreePanel;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.shared.Evidence;
+import uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;

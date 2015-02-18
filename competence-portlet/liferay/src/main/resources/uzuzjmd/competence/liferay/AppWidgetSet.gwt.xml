@@ -5,9 +5,9 @@
         This file is automatically updated based on new dependencies by the
         goal "vaadin:update-widgetset".
     -->
-
+    <inherits name='com.google.gwt.user.User' />	
     <!-- Inherit DefaultWidgetSet -->
     <inherits name="com.vaadin.DefaultWidgetSet" />
-<!--     <inherits name="uzuzjmd.competence.gui.Competence_webapp" />   -->
+    <inherits name="uzuzjmd.competence.gui.Competence_webapp" />  
 
 </module>

@@ -1,8 +1,8 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.shared;
 
 import java.util.Comparator;
 
-import uzuzjmd.competence.gui.shared.dto.CommentEntry;
+import uzuzjmd.competence.gui.client.shared.dto.CommentEntry;
 
 public class CommentEntryComparator implements Comparator<CommentEntry> {
 

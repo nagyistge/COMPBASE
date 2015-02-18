@@ -11,7 +11,6 @@
 	<name>Competence GWT Application</name>
 
 
-
 	<repositories>
 		<repository>
 			<id>fusesource-snapshots</id>
@@ -36,23 +35,17 @@
 		</repository>
 	</repositories>
 
-
 	<properties>
 		<!-- Convenience property to set the GWT version -->
 		<gwtVersion>2.6.1</gwtVersion>
 		<!-- GWT needs at least java 1.5 -->
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
 	</properties>
 
 	<dependencies>
 
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwtVersion}</version>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
@@ -60,28 +53,18 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.fusesource.restygwt</groupId>
-			<artifactId>restygwt</artifactId>
-			<version>1.4</version>
-		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.fusesource.restygwt</groupId> -->
-		<!-- <artifactId>restygwt</artifactId> -->
-		<!-- <version>1.5-SNAPSHOT</version> -->
-		<!-- </dependency> -->
 
 		<dependency>
-			<groupId>com.googlecode.gwtquery</groupId>
-			<artifactId>gwtquery</artifactId>
-			<version>1.4.1</version>
-			<!-- If you are using old versions of gwt, use version 1.1.0 of GwtQuery 
-				and uncomment the appropriate line -->
-			<!-- <version>1.1.0</version> -->
-			<!-- <classifier>2.1.0</classifier> -->
-			<!-- <classifier>2.0.1</classifier> -->
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
 		</dependency>
+
+
+
+
 
 		<!-- <dependency> -->
 		<!-- <groupId>uzuzjmd.competence</groupId> -->
@@ -96,12 +79,23 @@
 		</dependency>
 
 
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+
+
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -128,6 +122,30 @@
 			<version>2.3.2.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.fusesource.restygwt</groupId> -->
+		<!-- <artifactId>restygwt</artifactId> -->
+		<!-- <version>1.5-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.googlecode.gwtquery</groupId>
+			<artifactId>gwtquery</artifactId>
+			<version>1.4.1</version>
+			<!-- If you are using old versions of gwt, use version 1.1.0 of GwtQuery 
+				and uncomment the appropriate line -->
+			<!-- <version>1.1.0</version> -->
+			<!-- <classifier>2.1.0</classifier> -->
+			<!-- <classifier>2.0.1</classifier> -->
+		</dependency>
+
+
 		<!-- <dependency> -->
 		<!-- <groupId>uzuzjmd.downloaded</groupId> -->
 		<!-- <artifactId>raphaelgwt-r42</artifactId> -->
@@ -152,11 +170,11 @@
 		<!-- <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gwt-bootstrap-2.3.2.1-ownbuildwithfix.jar</systemPath> -->
 		<!-- </dependency> -->
 
-		<dependency>
-			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-shared</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>competence-shared</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -170,7 +188,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>${gwtVersion}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -210,6 +228,26 @@
 				<!-- </configuration> -->
 			</plugin>
 		</plugins>
+
+<!-- This is necessary so the widget can be reused in vaadin -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+					<include>**/*.ui.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
