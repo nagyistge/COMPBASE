@@ -3,7 +3,7 @@ package uzuzjmd.competence.gui.shared.widgets;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.gwtext.client.widgets.tree.TreeNode;
 
@@ -11,7 +11,7 @@ public abstract class CheckableTreePanel extends MyTreePanel {
 
 	public CheckableTreePanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, ContextFactory contextFactory) {
+			String title, LMSContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
 				title, contextFactory);
 	}

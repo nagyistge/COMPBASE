@@ -1,12 +1,17 @@
 package uzuzjmd.competence.gui.client;
 
-public class MoodleContextFactory extends ContextFactory {
+
+
+import uzuzjmd.competence.shared.*;
+
+
+public class MoodleContextFactory extends LMSContextFactory {
 
 	public native int getCourseIdFromContext()/*-{
 		return $wnd.courseId;
 	}-*/;
 
-	public native String getServerUrlFromContext()/*-{
+	public native String getCompetenceServerURL()/*-{
 		return $wnd.serverUrl;
 	}-*/;
 

@@ -6,10 +6,10 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.progressView.ProgressEntry;
 import uzuzjmd.competence.gui.shared.JsonUtil;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -49,12 +49,12 @@ public class ProgressTab extends CompetenceTab {
 
 	private Alert alert;
 	private CompetenceSelectionWidget competenceSelectionWidget;
-	private ContextFactory contextFactory;
+	private LMSContextFactory contextFactory;
 
 	interface ProgressTabUiBinder extends UiBinder<Widget, ProgressTab> {
 	}
 
-	public ProgressTab(final ContextFactory contextFactory) {
+	public ProgressTab(final LMSContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		this.contextFactory = contextFactory;
@@ -71,7 +71,7 @@ public class ProgressTab extends CompetenceTab {
 
 	}
 
-	public void showProgressEntries(final ContextFactory contextFactory,
+	public void showProgressEntries(final LMSContextFactory contextFactory,
 			final boolean firstShow) {
 		progressPlaceHolder.clear();
 		Resource resource = new Resource(contextFactory.getServerURL()

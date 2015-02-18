@@ -6,10 +6,10 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel.CompetenceLinksMapCodec;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.gui.shared.dto.CompetenceLinksView;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONValue;
@@ -21,13 +21,13 @@ import com.google.gwt.user.client.ui.SimplePanel;
 class StackPanelReloader {
 	private DecoratedStackPanel decoratedStackPanel;
 	private String username;
-	private ContextFactory context;
+	private LMSContextFactory context;
 	public Boolean commentEntryWasSuccess;
 	public String commentEntryIdLastUpdated = "";
 	private int selected;
 
 	public StackPanelReloader(DecoratedStackPanel decoratedStackPanel,
-			String username, ContextFactory context,
+			String username, LMSContextFactory context,
 			Boolean commentEntryWasSuccess) {
 		this.decoratedStackPanel = decoratedStackPanel;
 		this.username = username;
@@ -46,7 +46,7 @@ class StackPanelReloader {
 	}
 
 	private void loadEvidencesFromServer(final String userName,
-			final ContextFactory context) {
+			final LMSContextFactory context) {
 		Resource resource = new Resource(context.getServerURL()
 				+ "/competences/json/link/overview/" + userName);
 		resource.get().send(new MyJsonCallBack(this));
