@@ -1,7 +1,7 @@
 package uzuzjmd.competence.gui.client.progressView;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Label;
@@ -31,13 +31,13 @@ public class ProgressEntry extends Composite {
 	private ProgressBar progressBar;
 	private String userName;
 	private PopupPanel popup;
-	private ContextFactory contextFactory;
+	private LMSContextFactory contextFactory;
 
 	interface ProgressEntryUiBinder extends UiBinder<Widget, ProgressEntry> {
 	}
 
 	public ProgressEntry(String userName, int progress,
-			ContextFactory contextFactory) {
+			LMSContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
 		this.userName = userName;

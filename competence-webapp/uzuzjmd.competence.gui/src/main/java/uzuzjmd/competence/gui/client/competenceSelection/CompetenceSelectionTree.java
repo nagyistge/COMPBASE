@@ -6,8 +6,8 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.ContextFactory;
 import uzuzjmd.competence.gui.shared.widgets.CheckableTreePanel;
+import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
@@ -25,14 +25,14 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 	@Deprecated
 	public CompetenceSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, ContextFactory contextFactory) {
+			String title, LMSContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
 				title, contextFactory);
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
 	public CompetenceSelectionTree(String dataString,
-			ContextFactory contextFactory, String selectedFilter) {
+			LMSContextFactory contextFactory, String selectedFilter) {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", 650, 150,
 				"Kompetenzen", contextFactory);

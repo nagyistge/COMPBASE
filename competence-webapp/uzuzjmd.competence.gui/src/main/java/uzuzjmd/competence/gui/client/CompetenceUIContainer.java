@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import uzuzjmd.competence.shared.*;
+
 public class CompetenceUIContainer extends Composite {
 
 	private static CompetenceUIContainerUiBinder uiBinder = GWT

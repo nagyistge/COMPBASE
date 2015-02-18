@@ -8,6 +8,8 @@ import javax.portlet.PortletSession;
 
 import org.jsoup.Jsoup;
 
+import uzuzjmd.competence.shared.ContextFactoryHolder;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -27,6 +29,7 @@ import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.ExternalResource;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedPortletSession;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -83,7 +86,15 @@ public class CompetencePortletUI extends UI {
 	private static Log log = LogFactoryUtil.getLog(CompetencePortletUI.class);
 
 	@Override
-	protected void init(VaadinRequest request) {
+	protected void init(VaadinRequest request) {					
+//		Page.getCurrent().getJavaScript().execute("courseId = 10184;");
+//		Page.getCurrent().getJavaScript().execute("serverUrl = 'http://localhost:8084';");
+//		Page.getCurrent().getJavaScript().execute("evidenceServerUrl = 'http://localhost:8083';");
+//		Page.getCurrent().getJavaScript().execute("role = 'teacher'");
+//		Page.getCurrent().getJavaScript().execute("user = 'Julian Teacher';");				
+		
+		ContextFactoryHolder.contextFactory = new LiferayContextFactory();
+		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
 		setContent(layout);
@@ -115,7 +126,7 @@ public class CompetencePortletUI extends UI {
 
 		// layout.addComponent(browser);
 
-		Panel panel = new Panel();
+		Panel panel = new LiferayContextPanel();
 		panel.setSizeUndefined();
 		layout.addComponent(panel);
 
@@ -186,11 +197,7 @@ public class CompetencePortletUI extends UI {
 				.split(",")[0].split(" a ")[1];
 	}
 	
-	private native void jsniFunction()
-	/*-{
-	           
-	}-*/;
-
+	
 
 
 }
