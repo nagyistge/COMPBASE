@@ -6,6 +6,7 @@
 	<artifactId>competence-portlet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>liferay Portlet</name>
+	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,7 +54,6 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<packaging>war</packaging>
 	<dependencies>
 
 		<!-- Vaadin dependencies -->
@@ -115,10 +115,45 @@
 			<version>${liferay.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		
-		
-		
+
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>competence-shared</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
+<!-- 	<dependency> -->
+<!--     <groupId>${project.groupId}</groupId> -->
+<!--     <artifactId>your-project-arftifactId</artifactId> -->
+<!--     <version>${project.version}</version>   -->
+<!--     <type>war</type> -->
+<!--     <scope>test</scope> -->
+<!-- </dependency> -->
+<!-- then configure maven-war-plugin overlay: -->
+
+<!-- <plugins> -->
+<!--     <plugin> -->
+<!--         <groupId>org.apache.maven.plugins</groupId> -->
+<!--         <artifactId>maven-war-plugin</artifactId> -->
+<!--         <configuration> -->
+<!--             <webResources> -->
+<!--                 <resource> -->
+<!--                     <directory>${basedir}/src/main/webresources</directory> -->
+<!--                     <filtering>true</filtering> -->
+<!--                 </resource> -->
+<!--             </webResources> -->
+<!--             <overlays> -->
+<!--                 <overlay/> -->
+<!--                 <overlay> -->
+<!--                     <groupId>your.group</groupId> -->
+<!--                     <artifactId>your-project-artifactId</artifactId> -->
+<!--                 </overlay> -->
+<!--             </overlays> -->
+<!--         </configuration> -->
+<!--     </plugin> -->
+
+
 	</dependencies>
 
 	<build>
@@ -133,6 +168,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
