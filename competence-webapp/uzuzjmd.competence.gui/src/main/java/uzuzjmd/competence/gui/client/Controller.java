@@ -5,8 +5,6 @@ import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
-import uzuzjmd.competence.shared.ContextFactoryHolder;
-import uzuzjmd.competence.shared.LMSContextFactory;
 import com.google.gwt.core.client.GWT;
 
 public class Controller {

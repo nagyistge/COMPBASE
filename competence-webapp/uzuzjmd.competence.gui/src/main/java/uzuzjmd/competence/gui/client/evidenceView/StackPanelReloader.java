@@ -6,10 +6,10 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel.CompetenceLinksMapCodec;
-import uzuzjmd.competence.gui.shared.dto.CompetenceLinksMap;
-import uzuzjmd.competence.gui.shared.dto.CompetenceLinksView;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.shared.dto.CompetenceLinksMap;
+import uzuzjmd.competence.gui.client.shared.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONValue;

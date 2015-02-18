@@ -2,7 +2,6 @@ package uzuzjmd.competence.gui.client;
 
 
 
-import uzuzjmd.competence.shared.*;
 
 
 public class MoodleContextFactory extends LMSContextFactory {

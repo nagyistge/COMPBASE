@@ -3,12 +3,9 @@ package uzuzjmd.competence.liferay;
 import java.util.Date;
 import java.util.List;
 
-import javax.portlet.PortletContext;
-import javax.portlet.PortletSession;
-
 import org.jsoup.Jsoup;
 
-import uzuzjmd.competence.shared.ContextFactoryHolder;
+import uzuzjmd.competence.gui.client.ContextFactoryHolder;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -28,16 +25,8 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.WrappedPortletSession;
-import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.BrowserFrame;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -77,7 +66,8 @@ import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 		"vaadin://js/dracula/js/dracula_graffle.js",
 		"vaadin://js/dracula/js/dracula_graph.js",
 		"vaadin://js/competencejs/graphLayouter.js",
-		"vaadin://js/gwtjs/competence_webapp.nocache.js"})
+//		"vaadin://js/gwtjs/competence_webapp.nocache.js"		
+})
 @Theme("competencetheme")
 @SuppressWarnings("serial")
 @Widgetset("uzuzjmd.competence.liferay.AppWidgetSet")
@@ -91,7 +81,9 @@ public class CompetencePortletUI extends UI {
 //		Page.getCurrent().getJavaScript().execute("serverUrl = 'http://localhost:8084';");
 //		Page.getCurrent().getJavaScript().execute("evidenceServerUrl = 'http://localhost:8083';");
 //		Page.getCurrent().getJavaScript().execute("role = 'teacher'");
-//		Page.getCurrent().getJavaScript().execute("user = 'Julian Teacher';");				
+//		Page.getCurrent().getJavaScript().execute("user = 'Julian Teacher';");	
+		
+//		CompetenceUIContainer test = new CompetenceUIContainer();
 		
 		ContextFactoryHolder.contextFactory = new LiferayContextFactory();
 		
@@ -126,17 +118,20 @@ public class CompetencePortletUI extends UI {
 
 		// layout.addComponent(browser);
 
-		Panel panel = new LiferayContextPanel();
-		panel.setSizeUndefined();
-		layout.addComponent(panel);
+//		Panel panel = new LiferayContextPanel();
+//		panel.setSizeUndefined();
+//		layout.addComponent(panel);
 
 		// Create custom layout from "layoutname.html" template.
-		CustomLayout custom = new CustomLayout("Competence_webapp");
-		custom.addStyleName("Competence_webapp");		
-		custom.setSizeFull();
+//		CustomLayout custom = new CustomLayout("Competence_webapp");
+//		custom.addStyleName("Competence_webapp");		
+//		custom.setSizeFull();
 
 		// Use it as the layout of the Panel.
-		panel.setContent(custom);
+//		panel.setContent(custom);
+		
+		CompetenceUIWrapper competenceUI = new CompetenceUIWrapper();	
+		layout.addComponent(competenceUI);		
 
 		updateActivities(request, themeDisplay);
 	}

@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.shared;
 
 import java.util.HashMap;
 

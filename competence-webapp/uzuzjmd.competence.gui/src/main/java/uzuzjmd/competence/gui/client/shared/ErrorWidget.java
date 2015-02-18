@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.shared;
+package uzuzjmd.competence.gui.client.shared;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;

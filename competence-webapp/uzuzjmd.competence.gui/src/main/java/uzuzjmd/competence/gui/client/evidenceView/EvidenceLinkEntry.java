@@ -6,8 +6,8 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.NativeContext;
+import uzuzjmd.competence.gui.client.shared.dto.CommentEntry;
 import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
-import uzuzjmd.competence.gui.shared.dto.CommentEntry;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
