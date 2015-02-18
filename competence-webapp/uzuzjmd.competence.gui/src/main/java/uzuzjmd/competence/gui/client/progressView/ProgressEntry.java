@@ -1,7 +1,7 @@
 package uzuzjmd.competence.gui.client.progressView;
 
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 import uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel;
-import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Label;

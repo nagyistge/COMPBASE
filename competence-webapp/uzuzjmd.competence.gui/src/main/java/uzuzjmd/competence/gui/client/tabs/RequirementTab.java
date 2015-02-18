@@ -4,8 +4,8 @@ import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 import org.fusesource.restygwt.client.TextCallback;
 
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
-import uzuzjmd.competence.shared.LMSContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;

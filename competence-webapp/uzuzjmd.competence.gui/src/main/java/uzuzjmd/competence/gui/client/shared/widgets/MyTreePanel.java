@@ -1,9 +1,9 @@
-package uzuzjmd.competence.gui.shared.widgets;
+package uzuzjmd.competence.gui.client.shared.widgets;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;

@@ -1,7 +1,7 @@
 package uzuzjmd.competence.gui.client.competencegraph;
 
+import uzuzjmd.competence.gui.client.shared.widgets.ClickMenu;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
-import uzuzjmd.competence.gui.shared.widgets.ClickMenu;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;

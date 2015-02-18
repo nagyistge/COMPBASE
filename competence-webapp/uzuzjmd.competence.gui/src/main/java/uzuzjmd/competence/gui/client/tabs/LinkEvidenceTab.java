@@ -7,10 +7,10 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
+import uzuzjmd.competence.gui.client.LMSContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.linkView.ActivityTree;
-import uzuzjmd.competence.gui.shared.Evidence;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.shared.Evidence;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;

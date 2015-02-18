@@ -6,8 +6,8 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.shared.widgets.CheckableTreePanel;
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.shared.widgets.CheckableTreePanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;

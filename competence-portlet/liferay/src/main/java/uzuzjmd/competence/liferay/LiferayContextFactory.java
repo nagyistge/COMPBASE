@@ -1,6 +1,6 @@
 package uzuzjmd.competence.liferay;
 
-import uzuzjmd.competence.shared.LMSContextFactory;
+import uzuzjmd.competence.gui.client.*;
 
 public class LiferayContextFactory extends LMSContextFactory {
 

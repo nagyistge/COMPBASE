@@ -3,7 +3,7 @@ package uzuzjmd.competence.gui.client.evidenceView;
 import java.util.List;
 
 import uzuzjmd.competence.gui.client.Controller;
-import uzuzjmd.competence.gui.shared.dto.CompetenceLinksView;
+import uzuzjmd.competence.gui.client.shared.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

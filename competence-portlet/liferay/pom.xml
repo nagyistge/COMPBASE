@@ -10,9 +10,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.3.9</vaadin.version>
+		<vaadin.version>7.3.10</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<liferay.version>[6.2.1,)</liferay.version>
+		<gwtVersion>2.6.1</gwtVersion>
+		<gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
 	</properties>
 	<repositories>
 		<repository>
@@ -55,6 +57,46 @@
 	</pluginRepositories>
 
 	<dependencies>
+	
+			<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>shared</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-codeserver</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+	
 
 		<!-- Vaadin dependencies -->
 		<dependency>
@@ -116,58 +158,124 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>competence-shared</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+
+
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>gui</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- <type>pom</type> -->
+		<!-- </dependency> -->
+
+
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-shared</artifactId>
+			<artifactId>gui</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<!-- <type>pom</type> -->
+			<classifier>classes</classifier>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>uzuzjmd.competence</groupId> -->
+<!-- 			<artifactId>gui</artifactId> -->
+<!-- 			<version>0.0.1-SNAPSHOT</version> -->
+<!-- 			<type>war</type> -->
+			<!-- <classifier>classes</classifier> -->
+<!-- 		</dependency> -->
 
-<!-- 	<dependency> -->
-<!--     <groupId>${project.groupId}</groupId> -->
-<!--     <artifactId>your-project-arftifactId</artifactId> -->
-<!--     <version>${project.version}</version>   -->
-<!--     <type>war</type> -->
-<!--     <scope>test</scope> -->
-<!-- </dependency> -->
-<!-- then configure maven-war-plugin overlay: -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<classifier>sources</classifier>
+			<scope>test</scope>
+		</dependency>
 
-<!-- <plugins> -->
-<!--     <plugin> -->
-<!--         <groupId>org.apache.maven.plugins</groupId> -->
-<!--         <artifactId>maven-war-plugin</artifactId> -->
-<!--         <configuration> -->
-<!--             <webResources> -->
-<!--                 <resource> -->
-<!--                     <directory>${basedir}/src/main/webresources</directory> -->
-<!--                     <filtering>true</filtering> -->
-<!--                 </resource> -->
-<!--             </webResources> -->
-<!--             <overlays> -->
-<!--                 <overlay/> -->
-<!--                 <overlay> -->
-<!--                     <groupId>your.group</groupId> -->
-<!--                     <artifactId>your-project-artifactId</artifactId> -->
-<!--                 </overlay> -->
-<!--             </overlays> -->
-<!--         </configuration> -->
-<!--     </plugin> -->
+		<dependency>
+			<groupId>com.gwtext</groupId>
+			<artifactId>gwtext</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.gwtbootstrap</groupId>
+			<artifactId>gwt-bootstrap</artifactId>
+			<version>2.3.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.fusesource.restygwt</groupId> -->
+		<!-- <artifactId>restygwt</artifactId> -->
+		<!-- <version>1.5-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.googlecode.gwtquery</groupId>
+			<artifactId>gwtquery</artifactId>
+			<version>1.4.1</version>
+			<!-- If you are using old versions of gwt, use version 1.1.0 of GwtQuery 
+				and uncomment the appropriate line -->
+			<!-- <version>1.1.0</version> -->
+			<!-- <classifier>2.1.0</classifier> -->
+			<!-- <classifier>2.0.1</classifier> -->
+		</dependency>
+
 
 
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-war-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<webResources> -->
+<!-- 					<resource> -->
+<!-- 					<directory>${basedir}/src/main/resources</directory> -->
+<!-- 					<filtering>true</filtering> -->
+<!-- 					</resource> -->
+<!-- 					</webResources> -->
+<!-- 					<overlays> -->
+<!-- 						<overlay /> -->
+<!-- 						<overlay> -->
+<!-- 							<groupId>uzuzjmd.competence</groupId> -->
+<!-- 							<artifactId>gui</artifactId> -->
+<!-- 						</overlay> -->
+<!-- 					</overlays> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
+<!-- 				<version>3.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					<encoding>UTF-8</encoding> -->
+<!-- 					<source>1.7</source> -->
+<!-- 					<target>1.7</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 
 
 			<plugin>
@@ -215,7 +323,7 @@
 					<!-- Remove draftCompile when project is ready -->
 					<draftCompile>false</draftCompile>
 
-					<style>OBF</style>
+					<style>PRETTY</style>
 					<strict>true</strict>
 				</configuration>
 				<executions>

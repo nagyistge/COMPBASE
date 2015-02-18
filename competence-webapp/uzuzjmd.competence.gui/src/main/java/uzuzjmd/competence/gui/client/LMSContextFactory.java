@@ -1,4 +1,4 @@
-package uzuzjmd.competence.shared;
+package uzuzjmd.competence.gui.client;
 
 public abstract class LMSContextFactory {
 
