@@ -5,7 +5,7 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
-import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
@@ -88,7 +88,7 @@ public class CompetenceSelectionWidget extends Composite {
 
 	private CatchwordSelectionTree catchwordTree;
 
-	private LMSContextFactory contextFactory;
+	private LmsContextFactory contextFactory;
 	private String filter = "all";
 	private String selectedFilter = null;
 	private String competenceTreeFilter = "";
@@ -96,7 +96,7 @@ public class CompetenceSelectionWidget extends Composite {
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
 
-	public CompetenceSelectionWidget(final LMSContextFactory contextFactory,
+	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
 			String selectedFilter) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
@@ -110,7 +110,7 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param selectedFilter
 	 * @param competenceTreeFilter
 	 */
-	public CompetenceSelectionWidget(final LMSContextFactory contextFactory,
+	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
 			String selectedFilter, String competenceTreeFilter) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.competenceTreeFilter = competenceTreeFilter;
@@ -118,7 +118,7 @@ public class CompetenceSelectionWidget extends Composite {
 		// competenceCompulsoryCheckbox
 	}
 
-	public CompetenceSelectionWidget(final LMSContextFactory contextFactory,
+	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
 			String selectedFilter, String competenceTreeFilter, String title) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.competenceTreeFilter = competenceTreeFilter;
@@ -127,7 +127,7 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	private void initCompetenceSelectionWidget(
-			final LMSContextFactory contextFactory, String selectedFilter) {
+			final LmsContextFactory contextFactory, String selectedFilter) {
 		this.contextFactory = contextFactory;
 		this.selectedFilter = selectedFilter;
 
@@ -148,7 +148,7 @@ public class CompetenceSelectionWidget extends Composite {
 		toggleButtonPlaceholder.add(toggleButton);
 	}
 
-	private void initCatchwordTree(final LMSContextFactory contextFactory) {
+	private void initCatchwordTree(final LmsContextFactory contextFactory) {
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
@@ -158,7 +158,7 @@ public class CompetenceSelectionWidget extends Composite {
 		catchwordCaptionPanel.add(catchwordTree);
 	}
 
-	private void initOperatorTree(final LMSContextFactory contextFactory) {
+	private void initOperatorTree(final LmsContextFactory contextFactory) {
 		this.operatorTree = new OperatorSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"

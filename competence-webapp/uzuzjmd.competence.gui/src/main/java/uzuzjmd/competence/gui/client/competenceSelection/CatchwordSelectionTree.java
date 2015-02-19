@@ -1,6 +1,6 @@
 package uzuzjmd.competence.gui.client.competenceSelection;
 
-import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel;
 
 import com.gwtext.client.core.Connection;
@@ -10,7 +10,7 @@ public class CatchwordSelectionTree extends MyTreePanel {
 
 	public CatchwordSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, LMSContextFactory contextFactory) {
+			String title, LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
 				title, contextFactory);
 		// TODO Auto-generated constructor stub

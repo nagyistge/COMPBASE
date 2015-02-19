@@ -4,7 +4,7 @@ package uzuzjmd.competence.gui.client;
 
 
 
-public class MoodleContextFactory extends LMSContextFactory {
+public class MoodleContextFactory extends LmsContextFactory {
 
 	public native int getCourseIdFromContext()/*-{
 		return $wnd.courseId;
