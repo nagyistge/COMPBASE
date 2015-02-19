@@ -16,6 +16,7 @@ public class CompetenceUIVaadinComponent extends AbstractComponent {
 	public CompetenceUIVaadinComponent(LmsContextFactory lmsContextFactory) {
 		super();
 		this.lmsContextFactory = lmsContextFactory;
+		setContextFactory();		
 	}
 
 	
@@ -24,8 +25,8 @@ public class CompetenceUIVaadinComponent extends AbstractComponent {
 		return (LMSContextState) super.getState();
 	}
 	
-	public void setContextFactory() {
-		getState().setLmsContextFactory(lmsContextFactory);
+	public void setContextFactory() {		
+		getState().setLmsContextFactory(lmsContextFactory);		
 	}
 	
 }
