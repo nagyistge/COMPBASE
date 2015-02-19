@@ -16,9 +16,10 @@ public class CompetenceUIConnector extends AbstractComponentConnector {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected Widget createWidget() {
-	
-	return GWT.create(CompetenceUIWidgetGWT.class);	
+	protected Widget createWidget() {	
+	CompetenceUIWidgetGWT result = GWT.create(CompetenceUIWidgetGWT.class);
+	result.setContextFactory(getState().getLmsContextFactory());
+	return result;	
 	}
 	
 	@Override
@@ -33,6 +34,8 @@ public class CompetenceUIConnector extends AbstractComponentConnector {
 		// TODO Auto-generated method stub
 		return (CompetenceUIWidgetGWT) super.getWidget();
 	}
+	
+
 	
 	@Override
 	public void onStateChanged(StateChangeEvent stateChangeEvent) {

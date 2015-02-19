@@ -74,6 +74,7 @@ public class ProgressTab extends CompetenceTab {
 	public void showProgressEntries(final LmsContextFactory contextFactory,
 			final boolean firstShow) {
 		progressPlaceHolder.clear();
+		GWT.log("Initiating progress entries");
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/progress/"
 				+ contextFactory.getCourseId());
@@ -108,6 +109,7 @@ public class ProgressTab extends CompetenceTab {
 						warningPlaceholder.add(alert);
 					}
 				});
+		GWT.log("Initiated progress entries");
 	}
 
 	@UiHandler("filterButton")

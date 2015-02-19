@@ -149,6 +149,7 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	private void initCatchwordTree(final LmsContextFactory contextFactory) {
+		GWT.log("Initiating catchword tree");
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
@@ -156,9 +157,11 @@ public class CompetenceSelectionWidget extends Composite {
 				"Schlagworte", "catchwordView", 325, 250, "Schlagworte",
 				contextFactory);
 		catchwordCaptionPanel.add(catchwordTree);
+		GWT.log("Initiated catchword tree");
 	}
 
 	private void initOperatorTree(final LmsContextFactory contextFactory) {
+		GWT.log("Initiating operator tree");
 		this.operatorTree = new OperatorSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
@@ -166,6 +169,7 @@ public class CompetenceSelectionWidget extends Composite {
 				"Operatoren", "operatorView", 300, 200, "Operatoren",
 				contextFactory);
 		operatorCaptionPanel.add(operatorTree);
+		GWT.log("Initiated operator tree");
 	}
 
 	public void handleDeleteClick() {
