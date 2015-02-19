@@ -77,6 +77,7 @@ public class RequirementTab extends CompetenceTab {
 	}
 
 	private void initRequirementTextfield(final LmsContextFactory contextFactory) {
+		GWT.log("Initiating requirement textfield");
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/coursecontext/requirements/"
 				+ contextFactory.getCourseId());
@@ -92,6 +93,7 @@ public class RequirementTab extends CompetenceTab {
 				GWT.log("could not get requirements for course");
 			}
 		});
+		GWT.log("Initiated requirement textfield");
 	}
 
 	public RequirementTab(String firstName) {

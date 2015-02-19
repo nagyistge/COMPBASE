@@ -126,10 +126,9 @@ public class CompetencePortletUI extends UI {
 
 		// Use it as the layout of the Panel.
 //		panel.setContent(custom);
-		
+				
 		LmsContextFactory contextFactory = new LmsContextFactory();
-		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);	
-		competenceUI.setContextFactory();
+		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);					
 		layout.addComponent(competenceUI);		
 
 		updateActivities(request, themeDisplay);
