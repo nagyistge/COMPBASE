@@ -10,20 +10,20 @@ import com.google.gwt.core.client.GWT;
 public class Controller {
 	public static ProgressTab progessTab;
 	public static ReloadController reloadController;
-	public static LMSContextFactory contextFactory;
+	public static LmsContextFactory contextFactory;
 	public static LinkEvidenceTab linkEvidenceTab;
 	public static RequirementTab requirementTab;
 
 	public static void init() {
-		MyConstants myConstants = GWT.create(MyConstants.class);
+//		MyConstants myConstants = GWT.create(MyConstants.class);
 
-		if (myConstants.contextImplementation().equals("moodle")) {
-			Controller.contextFactory = new MoodleContextFactory();
-		}
-
-		if (myConstants.contextImplementation().equals("liferay")) {
-			Controller.contextFactory = ContextFactoryHolder.contextFactory;
-		}
+//		if (myConstants.contextImplementation().equals("moodle")) {
+//			Controller.contextFactory = new MoodleContextFactory();
+//		}
+//
+//		if (myConstants.contextImplementation().equals("liferay")) {
+//			Controller.contextFactory = CompetenceUIContainer.contextFactory;
+//		}
 
 		Controller.progessTab = new ProgressTab(Controller.contextFactory);
 

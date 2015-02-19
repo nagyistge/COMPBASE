@@ -7,7 +7,7 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
-import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.linkView.ActivityTree;
 import uzuzjmd.competence.gui.client.shared.Evidence;
@@ -54,7 +54,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	@UiField
 	FocusPanel warningPlaceholder;
 	private CompetenceSelectionWidget competenceSelectionWidget;
-	private LMSContextFactory contextFactory;
+	private LmsContextFactory contextFactory;
 
 	final HashMap<String, String> activityMapToUrl = new HashMap<String, String>();
 	final HashMap<String, String> activityMapToUser = new HashMap<String, String>();
@@ -64,7 +64,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	interface LinkEvidenceTabUiBinder extends UiBinder<Widget, LinkEvidenceTab> {
 	}
 
-	public LinkEvidenceTab(LMSContextFactory contextFactory) {
+	public LinkEvidenceTab(LmsContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.contextFactory = contextFactory;
 		String infoText = "";
@@ -80,14 +80,14 @@ public class LinkEvidenceTab extends CompetenceTab {
 
 	}
 
-	private void initMoodleEvidenceWidget(LMSContextFactory contextFactory) {
+	private void initMoodleEvidenceWidget(LmsContextFactory contextFactory) {
 		String moodleEvidenceUrl = getMoodleEvidenceServerUrl();
 		activityPanel = new ActivityTree(moodleEvidenceUrl, "Aktivitäten",
 				"activityView", 655, 180, "Aktivitäten", contextFactory);
 		activityPlaceholder.add(activityPanel);
 	}
 
-	private void initCompetenceSelectionWidget(LMSContextFactory contextFactory) {
+	private void initCompetenceSelectionWidget(LmsContextFactory contextFactory) {
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, null, "coursecontext/");
 
@@ -123,7 +123,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	}
 
 	private void createAbstractEvidenceLink(List<String> competences,
-			Evidence evidence, LMSContextFactory contextFactory2) {
+			Evidence evidence, LmsContextFactory contextFactory2) {
 		List<String> activityPairs = new LinkedList<String>();
 		activityPairs.add(evidence.getShortname() + "," + evidence.getUrl());
 		String linkedUser = evidence.getUserId();

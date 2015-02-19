@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 
-import uzuzjmd.competence.gui.client.ContextFactoryHolder;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -26,8 +26,6 @@ import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -84,8 +82,7 @@ public class CompetencePortletUI extends UI {
 //		Page.getCurrent().getJavaScript().execute("user = 'Julian Teacher';");	
 		
 //		CompetenceUIContainer test = new CompetenceUIContainer();
-		
-		ContextFactoryHolder.contextFactory = new LiferayContextFactory();
+				
 		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
@@ -130,7 +127,9 @@ public class CompetencePortletUI extends UI {
 		// Use it as the layout of the Panel.
 //		panel.setContent(custom);
 		
-		CompetenceUIWrapper competenceUI = new CompetenceUIWrapper();	
+		LmsContextFactory contextFactory = new LmsContextFactory();
+		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);	
+		competenceUI.setContextFactory();
 		layout.addComponent(competenceUI);		
 
 		updateActivities(request, themeDisplay);

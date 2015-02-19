@@ -5,7 +5,7 @@ import static com.google.gwt.query.client.GQuery.$;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.NativeContext;
 import uzuzjmd.competence.gui.client.shared.Evidence;
 import uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel;
@@ -29,7 +29,7 @@ public class ActivityTree extends MyTreePanel {
 
 	public ActivityTree(String databaseConnectionString, String rootLabel,
 			String className, Integer width, Integer height, String title,
-			LMSContextFactory contextFactory) {
+			LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
 				title, contextFactory);
 		// TODO Auto-generated constructor stub
