@@ -14,6 +14,7 @@ public class CompetenceUIContainer extends Composite {
 			.create(CompetenceUIContainerUiBinder.class);
 	@UiField
 	SimplePanel competenceUIholder;
+		
 
 	interface CompetenceUIContainerUiBinder extends
 			UiBinder<Widget, CompetenceUIContainer> {
@@ -30,7 +31,7 @@ public class CompetenceUIContainer extends Composite {
 	}
 
 	private void initTabbedView(Panel container) {
-
+		
 		Controller.init();
 
 		TabbedView tabbedView = new TabbedView();
@@ -49,5 +50,13 @@ public class CompetenceUIContainer extends Composite {
 
 		container.add(tabbedView);
 	}
+	
+	public void setContextFactory(LmsContextFactory contextFactory) {
+		Controller.contextFactory = contextFactory;
+	}
+	
+//	public String getState() {
+//		return "ok";
+//	}
 
 }
