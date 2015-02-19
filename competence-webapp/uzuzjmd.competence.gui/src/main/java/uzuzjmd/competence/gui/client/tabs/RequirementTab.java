@@ -4,7 +4,7 @@ import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 import org.fusesource.restygwt.client.TextCallback;
 
-import uzuzjmd.competence.gui.client.LMSContextFactory;
+import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 
 import com.github.gwtbootstrap.client.ui.Alert;
@@ -61,7 +61,7 @@ public class RequirementTab extends CompetenceTab {
 
 	private HtmlWidget alert;
 
-	public RequirementTab(final LMSContextFactory contextFactory) {
+	public RequirementTab(final LmsContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
@@ -76,7 +76,7 @@ public class RequirementTab extends CompetenceTab {
 
 	}
 
-	private void initRequirementTextfield(final LMSContextFactory contextFactory) {
+	private void initRequirementTextfield(final LmsContextFactory contextFactory) {
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/coursecontext/requirements/"
 				+ contextFactory.getCourseId());
