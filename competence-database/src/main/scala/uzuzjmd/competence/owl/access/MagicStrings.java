@@ -18,6 +18,7 @@ public class MagicStrings {
 	public static final String SINGLETONPREFIX = "I";
 	public static final String CSVLOCATION = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle_utf8.csv";
 	public static String MOODLEURL = "http://localhost/moodle";
+	public static String webapplicationPath = "http://localhost:8080/competence-portlet";
 	public static final String RESTURL = "http://localhost:8083";
 	public static final String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
