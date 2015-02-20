@@ -25,6 +25,7 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -35,19 +36,19 @@ import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 
 @StyleSheet({		
 		"css/competencecss/progressTab.css",
-		"js/resources/css/ext-all.css",
+		"vaadin://js/resources/css/ext-all.css",
 		"css/competencecss/activity.css",
 		"css/competencecss/preview.css",
 		"css/competencecss/competenceSelection.css",
 		"css/competencecss/requirementTab.css",
 		"css/competencecss/evidencePopup.css",
 		"css/competencecss/graphTab.css", 
-		"js/columntree/column-tree.css", 
-	    "gwtcss/GwtExt.css", 
-	    "gwtcss/css/bootstrap.min.css",
-	    "gwtcss/css/font-awesome.min.css",
-	    "gwtcss/gwt/clean/clean.css",
-	    "gwtcss/gwt/standard/standard.css",
+		"vaadin://js/columntree/column-tree.css", 
+	    "css/gwtcss/GwtExt.css", 
+	    "css/gwtcss/css/bootstrap.min.css",
+	    "css/gwtcss/css/font-awesome.min.css",
+	    "css/gwtcss/gwt/clean/clean.css",
+	    "css/gwtcss/gwt/standard/standard.css",
 		})
 @JavaScript({
 	    "vaadin://js/adapter/yui/yui-utilities.js",
@@ -75,14 +76,6 @@ public class CompetencePortletUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {					
-//		Page.getCurrent().getJavaScript().execute("courseId = 10184;");
-//		Page.getCurrent().getJavaScript().execute("serverUrl = 'http://localhost:8084';");
-//		Page.getCurrent().getJavaScript().execute("evidenceServerUrl = 'http://localhost:8083';");
-//		Page.getCurrent().getJavaScript().execute("role = 'teacher'");
-//		Page.getCurrent().getJavaScript().execute("user = 'Julian Teacher';");	
-		
-//		CompetenceUIContainer test = new CompetenceUIContainer();
-				
 		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
@@ -96,6 +89,11 @@ public class CompetencePortletUI extends UI {
 
 		System.out.println(serverPath);
 
+//		ThemeResource resource = new ThemeResource("icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg");
+		ThemeResource resource = new ThemeResource("icons/competence.png");
+		System.out.println(resource.getResourceId());
+		
+		
 		String user = "default";
 		try {
 			user = UserLocalServiceUtil.getUser(

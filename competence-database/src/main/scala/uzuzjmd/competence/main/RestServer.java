@@ -19,6 +19,13 @@ public class RestServer {
 			MagicStrings.TDBLocationPath = args[0];
 		}
 
+		if (args.length > 1) {
+			MagicStrings.webapplicationPath = args[1];
+		}
+
+		System.out.println("usage is java - jar *.version.jar TDBPATH WEBAPPATH");
+		System.out.println("for example java jar competence-server.jar tdb2 pojana.soft.cs.uni-potsdam.de/competence-portlet");
+
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
