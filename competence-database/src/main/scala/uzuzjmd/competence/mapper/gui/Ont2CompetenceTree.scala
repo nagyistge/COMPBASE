@@ -74,10 +74,12 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
       case x => x
     }
 
-    var result: A = instantiate[A](clazz)(definitionString, label, iconPath, new LinkedList).asInstanceOf[A]
+    val adaptedIconPath = MagicStrings.webapplicationPath + "/" + iconPath;
+
+    var result: A = instantiate[A](clazz)(definitionString, label, adaptedIconPath, new LinkedList).asInstanceOf[A]
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
       val subberclasses = subclass.listSubClasses(realTree).toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
-      result = instantiate[A](clazz)(definitionString, label, iconPath, subberclasses.asJava).asInstanceOf[A]
+      result = instantiate[A](clazz)(definitionString, label, adaptedIconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
       result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
@@ -118,7 +120,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "/icons/filter.png", classOf[OperatorXMLTree], containsOperator)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
@@ -144,7 +146,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     if (selectedCatchwordArray.isEmpty() && selectedOperatorsArray.isEmpty()) {
       getCompetenceTreeHelper(hasLinks)
     } else {
-    	getCompetenceTreeHelperNoTree(hasLinks)
+      getCompetenceTreeHelperNoTree(hasLinks)
     }
   }
 
