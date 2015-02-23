@@ -15,11 +15,11 @@ case class LiferayEvidence2Tree(activities: Array[EvidenceSoap]) {
 
   def convertToActivityTyp(input: Array[EvidenceSoap]): List[ActivityTyp] = {
     val result2 = input.groupBy(x => x.getActivityTyp())
-    return result2.map(x => new ActivityTyp(x._1, "ActivityTyp", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", convertToActivityEntry(x._2).asJava)).toList
+    return result2.map(x => new ActivityTyp(x._1, "ActivityTyp", MagicStrings.webapplicationPath + "/icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg", convertToActivityEntry(x._2).asJava)).toList
   }
 
   def convertToActivityEntry(input: Array[EvidenceSoap]): List[ActivityEntry] = {
-    val result3 = input.map(x => new ActivityEntry(x.getTitle(), "Aktivity", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", x.getLink())).toList
+    val result3 = input.map(x => new ActivityEntry(x.getTitle(), "Aktivity", MagicStrings.webapplicationPath + "/icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg", x.getLink())).toList
     return result3;
   }
 
