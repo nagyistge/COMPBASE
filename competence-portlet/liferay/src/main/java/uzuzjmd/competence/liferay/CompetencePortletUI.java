@@ -27,6 +27,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -35,20 +36,20 @@ import de.unipotsdam.elis.model.Evidence;
 import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 
 @StyleSheet({		
-		"css/competencecss/progressTab.css",
+		"competencecss/progressTab.css",
 		"vaadin://js/resources/css/ext-all.css",
-		"css/competencecss/activity.css",
-		"css/competencecss/preview.css",
-		"css/competencecss/competenceSelection.css",
-		"css/competencecss/requirementTab.css",
-		"css/competencecss/evidencePopup.css",
-		"css/competencecss/graphTab.css", 
+		"competencecss/activity.css",
+		"competencecss/preview.css",
+		"competencecss/competenceSelection.css",
+		"competencecss/requirementTab.css",
+		"competencecss/evidencePopup.css",
+		"competencecss/graphTab.css", 
 		"vaadin://js/columntree/column-tree.css", 
-	    "css/gwtcss/GwtExt.css", 
-	    "css/gwtcss/css/bootstrap.min.css",
-	    "css/gwtcss/css/font-awesome.min.css",
-	    "css/gwtcss/gwt/clean/clean.css",
-	    "css/gwtcss/gwt/standard/standard.css",
+	    "gwtcss/GwtExt.css", 
+	    "gwtcss/css/bootstrap.min.css",
+	    "gwtcss/css/font-awesome.min.css",
+	    "gwtcss/gwt/clean/clean.css",
+	    "gwtcss/gwt/standard/standard.css",
 		})
 @JavaScript({
 	    "vaadin://js/adapter/yui/yui-utilities.js",
@@ -80,6 +81,7 @@ public class CompetencePortletUI extends UI {
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
 		setContent(layout);
+				
 
 		final ThemeDisplay themeDisplay = (ThemeDisplay) request
 				.getAttribute(WebKeys.THEME_DISPLAY);
@@ -127,7 +129,10 @@ public class CompetencePortletUI extends UI {
 				
 		LmsContextFactory contextFactory = new LmsContextFactory();
 		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);					
-		layout.addComponent(competenceUI);		
+		layout.addComponent(competenceUI);	
+	
+	
+//		layout.addComponent(new Label("Hendrik ist der Gott des Powerpoints und des Googlens"));
 
 		updateActivities(request, themeDisplay);
 	}
