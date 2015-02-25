@@ -59,6 +59,7 @@ public class ProgressTab extends CompetenceTab {
 
 		this.contextFactory = contextFactory;
 		String infoText = "Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden.";
+		infoText+= "Wenn keine Fortschrittsbalken angezeigt werden, müssen sie in dem Zuordung-Tab Aktivitäten zuordnen";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 
