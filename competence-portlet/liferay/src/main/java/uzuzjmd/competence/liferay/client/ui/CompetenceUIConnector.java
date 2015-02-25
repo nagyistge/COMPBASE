@@ -18,7 +18,10 @@ public class CompetenceUIConnector extends AbstractComponentConnector {
 	@Override
 	protected Widget createWidget() {	
 	CompetenceUIWidgetGWT result = GWT.create(CompetenceUIWidgetGWT.class);
-	result.setContextFactory(getState().getLmsContextFactory());
+	System.out.println("setting context an init widget");
+	result.setContextFactory(getState().getLmsContextFactory());	
+//	result.initTabbedView();
+	System.out.println("finished setting context an init widget");
 	return result;	
 	}
 	

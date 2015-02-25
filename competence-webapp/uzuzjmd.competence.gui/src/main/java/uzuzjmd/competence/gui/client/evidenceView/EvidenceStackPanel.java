@@ -60,7 +60,7 @@ public class EvidenceStackPanel extends Composite {
 	@UiHandler("closeButton")
 	void onCloseButtonClick(ClickEvent event) {
 		container.hide();
-		Controller.progessTab.showProgressEntries(Controller.contextFactory,
+		Controller.progressTab.showProgressEntries(Controller.contextFactory,
 				true);
 	}
 }

@@ -85,7 +85,9 @@ public class GraphTab extends Composite {
 
 	@Override
 	protected void onAttach() {
+		GWT.log("attaching graph tab");
 		super.onAttach();
+		GWT.log("finished attaching graph tab");
 		reload(new LinkedList<String>());
 	}
 
