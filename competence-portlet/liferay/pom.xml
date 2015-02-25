@@ -57,14 +57,14 @@
 	</pluginRepositories>
 
 	<dependencies>
-	
-			<dependency>
+
+		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 
 
 		<dependency>
@@ -73,7 +73,7 @@
 			<version>${gwtVersion}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 
 		<!-- <dependency> -->
 		<!-- <groupId>uzuzjmd.competence</groupId> -->
@@ -95,8 +95,8 @@
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-	
+
+
 
 		<!-- Vaadin dependencies -->
 		<dependency>
@@ -181,13 +181,13 @@
 			<classifier>classes</classifier>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>uzuzjmd.competence</groupId> -->
-<!-- 			<artifactId>gui</artifactId> -->
-<!-- 			<version>0.0.1-SNAPSHOT</version> -->
-<!-- 			<type>war</type> -->
-			<!-- <classifier>classes</classifier> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>gui</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- <type>war</type> -->
+		<!-- <classifier>classes</classifier> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -244,39 +244,25 @@
 
 	<build>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-war-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<webResources> -->
-<!-- 					<resource> -->
-<!-- 					<directory>${basedir}/src/main/resources</directory> -->
-<!-- 					<filtering>true</filtering> -->
-<!-- 					</resource> -->
-<!-- 					</webResources> -->
-<!-- 					<overlays> -->
-<!-- 						<overlay /> -->
-<!-- 						<overlay> -->
-<!-- 							<groupId>uzuzjmd.competence</groupId> -->
-<!-- 							<artifactId>gui</artifactId> -->
-<!-- 						</overlay> -->
-<!-- 					</overlays> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
-
-
-
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
-<!-- 				<version>3.1</version> -->
-<!-- 				<configuration> -->
-<!-- 					<encoding>UTF-8</encoding> -->
-<!-- 					<source>1.7</source> -->
-<!-- 					<target>1.7</target> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${basedir}/../../competence-webapp/uzuzjmd.competence.gui/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>		
 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -295,7 +281,7 @@
 					<filesets>
 						<fileset>
 							<directory>${basedir}/src/main/webapp/VAADIN/widgetsets</directory>
-                 			<directory>${basedir}/src/main/webapp/VAADIN/gwt-unitCache</directory>
+							<directory>${basedir}/src/main/webapp/VAADIN/gwt-unitCache</directory>
 						</fileset>
 					</filesets>
 				</configuration>
@@ -322,8 +308,7 @@
 					<compileReport>false</compileReport>
 					<noServer>true</noServer>
 					<!-- Remove draftCompile when project is ready -->
-					<draftCompile>false</draftCompile>
-
+					<draftCompile>true</draftCompile>
 					<style>PRETTY</style>
 					<strict>true</strict>
 				</configuration>
@@ -331,8 +316,10 @@
 					<execution>
 						<configuration>
 							<!-- if you don't specify any modules, the plugin will find them -->
-							<!-- <modules> <module>uzuzjmd.competence.liferay.AppWidgetSet</module> 
-								</modules> -->
+							<modules>
+								<module>uzuzjmd.competence.gui.Competence_webapp</module>
+								<module>uzuzjmd.competence.liferay.AppWidgetSet</module>
+							</modules>
 						</configuration>
 						<goals>
 							<goal>clean</goal>
@@ -380,7 +367,7 @@
 											vaadin-maven-plugin
 										</artifactId>
 										<versionRange>
-											[7.3.9,)
+											[7.3.10,)
 										</versionRange>
 										<goals>
 											<goal>resources</goal>
@@ -411,6 +398,9 @@
 						</additionalBuildcommands>
 					</configuration>
 				</plugin>
+
+
+
 			</plugins>
 		</pluginManagement>
 

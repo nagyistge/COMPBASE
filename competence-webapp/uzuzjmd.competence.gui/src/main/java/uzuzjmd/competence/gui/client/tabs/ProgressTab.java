@@ -86,11 +86,13 @@ public class ProgressTab extends CompetenceTab {
 					public void onSuccess(Method arg0, JSONValue arg1) {
 						Map<String, String> userProgressMap = JsonUtil
 								.toMap(arg1);
+						GWT.log("addin progress entries to Progress Tab");
 						for (String userName : userProgressMap.keySet()) {
 							progressPlaceHolder.add(new ProgressEntry(userName,
 									Integer.valueOf(userProgressMap
 											.get(userName)), contextFactory));
 						}
+						GWT.log("finished adding progress entries to progress tab");
 						if (!firstShow) {
 							alert = new Alert("Erfolgreich gefiltert",
 									AlertType.SUCCESS);
