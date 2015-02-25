@@ -32,15 +32,17 @@ public class CompetenceUIContainer extends Composite {
 
 	private void initTabbedView(Panel container) {
 		
+		GWT.log("helloooo supermode I got it yeah yeah");
+		
 		Controller.init();
 
 		TabbedView tabbedView = new TabbedView();
 		tabbedView.linkTabPlaceholder.add(Controller.linkEvidenceTab);
-		tabbedView.progressTabPlaceholder.add(Controller.progessTab);
+		tabbedView.progressTabPlaceholder.add(Controller.progressTab);
 
 		if (!Controller.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(Controller.requirementTab);
-			tabbedView.pathTabPlaceholder.setVisible(false);
+//			tabbedView.pathTabPlaceholder.setVisible(false);
 		} else {
 			tabbedView.tabPanel.remove(0);
 			tabbedView.tabPanel.remove(0);

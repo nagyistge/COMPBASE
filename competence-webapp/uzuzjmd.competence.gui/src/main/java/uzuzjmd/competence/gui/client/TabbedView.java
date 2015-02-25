@@ -1,8 +1,5 @@
 package uzuzjmd.competence.gui.client;
 
-import uzuzjmd.competence.gui.client.tabs.GraphTab;
-import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -23,8 +20,8 @@ public class TabbedView extends Composite {
 	HTMLPanel linkTabPlaceholder;
 	@UiField
 	HTMLPanel progressTabPlaceholder;
-	@UiField
-	HTMLPanel pathTabPlaceholder;
+//	@UiField
+//	HTMLPanel pathTabPlaceholder;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
@@ -38,16 +35,26 @@ public class TabbedView extends Composite {
 
 	}
 
-	@Override
-	protected void onAttach() {
-		// TODO Auto-generated method stub
-		super.onAttach();
-		initGraph();
-	}
-
-	public void initGraph() {
-		ReloadController.graphTab = new GraphTab();
-		pathTabPlaceholder.add(ReloadController.graphTab);
-	}
+//	@Override
+//	protected void onLoad() {
+//		GWT.log("loading tabbed view xx");
+//		super.onLoad();
+//		Date date = new Date();
+//		GWT.log("attaching Tabbed View at: " + date.toString());		
+//		GWT.log(Controller.contextFactory.getUser());
+//		
+//		super.onAttach();
+//		GWT.log("finished Tabbed View");
+//		
+//		GWT.log("initiating graphTab");
+//		initGraph();
+//		GWT.log("finished initiating graph tab");
+//	}
+//
+//	public void initGraph() {
+//		GWT.log("start initializing graph");
+//		ReloadController.graphTab = new GraphTab();
+//		pathTabPlaceholder.add(ReloadController.graphTab);
+//	}
 
 }

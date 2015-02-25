@@ -16,6 +16,9 @@
 	<inherits name='org.fusesource.restygwt.RestyGWT' />
 	<inherits name='com.github.gwtbootstrap.Bootstrap' />
 	
+<!-- 	for debug only compile for chrome -->
+	<set-property name="user.agent" value="safari" />   	
+	
 	<add-linker name="xsiframe" />
 	<set-configuration-property name="devModeRedirectEnabled" value="true" />
 	

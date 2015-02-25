@@ -13,10 +13,10 @@
 				<g:header>Anforderungen</g:header>
 				<g:HTMLPanel ui:field="requirementTabPlaceholder" />
 			</g:tab>
-			<g:tab>
-				<g:header>Pfade</g:header>
-				<g:HTMLPanel ui:field="pathTabPlaceholder" />
-			</g:tab>
+<!-- 			<g:tab> -->
+<!-- 				<g:header>Pfade</g:header> -->
+<!-- 				<g:HTMLPanel ui:field="pathTabPlaceholder" /> -->
+<!-- 			</g:tab> -->
 			<g:tab>
 				<g:header>Zuordnung</g:header>
 				<g:HTMLPanel ui:field="linkTabPlaceholder" />
