@@ -53,7 +53,7 @@ public class ProgressEntry extends Composite {
 		popup.add(evidenceStackPanel);
 		popup.setAnimationEnabled(true);
 		popup.setGlassEnabled(true);
-		// popup.center();
+		popup.setPopupPosition(0, 300);
 		popup.setVisible(false);
 		// popup.setWidth("725px");
 		// popup.setHeight("400px");
