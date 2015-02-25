@@ -1,7 +1,11 @@
 package uzuzjmd.competence.gui.client;
 
-public class LmsContextFactory {
+public class LmsContextFactory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int courseId;
 	private String serverUrl;
 	private String evidenceServerUrl;

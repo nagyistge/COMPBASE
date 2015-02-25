@@ -307,14 +307,6 @@ function uzuzjmd_competence_gui_Competence_webapp(){
   function getCompiledCodeFilename(){
     var answers = [];
     var softPermutationId = 0;
-    function unflattenKeylistIntoAnswers(propValArray, value_0){
-      var answer = answers;
-      for (var i = 0, n = propValArray.length - 1; i < n; ++i) {
-        answer = answer[propValArray[i]] || (answer[propValArray[i]] = []);
-      }
-      answer[propValArray[n]] = value_0;
-    }
-
     var values = [];
     var providers = [];
     function computePropValue(propName){
@@ -343,46 +335,6 @@ function uzuzjmd_competence_gui_Competence_webapp(){
     }
     ;
     values['modernie'] = {none:0, yes:1};
-    providers['user.agent'] = function(){
-      var ua = navigator.userAgent.toLowerCase();
-      var makeVersion = function(result){
-        return parseInt(result[1]) * 1000 + parseInt(result[2]);
-      }
-      ;
-      if (function(){
-        return ua.indexOf('opera') != -1;
-      }
-      ())
-        return 'opera';
-      if (function(){
-        return ua.indexOf('webkit') != -1;
-      }
-      ())
-        return 'safari';
-      if (function(){
-        return ua.indexOf('msie') != -1 && $doc_0.documentMode >= 10;
-      }
-      ())
-        return 'ie10';
-      if (function(){
-        return ua.indexOf('msie') != -1 && $doc_0.documentMode >= 9;
-      }
-      ())
-        return 'ie9';
-      if (function(){
-        return ua.indexOf('msie') != -1 && $doc_0.documentMode >= 8;
-      }
-      ())
-        return 'ie8';
-      if (function(){
-        return ua.indexOf('gecko') != -1;
-      }
-      ())
-        return 'gecko1_8';
-      return 'unknown';
-    }
-    ;
-    values['user.agent'] = {gecko1_8:0, ie10:1, ie8:2, ie9:3, opera:4, safari:5};
     __gwt_isKnownPropertyValue = function(propName, propValue){
       return propValue in values[propName];
     }
@@ -405,14 +357,7 @@ function uzuzjmd_competence_gui_Competence_webapp(){
     }
     var strongName;
     try {
-      unflattenKeylistIntoAnswers(['none', 'gecko1_8'], '4D128D017F32844A5B332620DE6236A9');
-      unflattenKeylistIntoAnswers(['yes', 'gecko1_8'], '4D128D017F32844A5B332620DE6236A9' + ':1');
-      unflattenKeylistIntoAnswers(['none', 'ie10'], '4D128D017F32844A5B332620DE6236A9' + ':2');
-      unflattenKeylistIntoAnswers(['none', 'ie8'], '4D128D017F32844A5B332620DE6236A9' + ':3');
-      unflattenKeylistIntoAnswers(['none', 'ie9'], '4D128D017F32844A5B332620DE6236A9' + ':4');
-      unflattenKeylistIntoAnswers(['none', 'opera'], '4D128D017F32844A5B332620DE6236A9' + ':5');
-      unflattenKeylistIntoAnswers(['none', 'safari'], '4D128D017F32844A5B332620DE6236A9' + ':6');
-      strongName = answers[computePropValue('modernie')][computePropValue('user.agent')];
+      strongName = 'B180FA79D31477DC4905706296D0805D';
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = parseInt(strongName.substring(idx + 1), 10);

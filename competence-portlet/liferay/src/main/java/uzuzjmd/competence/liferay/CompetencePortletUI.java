@@ -36,20 +36,20 @@ import de.unipotsdam.elis.model.Evidence;
 import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 
 @StyleSheet({		
-		"competencecss/progressTab.css",
+		"vaadin://competencecss/progressTab.css",
 		"vaadin://js/resources/css/ext-all.css",
-		"competencecss/activity.css",
-		"competencecss/preview.css",
-		"competencecss/competenceSelection.css",
-		"competencecss/requirementTab.css",
-		"competencecss/evidencePopup.css",
-		"competencecss/graphTab.css", 
+		"vaadin://competencecss/activity.css",
+		"vaadin://competencecss/preview.css",
+		"vaadin://competencecss/competenceSelection.css",
+		"vaadin://competencecss/requirementTab.css",
+		"vaadin://competencecss/evidencePopup.css",
+		"vaadin://competencecss/graphTab.css", 
 		"vaadin://js/columntree/column-tree.css", 
-	    "gwtcss/GwtExt.css", 
-	    "gwtcss/css/bootstrap.min.css",
-	    "gwtcss/css/font-awesome.min.css",
-	    "gwtcss/gwt/clean/clean.css",
-	    "gwtcss/gwt/standard/standard.css",
+	    "vaadin://gwtcss/GwtExt.css", 
+	    "vaadin://gwtcss/css/bootstrap.min.css",
+	    "vaadin://gwtcss/css/font-awesome.min.css",
+	    "vaadin://gwtcss/gwt/clean/clean.css",
+	    "vaadin://gwtcss/gwt/standard/standard.css",
 		})
 @JavaScript({
 	    "vaadin://js/adapter/yui/yui-utilities.js",
@@ -68,7 +68,7 @@ import de.unipotsdam.elis.service.EvidenceLocalServiceUtil;
 		"vaadin://js/competencejs/graphLayouter.js",
 //		"vaadin://js/gwtjs/competence_webapp.nocache.js"		
 })
-@Theme("competencetheme")
+//@Theme("competencetheme")
 @SuppressWarnings("serial")
 @Widgetset("uzuzjmd.competence.liferay.AppWidgetSet")
 public class CompetencePortletUI extends UI {
