@@ -6,7 +6,7 @@ public class LmsContextFactory implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int courseId;
+	private long courseId;
 	private String serverUrl;
 	private String evidenceServerUrl;
 	private String role;
@@ -23,17 +23,23 @@ public class LmsContextFactory implements java.io.Serializable {
 	
 
 	
-	public LmsContextFactory(int courseId, String serverUrl,
+	public LmsContextFactory(long courseId, String serverUrl,
 			String evidenceServerUrl, String role, String userName) {
 		super();
 		this.courseId = courseId;
-		this.serverUrl = serverUrl;
-		this.evidenceServerUrl = evidenceServerUrl;
+		if (serverUrl == null) {
+			this.serverUrl = getCompetenceServerURL();
+		} else {
+			this.serverUrl = serverUrl;
+		}
+		if (evidenceServerUrl == null) {
+			this.evidenceServerUrl = getEvidenceServerUrlFromContext();
+		} else {
+			this.evidenceServerUrl = evidenceServerUrl;
+		}
 		this.role = role;
 		this.userName = userName;
 	}
-
-
 
 
 	public String getUserFromContext() {

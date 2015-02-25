@@ -90,8 +90,6 @@ public class CompetencePortletUI extends UI {
 				+ themeDisplay.getServerPort() + request.getContextPath();
 
 		System.out.println(serverPath);
-
-//		ThemeResource resource = new ThemeResource("icons/WindowsIcons-master/WindowsPhone/svg/appbar.monitor.to.svg");
 		ThemeResource resource = new ThemeResource("icons/competence.png");
 		System.out.println(resource.getResourceId());
 		
@@ -100,34 +98,16 @@ public class CompetencePortletUI extends UI {
 		try {
 			user = UserLocalServiceUtil.getUser(
 					PrincipalThreadLocal.getUserId()).getLogin();
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
+		} catch (PortalException e) {			
 			e.printStackTrace();
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		long courseId = themeDisplay.getScopeGroupId();
 
-		// BrowserFrame browser = new BrowserFrame("", new
-		// ExternalResource(serverPath+"/Competence_webapp.html?user="+user));
-		// browser.setWidth("1200px");
-		// browser.setHeight("400px");
-
-		// layout.addComponent(browser);
-
-//		Panel panel = new LiferayContextPanel();
-//		panel.setSizeUndefined();
-//		layout.addComponent(panel);
-
-		// Create custom layout from "layoutname.html" template.
-//		CustomLayout custom = new CustomLayout("Competence_webapp");
-//		custom.addStyleName("Competence_webapp");		
-//		custom.setSizeFull();
-
-		// Use it as the layout of the Panel.
-//		panel.setContent(custom);
 				
-		LmsContextFactory contextFactory = new LmsContextFactory();
+		LmsContextFactory contextFactory = new LmsContextFactory(courseId, null, null, "teacher", user);
 		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);					
 		layout.addComponent(competenceUI);	
 	
