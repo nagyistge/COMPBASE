@@ -6,12 +6,29 @@ import uzuzjmd.competence.datasource.epos.DESCRIPTORType
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.datasource.epos.filter.LevelFilter
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 
 object EposXMLToSuggestedLearningPath {
   def convertLevelsToOWLRelations(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
     comp.begin()
     descriptorSetType.asScala.foreach(x => convertLevelsToOWLRelations2(comp, x.getDESCRIPTOR().asScala.toList))
+    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
     comp.close()
+  }
+
+  def convertLevelsAndLearningGoalToTemplate(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
+    comp.begin()
+    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
+    comp.close()
+  }
+
+  def createTemplateAssociation(comp: CompOntologyManager, x: DESCRIPTORSETType) {
+    //TODO
+    val templateName = x.getNAME()
+    val competences = x.getDESCRIPTOR().asScala.map(EposXML2FilteredCSVCompetence.descriptorSetType2Id).map(x => new Competence(comp, x, x, false))
+    val learningProjectTemplate = new LearningProjectTemplate(comp, templateName, competences)
+    learningProjectTemplate.persist
   }
 
   def convertLevelsToOWLRelations2(comp: CompOntologyManager, descriptorSetType: List[DESCRIPTORType]) {
@@ -23,8 +40,8 @@ object EposXMLToSuggestedLearningPath {
 
     if (LevelFilter.filterSuggestedLevels(domain._2, range._2) && domain._1.equals(range._1)) {
       //println("create link " + domain + " " + range);
-      val domainId = EposXML2FilteredCSVCompetence.descriptorSetType2Id(domain);
-      val rangeID = EposXML2FilteredCSVCompetence.descriptorSetType2Id(range);
+      val domainId = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(domain);
+      val rangeID = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(range);
       val domainCompetence = new Competence(comp, domainId, domainId, false)
       val rangeCompetence = new Competence(comp, rangeID, rangeID, false)
       rangeCompetence.addSuggestedCompetenceRequirement(domainCompetence)
