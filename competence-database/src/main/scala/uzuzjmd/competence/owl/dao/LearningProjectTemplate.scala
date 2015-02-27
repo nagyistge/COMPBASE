@@ -15,6 +15,7 @@ class LearningProjectTemplate(comp: CompOntologyManager, val name: String, assoc
   def persistMore() {
     if (associatedComptences != null && !associatedComptences.isEmpty) {
       // könnte man jetzt auch die Kompetenzen persistieren
+      associatedComptences.foreach(x=>addCompetenceToProject(x))
     }
   }
 
