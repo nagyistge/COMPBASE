@@ -8,6 +8,7 @@ import uzuzjmd.competence.csv.FilteredCSVCompetence
 import scala.collection.mutable.Buffer
 import uzuzjmd.competence.mapper.rcd.CSV2RCD
 import uzuzjmd.competence.rcd.generated.Rdceo
+import uzuzjmd.competence.datasource.epos.DESCRIPTORType
 
 object EposXML2FilteredCSVCompetence {
   def mapEposXML(eposCompetences: java.util.List[DESCRIPTORSETType]): java.util.List[FilteredCSVCompetence] = {
@@ -16,11 +17,20 @@ object EposXML2FilteredCSVCompetence {
   }
 
   def mapDescriptorSetToFilteredCSVCompetence(descriptorSetType: DESCRIPTORSETType): Buffer[FilteredCSVCompetence] = {
-    return descriptorSetType.getDESCRIPTOR().asScala.map(x => new FilteredCSVCompetence(x.getNAME(), List((x.getGOAL() + ""), x.getLEVEL()), x.getCOMPETENCE(), "", "", List.empty, "Language learner", descriptorSetType.getNAME()))
+    //descriptorSetType.getNAME()
+    return descriptorSetType.getDESCRIPTOR().asScala.map(x => new FilteredCSVCompetence(x.getNAME(), List(x.getLEVEL(), descriptorSetType.getNAME()), x.getCOMPETENCE(), "", "", List.empty, "Language learner", descriptorSetType2Id(x)))
   }
 
   def EPOSXML2RCD(csvCompetences: java.util.List[FilteredCSVCompetence]): Seq[Rdceo] = {
     return CSV2RCD.mapCompetence(csvCompetences.asScala)
+  }
+
+  def descriptorSetType2Id(des: DESCRIPTORType): String = {
+    return (des.getCOMPETENCE() + " " + des.getLEVEL())
+  }
+
+  def descriptorSetType2Id(a: (String, String)): String = {
+    return a._1 + a._2;
   }
 
 }
