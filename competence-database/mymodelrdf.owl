@@ -1887,6 +1887,9 @@
   <rdf:Description rdf:about="http://comp#StudentRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#LearningProjectTemplateOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannineinemBriefGefühlewieTrauerFreudeInteresseBedauernundmeinMitgefühlausdrücken">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -2222,8 +2225,39 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#11SprachkompetenzUnivELCDE">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://comp#LearningProjectTemplate"/>
     <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 Sprachkompetenz, Univ. (ELC, DE)</j.0:definition>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenA2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenC1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenB2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenB1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenA1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenC1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenB1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenB1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenC2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenB1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenA1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenC1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenA2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenA2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenB2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenB2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenC2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenC1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenB1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenC2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenC2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenA2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenB2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IMiteinandersprechenA1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ISchreibenB2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenC1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenA2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenC2"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IZusammenhängendsprechenA1"/>
+    <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenA1"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannnormalerweiseeinemlängerenGesprächdasinmeinerGegenwartgeführtwirdindenwesentlichenPunktenfolgenvorausgesetzteswirddeutlichgesprochenundStandardspracheverwendet">
     <rdf:type rdf:resource="http://comp#IchkannnormalerweiseeinemlängerenGesprächdasinmeinerGegenwartgeführtwirdindenwesentlichenPunktenfolgenvorausgesetzteswirddeutlichgesprochenundStandardspracheverwendet"/>

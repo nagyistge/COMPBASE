@@ -29,7 +29,7 @@ object EposXML2FilteredCSVCompetence {
     return (des.getCOMPETENCE() + " " + des.getLEVEL())
   }
 
-  def descriptorSetType2Id(a: (String, String)): String = {
+  def descriptorSetPair2Id(a: (String, String)): String = {
     return a._1 + a._2;
   }
 
