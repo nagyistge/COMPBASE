@@ -8,7 +8,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head />
 	<h:body>
-		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->		
+		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->	
+		
+		<p:selectOneMenu header="Lernprojekte">
+			<f:selectItems value="#{LearningTemplates.learningTemplates}" var="selectedTemplate" />
+		</p:selectOneMenu>
+			
 		<br></br>
 		<ui:repeat var="suggestedCompetenceRow" 
 			value="#{SuggestedCompetenceGrid.suggestedCompetenceRows}">
