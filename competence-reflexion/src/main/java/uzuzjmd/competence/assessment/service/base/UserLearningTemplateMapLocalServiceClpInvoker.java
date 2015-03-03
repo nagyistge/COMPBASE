@@ -1,6 +1,6 @@
 package uzuzjmd.competence.assessment.service.base;
 
-import uzuzjmd.competence.assessment.service.ReflexionsAssessmentLocalServiceUtil;
+import uzuzjmd.competence.assessment.service.UserLearningTemplateMapLocalServiceUtil;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class ReflexionsAssessmentLocalServiceClpInvoker {
+public class UserLearningTemplateMapLocalServiceClpInvoker {
     private String _methodName0;
     private String[] _methodParameterTypes0;
     private String _methodName1;
@@ -54,25 +54,25 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
     private String _methodName45;
     private String[] _methodParameterTypes45;
 
-    public ReflexionsAssessmentLocalServiceClpInvoker() {
-        _methodName0 = "addReflexionsAssessment";
+    public UserLearningTemplateMapLocalServiceClpInvoker() {
+        _methodName0 = "addUserLearningTemplateMap";
 
         _methodParameterTypes0 = new String[] {
-                "uzuzjmd.competence.assessment.model.ReflexionsAssessment"
+                "uzuzjmd.competence.assessment.model.UserLearningTemplateMap"
             };
 
-        _methodName1 = "createReflexionsAssessment";
+        _methodName1 = "createUserLearningTemplateMap";
 
         _methodParameterTypes1 = new String[] { "long" };
 
-        _methodName2 = "deleteReflexionsAssessment";
+        _methodName2 = "deleteUserLearningTemplateMap";
 
         _methodParameterTypes2 = new String[] { "long" };
 
-        _methodName3 = "deleteReflexionsAssessment";
+        _methodName3 = "deleteUserLearningTemplateMap";
 
         _methodParameterTypes3 = new String[] {
-                "uzuzjmd.competence.assessment.model.ReflexionsAssessment"
+                "uzuzjmd.competence.assessment.model.UserLearningTemplateMap"
             };
 
         _methodName4 = "dynamicQuery";
@@ -111,19 +111,19 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
                 "com.liferay.portal.kernel.dao.orm.Projection"
             };
 
-        _methodName10 = "fetchReflexionsAssessment";
+        _methodName10 = "fetchUserLearningTemplateMap";
 
         _methodParameterTypes10 = new String[] { "long" };
 
-        _methodName11 = "fetchReflexionsAssessmentByUuidAndCompanyId";
+        _methodName11 = "fetchUserLearningTemplateMapByUuidAndCompanyId";
 
         _methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-        _methodName12 = "fetchReflexionsAssessmentByUuidAndGroupId";
+        _methodName12 = "fetchUserLearningTemplateMapByUuidAndGroupId";
 
         _methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-        _methodName13 = "getReflexionsAssessment";
+        _methodName13 = "getUserLearningTemplateMap";
 
         _methodParameterTypes13 = new String[] { "long" };
 
@@ -131,26 +131,26 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
 
         _methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-        _methodName15 = "getReflexionsAssessmentByUuidAndCompanyId";
+        _methodName15 = "getUserLearningTemplateMapByUuidAndCompanyId";
 
         _methodParameterTypes15 = new String[] { "java.lang.String", "long" };
 
-        _methodName16 = "getReflexionsAssessmentByUuidAndGroupId";
+        _methodName16 = "getUserLearningTemplateMapByUuidAndGroupId";
 
         _methodParameterTypes16 = new String[] { "java.lang.String", "long" };
 
-        _methodName17 = "getReflexionsAssessments";
+        _methodName17 = "getUserLearningTemplateMaps";
 
         _methodParameterTypes17 = new String[] { "int", "int" };
 
-        _methodName18 = "getReflexionsAssessmentsCount";
+        _methodName18 = "getUserLearningTemplateMapsCount";
 
         _methodParameterTypes18 = new String[] {  };
 
-        _methodName19 = "updateReflexionsAssessment";
+        _methodName19 = "updateUserLearningTemplateMap";
 
         _methodParameterTypes19 = new String[] {
-                "uzuzjmd.competence.assessment.model.ReflexionsAssessment"
+                "uzuzjmd.competence.assessment.model.UserLearningTemplateMap"
             };
 
         _methodName44 = "getBeanIdentifier";
@@ -166,44 +166,44 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
         Object[] arguments) throws Throwable {
         if (_methodName0.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes0, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.addReflexionsAssessment((uzuzjmd.competence.assessment.model.ReflexionsAssessment) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.addUserLearningTemplateMap((uzuzjmd.competence.assessment.model.UserLearningTemplateMap) arguments[0]);
         }
 
         if (_methodName1.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.createReflexionsAssessment(((Long) arguments[0]).longValue());
+            return UserLearningTemplateMapLocalServiceUtil.createUserLearningTemplateMap(((Long) arguments[0]).longValue());
         }
 
         if (_methodName2.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.deleteReflexionsAssessment(((Long) arguments[0]).longValue());
+            return UserLearningTemplateMapLocalServiceUtil.deleteUserLearningTemplateMap(((Long) arguments[0]).longValue());
         }
 
         if (_methodName3.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes3, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.deleteReflexionsAssessment((uzuzjmd.competence.assessment.model.ReflexionsAssessment) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.deleteUserLearningTemplateMap((uzuzjmd.competence.assessment.model.UserLearningTemplateMap) arguments[0]);
         }
 
         if (_methodName4.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes4, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQuery();
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQuery();
         }
 
         if (_methodName5.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes5, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
         }
 
         if (_methodName6.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes6, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());
         }
 
         if (_methodName7.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes7, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
                 (com.liferay.portal.kernel.util.OrderByComparator) arguments[3]);
@@ -211,78 +211,78 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
 
         if (_methodName8.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes8, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
         }
 
         if (_methodName9.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 (com.liferay.portal.kernel.dao.orm.Projection) arguments[1]);
         }
 
         if (_methodName10.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.fetchReflexionsAssessment(((Long) arguments[0]).longValue());
+            return UserLearningTemplateMapLocalServiceUtil.fetchUserLearningTemplateMap(((Long) arguments[0]).longValue());
         }
 
         if (_methodName11.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.fetchReflexionsAssessmentByUuidAndCompanyId((java.lang.String) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.fetchUserLearningTemplateMapByUuidAndCompanyId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName12.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.fetchReflexionsAssessmentByUuidAndGroupId((java.lang.String) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.fetchUserLearningTemplateMapByUuidAndGroupId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName13.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getReflexionsAssessment(((Long) arguments[0]).longValue());
+            return UserLearningTemplateMapLocalServiceUtil.getUserLearningTemplateMap(((Long) arguments[0]).longValue());
         }
 
         if (_methodName14.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getPersistedModel((java.io.Serializable) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.getPersistedModel((java.io.Serializable) arguments[0]);
         }
 
         if (_methodName15.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getReflexionsAssessmentByUuidAndCompanyId((java.lang.String) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.getUserLearningTemplateMapByUuidAndCompanyId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName16.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getReflexionsAssessmentByUuidAndGroupId((java.lang.String) arguments[0],
+            return UserLearningTemplateMapLocalServiceUtil.getUserLearningTemplateMapByUuidAndGroupId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName17.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getReflexionsAssessments(((Integer) arguments[0]).intValue(),
+            return UserLearningTemplateMapLocalServiceUtil.getUserLearningTemplateMaps(((Integer) arguments[0]).intValue(),
                 ((Integer) arguments[1]).intValue());
         }
 
         if (_methodName18.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getReflexionsAssessmentsCount();
+            return UserLearningTemplateMapLocalServiceUtil.getUserLearningTemplateMapsCount();
         }
 
         if (_methodName19.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.updateReflexionsAssessment((uzuzjmd.competence.assessment.model.ReflexionsAssessment) arguments[0]);
+            return UserLearningTemplateMapLocalServiceUtil.updateUserLearningTemplateMap((uzuzjmd.competence.assessment.model.UserLearningTemplateMap) arguments[0]);
         }
 
         if (_methodName44.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
-            return ReflexionsAssessmentLocalServiceUtil.getBeanIdentifier();
+            return UserLearningTemplateMapLocalServiceUtil.getBeanIdentifier();
         }
 
         if (_methodName45.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-            ReflexionsAssessmentLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
+            UserLearningTemplateMapLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
