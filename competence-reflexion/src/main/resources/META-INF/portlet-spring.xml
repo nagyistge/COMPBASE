@@ -4,4 +4,7 @@
 	<bean id="uzuzjmd.competence.assessment.service.ReflexionsAssessmentLocalService" class="uzuzjmd.competence.assessment.service.impl.ReflexionsAssessmentLocalServiceImpl" />
 	<bean id="uzuzjmd.competence.assessment.service.ReflexionsAssessmentService" class="uzuzjmd.competence.assessment.service.impl.ReflexionsAssessmentServiceImpl" />
 	<bean id="uzuzjmd.competence.assessment.service.persistence.ReflexionsAssessmentPersistence" class="uzuzjmd.competence.assessment.service.persistence.ReflexionsAssessmentPersistenceImpl" parent="basePersistence" />
+	<bean id="uzuzjmd.competence.assessment.service.UserLearningTemplateMapLocalService" class="uzuzjmd.competence.assessment.service.impl.UserLearningTemplateMapLocalServiceImpl" />
+	<bean id="uzuzjmd.competence.assessment.service.UserLearningTemplateMapService" class="uzuzjmd.competence.assessment.service.impl.UserLearningTemplateMapServiceImpl" />
+	<bean id="uzuzjmd.competence.assessment.service.persistence.UserLearningTemplateMapPersistence" class="uzuzjmd.competence.assessment.service.persistence.UserLearningTemplateMapPersistenceImpl" parent="basePersistence" />
 </beans>

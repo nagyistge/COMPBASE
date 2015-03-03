@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
 import uzuzjmd.competence.assessment.model.ReflexionsAssessmentClp;
+import uzuzjmd.competence.assessment.model.UserLearningTemplateMapClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -92,6 +93,10 @@ public class ClpSerializer {
             return translateInputReflexionsAssessment(oldModel);
         }
 
+        if (oldModelClassName.equals(UserLearningTemplateMapClp.class.getName())) {
+            return translateInputUserLearningTemplateMap(oldModel);
+        }
+
         return oldModel;
     }
 
@@ -118,6 +123,17 @@ public class ClpSerializer {
         return newModel;
     }
 
+    public static Object translateInputUserLearningTemplateMap(
+        BaseModel<?> oldModel) {
+        UserLearningTemplateMapClp oldClpModel = (UserLearningTemplateMapClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getUserLearningTemplateMapRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
     public static Object translateInput(Object obj) {
         if (obj instanceof BaseModel<?>) {
             return translateInput((BaseModel<?>) obj);
@@ -136,6 +152,11 @@ public class ClpSerializer {
         if (oldModelClassName.equals(
                     "uzuzjmd.competence.assessment.model.impl.ReflexionsAssessmentImpl")) {
             return translateOutputReflexionsAssessment(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "uzuzjmd.competence.assessment.model.impl.UserLearningTemplateMapImpl")) {
+            return translateOutputUserLearningTemplateMap(oldModel);
         }
 
         return oldModel;
@@ -219,6 +240,11 @@ public class ClpSerializer {
             return new uzuzjmd.competence.assessment.NoSuchReflexionsAssessmentException();
         }
 
+        if (className.equals(
+                    "uzuzjmd.competence.assessment.NoSuchUserLearningTemplateMapException")) {
+            return new uzuzjmd.competence.assessment.NoSuchUserLearningTemplateMapException();
+        }
+
         return throwable;
     }
 
@@ -229,6 +255,17 @@ public class ClpSerializer {
         newModel.setModelAttributes(oldModel.getModelAttributes());
 
         newModel.setReflexionsAssessmentRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputUserLearningTemplateMap(
+        BaseModel<?> oldModel) {
+        UserLearningTemplateMapClp newModel = new UserLearningTemplateMapClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setUserLearningTemplateMapRemoteModel(oldModel);
 
         return newModel;
     }

@@ -10,69 +10,83 @@
 	<h:body>
 		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->
 
-		<H1>Selbsteinschätzung</H1>
+		<p:tabView>
 
-		<!-- 		Hier wird das Dropdown für die Lernprojekte konfiguriert -->
-		<H4>Lernprojekte</H4>
-		<div id="learningTemplateSelection">
-			<p:selectOneMenu header="Lernprojekte">
-				<f:selectItems value="#{LearningTemplates.learningTemplates}"
-					var="selectedTemplate" />
-			</p:selectOneMenu>
-		</div>
-
-
-		<!-- 		Hier wird das Kompetenzraster angezeigt -->
-		<div id="suggestedCompetenceGrid">
-			<ui:repeat var="suggestedCompetenceRow"
-				value="#{SuggestedCompetenceGrid.suggestedCompetenceRows}">
-				<br></br>
+			<p:tab title="Lernprojekte">
 				<div class="flexiflex">
-					<h:outputText class="suggestedCompetenceRowHeader}"
-						value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
-					<ui:repeat var="suggestedCompetenceColumn"
-						value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
-						<span class="icon-arrow-right"></span>
-						<div class="suggestedCompetenceCluster">
-							<h:outputText class="competenceGridEntry"
-								value="#{suggestedCompetenceColumn.testOutput}" />
-							<p:progressBar
-								value="#{suggestedCompetenceColumn.progressInPercent}"
-								labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
-								displayOnly="true" style="width:80px"></p:progressBar>
+					<p:selectOneMenu header="Alle Lernprojekte">
+						<f:selectItems value="#{LearningTemplatesFullSet.learningTemplates}"
+							var="selectedTemplate" />
+					</p:selectOneMenu>
+					<p:autoComplete value="#{LearningTemplatesFullSet.writtenText}" completeMethod="#{LearningTemplatesFullSet.complete}"></p:autoComplete>
+				</div>
+			</p:tab>
+			<p:tab title="Selbsteinschätzung">
+				<H1>Selbsteinschätzung</H1>
+
+				<!-- 		Hier wird das Dropdown für die Lernprojekte konfiguriert -->
+				<H4>Lernprojekte</H4>
+				<div id="learningTemplateSelection">
+					<p:selectOneMenu header="Lernprojekte">
+						<f:selectItems value="#{LearningTemplates.learningTemplates}"
+							var="selectedTemplate" />
+					</p:selectOneMenu>
+				</div>
+
+
+				<!-- 		Hier wird das Kompetenzraster angezeigt -->
+				<div id="suggestedCompetenceGrid">
+					<ui:repeat var="suggestedCompetenceRow"
+						value="#{SuggestedCompetenceGrid.suggestedCompetenceRows}">
+						<br></br>
+						<div class="flexiflex">
+							<h:outputText class="suggestedCompetenceRowHeader}"
+								value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
+							<ui:repeat var="suggestedCompetenceColumn"
+								value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
+								<span class="icon-arrow-right"></span>
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="competenceGridEntry"
+										value="#{suggestedCompetenceColumn.testOutput}" />
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</ui:repeat>
 						</div>
 					</ui:repeat>
 				</div>
-			</ui:repeat>
-		</div>
 
-		<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt -->
-		<div id="assessmentsForSelected">
-			<H3>#{ReflectiveAssessmentsListHolder.suggestedMetaCompetence}</H3>
-			<ui:repeat var="reflectiveAssessment"
-				value="#{ReflectiveAssessmentsListHolder.reflectiveAssessmentList}">
-				<div class="flexiflex">
-					<p:outputLabel for="assessmentRadio"
-						value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
-					<p:selectOneRadio id="assessmentRadio">
+				<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt -->
+				<div id="assessmentsForSelected">
+					<H3>#{ReflectiveAssessmentsListHolder.suggestedMetaCompetence}</H3>
+					<ui:repeat var="reflectiveAssessment"
+						value="#{ReflectiveAssessmentsListHolder.reflectiveAssessmentList}">
+						<div class="flexiflex">
+							<p:outputLabel for="assessmentRadio"
+								value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
+							<p:selectOneRadio id="assessmentRadio">
 												value="#{ReflectiveAssessmentsListHolder.assessment.items[reflectiveAssessment.assessmentIndex]}">
 												<f:selectItem
-							itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[0]}"
-							itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[0]}" />
-						<f:selectItem
-							itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[1]}"
-							itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[1]}" />
-						<f:selectItem
-							itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[2]}"
-							itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[2]}" />
-						<f:selectItem
-							itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[3]}"
-							itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[3]}" />
-					</p:selectOneRadio>
-					<p:selectBooleanCheckbox
-						value="#{reflectiveAssessment.isLearningGoal}"></p:selectBooleanCheckbox>
+									itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[0]}"
+									itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[0]}" />
+								<f:selectItem
+									itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[1]}"
+									itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[1]}" />
+								<f:selectItem
+									itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[2]}"
+									itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[2]}" />
+								<f:selectItem
+									itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[3]}"
+									itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[3]}" />
+							</p:selectOneRadio>
+							<p:selectBooleanCheckbox
+								value="#{reflectiveAssessment.isLearningGoal}"></p:selectBooleanCheckbox>
+						</div>
+					</ui:repeat>
 				</div>
-			</ui:repeat>
-		</div>
+			</p:tab>
+		</p:tabView>
 	</h:body>
 </f:view>
