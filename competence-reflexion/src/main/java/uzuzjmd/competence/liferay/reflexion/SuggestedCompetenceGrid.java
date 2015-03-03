@@ -21,31 +21,7 @@ public class SuggestedCompetenceGrid implements Serializable {
 	@ManagedProperty("#{suggestedCompetenceRows}")
 	private List<SuggestedCompetenceRow> suggestedCompetenceRows;
 
-	public SuggestedCompetenceGrid() {
-		// suggestedCompetenceRows = new ArrayList<SuggestedCompetenceRow>();
-		//
-		// SuggestedCompetenceRow columntest = new SuggestedCompetenceRow();
-		// List<SuggestedCompetenceColumn> suggestedCompetenceColumns = new
-		// ArrayList<SuggestedCompetenceColumn>();
-		// SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
-		// column.setTestOutput("hello 1");
-		// suggestedCompetenceColumns.add(column);
-		// columntest.setSuggestedCompetenceColumns(suggestedCompetenceColumns);
-		// suggestedCompetenceRows.add(columntest);
-		//
-		// // zweite Testzeile
-		//
-		// SuggestedCompetenceRow columntest2 = new SuggestedCompetenceRow();
-		// List<SuggestedCompetenceColumn> suggestedCompetenceColumns2 = new
-		// ArrayList<SuggestedCompetenceColumn>();
-		// SuggestedCompetenceColumn column2 = new SuggestedCompetenceColumn();
-		// column2.setTestOutput("hello 2.1");
-		// SuggestedCompetenceColumn column3 = new SuggestedCompetenceColumn();
-		// column3.setTestOutput("hello 2.2");
-		// suggestedCompetenceColumns2.add(column2);
-		// suggestedCompetenceColumns2.add(column3);
-		// columntest2.setSuggestedCompetenceColumns(suggestedCompetenceColumns2);
-		// suggestedCompetenceRows.add(columntest2);
+	public SuggestedCompetenceGrid() {	
 	}
 
 	public List<SuggestedCompetenceRow> getSuggestedCompetenceRows() {
@@ -69,6 +45,7 @@ public class SuggestedCompetenceGrid implements Serializable {
 		List<SuggestedCompetenceColumn> suggestedCompetenceColumns = new ArrayList<SuggestedCompetenceColumn>();
 		SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
 		column.setTestOutput("hello Zeile 1.0");
+		column.setProgressInPercent(90);
 		suggestedCompetenceColumns.add(column);
 		columntest.setSuggestedCompetenceColumns(suggestedCompetenceColumns);
 		suggestedCompetenceRows.add(columntest);
@@ -80,8 +57,10 @@ public class SuggestedCompetenceGrid implements Serializable {
 		List<SuggestedCompetenceColumn> suggestedCompetenceColumns2 = new ArrayList<SuggestedCompetenceColumn>();
 		SuggestedCompetenceColumn column2 = new SuggestedCompetenceColumn();
 		column2.setTestOutput("hello Zeile 2.1");
+		column2.setProgressInPercent(10);
 		SuggestedCompetenceColumn column3 = new SuggestedCompetenceColumn();
 		column3.setTestOutput("hello Zeile 2.2");
+		column3.setProgressInPercent(40);
 		suggestedCompetenceColumns2.add(column2);
 		suggestedCompetenceColumns2.add(column3);
 		columntest2.setSuggestedCompetenceColumns(suggestedCompetenceColumns2);
