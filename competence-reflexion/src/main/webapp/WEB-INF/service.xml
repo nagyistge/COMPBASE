@@ -1,0 +1,50 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="uzuzjmd.competence.assessment">
+	<namespace>competenceAssessment</namespace>
+	<entity name="ReflexionsAssessment" uuid="true" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="assessmentId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="competenceDescription" type="String" />
+		<column name="competenceId" type="String" />
+		
+<!-- 		0 -> überhaupt nicht , 1 -> schlecht, 2 -> mittel , 3 -> gut -->
+		
+		<column name="assessmentIndex" type="int" />		
+		<column name="isLearningGoal" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="competenceId" />
+		</order>
+
+		<!-- Finder methods -->
+
+<!-- 		<finder name="Field2" return-type="Collection"> -->
+<!-- 			<finder-column name="field2" /> -->
+<!-- 		</finder> -->
+
+		<!-- References -->
+
+<!-- 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" /> -->
+<!-- 		<reference package-path="com.liferay.portlet.asset" entity="AssetTag" /> -->
+	</entity>
+</service-builder>
