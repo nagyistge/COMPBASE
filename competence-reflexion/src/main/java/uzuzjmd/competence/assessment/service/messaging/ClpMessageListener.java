@@ -6,6 +6,8 @@ import com.liferay.portal.kernel.messaging.Message;
 import uzuzjmd.competence.assessment.service.ClpSerializer;
 import uzuzjmd.competence.assessment.service.ReflexionsAssessmentLocalServiceUtil;
 import uzuzjmd.competence.assessment.service.ReflexionsAssessmentServiceUtil;
+import uzuzjmd.competence.assessment.service.UserLearningTemplateMapLocalServiceUtil;
+import uzuzjmd.competence.assessment.service.UserLearningTemplateMapServiceUtil;
 
 
 public class ClpMessageListener extends BaseMessageListener {
@@ -23,6 +25,9 @@ public class ClpMessageListener extends BaseMessageListener {
             ReflexionsAssessmentLocalServiceUtil.clearService();
 
             ReflexionsAssessmentServiceUtil.clearService();
+            UserLearningTemplateMapLocalServiceUtil.clearService();
+
+            UserLearningTemplateMapServiceUtil.clearService();
         }
     }
 }

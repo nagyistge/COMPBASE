@@ -33,8 +33,35 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="uzuzjmd.competence.assessment.model.impl.UserLearningTemplateMapModelImpl">
+		<attributes>
+			<id name="userLearningTemplateMapId" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="learningTemplate" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<entity class="uzuzjmd.competence.assessment.model.impl.ReflexionsAssessmentImpl" name="ReflexionsAssessment">
 		<table name="competenceAssessment_ReflexionsAssessment" />
+		<attributes />
+	</entity>
+	<entity class="uzuzjmd.competence.assessment.model.impl.UserLearningTemplateMapImpl" name="UserLearningTemplateMap">
+		<table name="competenceAssessment_UserLearningTemplateMap" />
 		<attributes />
 	</entity>
 </entity-mappings>

@@ -3,6 +3,7 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="uzuzjmd.competence.assessment.model.ReflexionsAssessment" />
+	<import class="uzuzjmd.competence.assessment.model.UserLearningTemplateMap" />
 	<class name="uzuzjmd.competence.assessment.model.impl.ReflexionsAssessmentImpl" table="competenceAssessment_ReflexionsAssessment">
 		<cache usage="read-write" />
 		<id name="assessmentId" type="long">
@@ -19,5 +20,19 @@
 		<property name="competenceId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="assessmentIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="isLearningGoal" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="uzuzjmd.competence.assessment.model.impl.UserLearningTemplateMapImpl" table="competenceAssessment_UserLearningTemplateMap">
+		<cache usage="read-write" />
+		<id name="userLearningTemplateMapId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="learningTemplate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>
