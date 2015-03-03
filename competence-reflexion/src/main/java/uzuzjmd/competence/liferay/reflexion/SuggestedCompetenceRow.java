@@ -1,5 +1,6 @@
 package uzuzjmd.competence.liferay.reflexion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,13 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name="SuggestedCompetenceRow" , eager = true)
 @ViewScoped
-public class SuggestedCompetenceRow {
+public class SuggestedCompetenceRow implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@ManagedProperty("#{suggestedCompetenceColumns}")
 	private List<SuggestedCompetenceColumn> suggestedCompetenceColumns;
 	
