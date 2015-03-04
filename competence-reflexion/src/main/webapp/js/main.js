@@ -1,4 +1,5 @@
 // implements client site events for lernprojekte tab
+
 $("[id$='createLearningGoalPanel']").hide();
 
 $("[id$='addLearningGoalButton']").click(function() {

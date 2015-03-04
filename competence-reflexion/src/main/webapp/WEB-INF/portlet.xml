@@ -4,8 +4,7 @@
 	<portlet>
 		<portlet-name>Reflexionsportfolio</portlet-name>
 		<display-name>Competence-Reflexion</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
-	
+		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>	
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/view.xhtml</value>
