@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.liferay.reflexion.StringList;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
@@ -145,4 +147,14 @@ public class CompetenceServiceRestXML {
 		return response;
 	}
 
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/learningtemplates")
+	public Response getAllLearningTemplates() {
+		List<String> learningTemplates = new LinkedList<String>();
+		// TODO implement getting the learning Templates from the
+		learningTemplates.add("Test");
+		Response response = RestUtil.buildCachedResponse(new StringList(learningTemplates), true);
+		return response;
+	}
 }
