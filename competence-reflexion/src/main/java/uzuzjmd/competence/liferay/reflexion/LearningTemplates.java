@@ -32,4 +32,8 @@ public class LearningTemplates implements Serializable{
 		learningTemplates.add("template1");
 		learningTemplates.add("template2");
 	}
+	
+	public Boolean dummyAction() {
+		return null;
+	}
 }

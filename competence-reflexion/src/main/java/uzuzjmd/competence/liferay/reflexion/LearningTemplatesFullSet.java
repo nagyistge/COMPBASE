@@ -42,8 +42,7 @@ public class LearningTemplatesFullSet implements Serializable{
 	public List<String> complete(String query) {
 		List<String> result = new ArrayList<String>();
 //		_log.debug("auto-completing");
-		Collection<String> tmp = Collections2.filter(learningTemplates, Predicates.containsPattern("^"+query));
-	
+		Collection<String> tmp = Collections2.filter(learningTemplates, Predicates.containsPattern("^"+query));	
 		result.addAll(tmp);
 		return result;		
 	}
