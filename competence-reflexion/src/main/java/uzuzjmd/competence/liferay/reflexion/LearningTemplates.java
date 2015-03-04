@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.ResourceDependency;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
+//@ResourceDependency(name="js/main.js")
 @ManagedBean(name="LearningTemplates")
 @ViewScoped
 public class LearningTemplates implements Serializable{	
