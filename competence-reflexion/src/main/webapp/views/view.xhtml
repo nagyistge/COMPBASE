@@ -10,15 +10,21 @@
 	<h:body>
 		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->
 
-		<p:tabView>
 
+		<p:tabView>
 			<p:tab title="Lernprojekte">
 				<div class="flexiflex">
-					<p:selectOneMenu header="Alle Lernprojekte">
-						<f:selectItems value="#{LearningTemplatesFullSet.learningTemplates}"
-							var="selectedTemplate" />
-					</p:selectOneMenu>
-					<p:autoComplete value="#{LearningTemplatesFullSet.writtenText}" completeMethod="#{LearningTemplatesFullSet.complete}"></p:autoComplete>
+					<h:form>
+						<p:autoComplete maxResults="10" id="autocomplete"
+							value="#{LearningTemplatesFullSet.writtenText}"
+							completeMethod="#{LearningTemplatesFullSet.complete}"
+							dropdown="true" />
+						<!-- 					<p:selectOneMenu header="Alle Lernprojekte"> -->
+						<!-- 						<f:selectItems -->
+						<!-- 							value="#{LearningTemplatesFullSet.learningTemplates}" -->
+						<!-- 							var="selectedTemplate" /> -->
+						<!-- 					</p:selectOneMenu> -->
+					</h:form>
 				</div>
 			</p:tab>
 			<p:tab title="Selbsteinschätzung">
