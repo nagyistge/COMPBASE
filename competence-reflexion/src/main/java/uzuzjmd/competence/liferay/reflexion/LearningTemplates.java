@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.ResourceDependency;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 //@ResourceDependency(name="js/main.js")
@@ -33,6 +31,8 @@ public class LearningTemplates implements Serializable{
 		learningTemplates = new ArrayList<String>();
 		learningTemplates.add("template1");
 		learningTemplates.add("template2");
+		
+//		Client client = ClientBuilder
 	}
 	
 	public Boolean dummyAction() {
