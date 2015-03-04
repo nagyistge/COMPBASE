@@ -13,8 +13,26 @@
 
 		<p:tabView>
 			<p:tab title="Lernprojekte">
-				<div class="flexiflex">
+				<H1>Meine Lernprojekte</H1>
+
+				<p:dataList var="learningProject"
+					value="#{LearningTemplates.learningTemplates}" paginator="true"
+					rows="10" type="definition">
+					<div class="flexiflex">
+						<p:outputLabel value="#{learningProject}"></p:outputLabel>
+						<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
+						<p:button icon="ui-icon-minusthick" value="löschen"></p:button>
+					</div>
+				</p:dataList>
+
+				<p:commandButton icon="ui-icon-plus" value="hinzufügen"
+					id="addLearningGoalButton">
+					<!-- 					<p:ajax update="createLearningGoalPanel" event="click"></p:ajax> -->
+				</p:commandButton>
+				<div class="flexiflex" id="createLearningGoalPanel">
 					<h:form>
+						<p:outputLabel for="autocomplete"
+							value="Wählen Sie neue Lernprojekte!"></p:outputLabel>
 						<p:autoComplete maxResults="10" id="autocomplete"
 							value="#{LearningTemplatesFullSet.writtenText}"
 							completeMethod="#{LearningTemplatesFullSet.complete}"
@@ -24,6 +42,9 @@
 						<!-- 							value="#{LearningTemplatesFullSet.learningTemplates}" -->
 						<!-- 							var="selectedTemplate" /> -->
 						<!-- 					</p:selectOneMenu> -->
+						<p:button value="speichern"></p:button>
+						<p:commandButton value="abbrechen" id="cancelCreatingLearningGoal">
+						</p:commandButton>
 					</h:form>
 				</div>
 			</p:tab>
