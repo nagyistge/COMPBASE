@@ -316,10 +316,14 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<classifier>classes</classifier>
 		</dependency>
+		
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>reflexion</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<classifier>classes</classifier>			
+		</dependency>		
 	</dependencies>
-
-
-
 
 	<build>
 		<sourceDirectory>src/main/scala</sourceDirectory>
