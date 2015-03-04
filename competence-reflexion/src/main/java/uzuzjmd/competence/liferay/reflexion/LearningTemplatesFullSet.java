@@ -7,22 +7,28 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedProperty;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 
 @ManagedBean(name="LearningTemplatesFullSet")
-@ViewScoped
 public class LearningTemplatesFullSet implements Serializable{	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+//	private static Log _log = LogFactoryUtil
+//			.getLog(LearningTemplatesFullSet.class);
+//	
+	@ManagedProperty("#{learningTemplates}")
 	private List<String> learningTemplates;
+	
+	@ManagedProperty("#{writtenText}")
 	private String writtenText;
 
+	
 	public List<String> getLearningTemplates() {
 		return learningTemplates;
 	}
@@ -31,14 +37,15 @@ public class LearningTemplatesFullSet implements Serializable{
 		this.learningTemplates = learningTemplates;
 	}
 	
+	
+
 	public List<String> complete(String query) {
-		learningTemplates = new ArrayList<String>();
-		learningTemplates.add("template1");
-		learningTemplates.add("template2");
 		List<String> result = new ArrayList<String>();
+//		_log.debug("auto-completing");
 		Collection<String> tmp = Collections2.filter(learningTemplates, Predicates.containsPattern("^"+query));
+	
 		result.addAll(tmp);
-		return result;
+		return result;		
 	}
 	
 	@PostConstruct
