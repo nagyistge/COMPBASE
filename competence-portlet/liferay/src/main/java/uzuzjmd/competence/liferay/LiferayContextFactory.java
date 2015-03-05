@@ -18,5 +18,6 @@ public class LiferayContextFactory extends LmsContextFactory implements Serializ
 	public LiferayContextFactory(int courseId, String serverUrl,
 			String evidenceServerUrl, String role, String userName) {
 		super(courseId, serverUrl, evidenceServerUrl, role, userName);
+		
 	}
 }
