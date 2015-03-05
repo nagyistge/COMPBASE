@@ -7,10 +7,12 @@ import org.jsoup.Jsoup;
 
 import uzuzjmd.competence.gui.client.LmsContextFactory;
 
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
@@ -21,6 +23,7 @@ import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+import com.liferay.util.portlet.PortletProps;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
@@ -107,11 +110,16 @@ public class CompetencePortletUI extends UI {
 		long courseId = themeDisplay.getScopeGroupId();
 
 				
-		LmsContextFactory contextFactory = new LmsContextFactory(courseId, null, null, "teacher", user);
+		String competenceRestServerUrl = GetterUtil.getString(PortletProps.get("competenceRestServerUrl"));
+		System.out.println("connecting to:" + competenceRestServerUrl + " to fetch competences");
+		
+		String evidenceRestServerUrl = GetterUtil.getString(PortletProps.get("evidenceRestServerUrl"));
+		System.out.println("connecting to:" + evidenceRestServerUrl + " to fetch evidences");
+		
+		// TODO: add context specific role
+		LmsContextFactory contextFactory = new LmsContextFactory(courseId, competenceRestServerUrl, evidenceRestServerUrl, "teacher", user);
 		CompetenceUIVaadinComponent competenceUI = new CompetenceUIVaadinComponent(contextFactory);					
 		layout.addComponent(competenceUI);	
-	
-	
 //		layout.addComponent(new Label("Hendrik ist der Gott des Powerpoints und des Googlens"));
 
 		updateActivities(request, themeDisplay);
