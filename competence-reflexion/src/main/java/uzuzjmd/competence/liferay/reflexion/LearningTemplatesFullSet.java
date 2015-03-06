@@ -28,10 +28,7 @@ public class LearningTemplatesFullSet implements Serializable{
 	@ManagedProperty("#{learningTemplates}")
 	private List<String> learningTemplates;
 	
-	@ManagedProperty("#{writtenText}")
-	private String writtenText;
 
-	
 	public List<String> getLearningTemplates() {
 		return learningTemplates;
 	}
@@ -72,11 +69,5 @@ public class LearningTemplatesFullSet implements Serializable{
 		}				
 	}
 
-	public String getWrittenText() {
-		return writtenText;
-	}
 
-	public void setWrittenText(String writtenText) {
-		this.writtenText = writtenText;
-	}
 }

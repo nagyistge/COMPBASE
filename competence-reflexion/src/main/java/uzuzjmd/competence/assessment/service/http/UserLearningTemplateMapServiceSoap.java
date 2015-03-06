@@ -1,5 +1,12 @@
 package uzuzjmd.competence.assessment.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import uzuzjmd.competence.assessment.service.UserLearningTemplateMapServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link uzuzjmd.competence.assessment.service.UserLearningTemplateMapServiceUtil} service utility. The
@@ -41,4 +48,17 @@ package uzuzjmd.competence.assessment.service.http;
  * @generated
  */
 public class UserLearningTemplateMapServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(UserLearningTemplateMapServiceSoap.class);
+
+    public static java.lang.String dummy() throws RemoteException {
+        try {
+            java.lang.String returnValue = UserLearningTemplateMapServiceUtil.dummy();
+
+            return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }
