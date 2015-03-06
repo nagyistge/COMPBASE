@@ -3,7 +3,7 @@
 
 <display>
 	<category name="category.sample">
-		<portlet id="Reflexionsportfolio" />
-		<portlet id="competence-reflexion"></portlet>
+		<portlet id="Competence-Reflexion Portlet"></portlet>
+		<portlet id="competence-assessment"></portlet>
 	</category>
 </display>

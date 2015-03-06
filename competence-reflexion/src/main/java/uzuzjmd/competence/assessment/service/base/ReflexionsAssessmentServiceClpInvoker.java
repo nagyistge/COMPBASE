@@ -15,6 +15,8 @@ public class ReflexionsAssessmentServiceClpInvoker {
     private String[] _methodParameterTypes25;
     private String _methodName30;
     private String[] _methodParameterTypes30;
+    private String _methodName31;
+    private String[] _methodParameterTypes31;
 
     public ReflexionsAssessmentServiceClpInvoker() {
         _methodName24 = "getBeanIdentifier";
@@ -28,6 +30,10 @@ public class ReflexionsAssessmentServiceClpInvoker {
         _methodName30 = "getReflexionsAssessments";
 
         _methodParameterTypes30 = new String[] { "long", "java.lang.String" };
+
+        _methodName31 = "dummy";
+
+        _methodParameterTypes31 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -48,6 +54,11 @@ public class ReflexionsAssessmentServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
             return ReflexionsAssessmentServiceUtil.getReflexionsAssessments(((Long) arguments[0]).longValue(),
                 (java.lang.String) arguments[1]);
+        }
+
+        if (_methodName31.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+            return ReflexionsAssessmentServiceUtil.dummy();
         }
 
         throw new UnsupportedOperationException();

@@ -23,4 +23,8 @@ public class ReflexionsAssessmentLocalServiceImpl
      *
      * Never reference this interface directly. Always use {@link uzuzjmd.competence.assessment.service.ReflexionsAssessmentLocalServiceUtil} to access the reflexions assessment local service.
      */
+	
+	public String dummy() {
+		return "hello";		
+	}
 }

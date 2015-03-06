@@ -53,6 +53,8 @@ public class UserLearningTemplateMapLocalServiceClp
     private String[] _methodParameterTypes20;
     private String _methodName21;
     private String[] _methodParameterTypes21;
+    private String _methodName23;
+    private String[] _methodParameterTypes23;
 
     public UserLearningTemplateMapLocalServiceClp(
         InvokableLocalService invokableLocalService) {
@@ -163,6 +165,10 @@ public class UserLearningTemplateMapLocalServiceClp
         _methodName21 = "setBeanIdentifier";
 
         _methodParameterTypes21 = new String[] { "java.lang.String" };
+
+        _methodName23 = "dummy";
+
+        _methodParameterTypes23 = new String[] {  };
     }
 
     @Override
@@ -809,5 +815,26 @@ public class UserLearningTemplateMapLocalServiceClp
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public java.lang.String dummy() {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName23,
+                    _methodParameterTypes23, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 }
