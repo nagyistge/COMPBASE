@@ -53,6 +53,8 @@ public class UserLearningTemplateMapLocalServiceClpInvoker {
     private String[] _methodParameterTypes44;
     private String _methodName45;
     private String[] _methodParameterTypes45;
+    private String _methodName50;
+    private String[] _methodParameterTypes50;
 
     public UserLearningTemplateMapLocalServiceClpInvoker() {
         _methodName0 = "addUserLearningTemplateMap";
@@ -160,6 +162,10 @@ public class UserLearningTemplateMapLocalServiceClpInvoker {
         _methodName45 = "setBeanIdentifier";
 
         _methodParameterTypes45 = new String[] { "java.lang.String" };
+
+        _methodName50 = "dummy";
+
+        _methodParameterTypes50 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -285,6 +291,11 @@ public class UserLearningTemplateMapLocalServiceClpInvoker {
             UserLearningTemplateMapLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName50.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+            return UserLearningTemplateMapLocalServiceUtil.dummy();
         }
 
         throw new UnsupportedOperationException();

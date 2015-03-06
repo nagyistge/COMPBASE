@@ -53,6 +53,8 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
     private String[] _methodParameterTypes44;
     private String _methodName45;
     private String[] _methodParameterTypes45;
+    private String _methodName50;
+    private String[] _methodParameterTypes50;
 
     public ReflexionsAssessmentLocalServiceClpInvoker() {
         _methodName0 = "addReflexionsAssessment";
@@ -160,6 +162,10 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
         _methodName45 = "setBeanIdentifier";
 
         _methodParameterTypes45 = new String[] { "java.lang.String" };
+
+        _methodName50 = "dummy";
+
+        _methodParameterTypes50 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -285,6 +291,11 @@ public class ReflexionsAssessmentLocalServiceClpInvoker {
             ReflexionsAssessmentLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName50.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+            return ReflexionsAssessmentLocalServiceUtil.dummy();
         }
 
         throw new UnsupportedOperationException();

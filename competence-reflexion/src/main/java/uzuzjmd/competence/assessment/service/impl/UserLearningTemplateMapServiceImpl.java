@@ -23,4 +23,7 @@ public class UserLearningTemplateMapServiceImpl
      *
      * Never reference this interface directly. Always use {@link uzuzjmd.competence.assessment.service.UserLearningTemplateMapServiceUtil} to access the user learning template map remote service.
      */
+	public String dummy() {
+		return "hello";		
+	}
 }

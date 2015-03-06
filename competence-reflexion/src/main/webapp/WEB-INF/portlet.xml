@@ -1,64 +1,24 @@
 <?xml version="1.0"?>
 
-<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">	
 	<portlet>
-		<portlet-name>Reflexionsportfolio</portlet-name>
-		<display-name>Competence-Reflexion</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>	
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/views/view.xhtml</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<portlet-info>
-			<title>Competence-Reflexion</title>
-			<short-title>Competence-Reflexion</short-title>
-			<keywords>Competence-Reflexion</keywords>
-		</portlet-info>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>guest</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
-	</portlet>
-	<portlet>
-		<portlet-name>competence-reflexion</portlet-name>
+		<portlet-name>Competence-Reflexion Portlet</portlet-name>
 		<display-name>Competence Reflexion</display-name>
 		<portlet-class>
 			javax.portlet.faces.GenericFacesPortlet
 		</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/views/competence-reflexion/view.xhtml</value>
-		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/competence-reflexion/edit.xhtml</value>
-		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
-			<value>/views/competence-reflexion/help.xhtml</value>
-		</init-param>
+			<value>/views/view.xhtml</value>
+		</init-param>		
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
-			<portlet-mode>view</portlet-mode>
-			<portlet-mode>edit</portlet-mode>
-			<portlet-mode>help</portlet-mode>
+			<portlet-mode>view</portlet-mode>			
 		</supports>
 		<portlet-info>
-			<title>Competence Reflexion</title>
-			<short-title>Competence Reflexion</short-title>
+			<title>Competence-Reflexion Portlet</title>
+			<short-title>Competence-Reflexion Portlet</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
@@ -73,5 +33,5 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-	</portlet>
+	</portlet>	
 </portlet-app>

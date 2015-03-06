@@ -47,14 +47,9 @@ public class ReflexionsAssessmentServiceImpl
 		return null;	
 	} 
 	
+	public String dummy() {
+		return "hello";		
+	}
 	
-//	DynamicQuery dynamicQuery = new DynamicQueryFactoryUtil().forClass(Evidence.class, PortletClassLoaderUtil.getClassLoader());
-//	dynamicQuery.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
-//	try {
-//		return EvidenceLocalServiceUtil.dynamicQuery(dynamicQuery);
-//	} catch (SystemException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//	return null;
+
 }
