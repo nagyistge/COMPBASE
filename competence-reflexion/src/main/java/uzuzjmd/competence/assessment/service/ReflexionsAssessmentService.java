@@ -56,4 +56,6 @@ public interface ReflexionsAssessmentService extends BaseService,
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<uzuzjmd.competence.assessment.model.ReflexionsAssessment> getReflexionsAssessments(
         long userId, java.lang.String competenceId);
+
+    public java.lang.String dummy();
 }

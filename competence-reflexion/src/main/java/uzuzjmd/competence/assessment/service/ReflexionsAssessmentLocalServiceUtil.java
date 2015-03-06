@@ -327,6 +327,10 @@ public class ReflexionsAssessmentLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static java.lang.String dummy() {
+        return getService().dummy();
+    }
+
     public static void clearService() {
         _service = null;
     }

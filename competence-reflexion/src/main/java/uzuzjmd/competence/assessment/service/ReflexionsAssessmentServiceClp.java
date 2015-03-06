@@ -15,6 +15,8 @@ public class ReflexionsAssessmentServiceClp
     private String[] _methodParameterTypes1;
     private String _methodName3;
     private String[] _methodParameterTypes3;
+    private String _methodName4;
+    private String[] _methodParameterTypes4;
 
     public ReflexionsAssessmentServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -30,6 +32,10 @@ public class ReflexionsAssessmentServiceClp
         _methodName3 = "getReflexionsAssessments";
 
         _methodParameterTypes3 = new String[] { "long", "java.lang.String" };
+
+        _methodName4 = "dummy";
+
+        _methodParameterTypes4 = new String[] {  };
     }
 
     @Override
@@ -103,5 +109,26 @@ public class ReflexionsAssessmentServiceClp
         }
 
         return (java.util.List<uzuzjmd.competence.assessment.model.ReflexionsAssessment>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.lang.String dummy() {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName4,
+                    _methodParameterTypes4, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 }

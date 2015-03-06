@@ -47,6 +47,11 @@ public class UserLearningTemplateMapServiceWrapper
             parameterTypes, arguments);
     }
 
+    @Override
+    public java.lang.String dummy() {
+        return _userLearningTemplateMapService.dummy();
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

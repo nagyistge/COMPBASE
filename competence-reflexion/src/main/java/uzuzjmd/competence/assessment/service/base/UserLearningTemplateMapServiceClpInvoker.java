@@ -13,6 +13,8 @@ public class UserLearningTemplateMapServiceClpInvoker {
     private String[] _methodParameterTypes24;
     private String _methodName25;
     private String[] _methodParameterTypes25;
+    private String _methodName30;
+    private String[] _methodParameterTypes30;
 
     public UserLearningTemplateMapServiceClpInvoker() {
         _methodName24 = "getBeanIdentifier";
@@ -22,6 +24,10 @@ public class UserLearningTemplateMapServiceClpInvoker {
         _methodName25 = "setBeanIdentifier";
 
         _methodParameterTypes25 = new String[] { "java.lang.String" };
+
+        _methodName30 = "dummy";
+
+        _methodParameterTypes30 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -36,6 +42,11 @@ public class UserLearningTemplateMapServiceClpInvoker {
             UserLearningTemplateMapServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName30.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+            return UserLearningTemplateMapServiceUtil.dummy();
         }
 
         throw new UnsupportedOperationException();

@@ -56,6 +56,10 @@ public class ReflexionsAssessmentServiceUtil {
         return getService().getReflexionsAssessments(userId, competenceId);
     }
 
+    public static java.lang.String dummy() {
+        return getService().dummy();
+    }
+
     public static void clearService() {
         _service = null;
     }

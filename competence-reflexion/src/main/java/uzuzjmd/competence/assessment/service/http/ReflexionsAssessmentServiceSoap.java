@@ -64,4 +64,16 @@ public class ReflexionsAssessmentServiceSoap {
             throw new RemoteException(e.getMessage());
         }
     }
+
+    public static java.lang.String dummy() throws RemoteException {
+        try {
+            java.lang.String returnValue = ReflexionsAssessmentServiceUtil.dummy();
+
+            return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

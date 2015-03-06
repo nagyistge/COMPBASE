@@ -398,7 +398,8 @@ public class UserLearningTemplateMapWrapper implements UserLearningTemplateMap,
     }
 
     @Override
-    public int compareTo(UserLearningTemplateMap userLearningTemplateMap) {
+    public int compareTo(
+        uzuzjmd.competence.assessment.model.UserLearningTemplateMap userLearningTemplateMap) {
         return _userLearningTemplateMap.compareTo(userLearningTemplateMap);
     }
 
@@ -408,17 +409,17 @@ public class UserLearningTemplateMapWrapper implements UserLearningTemplateMap,
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<UserLearningTemplateMap> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<uzuzjmd.competence.assessment.model.UserLearningTemplateMap> toCacheModel() {
         return _userLearningTemplateMap.toCacheModel();
     }
 
     @Override
-    public UserLearningTemplateMap toEscapedModel() {
+    public uzuzjmd.competence.assessment.model.UserLearningTemplateMap toEscapedModel() {
         return new UserLearningTemplateMapWrapper(_userLearningTemplateMap.toEscapedModel());
     }
 
     @Override
-    public UserLearningTemplateMap toUnescapedModel() {
+    public uzuzjmd.competence.assessment.model.UserLearningTemplateMap toUnescapedModel() {
         return new UserLearningTemplateMapWrapper(_userLearningTemplateMap.toUnescapedModel());
     }
 
