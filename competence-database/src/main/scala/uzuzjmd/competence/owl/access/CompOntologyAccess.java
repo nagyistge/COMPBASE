@@ -1,5 +1,8 @@
 package uzuzjmd.competence.owl.access;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -11,6 +14,9 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.ontology.OntResource;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
@@ -312,7 +318,24 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public CompetenceQueries getQueries() {
+
 		return queries;
 	}
 
+	public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
+
+		List<String> result = new LinkedList<String>();
+		OntClass learningProjectTemplateClass = getOntClassForString(clazz.name());
+		ExtendedIterator<? extends OntResource> instances = learningProjectTemplateClass.listInstances();
+		while (instances.hasNext()) {
+			OntResource res = instances.next();
+			OntProperty iProperty = manager.getM().getOntProperty(MagicStrings.PREFIX + "definition");
+			RDFNode value = res.getPropertyValue(iProperty);
+			if (value != null) {
+				String definitionValue = value.asNode().getLiteralValue().toString().replaceAll("[\n\r]", "").replaceAll("[\n]", "");
+				result.add(definitionValue);
+			}
+		}
+		return result;
+	}
 }
