@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.ws.rs.core.MediaType;
 
+import uzuzjmd.competence.liferay.util.SOAUtil;
+
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.sun.jersey.api.client.Client;
@@ -50,18 +52,10 @@ public class LearningTemplatesFullSet implements Serializable{
 	@PostConstruct
 	public void init() {
 		learningTemplates = new ArrayList<String>();
-//		learningTemplates.add("template1");
-//		learningTemplates.add("template2");
-		
-//		Client client = ClientBuilder.newClient();
-		Client client = com.sun.jersey.api.client.Client.create();
-//		WebTarget target = client.target("http://localhost:8084").path("/competences/xml/competencetree/learningtemplates");		
+
+		Client client = com.sun.jersey.api.client.Client.create();	
 		WebResource webResource = client
-				.resource("http://localhost:8084/competences/xml/learningtemplates");	
-		
-		
-//		StringList result = target.request(MediaType.APPLICATION_XML).get(StringList.class);
-		
+				.resource(SOAUtil.getRestserverUrl() + "/competences/xml/learningtemplates");	
 		StringList result = webResource.accept(MediaType.APPLICATION_XML)
 				.get(StringList.class);
 		for (String template : result.getData()) {
