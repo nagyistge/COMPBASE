@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.liferay.reflexion.StringList;
+import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
@@ -153,7 +155,29 @@ public class CompetenceServiceRestXML {
 	public Response getAllLearningTemplates() {
 		List<String> learningTemplates = new LinkedList<String>();
 		// TODO implement getting the learning Templates from the
-		learningTemplates.add("Test");
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+
+		// OntClass learningProjectTemplateClass =
+		// compOntologyManager.getUtil().getOntClassForString(CompOntClass.LearningProjectTemplate.name());
+		// ExtendedIterator<? extends OntResource> instances =
+		// learningProjectTemplateClass.listInstances();
+		// while (instances.hasNext()) {
+		// OntResource res = instances.next();
+		// OntProperty iProperty =
+		// compOntologyManager.getM().getOntProperty(MagicStrings.PREFIX +
+		// "definition");
+		// RDFNode value = res.getPropertyValue(iProperty);
+		// if (value == null) {
+		// } else {
+		// learningTemplates.add(value.asNode().getLiteralValue().toString());
+		// }
+		// }
+
+		List<String> result = compOntologyManager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate);
+		learningTemplates.addAll(result);
+
+		compOntologyManager.close();
 		Response response = RestUtil.buildCachedResponse(new StringList(learningTemplates), true);
 		return response;
 	}
