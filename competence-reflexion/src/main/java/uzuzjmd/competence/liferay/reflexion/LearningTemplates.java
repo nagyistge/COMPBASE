@@ -39,7 +39,7 @@ public class LearningTemplates implements Serializable{
 	public void addTemplate(ActionEvent e) {
 		System.out.println("persisting " + getSelectedCompetence());
 		
-		LearningTemplateDAO.persist(getSelectedCompetence());
+		SelectedLearningTemplateDAO.persist(getSelectedCompetence());
 	}
 
 	public String getSelectedCompetence() {

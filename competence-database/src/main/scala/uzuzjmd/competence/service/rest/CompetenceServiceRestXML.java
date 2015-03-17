@@ -181,4 +181,16 @@ public class CompetenceServiceRestXML {
 		Response response = RestUtil.buildCachedResponse(new StringList(learningTemplates), true);
 		return response;
 	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/learningtemplates/add")
+	public Response addLearningTemplateSelection(@QueryParam(value = "userId") String userId, @QueryParam(value = "groupId") String groupId,
+			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
+
+		// TODO update ont
+		System.out.println("user:" + userId + " group: " + groupId + " " + selectedTemplate);
+
+		return Response.ok("templateSelection updated").build();
+	}
 }
