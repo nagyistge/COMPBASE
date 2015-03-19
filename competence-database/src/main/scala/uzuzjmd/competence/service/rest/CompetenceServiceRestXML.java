@@ -216,4 +216,19 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		closeManagerInCriticalMode(compOntologyManager);
 		return RestUtil.buildCachedResponse(result, false);
 	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/learningtemplates/delete")
+	public Response deleteSelectedLearningTemplate(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
+			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		CourseContext context = new CourseContext(compOntologyManager, groupId);
+		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
+		SelectedLearningProjectTemplate selected = new SelectedLearningProjectTemplate(compOntologyManager, user, context, null, null);
+		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, selectedTemplate);
+		selected.removeAssociatedTemplate(learningTemplate);
+		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("templateSelection updated after delete").build();
+	}
 }

@@ -319,7 +319,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.getM().enterCriticalSection(false);
 
     val groupId = "111332";
-    val selectedTemplateName = "11 Sprachkompetenz, Univ. (ELC, DE)";
+    val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";
     val userId = "Julian Dehne 12 12"
 
     val courseContext = new CourseContext(compOntManag, groupId)
@@ -327,6 +327,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val selectedTemplate = new SelectedLearningProjectTemplate(compOntManag, user, courseContext)
     selectedTemplate.persist()
     val learningProjectTemplate = new LearningProjectTemplate(compOntManag, selectedTemplateName, null, selectedTemplateName)
+    learningProjectTemplate.persist
     selectedTemplate.addAssociatedTemplate(learningProjectTemplate)
 
     compOntManag.getM().leaveCriticalSection();
@@ -340,7 +341,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.getM().enterCriticalSection(false);
 
     val groupId = "111332";
-    val selectedTemplateName = "11 Sprachkompetenz, Univ. (ELC, DE)";
+    val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";
     val userId = "Julian Dehne 12 12"
 
     val courseContext = new CourseContext(compOntManag, groupId)
