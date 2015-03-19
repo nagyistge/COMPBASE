@@ -33,6 +33,10 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     }
   }
 
+  def getName(): String = {
+    return getDataField(NAME)
+  }
+
   @Override
   def getFullDao(): User = {
     val teacherRole = new TeacherRole(comp)
