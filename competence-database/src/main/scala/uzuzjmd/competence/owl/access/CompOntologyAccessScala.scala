@@ -1,5 +1,8 @@
 package uzuzjmd.competence.owl.access
 
+import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.dao.User
+
 object CompOntologyAccessScala {
   def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass, ontologyManager: CompOntologyManager): String = {
     if (getPropertyString(subclass, "definition", ontologyManager) != null) {
@@ -26,4 +29,18 @@ object CompOntologyAccessScala {
       return name;
     }
   }
+
+  def createIdentifierForSelectedTemplate(user: User, course: CourseContext, identifier: String): String = {
+    if (identifier != null) {
+      return identifier
+    }
+    if (user.exists && course.exists) {
+      return user.getName + course.getId
+    } else {
+      user.persist
+      course.persist
+      return user.getName + course.getId
+    }
+  }
+
 }
