@@ -40,6 +40,36 @@ public class SelectedLearningTemplateDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-
+	}
+	
+	public static StringList findAll() {
+		Client client = com.sun.jersey.api.client.Client.create();
+		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
+				+ "/competences/xml/learningtemplates/selected");
+		
+		StringList result = null;
+		try {
+			try {
+				result = webResource
+						.queryParam("userId",
+								ContextUtil.getUserLoggedIn().getLogin() + "")
+						.queryParam("groupId", ContextUtil.getGroup().getGroupId() + "")						
+						.accept(MediaType.APPLICATION_XML).get(StringList.class);
+			} catch (PortalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (UniformInterfaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientHandlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return result;
 	}
 }
