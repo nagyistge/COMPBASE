@@ -11,35 +11,39 @@
 		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->
 
 		<p:tabView>
-			<p:tab title="Lernprojekte">
+			<p:tab id="lernprojects" title="Lernprojekte">
 				<H1>Meine Lernprojekte</H1>
+				
+					<p:dataList var="learningProject"
+						value="#{LearningTemplates.learningTemplates}" paginator="true"
+						rows="10" type="definition">
+						<div class="flexiflex">
+							<p:outputLabel value="#{learningProject}"></p:outputLabel>
+							<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
+							<p:commandButton icon="ui-icon-minusthick" value="löschen"
+								action="#{LearningTemplates.deleteTemplate1(learningProject)}"></p:commandButton>
+						</div>
+					</p:dataList>
 
-				<p:dataList var="learningProject"
-					value="#{LearningTemplates.learningTemplates}" paginator="true"
-					rows="10" type="definition">
-					<div class="flexiflex">
-						<p:outputLabel value="#{learningProject}"></p:outputLabel>
-						<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
-						<p:button icon="ui-icon-minusthick" value="löschen"></p:button>
-					</div>
-				</p:dataList>
-
-				<p:commandButton icon="ui-icon-plus" value="hinzufügen"
-					id="addLearningGoalButton">					
-				</p:commandButton>
-				<div class="flexiflex" id="test:createLearningGoalPanel">
-					<h:form>
-						<p:outputLabel for="autocomplete"
-							value="Wählen Sie neue Lernprojekte!"></p:outputLabel>
-						<p:autoComplete maxResults="10" id="autocomplete"
-							value="#{LearningTemplates.selectedCompetence}"
-							completeMethod="#{LearningTemplatesFullSet.complete}"
-							dropdown="true" />					
-						<p:commandButton value="speichern" actionListener="#{LearningTemplates.addTemplate}"></p:commandButton>
-						<p:commandButton value="abbrechen" id="cancelCreatingLearningGoal">
-						</p:commandButton>
-					</h:form>
-				</div>
+					<p:commandButton icon="ui-icon-plus" value="hinzufügen"
+						id="addLearningGoalButton">
+					</p:commandButton>
+					<div class="flexiflex" id="test:createLearningGoalPanel">
+						<h:form>
+							<p:outputLabel for="autocomplete"
+								value="Wählen Sie neue Lernprojekte!"></p:outputLabel>
+							<p:autoComplete maxResults="10" id="autocomplete"
+								value="#{LearningTemplates.selectedCompetence}"
+								completeMethod="#{LearningTemplatesFullSet.complete}"
+								dropdown="true" />
+							<p:commandButton value="speichern" id="saveLearningGoal"
+								actionListener="#{LearningTemplates.addTemplate}">															
+								</p:commandButton>
+							<p:commandButton value="abbrechen"
+								id="cancelCreatingLearningGoal">
+							</p:commandButton>
+						</h:form>
+					</div>				
 			</p:tab>
 			<p:tab title="Selbsteinschätzung">
 				<H1>Selbsteinschätzung</H1>
