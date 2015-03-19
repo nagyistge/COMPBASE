@@ -39,7 +39,7 @@ import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/json")
-public class CompetenceServiceRestJSON {
+public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 
 	/**
 	 * Method handling HTTP GET requests. The returned object will be sent to
@@ -412,18 +412,6 @@ public class CompetenceServiceRestJSON {
 		abstractEvidenceLink.addDataField(abstractEvidenceLink.ISVALIDATED(), isvalid);
 		closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("link updated").build();
-	}
-
-	private void closeManagerInCriticalMode(CompOntologyManager compOntologyManager) {
-		compOntologyManager.getM().leaveCriticalSection();
-		compOntologyManager.close();
-	}
-
-	private CompOntologyManager initManagerInCriticalMode() {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
-		compOntologyManager.begin();
-		compOntologyManager.getM().enterCriticalSection(false);
-		return compOntologyManager;
 	}
 
 }

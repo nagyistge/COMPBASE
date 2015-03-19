@@ -26,7 +26,7 @@ import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/xml")
-public class CompetenceServiceRestXML {
+public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 
 	/**
 	 * new competences can be added via this function. They must be encoded as
@@ -185,12 +185,24 @@ public class CompetenceServiceRestXML {
 	@Produces(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/add")
-	public Response addLearningTemplateSelection(@QueryParam(value = "userId") String userId, @QueryParam(value = "groupId") String groupId,
+	public Response addLearningTemplateSelection(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		// TODO update ont
-		System.out.println("user:" + userId + " group: " + groupId + " " + selectedTemplate);
+		// TODO update ont WICHTIG!!!!!
+		System.out.println("user:" + userName + " group: " + groupId + " " + selectedTemplate);
 
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		// SelectedLearningProjectTemplate learningProjectTemplate = new
+		// SelectedLearningProjectTemplate(compOntologyManager,
+		// selectedTemplate, null, null);
+		// CourseContext courseContext = new CourseContext(compOntologyManager,
+		// groupId);
+		// learningProjectTemplate.addCourse(courseContext);
+		// User user = new User(compOntologyManager, userName, new
+		// TeacherRole(compOntologyManager), courseContext, userName);
+		// learningProjectTemplate.addAssociatedUser(user);
+		// closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("templateSelection updated").build();
 	}
 }
