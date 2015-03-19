@@ -4,18 +4,24 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
-class LearningProjectTemplate(comp: CompOntologyManager, val name: String, associatedComptences: Seq[Competence] = null) extends CompetenceOntologyDao(comp, CompOntClass.LearningProjectTemplate, name) {
+class LearningProjectTemplate(comp: CompOntologyManager, val name: String, associatedComptences: Seq[Competence] = null, readableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.LearningProjectTemplate, name) {
+
+  def DEFINITION = "definition"
 
   @Override
   def getFullDao(): LearningProjectTemplate = {
-    return new LearningProjectTemplate(comp, name, getAssociatedCompetences)
+    return new LearningProjectTemplate(comp, name, getAssociatedCompetences, getDataField(DEFINITION))
   }
 
   @Override
   def persistMore() {
     if (associatedComptences != null && !associatedComptences.isEmpty) {
       // könnte man jetzt auch die Kompetenzen persistieren
-      associatedComptences.foreach(x=>addCompetenceToProject(x))
+      associatedComptences.foreach(x => addCompetenceToProject(x))
+    }
+
+    if (readableName != null) {
+      addDataField(DEFINITION, readableName);
     }
   }
 
