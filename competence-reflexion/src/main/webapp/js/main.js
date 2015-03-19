@@ -10,4 +10,13 @@ $("[id$='cancelCreatingLearningGoal']").click(function() {
 	$("[id$='createLearningGoalPanel']").hide();
 });
 
+$("[id$='saveLearningGoal']").click(function() {
+	location.reload();
+});
+
+$( "span:contains('löschen')").click(function() {
+	location.reload();
+});
+
+
 

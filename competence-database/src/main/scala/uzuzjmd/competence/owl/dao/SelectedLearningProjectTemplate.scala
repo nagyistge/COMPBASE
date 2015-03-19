@@ -6,6 +6,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.liferay.reflexion.StringList
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.liferay.reflexion.LearningTemplates
 
 case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associatedUser: User, associatedCourse: CourseContext, var identifiery: String = null, associatedTemplates: List[LearningProjectTemplate] = null) extends CompetenceOntologyDao(comp, CompOntClass.SelectedLearningProjectTemplate, CompOntologyAccessScala.createIdentifierForSelectedTemplate(associatedUser, associatedCourse, identifiery)) {
 
@@ -46,10 +47,18 @@ case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associated
   }
 
   def getAssociatedCourse(): CourseContext = {
+    val list = getAssociatedStandardDaosAsDomain(CompObjectProperties.CourseContextOfSelectedLearningProjectTemplate, classOf[CourseContext])
+    if (list.isEmpty) {
+      return null
+    }
     return getAssociatedStandardDaosAsDomain(CompObjectProperties.CourseContextOfSelectedLearningProjectTemplate, classOf[CourseContext]).head
   }
 
   def getAssociatedUser(): User = {
+    val list = getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfSelectedLearningProjectTemplate, classOf[User])
+    if (list.isEmpty) {
+      return null
+    }
     return getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfSelectedLearningProjectTemplate, classOf[User]).head
   }
 
@@ -61,6 +70,10 @@ case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associated
     val result = new StringList
     result.setData(getAssociatedTemplates.map(x => x.getDataField(x.DEFINITION)).asJava)
     return result
+  }
+
+  def removeAssociatedTemplate(template: LearningProjectTemplate) {
+    deleteEdge(CompObjectProperties.SelectedTemplateOfLearningTemplate, template)
   }
 
   def addAssociatedTemplate(learningTemplate: LearningProjectTemplate) {
