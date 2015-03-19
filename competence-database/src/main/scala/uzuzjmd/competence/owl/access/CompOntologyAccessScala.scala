@@ -2,6 +2,7 @@ package uzuzjmd.competence.owl.access
 
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.owl.dao.Competence
 
 object CompOntologyAccessScala {
   def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass, ontologyManager: CompOntologyManager): String = {
@@ -43,4 +44,7 @@ object CompOntologyAccessScala {
     }
   }
 
+  def createIdentifierForAssessment(user: User, competence: Competence): String = {
+    return user.getName + competence.getIdentifier
+  }
 }

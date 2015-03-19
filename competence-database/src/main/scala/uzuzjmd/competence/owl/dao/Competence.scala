@@ -28,6 +28,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
   }
 
+  def getIdentifier(): String = {
+    return identifier
+  }
+
   def addSuggestedCompetenceRequirement(competence: Competence) {
     createEdgeWith(competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf)
   }
