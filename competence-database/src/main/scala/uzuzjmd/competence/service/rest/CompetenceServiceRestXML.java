@@ -15,6 +15,11 @@ import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.liferay.reflexion.StringList;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.owl.dao.CourseContext;
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
+import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate;
+import uzuzjmd.competence.owl.dao.TeacherRole;
+import uzuzjmd.competence.owl.dao.User;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
@@ -188,21 +193,27 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	public Response addLearningTemplateSelection(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		// TODO update ont WICHTIG!!!!!
-		System.out.println("user:" + userName + " group: " + groupId + " " + selectedTemplate);
-
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		// SelectedLearningProjectTemplate learningProjectTemplate = new
-		// SelectedLearningProjectTemplate(compOntologyManager,
-		// selectedTemplate, null, null);
-		// CourseContext courseContext = new CourseContext(compOntologyManager,
-		// groupId);
-		// learningProjectTemplate.addCourse(courseContext);
-		// User user = new User(compOntologyManager, userName, new
-		// TeacherRole(compOntologyManager), courseContext, userName);
-		// learningProjectTemplate.addAssociatedUser(user);
-		// closeManagerInCriticalMode(compOntologyManager);
+		CourseContext context = new CourseContext(compOntologyManager, groupId);
+		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
+		SelectedLearningProjectTemplate selected = new SelectedLearningProjectTemplate(compOntologyManager, user, context, null, null);
+		selected.persist();
+		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, selectedTemplate);
+		selected.addAssociatedTemplate(learningTemplate);
+		closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("templateSelection updated").build();
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/learningtemplates/selected")
+	public Response getSelectedLearningTemplates(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		CourseContext context = new CourseContext(compOntologyManager, groupId);
+		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
+		SelectedLearningProjectTemplate selected = new SelectedLearningProjectTemplate(compOntologyManager, user, context, null, null);
+		StringList result = selected.getAssociatedTemplatesAsStringList();
+		closeManagerInCriticalMode(compOntologyManager);
+		return RestUtil.buildCachedResponse(result, false);
 	}
 }
