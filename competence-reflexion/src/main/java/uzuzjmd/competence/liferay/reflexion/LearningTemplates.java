@@ -9,9 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-@ManagedBean(name="LearningTemplates")
+@ManagedBean(name = "LearningTemplates")
 @ViewScoped
-public class LearningTemplates implements Serializable{	
+public class LearningTemplates implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,19 +26,18 @@ public class LearningTemplates implements Serializable{
 	public void setLearningTemplates(List<String> learningTemplates) {
 		this.learningTemplates = learningTemplates;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		learningTemplates = new ArrayList<String>();
-		learningTemplates.add("template1");
-		learningTemplates.add("template2");		
+		List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
+				.getData();
+		if (selectedTemplates != null) {
+			learningTemplates.addAll(selectedTemplates);
+		}
 	}
-	
 
-	
 	public void addTemplate(ActionEvent e) {
-		System.out.println("persisting " + getSelectedCompetence());
-		
 		SelectedLearningTemplateDAO.persist(getSelectedCompetence());
 	}
 
