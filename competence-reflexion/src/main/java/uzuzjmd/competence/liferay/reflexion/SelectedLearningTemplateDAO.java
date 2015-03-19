@@ -72,4 +72,33 @@ public class SelectedLearningTemplateDAO {
 		
 		return result;
 	}
+	
+	public static void delete(String selectedLearningTemplate) {
+		Client client = com.sun.jersey.api.client.Client.create();
+		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
+				+ "/competences/xml/learningtemplates/delete");			
+		try {
+			try {
+				 webResource
+						.queryParam("userId",
+								ContextUtil.getUserLoggedIn().getLogin() + "")
+						.queryParam("groupId", ContextUtil.getGroup().getGroupId() + "")	
+						.queryParam("selectedTemplate", selectedLearningTemplate)
+						.accept(MediaType.APPLICATION_XML).post();
+			} catch (PortalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (UniformInterfaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientHandlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+					
+	}
 }

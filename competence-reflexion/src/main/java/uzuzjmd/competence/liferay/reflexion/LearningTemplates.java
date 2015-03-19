@@ -40,6 +40,14 @@ public class LearningTemplates implements Serializable {
 	public void addTemplate(ActionEvent e) {
 		SelectedLearningTemplateDAO.persist(getSelectedCompetence());
 	}
+	
+//	public void deleteTemplate(ActionEvent e) {
+//		System.out.println(e.getComponent().getId());
+//	}
+	
+	public void deleteTemplate1(String todelete) {		
+		SelectedLearningTemplateDAO.delete(todelete);
+	}
 
 	public String getSelectedCompetence() {
 		return selectedCompetence;
