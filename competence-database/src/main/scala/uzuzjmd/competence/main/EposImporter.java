@@ -1,6 +1,7 @@
 package uzuzjmd.competence.main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,13 @@ import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
 import uzuzjmd.competence.datasource.epos.mapper.EposXML2FilteredCSVCompetence;
 import uzuzjmd.competence.datasource.epos.mapper.EposXMLToSuggestedLearningPath;
 import uzuzjmd.competence.mapper.rcd.RCD2OWL;
+import uzuzjmd.competence.owl.access.CompFileUtil;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 public class EposImporter {
 
-	public static void main(String[] args) throws JAXBException {
+	public static void main(String[] args) throws JAXBException, IOException {
 		if (!(args.length < 1)) {
 			MagicStrings.EPOSLocation = args[0];
 		}
@@ -38,6 +40,12 @@ public class EposImporter {
 		RCD2OWL.convert(EposXML2FilteredCSVCompetence.EPOSXML2RCD(result), manager);
 
 		EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
+
+		// write result out
+		manager.begin();
+		CompFileUtil fileUtil = new CompFileUtil(manager.getM());
+		fileUtil.writeOntologyout();
+		manager.close();
 
 	}
 }
