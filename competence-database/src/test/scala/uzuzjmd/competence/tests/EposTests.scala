@@ -49,7 +49,12 @@ class EposTests extends FunSuite with ShouldMatchers {
 
     val manager = new CompOntologyManager();
     EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
-    EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
+    //EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
+
+    manager.begin()
+    val fileUtil = new CompFileUtil(manager.getM())
+    fileUtil.writeOntologyout()
+    manager.close()
   }
 
 }

@@ -17,11 +17,11 @@ object EposXMLToSuggestedLearningPath {
     comp.close()
   }
 
-  def convertLevelsAndLearningGoalToTemplate(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
-    comp.begin()
-    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
-    comp.close()
-  }
+  //  def convertLevelsAndLearningGoalToTemplate(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
+  //    comp.begin()
+  //    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
+  //    comp.close()
+  //  }
 
   def createTemplateAssociation(comp: CompOntologyManager, x: DESCRIPTORSETType) {
     //TODO
@@ -43,7 +43,9 @@ object EposXMLToSuggestedLearningPath {
       val domainId = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(domain);
       val rangeID = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(range);
       val domainCompetence = new Competence(comp, domainId, domainId, false)
+      domainCompetence.persist(true)
       val rangeCompetence = new Competence(comp, rangeID, rangeID, false)
+      rangeCompetence.persist(true)
       rangeCompetence.addSuggestedCompetenceRequirement(domainCompetence)
     }
   }
