@@ -46,6 +46,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     createEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf)
   }
 
+  def getCatchwords(): List[Catchword] = {
+    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.CatchwordOf, classOf[Catchword])
+  }
+
   def getRequiredCompetences(): List[Competence] = {
     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
   }
