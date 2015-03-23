@@ -34,6 +34,10 @@ import java.util.ArrayList
 import java.io.File
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.datasource.epos.mapper.EposXMLToSuggestedLearningPath
+import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid
+import uzuzjmd.competence.owl.dao.Competence
 
 @RunWith(classOf[JUnitRunner])
 class EposTests extends FunSuite with ShouldMatchers {
@@ -48,13 +52,41 @@ class EposTests extends FunSuite with ShouldMatchers {
     val eposList = List(descriptorsetType).asJava
 
     val manager = new CompOntologyManager();
+    manager.begin()
     EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
-    //EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
+    EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
+    manager.close()
 
     manager.begin()
     val fileUtil = new CompFileUtil(manager.getM())
     fileUtil.writeOntologyout()
     manager.close()
+  }
+
+  test("learning projects should be available") {
+    val manager = new CompOntologyManager
+    manager.begin()
+    val learningProjectDefinitions = manager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate)
+    learningProjectDefinitions.asScala should not be ('empty)
+    manager.close()
+  }
+
+  test("if the gridConverter is started, no error should occur") {
+    val manager = new CompOntologyManager
+    manager.begin()
+    val learningProjectDefinitions = manager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate)
+    val learningProject = new LearningProjectTemplate(manager, learningProjectDefinitions.get(0))
+    val grid = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(manager, learningProject)
+    grid.foreach(x => gridPrinter(x._1.getDataField(x._1.DEFINITION), x._2))
+    manager.close()
+  }
+
+  def gridPrinter(catchword: String, input: List[List[Competence]]) {
+    input.foreach(x => println(catchword + "->" + listOfCompetenceToString(x)))
+  }
+
+  def listOfCompetenceToString(input: List[Competence]): String = {
+    return input.map(x => x.getDataField(x.DEFINITION)).reduce((a, b) => a + "->" + b)
   }
 
 }

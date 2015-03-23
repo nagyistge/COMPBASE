@@ -47,4 +47,10 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   def getId: String = {
     return createIndividual.getLocalName()
   }
+
+  @Override
+  def equals(toCompare: Competence): Boolean = {
+    return getId.equals(toCompare.getId)
+  }
+
 }

@@ -39,7 +39,10 @@ public class EposImporter {
 		CompOntologyManager manager = new CompOntologyManager();
 		RCD2OWL.convert(EposXML2FilteredCSVCompetence.EPOSXML2RCD(result), manager);
 
+		manager.begin();
 		EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
+		EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList);
+		manager.close();
 
 		// write result out
 		manager.begin();

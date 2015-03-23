@@ -135,6 +135,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#n11SprachkompetenzUnivELCDE">
     <rdf:type rdf:resource="http://comp#LearningProjectTemplate"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 Sprachkompetenz, Univ. (ELC, DE)</j.0:definition>
     <j.0:LearningProjectTemplateOf rdf:resource="http://comp#IHörverstehenA2"/>
     <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenC1"/>
     <j.0:LearningProjectTemplateOf rdf:resource="http://comp#ILesenB2"/>
@@ -508,18 +509,24 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IZusammenhängendsprechen">
     <rdf:type rdf:resource="http://comp#Zusammenhängendsprechen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenB1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmeineAbsichtenPläneoderHandlungenerklärenundbegründen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenB2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannausverschiedenenschriftlichenQuellenstammendeInformationenundArgumentezusammenfassenundmündlichwiedergeben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannTräumeHoffnungenZielebeschreiben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannsicherundgutverständlicheinemPublikumeinkomplexesThemavortragenmitdemesnichtvertrautistunddabeidieRedeflexibeldenBedürfnissendesPublikumsanpassenundentsprechendstrukturieren"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenC2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannkurzePassagenausschriftlichenTextenaufeinfacheArtundWeisemündlichwiedergebenindemichdenWortlautunddieAnordnungdesOriginaltextesbenutze"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenC1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannlangeanspruchsvolleTextemündlichzusammenfassen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenA2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannbeschreibenwoichwohne"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannVermutungenüberUrsachenundKonsequenzenanstellenundüberhypothetischeSituationensprechen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannzuverschiedenenvertrautenThemenmeinesInteressenoderFachbereichsunkomplizierteBeschreibungenoderBerichtegeben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneinevorbereiteteunkompliziertePräsentationzueinemvertrautenThemaausmeinemFachgebietklarundpräzisegenugvortragendassmanihrmeistmühelosfolgenkannunddieHauptpunkteverstandenwerden"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmeineAusbildungundmeinegegenwärtigeoderletzteberuflicheTätigkeitbeschreiben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannimeigenenFachfreiodernachStichworteneinenKurzvortraghalten"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IZusammenhängendsprechenA1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannAngabenzumeinerPersonmachenzBAdresseTelefonnummerAlterHerkunftslandFamilieHobbys"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannübervergangeneAktivitätenundpersönlicheErfahrungenberichtenzBdasletzteWochenendeodermeineletztenFerien"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannzusehrvielenThemenmeinesInteressengebietsklareunddetaillierteBeschreibungenundBerichtegeben"/>
@@ -601,16 +608,22 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IMiteinandersprechen">
     <rdf:type rdf:resource="http://comp#Miteinandersprechen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenB1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannZustimmungäußernundhöflichwidersprechen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenC1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannauchinlebhaftenGesprächenunterMuttersprachlerinnenMuttersprachlerngutmithalten"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenA2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmireinfacheInformationenfüreineReisebeschaffen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannfragenwasjemandbeiderArbeitundinderFreizeitmachtundichkannentsprechendeFragenvonanderenbeantworten"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninDiskussionenmeineGedankenundMeinungenpräziseundklarformuliertausdrückenüberzeugendargumentierenundwirksamaufkomplexeArgumentationandererreagieren"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenC2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannsicherundgutverständlicheinemPublikumeinkomplexesThemavortragenmitdemesnichtvertrautistunddabeidieRedeflexibeldenBedürfnissendesPublikumsanpassenundentsprechendstrukturieren"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmichinformellenDiskussionenüberkomplexeThemenbehauptenindemichklarundüberzeugendargumentieredabeibinichgegenüberMuttersprachlernnichtimNachteil"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenB2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneffizientProblemelösendiemitderOrganisationdesStudiumszusammenhängenzBinKontaktenmitDozierendenundderVerwaltung"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IMiteinandersprechenA1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmichaufeinfacheArtverständigenbinaberdaraufangewiesendassdieGesprächspartnerinderGesprächspartnerbereitistetwaslangsamerzuwiederholenoderanderszusagenundmirdabeihilftzuformulierenwasichsagenmöchte"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannflüssigkorrektundwirkungsvollübereinsehrbreitesSpektrumvonThemenallgemeinerberuflicheroderwissenschaftlicherArtsprechen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannnachdemWegfragenundmiteinerKarteodereinemStadtplandenWegerklären"/>
@@ -2077,14 +2090,20 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ISchreiben">
     <rdf:type rdf:resource="http://comp#Schreiben"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenC1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannzBineinemAufsatzoderArbeitsberichteinkomplexesThemaklarundgutstrukturiertdarlegenunddiewichtigstenPunktehervorheben"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenB1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninmeinemFachgebietdenVerlaufeineswissenschaftlichenExperimentsinStichwortenfesthalten"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenC2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneineschriftlicheStellungnahmezueinemArbeitspapierodereinemProjektschreibensieklargliedernunddarinmeineMeinungbegründen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenA1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneineeinfachePostkartezBmitFeriengrüßenschreiben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannineinemKommentarzueinemThemaodereinemEreignisverschiedeneStandpunktedarstellendabeidieHauptgedankenhervorhebenundmeineArgumentationdurchausführlicheBeispieleverdeutlichen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannineinemBriefGefühlewieTrauerFreudeInteresseBedauernundmeinMitgefühlausdrücken"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannineinemBerichtoderEssayeinThemadasichrecherchierthabeumfassenddarstellendieMeinungenandererzusammenfassenDetailinformationenundFaktenaufführenundbeurteilen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenA2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannineinfachenSätzeneinEreignisbeschreibenundsagenwaswannwostattgefundenhatzBeinFesteinUnfall"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ISchreibenB2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannausführlichundgutlesbarüberEreignisseundrealeoderfiktiveErlebnisseschreiben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninFragebögenübermeineAusbildungmeineArbeitmeineInteressenundSpezialgebieteAuskunftgeben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannaufAnzeigenundInserateschriftlichreagierenundzusätzlicheodergenauereInformationenüberdieProdukteverlangenzBübereinAutoodereinenSchulungskurs"/>
@@ -2529,16 +2548,22 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ILesen">
     <rdf:type rdf:resource="http://comp#Lesen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenC1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannlängerekomplexeAnleitungenundAnweisungenverstehenzBzurBedienungeinesneuenGerätsauchwenndiesenichtinBezugzumeinemSachoderInteressengebietstehensofernichgenugZeitzumLesenhabe"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenB2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannArtikelundBerichteüberaktuelleFragenlesenundverstehenindenendieSchreibendeneinebestimmteHaltungodereinenbestimmtenStandpunktvertreten"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenA1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannaufVeranstaltungskalendernoderPlakateneinKonzertodereinenFilmaussuchenundOrtundAnfangszeitentnehmen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenA2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninInformationsblätternüberFreizeitaktivitätenAusstellungenuswdiewichtigstenInformationenfinden"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannuntergelegentlicherZuhilfenahmedesWörterbuchsjeglicheKorrespondenzverstehen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannkurzeErzählungenverstehendievonalltäglichenDingenhandelnundindenenesumThemengehtdiemirvertrautsindwennderTextineinfacherSprachegeschriebenist"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannMeldungenundeinfacheHilfetexteinComputerprogrammenverstehen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenB1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanndieBedeutungeinzelnerunbekannterWörterausdemKontexterschließenundsodenSinnvonÄußerungenableitenwennmirdieThematikvertrautist"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannMeldungenodereinfachenZeitungsartikelnindenenZahlenundNameneinewichtigeRollespielenunddieklargegliedertsindundmitBildernarbeitenwichtigeInformationenentnehmen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninklargeschriebenenargumentativenTextendiewesentlichenSchlussfolgerungenerkennen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#ILesenC2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannunterschiedlichsteliterarischeStilmittelWortspieleMetaphernliterarischeMotiveSymbolisierungKonnotationMehrdeutigkeiterkennenundihreFunktioninnerhalbdesTexteseinschätzen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannkurzeeinfacheschriftlicheWegerklärungenverstehen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneineneinfachenpersönlichenBriefverstehenindemmirjemandvonDingenausdemAlltagschreibtodermichdanachfragt"/>
@@ -2731,10 +2756,15 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IHörverstehen">
     <rdf:type rdf:resource="http://comp#Hörverstehen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenA2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanndieHauptinformationvonFernsehmeldungenüberEreignisseUnglücksfälleuswerfassenwennderKommentardurchBilderunterstütztwird"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenB1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneinfachetechnischeInformationenzBzurBedienungvonGerätendestäglichenGebrauchsverstehen"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenB2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneinestrukturierteVorlesungübereinvertrautesThemaverstehenundmirdiePunktenotierendiemirwichtigerscheinenauchwennichmanchmalanWörternhängenbleibeunddeshalbeinenTeilderInformationenverpasse"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenC2"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannFachvorträgeoderPräsentationenverstehendievieleumgangssprachlicheoderregionalgefärbteAusdrückeoderauchfremdeTerminologieenthalten"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenC1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannauchbeischlechterÜbertragungsqualitätausöffentlichenDurchsagenzBamBahnhofoderanSportveranstaltungenEinzelinformationenheraushören"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanninRadionachrichtenundineinfacherenTonaufnahmenübervertrauteThemendieHauptpunkteverstehenwennrelativlangsamunddeutlichgesprochenwird"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannkomplexetechnischeInformationenverstehenzBBedienungsanleitungenodergenaueAngabenzuvertrautenProduktenundDienstleistungen"/>
@@ -2750,6 +2780,7 @@
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkanneinerVorlesungodereinemVortraginnerhalbmeinesFachoderInteressengebietsfolgenwennmirdieThematikvertrautistundwennderAufbaueinfachundklarist"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannverstehenwasmanineinfachenAlltagsgesprächenlangsamunddeutlichzumirsagtesistmöglichsichmirverständlichzumachenwenndieSprechendensichdienötigeMühemachenkönnen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IHörverstehenA1"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannZahlenPreisangabenundUhrzeitenverstehen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchhabekeinerleiSchwierigkeitgesprocheneSprachezuverstehengleichgültigobliveoderindenMedienundzwarauchwennschnellgesprochenwirdIchbrauchenuretwasZeitmichaneinenbesonderenAkzentzugewöhnen"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
