@@ -33,4 +33,8 @@ object EposXML2FilteredCSVCompetence {
     return a._1 + a._2;
   }
 
+  def identifier2Definition(input: String): String = {
+    return input.substring(0, input.length() - 2);
+  }
+
 }

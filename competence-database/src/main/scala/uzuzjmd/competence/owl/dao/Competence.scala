@@ -47,7 +47,9 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   }
 
   def getCatchwords(): List[Catchword] = {
-    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.CatchwordOf, classOf[Catchword])
+    val result = getAssociatedSingletonDaosAsDomain(CompObjectProperties.CatchwordOf, classOf[Catchword])
+    //val result = getAssociatedSingletonDaosAsRange(CompObjectProperties.CatchwordOfInverse, classOf[Catchword])
+    return result
   }
 
   def getRequiredCompetences(): List[Competence] = {
