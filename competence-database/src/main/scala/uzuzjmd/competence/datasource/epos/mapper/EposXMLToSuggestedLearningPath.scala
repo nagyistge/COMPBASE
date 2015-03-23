@@ -8,26 +8,25 @@ import uzuzjmd.competence.datasource.epos.filter.LevelFilter
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import uzuzjmd.competence.owl.dao.Catchword
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 object EposXMLToSuggestedLearningPath {
   def convertLevelsToOWLRelations(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
-    comp.begin()
     descriptorSetType.asScala.foreach(x => convertLevelsToOWLRelations2(comp, x.getDESCRIPTOR().asScala.toList))
     descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
-    comp.close()
   }
 
-  //  def convertLevelsAndLearningGoalToTemplate(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
-  //    comp.begin()
-  //    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
-  //    comp.close()
-  //  }
+  def convertLevelsAndLearningGoalToTemplate(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
+    descriptorSetType.asScala.foreach(x => createTemplateAssociation(comp, x))
+  }
 
   def createTemplateAssociation(comp: CompOntologyManager, x: DESCRIPTORSETType) {
     //TODO
     val templateName = x.getNAME()
     val competences = x.getDESCRIPTOR().asScala.map(EposXML2FilteredCSVCompetence.descriptorSetType2Id).map(x => new Competence(comp, x, x, false))
-    val learningProjectTemplate = new LearningProjectTemplate(comp, templateName, competences)
+    competences.foreach(competence => competence.createEdgeWith(new Catchword(comp, EposXML2FilteredCSVCompetence.identifier2Definition(competence.getDataField(competence.DEFINITION))), CompObjectProperties.CatchwordOf))
+    val learningProjectTemplate = new LearningProjectTemplate(comp, templateName, competences, templateName)
     learningProjectTemplate.persist
   }
 
