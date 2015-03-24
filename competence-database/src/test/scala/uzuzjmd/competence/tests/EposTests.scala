@@ -77,6 +77,7 @@ class EposTests extends FunSuite with ShouldMatchers {
     val learningProjectDefinitions = manager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate)
     val learningProject = new LearningProjectTemplate(manager, learningProjectDefinitions.get(0))
     val grid = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(manager, learningProject)
+    grid.map(x => x._1.getId)
     grid.foreach(x => gridPrinter(x._1.getDataField(x._1.DEFINITION), x._2))
     manager.close()
   }
