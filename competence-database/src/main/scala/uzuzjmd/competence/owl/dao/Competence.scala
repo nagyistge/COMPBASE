@@ -74,4 +74,8 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return this
   }
 
+  def toStrinz(): String = {
+    return getDataField(DEFINITION)
+  }
+
 }
