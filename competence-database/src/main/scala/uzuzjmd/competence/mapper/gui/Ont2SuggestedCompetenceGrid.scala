@@ -37,6 +37,9 @@ import uzuzjmd.competence.owl.access.MagicStrings
 import java.util.ArrayList
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.rcd.RCD2OWL
+import uzuzjmd.competence.owl.dao.Catchword
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn
 
 object Ont2SuggestedCompetenceGrid {
   type ComPairList = Buffer[(Competence, Competence)]
@@ -45,9 +48,27 @@ object Ont2SuggestedCompetenceGrid {
   log.setLevel(Level.WARN)
   val logStream = new LogStream(log, Level.DEBUG);
 
-  def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): SuggestedCompetenceGrid = {
-    // TODO convert to Java Object
-    return null
+  def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
+    val result = new SuggestedCompetenceGrid
+    val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
+    val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.owl.dao.Catchword, List[uzuzjmd.competence.owl.dao.Competence])] = Buffer.empty
+    scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
+    result.setSuggestedCompetenceRows(scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user)).asJava)
+    return result
+  }
+
+  def mapScalaGridToSuggestedCompetenceRow(catchword: Catchword, competences: List[Competence], user: User): SuggestedCompetenceRow = {
+    val result = new SuggestedCompetenceRow
+    result.setSuggestedCompetenceRowHeader(catchword.getDataField(catchword.DEFINITION))
+    result.setSuggestedCompetenceColumns(competences.map(convertCompetenceToColumn(_)(user)).asJava)
+    return result
+  }
+
+  def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
+    val result = new SuggestedCompetenceColumn
+    result.setTestOutput(competence.getDataField(competence.DEFINITION))
+    result.setProgressInPercent(competence.getAssessment(user).getAssmentIndexInProgress)
+    return result
   }
 
   def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
@@ -69,6 +90,9 @@ object Ont2SuggestedCompetenceGrid {
     return grid
   }
 
+  /**
+   * in case of bad run time performance topological sorting might be a better choice
+   */
   def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
 
     log.debug("list of competences to be sorted: ")

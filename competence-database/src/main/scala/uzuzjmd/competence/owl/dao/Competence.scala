@@ -78,4 +78,12 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return getDataField(DEFINITION)
   }
 
+  def getAssessment(user: User): SelfAssessment = {
+    val result = getAssociatedStandardDaosAsDomain(CompObjectProperties.AssessmentOfCompetence, classOf[SelfAssessment]).filter(x => x.hasEdge(CompObjectProperties.AssessmentOfUser, user))
+    if (result.isEmpty) {
+      return new SelfAssessment(compManager, this, user, 0)
+    }
+    return result.head
+  }
+
 }

@@ -11,6 +11,11 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean(name="SuggestedCompetenceColumn" , eager = true)
 public class SuggestedCompetenceColumn implements Serializable {
 	
+	public SuggestedCompetenceColumn() {
+		// TODO Auto-generated constructor stub
+	}
+		
+	
 	@ManagedProperty("#{testOutput}")
 	private String testOutput;
 	
