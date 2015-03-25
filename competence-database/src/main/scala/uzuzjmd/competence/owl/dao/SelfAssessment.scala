@@ -6,7 +6,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 case class SelfAssessment(comp: CompOntologyManager, competence: Competence, user: User, val assmentIndex: java.lang.Integer = null) extends CompetenceOntologyDao(comp, CompOntClass.SelfAssessment, CompOntologyAccessScala.createIdentifierForAssessment(user, competence)) {
-  def ASSESSMENTINDEX = "assessmentIndex"
+  def ASSESSMENTINDEX = "assessmentIndex" // 1-4 in liferay implementation
 
   @Override
   def getFullDao(): SelfAssessment = {
@@ -35,6 +35,10 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
 
   def addUserToAssessment(user: User) {
     createEdgeWith(CompObjectProperties.AssessmentOfUser, user)
+  }
+
+  def getAssmentIndexInProgress(): Integer = {
+    return getDataFieldInt(ASSESSMENTINDEX) * 25
   }
 
 }
