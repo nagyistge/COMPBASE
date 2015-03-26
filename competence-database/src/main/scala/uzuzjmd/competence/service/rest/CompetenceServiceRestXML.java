@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.liferay.reflexion.StringList;
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceGrid;
+import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
@@ -230,5 +232,19 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		selected.removeAssociatedTemplate(learningTemplate);
 		closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("templateSelection updated after delete").build();
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("learningtemplates/gridview")
+	public Response getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
+		CourseContext context = new CourseContext(compOntologyManager, groupId);
+		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
+		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, null);
+		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(compOntologyManager, learningTemplate, user);
+		compOntologyManager.close();
+		return RestUtil.buildCachedResponse(result, false);
 	}
 }

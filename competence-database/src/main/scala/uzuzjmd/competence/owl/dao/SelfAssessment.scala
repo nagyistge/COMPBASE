@@ -38,7 +38,10 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
   }
 
   def getAssmentIndexInProgress(): Integer = {
-    return getDataFieldInt(ASSESSMENTINDEX) * 25
+    if (getDataField(ASSESSMENTINDEX) == null) {
+      return 0
+    }
+    return new Integer(getDataFieldInt(ASSESSMENTINDEX) * 25)
   }
 
 }
