@@ -243,6 +243,9 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		CourseContext context = new CourseContext(compOntologyManager, groupId);
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, null);
+		if (!learningTemplate.exists()) {
+			return RestUtil.buildCachedResponse(new SuggestedCompetenceGrid(), false);
+		}
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(compOntologyManager, learningTemplate, user);
 		compOntologyManager.close();
 		return RestUtil.buildCachedResponse(result, false);
