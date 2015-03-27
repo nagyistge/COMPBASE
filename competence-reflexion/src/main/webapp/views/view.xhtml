@@ -51,11 +51,12 @@
 				<H4>Lernprojekte</H4>
 				<h:form>
 					<div id="learningTemplateSelection">
-
 						<p:selectOneMenu header="Lernprojekte"
 							value="#{LearningTemplates.selectedLearningTemplate}" id="selectLearningTemplateMenu">
-							<f:selectItems value="#{LearningTemplates.learningTemplates}" />
-<!-- 							<f:ajax execute="selectLearningTemplateMenu" render="gridView" /> -->
+							<f:selectItems value="#{LearningTemplates.learningTemplates}" itemValue="#{emp.employeeID}" />	
+							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>	
+							<p:ajax listener="#{LearningTemplates.processValueChange}" />					
+<!-- 							<f:ajax  /> -->
 						</p:selectOneMenu>
 					</div>
 
@@ -63,8 +64,7 @@
 					<div id="suggestedCompetenceGrid">
 						<ui:repeat var="suggestedCompetenceRow"
 							value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
-							id="gridView"
-							
+							id="gridView"				
 							>
 							<br></br>
 							<div class="flexiflex">
