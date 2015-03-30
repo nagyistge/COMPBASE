@@ -13,7 +13,7 @@ import uzuzjmd.competence.liferay.util.ContextUtil;
 import uzuzjmd.competence.liferay.util.SOAUtil;
 
 public class SelectedLearningTemplateDAO {
-	public static void persist(String selectedLearningTemplate) {
+	public static synchronized void persist(String selectedLearningTemplate) {
 
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
@@ -39,10 +39,12 @@ public class SelectedLearningTemplateDAO {
 		} catch (ClientHandlerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}  finally {		
+			client.destroy();
+		}
 	}
 	
-	public static StringList findAll() {
+	public static synchronized StringList findAll() {
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
 				+ "/competences/xml/learningtemplates/selected");
@@ -68,12 +70,14 @@ public class SelectedLearningTemplateDAO {
 		} catch (ClientHandlerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}  finally {		
+			client.destroy();
+		}
 		
 		return result;
 	}
 	
-	public static void delete(String selectedLearningTemplate) {
+	public static synchronized void delete(String selectedLearningTemplate) {
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
 				+ "/competences/xml/learningtemplates/delete");			
@@ -98,7 +102,10 @@ public class SelectedLearningTemplateDAO {
 		} catch (ClientHandlerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}  finally {		
+			client.destroy();
 		} 
+		
 					
 	}
 }

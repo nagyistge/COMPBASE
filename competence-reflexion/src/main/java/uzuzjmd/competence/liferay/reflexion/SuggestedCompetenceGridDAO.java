@@ -1,7 +1,5 @@
 package uzuzjmd.competence.liferay.reflexion;
 
-import java.util.ArrayList;
-
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.liferay.util.ContextUtil;
@@ -15,11 +13,15 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 public class SuggestedCompetenceGridDAO {
-	public static SuggestedCompetenceGrid getGrid(String selectedLearningTemplate) {	
+	public static synchronized SuggestedCompetenceGrid getGrid(
+			String selectedLearningTemplate) {
+		
+		System.out.println("fetching grid for: " + selectedLearningTemplate);
+		
 		Client client = com.sun.jersey.api.client.Client.create();
-		WebResource webResource = client.resource(SOAUtil
-				.getRestserverUrl()
-				+ "/competences/xml/learningtemplates/gridview");		
+//		client.setConnectTimeout(1000);
+		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
+				+ "/competences/xml/learningtemplates/gridview");
 		SuggestedCompetenceGrid result = null;
 		try {
 			result = webResource
@@ -27,20 +29,21 @@ public class SuggestedCompetenceGridDAO {
 							ContextUtil.getUserLoggedIn().getLogin() + "")
 					.queryParam("groupId",
 							ContextUtil.getGroup().getGroupId() + "")
-					.queryParam("selectedTemplate",
-							selectedLearningTemplate)
+					.queryParam("selectedTemplate", selectedLearningTemplate)
 					.accept(MediaType.APPLICATION_XML)
 					.get(SuggestedCompetenceGrid.class);
-		} catch (UniformInterfaceException e) {			
-			e.printStackTrace();			
-		} catch (ClientHandlerException e) {			
-			e.printStackTrace();			
-		} catch (PortalException e) {			
-			e.printStackTrace();			
-		} catch (SystemException e) {		
-			e.printStackTrace();			
+		} catch (UniformInterfaceException e) {
+			e.printStackTrace();
+		} catch (ClientHandlerException e) {
+			e.printStackTrace();
+		} catch (PortalException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}  finally {		
+			client.destroy();
 		}
-		return result;			
-}
+		return result;
+	}
 
 }
