@@ -7,11 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
-
-import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "LearningTemplates")
 @ViewScoped
@@ -87,13 +83,13 @@ public class LearningTemplates implements Serializable{
 	}
 
 	
-	public void processValueChange(AjaxBehaviorEvent event)
-			throws AbortProcessingException {
-		System.out.println("value change listener called");
-		System.out.println("selectedItem: " + selectedLearningTemplate);
-		setSuggestedCompetenceGrid(SuggestedCompetenceGridDAO.getGrid(selectedLearningTemplate));
-		RequestContext.getCurrentInstance().update("gridView");
-	}
+//	public void processValueChange(AjaxBehaviorEvent event)
+//			throws AbortProcessingException {
+//		System.out.println("value change listener called");
+//		System.out.println("selectedItem: " + selectedLearningTemplate);
+//		setSuggestedCompetenceGrid(SuggestedCompetenceGridDAO.getGrid(selectedLearningTemplate));
+//		RequestContext.getCurrentInstance().update("gridView");
+//	}
 
 //	@Override
 //	public void processValueChange(ValueChangeEvent event)
