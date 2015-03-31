@@ -8,10 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ComponentSystemEvent;
 
 @ManagedBean(name = "LearningTemplates")
 @ViewScoped
-public class LearningTemplates implements Serializable{
+public class LearningTemplates implements Serializable {
 	/**
 	 * 
 	 */
@@ -20,7 +21,7 @@ public class LearningTemplates implements Serializable{
 	private String selectedCompetence; // the one to persist in lernprojekte tab
 	private String selectedLearningTemplate; // the one to select the grid for
 
-	//@ManagedProperty("#{SuggestedCompetenceGrid}")
+	// @ManagedProperty("#{SuggestedCompetenceGrid}")
 	private SuggestedCompetenceGrid suggestedCompetenceGrid;
 
 	public List<String> getLearningTemplates() {
@@ -34,13 +35,36 @@ public class LearningTemplates implements Serializable{
 	@PostConstruct
 	public void init() {
 		learningTemplates = new ArrayList<String>();
-		List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
-				.getData();
-		if (selectedTemplates != null) {
-			learningTemplates.addAll(selectedTemplates);
-			if (!selectedTemplates.isEmpty()) {
-				SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO.getGrid(selectedTemplates.get(0));				
-				setSuggestedCompetenceGrid(data);
+//		List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
+//				.getData();
+//		if (selectedTemplates != null) {
+//			learningTemplates.addAll(selectedTemplates);
+//			if (!selectedTemplates.isEmpty()) {
+//				SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
+//						.getGrid(selectedTemplates.get(0));
+//				data.setLearningTemplates(this);
+//				setSuggestedCompetenceGrid(data);
+//			}
+//		}
+	}
+
+	public void updateGrid(ComponentSystemEvent event) {
+		if (selectedLearningTemplate != null) {
+			SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
+					.getGrid(selectedLearningTemplate);
+			data.setLearningTemplates(this);
+			setSuggestedCompetenceGrid(data);
+		} else {
+			List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
+					.getData();
+			if (selectedTemplates != null) {
+				learningTemplates.addAll(selectedTemplates);
+				if (!selectedTemplates.isEmpty()) {
+					SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
+							.getGrid(selectedTemplates.get(0));
+					data.setLearningTemplates(this);
+					setSuggestedCompetenceGrid(data);
+				}
 			}
 		}
 	}
@@ -82,19 +106,18 @@ public class LearningTemplates implements Serializable{
 		return selectedLearningTemplate;
 	}
 
-	
-//	public void processValueChange(AjaxBehaviorEvent event)
-//			throws AbortProcessingException {
-//		System.out.println("value change listener called");
-//		System.out.println("selectedItem: " + selectedLearningTemplate);
-//		setSuggestedCompetenceGrid(SuggestedCompetenceGridDAO.getGrid(selectedLearningTemplate));
-//		RequestContext.getCurrentInstance().update("gridView");
-//	}
+	// public void processValueChange(AjaxBehaviorEvent event)
+	// throws AbortProcessingException {
+	// System.out.println("value change listener called");
+	// System.out.println("selectedItem: " + selectedLearningTemplate);
+	// setSuggestedCompetenceGrid(SuggestedCompetenceGridDAO.getGrid(selectedLearningTemplate));
+	// RequestContext.getCurrentInstance().update("gridView");
+	// }
 
-//	@Override
-//	public void processValueChange(ValueChangeEvent event)
-//			throws AbortProcessingException {
-//		System.out.println("prozessing event change: " + event.getNewValue());		
-//		System.out.println("selectedItem: " + selectedLearningTemplate);
-//	}
+	// @Override
+	// public void processValueChange(ValueChangeEvent event)
+	// throws AbortProcessingException {
+	// System.out.println("prozessing event change: " + event.getNewValue());
+	// System.out.println("selectedItem: " + selectedLearningTemplate);
+	// }
 }
