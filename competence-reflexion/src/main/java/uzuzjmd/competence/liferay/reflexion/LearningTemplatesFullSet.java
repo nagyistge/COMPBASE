@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.liferay.util.SOAUtil;
@@ -18,6 +18,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 @ManagedBean(name="LearningTemplatesFullSet")
+@SessionScoped
 public class LearningTemplatesFullSet implements Serializable{	
 	/**
 	 * 
@@ -26,8 +27,7 @@ public class LearningTemplatesFullSet implements Serializable{
 	
 //	private static Log _log = LogFactoryUtil
 //			.getLog(LearningTemplatesFullSet.class);
-//	
-	@ManagedProperty("#{learningTemplates}")
+//		
 	private List<String> learningTemplates;
 	
 

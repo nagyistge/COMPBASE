@@ -2,6 +2,8 @@ package uzuzjmd.competence.liferay.reflexion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,8 +22,7 @@ public class LearningTemplates implements Serializable {
 	private List<String> learningTemplates;
 	private String selectedCompetence; // the one to persist in lernprojekte tab
 	private String selectedLearningTemplate; // the one to select the grid for
-
-	// @ManagedProperty("#{SuggestedCompetenceGrid}")
+	
 	private SuggestedCompetenceGrid suggestedCompetenceGrid;
 
 	public List<String> getLearningTemplates() {
@@ -35,17 +36,6 @@ public class LearningTemplates implements Serializable {
 	@PostConstruct
 	public void init() {
 		learningTemplates = new ArrayList<String>();
-//		List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
-//				.getData();
-//		if (selectedTemplates != null) {
-//			learningTemplates.addAll(selectedTemplates);
-//			if (!selectedTemplates.isEmpty()) {
-//				SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
-//						.getGrid(selectedTemplates.get(0));
-//				data.setLearningTemplates(this);
-//				setSuggestedCompetenceGrid(data);
-//			}
-//		}
 	}
 
 	public void updateGrid(ComponentSystemEvent event) {
@@ -80,14 +70,18 @@ public class LearningTemplates implements Serializable {
 
 	public void addTemplate(ActionEvent e) {
 		SelectedLearningTemplateDAO.persist(getSelectedCompetence());
+//		while(learningTemplates.contains(selectedCompetence)) {
+//			learningTemplates.remove(selectedCompetence);
+//		}
+//		learningTemplates.add(selectedCompetence);
+		//learningTemplates = new ArrayList<String>(new LinkedHashSet<String>(learningTemplates));		
 	}
-
-	// public void deleteTemplate(ActionEvent e) {
-	// System.out.println(e.getComponent().getId());
-	// }
 
 	public void deleteTemplate1(String todelete) {
 		SelectedLearningTemplateDAO.delete(todelete);
+//		while(learningTemplates.contains(selectedCompetence)) {
+//			learningTemplates.remove(todelete);
+//		}				
 	}
 
 	public String getSelectedCompetence() {
