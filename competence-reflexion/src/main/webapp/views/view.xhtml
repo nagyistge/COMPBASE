@@ -14,35 +14,40 @@
 			<p:tab id="lernprojects" title="Lernprojekte">
 				<H1>Meine Lernprojekte</H1>
 
-				<p:dataList var="learningProject"
-					value="#{LearningTemplates.learningTemplates}" paginator="true"
-					rows="10" type="definition">
-					<div class="flexiflex">
-						<p:outputLabel value="#{learningProject}"></p:outputLabel>
-						<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
-						<p:commandButton icon="ui-icon-minusthick" value="löschen"
-							action="#{LearningTemplates.deleteTemplate1(learningProject)}"></p:commandButton>
-					</div>
-				</p:dataList>
 
-				<p:commandButton icon="ui-icon-plus" value="hinzufügen"
-					id="addLearningGoalButton">
-				</p:commandButton>
-				<div class="flexiflex" id="test:createLearningGoalPanel">
-					<h:form>
+				<h:form id="learningProjectForm">
+					<p:dataList var="learningProject"
+						value="#{LearningTemplates.learningTemplates}" paginator="true"
+						rows="10" type="definition">
+						<div class="flexiflex">
+							<p:outputLabel value="#{learningProject}"></p:outputLabel>
+							<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
+							<p:commandButton icon="ui-icon-minusthick" value="löschen"
+								action="#{LearningTemplates.deleteTemplate1(learningProject)}">								
+							</p:commandButton>
+						</div>
+					</p:dataList>
+					<p:commandButton icon="ui-icon-plus" value="hinzufügen"
+						id="addLearningGoalButton">
+					</p:commandButton>
+					<div class="flexiflex" id="test:createLearningGoalPanel">
 						<p:outputLabel for="autocomplete"
 							value="Wählen Sie neue Lernprojekte!"></p:outputLabel>
 						<p:autoComplete maxResults="10" id="autocomplete"
 							value="#{LearningTemplates.selectedCompetence}"
 							completeMethod="#{LearningTemplatesFullSet.complete}"
-							dropdown="true" />
+							dropdown="true" 
+							validator="#{learningTemplateValidator.validate}"
+							validatorMessage="Dieses Lernziel ist nicht vorhanden!"
+							/>
 						<p:commandButton value="speichern" id="saveLearningGoal"
 							actionListener="#{LearningTemplates.addTemplate}">
+							<f:ajax render="@form" />
 						</p:commandButton>
 						<p:commandButton value="abbrechen" id="cancelCreatingLearningGoal">
 						</p:commandButton>
-					</h:form>
-				</div>
+					</div>
+				</h:form>
 			</p:tab>
 			<p:tab title="Selbsteinschätzung">
 				<H1>Selbsteinschätzung</H1>
@@ -50,13 +55,13 @@
 				<!-- 		Hier wird das Dropdown für die Lernprojekte konfiguriert -->
 				<H4>Lernprojekte</H4>
 
-				<h:form>
+				<h:form id="learningProjectGridForm">
 					<div id="learningTemplateSelection">
 						<p:selectOneMenu header="Lernprojekte"
 							value="#{LearningTemplates.selectedLearningTemplate}"
 							id="selectLearningTemplateMenu">
 							<f:selectItems value="#{LearningTemplates.learningTemplates}" />
-							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>					
+							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>
 							<f:ajax render="@form" />
 						</p:selectOneMenu>
 					</div>
