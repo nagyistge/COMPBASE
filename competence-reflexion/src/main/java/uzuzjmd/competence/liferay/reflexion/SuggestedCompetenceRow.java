@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -46,8 +47,14 @@ public class SuggestedCompetenceRow implements Serializable {
 			String suggestedCompetenceRowHeader) {
 		this.suggestedCompetenceRowHeader = suggestedCompetenceRowHeader;
 	}
-
 	
-
-
+	@PostConstruct
+	public void init() {
+		if (suggestedCompetenceColumns == null) {
+			suggestedCompetenceColumns = new ArrayList<SuggestedCompetenceColumn>();
+		}
+		if (suggestedCompetenceRowHeader == null) {
+			suggestedCompetenceRowHeader = "";
+		}
+	}	
 }

@@ -49,14 +49,17 @@
 
 				<!-- 		Hier wird das Dropdown für die Lernprojekte konfiguriert -->
 				<H4>Lernprojekte</H4>
+
 				<h:form>
 					<div id="learningTemplateSelection">
 						<p:selectOneMenu header="Lernprojekte"
-							value="#{LearningTemplates.selectedLearningTemplate}" id="selectLearningTemplateMenu">
-							<f:selectItems value="#{LearningTemplates.learningTemplates}" itemValue="#{emp.employeeID}" />	
-							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>	
-<!-- 							<p:ajax listener="#{LearningTemplates.processValueChange}" />					 -->
-<!-- 							<f:ajax  /> -->
+							value="#{LearningTemplates.selectedLearningTemplate}"
+							id="selectLearningTemplateMenu">
+							<f:selectItems value="#{LearningTemplates.learningTemplates}" />
+							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>
+							<!-- 							<p:ajax listener="#{LearningTemplates.processValueChange}" />					 -->
+							<!-- 							<f:ajax  /> -->
+							<f:ajax render="@form" />
 						</p:selectOneMenu>
 					</div>
 
@@ -64,8 +67,9 @@
 					<div id="suggestedCompetenceGrid">
 						<ui:repeat var="suggestedCompetenceRow"
 							value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
-							id="gridView"				
-							>
+							id="gridView">
+							<f:event type="preRenderView"
+								listener="#{LearningTemplates.updateGrid}" />
 							<br></br>
 							<div class="flexiflex">
 								<h:outputText class="suggestedCompetenceRowHeader}"
