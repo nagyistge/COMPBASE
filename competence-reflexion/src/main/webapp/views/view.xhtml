@@ -56,9 +56,7 @@
 							value="#{LearningTemplates.selectedLearningTemplate}"
 							id="selectLearningTemplateMenu">
 							<f:selectItems value="#{LearningTemplates.learningTemplates}" />
-							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>
-							<!-- 							<p:ajax listener="#{LearningTemplates.processValueChange}" />					 -->
-							<!-- 							<f:ajax  /> -->
+							<f:selectItem itemLabel="test" itemValue="test"></f:selectItem>					
 							<f:ajax render="@form" />
 						</p:selectOneMenu>
 					</div>

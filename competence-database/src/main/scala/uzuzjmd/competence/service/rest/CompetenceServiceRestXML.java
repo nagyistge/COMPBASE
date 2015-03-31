@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.liferay.reflexion.StringList;
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn;
 import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceGrid;
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.CourseContext;
@@ -238,6 +241,17 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@GET
 	@Path("learningtemplates/gridview")
 	public Response getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+		if (selectedTemplate.equals("test")) {
+			SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
+			SuggestedCompetenceRow row = new SuggestedCompetenceRow();
+			SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
+			column.setProgressInPercent(33);
+			column.setTestOutput("deimudday is here");
+			row.setSuggestedCompetenceColumns(Collections.singletonList(column));
+			result.setSuggestedCompetenceRows(Collections.singletonList(row));
+			return RestUtil.buildCachedResponse(result, false);
+
+		}
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
 		CourseContext context = new CourseContext(compOntologyManager, groupId);
