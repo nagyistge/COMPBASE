@@ -11,11 +11,15 @@ $("[id$='cancelCreatingLearningGoal']").click(function() {
 });
 
 $("[id$='saveLearningGoal']").click(function() {
-	location.reload();
+	setTimeout(function() {
+		location.reload();
+	}, 300);
 });
 
 $( "span:contains('löschen')").click(function() {
-	location.reload();
+	setTimeout(function() {
+		location.reload();
+	}, 300);
 });
 
 
