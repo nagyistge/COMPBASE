@@ -40,6 +40,7 @@ import uzuzjmd.competence.mapper.rcd.RCD2OWL
 import uzuzjmd.competence.owl.dao.Catchword
 import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow
 import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn
+import uzuzjmd.competence.liferay.reflexion.ReflectiveAssessmentsListHolder
 
 object Ont2SuggestedCompetenceGrid {
   type ComPairList = Buffer[(Competence, Competence)]
@@ -68,6 +69,10 @@ object Ont2SuggestedCompetenceGrid {
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
     result.setProgressInPercent(competence.getAssessment(user).getAssmentIndexInProgress)
+
+    // TODO implement
+    //val holder = new ReflectiveAssessmentsListHolder
+    //result.setReflectiveAssessmentListHolder(holder)
     return result
   }
 

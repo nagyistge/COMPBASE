@@ -242,14 +242,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Path("learningtemplates/gridview")
 	public Response getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
 		if (selectedTemplate.equals("test")) {
-			SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
-			SuggestedCompetenceRow row = new SuggestedCompetenceRow();
-			SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
-			column.setProgressInPercent(33);
-			column.setTestOutput("deimudday is here");
-			row.setSuggestedCompetenceColumns(Collections.singletonList(column));
-			result.setSuggestedCompetenceRows(Collections.singletonList(row));
-			return RestUtil.buildCachedResponse(result, false);
+			return dummyGridResult();
 
 		}
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
@@ -258,10 +251,21 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, null);
 		if (!learningTemplate.exists()) {
-			return RestUtil.buildCachedResponse(new SuggestedCompetenceGrid(), false);
+			return dummyGridResult();
 		}
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(compOntologyManager, learningTemplate, user);
 		compOntologyManager.close();
+		return RestUtil.buildCachedResponse(result, false);
+	}
+
+	private Response dummyGridResult() {
+		SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
+		SuggestedCompetenceRow row = new SuggestedCompetenceRow();
+		SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
+		column.setProgressInPercent(33);
+		column.setTestOutput("deimudday is here");
+		row.setSuggestedCompetenceColumns(Collections.singletonList(column));
+		result.setSuggestedCompetenceRows(Collections.singletonList(row));
 		return RestUtil.buildCachedResponse(result, false);
 	}
 }
