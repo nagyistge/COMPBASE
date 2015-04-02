@@ -9,6 +9,9 @@ import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
+import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
+import uzuzjmd.scalahacks.ScalaHacksInScala
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()

@@ -30,6 +30,8 @@ import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import uzuzjmd.competence.owl.dao.CompetenceInstance
+import uzuzjmd.competence.owl.dao.Competence
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -353,6 +355,15 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.getM().leaveCriticalSection();
     compOntManag.close();
     showResult
+  }
+
+  test("listing all the subdaos should not throw any error and provide an existing list") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+
+    val competenceRoot = new CompetenceInstance(compOntManag).getFullDao
+    competenceRoot.listSubClasses(classOf[Competence]) should not be ('empty)
+    compOntManag.close();
   }
 
   private def showResult() {
