@@ -10,6 +10,7 @@ import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.scalahacks.ScalaHacksInScala
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.queries.CompetenceQueries
+import scala.collection.JavaConverters._
 
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
@@ -167,6 +168,11 @@ abstract class Dao(comp: CompOntologyManager) {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
     val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
+  }
+
+  def listSubClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
+    val identifierList = comp.getUtil().createOntClassForString(getId).listSubClasses().asScala.map(x => x.getLocalName())
+    return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }
 
 }

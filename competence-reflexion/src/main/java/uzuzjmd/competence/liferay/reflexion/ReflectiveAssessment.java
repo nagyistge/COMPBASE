@@ -1,12 +1,8 @@
 package uzuzjmd.competence.liferay.reflexion;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name="ReflectiveAssessment")
