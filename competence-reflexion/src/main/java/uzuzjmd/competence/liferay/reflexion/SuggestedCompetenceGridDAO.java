@@ -6,6 +6,7 @@ import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.liferay.util.ContextUtil;
 import uzuzjmd.competence.liferay.util.SOAUtil;
+import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -36,7 +37,7 @@ public class SuggestedCompetenceGridDAO {
 	// }
 
 	public static synchronized SuggestedCompetenceGrid getGrid(
-			String selectedLearningTemplate) {	
+			String selectedLearningTemplate) {
 
 		System.out.println("fetching grid for: " + selectedLearningTemplate);
 
@@ -67,4 +68,31 @@ public class SuggestedCompetenceGridDAO {
 		return result;
 	}
 
+	public static synchronized void updateReflexion(
+			ReflectiveAssessmentsListHolder holder) {
+		System.out.println("updating: " + holder.getSuggestedMetaCompetence());
+
+		Client client = com.sun.jersey.api.client.Client.create();
+		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
+				+ "/competences/xml/learningtemplates/gridview/update");
+		try {
+			webResource
+					.queryParam("userId",
+							ContextUtil.getUserLoggedIn().getLogin() + "")
+					.queryParam("groupId",
+							ContextUtil.getGroup().getGroupId() + "")
+					.type(MediaType.APPLICATION_XML)
+					.post(ReflectiveAssessmentsListHolder.class, holder);
+		} catch (UniformInterfaceException e) {
+			e.printStackTrace();
+		} catch (ClientHandlerException e) {
+			e.printStackTrace();
+		} catch (PortalException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		} finally {
+			client.destroy();
+		}
+	}
 }

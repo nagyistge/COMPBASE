@@ -45,6 +45,13 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
     return new Integer(getDataFieldInt(ASSESSMENTINDEX) * 25)
   }
 
+  def getAssmentIndex(): Integer = {
+    if (getDataField(ASSESSMENTINDEX) == null) {
+      return 0
+    }
+    return new Integer(getDataFieldInt(ASSESSMENTINDEX))
+  }
+
   def getLearningGoal(): Boolean = {
     if (getDataField(LEARNINGGOAL) == null) {
       return false;

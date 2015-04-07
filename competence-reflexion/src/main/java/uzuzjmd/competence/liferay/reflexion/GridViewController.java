@@ -1,5 +1,6 @@
 package uzuzjmd.competence.liferay.reflexion;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +15,13 @@ import uzuzjmd.competence.shared.SuggestedCompetenceColumn;
 
 @ManagedBean(name = "GridViewController")
 @ViewScoped
-public class GridViewController {
+public class GridViewController implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 44L;
+	
 	@ManagedProperty("#{ReflectiveAssessmentsListHolder}")
 	private ReflectiveAssessmentsListHolder holder;
 
@@ -40,6 +46,10 @@ public class GridViewController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+	}
+	
+	public void handleChange() {
+		SuggestedCompetenceGridDAO.updateReflexion(getHolder());
 	}
 
 	@PostConstruct

@@ -106,8 +106,8 @@
 						</ui:repeat>
 					</div>
 
-					<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt -->
-					<p:panel id="reflexionSelection" styleClass="reflexionSelection">
+					<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt process="@(.reflexionSelection)" -->
+					<p:panel id="reflexionSelection" styleClass="reflexionSelection">					    
 						<div id="assessmentsForSelected">
 							<H3>#{GridViewController.holder.suggestedMetaCompetence}</H3>
 							<ui:repeat var="reflectiveAssessment"
@@ -115,9 +115,9 @@
 								<div class="flexiflex">
 									<p:outputLabel for="assessmentRadio"
 										value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
-									<p:selectOneRadio id="assessmentRadio">
-												value="#{GridViewController.holder.assessment.items[reflectiveAssessment.assessmentIndex]}">
-												<f:selectItem
+									<p:selectOneRadio id="assessmentRadio" value="#{reflectiveAssessment.assessment}">
+										<p:ajax event="change" listener="#{GridViewController.handleChange}" />
+										<f:selectItem
 											itemLabel="#{GridViewController.holder.assessment.items[0]}"
 											itemValue="#{GridViewController.holder.assessment.items[0]}" />
 										<f:selectItem
@@ -131,7 +131,9 @@
 											itemValue="#{GridViewController.holder.assessment.items[3]}" />
 									</p:selectOneRadio>
 									<p:selectBooleanCheckbox
-										value="#{reflectiveAssessment.isLearningGoal}"></p:selectBooleanCheckbox>
+										value="#{reflectiveAssessment.isLearningGoal}">
+										<p:ajax event="change" listener="#{GridViewController.handleChange}" />
+									</p:selectBooleanCheckbox>
 								</div>
 							</ui:repeat>
 						</div>

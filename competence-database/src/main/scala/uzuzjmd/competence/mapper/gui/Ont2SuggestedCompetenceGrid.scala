@@ -86,7 +86,9 @@ object Ont2SuggestedCompetenceGrid {
 
   def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
     val result = new ReflectiveAssessment
-    result.setAssessmentIndex(competence.getDataFieldInt(competence.getAssessment(user) + ""))
+    val index = competence.getAssessment(user).getAssmentIndex
+    val assessment = new Assessment
+    result.setAssessment(assessment.getItems().get(index))
     result.setCompetenceDescription(competence.getDefinition)
     result.setIsLearningGoal(competence.getAssessment(user).getLearningGoal)
     return result
