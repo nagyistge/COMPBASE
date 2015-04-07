@@ -4,6 +4,7 @@ import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceGrid
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
@@ -37,9 +38,9 @@ import java.util.ArrayList
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.rcd.RCD2OWL
 import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid
-import uzuzjmd.competence.shared.SuggestedCompetenceColumn
-import uzuzjmd.competence.shared.SuggestedCompetenceRow
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn
+import uzuzjmd.competence.liferay.reflexion.ReflectiveAssessmentsListHolder
 
 object Ont2SuggestedCompetenceGrid {
   type ComPairList = Buffer[(Competence, Competence)]
@@ -68,6 +69,10 @@ object Ont2SuggestedCompetenceGrid {
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
     result.setProgressInPercent(competence.getAssessment(user).getAssmentIndexInProgress)
+
+    // TODO implement
+    //val holder = new ReflectiveAssessmentsListHolder
+    //result.setReflectiveAssessmentListHolder(holder)
     return result
   }
 

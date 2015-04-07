@@ -12,7 +12,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 
 @ManagedBean(name = "LearningTemplates")
 @ViewScoped
@@ -40,10 +43,11 @@ public class LearningTemplates implements Serializable {
 		learningTemplates = new ArrayList<String>();
 	}
 
-	public void updateGrid(ComponentSystemEvent event) {
+	public void updateGrid(ComponentSystemEvent event) throws UniformInterfaceException, ClientHandlerException, PortalException, SystemException {
 		if (selectedLearningTemplate != null) {
 			SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
-					.getGrid(selectedLearningTemplate);			
+					.getGrid(selectedLearningTemplate);
+			data.setLearningTemplates(this);
 			setSuggestedCompetenceGrid(data);
 		} else {
 			List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
@@ -52,7 +56,8 @@ public class LearningTemplates implements Serializable {
 				learningTemplates.addAll(selectedTemplates);
 				if (!selectedTemplates.isEmpty()) {
 					SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
-							.getGrid(selectedTemplates.get(0));					
+							.getGrid(selectedTemplates.get(0));
+					data.setLearningTemplates(this);
 					setSuggestedCompetenceGrid(data);
 				}
 			}

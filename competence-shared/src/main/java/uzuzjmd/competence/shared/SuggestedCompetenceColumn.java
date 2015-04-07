@@ -4,23 +4,29 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 @ViewScoped
 @ManagedBean(name="SuggestedCompetenceColumn" , eager = true)
 public class SuggestedCompetenceColumn implements Serializable {
 	
-	public SuggestedCompetenceColumn() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public SuggestedCompetenceColumn() {		
 	}
-		
+			
+	//private ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder;
 	
 	@ManagedProperty("#{testOutput}")
 	private String testOutput;
 	
 	@ManagedProperty("#{progressInPercent}")
 	private int progressInPercent;
+		
 	
 	public String getTestOutput() {
 		return testOutput;
@@ -37,5 +43,14 @@ public class SuggestedCompetenceColumn implements Serializable {
 	public void setProgressInPercent(int progressInPercent) {
 		this.progressInPercent = progressInPercent;
 	}
+
+//	public ReflectiveAssessmentsListHolder getReflectiveAssessmentListHolder() {
+//		return reflectiveAssessmentListHolder;
+//	}
+//
+//	public void setReflectiveAssessmentListHolder(
+//			ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder) {
+//		this.reflectiveAssessmentListHolder = reflectiveAssessmentListHolder;
+//	}
 
 }

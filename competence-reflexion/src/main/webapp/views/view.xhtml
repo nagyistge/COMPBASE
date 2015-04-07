@@ -10,7 +10,7 @@
 	<h:body>
 		<!-- 		<h:outputText value="#{i18n['Competence-Reflexion-hello-world']}" /> -->
 
-		<p:tabView>
+		<p:tabView id="tabViewWidget">
 			<p:tab id="lernprojects" title="Lernprojekte">
 				<H1>Meine Lernprojekte</H1>
 
@@ -21,7 +21,9 @@
 						rows="10" type="definition">
 						<div class="flexiflex">
 							<p:outputLabel value="#{learningProject}"></p:outputLabel>
-							<p:button icon="ui-icon-extlink" value="bearbeiten"></p:button>
+							<p:commandButton icon="ui-icon-extlink" value="bearbeiten" id="bearbeiten_button">
+								 <f:attribute name="learningProject" value="#{learningProject}" />
+							</p:commandButton>
 							<p:commandButton icon="ui-icon-minusthick" value="löschen"
 								action="#{LearningTemplates.deleteTemplate1(learningProject)}">								
 							</p:commandButton>
