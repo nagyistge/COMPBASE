@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.liferay.util.SOAUtil;
+import uzuzjmd.competence.shared.StringList;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
