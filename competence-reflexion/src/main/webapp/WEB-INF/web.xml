@@ -31,7 +31,12 @@
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/</location>
 	</error-page>
-
+	
+	<error-page>
+		<exception-type>javax.portlet.faces.BridgeException</exception-type>
+		<location>/</location>
+	</error-page>
+		
 	<context-param>
 		<param-name>com.sun.faces.numberOfViewsInSession</param-name>
 		<param-value>500</param-value>
