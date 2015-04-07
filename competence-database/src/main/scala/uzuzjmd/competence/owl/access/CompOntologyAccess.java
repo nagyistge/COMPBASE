@@ -26,7 +26,7 @@ public class CompOntologyAccess {
 	/**
 	 * init Logger
 	 */
-	static final Logger logger = LogManager.getLogger(CompOntologyAccess.class.getName());
+	public static final Logger logger = LogManager.getLogger(CompOntologyAccess.class.getName());
 	private CompFileUtil fileUtil;
 
 	private CompOntologyManager manager;
@@ -223,6 +223,9 @@ public class CompOntologyAccess {
 	}
 
 	public OntResult accessSingletonResource(String classname, String... definitions) {
+		if (classname.startsWith("I")) {
+			logger.warn("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
+		}
 		OntClass classOnt = createOntClassForString(classname, definitions);
 		Individual individual = createSingleTonIndividual(classOnt);
 		return new OntResult(individual, classOnt);

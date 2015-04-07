@@ -11,6 +11,7 @@ import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.main.EposImporter
 
 @RunWith(classOf[JUnitRunner])
 class MapperTest extends FunSuite with ShouldMatchers {
@@ -27,6 +28,11 @@ class MapperTest extends FunSuite with ShouldMatchers {
     compOntManag.close()
 
     CompetenceImporter.convertCSV(MagicStrings.CSVLOCATION);
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    EposImporter.main(Array(MagicStrings.EPOSLocation));
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()

@@ -16,6 +16,8 @@ import uzuzjmd.scalahacks.ScalaHacksInScala
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
 
+  def DEFINITION = "definition"
+
   def persist(more: Boolean): OntResult = {
     var result: OntResult = null
     if (identifier == null) {
@@ -54,6 +56,22 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   @Override
   def equals(toCompare: Competence): Boolean = {
     return getId.equals(toCompare.getId)
+  }
+
+  def listSubClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
+    var definition = getDefinition
+    if (definition == null) {
+      definition = compOntClass.toString()
+    }
+    val id = getId
+    val ontClass = comp.getUtil().accessSingletonResource(definition).getOntclass()
+    val classList = ontClass.listSubClasses(false).toList()
+    val identifierList = classList.asScala.map(x => x.getLocalName()).toList
+    return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
+  }
+
+  def getDefinition(): String = {
+    return getDataField(DEFINITION)
   }
 
 }
