@@ -27,6 +27,7 @@ import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
+import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceColumn;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
@@ -256,6 +257,21 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(compOntologyManager, learningTemplate, user);
 		compOntologyManager.close();
 		return RestUtil.buildCachedResponse(result, false);
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("learningtemplates/gridview/update")
+	public Response updateGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
+
+		// System.out.println("got the data from:" +
+		// reflectiveAssessmentHolder.getSuggestedMetaCompetence());
+		// TODO
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("reflexion updated").build();
 	}
 
 	private Response dummyGridResult() {
