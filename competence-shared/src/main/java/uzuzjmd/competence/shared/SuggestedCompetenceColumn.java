@@ -7,27 +7,25 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 @ViewScoped
-@ManagedBean(name="SuggestedCompetenceColumn" , eager = true)
+@ManagedBean(name = "SuggestedCompetenceColumn", eager = true)
 public class SuggestedCompetenceColumn implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	public SuggestedCompetenceColumn() {		
+	public SuggestedCompetenceColumn() {
 	}
-			
-	//private ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder;
-	
+
+	private ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder;
+
 	@ManagedProperty("#{testOutput}")
 	private String testOutput;
-	
+
 	@ManagedProperty("#{progressInPercent}")
 	private int progressInPercent;
-		
-	
+
 	public String getTestOutput() {
 		return testOutput;
 	}
@@ -44,13 +42,13 @@ public class SuggestedCompetenceColumn implements Serializable {
 		this.progressInPercent = progressInPercent;
 	}
 
-//	public ReflectiveAssessmentsListHolder getReflectiveAssessmentListHolder() {
-//		return reflectiveAssessmentListHolder;
-//	}
-//
-//	public void setReflectiveAssessmentListHolder(
-//			ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder) {
-//		this.reflectiveAssessmentListHolder = reflectiveAssessmentListHolder;
-//	}
+	public ReflectiveAssessmentsListHolder getReflectiveAssessmentListHolder() {
+		return reflectiveAssessmentListHolder;
+	}
+
+	public void setReflectiveAssessmentListHolder(
+			ReflectiveAssessmentsListHolder reflectiveAssessmentListHolder) {
+		this.reflectiveAssessmentListHolder = reflectiveAssessmentListHolder;
+	}
 
 }
