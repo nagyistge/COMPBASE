@@ -37,12 +37,15 @@ import java.util.ArrayList
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.rcd.RCD2OWL
 import uzuzjmd.competence.owl.dao.Catchword
+<<<<<<< HEAD
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid
 import uzuzjmd.competence.shared.SuggestedCompetenceColumn
 import uzuzjmd.competence.shared.SuggestedCompetenceRow
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
-import uzuzjmd.competence.shared.ReflectiveAssessment
-import uzuzjmd.competence.shared.Assessment
+=======
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow
+import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn
+import uzuzjmd.competence.liferay.reflexion.ReflectiveAssessmentsListHolder
+>>>>>>> assessmentRendering
 
 object Ont2SuggestedCompetenceGrid {
   type ComPairList = Buffer[(Competence, Competence)]
@@ -70,33 +73,12 @@ object Ont2SuggestedCompetenceGrid {
   def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
-    result.setProgressInPercent(calculateAssessmentIndex(competence, user))
-    result.setReflectiveAssessmentListHolder(competenceToReflextiveAssessmentsListHolder(competence, user))
+    result.setProgressInPercent(competence.getAssessment(user).getAssmentIndexInProgress)
+
+    // TODO implement
+    //val holder = new ReflectiveAssessmentsListHolder
+    //result.setReflectiveAssessmentListHolder(holder)
     return result
-  }
-
-  def competenceToReflextiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
-    val holder = new ReflectiveAssessmentsListHolder
-    val assessment = new Assessment
-    holder.setAssessment(assessment)
-    holder.setSuggestedMetaCompetence(competence.getDefinition)
-    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).map(competenceToReflectiveAssessment(_)(user)).asJava)
-    return holder
-  }
-
-  def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
-    val result = new ReflectiveAssessment
-    result.setAssessmentIndex(competence.getDataFieldInt(competence.getAssessment(user) + ""))
-    result.setCompetenceDescription(competence.getDefinition)
-    result.setIsLearningGoal(competence.getAssessment(user).getLearningGoal)
-    return result
-  }
-
-  def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
-    val listSubclases = competence.listSubClasses(classOf[Competence])
-    val sum = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndexInProgress).map(x => x.toInt).sum
-    val average = sum / listSubclases.size
-    return average * 25
   }
 
   def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {

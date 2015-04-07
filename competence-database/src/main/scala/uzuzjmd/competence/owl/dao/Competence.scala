@@ -23,6 +23,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     }
   }
 
+  def getDefinition(): String = {
+    return getDataField(DEFINITION)
+  }
+
   @Override
   def getFullDao(): Competence = {
     return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
