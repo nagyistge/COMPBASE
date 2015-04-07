@@ -2,8 +2,6 @@ package uzuzjmd.competence.liferay.reflexion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
+
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -46,8 +46,7 @@ public class LearningTemplates implements Serializable {
 	public void updateGrid(ComponentSystemEvent event) throws UniformInterfaceException, ClientHandlerException, PortalException, SystemException {
 		if (selectedLearningTemplate != null) {
 			SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
-					.getGrid(selectedLearningTemplate);
-			data.setLearningTemplates(this);
+					.getGrid(selectedLearningTemplate);			
 			setSuggestedCompetenceGrid(data);
 		} else {
 			List<String> selectedTemplates = SelectedLearningTemplateDAO.findAll()
@@ -56,8 +55,7 @@ public class LearningTemplates implements Serializable {
 				learningTemplates.addAll(selectedTemplates);
 				if (!selectedTemplates.isEmpty()) {
 					SuggestedCompetenceGrid data = SuggestedCompetenceGridDAO
-							.getGrid(selectedTemplates.get(0));
-					data.setLearningTemplates(this);
+							.getGrid(selectedTemplates.get(0));					
 					setSuggestedCompetenceGrid(data);
 				}
 			}

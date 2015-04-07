@@ -32,6 +32,8 @@ import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.CompetenceInstance
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import org.apache.log4j.Level
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -361,8 +363,17 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
 
-    val competenceRoot = new CompetenceInstance(compOntManag).getFullDao
+    CompOntologyAccess.logger.setLevel(Level.DEBUG)
+
+    val competenceRoot = new CompetenceInstance(compOntManag)
+    val result2 = competenceRoot.listSubClasses(classOf[Competence])
     competenceRoot.listSubClasses(classOf[Competence]) should not be ('empty)
+
+    val competenceLevel2 = new Competence(compOntManag, "SchreibenB2").getFullDao
+    val result = competenceLevel2.listSubClasses(classOf[Competence])
+    result should not be ('empty)
+    (result.head.getDefinition != null) should not be false
+
     compOntManag.close();
   }
 

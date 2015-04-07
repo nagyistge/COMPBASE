@@ -21,11 +21,12 @@
 						rows="10" type="definition">
 						<div class="flexiflex">
 							<p:outputLabel value="#{learningProject}"></p:outputLabel>
-							<p:commandButton icon="ui-icon-extlink" value="bearbeiten" id="bearbeiten_button">
-								 <f:attribute name="learningProject" value="#{learningProject}" />
+							<p:commandButton icon="ui-icon-extlink" value="bearbeiten"
+								id="bearbeiten_button" disabled="true">
+								<f:attribute name="learningProject" value="#{learningProject}" />
 							</p:commandButton>
 							<p:commandButton icon="ui-icon-minusthick" value="löschen"
-								action="#{LearningTemplates.deleteTemplate1(learningProject)}">								
+								action="#{LearningTemplates.deleteTemplate1(learningProject)}">
 							</p:commandButton>
 						</div>
 					</p:dataList>
@@ -38,10 +39,8 @@
 						<p:autoComplete maxResults="10" id="autocomplete"
 							value="#{LearningTemplates.selectedCompetence}"
 							completeMethod="#{LearningTemplatesFullSet.complete}"
-							dropdown="true" 
-							validator="#{learningTemplateValidator.validate}"
-							validatorMessage="Dieses Lernziel ist nicht vorhanden!"
-							/>
+							dropdown="true" validator="#{learningTemplateValidator.validate}"
+							validatorMessage="Dieses Lernziel ist nicht vorhanden!" />
 						<p:commandButton value="speichern" id="saveLearningGoal"
 							actionListener="#{LearningTemplates.addTemplate}">
 							<f:ajax render="@form" />
@@ -51,6 +50,14 @@
 					</div>
 				</h:form>
 			</p:tab>
+			
+			
+			
+			
+			<!-- 			new Tab           -->
+			
+			
+			
 			<p:tab title="Selbsteinschätzung">
 				<H1>Selbsteinschätzung</H1>
 
@@ -77,19 +84,22 @@
 								listener="#{LearningTemplates.updateGrid}" />
 							<br></br>
 							<div class="flexiflex">
+
 								<h:outputText class="suggestedCompetenceRowHeader}"
 									value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
 								<ui:repeat var="suggestedCompetenceColumn"
 									value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
 									<span class="icon-arrow-right"></span>
-									<div class="suggestedCompetenceCluster">
-										<h:outputText class="competenceGridEntry"
-											value="#{suggestedCompetenceColumn.testOutput}" />
-										<p:progressBar
-											value="#{suggestedCompetenceColumn.progressInPercent}"
-											labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
-											displayOnly="true" style="width:80px"></p:progressBar>
-									</div>
+									<p:commandLink action="#{GridViewController.update(suggestedCompetenceColumn)}">
+										<div class="suggestedCompetenceCluster">
+											<h:outputText class="competenceGridEntry"
+												value="#{suggestedCompetenceColumn.testOutput}" />
+											<p:progressBar
+												value="#{suggestedCompetenceColumn.progressInPercent}"
+												labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
+												displayOnly="true" style="width:80px"></p:progressBar>
+										</div>
+									</p:commandLink>
 								</ui:repeat>
 							</div>
 						</ui:repeat>

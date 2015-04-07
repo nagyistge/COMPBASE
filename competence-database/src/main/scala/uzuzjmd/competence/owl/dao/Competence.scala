@@ -9,7 +9,6 @@ import com.hp.hpl.jena.rdf.model.Statement
 
 class Competence(compManager: CompOntologyManager, identifier: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifier) {
 
-  def DEFINITION = "definition"
   def COMPULSORY = "compulsory"
 
   @Override
@@ -21,10 +20,6 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
       //addDataField(DEFINITION, definition) legacy problem
       compManager.getUtil().createOntClassForString(definition, definition)
     }
-  }
-
-  def getDefinition(): String = {
-    return getDataField(DEFINITION)
   }
 
   @Override
