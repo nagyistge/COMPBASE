@@ -1,5 +1,9 @@
 package uzuzjmd.competence.liferay.util;
 
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
+
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -10,30 +14,28 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class ContextUtil {
-	public static User getUserLoggedIn() {		
-		try {
-			return  UserLocalServiceUtil.getUser(
-					PrincipalThreadLocal.getUserId());
-		} catch (PortalException e) {			
-			e.printStackTrace();
-		} catch (SystemException e) {
-			e.printStackTrace();
-		}
-		return null;		
+	public static User getUserLoggedIn() throws PortalException,
+			SystemException {
+		
+		User user = UserLocalServiceUtil.getUser(PrincipalThreadLocal.getUserId());
+		
+		if (user == null) {			
+			FacesContext fc = FacesContext.getCurrentInstance();
+			try {
+				fc.getExternalContext().redirect("/");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		    		
+		}		
+		return user;
 	}
-	
-	public static Group getGroup() {
-		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
+
+	public static Group getGroup() throws PortalException, SystemException {
+		LiferayFacesContext liferayFacesContext = LiferayFacesContext
+				.getInstance();
 		ServiceContext serviceContext = liferayFacesContext.getServiceContext();
-		try {			
-			return serviceContext.getScopeGroup();
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	} 
+		return serviceContext.getScopeGroup();
+
+	}
 }

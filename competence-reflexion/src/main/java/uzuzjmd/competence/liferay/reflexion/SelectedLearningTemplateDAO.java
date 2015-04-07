@@ -1,5 +1,9 @@
 package uzuzjmd.competence.liferay.reflexion;
 
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
+import javax.portlet.ActionResponse;
 import javax.ws.rs.core.MediaType;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -24,8 +28,10 @@ public class SelectedLearningTemplateDAO {
 				webResource
 						.queryParam("userId",
 								ContextUtil.getUserLoggedIn().getLogin() + "")
-						.queryParam("groupId", ContextUtil.getGroup().getGroupId() + "")
-						.queryParam("selectedTemplate", selectedLearningTemplate)
+						.queryParam("groupId",
+								ContextUtil.getGroup().getGroupId() + "")
+						.queryParam("selectedTemplate",
+								selectedLearningTemplate)
 						.accept(MediaType.APPLICATION_XML).post();
 			} catch (PortalException e) {
 				// TODO Auto-generated catch block
@@ -40,55 +46,49 @@ public class SelectedLearningTemplateDAO {
 		} catch (ClientHandlerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  finally {		
+		} finally {
 			client.destroy();
 		}
 	}
-	
-	public static synchronized StringList findAll() {
+
+	public static synchronized StringList findAll()
+			throws UniformInterfaceException, ClientHandlerException,
+			PortalException, SystemException {
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
 				+ "/competences/xml/learningtemplates/selected");
-		
+
 		StringList result = null;
+		String user = ContextUtil.getUserLoggedIn().getLogin();
+		
 		try {
-			try {
-				result = webResource
-						.queryParam("userId",
-								ContextUtil.getUserLoggedIn().getLogin() + "")
-						.queryParam("groupId", ContextUtil.getGroup().getGroupId() + "")						
-						.accept(MediaType.APPLICATION_XML).get(StringList.class);
-			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SystemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (UniformInterfaceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientHandlerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  finally {		
+
+			result = webResource
+					.queryParam("userId",
+							 user + "")
+					.queryParam("groupId",
+							ContextUtil.getGroup().getGroupId() + "")
+					.accept(MediaType.APPLICATION_XML).get(StringList.class);
+		} finally {
 			client.destroy();
 		}
-		
+
 		return result;
 	}
-	
+
 	public static synchronized void delete(String selectedLearningTemplate) {
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
-				+ "/competences/xml/learningtemplates/delete");			
+				+ "/competences/xml/learningtemplates/delete");
 		try {
 			try {
-				 webResource
+				webResource
 						.queryParam("userId",
 								ContextUtil.getUserLoggedIn().getLogin() + "")
-						.queryParam("groupId", ContextUtil.getGroup().getGroupId() + "")	
-						.queryParam("selectedTemplate", selectedLearningTemplate)
+						.queryParam("groupId",
+								ContextUtil.getGroup().getGroupId() + "")
+						.queryParam("selectedTemplate",
+								selectedLearningTemplate)
 						.accept(MediaType.APPLICATION_XML).post();
 			} catch (PortalException e) {
 				// TODO Auto-generated catch block
@@ -103,10 +103,9 @@ public class SelectedLearningTemplateDAO {
 		} catch (ClientHandlerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  finally {		
+		} finally {
 			client.destroy();
-		} 
-		
-					
+		}
+
 	}
 }
