@@ -5,8 +5,6 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 
 class Catchword(compManager: CompOntologyManager, identifer: String, val definition: String = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Catchword, identifer) {
 
-  def DEFINITION = "definition"
-
   @Override
   protected def persistMore() {
     val catchwordRoot = new CatchwordInstance(comp)

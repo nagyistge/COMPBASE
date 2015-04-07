@@ -20,6 +20,7 @@ object CompetenceImporter {
 
   def main(args: Array[String]) {
     convertCSVArray(args)
+    EposImporter.main(args)
   }
 
   def convertCSV(pathToCSV: String) {
