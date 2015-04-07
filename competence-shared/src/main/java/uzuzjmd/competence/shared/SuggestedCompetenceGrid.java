@@ -1,4 +1,4 @@
-package uzuzjmd.competence.liferay.reflexion;
+package uzuzjmd.competence.shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,21 +20,12 @@ public class SuggestedCompetenceGrid implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty("#{suggestedCompetenceRows}")
-	private List<SuggestedCompetenceRow> suggestedCompetenceRows;
-
-	private LearningTemplates learningTemplates;
+	private List<SuggestedCompetenceRow> suggestedCompetenceRows;	
 
 	public SuggestedCompetenceGrid() {
 		suggestedCompetenceRows = new ArrayList<SuggestedCompetenceRow>();
 	}
 
-	public void setLearningTemplates(LearningTemplates learningTemplates) {
-		this.learningTemplates = learningTemplates;
-	}
-
-	public LearningTemplates getLearningTemplates() {
-		return learningTemplates;
-	}
 
 	public List<SuggestedCompetenceRow> getSuggestedCompetenceRows() {
 		return suggestedCompetenceRows;

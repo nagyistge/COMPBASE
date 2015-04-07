@@ -4,9 +4,8 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
-import uzuzjmd.competence.liferay.reflexion.StringList
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.liferay.reflexion.LearningTemplates
+import uzuzjmd.competence.shared.StringList
 
 case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associatedUser: User, associatedCourse: CourseContext, var identifiery: String = null, associatedTemplates: List[LearningProjectTemplate] = null) extends CompetenceOntologyDao(comp, CompOntClass.SelectedLearningProjectTemplate, CompOntologyAccessScala.createIdentifierForSelectedTemplate(associatedUser, associatedCourse, identifiery)) {
 
