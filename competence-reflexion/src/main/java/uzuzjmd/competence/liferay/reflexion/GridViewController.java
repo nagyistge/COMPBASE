@@ -29,16 +29,17 @@ public class GridViewController {
 
 	public void update(SuggestedCompetenceColumn column) {
 		System.out.println("updating column:" + column.getTestOutput());
-		try {
-			BeanUtils.copyProperties(holder,
-					column.getReflectiveAssessmentListHolder());
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			BeanUtils.copyProperties(holder,
+//					column.getReflectiveAssessmentListHolder());
+			setHolder(column.getReflectiveAssessmentListHolder());
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvocationTargetException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@PostConstruct
