@@ -16,7 +16,7 @@ public class ReflectiveAssessment implements Serializable {
 	
 	private Boolean isLearningGoal;
 	private String competenceDescription;
-	private Integer assessmentIndex;
+	private String assessment;
 	
 	
 	public Boolean getIsLearningGoal() {
@@ -31,12 +31,13 @@ public class ReflectiveAssessment implements Serializable {
 	public void setCompetenceDescription(String competenceDescription) {
 		this.competenceDescription = competenceDescription;
 	}
-	public Integer getAssessmentIndex() {
-		return assessmentIndex;
+	public String getAssessment() {
+		return assessment;
 	}
-	public void setAssessmentIndex(Integer assessmentIndex) {
-		this.assessmentIndex = assessmentIndex;
+	public void setAssessment(String assessment) {
+		this.assessment = assessment;
 	}
+
 	
 	
 }
