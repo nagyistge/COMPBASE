@@ -50,14 +50,14 @@
 					</div>
 				</h:form>
 			</p:tab>
-			
-			
-			
-			
+
+
+
+
 			<!-- 			new Tab           -->
-			
-			
-			
+
+
+
 			<p:tab title="Selbsteinschätzung">
 				<H1>Selbsteinschätzung</H1>
 
@@ -84,13 +84,14 @@
 								listener="#{LearningTemplates.updateGrid}" />
 							<br></br>
 							<div class="flexiflex">
-
 								<h:outputText class="suggestedCompetenceRowHeader}"
 									value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
 								<ui:repeat var="suggestedCompetenceColumn"
 									value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
 									<span class="icon-arrow-right"></span>
-									<p:commandLink action="#{GridViewController.update(suggestedCompetenceColumn)}">
+									<p:commandLink
+										action="#{GridViewController.update(suggestedCompetenceColumn)}"
+										update="@(.reflexionSelection)">
 										<div class="suggestedCompetenceCluster">
 											<h:outputText class="competenceGridEntry"
 												value="#{suggestedCompetenceColumn.testOutput}" />
@@ -106,33 +107,35 @@
 					</div>
 
 					<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt -->
-					<div id="assessmentsForSelected">
-						<H3>#{ReflectiveAssessmentsListHolder.suggestedMetaCompetence}</H3>
-						<ui:repeat var="reflectiveAssessment"
-							value="#{ReflectiveAssessmentsListHolder.reflectiveAssessmentList}">
-							<div class="flexiflex">
-								<p:outputLabel for="assessmentRadio"
-									value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
-								<p:selectOneRadio id="assessmentRadio">
-												value="#{ReflectiveAssessmentsListHolder.assessment.items[reflectiveAssessment.assessmentIndex]}">
+					<p:panel id="reflexionSelection" styleClass="reflexionSelection">
+						<div id="assessmentsForSelected">
+							<H3>#{GridViewController.holder.suggestedMetaCompetence}</H3>
+							<ui:repeat var="reflectiveAssessment"
+								value="#{GridViewController.holder.reflectiveAssessmentList}">
+								<div class="flexiflex">
+									<p:outputLabel for="assessmentRadio"
+										value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
+									<p:selectOneRadio id="assessmentRadio">
+												value="#{GridViewController.holder.assessment.items[reflectiveAssessment.assessmentIndex]}">
 												<f:selectItem
-										itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[0]}"
-										itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[0]}" />
-									<f:selectItem
-										itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[1]}"
-										itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[1]}" />
-									<f:selectItem
-										itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[2]}"
-										itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[2]}" />
-									<f:selectItem
-										itemLabel="#{ReflectiveAssessmentsListHolder.assessment.items[3]}"
-										itemValue="#{ReflectiveAssessmentsListHolder.assessment.items[3]}" />
-								</p:selectOneRadio>
-								<p:selectBooleanCheckbox
-									value="#{reflectiveAssessment.isLearningGoal}"></p:selectBooleanCheckbox>
-							</div>
-						</ui:repeat>
-					</div>
+											itemLabel="#{GridViewController.holder.assessment.items[0]}"
+											itemValue="#{GridViewController.holder.assessment.items[0]}" />
+										<f:selectItem
+											itemLabel="#{GridViewController.holder.assessment.items[1]}"
+											itemValue="#{GridViewController.holder.assessment.items[1]}" />
+										<f:selectItem
+											itemLabel="#{GridViewController.holder.assessment.items[2]}"
+											itemValue="#{GridViewController.holder.assessment.items[2]}" />
+										<f:selectItem
+											itemLabel="#{GridViewController.holder.assessment.items[3]}"
+											itemValue="#{GridViewController.holder.assessment.items[3]}" />
+									</p:selectOneRadio>
+									<p:selectBooleanCheckbox
+										value="#{reflectiveAssessment.isLearningGoal}"></p:selectBooleanCheckbox>
+								</div>
+							</ui:repeat>
+						</div>
+					</p:panel>
 				</h:form>
 			</p:tab>
 		</p:tabView>
