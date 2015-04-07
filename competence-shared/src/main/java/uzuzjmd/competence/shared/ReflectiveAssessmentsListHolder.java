@@ -50,16 +50,16 @@ public class ReflectiveAssessmentsListHolder implements Serializable{
 		
 		reflectiveAssessmentList = new LinkedList<ReflectiveAssessment>();
 		
-//		ReflectiveAssessment assessment = new ReflectiveAssessment();
-//		assessment.setIsLearningGoal(true);
-//		HashMap<String, Integer> reflexion = new HashMap<String, Integer>();
-//		reflexion.put("Ich kann viele tolle Dinge", 2);
-////		assessment.setReflexion(reflexion);
-//		assessment.setCompetenceDescription("some stuff, I don't know");
-//		assessment.setAssessmentIndex(0);
-//		reflectiveAssessmentList.add(assessment);
-//				
-//		this.setSuggestedMetaCompetence("Hörbuch hören können");
+		ReflectiveAssessment assessment = new ReflectiveAssessment();
+		assessment.setIsLearningGoal(true);
+		HashMap<String, Integer> reflexion = new HashMap<String, Integer>();
+		reflexion.put("Ich kann viele tolle Dinge", 2);
+//		assessment.setReflexion(reflexion);
+		assessment.setCompetenceDescription("some stuff, I don't know");
+		assessment.setAssessmentIndex(0);
+		reflectiveAssessmentList.add(assessment);
+				
+		this.setSuggestedMetaCompetence("Hörbuch hören können");
 		
 	}
 
