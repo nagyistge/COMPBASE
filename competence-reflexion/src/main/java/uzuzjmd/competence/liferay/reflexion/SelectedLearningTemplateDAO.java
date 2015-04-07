@@ -11,6 +11,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import uzuzjmd.competence.liferay.util.ContextUtil;
 import uzuzjmd.competence.liferay.util.SOAUtil;
+import uzuzjmd.competence.shared.StringList;
 
 public class SelectedLearningTemplateDAO {
 	public static synchronized void persist(String selectedLearningTemplate) {

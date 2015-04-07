@@ -1,4 +1,4 @@
-package uzuzjmd.competence.liferay.reflexion;
+package uzuzjmd.competence.shared;
 
 import java.util.List;
 

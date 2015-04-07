@@ -14,10 +14,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.liferay.reflexion.StringList;
-import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceColumn;
-import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceGrid;
-import uzuzjmd.competence.liferay.reflexion.SuggestedCompetenceRow;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.CourseContext;
@@ -31,6 +27,10 @@ import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
+import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.SuggestedCompetenceColumn;
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.SuggestedCompetenceRow;
 
 /**
  * Root resource (exposed at "competences" path)
