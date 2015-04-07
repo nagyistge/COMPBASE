@@ -8,14 +8,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name="Assessment")
+@ManagedBean(name = "Assessment")
 @SessionScoped
 public class Assessment implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	public Assessment() {
+		init();
+	}
+
 	@ManagedProperty("#{items}")
 	private List<String> items;
 
@@ -26,7 +30,6 @@ public class Assessment implements Serializable {
 	public void setItems(List<String> items) {
 		this.items = items;
 	}
-
 
 	public void init() {
 		items = new ArrayList<String>();
