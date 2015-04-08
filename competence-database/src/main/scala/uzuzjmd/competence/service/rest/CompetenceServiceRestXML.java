@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
+import uzuzjmd.competence.mapper.gui.ReflectiveAssessmentHolder2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
@@ -264,12 +265,10 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@POST
 	@Path("learningtemplates/gridview/update")
 	public Response updateGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
-
-		// System.out.println("got the data from:" +
-		// reflectiveAssessmentHolder.getSuggestedMetaCompetence());
-		// TODO
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
+		CourseContext context = new CourseContext(compOntologyManager, groupId);
+		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
+		ReflectiveAssessmentHolder2Ont.convert(compOntologyManager, user, context, reflectiveAssessmentHolder);
 		closeManagerInCriticalMode(compOntologyManager);
 		return Response.ok("reflexion updated").build();
 	}
