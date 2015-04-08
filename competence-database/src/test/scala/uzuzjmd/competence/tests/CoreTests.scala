@@ -409,10 +409,16 @@ class CoreTests extends FunSuite with ShouldMatchers {
     return link
   }
 
-  //  test("A non-empty list should not be empty") {
-  //    List(1, 2, 3) should not be ('empty)
-  //    List("fee", "fie", "foe", "fum") should not be ('empty)
-  //  }
+  test("A non-empty list should not be empty") {
+    List(1, 2, 3) should not be ('empty)
+    List("fee", "fie", "foe", "fum") should not be ('empty)
+
+    val assessment = "schlecht"
+    val enumMap = List("gar nicht" -> 0, "schlecht" -> 1, "mittel" -> 2, "gut" -> 3)
+    val map = enumMap.toMap.get(assessment).get
+    println(map);
+
+  }
   //
   //  test("A list's length should equal the number of elements it contains") {
   //    List() should have length (0)

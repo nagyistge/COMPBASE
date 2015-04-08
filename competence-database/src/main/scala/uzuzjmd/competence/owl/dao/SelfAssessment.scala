@@ -5,7 +5,7 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
-case class SelfAssessment(comp: CompOntologyManager, competence: Competence, user: User, val assmentIndex: java.lang.Integer = null) extends CompetenceOntologyDao(comp, CompOntClass.SelfAssessment, CompOntologyAccessScala.createIdentifierForAssessment(user, competence)) {
+case class SelfAssessment(comp: CompOntologyManager, competence: Competence, user: User, val assmentIndex: java.lang.Integer = null, val learningGoal: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.SelfAssessment, CompOntologyAccessScala.createIdentifierForAssessment(user, competence)) {
   def ASSESSMENTINDEX = "assessmentIndex" // 1-4 in liferay implementation
   def LEARNINGGOAL = "learningGoal" // boolean
 
@@ -16,6 +16,10 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
 
   @Override
   def persistMore() {
+    if (learningGoal != null) {
+      addDataField(LEARNINGGOAL, learningGoal)
+    }
+
     if (assmentIndex != null) {
       addDataField(ASSESSMENTINDEX, assmentIndex)
     }
@@ -38,12 +42,12 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
     createEdgeWith(CompObjectProperties.AssessmentOfUser, user)
   }
 
-  def getAssmentIndexInProgress(): Integer = {
-    if (getDataField(ASSESSMENTINDEX) == null) {
-      return 0
-    }
-    return new Integer(getDataFieldInt(ASSESSMENTINDEX) * 25)
-  }
+  //  def getAssmentIndexInProgress(): Integer = {
+  //    if (getDataField(ASSESSMENTINDEX) == null) {
+  //      return 0
+  //    }
+  //    return new Integer(getDataFieldInt(ASSESSMENTINDEX) * 25)
+  //  }
 
   def getAssmentIndex(): Integer = {
     if (getDataField(ASSESSMENTINDEX) == null) {

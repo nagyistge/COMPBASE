@@ -96,9 +96,11 @@ object Ont2SuggestedCompetenceGrid {
 
   def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
     val listSubclases = competence.listSubClasses(classOf[Competence])
-    val sum = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndexInProgress).map(x => x.toInt).sum
-    val average = sum / listSubclases.size
-    return average * 25
+    val size = competence.listSubClasses(classOf[Competence]).size
+    val sizeInJava: java.lang.Double = size
+    val sum: java.lang.Double = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
+    val average = (sum) / listSubclases.size
+    return Integer.parseInt(Math.round(average * 33.33333) + "")
   }
 
   def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
