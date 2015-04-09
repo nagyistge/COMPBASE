@@ -25,7 +25,7 @@ object ReflectiveAssessmentHolder2Ont {
 
   def updateSingleAssessment(reflectiveAsssessment: ReflectiveAssessment, comp: CompOntologyManager, user: User, courseContext: CourseContext) = {
     val competence = new Competence(comp, reflectiveAsssessment.getCompetenceDescription())
-    val selfAssnew = new SelfAssessment(comp, competence, user, convertAssessmentStringToIndex(reflectiveAsssessment.getAssessment()))
+    val selfAssnew = new SelfAssessment(comp, competence, user, convertAssessmentStringToIndex(reflectiveAsssessment.getAssessment()), reflectiveAsssessment.getIsLearningGoal())
     selfAssnew.persist
   }
 }

@@ -65,8 +65,9 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     }
     val id = getId
     val ontClass = comp.getUtil().accessSingletonResource(definition).getOntclass()
-    val classList = ontClass.listSubClasses(false).toList()
-    val identifierList = classList.asScala.map(x => x.getLocalName()).toList
+    val classList = ontClass.listSubClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing"))
+
+    val identifierList = classList.map(x => x.getLocalName()).toList
     return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }
 

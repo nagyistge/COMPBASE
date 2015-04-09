@@ -267,6 +267,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	public Response updateGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		CourseContext context = new CourseContext(compOntologyManager, groupId);
+
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		ReflectiveAssessmentHolder2Ont.convert(compOntologyManager, user, context, reflectiveAssessmentHolder);
 		closeManagerInCriticalMode(compOntologyManager);
