@@ -9,6 +9,8 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 case class CourseContext(comp: CompOntologyManager, var name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, CompOntologyAccessScala.convertMoodleIdToName(name)) {
   name = CompOntologyAccessScala.convertMoodleIdToName(name)
 
+  val stuff = "hello"
+
   @Override
   protected def deleteMore() {
     //TODO
