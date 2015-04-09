@@ -81,7 +81,7 @@ public class SuggestedCompetenceGridDAO {
 							ContextUtil.getUserLoggedIn().getLogin() + "")
 					.queryParam("groupId",
 							ContextUtil.getGroup().getGroupId() + "")
-					.type(MediaType.APPLICATION_XML)
+					.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML)
 					.post(ReflectiveAssessmentsListHolder.class, holder);
 		} catch (UniformInterfaceException e) {
 			e.printStackTrace();

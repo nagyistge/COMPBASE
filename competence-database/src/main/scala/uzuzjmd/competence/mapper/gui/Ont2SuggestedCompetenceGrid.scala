@@ -56,7 +56,7 @@ object Ont2SuggestedCompetenceGrid {
     val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
     val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.owl.dao.Catchword, List[uzuzjmd.competence.owl.dao.Competence])] = Buffer.empty
     scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
-    result.setSuggestedCompetenceRows(scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user)).asJava)
+    result.setSuggestedCompetenceRows(scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user)).sortBy(_.getSuggestedCompetenceRowHeader()).asJava)
     return result
   }
 
@@ -80,7 +80,7 @@ object Ont2SuggestedCompetenceGrid {
     val assessment = new Assessment
     holder.setAssessment(assessment)
     holder.setSuggestedMetaCompetence(competence.getDefinition)
-    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).map(competenceToReflectiveAssessment(_)(user)).asJava)
+    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
     return holder
   }
 
@@ -100,7 +100,8 @@ object Ont2SuggestedCompetenceGrid {
     val sizeInJava: java.lang.Double = size
     val sum: java.lang.Double = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
     val average = (sum) / listSubclases.size
-    return Integer.parseInt(Math.round(average * 33.33333) + "")
+    val result = Math.round(average * 33.33333)
+    return Integer.parseInt(result + "")
   }
 
   def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
