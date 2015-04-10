@@ -357,7 +357,7 @@ function uzuzjmd_competence_gui_Competence_webapp(){
     }
     var strongName;
     try {
-      strongName = '32EA5512CD49D4A50C62270FFC85A27D';
+      strongName = '9D85CA9CEA28E402422AF7FEDFBA3AC0';
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = parseInt(strongName.substring(idx + 1), 10);
