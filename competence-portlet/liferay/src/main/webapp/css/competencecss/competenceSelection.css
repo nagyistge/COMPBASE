@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+
+.operatorSelectionPanel {
+	padding: 10px;
+}
+
+.catchwordSelectionPanel {
+	padding: 10px;
+}
+
+.competenceSelectionPanel {
+/* 	padding: 10px !important; */
+}
+
+.competencePanel {
+	padding: 10px !important;
+	-webkit-border-radius: 15px !important;
+	-moz-border-radius: 15px !important;
+	border-radius: 15px !important;
+	border-style: outset !important;
+	border-width: thin !important;
+/* 	min-width: 675px !important; */
+	min-height: 300px !important;	
+}
+
+
+.toggleButton {
+	padding: 10px !important;
+	width: 130px !important;
+}
+
+.competenceCompulsoryCheckbox {
+	padding: 10px;
+	padding-left: 40px;
+}
+
+
+
+.gwt-VerticalSplitPanel {
+	
+}
+
+.x-panel-body {
+	width: auto !important;
+}

@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28.05.2014, 17:26:34
+    Author     : julian
+*/
+
+.qtip-wrapper {
+    left:90px;
+    top:-60px;
+}
+
+.competenceLinkButtonWrapper {
+	z-index:999999 !important;
+}
+
+.graphTab {
+	padding-right: 100px;
+	padding-bottom: 50px;
+}
+
+.numberLabel{
+   padding-right: 10px !important;	
+}
+
+.competenceText{
+   width: 450px !important;
+}
+
+.deleteCompetenceFromViewButton{      
+}
+
+.createLinkForCompetenceButton{
+    width: 20px !important;      
+}
+
+.competenceEntry {	
+	margin:  6px !important;
+/* 	-webkit-border-radius: 15px !important; */
+/* 	-moz-border-radius: 15px !important; */
+/* 	border-radius: 15px !important; */
+/* 	border-style: outset !important; */
+/* 	border-width: thin !important; */
+	width: 650px !important;	
+}
+
+.graphScrollPanel{
+	margin-top: 10px;
+	height: 250px !important;
+	margin-bottom: 20px;		
+}
