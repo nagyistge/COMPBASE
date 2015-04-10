@@ -19,8 +19,13 @@ import uzuzjmd.competence.owl.access.MagicStrings
 object CompetenceImporter {
 
   def main(args: Array[String]) {
+
+    if (args.size != 2) {
+      println("usage ist java -jar CompetenceImporter.jar TDBLocationPath EposFileLocation");
+    }
+
     convertCSVArray(args)
-    EposImporter.main(args)
+    EposImporter.main((args(2) :: Nil).toArray)
   }
 
   def convertCSV(pathToCSV: String) {

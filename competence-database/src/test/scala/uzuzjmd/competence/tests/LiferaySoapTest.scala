@@ -9,7 +9,6 @@ import com.liferay.portlet.social.service.http.SocialActivityServiceSoapServiceL
 import com.liferay.portlet.social.service.http.Portlet_Social_SocialActivityServiceSoapBindingStub
 import org.apache.axis.client.Stub
 import com.liferay.portal.service.http.UserServiceSoapProxy
-import org.apache.xalan.xsltc.compiler.ForEach
 import de.unipotsdam.elis.service.http.EvidenceServiceSoapProxy
 
 @RunWith(classOf[JUnitRunner])
