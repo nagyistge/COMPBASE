@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+
+
+.activityArea {
+	 -webkit-border-radius: 15px !important;
+	-moz-border-radius: 15px !important;
+	border-radius: 15px !important;
+	border-style: outset !important;
+	border-width: thin !important;		
+	min-width: 675px !important;
+	min-height: 135px !important;
+	padding-bottom: 10px !important;
+	padding-right: 20px !important;
+			
+}
+
+.activityView {    
+/*     min-width: 660px !important; */
+    min-height: 105px !important;     
+    padding: 10px !important;   	
+}
+
+.buttonSpacer {
+	padding: 10px !important;
+}
