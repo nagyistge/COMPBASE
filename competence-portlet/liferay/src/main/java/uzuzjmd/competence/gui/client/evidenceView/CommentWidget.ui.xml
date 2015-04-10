@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+		<g:CaptionPanel captionText="Kommentar erstellen">
+			<g:VerticalPanel width="auto" height="auto">
+				<g:FlowPanel>
+					<g:SimplePanel styleName="commentTextAreaBox">
+						<b:TextArea ui:field="commentTextArea" width="100%" />
+					</g:SimplePanel>
+					<g:FlowPanel>
+						<b:Button text="Kommentar abschicken" ui:field="submitButton" />
+						<b:Button ui:field="cancelButton">Abbrechen</b:Button>
+					</g:FlowPanel>
+				</g:FlowPanel>				
+			</g:VerticalPanel>
+		</g:CaptionPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

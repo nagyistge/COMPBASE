@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:TabLayoutPanel barHeight="2" barUnit="EM" width="800px"
+			height="1251px" ui:field="tabPanel">
+			<g:tab>
+				<g:header>Anforderungen</g:header>
+				<g:HTMLPanel ui:field="requirementTabPlaceholder" />
+			</g:tab>
+<!-- 			<g:tab> -->
+<!-- 				<g:header>Pfade</g:header> -->
+<!-- 				<g:HTMLPanel ui:field="pathTabPlaceholder" /> -->
+<!-- 			</g:tab> -->
+			<g:tab>
+				<g:header>Zuordnung</g:header>
+				<g:HTMLPanel ui:field="linkTabPlaceholder" />
+			</g:tab>
+			<g:tab>
+				<g:header>Teilnehmer</g:header>
+				<g:HTMLPanel ui:field="progressTabPlaceholder" />
+			</g:tab>
+		</g:TabLayoutPanel>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 
