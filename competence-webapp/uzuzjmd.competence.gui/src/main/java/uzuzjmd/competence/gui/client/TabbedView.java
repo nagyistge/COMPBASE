@@ -5,12 +5,12 @@ import java.util.Date;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
+import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TabbedView extends Composite {
@@ -18,7 +18,7 @@ public class TabbedView extends Composite {
 	private static TabbedViewUiBinder uiBinder = GWT
 			.create(TabbedViewUiBinder.class);
 	@UiField
-	TabLayoutPanel tabPanel;
+	TabPanel tabPanel;
 	@UiField
 	HTMLPanel requirementTabPlaceholder;
 	@UiField
