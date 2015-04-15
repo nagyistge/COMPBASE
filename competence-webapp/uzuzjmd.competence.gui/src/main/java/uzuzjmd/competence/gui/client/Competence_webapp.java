@@ -28,20 +28,23 @@ public class Competence_webapp implements EntryPoint {
 			container.add(competenceUIContainer);
 		}
 
-		if (myConstants.contextImplementation().equals("test")) {
+		if (myConstants.contextImplementation().equals("test")
+				|| myConstants.contextImplementation().equals("standalone")) {
 			RootPanel container = RootPanel.get("rootContainer");
 
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
 			competenceUIContainer.setContextFactory(new TestContextFactory());
 			container.add(competenceUIContainer);
 
-			PopupPanel popupPanel = new PopupPanel();
-			popupPanel.setModal(true);
-			LoginView loginView = new LoginView(popupPanel);
-			popupPanel.add(loginView);
-			popupPanel.setGlassEnabled(true);
-			container.add(popupPanel);
-			popupPanel.show();
+			if (myConstants.contextImplementation().equals("standalone")) {
+				PopupPanel popupPanel = new PopupPanel();
+				popupPanel.setModal(true);
+				LoginView loginView = new LoginView(popupPanel);
+				popupPanel.add(loginView);
+				popupPanel.setGlassEnabled(true);
+				container.add(popupPanel);
+				popupPanel.show();
+			}
 		}
 
 		// if the context is liferay the connector should inject the stuff
