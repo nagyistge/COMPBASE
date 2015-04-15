@@ -43,7 +43,7 @@
 
 <!--den Kontext übergeben-->
 <script type="text/javascript" language="javascript">
-	var courseId = 10184;
+	var courseId = 2;
 	var serverUrl = "http://localhost:8084";
 	var evidenceServerUrl = "http://localhost:8083";
 	var role = "teacher";
@@ -51,45 +51,45 @@
 	// 	var role = "student";
 	// 	var user = "Julian Dehne";	
 
-	HTTP_GET_VARS = new Array();
-	strGET = document.location.search
-			.substr(1, document.location.search.length);
-	if (strGET != '') {
-		gArr = strGET.split('&');
-		for (i = 0; i < gArr.length; ++i) {
-			v = '';
-			vArr = gArr[i].split('=');
-			if (vArr.length > 1) {
-				v = vArr[1];
-			}
-			HTTP_GET_VARS[unescape(vArr[0])] = unescape(v);
-		}
-	}
+// 	HTTP_GET_VARS = new Array();
+// 	strGET = document.location.search
+// 			.substr(1, document.location.search.length);
+// 	if (strGET != '') {
+// 		gArr = strGET.split('&');
+// 		for (i = 0; i < gArr.length; ++i) {
+// 			v = '';
+// 			vArr = gArr[i].split('=');
+// 			if (vArr.length > 1) {
+// 				v = vArr[1];
+// 			}
+// 			HTTP_GET_VARS[unescape(vArr[0])] = unescape(v);
+// 		}
+// 	}
 
-	function GET(v) {
-		if (!HTTP_GET_VARS[v]) {
-			return 'undefined';
-		}
-		return HTTP_GET_VARS[v];
-	}
+// 	function GET(v) {
+// 		if (!HTTP_GET_VARS[v]) {
+// 			return 'undefined';
+// 		}
+// 		return HTTP_GET_VARS[v];
+// 	}
 	
-	roletmp = GET('role');
+// 	roletmp = GET('role');
 	
-	if (roletmp != "undefined") {
-		role = GET('role'); 
-	}
+// 	if (roletmp != "undefined") {
+// 		role = GET('role'); 
+// 	}
 	
-	usertmp = GET('user');
+// 	usertmp = GET('user');
 	
-	if (usertmp != "undefined") {
-		user = GET('user'); 
-	}
+// 	if (usertmp != "undefined") {
+// 		user = GET('user'); 
+// 	}
 	
-	coursetmp = GET('courseId'); 
+// 	coursetmp = GET('courseId'); 
 	
-	if (coursetmp != "undefined") {
-		courseId = GET('courseId'); 
-	}
+// 	if (coursetmp != "undefined") {
+// 		courseId = GET('courseId'); 
+// 	}
 	
 </script>
 
