@@ -1,7 +1,10 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.login.LoginView;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 //import com.gwtext.client.core.Function;
@@ -31,10 +34,17 @@ public class Competence_webapp implements EntryPoint {
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
 			competenceUIContainer.setContextFactory(new TestContextFactory());
 			container.add(competenceUIContainer);
+
+			PopupPanel popupPanel = new PopupPanel();
+			popupPanel.setModal(true);
+			LoginView loginView = new LoginView(popupPanel);
+			popupPanel.add(loginView);
+			popupPanel.setGlassEnabled(true);
+			container.add(popupPanel);
+			popupPanel.show();
 		}
 
 		// if the context is liferay the connector should inject the stuff
 
 	}
-
 }
