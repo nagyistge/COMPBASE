@@ -15,7 +15,7 @@ public class Competence_webapp implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
+
 		MyConstants myConstants = GWT.create(MyConstants.class);
 		if (myConstants.contextImplementation().equals("moodle")) {
 			RootPanel container = RootPanel.get("rootContainer");
@@ -25,9 +25,16 @@ public class Competence_webapp implements EntryPoint {
 			container.add(competenceUIContainer);
 		}
 
+		if (myConstants.contextImplementation().equals("test")) {
+			RootPanel container = RootPanel.get("rootContainer");
+
+			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
+			competenceUIContainer.setContextFactory(new TestContextFactory());
+			container.add(competenceUIContainer);
+		}
+
 		// if the context is liferay the connector should inject the stuff
 
-		
 	}
 
 }
