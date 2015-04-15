@@ -120,7 +120,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "/icons/filter.png", classOf[OperatorXMLTree], containsOperator)
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)
     ontologyManager.close()
     val filteredResult = filterResults(result)
     return filteredResult.asJava
