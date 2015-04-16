@@ -14,7 +14,6 @@ public class CompetenceUIContainer extends Composite {
 			.create(CompetenceUIContainerUiBinder.class);
 	@UiField
 	SimplePanel competenceUIholder;
-		
 
 	interface CompetenceUIContainerUiBinder extends
 			UiBinder<Widget, CompetenceUIContainer> {
@@ -31,9 +30,9 @@ public class CompetenceUIContainer extends Composite {
 	}
 
 	private void initTabbedView(Panel container) {
-		
+
 		GWT.log("helloooo supermode I got it yeah yeah");
-		
+
 		Controller.init();
 
 		TabbedView tabbedView = new TabbedView();
@@ -42,23 +41,25 @@ public class CompetenceUIContainer extends Composite {
 
 		if (!Controller.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(Controller.requirementTab);
-//			tabbedView.pathTabPlaceholder.setVisible(false);
+			// tabbedView.pathTabPlaceholder.setVisible(false);
 		} else {
 			tabbedView.tabPanel.remove(0);
 			tabbedView.tabPanel.remove(0);
 			// tabbedView.tabPanel.remove(1);
 			Controller.requirementTab.setVisible(false);
 		}
+		tabbedView.competenceCreationHolder
+				.add(Controller.competenceCreationTab);
 
 		container.add(tabbedView);
 	}
-	
+
 	public void setContextFactory(LmsContextFactory contextFactory) {
 		Controller.contextFactory = contextFactory;
 	}
-	
-//	public String getState() {
-//		return "ok";
-//	}
+
+	// public String getState() {
+	// return "ok";
+	// }
 
 }

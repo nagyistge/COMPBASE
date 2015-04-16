@@ -27,6 +27,8 @@ public class TabbedView extends Composite {
 	HTMLPanel progressTabPlaceholder;
 	@UiField
 	HTMLPanel pathTabPlaceholder;
+	@UiField
+	HTMLPanel competenceCreationHolder;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
