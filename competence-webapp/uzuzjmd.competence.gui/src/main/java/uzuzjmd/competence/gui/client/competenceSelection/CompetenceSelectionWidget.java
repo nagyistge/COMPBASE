@@ -118,6 +118,15 @@ public class CompetenceSelectionWidget extends Composite {
 		// competenceCompulsoryCheckbox
 	}
 
+	/**
+	 * selectedFilter can be /all, /selected or null competenceTreeFilter can be
+	 * competenceTreeFilter can be coursecontextnofilter
+	 * 
+	 * @param contextFactory
+	 * @param selectedFilter
+	 * @param competenceTreeFilter
+	 * @param title
+	 */
 	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
 			String selectedFilter, String competenceTreeFilter, String title) {
 		initWidget(uiBinder.createAndBindUi(this));
