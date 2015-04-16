@@ -11,7 +11,11 @@
 			<b:Tab heading="Kompetenzenverwaltung">
 				<b:TabPanel>
 					<b:Tab heading="Taxonomie">
-						<g:HTMLPanel ui:field="taxonomieholder" />
+						<b:TabPanel tabPosition="left">
+							<b:Tab heading="Neue Kompetenz anlegen">
+								<g:HTMLPanel ui:field="competenceCreationHolder" />
+							</b:Tab>
+						</b:TabPanel>
 					</b:Tab>
 					<b:Tab heading="Lernpfade">
 						<g:HTMLPanel ui:field="pathTabPlaceholder" />
