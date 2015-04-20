@@ -21,6 +21,7 @@ public class RuleFactory {
 		result.add(getNotRequireTransition2());
 		result.add(getNotRequireTransition3());
 		result.add(getNotAllowedCreationRule());
+		// result.add(getInheritanceOneWayOnlyRule());
 	}
 
 	private void generateInverseRules() {
@@ -80,6 +81,12 @@ public class RuleFactory {
 
 	public String getNotAllowedLinkRule() {
 		return "[notallowedlink: (?user comp:NotAllowedToView ?a) (?a comp:PrerequisiteOf ?b) (?user rdf:type comp:User) (?user comp:UserOfLink ?a) -> remove(0)]";
+	}
+
+	public String getInheritanceOneWayOnlyRule() {
+		return "[inheritanceOneWayOnly:" + " (?competence rdfs:subClassOf ?supercompetence) (?supercompetence rdfs:subClassOf ?competence)" + " notEqual(?Isupercompetence, ?Icompetence) "
+				+ " (?Isupercompetence rdf:type ?supercompetence) (?Icompetence rdf:type ?competence) "
+				+ "-> (?Isupercompetence rb:violation error('Konsistenzfehler', 'Die Kompetenz kann nicht gleichzeitig oberhalb und unterhalb in der Hierarchie stehen!', ?Icompetence))]";
 	}
 }
 

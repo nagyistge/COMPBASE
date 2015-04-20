@@ -44,6 +44,18 @@ public class CompOntologyManager {
 		this.util = new CompOntologyAccess(getM(), getQueries(), this);
 	}
 
+	/**
+	 * user this constructor for inmemory application
+	 * 
+	 * @param m
+	 */
+	public CompOntologyManager(Model model) {
+		initializeOntologyModelInMemory();
+		this.m.add(model);
+		this.queries = new CompetenceQueries(getM());
+		this.util = new CompOntologyAccess(getM(), getQueries(), this);
+	}
+
 	public void startReasoning() {
 		// init simple Rules Reasoner
 		initReasoner();
