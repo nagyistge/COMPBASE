@@ -101,6 +101,9 @@ public class CompetenceQueries {
 		return result;
 	}
 
+	// public ConcurrentLinkedQueue<Individual> getSubClassPath(String
+	// lowestPointInPath, String highestPointInPath)
+
 	/**
 	 * Assumes, that the query only returns only a set of one type which is
 	 * specified by resultClass
