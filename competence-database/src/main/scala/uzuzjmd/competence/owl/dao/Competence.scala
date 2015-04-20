@@ -6,6 +6,8 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import com.hp.hpl.jena.rdf.model.Property
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Statement
+import com.hp.hpl.jena.ontology.OntClass
+import scala.collection.JavaConverters._
 
 class Competence(compManager: CompOntologyManager, identifier: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifier) {
 
@@ -83,6 +85,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
       return new SelfAssessment(compManager, this, user, 0)
     }
     return result.head
+  }
+
+  def getShortestPathToSubCompetence(subCompetence: Competence): java.util.List[Competence] = {
+    return compManager.getUtil().getShortestSubClassPath(subCompetence.toOntClass, toOntClass).asScala.map(x => new Competence(compManager, x, null, null)).asJava
   }
 
 }

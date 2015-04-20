@@ -34,6 +34,8 @@ import uzuzjmd.competence.owl.dao.CompetenceInstance
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import org.apache.log4j.Level
+import com.hp.hpl.jena.rdf.model.InfModel
+import com.hp.hpl.jena.rdf.model.ModelFactory
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
@@ -376,6 +378,62 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     compOntManag.close();
   }
+
+  test("listing all the the shortest path should not throw any error and provide an existing list") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+
+    CompOntologyAccess.logger.setLevel(Level.DEBUG)
+
+    val competenceRoot = new CompetenceInstance(compOntManag)
+    val topClass = competenceRoot.toOntClass
+
+    val definition2 = "Ich kann die Hauptinformation von Fernsehmeldungen über Ereignisse, Unglücksfälle usw. erfassen, wenn der Kommentar durch Bilder unterstützt wird."
+    //val bottomCompetence = new Competence(compOntManag, definition2)
+    val bottomClass = compOntManag.getUtil().createOntClassForString(definition2, definition2)
+
+    val result = compOntManag.getUtil().getShortestSubClassPath(bottomClass, topClass)
+    result should not be ('empty)
+
+    compOntManag.close();
+  }
+
+  //  test("test consistency of subclass relations") {
+  //    val compOntManag = new CompOntologyManager()
+  //    compOntManag.begin()
+  //    compOntManag.getM().getIndividual("http://comp#I3org227owlNothing").remove()
+  //    val compOntManagInMemory = new CompOntologyManager(compOntManag.getM())
+  //    compOntManag.close();
+  //
+  //    CompOntologyAccess.logger.setLevel(Level.DEBUG)
+  //
+  //    // top class
+  //    val competenceRoot = new CompetenceInstance(compOntManagInMemory)
+  //    val topClass = competenceRoot.toOntClass
+  //
+  //    // bottom class
+  //    val definition2 = "Ich kann die Hauptinformation von Fernsehmeldungen über Ereignisse, Unglücksfälle usw. erfassen, wenn der Kommentar durch Bilder unterstützt wird."
+  //    val bottomClass = compOntManagInMemory.getUtil().createOntClassForString(definition2, definition2)
+  //
+  //    // test inconsistency
+  //    compOntManagInMemory.startReasoning()
+  //    topClass.addSuperClass(bottomClass)
+  //    bottomClass.addSuperClass(topClass)
+  //
+  //    // inmemory copy should not be valid
+  //    val validationreport = compOntManagInMemory.getM.validate()
+  //    //    println(compOntManagInMemory.getUtil().validityReportTostring(validationreport));
+  //    validationreport.isValid() should not be true
+  //
+  //    // real copy should still be valid
+  //    val compOntManag2 = new CompOntologyManager()
+  //    compOntManag2.begin()
+  //    val validationreport2 = compOntManag2.getM.validate()
+  //    println(compOntManag2.getUtil().validityReportTostring(validationreport2));
+  //    validationreport2.isValid() should not be false
+  //    compOntManag2.close()
+  //    showResult
+  //  }
 
   private def showResult() {
     val compOntManag = new CompOntologyManager()

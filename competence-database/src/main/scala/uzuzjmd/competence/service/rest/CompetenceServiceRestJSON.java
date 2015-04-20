@@ -12,7 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -30,6 +29,7 @@ import uzuzjmd.competence.owl.dao.Role;
 import uzuzjmd.competence.owl.dao.StudentRole;
 import uzuzjmd.competence.owl.dao.TeacherRole;
 import uzuzjmd.competence.owl.dao.User;
+import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.client.Graph;
@@ -412,19 +412,30 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/addOne")
 	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") String catchwords,
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
-		return Response.ok("notok: competence not added GAIN").build();
-
-		// return Response.ok("ok: competence added").build();
-	}
-
-	private class MyException extends WebApplicationException {
-
-		@Override
-		public String getMessage() {
-			return "Es gab einen Logikfehler";
+		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, null, null);
+		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
+		for (String competence : superCompetences) {
+			Competence superCompetence = new Competence(compOntologyManager, competence, null, null);
+			superCompetencesTyped.add(superCompetence);
+		}
+		List<Competence> subCompetencesTyped = new LinkedList<Competence>();
+		for (String competence : subCompetences) {
+			Competence subCompetence = new Competence(compOntologyManager, competence, null, null);
+			superCompetencesTyped.add(subCompetence);
 		}
 
+		CompetenceGraphValidator competenceGraphValidator = new CompetenceGraphValidator(compOntologyManager, addedCompetence, superCompetencesTyped, subCompetencesTyped);
+
+		if (competenceGraphValidator.isValid()) {
+			System.out.println("TODO implement adding correct Competence");
+		}
+		String resultMessage = competenceGraphValidator.getExplanationPath();
+
+		compOntologyManager.close();
+
+		return Response.ok(resultMessage).build();
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {

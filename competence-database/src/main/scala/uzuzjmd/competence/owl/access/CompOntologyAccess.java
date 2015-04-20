@@ -1,5 +1,6 @@
 package uzuzjmd.competence.owl.access;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,10 +17,15 @@ import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.ontology.OntResource;
+import com.hp.hpl.jena.ontology.OntTools;
+import com.hp.hpl.jena.ontology.OntTools.Path;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.reasoner.ValidityReport;
+import com.hp.hpl.jena.reasoner.ValidityReport.Report;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class CompOntologyAccess {
 
@@ -338,6 +344,32 @@ public class CompOntologyAccess {
 				String definitionValue = value.asNode().getLiteralValue().toString().replaceAll("[\n\r]", "").replaceAll("[\n]", "");
 				result.add(definitionValue);
 			}
+		}
+		return result;
+	}
+
+	// TODO: Test
+	public List<String> getShortestSubClassPath(OntClass start, OntClass end) {
+		Filter<Statement> onPath = new Filter<Statement>() {
+
+			@Override
+			public boolean accept(Statement o) {
+				return o.getPredicate().equals(RDFS.subClassOf);
+			}
+		};
+		List<String> result = new LinkedList<String>();
+		Path resultPath = OntTools.findShortestPath(manager.getM(), start, end, onPath);
+		Iterator<Statement> statementIt = resultPath.iterator();
+		while (statementIt.hasNext()) {
+			result.add(statementIt.next().getSubject().getLocalName());
+		}
+		return result;
+	}
+
+	public String validityReportTostring(ValidityReport report) {
+		String result = "";
+		for (Iterator<Report> i = report.getReports(); i.hasNext();) {
+			result += (" - " + i.next());
 		}
 		return result;
 	}
