@@ -48,15 +48,15 @@
 
 				<g:VerticalPanel>
 					<b:Button ui:field="button">speichern</b:Button>
-					<b:Alert type="SUCCESS" visible="false" ui:field="successAlert">Die
+					<b:Alert type="SUCCESS" visible="false" ui:field="successAlert" close="false">Die
 						Kompetenz wurde abgespeichert!</b:Alert>
 					<b:Alert type="ERROR" animation="true" visible="false"
-						ui:field="emptyError">Die Kompetenzbeschreibung darf nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false"
+						ui:field="emptyError" close="false">Die Kompetenzbeschreibung darf nicht leer sein!</b:Alert>
+					<b:Alert type="ERROR" animation="true" visible="false" close="false"
 						ui:field="emptyError2">Der Operator darf nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false"
+					<b:Alert type="ERROR" animation="true" visible="false" close="false"
 						ui:field="emptyError3">Die Stichworte dürfen nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false"
+					<b:Alert type="ERROR" animation="true" visible="false" close="false"
 						ui:field="logicError"></b:Alert>
 				</g:VerticalPanel>
 			</g:HorizontalPanel>

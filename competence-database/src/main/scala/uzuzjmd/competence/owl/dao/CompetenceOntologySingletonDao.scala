@@ -12,6 +12,8 @@ import com.hp.hpl.jena.rdf.model.Statement
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.scalahacks.ScalaHacksInScala
+import com.hp.hpl.jena.ontology.OntTools
+import com.hp.hpl.jena.util.iterator.Filter
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -73,6 +75,28 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   def getDefinition(): String = {
     return getDataField(DEFINITION)
+  }
+
+  def isSublass(parent: Competence): Boolean = {
+    return toOntClass.hasSuperClass(parent.toOntClass, false)
+  }
+
+  def toOntClass(): OntClass = {
+    if (getDefinition == null) {
+      return comp.getUtil().createOntClass(compOntClass)
+    }
+    return comp.getUtil().createOntClassForString(getDefinition, getDefinition)
+  }
+
+  def isSuperClass(child: CompetenceOntologySingletonDao): Boolean = {
+    return toOntClass.hasSubClass(child.toOntClass, false)
+  }
+
+  def getPathToSuperClass[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T], parentClass: CompetenceOntologySingletonDao): List[T] = {
+    // TODO implement
+
+    parentClass.toOntClass.listSubClasses(true)
+    return null;
   }
 
 }

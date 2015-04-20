@@ -80,19 +80,18 @@ public class CompetenceCreationTab extends Composite {
 		String competence = competenceDescriptionTextArea.getValue();
 		String operator = operatorTextArea.getValue();
 		String catchwords = keywordsTextArea.getValue();
+		emptyError3.setVisible(false);
+		emptyError2.setVisible(false);
+		successAlert.setVisible(false);
+		emptyError.setVisible(false);
+		logicError.setVisible(false);
 		if (catchwords.trim().equals("")) {
 			emptyError3.setVisible(true);
-			successAlert.setVisible(false);
 		} else if (competence.trim().equals("")) {
-			emptyError3.setVisible(false);
 			emptyError.setVisible(true);
-			successAlert.setVisible(false);
 		} else if (operator.trim().equals("")) {
-			emptyError.setVisible(false);
 			emptyError2.setVisible(true);
-			successAlert.setVisible(false);
 		} else {
-			emptyError2.setVisible(false);
 			Resource resource = new Resource(
 					Controller.contextFactory.getServerURL()
 							+ "/competences/json/addOne");
@@ -106,17 +105,14 @@ public class CompetenceCreationTab extends Composite {
 						public void onSuccess(Method arg0, String arg1) {
 							if (arg1.startsWith("ok")) {
 								successAlert.setVisible(true);
-								logicError.setVisible(false);
 							} else {
 								logicError.setText(arg1);
-								successAlert.setVisible(false);
 								logicError.setVisible(true);
 							}
 						}
 
 						@Override
 						public void onFailure(Method arg0, Throwable arg1) {
-
 							GWT.log("could not add Competence");
 
 						}
