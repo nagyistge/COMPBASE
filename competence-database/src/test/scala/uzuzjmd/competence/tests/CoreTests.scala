@@ -36,9 +36,40 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import org.apache.log4j.Level
 import com.hp.hpl.jena.rdf.model.InfModel
 import com.hp.hpl.jena.rdf.model.ModelFactory
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.main.CompetenceImporter
+import uzuzjmd.competence.main.EposImporter
+import uzuzjmd.competence.owl.access.MagicStrings
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
+
+  test("The CSV import should run without errors") {
+
+    // change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+
+    val compOntManag = new CompOntologyManager()
+
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    CompetenceImporter.convertCSV(MagicStrings.CSVLOCATION);
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    EposImporter.main(Array(MagicStrings.EPOSLocation));
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    compOntManag.begin()
+    val fileUtil = new CompFileUtil(compOntManag.getM())
+    fileUtil.writeOntologyout()
+    compOntManag.close()
+  }
 
   test("if a user is persisted, the course context should be acessable") {
 
@@ -394,6 +425,40 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     val result = compOntManag.getUtil().getShortestSubClassPath(bottomClass, topClass)
     result should not be ('empty)
+
+    compOntManag.close();
+  }
+
+  test("getOperations should not leave status in database") {
+    val compOntManag = new CompOntologyManager()
+    compOntManag.begin()
+
+    CompOntologyAccess.logger.setLevel(Level.DEBUG)
+
+    val competenceRoot = new CompetenceInstance(compOntManag)
+    val topClass = competenceRoot.toOntClass
+
+    val definition2 = "some random competence"
+    //val bottomCompetence = new Competence(compOntManag, definition2)
+    val bottomClass = new Competence(compOntManag, definition2, definition2, null)
+
+    bottomClass.exists should not be true
+    // test whether exist relation modifies database
+    bottomClass.exists should not be true
+
+    bottomClass.toOntClass
+    // test whether toOntClass modifies database
+    bottomClass.exists should not be true
+
+    bottomClass.isSublass(competenceRoot.listSubClasses(classOf[Competence]).head) should not be true
+
+    // test whether isSublass modifies database
+    bottomClass.exists should not be true
+
+    bottomClass.isSuperClass(competenceRoot.listSubClasses(classOf[Competence]).head) should not be true
+
+    // test whether isSuperClass modifies database
+    bottomClass.exists should not be true
 
     compOntManag.close();
   }
