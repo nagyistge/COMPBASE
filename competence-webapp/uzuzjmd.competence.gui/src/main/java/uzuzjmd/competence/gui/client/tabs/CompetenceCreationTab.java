@@ -109,6 +109,7 @@ public class CompetenceCreationTab extends Composite {
 								logicError.setText(arg1);
 								logicError.setVisible(true);
 							}
+							Controller.reloadController.reload();
 						}
 
 						@Override
@@ -118,5 +119,10 @@ public class CompetenceCreationTab extends Composite {
 						}
 					});
 		}
+	}
+
+	public void reload() {
+		superCompetencesSelectionWidget.reload();
+		subCompetencesSelectionWidget.reload();
 	}
 }
