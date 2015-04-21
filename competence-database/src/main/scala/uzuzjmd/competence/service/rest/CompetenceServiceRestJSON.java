@@ -423,7 +423,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		List<Competence> subCompetencesTyped = new LinkedList<Competence>();
 		for (String competence : subCompetences) {
 			Competence subCompetence = new Competence(compOntologyManager, competence, null, null);
-			superCompetencesTyped.add(subCompetence);
+			subCompetencesTyped.add(subCompetence);
 		}
 
 		CompetenceGraphValidator competenceGraphValidator = new CompetenceGraphValidator(compOntologyManager, addedCompetence, superCompetencesTyped, subCompetencesTyped);
