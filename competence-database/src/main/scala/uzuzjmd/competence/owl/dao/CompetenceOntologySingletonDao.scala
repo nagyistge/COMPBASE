@@ -48,7 +48,13 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def exists(): Boolean = {
-    return util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name()) != null
+
+    if (identifier != null) {
+      val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
+      return result != null
+    }
+    val result = util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
+    return result != null
   }
 
   def getId: String = {
@@ -78,25 +84,45 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def isSublass(parent: Competence): Boolean = {
+
+    if (toOntClass == null) {
+      return false
+    }
+
     return toOntClass.hasSuperClass(parent.toOntClass, false)
   }
 
   def toOntClass(): OntClass = {
-    if (getDefinition == null) {
-      return comp.getUtil().createOntClass(compOntClass)
+    if (identifier == null) {
+      val result = comp.getUtil().getOntClassForString(compOntClass.toString())
+      return result
+      //      return comp.getUtil().createOntClass(compOntClass)
     }
-    return comp.getUtil().createOntClassForString(getDefinition, getDefinition)
+    val result = comp.getUtil().getOntClassForString(identifier)
+    return result
+    //    return comp.getUtil().createOntClassForString(getDefinition, getDefinition)
+  }
+
+  def delete() {
+    val ontClass = toOntClass
+    ontClass.listInstances().toList().asScala.foreach(x => x.remove())
+    ontClass.remove()
   }
 
   def isSuperClass(child: CompetenceOntologySingletonDao): Boolean = {
+
+    if (toOntClass == null) {
+      return false
+    }
+
     return toOntClass.hasSubClass(child.toOntClass, false)
   }
 
-  def getPathToSuperClass[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T], parentClass: CompetenceOntologySingletonDao): List[T] = {
-    // TODO implement
-
-    parentClass.toOntClass.listSubClasses(true)
-    return null;
-  }
+  //  def getPathToSuperClass[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T], parentClass: CompetenceOntologySingletonDao): List[T] = {
+  //    // TODO implement
+  //
+  //    parentClass.toOntClass.listSubClasses(true)
+  //    return null;
+  //  }
 
 }
