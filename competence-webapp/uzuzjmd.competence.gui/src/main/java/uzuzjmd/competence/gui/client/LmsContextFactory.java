@@ -39,11 +39,11 @@ public class LmsContextFactory implements java.io.Serializable {
 	}
 
 	public String getUserFromContext() {
-		return "Julian Teacher";
+		return "student student";
 	}
 
 	public String getRoleFromContext() {
-		return "teacher";
+		return Role.teacher.toString();
 	}
 
 	public String getEvidenceServerUrlFromContext() {

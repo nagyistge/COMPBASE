@@ -279,6 +279,23 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("link deleted").build();
 	}
 
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/competence/delete")
+	public Response deleteCompetence(@QueryParam("competences") List<String> competences) {
+		CompOntologyManager manager = initManagerInCriticalMode();
+
+		System.out.println("deleting competences" + competences);
+
+		for (String string : competences) {
+			Competence toDelete = new Competence(manager, string, string, null);
+			toDelete.delete();
+		}
+
+		manager.close();
+		return Response.ok("competences deleted").build();
+	}
+
 	/**
 	 * gets the competencelinks map in order to show the overview for a
 	 * specified user

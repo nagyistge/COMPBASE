@@ -15,6 +15,9 @@
 							<b:Tab heading="Neue Kompetenz anlegen">
 								<g:HTMLPanel ui:field="competenceCreationHolder" />
 							</b:Tab>
+							<b:Tab heading="Kompetenzen löschen">
+								<g:HTMLPanel ui:field="competenceDeleteHolder" />
+							</b:Tab>
 						</b:TabPanel>
 					</b:Tab>
 					<b:Tab heading="Lernpfade">

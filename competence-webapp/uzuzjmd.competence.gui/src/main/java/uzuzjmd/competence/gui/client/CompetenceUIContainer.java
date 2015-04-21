@@ -31,13 +31,12 @@ public class CompetenceUIContainer extends Composite {
 
 	private void initTabbedView(Panel container) {
 
-		GWT.log("helloooo supermode I got it yeah yeah");
-
 		Controller.init();
 
 		TabbedView tabbedView = new TabbedView();
 		tabbedView.linkTabPlaceholder.add(Controller.linkEvidenceTab);
 		tabbedView.progressTabPlaceholder.add(Controller.progressTab);
+		tabbedView.competenceDeleteHolder.add(Controller.competenceDeleteTab);
 
 		if (!Controller.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(Controller.requirementTab);
