@@ -414,22 +414,33 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
-		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, null, null);
+		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, forCompetence, null);
 		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
 		for (String competence : superCompetences) {
-			Competence superCompetence = new Competence(compOntologyManager, competence, null, null);
+			Competence superCompetence = new Competence(compOntologyManager, competence, competence, null);
 			superCompetencesTyped.add(superCompetence);
 		}
 		List<Competence> subCompetencesTyped = new LinkedList<Competence>();
 		for (String competence : subCompetences) {
-			Competence subCompetence = new Competence(compOntologyManager, competence, null, null);
+			Competence subCompetence = new Competence(compOntologyManager, competence, competence, null);
 			subCompetencesTyped.add(subCompetence);
 		}
 
 		CompetenceGraphValidator competenceGraphValidator = new CompetenceGraphValidator(compOntologyManager, addedCompetence, superCompetencesTyped, subCompetencesTyped);
 
 		if (competenceGraphValidator.isValid()) {
-			System.out.println("TODO implement adding correct Competence");
+			addedCompetence.persist(true);
+			// CompetenceInstance competenceRoot = new
+			// CompetenceInstance(compOntologyManager);
+			// addedCompetence.addSuperClass(competenceRoot);
+			for (Competence subCompetence : subCompetencesTyped) {
+				subCompetence.addSuperCompetence(addedCompetence);
+			}
+
+			for (Competence superCompetence : superCompetencesTyped) {
+				addedCompetence.addSuperCompetence(superCompetence);
+			}
+
 		}
 		String resultMessage = competenceGraphValidator.getExplanationPath();
 
