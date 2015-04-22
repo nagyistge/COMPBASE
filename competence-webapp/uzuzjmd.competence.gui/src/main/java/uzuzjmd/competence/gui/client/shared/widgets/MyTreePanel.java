@@ -29,6 +29,8 @@ public abstract class MyTreePanel extends Panel {
 
 	protected LmsContextFactory contextFactory;
 
+	protected Boolean showChecked;
+
 	public String title;
 
 	private Integer width;
@@ -49,15 +51,18 @@ public abstract class MyTreePanel extends Panel {
 	 * @param databaseConnectionString
 	 * @param rootLabel
 	 * @param className
+	 * @param showChecked2
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
 			String className, Integer width, Integer height, String title,
-			LmsContextFactory contextFactory) {
+			LmsContextFactory contextFactory, Boolean showChecked2) {
 		super();
+
 		this.contextFactory = contextFactory;
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		this.showChecked = showChecked2;
 		// to test
 		GWT.log("width is: " + this.width);
 
@@ -100,6 +105,7 @@ public abstract class MyTreePanel extends Panel {
 			}
 		};
 		timer.schedule(5000);
+
 	}
 
 	public void reload(String dataConnection) {
@@ -112,6 +118,8 @@ public abstract class MyTreePanel extends Panel {
 	}
 
 	protected abstract XMLTreeLoader initXMLLoader();
+
+	protected abstract Boolean getShowChecked();
 
 	public FormPanel initButtons(Panel treePanelContainer,
 			final TreePanel treePanel, Integer width) {
@@ -220,6 +228,8 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setAutoScroll(true);
 		treePanel.setDdScroll(true);
 		treePanel.setPaddings(8);
+		treePanel.setDraggable(false);
+		// treePanel.getC
 
 		// treePanel.getElement().setClassName("activityView");
 		return treePanel;

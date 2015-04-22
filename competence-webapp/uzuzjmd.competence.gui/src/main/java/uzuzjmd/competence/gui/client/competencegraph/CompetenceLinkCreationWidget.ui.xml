@@ -8,26 +8,26 @@
 		<g:VerticalPanel height="100%" width="100%">
 			<b:Alert heading="Voraussetzungen erstellen" type="INFO"
 				close="false">Wählen Sie oben die Kompetenzen aus, die für die Kompetenzen
-				unten als Voraussetungen gelten sollen! Die Konsistenz der
+				unten als Voraussetzungen gelten sollen! Die Konsistenz der
 				Zuordnungen werden automatisch überprüft!</b:Alert>
-			<b:Container showOn="TABLET" pullRight="true">
+			<b:Container pullRight="true">
 				<b:Row>
 					<g:SimplePanel ui:field="requiredKompetenzesPlaceholder" />
 				</b:Row>
 				<b:Row>
 					<g:SimplePanel ui:field="followingCompetences" />
 				</b:Row>
-			</b:Container>
-			<b:Container showOn="DESKTOP">
-				<b:Row>
-					<g:SimplePanel ui:field="horizontalPanelContainer"
-						styleName="horizontalPanelContainer">
-						<g:HorizontalPanel height="100%" width="100%">
-							<g:SimplePanel ui:field="requiredKompetenzesPlaceholder2" />
-							<g:SimplePanel ui:field="followingCompetences2" />
-						</g:HorizontalPanel>
-					</g:SimplePanel>
-				</b:Row>
+				<!-- </b:Container> -->
+				<!-- <b:Container showOn="DESKTOP"> -->
+				<!-- <b:Row> -->
+				<!-- <g:SimplePanel ui:field="horizontalPanelContainer" -->
+				<!-- styleName="horizontalPanelContainer"> -->
+				<!-- <g:HorizontalPanel height="100%" width="100%"> -->
+				<!-- <g:SimplePanel ui:field="requiredKompetenzesPlaceholder2" /> -->
+				<!-- <g:SimplePanel ui:field="followingCompetences2" /> -->
+				<!-- </g:HorizontalPanel> -->
+				<!-- </g:SimplePanel> -->
+				<!-- </b:Row> -->
 			</b:Container>
 			<g:FocusPanel ui:field="warningPlaceholderPanel" />
 			<g:HorizontalPanel>

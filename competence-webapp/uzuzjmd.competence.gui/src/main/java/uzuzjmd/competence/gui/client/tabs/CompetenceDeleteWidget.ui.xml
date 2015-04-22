@@ -7,6 +7,7 @@
 	<g:HTMLPanel ui:field="deleteWidgetContainer">
 		<g:SimplePanel ui:field="competenceSelectionHolder" />
 		<b:Button icon="TRASH" ui:field="submitButton">Löschen</b:Button>
+		<b:Alert type="WARNING">Beachten Sie, dass das Löschen einer Kompetenz ihre Unterkompetenzen ebenfalls löscht!</b:Alert>
 		<b:Alert type="SUCCESS" visible="false" ui:field="successAlert"
 			close="false">Die
 			Kompetenz(en) wurden gelöscht!</b:Alert>
