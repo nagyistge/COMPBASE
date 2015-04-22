@@ -12,6 +12,7 @@ import uzuzjmd.competence.gui.client.shared.widgets.CheckableTreePanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.Connection;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
@@ -34,8 +35,9 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 	public CompetenceSelectionTree(String dataString,
 			LmsContextFactory contextFactory, String selectedFilter) {
 		// TODO Auto-generated constructor stub
-		super(dataString, "Kompetenzen", "competenceView", 650, 150,
-				"Kompetenzen", contextFactory);
+		super(dataString, "Kompetenzen", "competenceView", RootPanel.get(
+				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
+				contextFactory);
 		this.selectedFilter = selectedFilter;
 		treePanel.addListener(new MyTreePanelLister());
 	}
