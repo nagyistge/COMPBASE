@@ -58,6 +58,9 @@ public abstract class MyTreePanel extends Panel {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		// to test
+		GWT.log("width is: " + this.width);
+
 		this.databaseConnectionString = databaseConnectionString;
 		// test gwt ext
 
