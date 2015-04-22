@@ -8,8 +8,8 @@
 	</ui:style>
 	<g:HTMLPanel styleName="competencePanel">
 		<g:CaptionPanel captionText="  Kompetenzauswahl" ui:field="captionPanel"  >
-			<g:VerticalPanel ui:field="competenceTreeContainer" verticalAlignment="ALIGN_TOP">
-				<g:HTMLPanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel"/>
+			<g:VerticalPanel ui:field="competenceTreeContainer" verticalAlignment="ALIGN_TOP" >
+				<g:HTMLPanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel" width="100%"/>
 				<g:SimplePanel ui:field="toggleButtonPlaceholder" stylePrimaryName="toggleButton"/>
 				<g:HorizontalPanel ui:field="competenceFilterPanel" height="100%" >
 					<g:VerticalPanel ui:field="operatorPanel" height="100%">
@@ -31,6 +31,7 @@
 					</g:VerticalPanel>
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
-		</g:CaptionPanel>		
+		</g:CaptionPanel>	
+		<b:Alert type="INFO">Bitte gedulden Sie sich. Das laden der Kompetenzdaten kann aufgrund der Konsistenzprüfung einen Moment dauern!</b:Alert>	
 	</g:HTMLPanel>
 </ui:UiBinder> 
