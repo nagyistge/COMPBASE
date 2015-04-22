@@ -92,13 +92,15 @@ public class CompetenceSelectionWidget extends Composite {
 	private String filter = "all";
 	private String selectedFilter = null;
 	private String competenceTreeFilter = "";
+	private Boolean showChecked = false;
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
 
 	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter) {
+			String selectedFilter, boolean showChecked) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.showChecked = showChecked;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		// competenceCompulsoryCheckbox
 	}
@@ -114,6 +116,7 @@ public class CompetenceSelectionWidget extends Composite {
 			String selectedFilter, String competenceTreeFilter) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.competenceTreeFilter = competenceTreeFilter;
+		this.showChecked = false;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		// competenceCompulsoryCheckbox
 	}
@@ -131,6 +134,7 @@ public class CompetenceSelectionWidget extends Composite {
 			String selectedFilter, String competenceTreeFilter, String title) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.competenceTreeFilter = competenceTreeFilter;
+		this.showChecked = false;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
 	}
@@ -285,7 +289,8 @@ public class CompetenceSelectionWidget extends Composite {
 						+ "/competences/xml/competencetree/"
 						+ competenceTreeFilter + contextFactory.getCourseId()
 						+ "/" + filter + "/nocache" + queryString,
-				contextFactory, selectedFilter);
+				contextFactory, selectedFilter, showChecked);
+		// competenceTree.setShowCheckBoxes(showChecked);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
 
@@ -321,4 +326,5 @@ public class CompetenceSelectionWidget extends Composite {
 	public void reload() {
 		competenceTree.reloadTree();
 	}
+
 }

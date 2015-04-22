@@ -28,16 +28,19 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 			String rootLabel, String className, Integer width, Integer height,
 			String title, LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory);
+				title, contextFactory, null);
+		GWT.log("setting showchecked to: " + false);
+		super.showChecked = false;
 		treePanel.addListener(new MyTreePanelLister());
 	}
 
 	public CompetenceSelectionTree(String dataString,
-			LmsContextFactory contextFactory, String selectedFilter) {
+			LmsContextFactory contextFactory, String selectedFilter,
+			Boolean showChecked) {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", RootPanel.get(
 				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
-				contextFactory);
+				contextFactory, showChecked);
 		this.selectedFilter = selectedFilter;
 		treePanel.addListener(new MyTreePanelLister());
 	}
@@ -114,7 +117,10 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		loader.setLeafTag("competence");
 		// loader.setQtipMapping("@treetipp");
 		loader.setDisabledMapping("@disabled");
-		loader.setCheckedMapping("isCompulsory");
+		GWT.log(getShowChecked() + "");
+		if (getShowChecked()) {
+			loader.setCheckedMapping("isCompulsory");
+		}
 		return loader;
 	}
 
@@ -123,6 +129,11 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		public void onLoad(TreeNode node) {
 			setCompetenceSelected(node);
 		}
+	}
+
+	@Override
+	protected Boolean getShowChecked() {
+		return super.showChecked;
 	}
 
 }

@@ -12,7 +12,7 @@ public class OperatorSelectionTree extends MyTreePanel {
 			String rootLabel, String className, Integer width, Integer height,
 			String title, LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory);
+				title, contextFactory, null);
 	}
 
 	@Override
@@ -32,6 +32,12 @@ public class OperatorSelectionTree extends MyTreePanel {
 		// loader.setHrefMapping("moodleUrl");
 		// loader.setHrefTargetMapping("moodleUrl");
 		return loader;
+	}
+
+	@Override
+	protected Boolean getShowChecked() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
