@@ -62,7 +62,7 @@ public class RequirementTab extends CompetenceTab {
 	private HtmlWidget alert;
 
 	public RequirementTab(final LmsContextFactory contextFactory) {
-		initWidget(uiBinder.createAndBindUi(this));	
+		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
 
@@ -70,7 +70,7 @@ public class RequirementTab extends CompetenceTab {
 		initHrLines(hrDividerPanel2);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, "selected");
+				contextFactory, "selected", true);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		initRequirementTextfield(contextFactory);
 

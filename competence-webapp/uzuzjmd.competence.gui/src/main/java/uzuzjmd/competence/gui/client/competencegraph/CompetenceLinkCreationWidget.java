@@ -36,10 +36,10 @@ public class CompetenceLinkCreationWidget extends Composite {
 	SimplePanel requiredKompetenzesPlaceholder;
 	@UiField
 	SimplePanel followingCompetences;
-	@UiField
-	SimplePanel requiredKompetenzesPlaceholder2;
-	@UiField
-	SimplePanel followingCompetences2;
+	// @UiField
+	// SimplePanel requiredKompetenzesPlaceholder2;
+	// @UiField
+	// SimplePanel followingCompetences2;
 
 	@UiField
 	Button submitButton;
@@ -47,9 +47,8 @@ public class CompetenceLinkCreationWidget extends Composite {
 	Button cancelButton;
 	@UiField
 	FocusPanel warningPlaceholderPanel;
-	@UiField
-	SimplePanel horizontalPanelContainer;
-
+	// @UiField
+	// SimplePanel horizontalPanelContainer;
 	private CompetenceSelectionWidget requiredCompetenceSelectionWidget;
 	private CompetenceSelectionWidget followingCompetenceSelectionWidget;
 	private PopupPanel parent;
@@ -67,13 +66,13 @@ public class CompetenceLinkCreationWidget extends Composite {
 				Controller.contextFactory, null, "coursecontextnofilter/",
 				"  Vorausgesetzte Kompetenzen");
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
-		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
+		// requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Controller.contextFactory, null, "coursecontextnofilter/",
 				"  Nachfolgende Kompetenzen");
 		followingCompetences.add(followingCompetenceSelectionWidget);
-		followingCompetences2.add(followingCompetenceSelectionWidget);
+		// followingCompetences2.add(followingCompetenceSelectionWidget);
 	}
 
 	@UiHandler("submitButton")

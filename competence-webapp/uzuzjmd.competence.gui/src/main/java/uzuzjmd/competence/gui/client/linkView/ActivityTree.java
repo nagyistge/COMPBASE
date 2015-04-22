@@ -31,7 +31,7 @@ public class ActivityTree extends MyTreePanel {
 			String className, Integer width, Integer height, String title,
 			LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory);
+				title, contextFactory, null);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -130,6 +130,12 @@ public class ActivityTree extends MyTreePanel {
 			}
 		});
 		return loader;
+	}
+
+	@Override
+	protected Boolean getShowChecked() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
