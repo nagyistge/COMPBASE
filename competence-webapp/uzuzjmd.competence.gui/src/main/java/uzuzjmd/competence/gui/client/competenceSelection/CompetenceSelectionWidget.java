@@ -91,18 +91,20 @@ public class CompetenceSelectionWidget extends Composite {
 	private LmsContextFactory contextFactory;
 	private String filter = "all";
 	private String selectedFilter = null;
-	private String competenceTreeFilter = "";
 	private Boolean showChecked = false;
+	private boolean isCourseContext;
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
 
 	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, boolean showChecked) {
+			String selectedFilter, boolean showChecked, boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.showChecked = showChecked;
+		this.isCourseContext = isCourseContext;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		// competenceCompulsoryCheckbox
+
 	}
 
 	/**
@@ -113,12 +115,12 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param competenceTreeFilter
 	 */
 	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter) {
+			String selectedFilter, String competenceTreeFilter,
+			boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.competenceTreeFilter = competenceTreeFilter;
+		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
-		// competenceCompulsoryCheckbox
 	}
 
 	/**
@@ -131,9 +133,10 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param title
 	 */
 	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter, String title) {
+			String selectedFilter, String competenceTreeFilter, String title,
+			boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.competenceTreeFilter = competenceTreeFilter;
+		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
@@ -166,9 +169,9 @@ public class CompetenceSelectionWidget extends Composite {
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
-						+ contextFactory.getCourseId() + "/nocache",
+						+ contextFactory.getOrganization() + "/nocache",
 				"Schlagworte", "catchwordView", 325, 250, "Schlagworte",
-				contextFactory);
+				contextFactory, isCourseContext);
 		catchwordCaptionPanel.add(catchwordTree);
 		GWT.log("Initiated catchword tree");
 	}
@@ -178,9 +181,9 @@ public class CompetenceSelectionWidget extends Composite {
 		this.operatorTree = new OperatorSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
-						+ contextFactory.getCourseId() + "/nocache",
+						+ contextFactory.getOrganization() + "/nocache",
 				"Operatoren", "operatorView", 300, 200, "Operatoren",
-				contextFactory);
+				contextFactory, isCourseContext);
 		operatorCaptionPanel.add(operatorTree);
 		GWT.log("Initiated operator tree");
 	}
@@ -189,7 +192,7 @@ public class CompetenceSelectionWidget extends Composite {
 		Resource resourceCompulsory = new Resource(
 				contextFactory.getServerURL()
 						+ "/competences/json/coursecontext/delete/"
-						+ contextFactory.getCourseId());
+						+ contextFactory.getOrganization());
 		try {
 			resourceCompulsory.post().send(new OkFeedBack());
 		} catch (RequestException e) {
@@ -209,7 +212,7 @@ public class CompetenceSelectionWidget extends Composite {
 			Resource resourceCompulsory = new Resource(
 					contextFactory.getServerURL()
 							+ "/competences/json/coursecontext/create/"
-							+ contextFactory.getCourseId() + "/true");
+							+ contextFactory.getCourseContext() + "/true");
 			try {
 				resourceCompulsory
 						.addQueryParam("requirements", requirementText)
@@ -231,7 +234,7 @@ public class CompetenceSelectionWidget extends Composite {
 		if (!competenceTree.convertSelectedTreeToList().isEmpty()) {
 			Resource resource = new Resource(contextFactory.getServerURL()
 					+ "/competences/json/coursecontext/create/"
-					+ contextFactory.getCourseId() + "/false");
+					+ contextFactory.getCourseContext() + "/false");
 			try {
 				resource.addQueryParam("requirements", requirementText)
 						.addQueryParams("competences",
@@ -278,18 +281,22 @@ public class CompetenceSelectionWidget extends Composite {
 		updateFilteredPanel(filter, null);
 	}
 
-	private void updateFilteredPanel(String filter, String query) {
+	private void updateFilteredPanel(String compulsoryFilter, String query) {
 		competenceTreeCaptionPanel.clear();
 		String queryString = "";
 		if (query != null) {
 			queryString += query;
 		}
+
+		String context = contextFactory.getOrganization();
+		if (isCourseContext) {
+			context = "coursecontext/" + contextFactory.getCourseContext();
+		}
 		competenceTree = new CompetenceSelectionTree(
 				contextFactory.getServerURL()
-						+ "/competences/xml/competencetree/"
-						+ competenceTreeFilter + contextFactory.getCourseId()
-						+ "/" + filter + "/nocache" + queryString,
-				contextFactory, selectedFilter, showChecked);
+						+ "/competences/xml/competencetree/" + context + "/"
+						+ compulsoryFilter + "/nocache" + queryString,
+				contextFactory, selectedFilter, showChecked, isCourseContext);
 		// competenceTree.setShowCheckBoxes(showChecked);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}

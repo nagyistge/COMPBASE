@@ -64,13 +64,13 @@ public class CompetenceLinkCreationWidget extends Composite {
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Controller.contextFactory, null, "coursecontextnofilter/",
-				"  Vorausgesetzte Kompetenzen");
+				"  Vorausgesetzte Kompetenzen", false);
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
 		// requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Controller.contextFactory, null, "coursecontextnofilter/",
-				"  Nachfolgende Kompetenzen");
+				"  Nachfolgende Kompetenzen", false);
 		followingCompetences.add(followingCompetenceSelectionWidget);
 		// followingCompetences2.add(followingCompetenceSelectionWidget);
 	}
@@ -122,7 +122,7 @@ public class CompetenceLinkCreationWidget extends Composite {
 				Resource resource = new Resource(
 						Controller.contextFactory.getServerURL()
 								+ "/competences/json/prerequisite/create/"
-								+ Controller.contextFactory.getCourseId());
+								+ Controller.contextFactory.getOrganization());
 				resource.addQueryParam("linkedCompetence", linkedCompetence)
 						.addQueryParams("selectedCompetences",
 								requiredCompetences).post()

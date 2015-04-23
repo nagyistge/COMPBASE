@@ -31,7 +31,7 @@ public class ActivityTree extends MyTreePanel {
 			String className, Integer width, Integer height, String title,
 			LmsContextFactory contextFactory) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory, null);
+				title, contextFactory, null, true);
 		// TODO Auto-generated constructor stub
 	}
 

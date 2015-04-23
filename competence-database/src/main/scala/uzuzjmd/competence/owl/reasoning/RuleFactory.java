@@ -21,6 +21,8 @@ public class RuleFactory {
 		result.add(getNotRequireTransition2());
 		result.add(getNotRequireTransition3());
 		result.add(getNotAllowedCreationRule());
+		result.add(allCompetencesHaveGlobalContext());
+		result.add(allCompetencesHaveGlobalContext2());
 		// result.add(getInheritanceOneWayOnlyRule());
 	}
 
@@ -87,6 +89,14 @@ public class RuleFactory {
 		return "[inheritanceOneWayOnly:" + " (?competence rdfs:subClassOf ?supercompetence) (?supercompetence rdfs:subClassOf ?competence)" + " notEqual(?Isupercompetence, ?Icompetence) "
 				+ " (?Isupercompetence rdf:type ?supercompetence) (?Icompetence rdf:type ?competence) "
 				+ "-> (?Isupercompetence rb:violation error('Konsistenzfehler', 'Die Kompetenz kann nicht gleichzeitig oberhalb und unterhalb in der Hierarchie stehen!', ?Icompetence))]";
+	}
+
+	public String allCompetencesHaveGlobalContext() {
+		return "[globalContext: (?competence rdf:type comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
+	}
+
+	public String allCompetencesHaveGlobalContext2() {
+		return "[globalContext2: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
 	}
 }
 
