@@ -10,9 +10,10 @@ public class OperatorSelectionTree extends MyTreePanel {
 
 	public OperatorSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, LmsContextFactory contextFactory) {
+			String title, LmsContextFactory contextFactory,
+			Boolean courseContext) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory, null);
+				title, contextFactory, null, courseContext);
 	}
 
 	@Override
