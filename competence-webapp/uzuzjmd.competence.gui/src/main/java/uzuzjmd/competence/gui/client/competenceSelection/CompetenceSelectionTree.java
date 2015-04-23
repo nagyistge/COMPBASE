@@ -26,9 +26,10 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 	@Deprecated
 	public CompetenceSelectionTree(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, LmsContextFactory contextFactory) {
+			String title, LmsContextFactory contextFactory,
+			Boolean courseContext) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory, null);
+				title, contextFactory, null, courseContext);
 		GWT.log("setting showchecked to: " + false);
 		super.showChecked = false;
 		treePanel.addListener(new MyTreePanelLister());
@@ -36,11 +37,11 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 
 	public CompetenceSelectionTree(String dataString,
 			LmsContextFactory contextFactory, String selectedFilter,
-			Boolean showChecked) {
+			Boolean showChecked, Boolean courseContext) {
 		// TODO Auto-generated constructor stub
 		super(dataString, "Kompetenzen", "competenceView", RootPanel.get(
 				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
-				contextFactory, showChecked);
+				contextFactory, showChecked, courseContext);
 		this.selectedFilter = selectedFilter;
 		treePanel.addListener(new MyTreePanelLister());
 	}
@@ -51,9 +52,13 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 
 	private void setCompetenceSelected(final TreeNode node) {
 		if (selectedFilter != null) {
+			// String context = contextFactory.getOrganization();
+			// if (super.courseContext) {
+			// context = contextFactory.getCourseContext();
+			// }
 			Resource resource = new Resource(contextFactory.getServerURL()
 					+ "/competences/json/" + selectedFilter + "/"
-					+ contextFactory.getCourseId());
+					+ contextFactory.getCourseContext());
 			resource.get().send(new JsonCallback() {
 
 				@Override

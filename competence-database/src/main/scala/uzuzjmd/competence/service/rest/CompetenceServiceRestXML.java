@@ -67,8 +67,8 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/competencetree/{course}/{compulsory}/{cache}")
-	public Response getCompetenceTree(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+	@Path("/competencetree/{context}/{compulsory}/{cache}")
+	public Response getCompetenceTree(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
 			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
 		CompetenceXMLTree[] result = null;
@@ -85,8 +85,8 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
-	@Path("/competencetree/coursecontext/{course}/{compulsory}/{cache}")
-	public Response getCompetenceTreeForCourse(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+	@Path("/competencetree/coursecontext/{context}/{compulsory}/{cache}")
+	public Response getCompetenceTreeForCourse(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
 			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
 		CompetenceXMLTree[] result = null;

@@ -65,6 +65,7 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def addSuperClass(superClass: CompetenceOntologySingletonDao) {
+    persistMore
     if (superClass != null) {
       val ontSuperClass = superClass.persist(true).getOntclass()
       createIndividual.getOntClass().addSuperClass(ontSuperClass)

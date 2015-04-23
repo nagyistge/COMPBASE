@@ -169,6 +169,11 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     filteredResult
   }
 
+  //  private filterCourseContext[A <: AbstractXMLTree[A]](result: A) : Boolean = {
+  //    result.getComptenceTree.
+  //    return false
+  //  }
+
   private def getCompulsory(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
     return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass), CompObjectProperties.CompulsoryOf);
 

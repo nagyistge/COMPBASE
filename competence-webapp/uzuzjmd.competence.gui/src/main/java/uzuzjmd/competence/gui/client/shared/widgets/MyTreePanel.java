@@ -41,6 +41,8 @@ public abstract class MyTreePanel extends Panel {
 
 	protected AsyncTreeNode rootNode;
 
+	protected Boolean courseContext;
+
 	public TreePanel getTreePanel() {
 		return treePanel;
 	}
@@ -52,13 +54,16 @@ public abstract class MyTreePanel extends Panel {
 	 * @param rootLabel
 	 * @param className
 	 * @param showChecked2
+	 * @param courseContext
 	 */
 	public MyTreePanel(String databaseConnectionString, String rootLabel,
 			String className, Integer width, Integer height, String title,
-			LmsContextFactory contextFactory, Boolean showChecked2) {
+			LmsContextFactory contextFactory, Boolean showChecked2,
+			Boolean courseContext) {
 		super();
 
 		this.contextFactory = contextFactory;
+		this.courseContext = courseContext;
 		this.title = title;
 		this.width = width;
 		this.height = height;

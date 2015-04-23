@@ -27,14 +27,14 @@
 			</b:Tab>
 			<b:Tab heading="Kurskontext">
 				<b:TabPanel>
-					<b:Tab heading="Anforderungen">
+					<b:Tab heading="Kompetenzauswahl für Kurs">
 						<g:HTMLPanel ui:field="requirementTabPlaceholder" />
 					</b:Tab>
 
-					<b:Tab heading="Zuordnung">
+					<b:Tab heading="Zuordnung zu Aktivitäten">
 						<g:HTMLPanel ui:field="linkTabPlaceholder" />
 					</b:Tab>
-					<b:Tab heading="Teilnehmer">
+					<b:Tab heading="Stand der Teilnehmer">
 						<g:HTMLPanel ui:field="progressTabPlaceholder" />
 					</b:Tab>
 				</b:TabPanel>

@@ -43,7 +43,8 @@ public class CompetenceDeleteWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		deleteCompetencesSelectionWidget = new CompetenceSelectionWidget(
 				lmsContextFactory, "all", null,
-				"Wählen sie die Kompetenzen aus, die sie löschen wollen!");
+				"Wählen sie die Kompetenzen aus, die sie löschen wollen!",
+				false);
 		competenceSelectionHolder.add(deleteCompetencesSelectionWidget);
 
 	}
