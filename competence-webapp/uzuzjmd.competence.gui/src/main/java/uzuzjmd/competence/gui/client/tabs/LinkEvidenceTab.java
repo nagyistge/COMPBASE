@@ -90,7 +90,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 
 	private void initCompetenceSelectionWidget(LmsContextFactory contextFactory) {
 		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, null, "coursecontext/");
+				contextFactory, null, "coursecontext/", true);
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 	}
@@ -98,7 +98,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	private String getMoodleEvidenceServerUrl() {
 		String moodleEvidenceUrl = contextFactory.getEvidenceServerURL()
 				+ "/moodle/activities/usertree/xml/crossdomain/"
-				+ contextFactory.getMoodleCourseId();
+				+ contextFactory.getRawCourseId();
 		return moodleEvidenceUrl;
 	}
 
@@ -130,7 +130,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		String linkedUser = evidence.getUserId();
 		String createLink = contextFactory.getServerURL()
 				+ "/competences/json/link/create/"
-				+ contextFactory2.getCourseId() + "/"
+				+ contextFactory2.getOrganization() + "/"
 				+ contextFactory2.getUser() + "/" + contextFactory2.getRole()
 				+ "/" + linkedUser;
 		Resource resource = new Resource(createLink);

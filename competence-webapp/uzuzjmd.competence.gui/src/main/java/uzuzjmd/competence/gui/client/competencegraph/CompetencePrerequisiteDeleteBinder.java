@@ -67,7 +67,7 @@ public class CompetencePrerequisiteDeleteBinder extends Composite {
 		Resource resource = new Resource(
 				Controller.contextFactory.getServerURL()
 						+ "/competences/json/prerequisite/delete/"
-						+ Controller.contextFactory.getCourseId());
+						+ Controller.contextFactory.getOrganization());
 		try {
 			resource.addQueryParam("linkedCompetence", competenceSelected)
 					.post().send(new RequestCallback() {

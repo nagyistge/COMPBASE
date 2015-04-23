@@ -60,7 +60,7 @@ public class CompetencePrerequisiteCreateBinder extends Composite {
 		this.parent = parent;
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
 				Controller.contextFactory, null, "coursecontextnofilter/",
-				"Vorausgesetzte Kompetenzen");
+				"Vorausgesetzte Kompetenzen", false);
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 		this.followingCompetence = followingCompetence;
 	}
@@ -113,7 +113,7 @@ public class CompetencePrerequisiteCreateBinder extends Composite {
 				Resource resource = new Resource(
 						Controller.contextFactory.getServerURL()
 								+ "/competences/json/prerequisite/create/"
-								+ Controller.contextFactory.getCourseId());
+								+ Controller.contextFactory.getOrganization());
 				resource.addQueryParam("linkedCompetence", linkedCompetence)
 						.addQueryParams("selectedCompetences",
 								requiredCompetences).post()

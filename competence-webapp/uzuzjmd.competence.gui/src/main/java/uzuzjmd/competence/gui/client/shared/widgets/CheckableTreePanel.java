@@ -11,9 +11,10 @@ public abstract class CheckableTreePanel extends MyTreePanel {
 
 	public CheckableTreePanel(String databaseConnectionString,
 			String rootLabel, String className, Integer width, Integer height,
-			String title, LmsContextFactory contextFactory, Boolean showChecked) {
+			String title, LmsContextFactory contextFactory,
+			Boolean showChecked, Boolean courseContext) {
 		super(databaseConnectionString, rootLabel, className, width, height,
-				title, contextFactory, showChecked);
+				title, contextFactory, showChecked, courseContext);
 	}
 
 	public List<String> getCheckedNodes() {

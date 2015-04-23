@@ -59,12 +59,12 @@ public class ProgressTab extends CompetenceTab {
 
 		this.contextFactory = contextFactory;
 		String infoText = "Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden.";
-		infoText+= "Wenn keine Fortschrittsbalken angezeigt werden, müssen sie in dem Zuordung-Tab Aktivitäten zuordnen";
+		infoText += "Wenn keine Fortschrittsbalken angezeigt werden, müssen sie in dem Zuordung-Tab Aktivitäten zuordnen";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, null, "coursecontext/");
+				contextFactory, null, "coursecontext/", true);
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 
@@ -78,7 +78,7 @@ public class ProgressTab extends CompetenceTab {
 		GWT.log("Initiating progress entries");
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/link/progress/"
-				+ contextFactory.getCourseId());
+				+ contextFactory.getOrganization());
 		resource.addQueryParams("competences",
 				competenceSelectionWidget.getSelectedCompetences()).get()
 				.send(new JsonCallback() {
@@ -104,7 +104,7 @@ public class ProgressTab extends CompetenceTab {
 					@Override
 					public void onFailure(Method arg0, Throwable arg1) {
 						GWT.log("could not get progress map from server for course context"
-								+ contextFactory.getCourseId());
+								+ contextFactory.getOrganization());
 
 						alert = new Alert(
 								"Es gab Probleme bei der Datenbank, kontaktieren Sie einen Entwickler",

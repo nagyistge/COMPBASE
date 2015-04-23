@@ -70,7 +70,7 @@ public class RequirementTab extends CompetenceTab {
 		initHrLines(hrDividerPanel2);
 
 		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, "selected", true);
+				contextFactory, "selected", true, false);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		initRequirementTextfield(contextFactory);
 
@@ -80,7 +80,7 @@ public class RequirementTab extends CompetenceTab {
 		GWT.log("Initiating requirement textfield");
 		Resource resource = new Resource(contextFactory.getServerURL()
 				+ "/competences/json/coursecontext/requirements/"
-				+ contextFactory.getCourseId());
+				+ contextFactory.getCourseContext());
 		resource.get().send(new TextCallback() {
 
 			@Override
