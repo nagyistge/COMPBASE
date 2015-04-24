@@ -7,6 +7,8 @@ import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.LmsContextFactory;
+import uzuzjmd.competence.gui.client.shared.dto.HierarchieChange;
+import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.gui.client.shared.widgets.CheckableTreePanel;
 
 import com.google.gwt.core.client.GWT;
@@ -14,6 +16,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.Connection;
+import com.gwtext.client.data.Tree;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.XMLTreeLoader;
@@ -22,6 +25,7 @@ import com.gwtext.client.widgets.tree.event.TreePanelListenerAdapter;
 public class CompetenceSelectionTree extends CheckableTreePanel {
 
 	private String selectedFilter;
+	private HierarchieChangeSet changes;
 
 	@Deprecated
 	public CompetenceSelectionTree(String databaseConnectionString,
@@ -48,6 +52,26 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		if (courseContext) {
 			treePanel.addListener(new MyTreePanelLister());
 		}
+	}
+
+	/**
+	 * is used to edit the competence tree
+	 * 
+	 * @param dataString
+	 * @param contextFactory
+	 * @param selectedFilter
+	 * @param showChecked
+	 * @param courseContext
+	 * @param editable
+	 */
+	public CompetenceSelectionTree(String dataString,
+			LmsContextFactory contextFactory, String selectedFilter,
+			Boolean showChecked, Boolean courseContext, boolean editable) {
+		super(dataString, "Kompetenzen", "competenceView", RootPanel.get(
+				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
+				contextFactory, showChecked, courseContext);
+		this.selectedFilter = selectedFilter;
+		this.treePanel.addListener(new MyTreePanelChangeLister(changes));
 	}
 
 	public void setSelectedFilter(String selectedFilter) {
@@ -140,9 +164,31 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		}
 	}
 
+	private class MyTreePanelChangeLister extends TreePanelListenerAdapter {
+
+		private HierarchieChangeSet hierarchieChangeSet;
+
+		public MyTreePanelChangeLister(
+				final HierarchieChangeSet hierarchieChangeSet) {
+			this.hierarchieChangeSet = hierarchieChangeSet;
+		}
+
+		@Override
+		public void onMoveNode(Tree treePanel, TreeNode node,
+				TreeNode oldParent, TreeNode newParent, int index) {
+			hierarchieChangeSet.getElements().add(
+					new HierarchieChange(oldParent.getText(), newParent
+							.getText(), node.getText()));
+		}
+	}
+
 	@Override
 	protected Boolean getShowChecked() {
 		return super.showChecked;
+	}
+
+	public HierarchieChangeSet getChanges() {
+		return changes;
 	}
 
 }
