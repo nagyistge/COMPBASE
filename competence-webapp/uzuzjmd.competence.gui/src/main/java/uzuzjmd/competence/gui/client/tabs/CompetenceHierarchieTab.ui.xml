@@ -5,8 +5,10 @@
 		
 	</ui:style>
 	<g:HTMLPanel>
-		<b:Alert type="INFO">Sie können mit Drag und Drop die Hierarchie verändern! Wenn Sie fertig sind, können Sie mit auf speichern clicken, damit die Änderungen übernommen werden!</b:Alert>
+		<b:Alert type="INFO">Sie können mit Drag und Drop die Hierarchie verändern! Wenn Sie fertig sind, können Sie auf "Änderungen übernehmen" klicken, damit die Änderungen übernommen werden!</b:Alert>
 		<g:SimplePanel ui:field="competenceHierarchieHolder"></g:SimplePanel>
 		<b:Button ui:field="competenceHierarchieButton" text="Änderungen übernehmen" icon="REFRESH"></b:Button>
+		<b:Alert visible="false" ui:field="successAlert" type="SUCCESS">Die Änderungen wurden übernommen!</b:Alert>
+		<b:Alert visible="false" ui:field="errorAlert" type="ERROR">Es gab einen Fehler bei der Datenbank. Kontaktieren Sie einen Entwickler!</b:Alert>
 	</g:HTMLPanel>
 </ui:UiBinder> 

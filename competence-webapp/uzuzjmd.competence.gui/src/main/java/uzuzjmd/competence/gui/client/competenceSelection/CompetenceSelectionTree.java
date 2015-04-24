@@ -71,6 +71,7 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
 				contextFactory, showChecked, courseContext);
 		this.selectedFilter = selectedFilter;
+		this.changes = new HierarchieChangeSet();
 		this.treePanel.addListener(new MyTreePanelChangeLister(changes));
 	}
 
@@ -189,6 +190,12 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 
 	public HierarchieChangeSet getChanges() {
 		return changes;
+	}
+
+	public void clearChanges() {
+		if (changes != null) {
+			changes.getElements().clear();
+		}
 	}
 
 }
