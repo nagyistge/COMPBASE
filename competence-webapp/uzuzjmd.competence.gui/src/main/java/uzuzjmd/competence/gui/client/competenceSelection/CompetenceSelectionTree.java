@@ -32,7 +32,9 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 				title, contextFactory, null, courseContext);
 		GWT.log("setting showchecked to: " + false);
 		super.showChecked = false;
-		treePanel.addListener(new MyTreePanelLister());
+		if (courseContext) {
+			treePanel.addListener(new MyTreePanelLister());
+		}
 	}
 
 	public CompetenceSelectionTree(String dataString,
@@ -43,7 +45,9 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
 				contextFactory, showChecked, courseContext);
 		this.selectedFilter = selectedFilter;
-		treePanel.addListener(new MyTreePanelLister());
+		if (courseContext) {
+			treePanel.addListener(new MyTreePanelLister());
+		}
 	}
 
 	public void setSelectedFilter(String selectedFilter) {
@@ -51,7 +55,7 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 	}
 
 	private void setCompetenceSelected(final TreeNode node) {
-		if (selectedFilter != null) {
+		if (selectedFilter != null && selectedFilter.equals("selected")) {
 			// String context = contextFactory.getOrganization();
 			// if (super.courseContext) {
 			// context = contextFactory.getCourseContext();
