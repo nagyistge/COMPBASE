@@ -576,9 +576,6 @@
     <j.0:OperatorOf rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
     <j.0:OperatorOf rdf:resource="http://comp#IIchkannmichselbstmeineFamilieundanderePersonenbeschreiben"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Nothing">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren">
     <rdf:type rdf:resource="http://comp#IchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren"/>
   </rdf:Description>
@@ -883,9 +880,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen">
     <rdf:type rdf:resource="http://comp#IchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#INothing">
-    <rdf:type rdf:resource="http://comp#Nothing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen">
     <rdf:type rdf:resource="http://comp#IchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen"/>
@@ -1598,9 +1592,6 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#EvidenceActivity"/>
     <rdfs:range rdf:resource="http://comp#AbstractEvidenceLink"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#n2">
-    <rdf:type rdf:resource="http://comp#CourseContext"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen">
     <rdf:type rdf:resource="http://comp#IchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
@@ -2483,7 +2474,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanneineeinfacheWegerklärungwiemanzuFußodermiteinemöffentlichenVerkehrsmittelvonAnachBkommtverstehen">
     <rdf:type rdf:resource="http://comp#IchkanneineeinfacheWegerklärungwiemanzuFußodermiteinemöffentlichenVerkehrsmittelvonAnachBkommtverstehen"/>
-    <j.0:NotPrerequisiteOf rdf:resource="http://comp#IIchkannFragenundAufforderungenverstehenmitdenenmansichlangsamundsorgfältiganmichwendetundichkannkurzeneinfachenAnweisungenfolgen"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHauptinformationvonFernsehmeldungenüberEreignisseUnglücksfälleuswerfassenwennderKommentardurchBilderunterstütztwird">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2691,12 +2681,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#university">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHauptinformationvonFernsehmeldungenüberEreignisseUnglücksfälleuswerfassenwennderKommentardurchBilderunterstütztwird"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ICompetence"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenA2"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängerekomplexeAnleitungenundAnweisungenverstehenzBzurBedienungeinesneuenGerätsauchwenndiesenichtinBezugzumeinemSachoderInteressengebietstehensofernichgenugZeitzumLesenhabe"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenC1"/>
@@ -2940,8 +2925,6 @@
     <j.0:CourseContextOf rdf:resource="http://comp#IIchkannHandbücherVerordnungenundVerträgeverstehenauchwennmirdasGebietnichtvertrautist"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHauptpunktevonkomplexenRedebeiträgenzukonkretenundabstraktenThemenverstehenwenninderStandardsprachegesprochenwirdichversteheinmeinemSpezialgebietauchFachdiskussionen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIchbemerkeinVorlesungenundSeminarenwasnurimplizitgesagtwirdundworaufnurangespieltwirdundkannmirdazuebensoNotizenmachenwiezudemwaseinSprecherdirektausdrückt"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#I3org227owlNothing"/>
-    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Informatikkurs bedarf</j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHandlungeinerklaraufgebautenErzählungverstehenunderkennenwelchesdiewichtigstenEpisodenundEreignissesindundinwiefernsiebedeutsamsind">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3115,7 +3098,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IHörverstehenA1">
     <rdf:type rdf:resource="http://comp#HörverstehenA1"/>
-    <j.0:PrerequisiteOf rdf:resource="http://comp#IHörverstehenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenA2"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannkurzeeinfacheschriftlicheWegerklärungenverstehen">
@@ -3338,11 +3320,6 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#LesenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann Artikel und Berichte über aktuelle Fragen lesen und verstehen, in denen die Schreibenden eine bestimmte Haltung oder einen bestimmten Standpunkt vertreten. </j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#I3org227owlNothing">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Nothing"/>
-    <j.0:NotAllowedToView rdf:resource="http://comp#IHörverstehenA1"/>
-    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkanneineeinfacheWegerklärungwiemanzuFußodermiteinemöffentlichenVerkehrsmittelvonAnachBkommtverstehen"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanneineinfachesdirektesGesprächübervertrauteodermichpersönlichinteressierendeThemenbeginneninGanghaltenundbeenden">
     <rdf:type rdf:resource="http://comp#IchkanneineinfachesdirektesGesprächübervertrauteodermichpersönlichinteressierendeThemenbeginneninGanghaltenundbeenden"/>

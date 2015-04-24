@@ -20,44 +20,37 @@ object CompetenceImporter {
 
   def main(args: Array[String]) {
 
-    if (args.size != 2) {
-      println("usage ist java -jar CompetenceImporter.jar TDBLocationPath EposFileLocation");
-    }
+    if (args.size != 3) {
+      println("usage ist java -jar CompetenceImporter.jar TDBLocationPath CompetenceCSVLocation EposFileLocation");
+    } else {
+      MagicStrings.TDBLocationPath = args(0)
+      MagicStrings.CSVLOCATION = args(1)
+      MagicStrings.EPOSLocation = args(2)
 
-    convertCSVArray(args)
-    EposImporter.main((args(2) :: Nil).toArray)
+      convertCSVArray()
+      EposImporter.importEpos()
+    }
   }
 
-  def convertCSV(pathToCSV: String) {
-    convertCSVArray((pathToCSV :: Nil).toArray)
-  }
-
-  private def convertCSVArray(args: Array[String]) {
-    if (args.length > 1) {
-      MagicStrings.TDBLocationPath = args(1)
-    }
-    val rcdeoCompetences = getCompetencesFromCSV(args)
+  def convertCSVArray() {
+    val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
     val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
   }
 
-  def getCompetencesFromCSV(args: Array[String]): Seq[Rdceo] = {
-    return getCompetencesFromCSV(args.head);
+  def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
+    return getCompetencesFromCSV.asJava
   }
 
-  def getCompetencesFromCSVJava(csvLocation: String): Array[Rdceo] = {
-    return getCompetencesFromCSV(csvLocation).toArray;
-  }
-
-  def getCompetencesFromCSV(csvLocation: String): Seq[Rdceo] = {
+  def getCompetencesFromCSV(): Seq[Rdceo] = {
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
     val columns = "operator" :: "catchword" :: "competence" :: "similarCompetence" :: "superCompetence" :: "reference" :: "evidenzen" :: "competenceArea" :: "metaoperator" :: Nil;
     strat.setColumnMapping(columns.toArray);
     val csv = new CsvToBean[CompetenceBean];
-    val list = csv.parse(strat, new FileReader(new File(csvLocation)));
+    val list = csv.parse(strat, new FileReader(new File(MagicStrings.CSVLOCATION)));
 
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
