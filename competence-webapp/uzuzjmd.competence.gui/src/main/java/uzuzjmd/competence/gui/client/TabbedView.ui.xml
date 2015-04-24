@@ -18,6 +18,11 @@
 							<b:Tab heading="Kompetenzen löschen">
 								<g:HTMLPanel ui:field="competenceDeleteHolder" />
 							</b:Tab>
+							<b:Tab heading="Kompetenzhierarchie bearbeiten">
+								<g:HTMLPanel ui:field="competenceHierarchieChangeHolder" />
+							</b:Tab>
+							
+							
 						</b:TabPanel>
 					</b:Tab>
 					<b:Tab heading="Lernpfade">

@@ -37,6 +37,8 @@ public class CompetenceUIContainer extends Composite {
 		tabbedView.linkTabPlaceholder.add(Controller.linkEvidenceTab);
 		tabbedView.progressTabPlaceholder.add(Controller.progressTab);
 		tabbedView.competenceDeleteHolder.add(Controller.competenceDeleteTab);
+		tabbedView.competenceHierarchieChangeHolder
+				.add(Controller.competenceHierarchieTab);
 
 		if (!Controller.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(Controller.requirementTab);
