@@ -55,12 +55,12 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.getM().validate()
     compOntManag.close()
 
-    CompetenceImporter.convertCSV(MagicStrings.CSVLOCATION);
+    CompetenceImporter.convertCSVArray();
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()
 
-    EposImporter.main(Array(MagicStrings.EPOSLocation));
+    EposImporter.importEpos()
     compOntManag.begin()
     compOntManag.getM().validate()
     compOntManag.close()

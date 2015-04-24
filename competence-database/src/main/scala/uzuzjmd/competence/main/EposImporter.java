@@ -24,7 +24,10 @@ public class EposImporter {
 		if (!(args.length < 1)) {
 			MagicStrings.EPOSLocation = args[0];
 		}
+		importEpos();
+	}
 
+	public static void importEpos() throws JAXBException, IOException {
 		// convert xml to java data
 		JAXBContext jaxbContext = JAXBContext.newInstance(DESCRIPTORSETType.class);
 		Unmarshaller eposUnMarshallUnmarshaller = jaxbContext.createUnmarshaller();
