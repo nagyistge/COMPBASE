@@ -12,7 +12,6 @@ import uzuzjmd.competence.console.util.LogStream;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.mapper.rcd.RCD2OWL;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
-import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 
 @WebService(endpointInterface = "uzuzjmd.competence.service.CompetenceService")
@@ -24,7 +23,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 	@Override
 	public Rdceo[] getCompetences() {
 		logger.info("Competences queried");
-		return CompetenceImporter.getCompetencesFromCSVJava(MagicStrings.CSVLOCATION);
+		return CompetenceImporter.getCompetencesFromCSVasJava().toArray(new Rdceo[0]);
 
 	}
 

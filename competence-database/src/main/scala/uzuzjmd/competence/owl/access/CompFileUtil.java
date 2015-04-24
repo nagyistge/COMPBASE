@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.jena.riot.RDFDataMgr;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -41,6 +42,12 @@ public class CompFileUtil {
 	 */
 	public void writeOntologyout(Model m) throws IOException {
 		writeOut(m);
+	}
+
+	public void readOntologyIn() {
+		this.m.removeAll();
+		Model newMOdel = RDFDataMgr.loadModel(MagicStrings.ONTOLOGYFILE);
+		this.m.add(newMOdel);
 	}
 
 	private void writeOut(Model m) {
