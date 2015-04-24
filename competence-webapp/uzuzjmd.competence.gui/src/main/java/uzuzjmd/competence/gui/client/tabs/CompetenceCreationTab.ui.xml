@@ -23,7 +23,7 @@
 
 					<b:Row>
 						<b:Column size="4">
-							<g:Label text="Stichworte (komma separiert)" />
+							<g:Label text="Stichworte (kommasepariert)" />
 						</b:Column>
 						<b:Column size="4">
 							<b:TextArea ui:field="keywordsTextArea"></b:TextArea>

@@ -6,6 +6,7 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.LmsContextFactory;
+import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
@@ -345,6 +346,15 @@ public class CompetenceSelectionWidget extends Composite {
 
 	public void reload() {
 		competenceTree.reloadTree();
+	}
+
+	public HierarchieChangeSet getChanges() {
+		return competenceTree.getChanges();
+	}
+
+	public void clearChanges() {
+		competenceTree.clearChanges();
+
 	}
 
 }

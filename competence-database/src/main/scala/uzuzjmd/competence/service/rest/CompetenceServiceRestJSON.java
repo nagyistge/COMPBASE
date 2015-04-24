@@ -15,6 +15,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
+import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
@@ -56,6 +58,21 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		// return "Got it!";
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
 		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/updateHierarchie")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateHierarchie(@QueryParam("changes") List<String> changes) {
+
+		HierarchieChangeSet changeSet = new HierarchieChangeSet().convertListToModel(changes);
+
+		CompOntologyManager comp = initManagerInCriticalMode();
+		HierarchieChangesToOnt.convertChanges(comp, changeSet);
+		comp.close();
+
+		return Response.ok("updated taxonomy").build();
 	}
 
 	/**
