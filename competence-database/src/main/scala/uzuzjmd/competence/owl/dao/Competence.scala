@@ -77,6 +77,12 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return this
   }
 
+  def removeSuperCompetence(superCompetence: Competence): Competence = {
+    persist(false).getOntclass().removeSuperClass(superCompetence.persist(true).getOntclass())
+    persist(false)
+    return this
+  }
+
   def toStrinz(): String = {
     return getDataField(DEFINITION)
   }

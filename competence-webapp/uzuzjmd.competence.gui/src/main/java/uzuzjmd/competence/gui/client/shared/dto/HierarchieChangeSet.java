@@ -23,4 +23,25 @@ public class HierarchieChangeSet implements Serializable {
 		this.elements = elements;
 	}
 
+	public List<String> convertToListString() {
+		LinkedList<String> result = new LinkedList<String>();
+		for (HierarchieChange changeelement : getElements()) {
+			result.add(changeelement.getOldClass() + ":"
+					+ changeelement.getNodeSelected() + ":"
+					+ changeelement.getNewClass());
+		}
+
+		return result;
+	}
+
+	public HierarchieChangeSet convertListToModel(List<String> encodedSet) {
+		HierarchieChangeSet result = new HierarchieChangeSet();
+		for (String string : encodedSet) {
+			String[] splitted = string.split(":");
+			result.getElements()
+					.add(new HierarchieChange(splitted[0], splitted[2],
+							splitted[1]));
+		}
+		return result;
+	}
 }
