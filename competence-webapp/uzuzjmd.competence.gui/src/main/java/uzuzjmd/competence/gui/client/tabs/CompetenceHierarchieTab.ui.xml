@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+		<b:Alert type="INFO">Sie können mit Drag und Drop die Hierarchie verändern! Wenn Sie fertig sind, können Sie mit auf speichern clicken, damit die Änderungen übernommen werden!</b:Alert>
+		<g:SimplePanel ui:field="competenceHierarchieHolder"></g:SimplePanel>
+		<b:Button ui:field="competenceHierarchieButton" text="Änderungen übernehmen" icon="REFRESH"></b:Button>
+	</g:HTMLPanel>
+</ui:UiBinder> 
