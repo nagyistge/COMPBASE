@@ -25,7 +25,7 @@ import uzuzjmd.competence.owl.dao.Competence
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean) {
+class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) {
 
   val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_))
   val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
@@ -69,6 +69,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * needs label and iconpath in order to create the view
    */
   private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean), realTree: Boolean = true): A = {
+
     val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, ontologyManager) match {
       case "" => label
       case x => x
@@ -92,6 +93,16 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     val util = ontologyManager.getUtil()
     return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.CatchwordOf))
       && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
+  }
+
+  def containsText(input: String): Boolean = {
+    if (textFilter == null) {
+      return true
+    } else if (textFilter.trim().equals("")) {
+      return true
+    } else {
+      return input.contains(textFilter.trim())
+    }
   }
 
   def allowedAndCourse(ontClass: OntClass): Boolean = {
@@ -167,6 +178,15 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   private def filterResults[A <: AbstractXMLTree[A]](result: A): List[A] = {
     val filteredResult = (result :: List.empty).filterNot(_ == null)
     filteredResult
+  }
+
+  private def filterText[A <: AbstractXMLTree[A]](input: A): Boolean = {
+    if (input.getChildren().isEmpty()) {
+      return containsText(input.getName())
+    } else {
+      return input.getChildren().asScala.toList.forall(x => filterText(x))
+    }
+    return true
   }
 
   //  private filterCourseContext[A <: AbstractXMLTree[A]](result: A) : Boolean = {
