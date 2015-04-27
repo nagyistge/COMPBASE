@@ -14,6 +14,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.scalahacks.ScalaHacksInScala
 import com.hp.hpl.jena.ontology.OntTools
 import com.hp.hpl.jena.util.iterator.Filter
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -28,6 +29,8 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
       result = util.accessSingletonResource(identifier)
     }
     if (more) {
+      val uniContext = new UniversityContext(comp)
+      uniContext.createEdgeWith(CompObjectProperties.CourseContextOf, this)
       persistMore
     }
     return result

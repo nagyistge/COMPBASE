@@ -3,13 +3,13 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 
-class Catchword(compManager: CompOntologyManager, identifer: String, val definition: String = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Catchword, identifer) {
+class Operator(compManager: CompOntologyManager, identifer: String, val definition: String = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Operator, identifer) {
 
   @Override
   protected def persistMore() {
-    val catchwordRoot = new CatchwordInstance(comp)
+    val operatorRoot = new OperatorInstance(comp)
     val ontClass = persist(false).getOntclass()
-    ontClass.addSuperClass(catchwordRoot.persist(false).getOntclass())
+    ontClass.addSuperClass(operatorRoot.persist(false).getOntclass())
     if (definition != null) {
       //addDataField(DEFINITION, definition) legacy problem
       compManager.getUtil().createOntClassForString(definition, definition)
@@ -18,7 +18,7 @@ class Catchword(compManager: CompOntologyManager, identifer: String, val definit
   }
 
   @Override
-  def getFullDao(): Catchword = {
-    return new Catchword(compManager, identifier, getDataField(DEFINITION))
+  def getFullDao(): Operator = {
+    return new Operator(compManager, identifier, getDataField(DEFINITION))
   }
 }

@@ -22,15 +22,18 @@ import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
+import uzuzjmd.competence.owl.dao.Catchword;
 import uzuzjmd.competence.owl.dao.Comment;
 import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.owl.dao.EvidenceActivity;
+import uzuzjmd.competence.owl.dao.Operator;
 import uzuzjmd.competence.owl.dao.Role;
 import uzuzjmd.competence.owl.dao.StudentRole;
 import uzuzjmd.competence.owl.dao.TeacherRole;
 import uzuzjmd.competence.owl.dao.User;
+import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
@@ -444,7 +447,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
-	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") String catchwords,
+	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
@@ -464,6 +467,18 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 
 		if (competenceGraphValidator.isValid()) {
 			addedCompetence.persist(true);
+			for (String catchwordItem : catchwords) {
+				Catchword catchword = new Catchword(compOntologyManager, catchwordItem, catchwordItem);
+				catchword.persist(true);
+				catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
+
+			}
+			Operator operatorDAO = new Operator(compOntologyManager, operator, operator);
+			operatorDAO.persist(true);
+			operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
+			// new Catchword(compOntologyManager, )
+
+			// addedCompetence.createEdgeWith(, edgeType);
 			// CompetenceInstance competenceRoot = new
 			// CompetenceInstance(compOntologyManager);
 			// addedCompetence.addSuperClass(competenceRoot);
