@@ -1,5 +1,6 @@
 package uzuzjmd.competence.gui.client.tabs;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.fusesource.restygwt.client.Method;
@@ -101,9 +102,11 @@ public class CompetenceCreationTab extends Composite {
 			Resource resource = new Resource(
 					Controller.contextFactory.getServerURL()
 							+ "/competences/json/addOne");
+			List<String> catchwordsDTO = Arrays.asList(catchwords.split(","));
+
 			resource.addQueryParam("competence", competence)
 					.addQueryParam("operator", operator)
-					.addQueryParam("catchwords", catchwords)
+					.addQueryParams("catchwords", catchwordsDTO)
 					.addQueryParams("superCompetences", superCompetences)
 					.addQueryParams("subCompetences", subCompetences).post()
 					.send(new TextCallback() {

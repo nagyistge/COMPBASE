@@ -27,7 +27,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 
 public class CompetenceServiceWrapper {
 
-	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
+	private static Ont2CompetenceTree initOnt2Mapper(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean, String textFilter) {
 		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		if (selectedCatchwordArray == null) {
 			selectedCatchwordArray = new LinkedList<String>();
@@ -35,25 +35,25 @@ public class CompetenceServiceWrapper {
 		if (selectedOperatorsArray == null) {
 			selectedOperatorsArray = new LinkedList<String>();
 		}
-		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
+		Ont2CompetenceTree ont2CompetenceTree = new Ont2CompetenceTree(compOntologyManager, selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean, textFilter);
 		compOntologyManager.close();
 		return ont2CompetenceTree;
 	}
 
 	public static synchronized OperatorXMLTree[] getOperatorTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false);
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false, "");
 		OperatorXMLTree[] tmpResult = ont2CompetenceTree.getOperatorXMLTree().toArray(new OperatorXMLTree[0]);
 		return tmpResult;
 	}
 
 	public static synchronized CatchwordXMLTree[] getCatchwordTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false);
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, false, "");
 		CatchwordXMLTree[] tmpResult = ont2CompetenceTree.getCatchwordXMLTree().toArray(new CatchwordXMLTree[0]);
 		return tmpResult;
 	}
 
-	public static CompetenceXMLTree[] getCompetenceTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean);
+	public static CompetenceXMLTree[] getCompetenceTree(List<String> selectedCatchwordArray, List<String> selectedOperatorsArray, String course, Boolean compulsoryBoolean, String textFilter) {
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwordArray, selectedOperatorsArray, course, compulsoryBoolean, textFilter);
 		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTree();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
@@ -183,15 +183,15 @@ public class CompetenceServiceWrapper {
 		return result.toArray(new String[0]);
 	}
 
-	public static CompetenceXMLTree[] getCompetenceTreeForCourse(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+	public static CompetenceXMLTree[] getCompetenceTreeForCourse(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean, String textFilter) {
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
 		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTreeForCourse();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
 
-	public static CompetenceXMLTree[] getCompetenceTreeForCourseNoFilter(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean);
+	public static CompetenceXMLTree[] getCompetenceTreeForCourseNoFilter(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean, String textFilter) {
+		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
 		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getCompetenceTreeForCourseNoFilter();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);

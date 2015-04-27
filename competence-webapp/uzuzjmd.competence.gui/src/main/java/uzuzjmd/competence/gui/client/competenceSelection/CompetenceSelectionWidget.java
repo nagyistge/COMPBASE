@@ -10,6 +10,7 @@ import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -83,6 +84,8 @@ public class CompetenceSelectionWidget extends Composite {
 	CaptionPanel captionPanel;
 	@UiField
 	SimplePanel toggleButtonPlaceholder;
+	@UiField
+	TextBox textSearchField;
 
 	private CompetenceSelectionTree competenceTree;
 	private OperatorSelectionTree operatorTree;
@@ -325,6 +328,7 @@ public class CompetenceSelectionWidget extends Composite {
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
 		String query = "?";
+		query += "textFilter=" + textSearchField.getValue() + "&";
 		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
 			query += "selectedOperators=";
 			query += selectedOperator;
@@ -345,6 +349,8 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	public void reload() {
+		operatorTree.reload();
+		catchwordTree.reload();
 		competenceTree.reloadTree();
 	}
 
