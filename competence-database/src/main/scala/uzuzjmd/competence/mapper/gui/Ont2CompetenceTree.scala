@@ -21,6 +21,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.mapper.gui.mapper.TextValidator
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
@@ -95,16 +96,6 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
       && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
   }
 
-  def containsText(input: String): Boolean = {
-    if (textFilter == null) {
-      return true
-    } else if (textFilter.trim().equals("")) {
-      return true
-    } else {
-      return input.contains(textFilter.trim())
-    }
-  }
-
   def allowedAndCourse(ontClass: OntClass): Boolean = {
     val competence = new Competence(ontologyManager, ontClass.getLocalName())
     val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
@@ -162,6 +153,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
+
     if (input.isEmpty || compulsory == null) {
       return input;
     } else {
@@ -176,17 +168,9 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * Hilfsfunktion um Ergebnis zu säubern
    */
   private def filterResults[A <: AbstractXMLTree[A]](result: A): List[A] = {
-    val filteredResult = (result :: List.empty).filterNot(_ == null)
+    val filteredResult = (result :: List.empty).filterNot(_ == null).map(TextValidator.purifyText(_, textFilter)).flatten
+    //.map(x => filterText(x))
     filteredResult
-  }
-
-  private def filterText[A <: AbstractXMLTree[A]](input: A): Boolean = {
-    if (input.getChildren().isEmpty()) {
-      return containsText(input.getName())
-    } else {
-      return input.getChildren().asScala.toList.forall(x => filterText(x))
-    }
-    return true
   }
 
   //  private filterCourseContext[A <: AbstractXMLTree[A]](result: A) : Boolean = {
