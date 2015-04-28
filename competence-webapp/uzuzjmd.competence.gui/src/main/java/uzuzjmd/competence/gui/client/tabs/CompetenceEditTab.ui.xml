@@ -7,9 +7,10 @@
 	<g:HTMLPanel>
 		<g:VerticalPanel>
 			<b:Alert type="INFO" visible="true" ui:field="infoAlert"
-						close="false">Clicken Sie auf eine Kompetenz, die sie ändern wollen!</b:Alert>
+				close="false">Clicken Sie auf eine Kompetenz, die sie ändern wollen!</b:Alert>
 			<g:HorizontalPanel>
 				<g:VerticalPanel>
+
 					<b:Row>
 						<b:Column size="4">
 							<g:Label text="Beschreibung der Kompetenz im Fließtext" />
@@ -18,7 +19,7 @@
 							<b:TextArea ui:field="competenceDescriptionTextArea"></b:TextArea>
 						</b:Column>
 						<b:Column size="4">
-							<g:SimplePanel />
+							<b:Alert type="WARNING">Beachten Sie, dass das Editieren des Kompetenztextes bewirkt, dass die Unterkompetenzen nicht mehr zugeordnet sind (entspricht dem Löschen dieser Kompetenz))!</b:Alert>
 						</b:Column>
 					</b:Row>
 
