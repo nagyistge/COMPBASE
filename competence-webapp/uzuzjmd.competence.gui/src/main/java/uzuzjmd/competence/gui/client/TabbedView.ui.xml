@@ -21,6 +21,9 @@
 							<b:Tab heading="Kompetenzhierarchie bearbeiten">
 								<g:HTMLPanel ui:field="competenceHierarchieChangeHolder" />
 							</b:Tab>
+								<b:Tab heading="Einzelne Kompetenz bearbeiten">
+								<g:HTMLPanel ui:field="competenceEditHolder" />
+							</b:Tab>
 							
 							
 						</b:TabPanel>

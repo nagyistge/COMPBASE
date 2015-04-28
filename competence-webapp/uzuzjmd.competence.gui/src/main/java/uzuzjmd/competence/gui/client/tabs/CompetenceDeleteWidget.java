@@ -77,4 +77,31 @@ public class CompetenceDeleteWidget extends Composite {
 	public void reload() {
 		deleteCompetencesSelectionWidget.reload();
 	}
+
+	@UiHandler("submitTreeButton")
+	void onSubmitTreeButtonClick(ClickEvent event) {
+
+		successAlert.setVisible(false);
+		errorAlert.setVisible(false);
+
+		String createLink = Controller.contextFactory.getServerURL()
+				+ "/competences/json/competence/deleteTree";
+		Resource resource = new Resource(createLink);
+		resource.addQueryParams("competences",
+				deleteCompetencesSelectionWidget.getSelectedCompetences())
+				.post().send(new TextCallback() {
+
+					@Override
+					public void onSuccess(Method method, String response) {
+						Controller.reloadController.reload();
+						successAlert.setVisible(true);
+					}
+
+					@Override
+					public void onFailure(Method method, Throwable exception) {
+						errorAlert.setVisible(true);
+					}
+				});
+
+	}
 }
