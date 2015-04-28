@@ -108,6 +108,14 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   def delete() {
     val ontClass = toOntClass
+    createIndividual.remove()
+    //ontClass.listInstances().toList().asScala.foreach(x => x.remove())
+    ontClass.remove()
+  }
+
+  def deleteTree() {
+    val ontClass = toOntClass
+    createIndividual.remove()
     ontClass.listInstances().toList().asScala.foreach(x => x.remove())
     ontClass.remove()
   }

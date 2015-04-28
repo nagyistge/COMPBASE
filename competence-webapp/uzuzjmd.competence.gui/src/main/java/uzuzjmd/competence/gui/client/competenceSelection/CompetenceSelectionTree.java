@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
+import org.fusesource.restygwt.client.TextCallback;
 
+import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.dto.HierarchieChange;
 import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
@@ -16,6 +18,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.Connection;
+import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Tree;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
@@ -73,6 +76,22 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		this.selectedFilter = selectedFilter;
 		this.changes = new HierarchieChangeSet();
 		this.treePanel.addListener(new MyTreePanelChangeLister(changes));
+	}
+
+	public CompetenceSelectionTree(String dataString,
+			LmsContextFactory contextFactory, String selectedFilter,
+			Boolean showChecked, Boolean courseContext, boolean editable,
+			Boolean clickaBoolean) {
+		super(dataString, "Kompetenzen", "competenceView", RootPanel.get(
+				"rootContainer").getOffsetWidth() - 300, 350, "Kompetenzen",
+				contextFactory, showChecked, courseContext);
+		this.selectedFilter = selectedFilter;
+		this.changes = new HierarchieChangeSet();
+		if (clickaBoolean) {
+			this.treePanel.addListener(new MyTreePanelClickListener());
+		} else {
+			this.treePanel.addListener(new MyTreePanelChangeLister(changes));
+		}
 	}
 
 	public void setSelectedFilter(String selectedFilter) {
@@ -162,6 +181,51 @@ public class CompetenceSelectionTree extends CheckableTreePanel {
 		@Override
 		public void onLoad(TreeNode node) {
 			setCompetenceSelected(node);
+		}
+	}
+
+	private class MyTreePanelClickListener extends TreePanelListenerAdapter {
+		@Override
+		public void onClick(TreeNode node, EventObject e) {
+			// Window.alert("clicked" + node.getText());
+			Controller.competenceEditTab.setCompetenceDescriptionTextArea(node
+					.getText());
+			Controller.competenceEditTab.setCompetenceToEdit(node.getText());
+
+			Resource resource = new Resource(contextFactory.getServerURL()
+					+ "/competences/json/operator");
+			resource.addQueryParam("competence", node.getText()).get()
+					.send(new TextCallback() {
+
+						@Override
+						public void onSuccess(Method method, String response) {
+							Controller.competenceEditTab
+									.setOperatorTextArea(response);
+						}
+
+						@Override
+						public void onFailure(Method method, Throwable exception) {
+							GWT.log("could not get operator");
+						}
+					});
+
+			Resource resource2 = new Resource(contextFactory.getServerURL()
+					+ "/competences/json/catchwords");
+			resource2.addQueryParam("competence", node.getText()).get()
+					.send(new TextCallback() {
+
+						@Override
+						public void onSuccess(Method method, String response) {
+							Controller.competenceEditTab
+									.setKeywordsTextArea(response);
+						}
+
+						@Override
+						public void onFailure(Method method, Throwable exception) {
+							GWT.log("could not get keywords");
+						}
+					});
+
 		}
 	}
 

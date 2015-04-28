@@ -97,4 +97,8 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     return compManager.getUtil().getShortestSubClassPath(subCompetence.toOntClass, toOntClass).asScala.map(x => new Competence(compManager, x, null, null)).asJava
   }
 
+  def getCatchwordsAsJava(): java.util.List[Catchword] = {
+    return getCatchwords.asJava
+  }
+
 }
