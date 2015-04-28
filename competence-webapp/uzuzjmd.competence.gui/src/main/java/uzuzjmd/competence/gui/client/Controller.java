@@ -2,6 +2,7 @@ package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.client.tabs.CompetenceCreationTab;
 import uzuzjmd.competence.gui.client.tabs.CompetenceDeleteWidget;
+import uzuzjmd.competence.gui.client.tabs.CompetenceEditTab;
 import uzuzjmd.competence.gui.client.tabs.CompetenceHierarchieTab;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
@@ -17,6 +18,7 @@ public class Controller {
 	public static CompetenceCreationTab competenceCreationTab;
 	public static CompetenceDeleteWidget competenceDeleteTab;
 	public static CompetenceHierarchieTab competenceHierarchieTab;
+	public static CompetenceEditTab competenceEditTab;
 
 	public static void init() {
 
@@ -29,13 +31,14 @@ public class Controller {
 				Controller.contextFactory);
 		Controller.competenceCreationTab = new CompetenceCreationTab(
 				Controller.contextFactory);
+		Controller.competenceEditTab = new CompetenceEditTab(contextFactory);
 		Controller.reloadController = new ReloadController(null,
 				linkEvidenceTab, Controller.progressTab,
 				Controller.competenceCreationTab,
-				Controller.competenceDeleteTab, competenceHierarchieTab);
+				Controller.competenceDeleteTab, competenceHierarchieTab,
+				competenceEditTab);
 		Controller.requirementTab = new RequirementTab(
 				Controller.contextFactory);
 
 	}
-
 }

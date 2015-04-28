@@ -39,6 +39,7 @@ public class CompetenceUIContainer extends Composite {
 		tabbedView.competenceDeleteHolder.add(Controller.competenceDeleteTab);
 		tabbedView.competenceHierarchieChangeHolder
 				.add(Controller.competenceHierarchieTab);
+		tabbedView.competenceEditHolder.add(Controller.competenceEditTab);
 
 		if (!Controller.contextFactory.getRole().equals("student")) {
 			tabbedView.requirementTabPlaceholder.add(Controller.requirementTab);
@@ -58,9 +59,5 @@ public class CompetenceUIContainer extends Composite {
 	public void setContextFactory(LmsContextFactory contextFactory) {
 		Controller.contextFactory = contextFactory;
 	}
-
-	// public String getState() {
-	// return "ok";
-	// }
 
 }

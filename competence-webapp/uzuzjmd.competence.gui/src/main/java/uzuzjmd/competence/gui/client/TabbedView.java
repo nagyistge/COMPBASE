@@ -33,6 +33,8 @@ public class TabbedView extends Composite {
 	HTMLPanel competenceDeleteHolder;
 	@UiField
 	HTMLPanel competenceHierarchieChangeHolder;
+	@UiField
+	HTMLPanel competenceEditHolder;
 
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
