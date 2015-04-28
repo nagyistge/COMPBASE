@@ -46,7 +46,7 @@
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 		</g:CaptionPanel>
-		<b:Alert type="INFO">Bitte gedulden Sie sich. Das laden der
+		<b:Alert type="INFO">Bitte gedulden Sie sich. Das Laden der
 			Kompetenzdaten kann aufgrund der Konsistenzprüfung einen Moment
 			dauern!</b:Alert>
 	</g:HTMLPanel>
