@@ -316,6 +316,23 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("competences deleted").build();
 	}
 
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/competence/deleteTree")
+	public Response deleteCompetenceTree(@QueryParam("competences") List<String> competences) {
+		CompOntologyManager manager = initManagerInCriticalMode();
+
+		System.out.println("deleting competences" + competences);
+
+		for (String string : competences) {
+			Competence toDelete = new Competence(manager, string, string, null);
+			toDelete.deleteTree();
+		}
+
+		manager.close();
+		return Response.ok("competences deleted").build();
+	}
+
 	/**
 	 * gets the competencelinks map in order to show the overview for a
 	 * specified user
@@ -445,11 +462,74 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/operator")
+	public String getOperatorForCompetence(@QueryParam("competence") String forCompetence) {
+		CompOntologyManager comp = new CompOntologyManager();
+		comp.begin();
+
+		Competence competence = new Competence(comp, forCompetence, forCompetence, null);
+		scala.collection.immutable.List<Operator> operators = competence.getAssociatedSingletonDaosAsDomain(CompObjectProperties.OperatorOf, Operator.class);
+
+		String result = "";
+		if (!operators.isEmpty()) {
+			result = operators.head().getDefinition();
+		}
+
+		comp.close();
+		return result;
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/catchwords")
+	public String getCatchwordsForCompetence(@QueryParam("competence") String forCompetence) {
+		CompOntologyManager comp = new CompOntologyManager();
+		comp.begin();
+
+		Competence competence = new Competence(comp, forCompetence, forCompetence, null);
+		List<Catchword> catchwords = competence.getCatchwordsAsJava();
+
+		String result = "";
+		if (!catchwords.isEmpty()) {
+			for (Catchword catchword : catchwords) {
+				result += catchword.getDefinition() + ",";
+			}
+			result = result.substring(0, result.length() - 1);
+		}
+
+		comp.close();
+		return result;
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
 	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		closeManagerInCriticalMode(compOntologyManager);
+
+		return Response.ok(resultMessage).build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/editOne")
+	public Response editCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
+			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("originalCompetence") String orgininalCompetence) {
+
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+		Competence original = new Competence(compOntologyManager, orgininalCompetence, orgininalCompetence, null);
+		original.delete();
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		closeManagerInCriticalMode(compOntologyManager);
+
+		return Response.ok(resultMessage).build();
+	}
+
+	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager) {
 
 		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, forCompetence, null);
 		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
@@ -493,16 +573,17 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		}
 		String resultMessage = competenceGraphValidator.getExplanationPath();
 
-		compOntologyManager.close();
-
-		return Response.ok(resultMessage).build();
+		return resultMessage;
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
 		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
 		abstractEvidenceLink.addDataField(abstractEvidenceLink.ISVALIDATED(), isvalid);
-		closeManagerInCriticalMode(compOntologyManager);
+
+		compOntologyManager.close();
+
 		return Response.ok("link updated").build();
 	}
 

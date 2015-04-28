@@ -98,6 +98,7 @@ public class CompetenceSelectionWidget extends Composite {
 	private Boolean showChecked = false;
 	private boolean isCourseContext;
 	private boolean editable = false;
+	private boolean clickable;
 
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
@@ -154,6 +155,18 @@ public class CompetenceSelectionWidget extends Composite {
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
 		this.editable = true;
+		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		this.captionPanel.setCaptionHTML(title);
+	}
+
+	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
+			String selectedFilter, String competenceTreeFilter, String title,
+			boolean isCourseContext, boolean editable, boolean clickable) {
+		initWidget(uiBinder.createAndBindUi(this));
+		this.isCourseContext = isCourseContext;
+		this.showChecked = false;
+		this.editable = true;
+		this.clickable = true;
 		initCompetenceSelectionWidget(contextFactory, selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
 	}
@@ -313,7 +326,7 @@ public class CompetenceSelectionWidget extends Composite {
 						+ "/competences/xml/competencetree/" + context + "/"
 						+ compulsoryFilter + "/nocache" + queryString,
 				contextFactory, selectedFilter, showChecked, isCourseContext,
-				editable);
+				editable, clickable);
 		// competenceTree.setShowCheckBoxes(showChecked);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
