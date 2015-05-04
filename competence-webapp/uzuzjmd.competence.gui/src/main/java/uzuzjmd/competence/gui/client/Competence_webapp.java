@@ -29,11 +29,24 @@ public class Competence_webapp implements EntryPoint {
 		}
 
 		if (myConstants.contextImplementation().equals("test")
-				|| myConstants.contextImplementation().equals("standalone")) {
+				|| myConstants.contextImplementation().equals("standalone")
+				|| myConstants.contextImplementation().equals("deploy")) {
 			RootPanel container = RootPanel.get("rootContainer");
 
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
-			competenceUIContainer.setContextFactory(new TestContextFactory());
+			if (myConstants.contextImplementation().equals("deploy")
+					|| myConstants.contextImplementation().equals("standalone")) {
+				String serverUrl = myConstants.serverName() + "/"
+						+ myConstants.restserverPrefix();
+				String evidenceUrl = myConstants.serverName() + "/"
+						+ myConstants.evidenceserverPrefix();
+				competenceUIContainer
+						.setContextFactory(new DeployContextFactory(serverUrl,
+								evidenceUrl));
+			} else {
+				competenceUIContainer
+						.setContextFactory(new TestContextFactory());
+			}
 			container.add(competenceUIContainer);
 
 			if (myConstants.contextImplementation().equals("standalone")) {
@@ -45,6 +58,7 @@ public class Competence_webapp implements EntryPoint {
 				container.add(popupPanel);
 				popupPanel.show();
 			}
+
 		}
 
 		// if the context is liferay the connector should inject the stuff
