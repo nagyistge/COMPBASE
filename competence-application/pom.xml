@@ -15,10 +15,10 @@
   </properties>
   
   <modules>
-<!-- 	<module>../competence-shared</module> -->
+	<module>../competence-shared</module>
 	<module>../competence-webapp/uzuzjmd.competence.gui</module>
-	<module>../competence-portlet/liferay</module>  	
-  	<!-- <module>../competence-database</module> -->
+<!-- 	<module>../competence-portlet/liferay</module>  	 -->
+  	<module>../competence-database</module>
   </modules>
 
   <dependencies>
