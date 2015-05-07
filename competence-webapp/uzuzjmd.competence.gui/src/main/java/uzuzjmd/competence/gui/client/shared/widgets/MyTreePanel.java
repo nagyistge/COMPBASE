@@ -7,15 +7,9 @@ import uzuzjmd.competence.gui.client.LmsContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
-import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
-import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Tool;
-import com.gwtext.client.widgets.event.ButtonListenerAdapter;
-import com.gwtext.client.widgets.form.FieldSet;
-import com.gwtext.client.widgets.form.FormPanel;
-import com.gwtext.client.widgets.form.Radio;
 import com.gwtext.client.widgets.tree.AsyncTreeNode;
 import com.gwtext.client.widgets.tree.MultiSelectionModel;
 import com.gwtext.client.widgets.tree.TreeNode;
@@ -72,11 +66,6 @@ public abstract class MyTreePanel extends Panel {
 		GWT.log("width is: " + this.width);
 
 		this.databaseConnectionString = databaseConnectionString;
-		// test gwt ext
-
-		// Panel treePanelContainer = new Panel();
-		// treePanelContainer.setBorder(false);
-		// treePanelContainer.setPaddings(15);
 
 		treePanel = initTreePanel();
 		final XMLTreeLoader loader = initXMLLoader();
@@ -84,23 +73,14 @@ public abstract class MyTreePanel extends Panel {
 
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
 		rootNode = root;
+		rootNode.setExpanded(false);
 
-		treePanel.setRootNode(root);
-		root.expand();
-		treePanel.expandAll();
+		treePanel.setRootNode(rootNode);
+		// root.expand();
+		// treePanel.expandAll();
 
-		initReloadTool(treePanel, root);
-		// FormPanel buttonPanel = initButtons(treePanelContainer, treePanel,
-		// width);
-		// //
-		// Panel verticalPanel = new Panel();
-		// verticalPanel.setLayout(new VerticalLayout(15));
-		// verticalPanel.add(treePanel);
-		// // verticalPanel.add(buttonPanel);
-		// treePanelContainer.add(verticalPanel);
+		initReloadTool(treePanel, rootNode);
 
-		// treePanelContainer.add(treePanel);
-		// this.add(treePanelContainer);
 		this.add(treePanel);
 		this.getElement().setClassName(className);
 		treePanel.getEl().mask("Loading", "x-mask-loading");
@@ -109,7 +89,7 @@ public abstract class MyTreePanel extends Panel {
 				treePanel.getEl().unmask();
 			}
 		};
-		timer.schedule(5000);
+		timer.schedule(500);
 
 	}
 
@@ -125,71 +105,6 @@ public abstract class MyTreePanel extends Panel {
 	protected abstract XMLTreeLoader initXMLLoader();
 
 	protected abstract Boolean getShowChecked();
-
-	public FormPanel initButtons(Panel treePanelContainer,
-			final TreePanel treePanel, Integer width) {
-		FieldSet fieldSet = new FieldSet("Sortierreihenfolge");
-		fieldSet.setFrame(false);
-
-		final Radio ascRadio = new Radio();
-		ascRadio.setName("direction");
-		ascRadio.setBoxLabel("Aufsteigend");
-		ascRadio.setChecked(true);
-		fieldSet.add(ascRadio);
-
-		final Radio descRadio = new Radio();
-		descRadio.setName("direction");
-		descRadio.setBoxLabel("absteigend");
-		descRadio.setChecked(false);
-		fieldSet.add(descRadio);
-
-		FormPanel form = new FormPanel();
-		form.setBorder(false);
-		form.setFrame(false);
-		form.setWidth(width);
-
-		form.add(fieldSet);
-
-		Button selectedButton = initSelectButton(treePanel);
-
-		Button sortButton = initSortButton(ascRadio);
-
-		form.addButton(selectedButton);
-		form.addButton(sortButton);
-
-		return form;
-	}
-
-	private Button initSortButton(final Radio ascRadio) {
-		Button sortButton = new Button("Sortieren",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						TreeNode[] nodes = getSelectedNodes();
-						final boolean asc = ascRadio.getValue();
-						// TODO implement
-					}
-
-				});
-		return sortButton;
-	}
-
-	private Button initSelectButton(final TreePanel treePanel) {
-		Button selectedButton = new Button("filtern",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						MultiSelectionModel selectionModel = (MultiSelectionModel) treePanel
-								.getSelectionModel();
-						TreeNode[] nodes = selectionModel.getSelectedNodes();
-						String nodesString = "";
-						for (int i = 0; i < nodes.length; i++) {
-							TreeNode node = nodes[i];
-							nodesString += "<br>" + node.getText();
-						}
-						System.out.println("Selected Nodes :" + nodesString);
-					}
-				});
-		return selectedButton;
-	}
 
 	protected void initReloadTool(final TreePanel treePanel,
 			final AsyncTreeNode root) {
@@ -234,9 +149,9 @@ public abstract class MyTreePanel extends Panel {
 		treePanel.setDdScroll(true);
 		treePanel.setPaddings(8);
 		treePanel.setDraggable(false);
-		// treePanel.getC
+		treePanel.setRootVisible(true);
+		treePanel.setCollapsible(true);
 
-		// treePanel.getElement().setClassName("activityView");
 		return treePanel;
 	}
 
