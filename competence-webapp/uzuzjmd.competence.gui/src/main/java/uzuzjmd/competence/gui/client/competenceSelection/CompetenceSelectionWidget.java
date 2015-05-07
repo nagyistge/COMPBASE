@@ -324,7 +324,7 @@ public class CompetenceSelectionWidget extends Composite {
 		competenceTree = new CompetenceSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/competencetree/" + context + "/"
-						+ compulsoryFilter + "/nocache" + queryString,
+						+ compulsoryFilter + "/cached" + queryString,
 				contextFactory, selectedFilter, showChecked, isCourseContext,
 				editable, clickable);
 		// competenceTree.setShowCheckBoxes(showChecked);
