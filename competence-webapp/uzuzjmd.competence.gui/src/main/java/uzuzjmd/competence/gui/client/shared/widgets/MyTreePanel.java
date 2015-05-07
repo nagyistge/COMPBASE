@@ -73,11 +73,9 @@ public abstract class MyTreePanel extends Panel {
 
 		final AsyncTreeNode root = new AsyncTreeNode(rootLabel, loader);
 		rootNode = root;
-		rootNode.setExpanded(false);
-
 		treePanel.setRootNode(rootNode);
-		// root.expand();
-		// treePanel.expandAll();
+
+		treePanel.expandAll();
 
 		initReloadTool(treePanel, rootNode);
 
@@ -91,6 +89,10 @@ public abstract class MyTreePanel extends Panel {
 		};
 		timer.schedule(500);
 
+	}
+
+	public void collapseAll() {
+		rootNode.collapse(true, false);
 	}
 
 	public void reload(String dataConnection) {
