@@ -80,6 +80,9 @@ public class CompetenceSelectionWidget extends Composite {
 	Button filterButton;
 	@UiField
 	Button resetButton;
+
+	@UiField
+	Button collapseButton;
 	@UiField
 	CaptionPanel captionPanel;
 	@UiField
@@ -198,7 +201,7 @@ public class CompetenceSelectionWidget extends Composite {
 		this.catchwordTree = new CatchwordSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
-						+ contextFactory.getOrganization() + "/nocache",
+						+ contextFactory.getOrganization() + "/cached",
 				"Schlagworte", "catchwordView", 325, 250, "Schlagworte",
 				contextFactory, isCourseContext);
 		catchwordCaptionPanel.add(catchwordTree);
@@ -210,7 +213,7 @@ public class CompetenceSelectionWidget extends Composite {
 		this.operatorTree = new OperatorSelectionTree(
 				contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
-						+ contextFactory.getOrganization() + "/nocache",
+						+ contextFactory.getOrganization() + "/cached",
 				"Operatoren", "operatorView", 300, 200, "Operatoren",
 				contextFactory, isCourseContext);
 		operatorCaptionPanel.add(operatorTree);
@@ -376,4 +379,8 @@ public class CompetenceSelectionWidget extends Composite {
 
 	}
 
+	@UiHandler("collapseButton")
+	void onCollapseButtonClick(ClickEvent event) {
+		this.competenceTree.collapseAll();
+	}
 }
