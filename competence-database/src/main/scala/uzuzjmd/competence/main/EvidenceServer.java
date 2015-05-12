@@ -2,8 +2,6 @@ package uzuzjmd.competence.main;
 
 import java.io.IOException;
 
-import javax.xml.ws.Endpoint;
-
 import uzuzjmd.competence.evidence.service.EvidenceService;
 import uzuzjmd.competence.evidence.service.LiferayEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
@@ -68,7 +66,7 @@ public class EvidenceServer {
 	private static void publishServer(final EvidenceService evidenceServiceImpl) throws IOException {
 		EvidenceServiceRestServerImpl.evidenceService = evidenceServiceImpl;
 
-		publishSoapServer(evidenceServiceImpl);
+		// publishSoapServer(evidenceServiceImpl);
 		publishRestServer();
 
 		System.out.println("Press enter to exit");
@@ -83,12 +81,15 @@ public class EvidenceServer {
 		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURL, resourceConfig);
 		System.out.println("publishing rest server to to " + MagicStrings.RESTURL);
-		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/moodle" + "/activities/usertree/xml/{groupId bzw. Kursid}");
+		System.out.println("Test this with2: " + MagicStrings.RESTURL + "/lms" + "/activities/usertree/xml/{groupId bzw. Kursid}");
 	}
 
-	private static void publishSoapServer(final EvidenceService evidenceServiceImpl) {
-		Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT, evidenceServiceImpl);
-		System.out.println("publishing wsdl to " + MagicStrings.EVIDENCESERVICEENDPOINT);
-	}
+	// private static void publishSoapServer(final EvidenceService
+	// evidenceServiceImpl) {
+	// Endpoint.publish(MagicStrings.EVIDENCESERVICEENDPOINT,
+	// evidenceServiceImpl);
+	// System.out.println("publishing wsdl to " +
+	// MagicStrings.EVIDENCESERVICEENDPOINT);
+	// }
 
 }
