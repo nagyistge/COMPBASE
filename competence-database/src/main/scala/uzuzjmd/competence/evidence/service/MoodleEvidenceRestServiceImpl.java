@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import javax.jws.WebService;
+import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import uzuzjmd.competence.evidence.model.Evidence;
 import uzuzjmd.competence.evidence.model.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
@@ -126,17 +125,10 @@ public class MoodleEvidenceRestServiceImpl implements EvidenceService {
 		return list.toArray(new MoodleContentResponse[0]);
 	}
 
-	@Override
-	public Evidence[] getEvidences(String user) {
-		logger.info("getting evidences" + " user " + user);
-
-		throw new NotImplementedException("this method on Evidenzserver is not implemented");
-	}
-
 	/**
 	 * Holt sich alle Kursdaten für den User if user
 	 */
-	@Override
+
 	public MoodleEvidence[] getMoodleEvidences(String course, String user) {
 		MysqlConnect connect = initMysql(course, user);
 
@@ -153,7 +145,6 @@ public class MoodleEvidenceRestServiceImpl implements EvidenceService {
 		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray.size()]);
 	}
 
-	@Override
 	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
 		MysqlConnect connect = initMysql(course, "adminuser");
 
@@ -218,5 +209,10 @@ public class MoodleEvidenceRestServiceImpl implements EvidenceService {
 
 		connect.otherStatements("use " + moodledb);
 		return connect;
+	}
+
+	@Override
+	public Response getUserTreeCrossDomain(String course) {
+		throw new Error("decorator called");
 	}
 }
