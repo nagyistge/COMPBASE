@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,6 +42,29 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 		// Response response =
 		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
 		return response;
+	}
+
+	@Override
+	public String[] getOrganizations() {
+		return evidenceService.getOrganizations();
+	}
+
+	@Override
+	public String[] getLMSSystems() {
+		return evidenceService.getLMSSystems();
+	}
+
+	@Override
+	public String[] getCourses(String user, String lmsSystem, String organization) {
+		return evidenceService.getCourses(user, lmsSystem, organization);
+	}
+
+	@Path("/user/exists")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Override
+	public Boolean exists(@QueryParam(value = "user") String user, @QueryParam(value = "password") String password) {
+		return evidenceService.exists(user, password);
 	}
 
 }

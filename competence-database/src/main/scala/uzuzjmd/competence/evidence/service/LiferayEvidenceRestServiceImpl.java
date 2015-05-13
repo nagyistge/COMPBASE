@@ -6,6 +6,7 @@ import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
 import org.apache.axis.client.Stub;
+import org.apache.commons.lang.NotImplementedException;
 
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.LiferayEvidence2Tree;
@@ -16,7 +17,7 @@ import de.unipotsdam.elis.model.EvidenceSoap;
 import de.unipotsdam.elis.service.http.EvidenceServiceSoapProxy;
 
 @WebService(endpointInterface = "uzuzjmd.competence.evidence.service.EvidenceService")
-public class LiferayEvidenceRestServiceImpl implements EvidenceService {
+public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	private String adminUserName;
 	private String adminPassword;
 	private String liferayURL;
@@ -68,6 +69,16 @@ public class LiferayEvidenceRestServiceImpl implements EvidenceService {
 	@Override
 	public Response getUserTreeCrossDomain(String course) {
 		throw new Error("decorator called");
+	}
+
+	@Override
+	public String[] getCourses(String user, String lmsSystem, String organization) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Boolean exists(String user, String password) {
+		throw new NotImplementedException();
 	}
 
 }

@@ -6,12 +6,14 @@ import java.util.concurrent.ExecutionException;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import uzuzjmd.competence.evidence.model.MoodleEvidence;
+import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
+import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
@@ -31,7 +33,7 @@ import com.google.common.cache.LoadingCache;
  * 
  */
 @WebService(endpointInterface = "uzuzjmd.competence.evidence.service.EvidenceService")
-public class MoodleEvidenceRestServiceImpl implements EvidenceService {
+public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 
 	public static LoadingCache<String, UserTree[]> cacheImpl;
 	private String adminLogin;
@@ -214,5 +216,19 @@ public class MoodleEvidenceRestServiceImpl implements EvidenceService {
 	@Override
 	public Response getUserTreeCrossDomain(String course) {
 		throw new Error("decorator called");
+	}
+
+	@Override
+	public String[] getCourses(String user, String lmsSystem, String organization) {
+		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
+			return new String[] {};
+		}
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Boolean exists(String username, String password) {
+		SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
+		return simpleService.isUserExist();
 	}
 }
