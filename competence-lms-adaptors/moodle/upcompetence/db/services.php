@@ -28,16 +28,27 @@ $functions = array(
         'classpath' => 'local/upcompetence/externallib.php',
         'description' => 'Returns the courses a user is enrolled in',
         'type' => 'read',
-    )
+    ), 
+    
+    'local_upcompetence_user_exists' => array(
+        'classname' => 'local_competence_external',
+        'methodname' => 'user_exists',
+        'classpath' => 'local/upcompetence/externallib.php',
+        'description' => 'Returns whether a user exists',
+        'type' => 'read',
+    )        
+    
 );
 
 // We define the services to install as pre-build services. A pre-build service is not editable by administrator.
 $services = array(
     'UPCompetence Service' => array(
         'functions' => array(
-            'local_upcompetence_get_courses_for_user'          
+            'local_upcompetence_get_courses_for_user',
+            'local_upcompetence_user_exists'
         ),
         'restrictedusers' => 0,
-        'enabled' => 1,        
+        'enabled' => 1,            
+        'shortname' => 'upcompetence',
     )
 );

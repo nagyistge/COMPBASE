@@ -15,25 +15,28 @@ import com.sun.jersey.api.client.WebResource;
  * 
  */
 public class SimpleMoodleService {
-	private Token token;
+	private Token mooodleStandardInterfaceToken;
 	private String errorCode;
 	private boolean userExist;
+	private Token competenceInterfaceToken;
 
 	public SimpleMoodleService(String username, String userpassword) {
+		mooodleStandardInterfaceToken = initToken(username, userpassword, "moodle_mobile_app");
+		competenceInterfaceToken = initToken(username, userpassword, "upcompetence");
+		this.setUserExist(true); // always true not implemented
+	}
+
+	private Token initToken(String username, String userpassword, String serviceShortName) {
 		Client client = Client.create();
-		String connectionPath = MagicStrings.MOODLEURL + "/login/token.php?username=" + username + "&password=" + userpassword + "&service=moodle_mobile_app";
-		this.setUserExist(true);
+		String connectionPath = MagicStrings.MOODLEURL + "/login/token.php?username=" + username + "&password=" + userpassword + "&service=" + serviceShortName;
 		WebResource webResource = client.resource(connectionPath);
 		ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 		if (response.getStatus() != 200) {
 			this.errorCode = "Failed : HTTP error code : " + response.getStatus();
-			new RuntimeException(errorCode);
-		} else {
-			token = response.getEntity(Token.class);
+			throw new RuntimeException(errorCode);
 		}
-		if (token.get("token") == null) {
-			System.out.println("admin data is incorrect or token has not been configured in moodle");
-		}
+
+		return response.getEntity(Token.class);
 
 	}
 
@@ -51,14 +54,31 @@ public class SimpleMoodleService {
 		} catch (Exception e) {
 			System.err.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
-			System.exit(-1);
 		}
 		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleContentResponseList.class);
+	}
 
+	public MoodleCourseListResponse getMoodleCourseList(String userEmail) {
+		Client client = Client.create();
+		String moodleRestBase = getMoodleCompetenceRestBase();
+		WebResource webResource = null;
+		try {
+			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_courses_for_user&user=" + userEmail;
+			webResource = client.resource(requestString);
+		} catch (Exception e) {
+			System.err.println("Probably the moodle web services not configured properly");
+			e.printStackTrace();
+		}
+		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleCourseListResponse.class);
 	}
 
 	private String getMoodleRestBase() {
-		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + token.get("token") + "&wsfunction=";
+		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + mooodleStandardInterfaceToken.get("token") + "&wsfunction=";
+		return moodleRestBase;
+	}
+
+	private String getMoodleCompetenceRestBase() {
+		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + competenceInterfaceToken.get("token") + "&wsfunction=";
 		return moodleRestBase;
 	}
 

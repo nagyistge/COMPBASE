@@ -74,4 +74,26 @@ class local_competence_external extends external_api {#
         );
     }
 
+    public static function user_exists_parameters() {
+        return new external_function_parameters(
+                array(
+                   'user' => new external_value(PARAM_TEXT, 'multilang compatible email'),
+                )
+        );
+    }
+    
+    public static function user_exists_returns() {
+        return new external_value(PARAM_BOOL, 'flag if user exists');
+    }
+    
+    public static function user_exists($useremail) {
+        global $DB;
+        $query = "SELECT u.email from {user} u where u.email = ?";
+        $result = $DB->record_exists_sql($query, array($useremail));        
+        
+        
+        return $result;
+//        return $result[0] > 0;
+    }
+
 }
