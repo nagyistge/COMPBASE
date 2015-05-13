@@ -1,7 +1,9 @@
-package uzuzjmd.competence.evidence.model;
+package uzuzjmd.competence.evidence.service.moodle;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+
+import uzuzjmd.competence.evidence.model.Evidence;
 
 /**
  * 

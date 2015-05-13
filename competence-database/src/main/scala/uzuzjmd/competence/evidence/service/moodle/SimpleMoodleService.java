@@ -16,18 +16,29 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class SimpleMoodleService {
 	private Token token;
+	private String errorCode;
+	private boolean userExist;
 
 	public SimpleMoodleService(String username, String userpassword) {
 		Client client = Client.create();
 		String connectionPath = MagicStrings.MOODLEURL + "/login/token.php?username=" + username + "&password=" + userpassword + "&service=moodle_mobile_app";
-		System.out.println("getting token with" + connectionPath);
+		this.setUserExist(true);
 		WebResource webResource = client.resource(connectionPath);
 		ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 		if (response.getStatus() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+			this.errorCode = "Failed : HTTP error code : " + response.getStatus();
+			new RuntimeException(errorCode);
+		} else {
+			token = response.getEntity(Token.class);
 		}
-		token = response.getEntity(Token.class);
+		if (token.get("token") == null) {
+			System.out.println("admin data is incorrect or token has not been configured in moodle");
+		}
 
+	}
+
+	public String getErrorCode() {
+		return errorCode;
 	}
 
 	public MoodleContentResponseList getMoodleContents(String courseId) {
@@ -49,5 +60,13 @@ public class SimpleMoodleService {
 	private String getMoodleRestBase() {
 		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + token.get("token") + "&wsfunction=";
 		return moodleRestBase;
+	}
+
+	public boolean isUserExist() {
+		return userExist;
+	}
+
+	public void setUserExist(boolean userExist) {
+		this.userExist = userExist;
 	}
 }
