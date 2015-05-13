@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.service.EvidenceService;
+import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 
 /**
@@ -54,9 +55,12 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 		return evidenceService.getLMSSystems();
 	}
 
+	@Path("/courses/{lmsSystem}/{userEmail}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@GET
 	@Override
-	public String[] getCourses(String user, String lmsSystem, String organization) {
-		return evidenceService.getCourses(user, lmsSystem, organization);
+	public MoodleCourseListResponse getCourses(@PathParam("userEmail") String useremail, @PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
+		return evidenceService.getCourses(useremail, lmsSystem, organization);
 	}
 
 	@Path("/user/exists")
