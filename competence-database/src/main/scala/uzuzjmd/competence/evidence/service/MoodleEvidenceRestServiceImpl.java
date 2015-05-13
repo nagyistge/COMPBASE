@@ -6,13 +6,13 @@ import java.util.concurrent.ExecutionException;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
+import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
@@ -219,11 +219,13 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public String[] getCourses(String user, String lmsSystem, String organization) {
+	public MoodleCourseListResponse getCourses(String user, String lmsSystem, String organization) {
 		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
-			return new String[] {};
+			return new MoodleCourseListResponse();
 		}
-		throw new NotImplementedException();
+		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
+		MoodleCourseListResponse result = simpleService.getMoodleCourseList(user);
+		return result;
 	}
 
 	@Override

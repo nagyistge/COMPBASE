@@ -4,6 +4,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 
 @WebService(name = "EvidenceService", targetNamespace = "http://service.evidence.competence.uzuzjmd/")
@@ -26,7 +27,7 @@ public interface EvidenceService {
 
 	public abstract String[] getLMSSystems();
 
-	public abstract String[] getCourses(String user, String lmsSystem, String organization);
+	public abstract MoodleCourseListResponse getCourses(String user, String lmsSystem, String organization);
 
 	public abstract Boolean exists(String user, String password);
 
