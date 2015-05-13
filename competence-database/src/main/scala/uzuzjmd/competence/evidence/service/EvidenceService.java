@@ -22,4 +22,12 @@ public interface EvidenceService {
 	@WebMethod
 	public abstract Response getUserTreeCrossDomain(String course);
 
+	public abstract String[] getOrganizations();
+
+	public abstract String[] getLMSSystems();
+
+	public abstract String[] getCourses(String user, String lmsSystem, String organization);
+
+	public abstract Boolean exists(String user, String password);
+
 }

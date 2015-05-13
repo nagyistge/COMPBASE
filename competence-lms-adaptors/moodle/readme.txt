@@ -1,0 +1,2 @@
+- copy this in moodle_home/local/ folder in order to install webservice
+- create token for rest webservice
