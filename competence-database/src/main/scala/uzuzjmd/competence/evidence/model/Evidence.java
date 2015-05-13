@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author Julian Dehne
  * 
  */
-@XmlSeeAlso(uzuzjmd.competence.evidence.model.MoodleEvidence.class)
+@XmlSeeAlso(uzuzjmd.competence.evidence.service.moodle.MoodleEvidence.class)
 public class Evidence {
 
 	public Evidence() {

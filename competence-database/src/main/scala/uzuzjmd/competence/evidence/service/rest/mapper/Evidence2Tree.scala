@@ -2,7 +2,6 @@ package uzuzjmd.competence.evidence.service.rest.mapper
 
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList
-import uzuzjmd.competence.evidence.model.MoodleEvidence
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry
 import scala.collection.mutable.Buffer
@@ -10,6 +9,7 @@ import scala.collection.JavaConverters._
 import uzuzjmd.competence.evidence.service.moodle.Module
 import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence
 
 /**
  * Diese Klasse mappt die Evidenzen aus der Moodle-Datenbank und von dem Moodle-RestService so, dass
