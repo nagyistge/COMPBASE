@@ -16,14 +16,12 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class SimpleMoodleService {
 	private Token mooodleStandardInterfaceToken;
-	private String errorCode;
-	private boolean userExist;
+	private String errorCode;	
 	private Token competenceInterfaceToken;
 
 	public SimpleMoodleService(String username, String userpassword) {
 		mooodleStandardInterfaceToken = initToken(username, userpassword, "moodle_mobile_app");
-		competenceInterfaceToken = initToken(username, userpassword, "upcompetence");
-		this.setUserExist(true); // always true not implemented
+		competenceInterfaceToken = initToken(username, userpassword, "upcompetence");		
 	}
 
 	private Token initToken(String username, String userpassword, String serviceShortName) {
@@ -82,11 +80,19 @@ public class SimpleMoodleService {
 		return moodleRestBase;
 	}
 
-	public boolean isUserExist() {
-		return userExist;
+	public boolean isUserExist(String userEmail) {
+		Client client = Client.create();
+		String moodleRestBase = getMoodleCompetenceRestBase();
+		WebResource webResource = null;
+		try {
+			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_user_exists&user=" + userEmail;
+			webResource = client.resource(requestString);
+		} catch (Exception e) {
+			System.err.println("Probably the moodle web services not configured properly");
+			e.printStackTrace();
+		}
+		return webResource.accept(MediaType.APPLICATION_JSON).get(Boolean.class);
 	}
 
-	public void setUserExist(boolean userExist) {
-		this.userExist = userExist;
-	}
+
 }

@@ -19,14 +19,19 @@
 				<b:NavLink>E-Learning</b:NavLink>
 			</b:DropdownButton>
 			<g:HorizontalPanel>
-				<g:Label>Dein Nutzername</g:Label>
+				<g:Label>Dein Nutzername (somone@uni-potsdam.de)</g:Label>
 				<b:TextBox ui:field="loginTextBox" />
 				<b:Button ui:field="button">einloggen</b:Button>
+				<b:Button ui:field="debug">debug</b:Button>				
 			</g:HorizontalPanel>
 			<b:Alert type="ERROR" animation="true" visible="false"
 				ui:field="numberError">Der Nutzername darf nicht mit einer Zahl anfangen</b:Alert>
 			<b:Alert type="ERROR" animation="true" visible="false"
 				ui:field="emptyError">Der Nutzername darf nicht leer sein</b:Alert>
+			<b:Alert type="ERROR" animation="true" visible="false"
+				ui:field="notExistError">Der Nutzername existiert nicht!</b:Alert>	
+				<b:Alert type="ERROR" animation="true" visible="false"
+				ui:field="otherError"></b:Alert>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
