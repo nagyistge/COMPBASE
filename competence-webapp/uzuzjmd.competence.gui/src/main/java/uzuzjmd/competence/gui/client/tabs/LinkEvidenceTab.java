@@ -82,7 +82,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	}
 
 	private void initMoodleEvidenceWidget(LmsContextFactory contextFactory) {
-		String moodleEvidenceUrl = getMoodleEvidenceServerUrl();
+		String moodleEvidenceUrl = computeMoodleRestURL();
 		activityPanel = new ActivityTree(moodleEvidenceUrl, "Aktivitäten",
 				"activityView", 655, 180, "Aktivitäten", contextFactory);
 		activityPlaceholder.add(activityPanel);
@@ -95,7 +95,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 	}
 
-	private String getMoodleEvidenceServerUrl() {
+	private String computeMoodleRestURL() {
 		String moodleEvidenceUrl = contextFactory.getEvidenceServerURL()
 				+ "/lms/activities/usertree/xml/crossdomain/"
 				+ contextFactory.getRawCourseId();

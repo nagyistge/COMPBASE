@@ -68,7 +68,8 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Boolean exists(@QueryParam(value = "user") String user, @QueryParam(value = "password") String password) {
-		return evidenceService.exists(user, password);
+		Boolean result = evidenceService.exists(user, password);
+		return result;
 	}
 
 }

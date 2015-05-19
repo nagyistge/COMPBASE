@@ -49,7 +49,8 @@ public class Competence_webapp implements EntryPoint {
 			}
 			container.add(competenceUIContainer);
 
-			if (myConstants.contextImplementation().equals("standalone")) {
+			if (myConstants.contextImplementation().equals("standalone")
+					|| myConstants.contextImplementation().equals("test")) {
 				PopupPanel popupPanel = new PopupPanel();
 				popupPanel.setModal(true);
 				LoginView loginView = new LoginView(popupPanel);
