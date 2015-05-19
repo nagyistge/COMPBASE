@@ -230,7 +230,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 
 	@Override
 	public Boolean exists(String username, String password) {
-		SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
-		return simpleService.isUserExist();
+		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
+		return simpleService.isUserExist(username);
 	}
 }
