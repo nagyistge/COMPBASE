@@ -12,12 +12,12 @@ import org.apache.log4j.Logger;
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
-import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
 
@@ -219,12 +219,12 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public MoodleCourseListResponse getCourses(String user, String lmsSystem, String organization) {
+	public UserCourseListResponse getCourses(String user, String lmsSystem, String organization) {
 		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
-			return new MoodleCourseListResponse();
+			return new UserCourseListResponse();
 		}
 		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
-		MoodleCourseListResponse result = simpleService.getMoodleCourseList(user);
+		UserCourseListResponse result = simpleService.getMoodleCourseList(user);
 		return result;
 	}
 

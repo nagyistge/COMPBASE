@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.linkView.ActivityTree;
 import uzuzjmd.competence.gui.client.shared.Evidence;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -54,7 +54,6 @@ public class LinkEvidenceTab extends CompetenceTab {
 	@UiField
 	FocusPanel warningPlaceholder;
 	private CompetenceSelectionWidget competenceSelectionWidget;
-	private LmsContextFactory contextFactory;
 
 	final HashMap<String, String> activityMapToUrl = new HashMap<String, String>();
 	final HashMap<String, String> activityMapToUser = new HashMap<String, String>();
@@ -66,7 +65,6 @@ public class LinkEvidenceTab extends CompetenceTab {
 
 	public LinkEvidenceTab(LmsContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
-		this.contextFactory = contextFactory;
 		String infoText = "";
 		if (Controller.contextFactory.getRole().equals("teacher")) {
 			infoText = "Ordnen Sie die Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
@@ -77,14 +75,18 @@ public class LinkEvidenceTab extends CompetenceTab {
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 		initCompetenceSelectionWidget(contextFactory);
-		initMoodleEvidenceWidget(contextFactory);
-
+		if (contextFactory.getMode().equals("moodle")
+				|| contextFactory.getMode().equals("liferay")) {
+			reloadActivityWidget();
+		}
 	}
 
-	private void initMoodleEvidenceWidget(LmsContextFactory contextFactory) {
+	public void reloadActivityWidget() {
 		String moodleEvidenceUrl = computeMoodleRestURL();
 		activityPanel = new ActivityTree(moodleEvidenceUrl, "Aktivitäten",
-				"activityView", 655, 180, "Aktivitäten", contextFactory);
+				"activityView", 655, 180, "Aktivitäten",
+				Controller.contextFactory);
+		activityPlaceholder.clear();
 		activityPlaceholder.add(activityPanel);
 	}
 
@@ -96,9 +98,10 @@ public class LinkEvidenceTab extends CompetenceTab {
 	}
 
 	private String computeMoodleRestURL() {
-		String moodleEvidenceUrl = contextFactory.getEvidenceServerURL()
+		String moodleEvidenceUrl = Controller.contextFactory
+				.getEvidenceServerURL()
 				+ "/lms/activities/usertree/xml/crossdomain/"
-				+ contextFactory.getRawCourseId();
+				+ Controller.contextFactory.getRawCourseId();
 		return moodleEvidenceUrl;
 	}
 
@@ -118,7 +121,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		} else {
 			for (Evidence evidence : activityPanel.getSelectedEvidences()) {
 				createAbstractEvidenceLink(competences, evidence,
-						contextFactory);
+						Controller.contextFactory);
 			}
 		}
 	}
@@ -128,7 +131,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		List<String> activityPairs = new LinkedList<String>();
 		activityPairs.add(evidence.getShortname() + "," + evidence.getUrl());
 		String linkedUser = evidence.getUserId();
-		String createLink = contextFactory.getServerURL()
+		String createLink = Controller.contextFactory.getServerURL()
 				+ "/competences/json/link/create/"
 				+ contextFactory2.getOrganization() + "/"
 				+ contextFactory2.getUser() + "/" + contextFactory2.getRole()
@@ -176,6 +179,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	}
 
 	public void reload() {
+		reloadActivityWidget();
 		competenceSelectionWidget.reload();
 	}
 }

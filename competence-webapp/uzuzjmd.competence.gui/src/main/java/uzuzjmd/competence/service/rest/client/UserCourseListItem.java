@@ -1,6 +1,6 @@
-package uzuzjmd.competence.evidence.service.moodle;
+package uzuzjmd.competence.service.rest.client;
 
-public class MoodleCourseListItem {
+public class UserCourseListItem {
 	private String courseid;
 	private String name;
 

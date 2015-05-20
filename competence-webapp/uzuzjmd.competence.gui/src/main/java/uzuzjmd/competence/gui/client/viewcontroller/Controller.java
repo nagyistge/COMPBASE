@@ -1,5 +1,7 @@
-package uzuzjmd.competence.gui.client;
+package uzuzjmd.competence.gui.client.viewcontroller;
 
+import uzuzjmd.competence.gui.client.LmsContextFactory;
+import uzuzjmd.competence.gui.client.TabbedView;
 import uzuzjmd.competence.gui.client.tabs.CompetenceCreationTab;
 import uzuzjmd.competence.gui.client.tabs.CompetenceDeleteWidget;
 import uzuzjmd.competence.gui.client.tabs.CompetenceEditTab;
@@ -7,7 +9,6 @@ import uzuzjmd.competence.gui.client.tabs.CompetenceHierarchieTab;
 import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.tabs.ProgressTab;
 import uzuzjmd.competence.gui.client.tabs.RequirementTab;
-import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 public class Controller {
 	public static ProgressTab progressTab;
@@ -19,6 +20,7 @@ public class Controller {
 	public static CompetenceDeleteWidget competenceDeleteTab;
 	public static CompetenceHierarchieTab competenceHierarchieTab;
 	public static CompetenceEditTab competenceEditTab;
+	public static TabbedView tabbedView;
 
 	public static void init() {
 

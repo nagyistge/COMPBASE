@@ -9,12 +9,12 @@ import org.fusesource.restygwt.client.JsonEncoderDecoder;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceClickPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceGraphFilterPanel;
 import uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget;
 import uzuzjmd.competence.gui.client.shared.widgets.MyGraphPanel;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.Graph;
 
 import com.github.gwtbootstrap.client.ui.Button;
