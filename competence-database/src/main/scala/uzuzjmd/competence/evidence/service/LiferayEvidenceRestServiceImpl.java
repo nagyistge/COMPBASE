@@ -8,9 +8,9 @@ import javax.ws.rs.core.Response;
 import org.apache.axis.client.Stub;
 import org.apache.commons.lang.NotImplementedException;
 
-import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.LiferayEvidence2Tree;
+import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
 
 import com.liferay.portlet.social.model.SocialActivitySoap;
 
@@ -73,7 +73,7 @@ public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public MoodleCourseListResponse getCourses(String user, String lmsSystem, String organization) {
+	public UserCourseListResponse getCourses(String user, String lmsSystem, String organization) {
 		throw new NotImplementedException();
 	}
 

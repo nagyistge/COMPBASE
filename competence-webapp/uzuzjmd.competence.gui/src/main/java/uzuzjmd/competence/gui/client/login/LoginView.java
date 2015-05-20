@@ -4,7 +4,8 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
+import uzuzjmd.competence.gui.client.StandaloneContextFactory;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -30,6 +31,10 @@ public class LoginView extends Composite {
 	TextBox loginTextBox;
 	@UiField
 	Button button;
+
+	@UiField
+	Button debug;
+
 	@UiField
 	VerticalPanel errorHolder;
 	@UiField
@@ -48,13 +53,11 @@ public class LoginView extends Composite {
 	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
 	}
 
-	public LoginView(PopupPanel parent) {
+	public LoginView(PopupPanel parent, boolean isDebug) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.parent = parent;
-	}
-
-	public LoginView(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
+		debug.setVisible(isDebug);
+		debug.setEnabled(isDebug);
 	}
 
 	@UiHandler("button")
@@ -80,6 +83,9 @@ public class LoginView extends Composite {
 
 	private void logUserIn() {
 		setUsername(loginTextBox.getValue());
+		Controller.contextFactory.setIsValidUserLoggedIn(true);
+		Controller.contextFactory.setUser(loginTextBox.getValue());
+		((StandaloneContextFactory) Controller.contextFactory).updateCourses();
 		parent.hide();
 	}
 

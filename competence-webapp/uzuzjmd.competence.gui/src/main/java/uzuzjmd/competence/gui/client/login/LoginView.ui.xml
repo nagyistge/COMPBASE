@@ -10,14 +10,6 @@
 		<b:Heading size="2">Login</b:Heading>
 
 		<g:VerticalPanel ui:field="errorHolder">
-			<b:DropdownButton text="Test-Moodle">
-				<b:NavHeader>Angebundene Systeme</b:NavHeader>
-				<b:NavLink>Test-Moodle</b:NavLink>
-			</b:DropdownButton>
-			<b:DropdownButton text="E-Learning">
-				<b:NavHeader>Deine Kurse</b:NavHeader>
-				<b:NavLink>E-Learning</b:NavLink>
-			</b:DropdownButton>
 			<g:HorizontalPanel>
 				<g:Label>Dein Nutzername (somone@uni-potsdam.de)</g:Label>
 				<b:TextBox ui:field="loginTextBox" />

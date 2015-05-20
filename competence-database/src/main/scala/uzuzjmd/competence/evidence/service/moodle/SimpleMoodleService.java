@@ -3,6 +3,7 @@ package uzuzjmd.competence.evidence.service.moodle;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -16,12 +17,12 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class SimpleMoodleService {
 	private Token mooodleStandardInterfaceToken;
-	private String errorCode;	
+	private String errorCode;
 	private Token competenceInterfaceToken;
 
 	public SimpleMoodleService(String username, String userpassword) {
 		mooodleStandardInterfaceToken = initToken(username, userpassword, "moodle_mobile_app");
-		competenceInterfaceToken = initToken(username, userpassword, "upcompetence");		
+		competenceInterfaceToken = initToken(username, userpassword, "upcompetence");
 	}
 
 	private Token initToken(String username, String userpassword, String serviceShortName) {
@@ -56,7 +57,7 @@ public class SimpleMoodleService {
 		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleContentResponseList.class);
 	}
 
-	public MoodleCourseListResponse getMoodleCourseList(String userEmail) {
+	public UserCourseListResponse getMoodleCourseList(String userEmail) {
 		Client client = Client.create();
 		String moodleRestBase = getMoodleCompetenceRestBase();
 		WebResource webResource = null;
@@ -67,7 +68,7 @@ public class SimpleMoodleService {
 			System.err.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
 		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleCourseListResponse.class);
+		return webResource.accept(MediaType.APPLICATION_JSON).get(UserCourseListResponse.class);
 	}
 
 	private String getMoodleRestBase() {
@@ -93,6 +94,5 @@ public class SimpleMoodleService {
 		}
 		return webResource.accept(MediaType.APPLICATION_JSON).get(Boolean.class);
 	}
-
 
 }
