@@ -1,5 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -54,6 +56,7 @@ public class CompetenceUIContainer extends Composite {
 				.add(Controller.competenceCreationTab);
 
 		container.add(tabbedView);
+		Controller.tabbedView = tabbedView;
 	}
 
 	public void setContextFactory(LmsContextFactory contextFactory) {

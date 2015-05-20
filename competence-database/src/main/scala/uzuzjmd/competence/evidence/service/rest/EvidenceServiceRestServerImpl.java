@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.service.EvidenceService;
-import uzuzjmd.competence.evidence.service.moodle.MoodleCourseListResponse;
 import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
+import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
 
 /**
  * Implementiert den Moodle-RestService mit Grizzly. Dies ist die Hauptklasse
@@ -59,8 +59,9 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Override
-	public MoodleCourseListResponse getCourses(@PathParam("userEmail") String useremail, @PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
-		return evidenceService.getCourses(useremail, lmsSystem, organization);
+	public UserCourseListResponse getCourses(@PathParam("userEmail") String useremail, @PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
+		UserCourseListResponse result = evidenceService.getCourses(useremail, lmsSystem, organization);
+		return result;
 	}
 
 	@Path("/user/exists")

@@ -2,8 +2,8 @@ package uzuzjmd.competence.gui.client.evidenceView;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.TextArea;

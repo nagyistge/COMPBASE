@@ -1,10 +1,10 @@
 package uzuzjmd.competence.gui.client;
 
-public class MoodleContextFactory extends LmsContextFactory {
+public class JavaScriptContextFactory extends LmsContextFactory {
 
-	public MoodleContextFactory() {
+	public JavaScriptContextFactory() {
 		this.serverUrl = getCompetenceServerURL();
-		this.evidenceServerUrl = getEvidenceServerUrlFromContext();
+		this.evidenceServerUrl = getEvidenceServerUrl();
 		this.role = getRoleFromContext();
 		this.userName = getUserFromContext();
 		this.courseContext = "n" + getCourseIdFromContext();
@@ -19,7 +19,7 @@ public class MoodleContextFactory extends LmsContextFactory {
 		return $wnd.serverUrl;
 	}-*/;
 
-	public native String getEvidenceServerUrlFromContext()/*-{
+	public native String getEvidenceServerUrl()/*-{
 		return $wnd.evidenceServerUrl;
 	}-*/;
 

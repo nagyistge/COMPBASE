@@ -13,8 +13,21 @@ public class LmsContextFactory implements java.io.Serializable {
 	protected String userName;
 	protected String courseContext;
 	protected String organization;
+	protected Boolean validUserLoggedIn;
+	protected String mode;
 
 	public LmsContextFactory() {
+		setOrganization("university");
+		setCourseContext("testcourse");
+
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getMode() {
+		return mode;
 	}
 
 	public LmsContextFactory(long courseId, String serverUrl,
@@ -28,7 +41,7 @@ public class LmsContextFactory implements java.io.Serializable {
 			this.serverUrl = serverUrl;
 		}
 		if (evidenceServerUrl == null) {
-			this.evidenceServerUrl = getEvidenceServerUrlFromContext();
+			this.evidenceServerUrl = getEvidenceServerURL();
 		} else {
 			this.evidenceServerUrl = evidenceServerUrl;
 		}
@@ -36,6 +49,7 @@ public class LmsContextFactory implements java.io.Serializable {
 		this.userName = userName;
 		this.organization = organization;
 		this.courseContext = "n" + courseId;
+		setIsValidUserLoggedIn(false);
 
 	}
 
@@ -45,10 +59,6 @@ public class LmsContextFactory implements java.io.Serializable {
 
 	public String getRoleFromContext() {
 		return role;
-	}
-
-	public String getEvidenceServerUrlFromContext() {
-		return evidenceServerUrl;
 	}
 
 	public String getCompetenceServerURL() {
@@ -83,8 +93,30 @@ public class LmsContextFactory implements java.io.Serializable {
 		this.courseContext = courseContext;
 	}
 
+	/**
+	 * needs to be overwritten in order to set context specific course or group
+	 * ids
+	 * 
+	 * @return
+	 */
 	public String getRawCourseId() {
+
 		return courseId + "";
 	}
 
+	public void setIsValidUserLoggedIn(Boolean value) {
+		validUserLoggedIn = value;
+	}
+
+	public Boolean getIsValidUserLoggedIn() {
+		return validUserLoggedIn;
+	}
+
+	public void setUser(String value) {
+		userName = value;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
 }
