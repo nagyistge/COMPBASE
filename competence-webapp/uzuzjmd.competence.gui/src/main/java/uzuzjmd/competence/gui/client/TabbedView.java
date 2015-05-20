@@ -3,6 +3,8 @@ package uzuzjmd.competence.gui.client;
 import java.util.Date;
 
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
+import uzuzjmd.competence.gui.client.viewcontroller.ContextSelectionController;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 import com.github.gwtbootstrap.client.ui.TabPanel;
@@ -11,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TabbedView extends Composite {
@@ -19,6 +22,10 @@ public class TabbedView extends Composite {
 			.create(TabbedViewUiBinder.class);
 	@UiField
 	TabPanel tabPanel;
+	@UiField
+	TabPanel taxonomy;
+	@UiField
+	TabPanel courseContext;
 	@UiField
 	HTMLPanel requirementTabPlaceholder;
 	@UiField
@@ -36,15 +43,23 @@ public class TabbedView extends Composite {
 	@UiField
 	HTMLPanel competenceEditHolder;
 
+	@UiField
+	SimplePanel coursesSelectionPlaceHolder;
+
+	// @UiField
+	// DropdownButton courseSelection;
+
+	// @UiField
+	// DropdownButton coursesDropdown;
+
 	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
 	}
 
 	public TabbedView() {
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	public TabbedView(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
+		tabPanel.selectTab(0);
+		taxonomy.selectTab(0);
+		courseContext.selectTab(0);
 
 	}
 
@@ -68,6 +83,12 @@ public class TabbedView extends Composite {
 		GWT.log("start initializing graph");
 		ReloadController.graphTab = new GraphTab();
 		pathTabPlaceholder.add(ReloadController.graphTab);
+	}
+
+	public void updateCourseSelectionPanel() {
+		coursesSelectionPlaceHolder.clear();
+		coursesSelectionPlaceHolder
+				.add(ContextSelectionController.courseSelectionButton);
 	}
 
 }

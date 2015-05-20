@@ -2,10 +2,10 @@ package uzuzjmd.competence.gui.client.tabs;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;

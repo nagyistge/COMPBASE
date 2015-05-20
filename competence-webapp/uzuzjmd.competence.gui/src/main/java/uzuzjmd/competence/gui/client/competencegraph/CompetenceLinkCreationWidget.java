@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.tabs.GraphTab;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;

@@ -5954,3 +5954,677 @@ Rebinding uzuzjmd.competence.gui.client.login.LoginView_LoginViewUiBinderImpl_de
       Compiling...
          Compilation completed in 0,01 seconds
       Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3726 cached/archived units.  Used 3726 / 3728 units from cache.
+Compiling...
+   Compilation completed in 0,03 seconds
+Validating units:
+   Errors in 'file:/C:/dev/scalaworkspace/Wissensmodellierung/competence-webapp/uzuzjmd.competence.gui/src/test/java/uzuzjmd/competence/gui/client/GwtTestcompetence.java'
+      Line 15: No source code is available for type com.google.gwt.junit.client.GWTTestCase; did you forget to inherit a required module?
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032336170.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032336170.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032336170_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032337113.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032337113.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432032337113_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3721 cached/archived units.  Used 3721 / 3730 units from cache.
+Compiling...
+   Compilation completed in 0,07 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.shared.widgets.MyGraphPanel
+Invalid Unit: uzuzjmd.competence.gui.client.shared.widgets.CheckableTreePanel
+Invalid Unit: uzuzjmd.competence.gui.client.competencegraph.CompetenceGraphFilterPanel
+Invalid Unit: uzuzjmd.competence.gui.client.evidenceView.CommentWidget
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.CompetenceHierarchieTab
+Invalid Unit: uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteDeleteBinder
+Invalid Unit: uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkWidget
+Invalid Unit: uzuzjmd.competence.gui.client.CompetenceUIContainer
+Invalid Unit: uzuzjmd.competence.gui.client.competencegraph.CompetencePrerequisiteCreateBinder
+Invalid Unit: uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionTree
+Invalid Unit: uzuzjmd.competence.gui.client.competencegraph.CompetenceLinkCreationWidget
+Invalid Unit: uzuzjmd.competence.gui.client.evidenceView.EvidenceLinkEntry
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.CompetenceDeleteWidget
+Invalid Unit: uzuzjmd.competence.gui.client.competenceSelection.CatchwordSelectionTree
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.RequirementTab
+Invalid Unit: uzuzjmd.competence.gui.client.evidenceView.StackPanelReloader
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.CompetenceEditTab
+Invalid Unit: uzuzjmd.competence.gui.client.competenceSelection.CompetenceSelectionWidget
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.ProgressTab
+Invalid Unit: uzuzjmd.competence.gui.client.evidenceView.EvidenceStackPanel
+Invalid Unit: uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel
+Invalid Unit: uzuzjmd.competence.gui.client.competenceSelection.OperatorSelectionTree
+Invalid Unit: uzuzjmd.competence.gui.client.progressView.ProgressEntry
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.CompetenceCreationTab
+Invalid Unit: uzuzjmd.competence.gui.client.Controller
+Invalid Unit: uzuzjmd.competence.gui.client.tabs.GraphTab
+Invalid Unit: uzuzjmd.competence.gui.client.linkView.ActivityTree
+Invalid units found: 28
+Compiling...
+   Compilation completed in 0,29 seconds
+Validating units:
+   Errors in 'file:/C:/dev/scalaworkspace/Wissensmodellierung/competence-webapp/uzuzjmd.competence.gui/src/test/java/uzuzjmd/competence/gui/client/GwtTestcompetence.java'
+      Line 15: No source code is available for type com.google.gwt.junit.client.GWTTestCase; did you forget to inherit a required module?
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035918266.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035918266.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035918266_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035919201.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035919201.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432035919201_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3726 cached/archived units.  Used 3726 / 3727 units from cache.
+Compiling...
+   Compilation completed in 0,05 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.shared.widgets.MyGraphPanel
+Invalid Unit: uzuzjmd.competence.gui.client.CompetenceUIContainer
+Invalid units found: 2
+Compiling...
+   Compilation completed in 0,03 seconds
+Validating units:
+   Errors in 'file:/C:/dev/scalaworkspace/Wissensmodellierung/competence-webapp/uzuzjmd.competence.gui/src/test/java/uzuzjmd/competence/gui/client/GwtTestcompetence.java'
+      Line 15: No source code is available for type com.google.gwt.junit.client.GWTTestCase; did you forget to inherit a required module?
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036447797.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036447797.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036447797_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036448615.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036448615.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036448615_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494548.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494548.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494548_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494743.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494743.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036494743_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036511607.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036511607.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036511607_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036521921.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036521921.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036521921_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036542662.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036542662.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036542662_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036885928.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036885928.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036885928_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036886230.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036886230.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036886230_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 3726 cached/archived units.  Used 3726 / 3727 units from cache.
+Compiling...
+   Compilation completed in 0,01 seconds
+Invalid Unit: uzuzjmd.competence.gui.client.CompetenceUIContainer
+Invalid Unit: uzuzjmd.competence.gui.client.shared.widgets.MyGraphPanel
+Invalid units found: 2
+Compiling...
+   Compilation completed in 0,02 seconds
+Validating units:
+   Errors in 'file:/C:/dev/scalaworkspace/Wissensmodellierung/competence-webapp/uzuzjmd.competence.gui/src/test/java/uzuzjmd/competence/gui/client/GwtTestcompetence.java'
+      Line 15: No source code is available for type com.google.gwt.junit.client.GWTTestCase; did you forget to inherit a required module?
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,00 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036894839.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036894839.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036894839_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036895768.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036895768.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432036895768_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Public resources found in...
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 3728 units from cache.
+Compiling...
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   60% complete (ETR: 3 seconds)
+   70% complete (ETR: 2 seconds)
+   80% complete (ETR: 2 seconds)
+   90% complete (ETR: 1 seconds)
+   100% complete (ETR: 0 seconds)
+   Compilation completed in 12,61 seconds
+Validating units:
+   Errors in 'file:/C:/dev/scalaworkspace/Wissensmodellierung/competence-webapp/uzuzjmd.competence.gui/src/test/java/uzuzjmd/competence/gui/client/GwtTestcompetence.java'
+      Line 15: No source code is available for type com.google.gwt.junit.client.GWTTestCase; did you forget to inherit a required module?
+Removing invalidated units
+Finding entry point classes
+Rebinding com.google.gwt.i18n.client.impl.LocaleInfoImpl
+   Invoking generator com.google.gwt.i18n.rebind.LocaleInfoGenerator
+      Processing interface com.google.gwt.i18n.client.constants.NumberConstantsImpl
+         Generating method body for notANumber()
+         Generating method body for currencyPattern()
+         Generating method body for decimalPattern()
+         Generating method body for decimalSeparator()
+         Generating method body for defCurrencyCode()
+         Generating method body for exponentialSymbol()
+         Generating method body for globalCurrencyPattern()
+         Generating method body for groupingSeparator()
+         Generating method body for infinity()
+         Generating method body for minusSign()
+         Generating method body for monetaryGroupingSeparator()
+         Generating method body for monetarySeparator()
+         Generating method body for percent()
+         Generating method body for percentPattern()
+         Generating method body for perMill()
+         Generating method body for plusSign()
+         Generating method body for scientificPattern()
+         Generating method body for simpleCurrencyPattern()
+         Generating method body for zeroDigit()
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,03 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045687327.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045687327.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045687327_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView.TabbedViewUiBinder
+   Adding '3' new generated units
+      Compiling...
+         Compilation completed in 0,02 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045688286.Template
+   Invoking generator com.google.gwt.safehtml.rebind.SafeHtmlTemplatesGenerator
+      Constructing interface uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045688286.Template
+         Generating method body for html1()
+         Generating method body for html2()
+         Generating method body for html3()
+         Generating method body for html4()
+         Generating method body for html5()
+         Generating method body for html6()
+         Generating method body for html7()
+         Generating method body for html8()
+         Generating method body for html9()
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units
+Rebinding uzuzjmd.competence.gui.client.TabbedView_TabbedViewUiBinderImpl_designTime1432045688286_GenBundle
+   Adding '1' new generated units
+      Compiling...
+         Compilation completed in 0,01 seconds
+      Removing invalidated units

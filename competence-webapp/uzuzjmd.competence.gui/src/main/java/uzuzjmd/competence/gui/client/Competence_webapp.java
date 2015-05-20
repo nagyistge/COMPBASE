@@ -1,6 +1,7 @@
 package uzuzjmd.competence.gui.client;
 
 import uzuzjmd.competence.gui.client.login.LoginView;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -24,7 +25,8 @@ public class Competence_webapp implements EntryPoint {
 			RootPanel container = RootPanel.get("rootContainer");
 
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
-			competenceUIContainer.setContextFactory(new MoodleContextFactory());
+			competenceUIContainer
+					.setContextFactory(new JavaScriptContextFactory());
 			container.add(competenceUIContainer);
 		}
 
@@ -41,11 +43,11 @@ public class Competence_webapp implements EntryPoint {
 				String evidenceUrl = myConstants.serverName() + "/"
 						+ myConstants.evidenceserverPrefix();
 				competenceUIContainer
-						.setContextFactory(new DeployContextFactory(serverUrl,
-								evidenceUrl));
+						.setContextFactory(new StandaloneContextFactory(
+								serverUrl, evidenceUrl));
 			} else {
-				competenceUIContainer
-						.setContextFactory(new TestContextFactory());
+				competenceUIContainer.setContextFactory(new TestContextFactory(
+						"http://localhost:8084", "http://localhost:8083"));
 			}
 			container.add(competenceUIContainer);
 
@@ -53,13 +55,16 @@ public class Competence_webapp implements EntryPoint {
 					|| myConstants.contextImplementation().equals("test")) {
 				PopupPanel popupPanel = new PopupPanel();
 				popupPanel.setModal(true);
-				LoginView loginView = new LoginView(popupPanel);
+				LoginView loginView = new LoginView(popupPanel, myConstants
+						.contextImplementation().equals("test"));
 				popupPanel.add(loginView);
 				popupPanel.setGlassEnabled(true);
 				container.add(popupPanel);
 				popupPanel.show();
 			}
 
+			Controller.contextFactory.setMode(myConstants
+					.contextImplementation());
 		}
 
 		// if the context is liferay the connector should inject the stuff
