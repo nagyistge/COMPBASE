@@ -2,7 +2,7 @@ package uzuzjmd.competence.gui.client;
 
 import java.util.Date;
 
-import uzuzjmd.competence.gui.client.tabs.GraphTab;
+import uzuzjmd.competence.gui.client.taxonomy.GraphTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ContextSelectionController;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;

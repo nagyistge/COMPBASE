@@ -1,5 +1,8 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.context.JavaScriptContextFactory;
+import uzuzjmd.competence.gui.client.context.StandaloneContextFactory;
+import uzuzjmd.competence.gui.client.context.TestContextFactory;
 import uzuzjmd.competence.gui.client.login.LoginView;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 

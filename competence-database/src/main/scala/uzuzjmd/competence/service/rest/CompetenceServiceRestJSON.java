@@ -15,7 +15,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
@@ -38,6 +37,7 @@ import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.client.Graph;
+import uzuzjmd.competence.service.rest.client.HierarchieChangeSet;
 import uzuzjmd.competence.service.rest.client.ProgressMap;
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
 

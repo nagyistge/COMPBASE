@@ -1,8 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
+public class PostRequestManager extends RestClientManager {
 
-public class PostRequestManager {
-	public PostRequestManager() {
-
-	}
 }
