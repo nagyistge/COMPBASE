@@ -1,5 +1,6 @@
 package uzuzjmd.competence.gui.client;
 
+import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.google.gwt.core.client.GWT;
