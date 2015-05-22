@@ -4,7 +4,7 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.StandaloneContextFactory;
+import uzuzjmd.competence.gui.client.context.StandaloneContextFactory;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;

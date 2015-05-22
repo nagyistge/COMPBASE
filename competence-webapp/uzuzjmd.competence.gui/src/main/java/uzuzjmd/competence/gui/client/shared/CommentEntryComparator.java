@@ -2,7 +2,7 @@ package uzuzjmd.competence.gui.client.shared;
 
 import java.util.Comparator;
 
-import uzuzjmd.competence.gui.client.shared.dto.CommentEntry;
+import uzuzjmd.competence.service.rest.client.CommentEntry;
 
 public class CommentEntryComparator implements Comparator<CommentEntry> {
 

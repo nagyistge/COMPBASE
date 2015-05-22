@@ -3,12 +3,15 @@ package uzuzjmd.competence.service.rest.client;
 public class CommentEntry {
 	private String userName;
 	private String commentName;
-	private long created;
+	private Long created;
+
+	public CommentEntry() {
+	}
 
 	public CommentEntry(String userName, String commentName, long created) {
 		this.userName = userName;
 		this.commentName = commentName;
-		this.created = created;		
+		this.created = created;
 	}
 
 	public String getUserName() {
@@ -27,7 +30,7 @@ public class CommentEntry {
 		this.commentName = commentName;
 	}
 
-	public long getCreated() {
+	public Long getCreated() {
 		return created;
 	}
 

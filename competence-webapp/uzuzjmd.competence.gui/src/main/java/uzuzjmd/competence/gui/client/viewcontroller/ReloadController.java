@@ -1,13 +1,13 @@
 package uzuzjmd.competence.gui.client.viewcontroller;
 
-import uzuzjmd.competence.gui.client.tabs.CompetenceCreationTab;
-import uzuzjmd.competence.gui.client.tabs.CompetenceDeleteWidget;
-import uzuzjmd.competence.gui.client.tabs.CompetenceEditTab;
-import uzuzjmd.competence.gui.client.tabs.CompetenceHierarchieTab;
-import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
-import uzuzjmd.competence.gui.client.tabs.GraphTab;
-import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
-import uzuzjmd.competence.gui.client.tabs.ProgressTab;
+import uzuzjmd.competence.gui.client.course.LinkEvidenceTab;
+import uzuzjmd.competence.gui.client.course.ProgressTab;
+import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceCreationTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceEditTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceHierarchieTab;
+import uzuzjmd.competence.gui.client.taxonomy.GraphTab;
 
 public class ReloadController {
 	private CompetenceTab competenceTab;
