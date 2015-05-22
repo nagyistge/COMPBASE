@@ -1,14 +1,14 @@
 package uzuzjmd.competence.gui.client.viewcontroller;
 
-import uzuzjmd.competence.gui.client.LmsContextFactory;
 import uzuzjmd.competence.gui.client.TabbedView;
-import uzuzjmd.competence.gui.client.tabs.CompetenceCreationTab;
-import uzuzjmd.competence.gui.client.tabs.CompetenceDeleteWidget;
-import uzuzjmd.competence.gui.client.tabs.CompetenceEditTab;
-import uzuzjmd.competence.gui.client.tabs.CompetenceHierarchieTab;
-import uzuzjmd.competence.gui.client.tabs.LinkEvidenceTab;
-import uzuzjmd.competence.gui.client.tabs.ProgressTab;
-import uzuzjmd.competence.gui.client.tabs.RequirementTab;
+import uzuzjmd.competence.gui.client.context.LmsContextFactory;
+import uzuzjmd.competence.gui.client.course.LinkEvidenceTab;
+import uzuzjmd.competence.gui.client.course.ProgressTab;
+import uzuzjmd.competence.gui.client.course.RequirementTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceCreationTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceEditTab;
+import uzuzjmd.competence.gui.client.taxonomy.CompetenceHierarchieTab;
 
 public class Controller {
 	public static ProgressTab progressTab;

@@ -4,6 +4,12 @@ import org.fusesource.restygwt.client.Resource;
 
 import com.google.gwt.query.client.GQuery;
 
+/**
+ * useless class that is only here to load the dependencies
+ * 
+ * @author julian
+ * 
+ */
 public class Dependencies {
 	public Dependencies() {
 		Resource resource = new Resource("you know it");

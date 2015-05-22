@@ -3,7 +3,7 @@ package uzuzjmd.competence.gui.client.shared.widgets;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.gui.client.LmsContextFactory;
+import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
