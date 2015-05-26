@@ -36,15 +36,17 @@ public class Graph {
 	 */
 	public void addTriple(String fromNode, String toNode, String label,
 			Boolean directed) {
-		GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label,
-				directed);
-		nodeIdValues.put(fromNode.hashCode(), fromNode);
-		nodeIdValues.put(toNode.hashCode(), toNode);
-		GraphNode fromNode1 = new GraphNode(fromNode);
-		GraphNode toNode1 = new GraphNode(toNode);
-		this.triples.add(graphTriple);
-		this.nodes.add(fromNode1);
-		this.nodes.add(toNode1);
+		if (fromNode != null && toNode != null && label != null) {
+			GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label,
+					directed);
+			nodeIdValues.put(fromNode.hashCode(), fromNode);
+			nodeIdValues.put(toNode.hashCode(), toNode);
+			GraphNode fromNode1 = new GraphNode(fromNode);
+			GraphNode toNode1 = new GraphNode(toNode);
+			this.triples.add(graphTriple);
+			this.nodes.add(fromNode1);
+			this.nodes.add(toNode1);
+		}
 	}
 
 	@Override

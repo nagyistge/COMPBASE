@@ -29,7 +29,7 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     if (readableName != null) {
       addDataField(NAME, readableName)
     } else {
-      addDataField(NAME, identifierBeforeParsing)
+      addDataField(NAME, identifier)
     }
   }
 

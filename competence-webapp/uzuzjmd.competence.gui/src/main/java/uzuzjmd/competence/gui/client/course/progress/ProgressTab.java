@@ -6,10 +6,10 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.JsonUtil;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -49,36 +49,35 @@ public class ProgressTab extends CompetenceTab {
 
 	private Alert alert;
 	private CompetenceSelectionWidget competenceSelectionWidget;
-	private LmsContextFactory contextFactory;
 
 	interface ProgressTabUiBinder extends UiBinder<Widget, ProgressTab> {
 	}
 
-	public ProgressTab(final LmsContextFactory contextFactory) {
+	public ProgressTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		this.contextFactory = contextFactory;
 		String infoText = "Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden.";
 		infoText += "Wenn keine Fortschrittsbalken angezeigt werden, müssen sie in dem Zuordung-Tab Aktivitäten zuordnen";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 
-		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, null, "coursecontext/", true);
+		competenceSelectionWidget = new CompetenceSelectionWidget(null,
+				"coursecontext/", "Auswahl der Kompetenzen für Fortschritt",
+				true);
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 
-		showProgressEntries(contextFactory, true);
+		showProgressEntries(true);
 
 	}
 
-	public void showProgressEntries(final LmsContextFactory contextFactory,
-			final boolean firstShow) {
+	public void showProgressEntries(final boolean firstShow) {
 		progressPlaceHolder.clear();
 		GWT.log("Initiating progress entries");
-		Resource resource = new Resource(contextFactory.getServerURL()
-				+ "/competences/json/link/progress/"
-				+ contextFactory.getOrganization());
+		Resource resource = new Resource(
+				Controller.contextFactory.getServerURL()
+						+ "/competences/json/link/progress/"
+						+ Controller.contextFactory.getOrganization());
 		resource.addQueryParams("competences",
 				competenceSelectionWidget.getSelectedCompetences()).get()
 				.send(new JsonCallback() {
@@ -91,7 +90,7 @@ public class ProgressTab extends CompetenceTab {
 						for (String userName : userProgressMap.keySet()) {
 							progressPlaceHolder.add(new ProgressEntry(userName,
 									Integer.valueOf(userProgressMap
-											.get(userName)), contextFactory));
+											.get(userName))));
 						}
 						GWT.log("finished adding progress entries to progress tab");
 						if (!firstShow) {
@@ -104,7 +103,7 @@ public class ProgressTab extends CompetenceTab {
 					@Override
 					public void onFailure(Method arg0, Throwable arg1) {
 						GWT.log("could not get progress map from server for course context"
-								+ contextFactory.getOrganization());
+								+ Controller.contextFactory.getOrganization());
 
 						alert = new Alert(
 								"Es gab Probleme bei der Datenbank, kontaktieren Sie einen Entwickler",
@@ -117,7 +116,7 @@ public class ProgressTab extends CompetenceTab {
 
 	@UiHandler("filterButton")
 	void onFilterButtonClick(ClickEvent event) {
-		showProgressEntries(contextFactory, false);
+		showProgressEntries(false);
 	}
 
 	@UiHandler("warningPlaceholder")
@@ -132,6 +131,6 @@ public class ProgressTab extends CompetenceTab {
 
 	public void reload() {
 		competenceSelectionWidget.reload();
-		showProgressEntries(contextFactory, false);
+		showProgressEntries(false);
 	}
 }

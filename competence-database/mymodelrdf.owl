@@ -128,6 +128,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#TeacherRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Role"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Lesen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -899,7 +900,7 @@
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432627190936</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432648558219</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannraschdenInhaltunddieWichtigkeitvonNachrichtenArtikelnundBerichtenüberThemendiemitmeinenInteressenodermeinemBerufzusammenhängenerfassenundentscheidenobsicheingenaueresLesenlohnt">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1122,7 +1123,7 @@
     <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
     <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
     <j.0:createdBy rdf:resource="http://comp#me"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432627192329</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432648559429</j.0:datecreated>
     <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
     <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
@@ -1347,6 +1348,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen C1</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenC1</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IRole">
+    <rdf:type rdf:resource="http://comp#Role"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen">
     <rdf:type rdf:resource="http://comp#IchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen"/>
@@ -1902,6 +1906,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#StudentRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Role"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#bewerten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2149,7 +2154,7 @@
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:CommentOf rdf:resource="http://comp#hellolinkId"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432627190936</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1432648558219</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken">
     <rdf:type rdf:resource="http://comp#IchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken"/>
@@ -3036,6 +3041,7 @@
     <j.0:CourseContextOf rdf:resource="http://comp#ITeacherRole"/>
     <j.0:CourseContextOf rdf:resource="http://comp#I3org227owlNothing"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IStudentRole"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IRole"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärtererkennenEntwicklungsständeLernpotentialeLernhindernisseundLernfortschritte"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterbeschreibendenLernstandderSuSundihreneigenenWissensstand"/>
