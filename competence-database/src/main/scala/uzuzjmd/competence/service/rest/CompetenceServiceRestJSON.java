@@ -36,10 +36,10 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.client.Graph;
-import uzuzjmd.competence.service.rest.client.HierarchieChangeSet;
-import uzuzjmd.competence.service.rest.client.ProgressMap;
-import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.client.dto.Graph;
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
+import uzuzjmd.competence.service.rest.client.dto.ProgressMap;
 
 /**
  * Root resource (exposed at "competences" path)

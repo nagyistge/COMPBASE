@@ -15,7 +15,7 @@ import uzuzjmd.competence.gui.client.taxonomy.graph.CompetenceEntry;
 import uzuzjmd.competence.gui.client.taxonomy.graph.CompetenceGraphFilterPanel;
 import uzuzjmd.competence.gui.client.taxonomy.graph.CompetenceLinkCreationWidget;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.Graph;
+import uzuzjmd.competence.service.rest.client.dto.Graph;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;

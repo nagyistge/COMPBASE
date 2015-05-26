@@ -1,7 +1,7 @@
 package uzuzjmd.competence.gui.client.viewcontroller;
 
-import uzuzjmd.competence.gui.client.course.LinkEvidenceTab;
-import uzuzjmd.competence.gui.client.course.ProgressTab;
+import uzuzjmd.competence.gui.client.course.activity.LinkEvidenceTab;
+import uzuzjmd.competence.gui.client.course.progress.ProgressTab;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceCreationTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;

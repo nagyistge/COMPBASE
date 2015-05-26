@@ -7,9 +7,7 @@ class StudentRole(comp: CompOntologyManager) extends Role(comp, CompOntClass.Stu
 
   @Override
   protected def persistMore() {
-    val role = new RoleInstance(comp)
-    role.persist(false)
-    addSuperClass(role)
+
   }
 
   @Override

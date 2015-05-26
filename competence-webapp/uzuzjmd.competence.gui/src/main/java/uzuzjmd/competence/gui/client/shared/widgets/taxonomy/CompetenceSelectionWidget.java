@@ -5,8 +5,10 @@ import java.util.List;
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
-import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.HierarchieChangeSet;
+import uzuzjmd.competence.service.rest.client.api.OkFeedBack;
+import uzuzjmd.competence.service.rest.client.api.PostRequestManager;
+import uzuzjmd.competence.service.rest.client.api.RestUrlFactory;
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.RadioButton;
@@ -15,10 +17,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -35,21 +34,6 @@ public class CompetenceSelectionWidget extends Composite {
 
 	interface CompetenceSelectionWidgetUiBinder extends
 			UiBinder<Widget, CompetenceSelectionWidget> {
-	}
-
-	private class OkFeedBack implements RequestCallback {
-		@Override
-		public void onError(Request request, Throwable exception) {
-			// TODO Auto-generated method stub
-			GWT.log(exception.getMessage());
-		}
-
-		@Override
-		public void onResponseReceived(Request request, Response response) {
-			GWT.log(response.getStatusText());
-			competenceTree.reloadTree();
-			Controller.reloadController.reload();
-		}
 	}
 
 	@UiField
@@ -179,9 +163,9 @@ public class CompetenceSelectionWidget extends Composite {
 		this.contextFactory = contextFactory;
 		this.selectedFilter = selectedFilter;
 
-		updateFilteredPanel("all", null);
 		initOperatorTree(contextFactory);
 		initCatchwordTree(contextFactory);
+		updateFilteredPanel();
 		this.alleRadioButton.setValue(true);
 		ToggleButton toggleButton = new ToggleButton("Filter ausklappen",
 				"Filter einklappen");
@@ -236,113 +220,33 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	public void handleSubmit(final String requirementText) {
-		sendNonCompulsoryNodesToServer(requirementText);
-	}
-
-	private void sendCompulsoryNodesToServer(final String requirementText) {
-		if (!competenceTree.getCheckedNodes().isEmpty()) {
-			Resource resourceCompulsory = new Resource(
-					contextFactory.getServerURL()
-							+ "/competences/json/coursecontext/create/"
-							+ contextFactory.getCourseContext() + "/true");
-			try {
-				resourceCompulsory
-						.addQueryParam("requirements", requirementText)
-						.addQueryParams("competences",
-								competenceTree.getCheckedNodes()).post()
-						.send(new OkFeedBack());
-			} catch (RequestException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			GWT.log("not sending compulsory nodes because non selected");
-			competenceTree.reloadTree();
-			Controller.reloadController.reload();
-		}
-	}
-
-	private void sendNonCompulsoryNodesToServer(final String requirementText) {
-		if (!competenceTree.convertSelectedTreeToList().isEmpty()) {
-			Resource resource = new Resource(contextFactory.getServerURL()
-					+ "/competences/json/coursecontext/create/"
-					+ contextFactory.getCourseContext() + "/false");
-			try {
-				resource.addQueryParam("requirements", requirementText)
-						.addQueryParams("competences",
-								competenceTree.convertSelectedTreeToList())
-						.post().send(new RequestCallback() {
-							@Override
-							public void onError(Request request,
-									Throwable exception) {
-								GWT.log(exception.getMessage());
-							}
-
-							@Override
-							public void onResponseReceived(Request request,
-									Response response) {
-								GWT.log("successfully send non compulsory competences to server");
-								sendCompulsoryNodesToServer(requirementText);
-							}
-						});
-			} catch (RequestException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			sendCompulsoryNodesToServer(requirementText);
-		}
-
+		PostRequestManager postRequestManager = new PostRequestManager();
+		postRequestManager.addCompetencesToCourse(requirementText,
+				competenceTree.convertSelectedTreeToList(),
+				competenceTree.getCheckedNodes());
 	}
 
 	@UiHandler("alleRadioButton")
 	void onRadioButtonClick(ClickEvent event) {
 		filter = "all";
-		updateFilteredPanel(filter, null);
+		updateFilteredPanel();
 	}
 
 	@UiHandler("verpflichtendeRadioButton")
 	void onRadioButton_1Click(ClickEvent event) {
 		filter = "true";
-		updateFilteredPanel(filter, null);
+		updateFilteredPanel();
 	}
 
 	@UiHandler("nichtVerpflichtendeRadioButton")
 	void onRadioButton_2Click(ClickEvent event) {
 		filter = "false";
-		updateFilteredPanel(filter, null);
+		updateFilteredPanel();
 	}
 
-	private void updateFilteredPanel(String compulsoryFilter, String query) {
+	private void updateFilteredPanel() {
 		competenceTreeCaptionPanel.clear();
-		String queryString = "";
-		if (query != null) {
-			queryString += query;
-		}
 
-		String context = contextFactory.getOrganization();
-		if (isCourseContext) {
-			context = "coursecontext/" + contextFactory.getCourseContext();
-		}
-		competenceTree = new CompetenceSelectionTree(
-				contextFactory.getServerURL()
-						+ "/competences/xml/competencetree/" + context + "/"
-						+ compulsoryFilter + "/cached" + queryString,
-				contextFactory, selectedFilter, showChecked, isCourseContext,
-				editable, clickable);
-		// competenceTree.setShowCheckBoxes(showChecked);
-		competenceTreeCaptionPanel.add(competenceTree);
-	}
-
-	@UiHandler("resetButton")
-	void onResetButtonClick(ClickEvent event) {
-		updateFilteredPanel("all", null);
-		operatorTree.clearSelections();
-		catchwordTree.clearSelections();
-	}
-
-	@UiHandler("filterButton")
-	void onFilterButtonClick(ClickEvent event) {
 		String query = "?";
 		query += "textFilter=" + textSearchField.getValue() + "&";
 		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
@@ -357,7 +261,26 @@ public class CompetenceSelectionWidget extends Composite {
 			query += "&";
 		}
 		query = query.substring(0, query.length() - 1);
-		updateFilteredPanel(filter, query);
+
+		competenceTree = new CompetenceSelectionTree(
+				RestUrlFactory.getCompetenceTreeWithFilters(filter, query,
+						isCourseContext), contextFactory, selectedFilter,
+				showChecked, isCourseContext, editable, clickable);
+		// competenceTree.setShowCheckBoxes(showChecked);
+		competenceTreeCaptionPanel.add(competenceTree);
+	}
+
+	@UiHandler("resetButton")
+	void onResetButtonClick(ClickEvent event) {
+		filter = "all";
+		updateFilteredPanel();
+		operatorTree.clearSelections();
+		catchwordTree.clearSelections();
+	}
+
+	@UiHandler("filterButton")
+	void onFilterButtonClick(ClickEvent event) {
+		updateFilteredPanel();
 	}
 
 	public List<String> getSelectedCompetences() {

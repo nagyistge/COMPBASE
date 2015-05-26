@@ -8,9 +8,9 @@ import javax.ws.rs.core.Response;
 import org.apache.axis.client.Stub;
 import org.apache.commons.lang.NotImplementedException;
 
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.LiferayEvidence2Tree;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserTree;
 
 import com.liferay.portlet.social.model.SocialActivitySoap;
 

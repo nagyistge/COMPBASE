@@ -6,13 +6,13 @@ import uzuzjmd.competence.evidence.service.EvidenceService;
 import uzuzjmd.competence.evidence.service.LiferayEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
-import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry;
-import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp;
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.ResponseCorsFilter;
-import uzuzjmd.competence.view.xml.AbstractTreeEntry;
-import uzuzjmd.competence.view.xml.AbstractXMLTree;
+import uzuzjmd.competence.service.rest.client.dto.AbstractTreeEntry;
+import uzuzjmd.competence.service.rest.client.dto.AbstractXMLTree;
+import uzuzjmd.competence.service.rest.client.dto.ActivityEntry;
+import uzuzjmd.competence.service.rest.client.dto.ActivityTyp;
+import uzuzjmd.competence.service.rest.client.dto.UserTree;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.DefaultResourceConfig;

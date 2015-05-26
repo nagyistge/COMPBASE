@@ -8,8 +8,8 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.course.portfolio.EvidenceStackPanel.CompetenceLinksMapCodec;
-import uzuzjmd.competence.service.rest.client.CompetenceLinksMap;
-import uzuzjmd.competence.service.rest.client.CompetenceLinksView;
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONValue;
@@ -65,10 +65,13 @@ class StackPanelReloader {
 			CompetenceLinksMapCodec codec = GWT
 					.create(CompetenceLinksMapCodec.class);
 			CompetenceLinksMap competenceLinksMap = codec.decode(arg1);
+			GWT.log(competenceLinksMap.getMapUserCompetenceLinks().size() + "");
 			for (String competenceName : competenceLinksMap
 					.getMapUserCompetenceLinks().keySet()) {
 				List<CompetenceLinksView> links = competenceLinksMap
 						.getMapUserCompetenceLinks().get(competenceName);
+
+				GWT.log(links.size() + "");
 				Panel panel = new SimplePanel();
 				// panel.setStylePrimaryName("accordion-group");
 				EvidenceLinkWidget evidenceWidget = new EvidenceLinkWidget(
