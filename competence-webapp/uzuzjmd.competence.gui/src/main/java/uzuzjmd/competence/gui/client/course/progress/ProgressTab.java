@@ -10,6 +10,7 @@ import uzuzjmd.competence.gui.client.shared.JsonUtil;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
+import uzuzjmd.competence.service.rest.client.api.RestUrlFactory;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -74,10 +75,7 @@ public class ProgressTab extends CompetenceTab {
 	public void showProgressEntries(final boolean firstShow) {
 		progressPlaceHolder.clear();
 		GWT.log("Initiating progress entries");
-		Resource resource = new Resource(
-				Controller.contextFactory.getServerURL()
-						+ "/competences/json/link/progress/"
-						+ Controller.contextFactory.getOrganization());
+		Resource resource = new Resource(RestUrlFactory.getProgressMapURL());
 		resource.addQueryParams("competences",
 				competenceSelectionWidget.getSelectedCompetences()).get()
 				.send(new JsonCallback() {
