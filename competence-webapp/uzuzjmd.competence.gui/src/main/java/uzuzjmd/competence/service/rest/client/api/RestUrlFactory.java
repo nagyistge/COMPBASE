@@ -51,4 +51,10 @@ public class RestUrlFactory {
 				+ Controller.contextFactory.getCourseId();
 		return moodleEvidenceUrl;
 	}
+
+	public static String getProgressMapURL() {
+		return Controller.contextFactory.getServerURL()
+				+ "/competences/json/link/progress/"
+				+ Controller.contextFactory.getCourseId();
+	}
 }
