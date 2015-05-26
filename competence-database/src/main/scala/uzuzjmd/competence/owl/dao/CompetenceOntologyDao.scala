@@ -23,7 +23,7 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   }
 
   protected def replaceWrongCharacters(input: String): String = {
-    return input.trim().replaceAll("[^äöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
+    return input.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
   }
 
   @Override
