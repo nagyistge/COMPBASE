@@ -2,10 +2,10 @@ package uzuzjmd.competence.mapper.gui
 
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.gui.client.shared.dto.HierarchieChangeSet
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.gui.client.shared.dto.HierarchieChange
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChange
 
 object HierarchieChangesToOnt {
   def convertChanges(comp: CompOntologyManager, changes: HierarchieChangeSet) {

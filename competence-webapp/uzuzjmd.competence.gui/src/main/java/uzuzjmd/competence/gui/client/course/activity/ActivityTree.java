@@ -7,7 +7,6 @@ import java.util.List;
 
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.context.NativeContext;
-import uzuzjmd.competence.gui.client.shared.Evidence;
 import uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel;
 
 import com.google.gwt.core.client.GWT;

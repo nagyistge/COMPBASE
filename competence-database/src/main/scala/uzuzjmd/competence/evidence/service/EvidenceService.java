@@ -4,8 +4,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserTree;
 
 @WebService(name = "EvidenceService", targetNamespace = "http://service.evidence.competence.uzuzjmd/")
 public interface EvidenceService {

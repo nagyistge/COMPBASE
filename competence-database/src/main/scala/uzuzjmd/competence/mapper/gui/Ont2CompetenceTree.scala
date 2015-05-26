@@ -6,22 +6,21 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import com.hp.hpl.jena.ontology.OntProperty
 import scala.collection.mutable.Buffer
-import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree
-import uzuzjmd.competence.service.rest.dto.OperatorXMLTree
-import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree
 import com.hp.hpl.jena.ontology.OntClass
-import uzuzjmd.competence.view.xml.AbstractXMLTree
 import scala.reflect._
 import java.util.LinkedList
 import scala.reflect.runtime.universe._
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.view.xml.DummyTree
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.gui.mapper.TextValidator
+import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree
+import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree
+import uzuzjmd.competence.service.rest.client.dto.CatchwordXMLTree
+import uzuzjmd.competence.service.rest.client.dto.AbstractXMLTree
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
@@ -191,7 +190,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     getCompetenceTreeHelperNoTree(hasLinksAndCourse)
   }
 
-  private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[uzuzjmd.competence.service.rest.dto.CompetenceXMLTree] = {
+  private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
@@ -202,7 +201,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     return filteredResult.asJava
   }
 
-  private def getCompetenceTreeHelperNoTree(allow: (OntClass => Boolean)): java.util.List[uzuzjmd.competence.service.rest.dto.CompetenceXMLTree] = {
+  private def getCompetenceTreeHelperNoTree(allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
     ontologyManager.begin()
     // Klasse, in die rekursiv abgestiegen werden soll
     val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);

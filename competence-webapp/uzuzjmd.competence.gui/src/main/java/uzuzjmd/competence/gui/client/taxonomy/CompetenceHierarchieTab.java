@@ -5,7 +5,7 @@ import org.fusesource.restygwt.client.Resource;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.HierarchieChangeSet;
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;

@@ -4,7 +4,7 @@ import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.CompetenceLinksMap;
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;

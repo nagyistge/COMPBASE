@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.gui.mapper
 
-import uzuzjmd.competence.view.xml.AbstractXMLTree
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.view.xml.AbstractTreeEntry
+import uzuzjmd.competence.service.rest.client.dto.AbstractXMLTree
 
 object TextValidator {
 

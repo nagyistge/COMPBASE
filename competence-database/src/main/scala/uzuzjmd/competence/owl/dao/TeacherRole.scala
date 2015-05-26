@@ -6,9 +6,7 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 class TeacherRole(comp: CompOntologyManager) extends Role(comp, CompOntClass.TeacherRole) {
   @Override
   protected def persistMore() {
-    val role = new RoleInstance(comp)
-    role.persist(false)
-    addSuperClass(role)
+
   }
 
   @Override
