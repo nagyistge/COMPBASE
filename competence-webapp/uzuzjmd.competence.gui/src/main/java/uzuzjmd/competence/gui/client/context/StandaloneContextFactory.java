@@ -20,17 +20,17 @@ public class StandaloneContextFactory extends LmsContextFactory {
 			JsonEncoderDecoder<UserCourseListResponse> {
 	}
 
-	private HashMap<String, String> coursesHashmap;
+	private HashMap<String, Long> coursesHashmap;
 
 	public StandaloneContextFactory(String serverUrl, String evidenceUrl) {
 		super();
 		this.serverUrl = serverUrl;
 		this.evidenceServerUrl = evidenceUrl;
-		this.coursesHashmap = new HashMap<String, String>();
-
+		this.coursesHashmap = new HashMap<String, Long>();
+		// this.coursesHashmap.put("university", 0l);
 	}
 
-	public HashMap<String, String> getCoursesHashmap() {
+	public HashMap<String, Long> getCoursesHashmap() {
 		return coursesHashmap;
 	}
 
@@ -58,9 +58,9 @@ public class StandaloneContextFactory extends LmsContextFactory {
 					// }
 
 					for (int i = 0; i < response.isArray().size(); i++) {
-						String courseId = response.isArray().get(i).isObject()
-								.get("courseid").toString()
-								.replaceAll("\"", "");
+						Long courseId = Math.round(response.isArray().get(i)
+								.isObject().get("courseid").isNumber()
+								.doubleValue());
 						String name = response.isArray().get(i).isObject()
 								.get("name").toString().replaceAll("\"", "");
 						coursesHashmap.put(name, courseId);
@@ -92,8 +92,10 @@ public class StandaloneContextFactory extends LmsContextFactory {
 	}
 
 	@Override
-	public String getRawCourseId() {
+	public Long getCourseId() {
+		GWT.log("using standalone context factory");
+		GWT.log("course context is: " + getCourseContext());
+		GWT.log("course id is: " + coursesHashmap.get(getCourseContext()));
 		return coursesHashmap.get(getCourseContext());
 	}
-
 }

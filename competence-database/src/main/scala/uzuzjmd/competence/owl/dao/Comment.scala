@@ -20,7 +20,7 @@ case class Comment(comp: CompOntologyManager, val text: String, val creator: Use
   protected def persistMore() {
     creator.persist
     createEdgeWith(creator, CompObjectProperties.UserOfComment)
-    addDataField(TEXT, identifierBeforeParsing)
+    addDataField(TEXT, identifier)
     if (created == null) {
       addDataField(DATECRATED, System.currentTimeMillis(): java.lang.Long);
     } else {

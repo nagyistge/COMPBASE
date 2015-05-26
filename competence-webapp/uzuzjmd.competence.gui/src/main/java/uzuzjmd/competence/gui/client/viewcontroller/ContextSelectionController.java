@@ -22,12 +22,14 @@ public class ContextSelectionController {
 			if (firstItem == null) {
 				firstItem = selectedCourse;
 			}
+			courseSelectionButton.setText(firstItem);
 			NavLink button = new NavLink();
 			button.setText(selectedCourse);
 			button.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
+					courseSelectionButton.setText(selectedCourse);
 					Controller.contextFactory.setCourseContext(selectedCourse);
 					Controller.reloadController.reload();
 				}

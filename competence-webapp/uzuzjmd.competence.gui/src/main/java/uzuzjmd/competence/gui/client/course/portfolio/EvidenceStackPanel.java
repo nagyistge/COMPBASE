@@ -2,7 +2,6 @@ package uzuzjmd.competence.gui.client.course.portfolio;
 
 import org.fusesource.restygwt.client.JsonEncoderDecoder;
 
-import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
 
@@ -33,7 +32,6 @@ public class EvidenceStackPanel extends Composite {
 	Button closeButton;
 	private PopupPanel container;
 	private String userName;
-	private LmsContextFactory context;
 
 	public interface CompetenceLinksMapCodec extends
 			JsonEncoderDecoder<CompetenceLinksMap> {
@@ -43,24 +41,21 @@ public class EvidenceStackPanel extends Composite {
 			UiBinder<Widget, EvidenceStackPanel> {
 	}
 
-	public EvidenceStackPanel(PopupPanel container, String userName,
-			LmsContextFactory context) {
+	public EvidenceStackPanel(PopupPanel container, String userName) {
 		this.userName = userName;
-		this.context = context;
 		initWidget(uiBinder.createAndBindUi(this));
 		// evidenceStackPanel.add(new Label("test"), userName);
 		captionPanel.setCaptionHTML("Kompetenzübersicht für " + this.userName);
 		this.container = container;
 
 		StackPanelReloader stackPanelReloader = new StackPanelReloader(
-				evidenceStackPanel, userName, context, null);
+				evidenceStackPanel, userName, null);
 		stackPanelReloader.reload();
 	}
 
 	@UiHandler("closeButton")
 	void onCloseButtonClick(ClickEvent event) {
 		container.hide();
-		Controller.progressTab.showProgressEntries(Controller.contextFactory,
-				true);
+		Controller.progressTab.showProgressEntries(true);
 	}
 }

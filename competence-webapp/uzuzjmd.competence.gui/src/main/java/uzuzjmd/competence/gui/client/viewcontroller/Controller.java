@@ -2,9 +2,9 @@ package uzuzjmd.competence.gui.client.viewcontroller;
 
 import uzuzjmd.competence.gui.client.TabbedView;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
-import uzuzjmd.competence.gui.client.course.RequirementTab;
 import uzuzjmd.competence.gui.client.course.activity.LinkEvidenceTab;
 import uzuzjmd.competence.gui.client.course.progress.ProgressTab;
+import uzuzjmd.competence.gui.client.course.requirement.RequirementTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceCreationTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceEditTab;
@@ -24,13 +24,12 @@ public class Controller {
 
 	public static void init() {
 
-		Controller.progressTab = new ProgressTab(Controller.contextFactory);
+		Controller.progressTab = new ProgressTab();
 		Controller.competenceDeleteTab = new CompetenceDeleteWidget(
 				Controller.contextFactory);
 		Controller.competenceHierarchieTab = new CompetenceHierarchieTab(
 				contextFactory);
-		Controller.linkEvidenceTab = new LinkEvidenceTab(
-				Controller.contextFactory);
+		Controller.linkEvidenceTab = new LinkEvidenceTab();
 		Controller.competenceCreationTab = new CompetenceCreationTab(
 				Controller.contextFactory);
 		Controller.competenceEditTab = new CompetenceEditTab(contextFactory);

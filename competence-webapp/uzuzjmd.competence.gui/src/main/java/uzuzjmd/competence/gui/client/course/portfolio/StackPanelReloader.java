@@ -6,8 +6,8 @@ import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.course.portfolio.EvidenceStackPanel.CompetenceLinksMapCodec;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView;
 
@@ -21,34 +21,31 @@ import com.google.gwt.user.client.ui.SimplePanel;
 class StackPanelReloader {
 	private DecoratedStackPanel decoratedStackPanel;
 	private String username;
-	private LmsContextFactory context;
 	public Boolean commentEntryWasSuccess;
 	public String commentEntryIdLastUpdated = "";
 	private int selected;
 
 	public StackPanelReloader(DecoratedStackPanel decoratedStackPanel,
-			String username, LmsContextFactory context,
-			Boolean commentEntryWasSuccess) {
+			String username, Boolean commentEntryWasSuccess) {
 		this.decoratedStackPanel = decoratedStackPanel;
 		this.username = username;
-		this.context = context;
 		this.commentEntryWasSuccess = commentEntryWasSuccess;
 	}
 
 	public void reload() {
 		selected = decoratedStackPanel.getSelectedIndex();
 		this.decoratedStackPanel.clear();
-		loadEvidencesFromServer(username, context);
+		loadEvidencesFromServer(username);
 	}
 
 	public void setCommentEntryWasSuccess(Boolean commentEntryWasSuccess) {
 		this.commentEntryWasSuccess = commentEntryWasSuccess;
 	}
 
-	private void loadEvidencesFromServer(final String userName,
-			final LmsContextFactory context) {
-		Resource resource = new Resource(context.getServerURL()
-				+ "/competences/json/link/overview/" + userName);
+	private void loadEvidencesFromServer(final String userName) {
+		Resource resource = new Resource(
+				Controller.contextFactory.getServerURL()
+						+ "/competences/json/link/overview/" + userName);
 		resource.get().send(new MyJsonCallBack(this));
 	}
 

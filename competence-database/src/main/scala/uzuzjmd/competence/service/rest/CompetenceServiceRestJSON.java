@@ -82,6 +82,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	 * Link the competences to a course context
 	 * 
 	 * @param course
+	 *            (the id of the course)
 	 * @param compulsory
 	 *            (optional)
 	 * @param competences

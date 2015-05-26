@@ -6,7 +6,7 @@ public class LmsContextFactory implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long courseId;
+	protected Long courseId;
 	protected String serverUrl;
 	protected String evidenceServerUrl;
 	protected String role;
@@ -99,9 +99,12 @@ public class LmsContextFactory implements java.io.Serializable {
 	 * 
 	 * @return
 	 */
-	public String getRawCourseId() {
+	public Long getCourseId() {
+		if (courseId == null) {
+			courseId = 0l;
+		}
 
-		return courseId + "";
+		return courseId;
 	}
 
 	public void setIsValidUserLoggedIn(Boolean value) {

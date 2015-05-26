@@ -1,14 +1,14 @@
 package uzuzjmd.competence.service.rest.client.dto;
 
 public class UserCourseListItem {
-	private String courseid;
+	private Long courseid;
 	private String name;
 
-	public String getCourseid() {
+	public Long getCourseid() {
 		return courseid;
 	}
 
-	public void setCourseid(String courseid) {
+	public void setCourseid(Long courseid) {
 		this.courseid = courseid;
 	}
 

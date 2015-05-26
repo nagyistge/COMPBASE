@@ -64,8 +64,8 @@ public class CompetenceEditTab extends Composite {
 
 	public CompetenceEditTab(LmsContextFactory lmsContextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
-		editAbleCompetences = new CompetenceSelectionWidget(lmsContextFactory,
-				"all", null, "Aktuelle Kompetenzen!", false, false, true);
+		editAbleCompetences = new CompetenceSelectionWidget("all", null,
+				"Aktuelle Kompetenzen!", false, false, true);
 
 		editAbleCompetencesHolder.add(editAbleCompetences);
 	}
