@@ -39,6 +39,9 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getUserTreeCrossDomain(@PathParam("course") String course) {
+		if (course == null || course.equals("0")) {
+			return Response.status(404).build();
+		}
 		Response response = Response.status(200).entity(evidenceService.getUserTree(course)).build();
 		// Response response =
 		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();

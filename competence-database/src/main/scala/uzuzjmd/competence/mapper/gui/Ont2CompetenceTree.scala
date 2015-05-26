@@ -21,6 +21,7 @@ import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree
 import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree
 import uzuzjmd.competence.service.rest.client.dto.CatchwordXMLTree
 import uzuzjmd.competence.service.rest.client.dto.AbstractXMLTree
+import uzuzjmd.competence.owl.dao.CourseContext
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
@@ -97,12 +98,12 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
   def allowedAndCourse(ontClass: OntClass): Boolean = {
     val competence = new Competence(ontologyManager, ontClass.getLocalName())
-    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
+    val courseIndividual = new CourseContext(ontologyManager, course).createIndividual
     return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf) && competence.isAllowed()
   }
 
   def hasLinksAndCourse(ontClass: OntClass): Boolean = {
-    val courseIndividual = CompetenceServiceWrapper.createCourseContext(course, ontologyManager)
+    val courseIndividual = new CourseContext(ontologyManager, course).createIndividual
     return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
   }
 

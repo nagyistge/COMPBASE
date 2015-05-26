@@ -24,6 +24,8 @@ public class RuleFactory {
 		result.add(allCompetencesHaveGlobalContext());
 		result.add(allCompetencesHaveGlobalContext2());
 		// result.add(getInheritanceOneWayOnlyRule());
+		result.add(noNothingArtefacts());
+		result.add(noNothingArtefacts2());
 	}
 
 	private void generateInverseRules() {
@@ -98,6 +100,19 @@ public class RuleFactory {
 	public String allCompetencesHaveGlobalContext2() {
 		return "[globalContext2: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
 	}
+
+	public String noNothingArtefacts() {
+		return "[noNothing1: equal(?a, http://comp#I3org227owlNothing) -> remove(?a)]";
+	}
+
+	public String noNothingArtefacts2() {
+		return "[noNothing2: equal(?a, owl:Nothing) -> remove(?a)]";
+	}
+
+	public String noNothingArtefacts3() {
+		return "[noNothing2: equal(?a, http://comp#undefined) -> remove(?a)]";
+	}
+
 }
 
 // create inverse relationships

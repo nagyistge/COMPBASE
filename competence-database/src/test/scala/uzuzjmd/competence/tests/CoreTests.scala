@@ -136,10 +136,12 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.begin()
     val studentRole = new StudentRole(compOntManag)
     studentRole.persist(true)
+    studentRole.setRole
     studentRole.persist(false).getIndividual() should not be null
     studentRole.persist(false).getOntclass() should not be null
     val teacherRole = new TeacherRole(compOntManag)
     teacherRole.persist(true)
+    teacherRole.setRole
     teacherRole.persist(false).getIndividual() should not be null
     teacherRole.persist(false).getOntclass() should not be null
     compOntManag.close()

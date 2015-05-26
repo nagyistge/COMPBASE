@@ -1,4 +1,4 @@
-package uzuzjmd.competence.gui.client.course;
+package uzuzjmd.competence.gui.client.course.requirement;
 
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
@@ -62,8 +62,8 @@ public class RequirementTab extends CompetenceTab {
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(hrDividerPanel);
 		initHrLines(hrDividerPanel2);
-		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, "selected", true, false);
+		competenceSelectionWidget = new CompetenceSelectionWidget("selected",
+				true, false);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
 		initRequirementTextfield();
 

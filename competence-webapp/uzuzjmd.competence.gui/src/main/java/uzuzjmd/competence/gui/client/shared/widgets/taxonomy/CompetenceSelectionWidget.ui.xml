@@ -9,8 +9,7 @@
 			ui:field="captionPanel">
 			<g:VerticalPanel ui:field="competenceTreeContainer"
 				verticalAlignment="ALIGN_TOP">
-				<g:HTMLPanel ui:field="competenceTreeCaptionPanel"
-					styleName="competenceSelectionPanel" width="100%" />
+				<g:SimplePanel ui:field="competenceTreeCaptionPanel" styleName="competenceSelectionPanel" width="100%"> </g:SimplePanel>
 				<g:HorizontalPanel>
 					<b:Button icon="REFRESH" text="Zurücksetzen" ui:field="resetButton" />
 					<b:Button text="Kollabieren" ui:field="collapseButton" />

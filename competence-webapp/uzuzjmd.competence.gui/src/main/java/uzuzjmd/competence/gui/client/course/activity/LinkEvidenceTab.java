@@ -10,6 +10,7 @@ import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
+import uzuzjmd.competence.service.rest.client.api.RestUrlFactory;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -62,7 +63,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 	interface LinkEvidenceTabUiBinder extends UiBinder<Widget, LinkEvidenceTab> {
 	}
 
-	public LinkEvidenceTab(LmsContextFactory contextFactory) {
+	public LinkEvidenceTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "";
 		if (Controller.contextFactory.getRole().equals("teacher")) {
@@ -73,35 +74,27 @@ public class LinkEvidenceTab extends CompetenceTab {
 		infoText += "Wichtig: Wenn die Kompetenzauswahl LEER ist, müssen sie in dem Anforderungstab Kompetenzen auswählen";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
-		initCompetenceSelectionWidget(contextFactory);
-		if (contextFactory.getMode().equals("moodle")
-				|| contextFactory.getMode().equals("liferay")) {
+		initCompetenceSelectionWidget();
+		if (Controller.contextFactory.getMode().equals("moodle")
+				|| Controller.contextFactory.getMode().equals("liferay")) {
 			reloadActivityWidget();
 		}
 	}
 
 	public void reloadActivityWidget() {
-		String moodleEvidenceUrl = computeMoodleRestURL();
-		activityPanel = new ActivityTree(moodleEvidenceUrl, "Aktivitäten",
+		activityPlaceholder.clear();
+		activityPanel = new ActivityTree(
+				RestUrlFactory.computeActivityRestURL(), "Aktivitäten",
 				"activityView", 655, 180, "Aktivitäten",
 				Controller.contextFactory);
-		activityPlaceholder.clear();
 		activityPlaceholder.add(activityPanel);
 	}
 
-	private void initCompetenceSelectionWidget(LmsContextFactory contextFactory) {
-		competenceSelectionWidget = new CompetenceSelectionWidget(
-				contextFactory, null, "coursecontext/", true);
+	private void initCompetenceSelectionWidget() {
+		competenceSelectionWidget = new CompetenceSelectionWidget(null,
+				"coursecontext/", "Kurskompetenzen", true);
 
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
-	}
-
-	private String computeMoodleRestURL() {
-		String moodleEvidenceUrl = Controller.contextFactory
-				.getEvidenceServerURL()
-				+ "/lms/activities/usertree/xml/crossdomain/"
-				+ Controller.contextFactory.getRawCourseId();
-		return moodleEvidenceUrl;
 	}
 
 	@UiHandler("submitButton")
@@ -132,7 +125,7 @@ public class LinkEvidenceTab extends CompetenceTab {
 		String linkedUser = evidence.getUserId();
 		String createLink = Controller.contextFactory.getServerURL()
 				+ "/competences/json/link/create/"
-				+ contextFactory2.getOrganization() + "/"
+				+ contextFactory2.getCourseId() + "/"
 				+ contextFactory2.getUser() + "/" + contextFactory2.getRole()
 				+ "/" + linkedUser;
 		Resource resource = new Resource(createLink);
