@@ -65,7 +65,7 @@ public class CompetenceServiceWrapper {
 		compOntologyManager.startReasoning();
 		CompOntologyAccess util = compOntologyManager.getUtil();
 
-		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
+		Individual courseContextIndividual = new CourseContext(compOntologyManager, course).createIndividual();
 		addRequirementLiteral(requirements, compOntologyManager, courseContextIndividual);
 		linkSingleCompetences(competences, compulsoryBoolean, requirements, compOntologyManager, util, courseContextIndividual);
 
@@ -83,15 +83,17 @@ public class CompetenceServiceWrapper {
 	 * @param util
 	 * @return
 	 */
-	public static Individual createCourseContext(String course, CompOntologyManager compOntologyManager) {
-		// CompOntologyAccess util = compOntologyManager.getUtil();
-		// OntClass courseContextClass =
-		// util.createOntClass(CompOntClass.CourseContext);
-		// Individual courseContextIndividual =
-		// util.createIndividualForString(courseContextClass, course);
-		CourseContext courseContext = new CourseContext(compOntologyManager, course);
-		return courseContext.createIndividual();
-	}
+	// public static Individual createCourseContext(String course,
+	// CompOntologyManager compOntologyManager) {
+	// // CompOntologyAccess util = compOntologyManager.getUtil();
+	// // OntClass courseContextClass =
+	// // util.createOntClass(CompOntClass.CourseContext);
+	// // Individual courseContextIndividual =
+	// // util.createIndividualForString(courseContextClass, course);
+	// CourseContext courseContext = new CourseContext(compOntologyManager,
+	// course);
+	// return courseContext.createIndividual();
+	// }
 
 	private static void linkSingleCompetences(List<String> competences, Boolean compulsoryBoolean, String requirements, CompOntologyManager compOntologyManager, CompOntologyAccess util,
 			Individual courseContextIndividual) {
@@ -156,7 +158,9 @@ public class CompetenceServiceWrapper {
 	public static String getRequirements(String course) {
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
-		Individual courseContextIndividual = createCourseContext(course, compOntologyManager);
+		// Individual courseContextIndividual = createCourseContext(course,
+		// compOntologyManager);
+		Individual courseContextIndividual = new CourseContext(compOntologyManager, course).createIndividual();
 		Property requirementsLiteral = extractRequirementsLiteral(compOntologyManager);
 		Statement statement = courseContextIndividual.getProperty(requirementsLiteral);
 		String result = "";

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.fusesource.restygwt.client.Resource;
 
-import uzuzjmd.competence.gui.client.context.LmsContextFactory;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.api.OkFeedBack;
 import uzuzjmd.competence.service.rest.client.api.PostRequestManager;
 import uzuzjmd.competence.service.rest.client.api.RestUrlFactory;
@@ -39,7 +39,7 @@ public class CompetenceSelectionWidget extends Composite {
 	@UiField
 	VerticalPanel competenceTreeContainer;
 	@UiField
-	Panel competenceTreeCaptionPanel;
+	SimplePanel competenceTreeCaptionPanel;
 
 	@UiField
 	Panel competenceCompulsoryCheckbox;
@@ -79,7 +79,6 @@ public class CompetenceSelectionWidget extends Composite {
 
 	private CatchwordSelectionTree catchwordTree;
 
-	private LmsContextFactory contextFactory;
 	private String filter = "all";
 	private String selectedFilter = null;
 	private Boolean showChecked = false;
@@ -90,12 +89,11 @@ public class CompetenceSelectionWidget extends Composite {
 	private static CompetenceSelectionWidgetUiBinder uiBinder = GWT
 			.create(CompetenceSelectionWidgetUiBinder.class);
 
-	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, boolean showChecked, boolean isCourseContext) {
+	public CompetenceSelectionWidget(String selectedFilter,
+			boolean showChecked, boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.showChecked = showChecked;
-		this.isCourseContext = isCourseContext;
-		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		initCompetenceSelectionWidget(selectedFilter);
 		// competenceCompulsoryCheckbox
 
 	}
@@ -107,14 +105,14 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param selectedFilter
 	 * @param competenceTreeFilter
 	 */
-	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter,
-			boolean isCourseContext) {
-		initWidget(uiBinder.createAndBindUi(this));
-		this.isCourseContext = isCourseContext;
-		this.showChecked = false;
-		initCompetenceSelectionWidget(contextFactory, selectedFilter);
-	}
+	// public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
+	// String selectedFilter, String competenceTreeFilter,
+	// boolean isCourseContext) {
+	// initWidget(uiBinder.createAndBindUi(this));
+	// this.isCourseContext = isCourseContext;
+	// this.showChecked = false;
+	// initCompetenceSelectionWidget(contextFactory, selectedFilter);
+	// }
 
 	/**
 	 * selectedFilter can be /all, /selected or null competenceTreeFilter can be
@@ -125,46 +123,72 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param competenceTreeFilter
 	 * @param title
 	 */
-	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter, String title,
-			boolean isCourseContext) {
+	public CompetenceSelectionWidget(String selectedFilter,
+			String competenceTreeFilter, String title, boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
-		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		initCompetenceSelectionWidget(selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
 	}
 
-	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter, String title,
-			boolean isCourseContext, boolean editable) {
+	/**
+	 * isCourseContext is important to distinguish global from course bound
+	 * competences
+	 * 
+	 * editable is important to say, if the competences should be draggable,
+	 * 
+	 * selectedFilter can be /all, /selected or null
+	 * 
+	 * competenceTreeFilter can be coursecontext/
+	 * 
+	 * @param contextFactory
+	 * @param selectedFilter
+	 * @param competenceTreeFilter
+	 * @param title
+	 * @param isCourseContext
+	 * @param editable
+	 */
+	public CompetenceSelectionWidget(String selectedFilter,
+			String competenceTreeFilter, String title, boolean isCourseContext,
+			boolean editable) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
 		this.editable = true;
-		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		initCompetenceSelectionWidget(selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
 	}
 
-	public CompetenceSelectionWidget(final LmsContextFactory contextFactory,
-			String selectedFilter, String competenceTreeFilter, String title,
-			boolean isCourseContext, boolean editable, boolean clickable) {
+	/**
+	 * 
+	 * should only be used for edit single competence widget
+	 * 
+	 * @param contextFactory
+	 * @param selectedFilter
+	 * @param competenceTreeFilter
+	 * @param title
+	 * @param isCourseContext
+	 * @param editable
+	 * @param clickable
+	 */
+	public CompetenceSelectionWidget(String selectedFilter,
+			String competenceTreeFilter, String title, boolean isCourseContext,
+			boolean editable, boolean clickable) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
 		this.editable = true;
 		this.clickable = true;
-		initCompetenceSelectionWidget(contextFactory, selectedFilter);
+		initCompetenceSelectionWidget(selectedFilter);
 		this.captionPanel.setCaptionHTML(title);
 	}
 
-	private void initCompetenceSelectionWidget(
-			final LmsContextFactory contextFactory, String selectedFilter) {
-		this.contextFactory = contextFactory;
+	private void initCompetenceSelectionWidget(String selectedFilter) {
 		this.selectedFilter = selectedFilter;
 
-		initOperatorTree(contextFactory);
-		initCatchwordTree(contextFactory);
+		initOperatorTree();
+		initCatchwordTree();
 		updateFilteredPanel();
 		this.alleRadioButton.setValue(true);
 		ToggleButton toggleButton = new ToggleButton("Filter ausklappen",
@@ -180,35 +204,35 @@ public class CompetenceSelectionWidget extends Composite {
 		toggleButtonPlaceholder.add(toggleButton);
 	}
 
-	private void initCatchwordTree(final LmsContextFactory contextFactory) {
+	private void initCatchwordTree() {
 		GWT.log("Initiating catchword tree");
 		this.catchwordTree = new CatchwordSelectionTree(
-				contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
-						+ contextFactory.getOrganization() + "/cached",
-				"Schlagworte", "catchwordView", 325, 250, "Schlagworte",
-				contextFactory, isCourseContext);
+						+ Controller.contextFactory.getOrganization()
+						+ "/cached", "Schlagworte", "catchwordView", 325, 250,
+				"Schlagworte", Controller.contextFactory, isCourseContext);
 		catchwordCaptionPanel.add(catchwordTree);
 		GWT.log("Initiated catchword tree");
 	}
 
-	private void initOperatorTree(final LmsContextFactory contextFactory) {
+	private void initOperatorTree() {
 		GWT.log("Initiating operator tree");
 		this.operatorTree = new OperatorSelectionTree(
-				contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
-						+ contextFactory.getOrganization() + "/cached",
-				"Operatoren", "operatorView", 300, 200, "Operatoren",
-				contextFactory, isCourseContext);
+						+ Controller.contextFactory.getOrganization()
+						+ "/cached", "Operatoren", "operatorView", 300, 200,
+				"Operatoren", Controller.contextFactory, isCourseContext);
 		operatorCaptionPanel.add(operatorTree);
 		GWT.log("Initiated operator tree");
 	}
 
 	public void handleDeleteClick() {
 		Resource resourceCompulsory = new Resource(
-				contextFactory.getServerURL()
+				Controller.contextFactory.getServerURL()
 						+ "/competences/json/coursecontext/delete/"
-						+ contextFactory.getOrganization());
+						+ Controller.contextFactory.getCourseId());
 		try {
 			resourceCompulsory.post().send(new OkFeedBack());
 		} catch (RequestException e) {
@@ -264,8 +288,9 @@ public class CompetenceSelectionWidget extends Composite {
 
 		competenceTree = new CompetenceSelectionTree(
 				RestUrlFactory.getCompetenceTreeWithFilters(filter, query,
-						isCourseContext), contextFactory, selectedFilter,
-				showChecked, isCourseContext, editable, clickable);
+						isCourseContext), Controller.contextFactory,
+				selectedFilter, showChecked, isCourseContext, editable,
+				clickable);
 		// competenceTree.setShowCheckBoxes(showChecked);
 		competenceTreeCaptionPanel.add(competenceTree);
 	}
@@ -288,9 +313,10 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	public void reload() {
+		updateFilteredPanel();
 		operatorTree.reload();
 		catchwordTree.reload();
-		competenceTree.reloadTree();
+		// competenceTree.reloadTree();
 	}
 
 	public HierarchieChangeSet getChanges() {

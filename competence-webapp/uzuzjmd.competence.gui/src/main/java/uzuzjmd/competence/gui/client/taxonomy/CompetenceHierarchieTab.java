@@ -46,9 +46,8 @@ public class CompetenceHierarchieTab extends Composite {
 
 	public CompetenceHierarchieTab(LmsContextFactory lmsContextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
-		competenceSelectionWidget = new CompetenceSelectionWidget(
-				lmsContextFactory, "all", null, "Aktuelle Kompetenztaxonomie",
-				false, true);
+		competenceSelectionWidget = new CompetenceSelectionWidget("all", null,
+				"Aktuelle Kompetenztaxonomie", false, true);
 		competenceHierarchieHolder.add(competenceSelectionWidget);
 
 	}

@@ -36,7 +36,7 @@ public class JavaScriptContextFactory extends LmsContextFactory {
 	}
 
 	@Override
-	public String getRawCourseId() {
-		return getMoodleCourseId();
+	public Long getCourseId() {
+		return Long.parseLong(getMoodleCourseId());
 	}
 }

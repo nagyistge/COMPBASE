@@ -61,13 +61,11 @@ public class CompetenceCreationTab extends Composite {
 	public CompetenceCreationTab(LmsContextFactory lmsContextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		superCompetencesSelectionWidget = new CompetenceSelectionWidget(
-				lmsContextFactory,
 				"all",
 				null,
 				"Wählen sie Oberkompetenzen für die von Ihnen erstellte Kompetenz aus!",
 				false);
 		subCompetencesSelectionWidget = new CompetenceSelectionWidget(
-				lmsContextFactory,
 				"all",
 				null,
 				"Wählen sie Unterkompetenzen für die von Ihnen erstellte Kompetenz aus!",

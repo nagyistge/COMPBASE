@@ -58,9 +58,8 @@ public class CompetencePrerequisiteCreateBinder extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.graphtab = graphtab;
 		this.parent = parent;
-		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Controller.contextFactory, null, "coursecontextnofilter/",
-				"Vorausgesetzte Kompetenzen", false);
+		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(null,
+				"coursecontextnofilter/", "Vorausgesetzte Kompetenzen", false);
 		requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 		this.followingCompetence = followingCompetence;
 	}

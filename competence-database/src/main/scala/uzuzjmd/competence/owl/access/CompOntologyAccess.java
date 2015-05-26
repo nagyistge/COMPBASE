@@ -63,6 +63,9 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createIndividualForString(OntClass ontClass, String individualName) {
+		if (individualName == null) {
+			throw new Error("individual name should not be null");
+		}
 		return manager.getM().createIndividual(encode(individualName), ontClass);
 	}
 

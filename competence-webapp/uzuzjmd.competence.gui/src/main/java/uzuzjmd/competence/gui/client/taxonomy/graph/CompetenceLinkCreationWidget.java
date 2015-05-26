@@ -62,15 +62,14 @@ public class CompetenceLinkCreationWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.graphtab = graphtab;
 		this.parent = parent;
-		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Controller.contextFactory, null, "coursecontextnofilter/",
-				"  Vorausgesetzte Kompetenzen", false);
+		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(null,
+				"coursecontextnofilter/", "  Vorausgesetzte Kompetenzen", false);
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
 		// requiredKompetenzesPlaceholder2.add(requiredCompetenceSelectionWidget);
 
 		followingCompetenceSelectionWidget = new CompetenceSelectionWidget(
-				Controller.contextFactory, null, "coursecontextnofilter/",
-				"  Nachfolgende Kompetenzen", false);
+				null, "coursecontextnofilter/", "  Nachfolgende Kompetenzen",
+				false);
 		followingCompetences.add(followingCompetenceSelectionWidget);
 		// followingCompetences2.add(followingCompetenceSelectionWidget);
 	}
