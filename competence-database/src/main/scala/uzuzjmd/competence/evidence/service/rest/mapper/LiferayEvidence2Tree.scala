@@ -1,11 +1,11 @@
 package uzuzjmd.competence.evidence.service.rest.mapper
 
 import de.unipotsdam.elis.model.EvidenceSoap
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree
 import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.evidence.service.rest.dto.ActivityTyp
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.evidence.service.rest.dto.ActivityEntry
+import uzuzjmd.competence.service.rest.client.dto.UserTree
+import uzuzjmd.competence.service.rest.client.dto.ActivityEntry
+import uzuzjmd.competence.service.rest.client.dto.ActivityTyp
 
 case class LiferayEvidence2Tree(activities: Array[EvidenceSoap]) {
   def convert(): Array[UserTree] = {

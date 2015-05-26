@@ -5,18 +5,18 @@ import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.owl.dao.DaoFactory
 import uzuzjmd.java.collections.MapsMagic
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
-import uzuzjmd.competence.service.rest.dto.CompetenceLinksView
 import uzuzjmd.competence.owl.dao.Comment
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.service.rest.dto.CompetenceLinksMap
 import scala.collection.breakOut
 import java.util.HashMap
 import java.util.TreeMap
 import java.util.SortedSet
 import scala.reflect.internal.util.Collections
 import java.util.TreeSet
-import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
-import uzuzjmd.competence.service.rest.client.CommentEntry
+import uzuzjmd.competence.service.rest.client.dto.CommentEntry
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksViewComparator
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView
 
 class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
 

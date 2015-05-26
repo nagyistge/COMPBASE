@@ -14,10 +14,10 @@ import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
 import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserTree;
 import uzuzjmd.mysql.database.MysqlConnect;
 import uzuzjmd.mysql.database.VereinfachtesResultSet;
 

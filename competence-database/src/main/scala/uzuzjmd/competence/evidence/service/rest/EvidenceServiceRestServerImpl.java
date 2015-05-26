@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.service.EvidenceService;
-import uzuzjmd.competence.evidence.service.rest.dto.UserTree;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserTree;
 
 /**
  * Implementiert den Moodle-RestService mit Grizzly. Dies ist die Hauptklasse

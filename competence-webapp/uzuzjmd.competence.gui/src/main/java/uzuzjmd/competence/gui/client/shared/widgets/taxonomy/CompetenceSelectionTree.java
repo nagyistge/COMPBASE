@@ -10,8 +10,8 @@ import org.fusesource.restygwt.client.TextCallback;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.CheckableTreePanel;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.HierarchieChange;
-import uzuzjmd.competence.service.rest.client.HierarchieChangeSet;
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChange;
+import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
