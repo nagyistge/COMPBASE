@@ -3,7 +3,7 @@ package uzuzjmd.competence.evidence.service.moodle;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;

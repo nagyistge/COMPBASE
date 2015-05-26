@@ -1,12 +1,9 @@
 package uzuzjmd.competence.gui.client.course;
 
-import org.fusesource.restygwt.client.Method;
-import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.TextCallback;
-
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
+import uzuzjmd.competence.service.rest.client.api.GetRequestManager;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -38,7 +35,6 @@ public class RequirementTab extends CompetenceTab {
 
 	@UiField
 	SimplePanel tabExplainationPanel;
-
 	@UiField
 	VerticalPanel competenceSelectionAndRequirementPanel;
 	@UiField
@@ -49,10 +45,8 @@ public class RequirementTab extends CompetenceTab {
 	Button deleteContextButton;
 	@UiField
 	TextArea requirementTextAreaWidget;
-
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
-
 	@UiField
 	SimplePanel hrDividerPanel;
 	@UiField
@@ -66,35 +60,19 @@ public class RequirementTab extends CompetenceTab {
 		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
-
 		initHrLines(hrDividerPanel);
 		initHrLines(hrDividerPanel2);
-
 		competenceSelectionWidget = new CompetenceSelectionWidget(
 				contextFactory, "selected", true, false);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
-		initRequirementTextfield(contextFactory);
+		initRequirementTextfield();
 
 	}
 
-	private void initRequirementTextfield(final LmsContextFactory contextFactory) {
-		GWT.log("Initiating requirement textfield");
-		Resource resource = new Resource(contextFactory.getServerURL()
-				+ "/competences/json/coursecontext/requirements/"
-				+ contextFactory.getCourseContext());
-		resource.get().send(new TextCallback() {
-
-			@Override
-			public void onSuccess(Method arg0, String arg1) {
-				requirementTextAreaWidget.setText(arg1);
-			}
-
-			@Override
-			public void onFailure(Method arg0, Throwable arg1) {
-				GWT.log("could not get requirements for course");
-			}
-		});
-		GWT.log("Initiated requirement textfield");
+	private void initRequirementTextfield() {
+		GetRequestManager getRequestManager = new GetRequestManager();
+		getRequestManager
+				.updateRequirementTextFieldContent(requirementTextAreaWidget);
 	}
 
 	public RequirementTab(String firstName) {

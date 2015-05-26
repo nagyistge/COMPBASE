@@ -3,7 +3,7 @@ package uzuzjmd.competence.gui.client.course.portfolio;
 import java.util.List;
 
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.CompetenceLinksView;
+import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -31,10 +31,10 @@ public class EvidenceLinkWidget extends Composite {
 			UiBinder<Widget, EvidenceLinkWidget> {
 	}
 
-	public EvidenceLinkWidget(List<CompetenceLinksView> list,
+	public EvidenceLinkWidget(List<CompetenceLinksView> links,
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
-		initCompetenceLinksView(list, stackPanelReloader, userName);
+		initCompetenceLinksView(links, stackPanelReloader, userName);
 		if (Controller.contextFactory.getRole().equals("student")) {
 			// validityPanelHeader.setVisible(false);
 			// deletePanelHeader.setVisible(false);
@@ -43,9 +43,9 @@ public class EvidenceLinkWidget extends Composite {
 		}
 	}
 
-	private void initCompetenceLinksView(List<CompetenceLinksView> list,
+	private void initCompetenceLinksView(List<CompetenceLinksView> links,
 			StackPanelReloader stackPanelReloader, String username) {
-		for (CompetenceLinksView competenceLinksView : list) {
+		for (CompetenceLinksView competenceLinksView : links) {
 			this.verticalPanel.add(new EvidenceLinkEntry(competenceLinksView
 					.getAbstractLinkId(), competenceLinksView
 					.getEvidenceTitel(), competenceLinksView.getEvidenceUrl(),

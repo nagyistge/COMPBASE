@@ -2,9 +2,9 @@ package uzuzjmd.competence.gui.client.viewcontroller;
 
 import uzuzjmd.competence.gui.client.TabbedView;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
-import uzuzjmd.competence.gui.client.course.LinkEvidenceTab;
-import uzuzjmd.competence.gui.client.course.ProgressTab;
 import uzuzjmd.competence.gui.client.course.RequirementTab;
+import uzuzjmd.competence.gui.client.course.activity.LinkEvidenceTab;
+import uzuzjmd.competence.gui.client.course.progress.ProgressTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceCreationTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceEditTab;

@@ -9,7 +9,7 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.viewcontroller.ContextSelectionController;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.service.rest.client.UserCourseListResponse;
+import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONValue;
