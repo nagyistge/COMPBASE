@@ -7,17 +7,25 @@ import java.util.TreeMap;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 @XmlRootElement
 public class CompetenceLinksMap {
-
-	public CompetenceLinksMap() {
-
-	}
 
 	/*
 	 * maps linked competence to the view
 	 */
 	private Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks = new TreeMap<String, List<CompetenceLinksView>>();
+
+	public CompetenceLinksMap() {
+
+	}
+
+	public CompetenceLinksMap(
+			Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
+		super();
+		this.mapUserCompetenceLinks = mapUserCompetenceLinks;
+	}
 
 	public Map<String, List<CompetenceLinksView>> getMapUserCompetenceLinks() {
 		return mapUserCompetenceLinks;
@@ -29,17 +37,11 @@ public class CompetenceLinksMap {
 	}
 
 	public CompetenceLinksMap(
-			Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
-		super();
-		this.mapUserCompetenceLinks = mapUserCompetenceLinks;
-	}
-
-	public CompetenceLinksMap(
 			TreeMap<String, SortedSet<CompetenceLinksView>> mapUserCompetenceLinks) {
 		super();
 		for (String element : mapUserCompetenceLinks.keySet()) {
-			mapUserCompetenceLinks.put(element,
-					mapUserCompetenceLinks.get(element));
+			this.mapUserCompetenceLinks.put(element, Arrays
+					.asList(mapUserCompetenceLinks.get(element).toArray()));
 		}
 
 	}

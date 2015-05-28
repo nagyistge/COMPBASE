@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest.client.dto;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CompetenceLinksView {
@@ -18,8 +19,12 @@ public class CompetenceLinksView {
 		this.abstractLinkId = abstractLinkId;
 		this.evidenceTitel = evidenceTitel;
 		this.evidenceUrl = evidenceUrl;
-		this.comments = comments;
+		this.comments = new LinkedList<CommentEntry>();
 		this.comments.addAll(comments);
+
+		// for (CommentEntry commentEntry : comments) {
+		// comments.add(commentEntry);
+		// }
 		this.validated = validated;
 	}
 
