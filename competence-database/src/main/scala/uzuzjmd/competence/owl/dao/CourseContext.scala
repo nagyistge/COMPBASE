@@ -39,4 +39,8 @@ case class CourseContext(comp: CompOntologyManager, val name: String) extends Co
     return Integer.parseInt(name.replace("n", ""))
   }
 
+  override def equals(courseContext: Any): Boolean = {
+    return courseContext.asInstanceOf[CourseContext].getId.equals(getId)
+  }
+
 }
