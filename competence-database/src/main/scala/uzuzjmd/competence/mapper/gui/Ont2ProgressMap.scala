@@ -17,6 +17,7 @@ class Ont2ProgressMap(comp: CompOntologyManager, val course: String, val selecte
     if (numberOfLinks == 0) {
       return new ProgressMap();
     }
+
     val resultScala: Map[User, java.lang.Double] = getUserNumberOfLinksMap.mapValues(x => Math.round(((x.toFloat / getNumberOfCompetencesLinkedToCourse.toFloat) * 100)))
     val resultScala2 = resultScala.map(x => (x._1.getDataField(x._1.NAME), x._2))
     val resultJava = new ProgressMap();
@@ -32,16 +33,19 @@ class Ont2ProgressMap(comp: CompOntologyManager, val course: String, val selecte
   }
 
   def getUserNumberOfLinksMap(): Map[User, Int] = {
+
     if (selectedCompetences.isEmpty() || selectedCompetences == null) {
-      return userOfCourseContext.
+      val result = userOfCourseContext.
         map(x => x.getFullDao).
         map(x => (x -> x.getAssociatedLinks.filter(link => link.getAllCourseContexts.contains(courseDao)).length)).toMap
+      return result
     }
 
-    return userOfCourseContext.
+    val result = userOfCourseContext.
       map(x => x.getFullDao).
       map(x => (x -> x.getAssociatedLinks.
         filter(y => selectedCompetences.containsAll(y.getAllLinkedCompetences.map(competence => competence.getDataField(competence.DEFINITION)).asJava)).
         filter(link => link.getAllCourseContexts.contains(courseDao)).length)).toMap
+    return result
   }
 }
