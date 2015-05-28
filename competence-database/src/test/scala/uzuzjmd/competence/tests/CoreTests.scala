@@ -83,7 +83,9 @@ class CoreTests extends FunSuite with ShouldMatchers {
     user.persist()
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
-    fullUser.equals(user) should not be false
+    fullUser.getName.equals(user.getName) should not be false
+    fullUser.hasCourseContext(coursecontext)
+    user.hasCourseContext(coursecontext)
     user.delete
     coursecontext.delete
     compOntManag.close()

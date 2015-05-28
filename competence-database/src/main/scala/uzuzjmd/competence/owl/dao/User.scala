@@ -37,6 +37,10 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
     return getDataField(NAME)
   }
 
+  def hasCourseContext(courseContext: CourseContext): Boolean = {
+    hasEdge(CompObjectProperties.belongsToCourseContext, courseContext)
+  }
+
   @Override
   def getFullDao(): User = {
     val teacherRole = new TeacherRole(comp)
