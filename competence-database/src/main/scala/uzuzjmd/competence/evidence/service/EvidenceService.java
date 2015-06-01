@@ -11,17 +11,41 @@ import uzuzjmd.competence.service.rest.client.dto.UserTree;
 public interface EvidenceService {
 
 	/**
-	 * Liefert eine XML-mappbaren UserTree zurück, der zeigt, welcher User
-	 * welche Aktivität durchführen kann
+	 * (Mögliche) Aktivitäten der User in dem Kontext
+	 * 
+	 * Liefert eine XML-Baum zurück, der zeigt, welcher User in dem Context
+	 * welche Aktivität durchführen kann.
 	 * 
 	 * @param course
+	 * @param lmssystem
+	 * @param organization
 	 * @return
 	 */
 	@WebMethod
-	public abstract UserTree[] getUserTree(String course);
+	public abstract UserTree[] getUserTree(String course, String lmssystem, String organization);
 
+	/**
+	 * TODO comment
+	 * 
+	 * @param course
+	 * @param usertree
+	 * @param lmssystem
+	 * @param organization
+	 */
+	public abstract void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization);
+
+	/**
+	 * (Mögliche) Aktivitäten der User in dem Kontext
+	 * 
+	 * Liefert das gleiche Ergebnis wie getUserTree aber mit Cache.
+	 * 
+	 * @param course
+	 * @param lmssystem
+	 * @param organization
+	 * @return
+	 */
 	@WebMethod
-	public abstract Response getUserTreeCrossDomain(String course);
+	public abstract Response getUserTreeCrossDomain(String course, String lmssystem, String organization);
 
 	public abstract String[] getOrganizations();
 
@@ -29,6 +53,8 @@ public interface EvidenceService {
 
 	public abstract UserCourseListResponse getCourses(String user, String lmsSystem, String organization);
 
-	public abstract Boolean exists(String user, String password);
+	public abstract void addCourses(String user, UserCourseListResponse usertree, String lmssystem, String organization);
+
+	public abstract Boolean exists(String user, String password, String lmsSystem, String organization);
 
 }
