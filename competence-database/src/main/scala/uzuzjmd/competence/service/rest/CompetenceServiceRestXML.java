@@ -1,6 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,9 +29,7 @@ import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.SuggestedCompetenceColumn;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
-import uzuzjmd.competence.shared.SuggestedCompetenceRow;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -59,8 +56,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	 * Get the GUI Competence TREE
 	 * 
 	 * @param course
+	 *            the (course) context of the competences ("university") for no
+	 *            filter
 	 * @param compulsory
+	 *            flag whether only competences marked as compulsory should be
+	 *            loaded
 	 * @param cache
+	 *            can be either "cache" or "nocache"
 	 * @param selectedCatchwords
 	 * @param selectedOperators
 	 * @return
@@ -84,6 +86,44 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return response;
 	}
 
+	/**
+	 * This method is only for illustration of the output of the
+	 * /competencetree/{context}/{compulsory}/{cache} method and the
+	 * /competencetree/coursecontext/{context}/{compulsory}/{cache} method and
+	 * the /competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}
+	 * method
+	 * 
+	 * @param course
+	 * @param compulsory
+	 * @param cache
+	 *            can be either "cache" or "nocache"
+	 * @param selectedCatchwords
+	 * @param selectedOperators
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/competencetree/{context}/{compulsory}/{cache}/example")
+	public List<CompetenceXMLTree> getCompetenceTreeExample(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators,
+			@QueryParam("textFilter") String textFilter) {
+
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param course
+	 *            the (course) context of the competences ("university") for no
+	 *            filter
+	 * @param compulsory
+	 * @param cache
+	 *            can be either "cache" or "nocache"
+	 * @param selectedCatchwords
+	 * @param selectedOperators
+	 * @param textFilter
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/coursecontext/{context}/{compulsory}/{cache}")
@@ -103,6 +143,17 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return response;
 	}
 
+	/**
+	 * 
+	 * @param course
+	 * @param compulsory
+	 * @param cache
+	 *            can be either "cache" or "nocache"
+	 * @param selectedCatchwords
+	 * @param selectedOperators
+	 * @param textFilter
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}")
@@ -125,8 +176,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	/**
 	 * Get the GUI operator tree
 	 * 
+	 * It has the same format as the competence tree
+	 * 
 	 * @param course
+	 *            the (course) context of the competences ("university") for no
+	 *            filter
 	 * @param cache
+	 *            can be either "cache" or "nocache"
 	 * @param selectedCatchwords
 	 * @param selectedOperators
 	 * @return
@@ -146,8 +202,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	/**
 	 * Get the GUI Catchword Tree
 	 * 
+	 * It has the same format as the competence tree
+	 * 
 	 * @param course
+	 *            the (course) context of the competences ("university") for no
+	 *            filter
 	 * @param cache
+	 *            can be either "cache" or "nocache"
 	 * @param selectedCatchwords
 	 * @param selectedOperators
 	 * @return
@@ -162,30 +223,39 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return response;
 	}
 
+	/**
+	 * Get all the learning templates
+	 * 
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/learningtemplates")
-	public Response getAllLearningTemplates() {
+	public List<String> getAllLearningTemplates() {
 		List<String> learningTemplates = new LinkedList<String>();
-		// TODO implement getting the learning Templates from the
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
 
-		// OntClass learningProjectTemplateClass =
-		// compOntologyManager.getUtil().getOntClassForString(CompOntClass.LearningProjectTemplate.name());
-		// ExtendedIterator<? extends OntResource> instances =
-		// learningProjectTemplateClass.listInstances();
-		// while (instances.hasNext()) {
-		// OntResource res = instances.next();
-		// OntProperty iProperty =
-		// compOntologyManager.getM().getOntProperty(MagicStrings.PREFIX +
-		// "definition");
-		// RDFNode value = res.getPropertyValue(iProperty);
-		// if (value == null) {
-		// } else {
-		// learningTemplates.add(value.asNode().getLiteralValue().toString());
-		// }
-		// }
+		List<String> result = compOntologyManager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate);
+		learningTemplates.addAll(result);
+
+		compOntologyManager.close();
+		return result;
+	}
+
+	/**
+	 * Get all the learningTemplates without cache. Learning Templates are
+	 * groups of competences selected to be learned together.
+	 * 
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/learningtemplates/cache")
+	public Response getAllLearningTemplates2() {
+		List<String> learningTemplates = new LinkedList<String>();
+		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		compOntologyManager.begin();
 
 		List<String> result = compOntologyManager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate);
 		learningTemplates.addAll(result);
@@ -195,6 +265,19 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return response;
 	}
 
+	/**
+	 * A user selects a learning template as his project in portfolio
+	 * 
+	 * @param userName
+	 *            the use selecting the template
+	 * 
+	 * @param groupId
+	 *            (or course context) is the context the learning template is
+	 *            selected
+	 * @param selectedTemplate
+	 *            the learning template selected
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/add")
@@ -212,19 +295,54 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return Response.ok("templateSelection updated").build();
 	}
 
+	/**
+	 * get the selected learning templates for a given user
+	 * 
+	 * @param userName
+	 * @param groupId
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/learningtemplates/selected")
 	public Response getSelectedLearningTemplates(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId) {
+		StringList result = getSelectedLearningTemplatesHelper(userName, groupId);
+		return RestUtil.buildCachedResponse(result, false);
+	}
+
+	private StringList getSelectedLearningTemplatesHelper(String userName, String groupId) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		CourseContext context = new CourseContext(compOntologyManager, groupId);
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		SelectedLearningProjectTemplate selected = new SelectedLearningProjectTemplate(compOntologyManager, user, context, null, null);
 		StringList result = selected.getAssociatedTemplatesAsStringList();
 		closeManagerInCriticalMode(compOntologyManager);
+		return result;
+	}
+
+	/**
+	 * get the selected learning templates for a given user
+	 * 
+	 * @param userName
+	 * @param groupId
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/learningtemplates/selected/cache")
+	public Response getSelectedLearningTemplates2(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId) {
+		StringList result = getSelectedLearningTemplatesHelper(userName, groupId);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
+	/**
+	 * Delete the selection of a learning template of a user.
+	 * 
+	 * @param userName
+	 * @param groupId
+	 * @param selectedTemplate
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/delete")
@@ -240,27 +358,70 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return Response.ok("templateSelection updated after delete").build();
 	}
 
+	/**
+	 * Returns a gridview of learning templates (mainly used in epos port).
+	 * Users and their selfevaluation are presented.
+	 * 
+	 * @param userName
+	 * @param groupId
+	 *            (or course context)
+	 * @param selectedTemplate
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("learningtemplates/gridview")
-	public Response getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
-		if (selectedTemplate.equals("test")) {
-			return dummyGridResult();
+	public SuggestedCompetenceGrid getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
+			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		}
+		SuggestedCompetenceGrid result = getGridViewHelper(userName, groupId, selectedTemplate);
+		return result;
+	}
+
+	private SuggestedCompetenceGrid getGridViewHelper(String userName, String groupId, String selectedTemplate) {
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
 		CourseContext context = new CourseContext(compOntologyManager, groupId);
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		LearningProjectTemplate learningTemplate = new LearningProjectTemplate(compOntologyManager, selectedTemplate, null, null);
 		if (!learningTemplate.exists()) {
-			return dummyGridResult();
+			return null;
 		}
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(compOntologyManager, learningTemplate, user);
 		compOntologyManager.close();
+		return result;
+	}
+
+	/**
+	 * Returns a gridview of learning templates (mainly used in epos port).
+	 * Users and their selfevaluation are presented.
+	 * 
+	 * @param userName
+	 * @param groupId
+	 *            (or course context)
+	 * @param selectedTemplate
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_XML)
+	@GET
+	@Path("learningtemplates/gridview/cache")
+	public Response getGridView2(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+		SuggestedCompetenceGrid result = getGridViewHelper(userName, groupId, selectedTemplate);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
+	/**
+	 * Allows to persist the users self evaluation (persisting the complete grid
+	 * view that was changed in the ui)
+	 * 
+	 * 
+	 * @param userName
+	 *            the user who self-evaluated
+	 * @param groupId
+	 *            or course context (depending on the evidence source)
+	 * @param reflectiveAssessmentHolder
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
@@ -275,14 +436,14 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return Response.ok("reflexion updated").build();
 	}
 
-	private Response dummyGridResult() {
-		SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
-		SuggestedCompetenceRow row = new SuggestedCompetenceRow();
-		SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
-		column.setProgressInPercent(33);
-		column.setTestOutput("deimudday is here");
-		row.setSuggestedCompetenceColumns(Collections.singletonList(column));
-		result.setSuggestedCompetenceRows(Collections.singletonList(row));
-		return RestUtil.buildCachedResponse(result, false);
-	}
+	// private Response dummyGridResult() {
+	// SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
+	// SuggestedCompetenceRow row = new SuggestedCompetenceRow();
+	// SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
+	// column.setProgressInPercent(33);
+	// column.setTestOutput("deimudday is here");
+	// row.setSuggestedCompetenceColumns(Collections.singletonList(column));
+	// result.setSuggestedCompetenceRows(Collections.singletonList(row));
+	// return RestUtil.buildCachedResponse(result, false);
+	// }
 }
