@@ -48,10 +48,9 @@ import uzuzjmd.competence.service.rest.client.dto.ProgressMap;
 public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 
 	/**
-	 * Method handling HTTP GET requests. The returned object will be sent to
-	 * the client as "text/plain" media type.
+	 * Lists all competences in the RDCEO Standard Format
 	 * 
-	 * @return String that will be returned as a text/plain response.
+	 * @return List of competences in RDCEO
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -63,9 +62,16 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
 	}
 
+	/**
+	 * use /updateHierarchie2 instead
+	 * 
+	 * @param changes
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateHierarchie")
+	@Deprecated
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateHierarchie(@QueryParam("changes") List<String> changes) {
 
@@ -79,14 +85,58 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * Link the competences to a course context
+	 * updates the competence hierarchy
+	 * 
+	 * @param changes
+	 *            of type HierarchieChangeObject @see updateHierarchie2
+	 * 
+	 * @return
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/updateHierarchie2")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateHierarchie2(@QueryParam("changes") HierarchieChangeSet changes) {
+
+		CompOntologyManager comp = initManagerInCriticalMode();
+		HierarchieChangesToOnt.convertChanges(comp, changes);
+		comp.close();
+
+		return Response.ok("updated taxonomy").build();
+	}
+
+	/**
+	 * This is an example for the format needed for updating the hierarchie
+	 * 
+	 * @param changes
+	 * @return
+	 */
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/updateHierarchie2/example")
+	@Produces(MediaType.APPLICATION_JSON)
+	public HierarchieChangeSet updateHierarchieExample(@QueryParam("changes") HierarchieChangeSet changes) {
+		return changes;
+	}
+
+	/**
+	 * Link the competences to a course context.
+	 * 
+	 * This allows for selecting competences for a given context so that the
+	 * application can deal with a subset of the competence database.
 	 * 
 	 * @param course
-	 *            (the id of the course)
+	 *            (the id of the course) or any name. Prefered id format is
+	 *            number.
 	 * @param compulsory
-	 *            (optional)
+	 *            (optional) indicates whether the competence is compulsory for
+	 *            the context in terms of passing the course.
 	 * @param competences
+	 *            the competences linked to the course
+	 * 
 	 * @param requirements
+	 *            a plain text string explaining why this competences are
+	 *            necessary for the course
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -102,7 +152,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * DELETE the course context
+	 * Deletes the course context.
+	 * 
+	 * All competences linked to this context will be removed from it. This
+	 * should be used as a companion with coursecontext/create
 	 * 
 	 * @param course
 	 * @return
@@ -117,11 +170,14 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * GET the requirements for a course context
+	 * Get the description of requirements for the course.
+	 * 
+	 * The requirement string specifying why this subset of competences was
+	 * selected for the course is returned.
 	 * 
 	 * @param course
-	 * @param cache
-	 * @return
+	 *            the context of the competences
+	 * @return the requirement string
 	 */
 	@Produces(MediaType.TEXT_PLAIN)
 	@GET
@@ -131,30 +187,53 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return result;
 	}
 
-	/*
-	 * GET the selected competences for the selection
+	/**
+	 * Returns all the competences linked to a course context. It is deprecated
+	 * /coursecontext/selected should be used.
 	 * 
 	 * @param course
-	 * 
-	 * @param cache
-	 * 
 	 * @return
 	 */
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/selected/{course}")
+	@Deprecated
 	public String[] getSelected(@PathParam("course") String course) {
 		return CompetenceServiceWrapper.getSelected(course);
 	}
 
 	/**
-	 * link a competence and a Competence-Evidence-Activity
+	 * Get competences linked to (course) context.
+	 * 
+	 * Returns all the competences linked to a course context.
 	 * 
 	 * @param course
+	 * @return
+	 */
+	@Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/coursecontext/selected/{course}")
+	public String[] getSelected2(@PathParam("course") String course) {
+		return CompetenceServiceWrapper.getSelected(course);
+	}
+
+	/**
+	 * Creates an evidence as a proof that competences have been acquired by the
+	 * user by certain activities
+	 * 
+	 * @param course
+	 *            (the context of the acquirement)
 	 * @param creator
+	 *            the user who created the link
+	 * @param role
+	 *            the role of the user who created the link (can be either
+	 *            "teacher" or "student")
 	 * @param linkedUser
+	 *            the user who has acquired the competences
 	 * @param competences
+	 *            the competences acquired
 	 * @param evidences
+	 *            the activities that stand as evidences
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -184,11 +263,22 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * add a comment to a link
+	 * Add a comment to an evidence link
+	 * 
+	 * Have a look at @see linkCompetencesToUserJson in order to better
+	 * understand the model of a evidence link.
+	 * 
 	 * 
 	 * @param linkId
+	 *            the id of the link
 	 * @param user
+	 *            the user who creates the comment
 	 * @param text
+	 *            the text of the comment
+	 * @param courseContext
+	 *            the course context the comment is created in
+	 * @param role
+	 *            the role of the user
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -207,17 +297,6 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	private void createComment(String linkId, String user, String text, String courseContext, String role) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
-		// debug
-		// CompFileUtil fileUtil = new CompFileUtil(compOntologyManager.getM());
-		// try {
-		// fileUtil.writeOntologyout();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// end debug
-
 		Role creatorRole2 = convertRole(role, compOntologyManager);
 		CourseContext coursecontext2 = new CourseContext(compOntologyManager, courseContext);
 		User creator2 = new User(compOntologyManager, user, creatorRole2, coursecontext2, user);
@@ -226,17 +305,6 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		comment.persist();
 		abstractEvidenceLink.linkComment(comment);
 
-		// // debug
-		// CompFileUtil fileUtil2 = new
-		// CompFileUtil(compOntologyManager.getM());
-		// try {
-		// fileUtil2.writeOntologyout();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// end debug
 		closeManagerInCriticalMode(compOntologyManager);
 	}
 
@@ -261,9 +329,18 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return creatorRole;
 	}
 
-	/*
-	 * validate a link (this should only be done by teacher role (which should
-	 * be checked in the frontend)
+	/**
+	 * Validate an evidence link.
+	 * 
+	 * Have a look at {@link linkCompetencesToUserJson} for the nature of the
+	 * evidence link.
+	 * 
+	 * This should only be done by teacher role (which should be checked in the
+	 * frontend)
+	 * 
+	 * 
+	 * @param linkId
+	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
@@ -274,9 +351,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
+	 * Invalidate a link
 	 * 
-	 * invalidate a link (this should only be done by teacher role (which should
-	 * be checked in the frontend)
+	 * (this should only be done by teacher role (which should be checked in the
+	 * frontend)
 	 * 
 	 * @param linkId
 	 * @return
@@ -289,6 +367,13 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return handleLinkValidation(linkId, isvalid);
 	}
 
+	/**
+	 * Delete an evidence link
+	 * 
+	 * @param linkId
+	 *            the id of the link to be deleted
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/delete/{linkId}")
@@ -300,6 +385,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("link deleted").build();
 	}
 
+	/**
+	 * Deletes one or more competences
+	 * 
+	 * @param competences
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/competence/delete")
@@ -317,6 +408,13 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("competences deleted").build();
 	}
 
+	/**
+	 * Deletes competences and all their subcompetences
+	 * 
+	 * @param competences
+	 *            the competences to be deleted
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/competence/deleteTree")
@@ -335,10 +433,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * gets the competencelinks map in order to show the overview for a
-	 * specified user
+	 * returns a map competence->evidences
+	 * 
+	 * Returns all the evidences for a user in a form that they can be presented
 	 * 
 	 * @param user
+	 *            the user who has acquired the competences
 	 * @return
 	 */
 	@GET
@@ -355,6 +455,16 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return map;
 	}
 
+	/**
+	 * Shows overview of the progress a user has made in a course
+	 * 
+	 * @param course
+	 *            the course the overview is generated for
+	 * @param selectedCompetences
+	 *            a filter: the percentate of acquired competences is calculated
+	 *            taking into account the competences visible to the user
+	 * @return
+	 */
 	@GET
 	@Path("/link/progress/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -369,11 +479,16 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * creates the given relationship
+	 * This creates a "prerquisite" relation between the
+	 * selectedCompetences->linkedCompetences
 	 * 
 	 * @param course
+	 *            the course context the link is created in (may be "university"
+	 *            for global context")
 	 * @param linkedCompetence
+	 *            the pre competences
 	 * @param selectedCompetences
+	 *            the post competences
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
@@ -393,15 +508,17 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * deletes the given relationship
+	 * Deletes the "prerequisite" link between the competences
 	 * 
 	 * @param course
-	 * @param linkedCompetence
-	 * @param selectedCompetences
 	 * 
-	 * @param course
+	 *            the course context the link is created in (may be "university"
+	 *            for global context")
 	 * @param linkedCompetence
+	 *            the pre competences
 	 * @param selectedCompetences
+	 *            the post competences
+	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
@@ -427,9 +544,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	/**
-	 * returns the whole graph (given filter)
+	 * returns the whole prerequisite graph (given filter)
 	 * 
 	 * @param selectedCompetences
+	 *            the competences that selected that filter the graph
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -462,6 +580,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return requiredCompetences;
 	}
 
+	/**
+	 * GET the operator for a given competence
+	 * 
+	 * @param forCompetence
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/operator")
@@ -481,6 +605,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return result;
 	}
 
+	/**
+	 * Get all the catchwords for a given competence
+	 * 
+	 * @param forCompetence
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/catchwords")
@@ -503,6 +633,16 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return result;
 	}
 
+	/**
+	 * add a competence to the model
+	 * 
+	 * @param forCompetence
+	 * @param operator
+	 * @param catchwords
+	 * @param superCompetences
+	 * @param subCompetences
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
@@ -515,6 +655,20 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok(resultMessage).build();
 	}
 
+	/**
+	 * Edit competence metadata
+	 * 
+	 * (competence text may not be changed without changes in the hierarchy
+	 * following)
+	 * 
+	 * @param forCompetence
+	 * @param operator
+	 * @param catchwords
+	 * @param superCompetences
+	 * @param subCompetences
+	 * @param orgininalCompetence
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/editOne")

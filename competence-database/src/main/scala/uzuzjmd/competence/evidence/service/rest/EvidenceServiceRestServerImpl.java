@@ -1,5 +1,7 @@
 package uzuzjmd.competence.evidence.service.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -47,7 +49,8 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Path("/activities/usertree/json/add/{course}")
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void addUserTree(@PathParam("course") String course, @QueryParam("usertree") UserTree[] usertree, @QueryParam("lmsSystem") String lmssystem, @QueryParam("organization") String organization) {
+	public void addUserTree(@PathParam("course") String course, @QueryParam("usertree") List<UserTree> usertree, @QueryParam("lmsSystem") String lmssystem,
+			@QueryParam("organization") String organization) {
 		evidenceService.addUserTree(course, usertree, lmssystem, organization);
 	}
 
