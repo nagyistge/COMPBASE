@@ -1,0 +1,9 @@
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.28.xsd">
+	
+	<modules>
+		<spring-app disabled="true" />
+		<docs docsDir="/" includeExampleXml="false" 
+			title="Competence Database" copyright="Julian Dehne" />
+	</modules>
+</enunciate>

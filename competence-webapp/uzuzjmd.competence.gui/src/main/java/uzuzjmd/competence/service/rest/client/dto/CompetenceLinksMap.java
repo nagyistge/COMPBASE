@@ -1,13 +1,12 @@
 package uzuzjmd.competence.service.rest.client.dto;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 @XmlRootElement
 public class CompetenceLinksMap {
@@ -40,8 +39,9 @@ public class CompetenceLinksMap {
 			TreeMap<String, SortedSet<CompetenceLinksView>> mapUserCompetenceLinks) {
 		super();
 		for (String element : mapUserCompetenceLinks.keySet()) {
-			this.mapUserCompetenceLinks.put(element, Arrays
-					.asList(mapUserCompetenceLinks.get(element).toArray()));
+			List<CompetenceLinksView> output = new LinkedList<CompetenceLinksView>();
+			output.addAll(mapUserCompetenceLinks.get(element));
+			this.mapUserCompetenceLinks.put(element, output);
 		}
 
 	}

@@ -48,7 +48,7 @@ public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course) {
+	public UserTree[] getUserTree(String course, String lmsSystem, String organization) {
 		SocialActivitySoap[] activities = null;
 		EvidenceSoap[] activities2 = null;
 		try {
@@ -68,7 +68,7 @@ public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course) {
+	public Response getUserTreeCrossDomain(String course, String lmsSystem, String organization) {
 		throw new Error("decorator called");
 	}
 
@@ -78,7 +78,17 @@ public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Boolean exists(String user, String password) {
+	public Boolean exists(String user, String password, String lmsSystem, String organization) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void addCourses(String user, UserCourseListResponse usertree, String lmssystem, String organization) {
 		throw new NotImplementedException();
 	}
 
