@@ -2,6 +2,7 @@ package uzuzjmd.competence.main;
 
 import java.io.IOException;
 
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestXML;
@@ -29,7 +30,8 @@ public class RestServer {
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
-		ResourceConfig resourceConfig = new DefaultResourceConfig(CompetenceServiceRestXML.class, CompetenceServiceRestJSON.class);
+		EvidenceServiceRestServerImpl.setEvidenceServiceProxy();
+		ResourceConfig resourceConfig = new DefaultResourceConfig(CompetenceServiceRestXML.class, CompetenceServiceRestJSON.class, EvidenceServiceRestServerImpl.class);
 		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURLCompetence, resourceConfig);
 		System.out.println("publishing competence server to to " + MagicStrings.RESTURLCompetence);

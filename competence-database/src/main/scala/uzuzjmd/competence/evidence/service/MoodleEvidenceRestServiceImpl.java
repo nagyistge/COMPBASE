@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -164,7 +165,8 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray.size()]);
 	}
 
-	public UserTree[] getUserTree(String course) {
+	@Override
+	public UserTree[] getUserTree(String course, String lmsSystem, String organization) {
 		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
 		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
 
@@ -177,7 +179,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 		if (cacheImpl == null) {
 			cacheImpl = CacheBuilder.newBuilder().maximumSize(1000).build(new CacheLoader<String, UserTree[]>() {
 				public UserTree[] load(final String key) {
-					return getUserTree(key);
+					return getUserTree(key, null, null);
 				}
 			});
 		}
@@ -214,7 +216,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course) {
+	public Response getUserTreeCrossDomain(String course, String lmsSystem, String organization) {
 		throw new Error("decorator called");
 	}
 
@@ -229,8 +231,20 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Boolean exists(String username, String password) {
+	public Boolean exists(String username, String password, String lmsSystem, String organization) {
 		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
 		return simpleService.isUserExist(username);
 	}
+
+	@Override
+	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
+		throw new NotImplementedException();
+
+	}
+
+	@Override
+	public void addCourses(String user, UserCourseListResponse usertree, String lmssystem, String organization) {
+		throw new NotImplementedException();
+	}
+
 }
