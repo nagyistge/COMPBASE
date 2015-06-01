@@ -2,6 +2,7 @@ package uzuzjmd.competence.evidence.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.core.Response;
@@ -20,7 +21,9 @@ public class EvidenceServiceProxy implements EvidenceService {
 
 		Properties prop = new Properties();
 		String propfFileName = "evidenceserver.properties";
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propfFileName);
+
+		// find file
+		InputStream inputStream = getClass().getResourceAsStream(propfFileName);
 		try {
 			prop.load(inputStream);
 		} catch (IOException e) {
@@ -91,7 +94,7 @@ public class EvidenceServiceProxy implements EvidenceService {
 	}
 
 	@Override
-	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
+	public void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization) {
 		if (!evidenceProviderMap.evidenceMap.containsKey(lmssystem)) {
 			throw new BadParameterException("Anwendungsplattform " + lmssystem + " wurde nicht konfiguriert");
 		}
