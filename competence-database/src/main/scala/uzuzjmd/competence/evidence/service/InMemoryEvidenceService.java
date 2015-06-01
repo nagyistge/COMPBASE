@@ -1,6 +1,7 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
 
@@ -46,8 +47,8 @@ public class InMemoryEvidenceService extends AbstractEvidenceService {
 	}
 
 	@Override
-	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
-		courseUserTreeMap.put(course, usertree);
+	public void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization) {
+		courseUserTreeMap.put(course, usertree.toArray(new UserTree[0]));
 	}
 
 	@Override
