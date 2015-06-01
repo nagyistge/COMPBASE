@@ -1,6 +1,7 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.jws.WebService;
@@ -237,7 +238,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
+	public void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization) {
 		throw new NotImplementedException();
 
 	}

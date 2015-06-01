@@ -1,5 +1,7 @@
 package uzuzjmd.competence.evidence.service;
 
+import java.util.List;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
@@ -32,7 +34,7 @@ public interface EvidenceService {
 	 * @param lmssystem
 	 * @param organization
 	 */
-	public abstract void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization);
+	public abstract void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization);
 
 	/**
 	 * (Mögliche) Aktivitäten der User in dem Kontext

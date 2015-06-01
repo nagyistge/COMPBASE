@@ -1,6 +1,7 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
@@ -83,7 +84,7 @@ public class LiferayEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public void addUserTree(String course, UserTree[] usertree, String lmssystem, String organization) {
+	public void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization) {
 		throw new NotImplementedException();
 	}
 
