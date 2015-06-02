@@ -10,4 +10,6 @@ public interface MyConstants extends Constants {
 	String restserverPrefix();
 
 	String evidenceserverPrefix();
+
+	String lmsSystem();
 }

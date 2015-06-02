@@ -48,7 +48,9 @@ public class RestUrlFactory {
 		String moodleEvidenceUrl = Controller.contextFactory
 				.getEvidenceServerURL()
 				+ "/lms/activities/usertree/xml/crossdomain/"
-				+ Controller.contextFactory.getCourseId();
+				+ Controller.contextFactory.getCourseId()
+				+ "?lmsSystem="
+				+ Controller.contextFactory.getLMSsystem();
 		return moodleEvidenceUrl;
 	}
 

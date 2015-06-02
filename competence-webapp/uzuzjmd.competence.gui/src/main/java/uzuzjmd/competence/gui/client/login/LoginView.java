@@ -93,7 +93,9 @@ public class LoginView extends Composite {
 		String moodleEvidenceUrl = Controller.contextFactory
 				.getEvidenceServerURL() + "/lms/user/exists";
 		Resource resource = new Resource(moodleEvidenceUrl);
-		resource.addQueryParam("user", userEmail).get()
+		resource.addQueryParam("user", userEmail)
+				.addQueryParam("lmsSystem",
+						Controller.contextFactory.getLMSsystem()).get()
 				.send(new JsonCallback() {
 
 					@Override
