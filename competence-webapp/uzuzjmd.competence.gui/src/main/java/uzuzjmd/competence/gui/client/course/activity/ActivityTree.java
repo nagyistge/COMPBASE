@@ -8,6 +8,7 @@ import java.util.List;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.context.NativeContext;
 import uzuzjmd.competence.gui.client.shared.widgets.MyTreePanel;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -50,7 +51,12 @@ public class ActivityTree extends MyTreePanel {
 		// loader.setHrefMapping("moodleUrl");
 		loader.setHrefTargetMapping("moodleUrl");
 
-		return initPreviewHack(loader);
+		if (Controller.contextFactory.getMode().equals("moodle")
+				|| Controller.contextFactory.getMode().equals("liferay")) {
+			return initPreviewHack(loader);
+		} else {
+			return loader;
+		}
 	}
 
 	public List<Evidence> getSelectedEvidences() {
