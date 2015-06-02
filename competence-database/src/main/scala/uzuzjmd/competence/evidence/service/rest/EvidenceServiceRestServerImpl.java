@@ -67,11 +67,17 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 		return response;
 	}
 
+	@Path("/organizations")
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
 	@Override
 	public String[] getOrganizations() {
 		return evidenceService.getOrganizations();
 	}
 
+	@Path("/systems")
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Override
 	public String[] getLMSSystems() {
 		return evidenceService.getLMSSystems();

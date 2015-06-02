@@ -15,10 +15,12 @@ public class LmsContextFactory implements java.io.Serializable {
 	protected String organization;
 	protected Boolean validUserLoggedIn;
 	protected String mode;
+	protected String lmsSystem;
 
 	public LmsContextFactory() {
 		setOrganization("university");
 		setCourseContext("testcourse");
+		setLmsSystem("all");
 
 	}
 
@@ -121,5 +123,13 @@ public class LmsContextFactory implements java.io.Serializable {
 
 	public void setOrganization(String organization) {
 		this.organization = organization;
+	}
+
+	public String getLMSsystem() {
+		return this.lmsSystem;
+	}
+
+	public void setLmsSystem(String lmsSystem) {
+		this.lmsSystem = lmsSystem;
 	}
 }

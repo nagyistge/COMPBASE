@@ -12,7 +12,7 @@
 
 		<b:TabPanel ui:field="tabPanel">
 			<b:Tab heading="Kompetenzenverwaltung">
-				<b:TabPanel ui:field="taxonomy">
+				<b:TabPanel ui:field="taxonomy" >
 					<b:Tab heading="Taxonomie">
 						<b:TabPanel tabPosition="left">
 							<b:Tab heading="Neue Kompetenz anlegen">

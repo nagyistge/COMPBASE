@@ -86,7 +86,17 @@ public class EvidenceServiceProxy implements EvidenceService {
 
 	@Override
 	public Boolean exists(String user, String password, String lmsSystem, String organization) {
-		if (!evidenceProviderMap.evidenceMap.containsKey(lmsSystem)) {
+		if (lmsSystem == null) {
+			throw new BadParameterException("Anwendungsplattform " + lmsSystem + " wurde nicht konfiguriert");
+		}
+		if (lmsSystem.equals("all")) {
+			for (String key : evidenceProviderMap.evidenceMap.keySet()) {
+				if (!evidenceProviderMap.evidenceMap.get(key).exists(user, password, lmsSystem, organization)) {
+					return false;
+				}
+			}
+			return true;
+		} else if (!evidenceProviderMap.evidenceMap.containsKey(lmsSystem)) {
 			throw new BadParameterException("Anwendungsplattform " + lmsSystem + " wurde nicht konfiguriert");
 		}
 
