@@ -50,7 +50,7 @@ public class Competence_webapp implements EntryPoint {
 								serverUrl, evidenceUrl));
 			} else {
 				competenceUIContainer.setContextFactory(new TestContextFactory(
-						"http://localhost:8084", "http://localhost:8083"));
+						"http://localhost:8084", "http://localhost:8084"));
 			}
 			container.add(competenceUIContainer);
 
@@ -68,6 +68,7 @@ public class Competence_webapp implements EntryPoint {
 
 			Controller.contextFactory.setMode(myConstants
 					.contextImplementation());
+			Controller.contextFactory.setLmsSystem(myConstants.lmsSystem());
 		}
 
 		// if the context is liferay the connector should inject the stuff

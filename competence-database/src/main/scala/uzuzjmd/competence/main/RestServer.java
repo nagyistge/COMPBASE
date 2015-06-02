@@ -35,7 +35,7 @@ public class RestServer {
 		resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		GrizzlyServerFactory.createHttpServer(MagicStrings.RESTURLCompetence, resourceConfig);
 		System.out.println("publishing competence server to to " + MagicStrings.RESTURLCompetence);
-		System.out.println("Test this with: " + MagicStrings.RESTURLCompetence + "/competences/xml/competencetree/{course}/all/nocache");
+		System.out.println("Test this with: " + MagicStrings.RESTURLCompetence + "/competences/xml/competencetree/university/all/nocache");
 
 		System.out.println("Press enter to exit");
 		System.in.read();
