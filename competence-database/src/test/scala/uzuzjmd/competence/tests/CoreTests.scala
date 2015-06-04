@@ -47,7 +47,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
   test("The CSV import should run without errors") {
 
     // change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
+    //CompFileUtil.deleteTDB()
 
     val compOntManag = new CompOntologyManager()
 
