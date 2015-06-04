@@ -24,6 +24,10 @@ public class RestServer {
 			MagicStrings.webapplicationPath = args[1];
 		}
 
+		startServer();
+	}
+
+	public static void startServer() throws IOException {
 		System.out.println("usage is java - jar *.version.jar TDBPATH WEBAPPATH");
 		System.out.println("for example java jar competence-server.jar tdb2 pojana.soft.cs.uni-potsdam.de/competence-portlet");
 
