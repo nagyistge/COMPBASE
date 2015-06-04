@@ -66,7 +66,6 @@ public class PostRequestManager extends RestClientManager {
 							}
 						});
 			} catch (RequestException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
