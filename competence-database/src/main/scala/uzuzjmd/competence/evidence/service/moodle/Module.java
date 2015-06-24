@@ -19,6 +19,7 @@ public class Module {
 	private String modname; // activity module type
 	private String modplural; // activity module plural name
 	private String name; // activity module name
+	private String instance;
 
 	private String url; // activity url
 
@@ -118,6 +119,14 @@ public class Module {
 
 	public void setVisible(int visible) {
 		this.visible = visible;
+	}
+
+	public String getInstance() {
+		return instance;
+	}
+
+	public void setInstance(String instance) {
+		this.instance = instance;
 	}
 
 }
