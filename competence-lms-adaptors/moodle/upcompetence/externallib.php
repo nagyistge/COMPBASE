@@ -26,7 +26,7 @@ class local_competence_external extends external_api {#
 
 
     /**
-     * get courses
+     * get courses for a given user-email
      *
      * @return array Array of course objects
      * @since Moodle 2.5
@@ -42,6 +42,67 @@ class local_competence_external extends external_api {#
             return array('courseid' => $arrayElement->id, 'name' => $arrayElement->fullname);
         };
         $result_mapped = array_map($mapper, $result);
+        return $result_mapped;
+    }
+
+    /**
+     * Returns description of method parameters
+     *
+     * @return external_function_parameters
+     * @since Moodle 2.5
+     */
+    public static function get_evidences_for_course_parameters() {
+        return new external_function_parameters(
+                array(
+            'courseId' => new external_value(PARAM_INT, 'id of course'),
+                )
+        );
+    }
+
+    /**
+     * 
+     * @return \external_multiple_structure
+     */
+    public static function get_evidences_for_course_returns() {
+        return new external_multiple_structure(
+                new external_single_structure(
+                array(
+            'shortname' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),            
+            'url' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            "username" => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            "userId" => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            'changed' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            'course' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            'activityTyp' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique')
+                )
+                )
+        );
+    }
+
+    /**
+     * returns a list of activities for a user that can be interpreted as evidences
+     *
+     * @return array Array of course objects
+     * @since Moodle 2.5
+     */
+    public static function get_evidences_for_course($courseId) {
+        global $DB, $CFG, $USER;
+        $query = 'SELECT {log}.*,firstname,lastname,email,lastaccess FROM {log} , {user} INNER JOIN {role_assignments} ra ON ra.userid = {user}.id INNER JOIN {context} ct ON ct.id = ra.contextid INNER JOIN {course} c ON c.id = ct.instanceid INNER JOIN {role} r ON r.id = ra.roleid INNER JOIN {course_categories} cc ON cc.id = c.category WHERE {log}.userid = {user}.id AND {log}.course= ? AND r.id =5 ORDER BY time DESC';
+        $result = $DB->get_records_sql($query, array($courseId));
+        $mapper = function ($arrayElement) {
+            $actual_link = 'http://localhost/moodle/'; // to be changed  
+            return array(
+                'shortname' => $arrayElement->module . $arrayElement->info . " am " . $arrayElement->lastaccess,
+                'url' => $actual_link . "/mod/" . $arrayElement->module . "/" . $arrayElement->url,
+                'username' => $arrayElement->firstname . " " . $arrayElement->lastname,
+                "userId" => $arrayElement->userid,
+                'changed' => $arrayElement->lastaccess,
+                'course' => $arrayElement->course,
+                'activityTyp' => $arrayElement->module,
+            );
+            //TODO finish
+        };
+        $result_mapped = array_map($mapper, $result);        
         return $result_mapped;
     }
 
@@ -77,21 +138,21 @@ class local_competence_external extends external_api {#
     public static function user_exists_parameters() {
         return new external_function_parameters(
                 array(
-                   'user' => new external_value(PARAM_TEXT, 'multilang compatible email'),
+            'user' => new external_value(PARAM_TEXT, 'multilang compatible email'),
                 )
         );
     }
-    
+
     public static function user_exists_returns() {
         return new external_value(PARAM_BOOL, 'flag if user exists');
     }
-    
+
     public static function user_exists($useremail) {
         global $DB;
         $query = "SELECT u.email from {user} u where u.email = ?";
-        $result = $DB->record_exists_sql($query, array($useremail));        
-        
-        
+        $result = $DB->record_exists_sql($query, array($useremail));
+
+
         return $result;
 //        return $result[0] > 0;
     }
