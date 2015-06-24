@@ -42,8 +42,7 @@ public class EvidenceServiceProxy implements EvidenceService {
 		if (prop.get("moodleEnabled").equals("true")) {
 			try {
 				MagicStrings.MOODLEURL = prop.getProperty("moodleURL").toString();
-				EvidenceService evidenceRestServiceImpl = new MoodleEvidenceRestServiceImpl(prop.get("moodledatabaseurl").toString(), prop.get("moodledb").toString(), prop.get("moodleadminname")
-						.toString(), prop.get("moodleadminpassword").toString(), prop.get("moodleadminLogin").toString(), prop.get("moodleadminLoginPassword").toString());
+				EvidenceService evidenceRestServiceImpl = new MoodleEvidenceRestServiceImpl(prop.get("moodleadminLogin").toString(), prop.get("moodleadminLoginPassword").toString());
 				evidenceProviderMap.evidenceMap.put(LMSSystems.moodle.toString(), evidenceRestServiceImpl);
 			} catch (NullPointerException e) {
 				System.err.println("moodle configuration mistake");
