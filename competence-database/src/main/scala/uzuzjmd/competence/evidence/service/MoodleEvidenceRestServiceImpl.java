@@ -132,7 +132,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	/**
 	 * Holt sich alle Kursdaten für den User if user
 	 */
-
+	@Deprecated
 	public MoodleEvidence[] getMoodleEvidences(String course, String user) {
 		MysqlConnect connect = initMysql(course, user);
 
@@ -149,6 +149,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 		return ergebnisAlsArray.toArray(new MoodleEvidence[ergebnisAlsArray.size()]);
 	}
 
+	@Deprecated
 	public MoodleEvidence[] getUserEvidencesforMoodleCourse(String course) {
 		MysqlConnect connect = initMysql(course, "adminuser");
 
@@ -169,6 +170,11 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	@Override
 	public UserTree[] getUserTree(String course, String lmsSystem, String organization) {
 		MoodleEvidence[] moodleEvidences = this.getUserEvidencesforMoodleCourse(course);
+		// SimpleMoodleService simpleService = new
+		// SimpleMoodleService(adminLogin, adminLoginPassword);
+		// MoodleEvidence[] moodleEvidences =
+		// simpleService.getMoodleEvidenceList(course).toArray(new
+		// MoodleEvidence[0]);
 		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
 
 		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent, moodleEvidences);

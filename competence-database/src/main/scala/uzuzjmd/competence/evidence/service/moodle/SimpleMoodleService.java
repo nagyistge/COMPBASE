@@ -95,4 +95,19 @@ public class SimpleMoodleService {
 		return webResource.accept(MediaType.APPLICATION_JSON).get(Boolean.class);
 	}
 
+	public MoodleEvidenceList getMoodleEvidenceList(String courseId) {
+		Client client = Client.create();
+		String moodleRestBase = getMoodleCompetenceRestBase();
+		WebResource webResource = null;
+		try {
+			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
+			System.out.println("fetching evidenceList from " + requestString);
+			webResource = client.resource(requestString);
+		} catch (Exception e) {
+			System.err.println("Probably the moodle web services not configured properly");
+			e.printStackTrace();
+		}
+		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleEvidenceList.class);
+	}
+
 }
