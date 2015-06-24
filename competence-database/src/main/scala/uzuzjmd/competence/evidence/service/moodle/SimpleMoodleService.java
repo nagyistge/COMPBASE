@@ -101,7 +101,8 @@ public class SimpleMoodleService {
 		WebResource webResource = null;
 		try {
 			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
-			System.out.println("fetching evidenceList from " + requestString);
+			// System.out.println("fetching evidenceList from " +
+			// requestString);
 			webResource = client.resource(requestString);
 		} catch (Exception e) {
 			System.err.println("Probably the moodle web services not configured properly");
