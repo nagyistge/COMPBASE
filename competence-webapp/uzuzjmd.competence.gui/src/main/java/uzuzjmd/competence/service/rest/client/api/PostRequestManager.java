@@ -60,6 +60,7 @@ public class PostRequestManager extends RestClientManager {
 							@Override
 							public void onResponseReceived(Request request,
 									Response response) {
+
 								GWT.log("successfully send non compulsory competences to server");
 								sendCompulsoryNodesToServer(requirementText,
 										compulsorycompetences);
