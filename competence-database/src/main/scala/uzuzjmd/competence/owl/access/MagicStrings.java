@@ -6,11 +6,11 @@ public class MagicStrings {
 	public static final String PREFIX = "http://comp#"; // better don't change,
 														// might be hardcoded
 														// somewhere
-	public static String TDBLocationPath = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/tdb2";
+	public static String TDBLocationPath = "C:/dev/scalaworkspace/Wissensmodellierung/tdb2";
 	// public static final String ONTOLOGYFORMAT = "TURTLE";
 	public static final String ONTOLOGYFORMAT = "RDF/XML";
 	// public static final String ONTOLOGYFORMAT = "RDF/XML-ABBREV";
-	public static final String ONTOLOGYFILE = "mymodelrdf.owl";
+	public static final String ONTOLOGYFILE = "C:/dev/scalaworkspace/Wissensmodellierung/mymodelrdf.owl";
 	public static final String SERVICEENDPOINT = "http://localhost:8081/WS/Competence";
 	public static final String EVIDENCESERVICEENDPOINT = "http://localhost:8082/WS/Competence/Evidence";
 	// public static final String RULESFILE =

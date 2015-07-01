@@ -1,5 +1,6 @@
 package uzuzjmd.competence.evidence.service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -23,11 +24,11 @@ public class EvidenceServiceProxy implements EvidenceService {
 		String propfFileName = "evidenceserver.properties";
 
 		// find file
-		InputStream inputStream = getClass().getResourceAsStream(propfFileName);
+		InputStream inputStream;
 		try {
+			inputStream = new FileInputStream(propfFileName);
 			prop.load(inputStream);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

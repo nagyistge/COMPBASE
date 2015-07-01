@@ -1,0 +1,237 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>uzuzjmd.competence</groupId>
+	<artifactId>competence-servlet</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>competence-servlet Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>competence-shared</artifactId>
+			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>competence-database</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.specs2</groupId>
+					<artifactId>specs2_${scala.tools.version}</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.scalatest</groupId>
+					<artifactId>scalatest_${scala.tools.version}</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>wsdl4j</groupId>
+					<artifactId>wsdl4j</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr-runtime</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.axis</groupId>
+					<artifactId>axis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sourceforge.collections</groupId>
+					<artifactId>collections-generic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>colt</groupId>
+					<artifactId>colt</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-discovery</groupId>
+					<artifactId>commons-discovery</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>concurrent</groupId>
+					<artifactId>concurrent</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpcore</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.ibm.icu</groupId>
+					<artifactId>icu4j</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.sun.mail</groupId>
+					<artifactId>javax.mail</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.apache.axis</groupId>
+					<artifactId>axis-jaxrpc</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>net.htmlparser.jericho</groupId>
+					<artifactId>jericho-html</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>gui</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<classifier>classes</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-user</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-servlet</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-codeserver</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.gwtext</groupId>
+					<artifactId>gwtext</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.github.gwtbootstrap</groupId>
+					<artifactId>gwt-bootstrap</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.fusesource.restygwt</groupId>
+					<artifactId>restygwt</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.googlecode.gwtquery</groupId>
+					<artifactId>gwtquery</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.18.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+			<version>1.18.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.3.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>competence-servlet</finalName>
+	</build>
+</project>
