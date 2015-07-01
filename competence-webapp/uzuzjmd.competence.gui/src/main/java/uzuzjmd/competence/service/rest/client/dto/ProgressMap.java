@@ -2,6 +2,9 @@ package uzuzjmd.competence.service.rest.client.dto;
 
 import java.util.HashMap;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ProgressMap extends HashMap<String, Double> {
 
 	/**
