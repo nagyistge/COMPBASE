@@ -36,6 +36,8 @@ public class Evidence {
 	private String changed; // das datum, wann der Kompetenznachweis erbracht
 							// wurde in Menschenlesbarer Form
 
+	private String email;
+
 	public String getShortname() {
 		return shortname;
 	}
@@ -74,5 +76,13 @@ public class Evidence {
 
 	public void setChanged(String changed) {
 		this.changed = changed;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
