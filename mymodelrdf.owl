@@ -4,6 +4,13 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:j.0="http://comp#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://comp#ITeacherRole">
+    <rdf:type rdf:resource="http://comp#TeacherRole"/>
+    <j.0:RoleOf rdf:resource="http://comp#juliandehnegmailcom"/>
+    <j.0:RoleOf rdf:resource="http://comp#test"/>
+    <j.0:RoleOf rdf:resource="http://comp#max"/>
+    <j.0:RoleOf rdf:resource="http://comp#dehneunipotsdamde"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannauchinlebhaftenGesprächenunterMuttersprachlerinnenMuttersprachlerngutmithalten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -30,6 +37,16 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen B1</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenB1</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#dehneunipotsdamde">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfComment rdf:resource="http://comp#Findeichgut"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#university"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dehne@uni-potsdam.de</j.0:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ISchreibenA2">
     <rdf:type rdf:resource="http://comp#SchreibenA2"/>
@@ -200,6 +217,9 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannInformationenausverschiedenenQuellenzusammenfassenunddieArgumenteundberichtetenSachverhaltesowiedergebendassinsgesamteinekohärenteDarstellungentsteht">
     <rdf:type rdf:resource="http://comp#IchkannInformationenausverschiedenenQuellenzusammenfassenunddieArgumenteundberichtetenSachverhaltesowiedergebendassinsgesamteinekohärenteDarstellungentsteht"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurApp">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ILanguagelearner">
     <rdf:type rdf:resource="http://comp#Languagelearner"/>
@@ -501,6 +521,12 @@
   <rdf:Description rdf:about="http://comp#IIchkanneinGesprächaufnatürlicheArtbeginneninGanghaltenundbeendenundwirksamzwischenderRollealsSprecherundHörerwechseln">
     <rdf:type rdf:resource="http://comp#IchkanneinGesprächaufnatürlicheArtbeginneninGanghaltenundbeendenundwirksamzwischenderRollealsSprecherundHörerwechseln"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#mychoiceofchoices">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#mychoiceofchoiceshttplocalhostmoodlemodchoiceviewphpid3IchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">my choice of choices</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://localhost/moodle/mod/choice/view.php?id=3</j.0:printableName>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannamFernsehenReportagenLiveInterviewsTalkShowsFernsehspieleundauchdiemeistenFilmeverstehensoferndieStandardspracheundnichtDialektgesprochenwird">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -576,6 +602,9 @@
     <j.0:OperatorOf rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
     <j.0:OperatorOf rdf:resource="http://comp#IIchkannmichselbstmeineFamilieundanderePersonenbeschreiben"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Nothing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren">
     <rdf:type rdf:resource="http://comp#IchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren"/>
   </rdf:Description>
@@ -592,6 +621,10 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICSstudentsexploreinformaticssystemssystematically">
     <rdf:type rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:PrerequisiteOf rdf:resource="http://comp#IIchkannFragenundAufforderungenverstehenmitdenenmansichlangsamundsorgfältiganmichwendetundichkannkurzeneinfachenAnweisungenfolgen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#httplocalhostmoodlemodchoiceviewphpid54">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannInformationenausverschiedenenQuellenmündlichzusammenfassenunddabeidieenthaltenenArgumenteundSachverhalteineinerklarenzusammenhängendenDarstellungwiedergeben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -807,6 +840,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann auch bei schlechter Übertragungsqualität aus öffentlichen Durchsagen – z. B. am Bahnhof oder an Sportveranstaltungen – Einzelinformationen heraushören.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meinetestaktivitat2">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannunterschiedlichsteliterarischeStilmittelWortspieleMetaphernliterarischeMotiveSymbolisierungKonnotationMehrdeutigkeiterkennenundihreFunktioninnerhalbdesTexteseinschätzen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -818,6 +854,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann einer kurzen Erzählung zuhören und Hypothesen dazu bilden, was als Nächstes geschehen wird.</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Chociehttplocalhostmoodlemodchoiceviewphpid54CSstudentsexploreinformaticssystemssystematically">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#juliandehnegmailcom"/>
+    <j.0:linksCompetence rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1433849195118</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndiemeistenSituationenbewältigendiesichbeimBucheneinerReiseoderaufderReiseselbstergeben">
     <rdf:type rdf:resource="http://comp#IchkanndiemeistenSituationenbewältigendiesichbeimBucheneinerReiseoderaufderReiseselbstergeben"/>
@@ -840,8 +884,19 @@
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen A1</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenA1</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AppReflexionlinkZurReflexionsAppHörverstehenA1">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#Hendrik"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IHörverstehenA1"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1435930030324</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannverstehenwennjemandsehrlangsamunddeutlichmitmirsprichtundwennlangePausenmirZeitlassendenSinnzuerfassen">
     <rdf:type rdf:resource="http://comp#IchkannverstehenwennjemandsehrlangsamunddeutlichmitmirsprichtundwennlangePausenmirZeitlassendenSinnzuerfassen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meinetestaktivitat">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannmündlichetwasausführlichdarstellenoderberichtendabeiThemenpunktemiteinanderverbindeneinzelneAspektebesondersausführenundmeinenBeitragangemessenabschließen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -860,6 +915,13 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanneffizientProblemelösendiemitderOrganisationdesStudiumszusammenhängenzBinKontaktenmitDozierendenundderVerwaltung">
     <rdf:type rdf:resource="http://comp#IchkanneffizientProblemelösendiemitderOrganisationdesStudiumszusammenhängenzBinKontaktenmitDozierendenundderVerwaltung"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IStudentRole">
+    <rdf:type rdf:resource="http://comp#StudentRole"/>
+    <j.0:RoleOf rdf:resource="http://comp#AdminUser"/>
+    <j.0:RoleOf rdf:resource="http://comp#teststudent"/>
+    <j.0:RoleOf rdf:resource="http://comp#teststudentteststudent"/>
+    <j.0:RoleOf rdf:resource="http://comp#Hendrik"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben">
     <rdf:type rdf:resource="http://comp#IchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben"/>
@@ -880,6 +942,9 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen">
     <rdf:type rdf:resource="http://comp#IchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#INothing">
+    <rdf:type rdf:resource="http://comp#Nothing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen">
     <rdf:type rdf:resource="http://comp#IchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen"/>
@@ -1085,6 +1150,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann verstehen, was man in einfachen Alltagsgesprächen langsam und deutlich zu mir sagt; es ist möglich, sich mir verständlich zu machen, wenn die Sprechenden sich die nötige Mühe machen können.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsApp">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanninFernsehsendungenübervertrauteThemendieHauptpunkteerfassenwenneinigermaßenlangsamunddeutlichgesprochenwird">
     <rdf:type rdf:resource="http://comp#IchkanninFernsehsendungenübervertrauteThemendieHauptpunkteerfassenwenneinigermaßenlangsamunddeutlichgesprochenwird"/>
   </rdf:Description>
@@ -1123,11 +1191,29 @@
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann mich in formellen Diskussionen über komplexe Themen behaupten, indem ich klar und überzeugend argumentiere; dabei bin ich gegenüber Muttersprachlern nicht im Nachteil. </j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Findeichgut">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:CommentOf rdf:resource="http://comp#mychoiceofchoiceshttplocalhostmoodlemodchoiceviewphpid3IchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1435222525378</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finde ich gut</j.0:text>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchbemerkeinVorlesungenundSeminarenwasnurimplizitgesagtwirdundworaufnurangespieltwirdundkannmirdazuebensoNotizenmachenwiezudemwaseinSprecherdirektausdrückt">
     <rdf:type rdf:resource="http://comp#IchbemerkeinVorlesungenundSeminarenwasnurimplizitgesagtwirdundworaufnurangespieltwirdundkannmirdazuebensoNotizenmachenwiezudemwaseinSprecherdirektausdrückt"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#teststudentteststudent">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfLink rdf:resource="http://comp#mychoiceofchoiceshttplocalhostmoodlemodchoiceviewphpid3IchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">teststudent teststudent</j.0:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#AbstractEvidenceLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#testcourse">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannineinempersönlichenBriefdieHandlungeinesFilmsoderBuchserzählenodervoneinemKonzertberichten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1211,6 +1297,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann normalerweise einem längeren Gespräch, das in meiner Gegenwart geführt wird, in den wesentlichen Punkten folgen, vorausgesetzt es wird deutlich gesprochen und Standardsprache verwendet.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#max">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#university"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">max</j.0:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannTextevonKollegenüberarbeitenundgrammatischundstilistischverbesserndabeihabeichnurseltenUnsicherheiten">
     <rdf:type rdf:resource="http://comp#IchkannTextevonKollegenüberarbeitenundgrammatischundstilistischverbesserndabeihabeichnurseltenUnsicherheiten"/>
   </rdf:Description>
@@ -1225,6 +1319,12 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in informellen Situationen mit Kollegen/Mitstudierenden über Fachinhalte sprechen. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Kompetenztool">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#KompetenztoollinkCSstudentsinteractinheterogeneousgroups"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kompetenztool</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">link</j.0:printableName>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndetailliertüberErfahrungenberichtenunddabeimeineGefühleundReaktionenbeschreiben">
     <rdf:type rdf:resource="http://comp#IchkanndetailliertüberErfahrungenberichtenunddabeimeineGefühleundReaktionenbeschreiben"/>
@@ -1307,6 +1407,14 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannkurzeErzählungenverstehendievonalltäglichenDingenhandelnundindenenesumThemengehtdiemirvertrautsindwennderTextineinfacherSprachegeschriebenist">
     <rdf:type rdf:resource="http://comp#IchkannkurzeErzählungenverstehendievonalltäglichenDingenhandelnundindenenesumThemengehtdiemirvertrautsindwennderTextineinfacherSprachegeschriebenist"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#test">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n1184"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">test</j.0:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#B2">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1420,6 +1528,9 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Competence"/>
     <rdfs:range rdf:resource="http://comp#Catchword"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#undefined">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanninmeinemFachgebieteinfacheTexteverfassenunddabeiwichtigeFachbegrifferichtiggebrauchen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1593,6 +1704,18 @@
     <rdfs:domain rdf:resource="http://comp#EvidenceActivity"/>
     <rdfs:range rdf:resource="http://comp#AbstractEvidenceLink"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#n2">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinestrukturierteVorlesungübereinvertrautesThemaverstehenundmirdiePunktenotierendiemirwichtigerscheinenauchwennichmanchmalanWörternhängenbleibeunddeshalbeinenTeilderInformationenverpasse"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinerVorlesungodereinemVortraginnerhalbmeinesFachoderInteressengebietsfolgenwennmirdieThematikvertrautistundwennderAufbaueinfachundklarist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimDetailverstehenwasmanmirinderStandardsprachesagtauchwennesinderUmgebungstörendeGeräuschegibt"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen">
     <rdf:type rdf:resource="http://comp#IchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
   </rdf:Description>
@@ -1753,6 +1876,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#LesenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann unter gelegentlicher Zuhilfenahme des Wörterbuchs jegliche Korrespondenz verstehen. </j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#mychoiceofchoiceshttplocalhostmoodlemodchoiceviewphpid3IchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#dehneunipotsdamde"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IIchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1435222482089</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#SchreibenB1">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -1768,6 +1899,14 @@
   <rdf:Description rdf:about="http://comp#IMiteinandersprechenA1">
     <rdf:type rdf:resource="http://comp#MiteinandersprechenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenA2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IHörverstehenA1AppReflexion">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#Hendrik"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IHörverstehenA1"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1436265745559</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1813,6 +1952,9 @@
   <rdf:Description rdf:about="http://comp#IIchkannzusehrvielenThemenmeinesInteressengebietsklareunddetaillierteBeschreibungenundBerichtegeben">
     <rdf:type rdf:resource="http://comp#IchkannzusehrvielenThemenmeinesInteressengebietsklareunddetaillierteBeschreibungenundBerichtegeben"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linksCompetence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Competence">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
@@ -1837,6 +1979,9 @@
   <rdf:Description rdf:about="http://comp#IIchkannAngabenzumeinerPersonmachenzBAdresseTelefonnummerAlterHerkunftslandFamilieHobbys">
     <rdf:type rdf:resource="http://comp#IchkannAngabenzumeinerPersonmachenzBAdresseTelefonnummerAlterHerkunftslandFamilieHobbys"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#httplocalhostmoodlemodchoiceviewphpid3">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneinfacheEinkäufemachenwennesmöglichistdurchZeigenoderGestenzuverdeutlichenwasichmeine">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -1857,6 +2002,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung">
     <rdf:type rdf:resource="http://comp#IchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:PrerequisiteOf rdf:resource="http://comp#IIchkannFragenundAufforderungenverstehenmitdenenmansichlangsamundsorgfältiganmichwendetundichkannkurzeneinfachenAnweisungenfolgen"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1879,6 +2025,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in persönlichen Briefen ausführlich Erfahrungen, Gefühle und Geschehnisse beschreiben. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsAppSomeText">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanninklargeschriebenenargumentativenTextendiewesentlichenSchlussfolgerungenerkennen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1968,6 +2117,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#LesenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann ausführliche Berichte, Analysen und Kommentare lesen, in denen Zusammenhänge, Meinungen und Standpunkte erörtert werden. </j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsApp22">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannlängerekomplexeAnleitungenundAnweisungenverstehenzBzurBedienungeinesneuenGerätsauchwenndiesenichtinBezugzumeinemSachoderInteressengebietstehensofernichgenugZeitzumLesenhabe">
     <rdf:type rdf:resource="http://comp#IchkannlängerekomplexeAnleitungenundAnweisungenverstehenzBzurBedienungeinesneuenGerätsauchwenndiesenichtinBezugzumeinemSachoderInteressengebietstehensofernichgenugZeitzumLesenhabe"/>
   </rdf:Description>
@@ -2035,11 +2187,17 @@
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannmichselbstmeineFamilieundanderePersonenbeschreiben"/>
     <j.0:CatchwordOf rdf:resource="http://comp#IIchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsApp2x">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannzuverschiedenenvertrautenThemenmeinesInteressenoderFachbereichsunkomplizierteBeschreibungenoderBerichtegeben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#ZusammenhängendsprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann zu verschiedenen vertrauten Themen meines Interessen- oder Fachbereichs unkomplizierte Beschreibungen oder Berichte geben. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#nomanlands">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannsicherundgutverständlicheinemPublikumeinkomplexesThemavortragenmitdemesnichtvertrautistunddabeidieRedeflexibeldenBedürfnissendesPublikumsanpassenundentsprechendstrukturieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2215,6 +2373,15 @@
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann verstehen, was man in einem Alltagsgespräch zu mir sagt, falls deutlich gesprochen wird; ich muss aber manchmal darum bitten, bestimmte Wörter und Wendungen zu wiederholen.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AdminUser">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfLink rdf:resource="http://comp#Chociehttplocalhostmoodlemodchoiceviewphpid54CSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Admin User</j.0:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#OperatorOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Operator"/>
@@ -2278,6 +2445,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen C2</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenC2</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#KompetenztoollinkCSstudentsinteractinheterogeneousgroups">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#university"/>
+    <j.0:createdBy rdf:resource="http://comp#max"/>
+    <j.0:linksCompetence rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1434702174619</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannkurzundeinfachübereinEreignisberichten">
     <rdf:type rdf:resource="http://comp#IchkannkurzundeinfachübereinEreignisberichten"/>
@@ -2681,36 +2856,256 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#university">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHauptinformationvonFernsehmeldungenüberEreignisseUnglücksfälleuswerfassenwennderKommentardurchBilderunterstütztwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICompetence"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenA2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängerekomplexeAnleitungenundAnweisungenverstehenzBzurBedienungeinesneuenGerätsauchwenndiesenichtinBezugzumeinemSachoderInteressengebietstehensofernichgenugZeitzumLesenhabe"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenC1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannArtikelundBerichteüberaktuelleFragenlesenundverstehenindenendieSchreibendeneinebestimmteHaltungodereinenbestimmtenStandpunktvertreten"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenB2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannZustimmungäußernundhöflichwidersprechen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenB1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannaufVeranstaltungskalendernoderPlakateneinKonzertodereinenFilmaussuchenundOrtundAnfangszeitentnehmen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenA1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzBineinemAufsatzoderArbeitsberichteinkomplexesThemaklarundgutstrukturiertdarlegenunddiewichtigstenPunktehervorheben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenC1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfachetechnischeInformationenzBzurBedienungvonGerätendestäglichenGebrauchsverstehen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenB1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninmeinemFachgebietdenVerlaufeineswissenschaftlichenExperimentsinStichwortenfesthalten"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenB1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineschriftlicheStellungnahmezueinemArbeitspapierodereinemProjektschreibensieklargliedernunddarinmeineMeinungbegründen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenC2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmeineAbsichtenPläneoderHandlungenerklärenundbegründen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenB1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineeinfachePostkartezBmitFeriengrüßenschreiben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenA1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannauchinlebhaftenGesprächenunterMuttersprachlerinnenMuttersprachlerngutmithalten"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenC1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninInformationsblätternüberFreizeitaktivitätenAusstellungenuswdiewichtigstenInformationenfinden"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenA2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemKommentarzueinemThemaodereinemEreignisverschiedeneStandpunktedarstellendabeidieHauptgedankenhervorhebenundmeineArgumentationdurchausführlicheBeispieleverdeutlichen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmireinfacheInformationenfüreineReisebeschaffen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenA2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinestrukturierteVorlesungübereinvertrautesThemaverstehenundmirdiePunktenotierendiemirwichtigerscheinenauchwennichmanchmalanWörternhängenbleibeunddeshalbeinenTeilderInformationenverpasse"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenB2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemBriefGefühlewieTrauerFreudeInteresseBedauernundmeinMitgefühlausdrücken"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannuntergelegentlicherZuhilfenahmedesWörterbuchsjeglicheKorrespondenzverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannausverschiedenenschriftlichenQuellenstammendeInformationenundArgumentezusammenfassenundmündlichwiedergeben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenB2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannFachvorträgeoderPräsentationenverstehendievieleumgangssprachlicheoderregionalgefärbteAusdrückeoderauchfremdeTerminologieenthalten"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenC2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannauchbeischlechterÜbertragungsqualitätausöffentlichenDurchsagenzBamBahnhofoderanSportveranstaltungenEinzelinformationenheraushören"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenC1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTräumeHoffnungenZielebeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninRadionachrichtenundineinfacherenTonaufnahmenübervertrauteThemendieHauptpunkteverstehenwennrelativlangsamunddeutlichgesprochenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzeErzählungenverstehendievonalltäglichenDingenhandelnundindenenesumThemengehtdiemirvertrautsindwennderTextineinfacherSprachegeschriebenist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannMeldungenundeinfacheHilfetexteinComputerprogrammenverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieBedeutungeinzelnerunbekannterWörterausdemKontexterschließenundsodenSinnvonÄußerungenableitenwennmirdieThematikvertrautist"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenB1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannfragenwasjemandbeiderArbeitundinderFreizeitmachtundichkannentsprechendeFragenvonanderenbeantworten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkomplexetechnischeInformationenverstehenzBBedienungsanleitungenodergenaueAngabenzuvertrautenProduktenundDienstleistungen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndenInhaltvonRadioundFernsehsendungenverstehendiemeinenFachbereichbetreffenauchwennsieanspruchsvollundsprachlichkomplexsind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninDiskussionenmeineGedankenundMeinungenpräziseundklarformuliertausdrückenüberzeugendargumentierenundwirksamaufkomplexeArgumentationandererreagieren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannsicherundgutverständlicheinemPublikumeinkomplexesThemavortragenmitdemesnichtvertrautistunddabeidieRedeflexibeldenBedürfnissendesPublikumsanpassenundentsprechendstrukturieren"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenC2"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenC2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemBerichtoderEssayeinThemadasichrecherchierthabeumfassenddarstellendieMeinungenandererzusammenfassenDetailinformationenundFaktenaufführenundbeurteilen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichinformellenDiskussionenüberkomplexeThemenbehauptenindemichklarundüberzeugendargumentieredabeibinichgegenüberMuttersprachlernnichtimNachteil"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinfachenSätzeneinEreignisbeschreibenundsagenwaswannwostattgefundenhatzBeinFesteinUnfall"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenA2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneffizientProblemelösendiemitderOrganisationdesStudiumszusammenhängenzBinKontaktenmitDozierendenundderVerwaltung"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenB2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichaufeinfacheArtverständigenbinaberdaraufangewiesendassdieGesprächspartnerinderGesprächspartnerbereitistetwaslangsamerzuwiederholenoderanderszusagenundmirdabeihilftzuformulierenwasichsagenmöchte"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechenA1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzePassagenausschriftlichenTextenaufeinfacheArtundWeisemündlichwiedergebenindemichdenWortlautunddieAnordnungdesOriginaltextesbenutze"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannausführlichundgutlesbarüberEreignisseundrealeoderfiktiveErlebnisseschreiben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreibenB2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninFragebögenübermeineAusbildungmeineArbeitmeineInteressenundSpezialgebieteAuskunftgeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannflüssigkorrektundwirkungsvollübereinsehrbreitesSpektrumvonThemenallgemeinerberuflicheroderwissenschaftlicherArtsprechen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannMeldungenodereinfachenZeitungsartikelnindenenZahlenundNameneinewichtigeRollespielenunddieklargegliedertsindundmitBildernarbeitenwichtigeInformationenentnehmen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlangeanspruchsvolleTextemündlichzusammenfassen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenC1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinerkurzenErzählungzuhörenundHypothesendazubildenwasalsNächstesgeschehenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannbeschreibenwoichwohne"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenA2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannaufAnzeigenundInserateschriftlichreagierenundzusätzlicheodergenauereInformationenüberdieProdukteverlangenzBübereinAutoodereinenSchulungskurs"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannVermutungenüberUrsachenundKonsequenzenanstellenundüberhypothetischeSituationensprechen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzuverschiedenenvertrautenThemenmeinesInteressenoderFachbereichsunkomplizierteBeschreibungenoderBerichtegeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinevorbereiteteunkompliziertePräsentationzueinemvertrautenThemaausmeinemFachgebietklarundpräzisegenugvortragendassmanihrmeistmühelosfolgenkannunddieHauptpunkteverstandenwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninklargeschriebenenargumentativenTextendiewesentlichenSchlussfolgerungenerkennen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimDetailverstehenwennüberabstraktekomplexeThemenauffremdenFachgebietengesprochenwirdmussjedochmanchmalEinzelheitenbestätigenlassenbesonderswennmitwenigvertrautemAkzentgesprochenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannnachdemWegfragenundmiteinerKarteodereinemStadtplandenWegerklären"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannunterschiedlichsteliterarischeStilmittelWortspieleMetaphernliterarischeMotiveSymbolisierungKonnotationMehrdeutigkeiterkennenundihreFunktioninnerhalbdesTexteseinschätzen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ILesenC2"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmeineAusbildungundmeinegegenwärtigeoderletzteberuflicheTätigkeitbeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimeigenenFachfreiodernachStichworteneinenKurzvortraghalten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzeeinfacheschriftlicheWegerklärungenverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndiewichtigstenverknüpfendenWörterverwendenumdiezeitlicheAbfolgevonEreignissenkenntlichzumachenzuerstdannnachherspäter"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinfachenSätzenundAusdrückenüberDingeausmeinemAlltagschreibenLeuteOrteArbeitSchuleFamilieHobbys"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichineinemBriefmiteinfachenSätzenundAusdrückenkurzvorstellenFamilieSchuleArbeitHobbys"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängerenRedebeiträgenundGesprächenfolgenauchwennsienichtklarstrukturiertsindundwennZusammenhängenichtexplizitausgedrücktwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannAngabenzumeinerPersonmachenzBAdresseTelefonnummerAlterHerkunftslandFamilieHobbys"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechenA1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannübervergangeneAktivitätenundpersönlicheErfahrungenberichtenzBdasletzteWochenendeodermeineletztenFerien"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieSpracheinGesellschaftwirksamundflexibelgebrauchenauchumGefühleauszudrückenAnspielungenzumachenoderzuscherzen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannverschiedeneStrategienanwendenumetwaszuverstehenzBaufdieHauptpunktehörenoderHinweiseausdemKontextnutzenummeinVerstehenzuüberprüfen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzusehrvielenThemenmeinesInteressengebietsklareunddetaillierteBeschreibungenundBerichtegeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninmeinenschriftlichenTextendenStilwählenderfürdiejeweiligenLeserangemessenist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineneinfachenpersönlichenBriefverstehenindemmirjemandvonDingenausdemAlltagschreibtodermichdanachfragt"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannAngabenzurZeitmachenmitHilfevonWendungenwienächsteWocheletztenFreitagimNovemberumdreiUhr"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannamFernsehenReportagenLiveInterviewsTalkShowsFernsehspieleundauchdiemeistenFilmeverstehensoferndieStandardspracheundnichtDialektgesprochenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzeTexteüberfliegenzBMeldungeninKürzeundwichtigeFaktenundInformationenfindenzBwerwaswogemachthat"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannKorrespondenzzuThemeninnerhalbmeinesFachStudienoderInteressengebieteslesenunddiewesentlichenPunkteerfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinfacherFormübermeineHobbysundInteressenberichten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninDiskussionenzBineinemSeminarbeieinerPodiumsoderFernsehdiskussiondieHauptpunkteerfassenwennesumeinvertrautesThemaausmeinemFachgebietgehtvorausgesetzteswirddeutlichgesprochenundStandardspracheverwendet"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannjemandenvorstellenundeinfacheGrußundAbschiedsformelngebrauchen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkommemitZahlenMengenangabenPreisenundUhrzeitenzurecht"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannandereumetwasbittenundanderenetwasgeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannklareunddetaillierteTexteüberunterschiedlicheThemenschreibendiemitmeinemInteressengebietzutunhabenseiinFormvonAufsätzenBerichtenoderReferaten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzBfüreineKlubzeitungeineneinfachenTextüberErfahrungenoderEreignisseschreibenzBübereineReise"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchverwendeinmeinenTextenohnegrößereProblemedieTerminologieundIdiomatikmeinesFachgebiets"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannhochspezialisiertenTextenausdemeigenenFachgebietzBForschungsberichtenInformationenGedankenundMeinungenentnehmen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzeitgenössischeliterarischeTextefließendlesen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängereTexteausmeinemFachgebietnachgewünschtenInformationendurchsuchenundInformationenausverschiedenenTextenoderTextteilenzusammentragenumeinebestimmteAufgabezulösen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinerVorlesungNotizenzudenHauptaussagenmachendiefürdeneigenenGebrauchgenügensoferndasThemazumeinemFachgebietgehörtundderVortragklarundgutstrukturiertist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninZeitungsartikelnAngabenzuPersonenWohnortAlteruswverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTexteverstehendiestarkumgangssprachlichsindundzahlreicheidiomatischeAusdrückeRedewendungenoderSlangenthalten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichinnerhalbundaußerhalbvonLehrveranstaltungenaktivanGesprächenüberfachlicheoderkulturelleThemenbeteiligen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannselbstständigSeminararbeitenschreibenmusssieabervonjemandemaufsprachlicheKorrektheitundAngemessenheithinüberprüfenlassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichaneinemGesprächodereinerDiskussionbeteiligenabermanverstehtmichmöglicherweisenichtimmerwennichversuchezusagenwasicheigentlichsagenmöchte"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTextevonKollegenüberarbeitenundgrammatischundstilistischverbesserndabeihabeichnurseltenUnsicherheiten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannKritikenlesenindenenesumdenInhaltunddieBeurteilungvonkulturellenEreignissengehtFilmeTheaterBücherKonzerteunddieHauptaussagenzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHandlungeinesFilmsodereinesBuchswiedergebenundmeineReaktionenbeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzuwissenschaftlichenVeröffentlichungeninmeinemFachgebieteinezurVeröffentlichungbestimmtekritischeStellungnahmezBRezensionschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannpersönlicheBriefeoderEMailsanFreundeoderBekannteschreibennachNeuigkeitenfragenoderNeuigkeitenmitteilenundvonEreignissenerzählen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannklareundgutstrukturierteformelleBriefeauchkomplexererArtinpassendemStilschreibenzBAnträgeEingabenOffertenanBehördenVorgesetzteoderGeschäftskunden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannausführlicheBerichteAnalysenundKommentarelesenindenenZusammenhängeMeinungenundStandpunkteerörtertwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninprivatenBriefenoderEMailsverschiedeneEinstellungenundGefühleausdrückenundichkannvondenNeuigkeitendesTageserzählenunddabeideutlichmachenwasfürmichaneinemEreigniswichtigist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheSätzeschreibenundsiemitWörternwieundaberweildennverbinden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannetwaszumEssenundTrinkenbestellen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannVorlesungenRedenundBerichteimRahmenmeinesBerufsmeinerAusbildungodermeinesStudiumsverstehenauchwennsieinhaltlichundsprachlichkomplexsind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheMitteilungenundStandardbriefeverstehenzBvonGeschäftenVereinenoderBehörden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheEinkäufemachensagenwasichsucheundnachdemPreisfragen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinekurzeeinfacheNotizoderMitteilungschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineZusammenfassungzueinemArtikelübereinThemavonallgemeinemInteresseschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHandlungeinerklaraufgebautenErzählungverstehenunderkennenwelchesdiewichtigstenEpisodenundEreignissesindundinwiefernsiebedeutsamsind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinerVorlesungodereinemVortraginnerhalbmeinesFachoderInteressengebietsfolgenwennmirdieThematikvertrautistundwennderAufbaueinfachundklarist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannöffentlicheVerkehrsmittelwieBusZugTaxibenutzenumeinfacheAuskünftebittenundBillettekaufen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannZusammenfassungenvonSachtextenundliterarischenWerkenschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannwissenschaftlicheTexteausmeinemFachgebietfürdenspäterenGebrauchschriftlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmitanderenbesprechenwasmantunoderwohinmangehenwillundkannvereinbarenwannundwomansichtrifft"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannverstehenwasmanineinfachenAlltagsgesprächenlangsamunddeutlichzumirsagtesistmöglichsichmirverständlichzumachenwenndieSprechendensichdienötigeMühemachenkönnen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannininformellenSituationenmitKollegenMitstudierendenüberFachinhaltesprechen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannZahlenPreisangabenundUhrzeitenverstehen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IHörverstehenA1"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninderZeitungdieKleininserateüberfliegendiegesuchteRubrikfindenunddiewichtigstenInformationenherauslesenzumBeispielGrößeundPreisvonWohnungenAutosComputernusw"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchhabekeinerleiSchwierigkeitgesprocheneSprachezuverstehengleichgültigobliveoderindenMedienundzwarauchwennschnellgesprochenwirdIchbrauchenuretwasZeitmichaneinenbesonderenAkzentzugewöhnen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinentabellarischenLebenslaufschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzeAuszügeausNachrichtenInterviewsoderReportagenwelcheStellungnahmenErörterungenundDiskussionenenthaltenverstehenundmündlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemAufsatzoderBerichtetwaserörternunddabeientscheidendePunktehervorhebenundEinzelheitenanführenwelchedieArgumentationstützen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndiemeistenSituationenbewältigendiesichbeimBucheneinerReiseoderaufderReiseselbstergeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannjemandeneinladenundreagierenwennmichjemandeinlädt"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineArgumentationlogischaufbauenunddieGedankenverknüpfen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimAllgemeinendasThemavonGesprächendieinmeinerGegenwartgeführtwerdenerkennenwennlangsamunddeutlichgesprochenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemliterarischenTextvomerzähltenGeschehenabstrahierenundimpliziteAussagenIdeenundZusammenhängeerfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinerVorlesungzuThemenmeinesFachgebietesdetaillierteNotizenmachenundzwarsoexaktundnaheamOriginaldassdieseNotizenauchfüranderenützlichsind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannnormalerweiseeinemlängerenGesprächdasinmeinerGegenwartgeführtwirdindenwesentlichenPunktenfolgenvorausgesetzteswirddeutlichgesprochenundStandardspracheverwendet"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTextewieetwaliterarischeKolumnenodersatirischeGlossenlesenindenenvielesindirektgesagtwirdmehrdeutigistunddieversteckteWertungenenthalten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninGeschäftenaufderPostoderBankeinfacheErledigungenmachen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchverstehediewesentlichenPunkteinkürzerenZeitungsartikelnüberaktuelleundvertrauteThemen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineGlückwunschkarteschreibenzumBeispielzumGeburtstag"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinenStandpunktzueinemProblemerklärenundVorundNachteilezuverschiedenenMöglichkeitenangeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineinfachesdirektesGesprächübervertrauteodermichpersönlichinteressierendeThemenbeginneninGanghaltenundbeenden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheFragenstellenundbeantworteneinfacheAussagenmachenoderaufeinfacheAussagenvonanderenreagierensofernesumganzvertrauteoderunmittelbarnotwendigeDingegeht"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineneinfachenzusammenhängendenTextüberverschiedeneThemenmeinesInteressengebietesschreibenundpersönlicheAnsichtenundMeinungenausdrücken"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkomplexeSachverhalteklarunddetailliertdarstellen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinvorbereitetesInterviewgesprächführendabeinachfragenobichdasGesagterichtigverstandenhabeundaufinteressanteAntwortennähereingehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanngutstrukturierteundgutlesbareBerichteundArtikelüberkomplexeThemenschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannaufeinemFragebogenAngabenzumeinerPersonmachenBerufAlterWohnortHobbys"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzumFortgangeinesGesprächsaufeinemmirvertrautenGebietbeitragenindemichzumBeispielbestätigedassichversteheoderindemichandereauffordereetwaszusagen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannverstehenwasmanineinemAlltagsgesprächzumirsagtfallsdeutlichgesprochenwirdichmussabermanchmaldarumbittenbestimmteWörterundWendungenzuwiederholen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHandlungunddieAbfolgederEreignisseineinemAuszugauseinemFilmoderTheaterstückverstehenundmündlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannsagenwasichgernehabeundwasnicht"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannunkomplizierteSachtexteüberThemendiemitdeneigenenInteressenundFachgebieteninZusammenhangstehenmitbefriedigendemVerständnislesen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinenNotizzettelschreibenumjemandenzuinformierenwoichbinoderwowirunstreffen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinGesprächaufnatürlicheArtbeginneninGanghaltenundbeendenundwirksamzwischenderRollealsSprecherundHörerwechseln"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichschriftlichzuunterschiedlichstenThemenallgemeineroderberuflicherArtklarundgutlesbaräußern"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannInformationenausverschiedenenQuellenundMedienschriftlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninmeinemFachgebieteinfacheTexteverfassenunddabeiwichtigeFachbegrifferichtiggebrauchen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzukulturellenEreignissenFilmMusikTheaterLiteraturRadioFernseheneinekritischeStellungnahmeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinbreitesSpektrumvonRedewendungenundumgangssprachlichenAusdrucksweisenverstehenundWechselimStilundTonerkennen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninDiskussionenmeineAnsichtendurchErklärungenArgumenteundKommentarebegründenundverteidigen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmitschwierigenundauchunfreundlichenFragenumgehendiemirimAnschlussaneinReferatodereinePräsentationgestelltwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinekurzeBesprechungübereinenFilmodereinBuchschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndetailliertüberErfahrungenberichtenunddabeimeineGefühleundReaktionenbeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHauptsachevondemwasinkurzeneinfachenundklarenDurchsagenoderMitteilungengesagtwirdmitbekommen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninpersönlichenBriefenausführlichErfahrungenGefühleundGeschehnissebeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinHandbuchzBzueinemComputerprogrammraschdurchsuchenundfüreinbestimmtesProblemdiepassendenErklärungenundHilfenfindenundverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheEinkäufemachenwennesmöglichistdurchZeigenoderGestenzuverdeutlichenwasichmeine"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannauchFachartikeldieübermeineigenesGebiethinausgehenlesenundverstehenwennichzurKontrolleabundzuimWörterbuchnachschlagenkann"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzundeinfachübereinEreignisberichten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinenkurzenBriefschreibenunddarineinfacheFormelnfürAnredeGrußDankundBitteverwenden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinenFragebogenbeiderEinreiseoderbeiderAnmeldungimHotelsoweitverstehendassichdiewichtigstenAngabenzumeinerPersonmachenkannzBNameVornameGeburtsdatumNationalität"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzenlangsamunddeutlichgesprochenenTonaufnahmendieHauptinformationentnehmenwennesumvorhersehbarealltäglicheDingegeht"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannInformationenausverschiedenenQuellenmündlichzusammenfassenunddabeidieenthaltenenArgumenteundSachverhalteineinerklarenzusammenhängendenDarstellungwiedergeben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannLeutenFragenzuihrerPersonstellenzBwosiewohnenwasfürLeutesiekennenoderwasfürDingesiehabenundichkannaufFragendieserArtAntwortgebenwenndieFragenlangsamunddeutlichformuliertwerden"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinemerzählendenTextodereinemTheaterstückdieHandlungsmotivederPersonenunddieKonsequenzenfürdenHandlungsablauferkennen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannWortspieleerkennenundTexterichtigverstehendereneigentlicheBedeutungnichtindemliegtwasexplizitgesagtwirdzBIronieSatire"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannInformationenausverschiedenenQuellenzusammentragenundinzusammenhängenderFormschriftlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninmeinemFachundInteressengebietgrößereMengenvonSachinformationenaustauschen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndiewichtigstenBefehleeinesComputerprogrammsverstehenwiezBSpeichernLöschenÖffnenSchließen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinempersönlichenBriefdieHandlungeinesFilmsoderBuchserzählenodervoneinemKonzertberichten"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlangekomplexewissenschaftlicheTexteimDetailverstehenauchwenndiesenichtmeinemeigenenSpezialgebietangehören"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannformalkorrekteBriefeschreibenzumBeispieleinenBeschwerdebriefodereineStellungnahmefürodergegenetwas"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninGesprächenmitBekanntenundFreundenpersönlicheAnsichtenundMeinungenaustauschen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmündlichetwasausführlichdarstellenoderberichtendabeiThemenpunktemiteinanderverbindeneinzelneAspektebesondersausführenundmeinenBeitragangemessenabschließen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineGeschichteerzählen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannjemandengrüssenfragenwieesihrihmgehtundaufNeuigkeitenreagieren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmitBlickaufeineVeröffentlichungwissenschaftlicheTexteinmeinemFachgebietschreibendiekorrektundstilistischweitgehendangemessensind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimRadiodiemeistenDokumentarsendungenindenenStandardsprachegesprochenwirdverstehenunddieStimmungdenTonuswderSprechendenheraushören"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninmeinemFachundInteressengebieteinklargegliedertesReferathaltendabeiwennnötigvomvorbereitetenTextabweichenundspontanaufFragenvonZuhörendeneingehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichaktivanlängerenGesprächenüberdiemeistenThemenvonallgemeinemInteressebeteiligen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannGefühleunterschiedlicherIntensitätzumAusdruckbringenundhervorhebenwasfürmichpersönlichanEreignissenoderErfahrungenbedeutsamist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTexteschreibendieweitgehendkorrektsindundmeinenWortschatzundStiljenachAdressatinAdressatTextsorteundThemavariieren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimDetailverstehenwasmanmirinderStandardsprachesagtauchwennesinderUmgebungstörendeGeräuschegibt"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneineeinfacheWegerklärungwiemanzuFußodermiteinemöffentlichenVerkehrsmittelvonAnachBkommtverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannzeitgenössischeundklassischeliterarischeTexteverschiedenerGattungenlesenGedichteProsadramatischeWerke"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannInformationenausverschiedenenQuellenzusammenfassenunddieArgumenteundberichtetenSachverhaltesowiedergebendassinsgesamteinekohärenteDarstellungentsteht"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannFragenundAufforderungenverstehenmitdenenmansichlangsamundsorgfältiganmichwendetundichkannkurzeneinfachenAnweisungenfolgen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannBekanntenoderMitarbeiterinnenundMitarbeiternperFaxEMailoderLaufzettelkurzeeinfacheSachinformationenmitteilenodernachsolchenfragen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninFernsehsendungenübervertrauteThemendieHauptpunkteerfassenwenneinigermaßenlangsamunddeutlichgesprochenwird"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannGefühlewieÜberraschungFreudeTrauerInteresseundGleichgültigkeitausdrückenundaufentsprechendeGefühlsäußerungenandererreagieren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheGebrauchsanweisungenfürApparateverstehenzBfürdasöffentlicheTelefon"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanneinfacheschriftlicheMitteilungenvonBekanntenoderMitarbeiternverstehenzBwannmansichzumFußballspielentrifftoderdassichfrüherzurArbeitkommensoll"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannkurzeeinfacheMitteilungenaufPostkartenverstehenzBFeriengrüße"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IInPrivatbriefenoderEMailsversteheichgutgenugwasüberEreignisseGefühleoderWünschegeschriebenwirdumregelmäßigmiteinemFreundodereinerFreundinkorrespondierenzukönnen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannverstehenwennjemandsehrlangsamunddeutlichmitmirsprichtundwennlangePausenmirZeitlassendenSinnzuerfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannüberErfahrungenGeschichtenschreibendieineinemklarenundflüssigendemGenreentsprechendenStilabgefasstsind"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannmichselbstmeineFamilieundanderePersonenbeschreiben"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannTextezuThemenausmeinemFachundInteressenbereichimDetailverstehen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannimVerlaufeinesSeminarsTutoriumsoderKursesgenaueundvollständigeAufzeichnungenmachen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanninAlltagssituationeneinfacheschriftlicheMitteilungenvonBekanntenundMitarbeiternMitarbeiterinnenverstehenzBBinum4Uhrzurück"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannraschdenInhaltunddieWichtigkeitvonNachrichtenArtikelnundBerichtenüberThemendiemitmeinenInteressenodermeinemBerufzusammenhängenerfassenundentscheidenobsicheingenaueresLesenlohnt"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannumEntschuldigungbittenundaufeineEntschuldigungreagieren"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannineinfachenSätzenübermichschreibenzBwoichwohneundwasichmache"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannlängereanspruchsvolleTexteverstehenundmündlichzusammenfassen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkannHandbücherVerordnungenundVerträgeverstehenauchwennmirdasGebietnichtvertrautist"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchkanndieHauptpunktevonkomplexenRedebeiträgenzukonkretenundabstraktenThemenverstehenwenninderStandardsprachegesprochenwirdichversteheinmeinemSpezialgebietauchFachdiskussionen"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIchbemerkeinVorlesungenundSeminarenwasnurimplizitgesagtwirdundworaufnurangespieltwirdundkannmirdazuebensoNotizenmachenwiezudemwaseinSprecherdirektausdrückt"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#I3org227owlNothing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHandlungeinerklaraufgebautenErzählungverstehenunderkennenwelchesdiewichtigstenEpisodenundEreignissesindundinwiefernsiebedeutsamsind">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2879,6 +3274,12 @@
   <rdf:Description rdf:about="http://comp#IIchkannselbstständigSeminararbeitenschreibenmusssieabervonjemandemaufsprachlicheKorrektheitundAngemessenheithinüberprüfenlassen">
     <rdf:type rdf:resource="http://comp#IchkannselbstständigSeminararbeitenschreibenmusssieabervonjemandemaufsprachlicheKorrektheitundAngemessenheithinüberprüfenlassen"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Chocie">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#Chociehttplocalhostmoodlemodchoiceviewphpid54CSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chocie</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://localhost/moodle/mod/choice/view.php?id=54</j.0:printableName>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Operator">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
@@ -2973,6 +3374,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenA1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in einfachen Sätzen über mich schreiben, z. B. wo ich wohne und was ich mache.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#juliandehnegmailcom">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">julian.dehne@gmail.com</j.0:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneineGeschichteerzählen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -3009,6 +3418,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in Gesprächen mit Bekannten und Freunden persönliche Ansichten und Meinungen austauschen. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IHörverstehenA2AppReflexion">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#Hendrik"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IHörverstehenA2"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1436276223076</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndenInhaltvonRadioundFernsehsendungenverstehendiemeinenFachbereichbetreffenauchwennsieanspruchsvollundsprachlichkomplexsind">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3107,6 +3524,12 @@
     <rdfs:subClassOf rdf:resource="http://comp#LesenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann Artikel und Berichte über aktuelle Fragen lesen und verstehen, in denen die Schreibenden eine bestimmte Haltung oder einen bestimmten Standpunkt vertreten. </j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#I3org227owlNothing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Nothing"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanneineinfachesdirektesGesprächübervertrauteodermichpersönlichinteressierendeThemenbeginneninGanghaltenundbeenden">
     <rdf:type rdf:resource="http://comp#IchkanneineinfachesdirektesGesprächübervertrauteodermichpersönlichinteressierendeThemenbeginneninGanghaltenundbeenden"/>
   </rdf:Description>
@@ -3126,6 +3549,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen">
     <rdf:type rdf:resource="http://comp#IchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:PrerequisiteOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkommemitZahlenMengenangabenPreisenundUhrzeitenzurecht">
     <rdf:type rdf:resource="http://comp#IchkommemitZahlenMengenangabenPreisenundUhrzeitenzurecht"/>
@@ -3154,6 +3578,9 @@
   <rdf:Description rdf:about="http://comp#IIchkanneineGeschichteerzählen">
     <rdf:type rdf:resource="http://comp#IchkanneineGeschichteerzählen"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#nomanlandsnonono">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannineinemBerichtoderEssayeinThemadasichrecherchierthabeumfassenddarstellendieMeinungenandererzusammenfassenDetailinformationenundFaktenaufführenundbeurteilen">
     <rdf:type rdf:resource="http://comp#IchkannineinemBerichtoderEssayeinThemadasichrecherchierthabeumfassenddarstellendieMeinungenandererzusammenfassenDetailinformationenundFaktenaufführenundbeurteilen"/>
   </rdf:Description>
@@ -3168,6 +3595,15 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannKorrespondenzzuThemeninnerhalbmeinesFachStudienoderInteressengebieteslesenunddiewesentlichenPunkteerfassen">
     <rdf:type rdf:resource="http://comp#IchkannKorrespondenzzuThemeninnerhalbmeinesFachStudienoderInteressengebieteslesenunddiewesentlichenPunkteerfassen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#teststudent">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfLink rdf:resource="http://comp#KompetenztoollinkCSstudentsinteractinheterogeneousgroups"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannSätzeAusdrückeundWörterverstehenwennesumDingevonganzunmittelbarerBedeutunggehtzBganzgrundlegendeInformationenzuPersonFamilieEinkaufenArbeitnähereUmgebung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IIchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#university"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">teststudent</j.0:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannkurzeeinfacheMitteilungenaufPostkartenverstehenzBFeriengrüße">
     <rdf:type rdf:resource="http://comp#IchkannkurzeeinfacheMitteilungenaufPostkartenverstehenzBFeriengrüße"/>
@@ -3211,6 +3647,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tools</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#belongsToCourseContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmeineAusbildungundmeinegegenwärtigeoderletzteberuflicheTätigkeitbeschreiben">
     <rdf:type rdf:resource="http://comp#IchkannmeineAusbildungundmeinegegenwärtigeoderletzteberuflicheTätigkeitbeschreiben"/>
   </rdf:Description>
@@ -3237,6 +3676,9 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann die meisten Situationen bewältigen, die sich beim Buchen einer Reise oder auf der Reise selbst ergeben. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#n1184">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#computerscience">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3330,6 +3772,15 @@
   <rdf:Description rdf:about="http://comp#IIchkanninderZeitungdieKleininserateüberfliegendiegesuchteRubrikfindenunddiewichtigstenInformationenherauslesenzumBeispielGrößeundPreisvonWohnungenAutosComputernusw">
     <rdf:type rdf:resource="http://comp#IchkanninderZeitungdieKleininserateüberfliegendiegesuchteRubrikfindenunddiewichtigstenInformationenherauslesenzumBeispielGrößeundPreisvonWohnungenAutosComputernusw"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AppReflexion">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#AppReflexionlinkZurReflexionsAppHörverstehenA1"/>
+    <j.0:ActivityOf rdf:resource="http://comp#AppReflexionlinkZurAppHörverstehenA1"/>
+    <j.0:ActivityOf rdf:resource="http://comp#IHörverstehenA1AppReflexion"/>
+    <j.0:ActivityOf rdf:resource="http://comp#IHörverstehenA2AppReflexion"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">App-Reflexion</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nomanlands22</j.0:printableName>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#HörverstehenC2">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -3410,8 +3861,17 @@
     <rdf:type rdf:resource="http://comp#MiteinandersprechenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenC1"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#link">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsAppSomeTextStuffy">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannBekanntenoderMitarbeiterinnenundMitarbeiternperFaxEMailoderLaufzettelkurzeeinfacheSachinformationenmitteilenodernachsolchenfragen">
     <rdf:type rdf:resource="http://comp#IchkannBekanntenoderMitarbeiterinnenundMitarbeiternperFaxEMailoderLaufzettelkurzeeinfacheSachinformationenmitteilenodernachsolchenfragen"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#nomanlands22">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneinenFragebogenbeiderEinreiseoderbeiderAnmeldungimHotelsoweitverstehendassichdiewichtigstenAngabenzumeinerPersonmachenkannzBNameVornameGeburtsdatumNationalität">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3447,6 +3907,15 @@
   <rdf:Description rdf:about="http://comp#IIchkannininformellenSituationenmitKollegenMitstudierendenüberFachinhaltesprechen">
     <rdf:type rdf:resource="http://comp#IchkannininformellenSituationenmitKollegenMitstudierendenüberFachinhaltesprechen"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Hendrik">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfLink rdf:resource="http://comp#AppReflexionlinkZurReflexionsAppHörverstehenA1"/>
+    <j.0:UserOfLink rdf:resource="http://comp#AppReflexionlinkZurAppHörverstehenA1"/>
+    <j.0:UserOfLink rdf:resource="http://comp#IHörverstehenA1AppReflexion"/>
+    <j.0:UserOfLink rdf:resource="http://comp#IHörverstehenA2AppReflexion"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hendrik</j.0:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneinenNotizzettelschreibenumjemandenzuinformierenwoichbinoderwowirunstreffen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -3468,6 +3937,9 @@
   <rdf:Description rdf:about="http://comp#IMiteinandersprechenC1">
     <rdf:type rdf:resource="http://comp#MiteinandersprechenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenC2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#linkZurReflexionsApp33">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#UserOfLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -3491,6 +3963,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in einfachen Sätzen und Ausdrücken über Dinge aus meinem Alltag schreiben (Leute, Orte, Arbeit, Schule, Familie, Hobbys). </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AppReflexionlinkZurAppHörverstehenA1">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#Hendrik"/>
+    <j.0:linksCompetence rdf:resource="http://comp#IHörverstehenA1"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1435930063389</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannmichinnerhalbundaußerhalbvonLehrveranstaltungenaktivanGesprächenüberfachlicheoderkulturelleThemenbeteiligen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

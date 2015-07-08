@@ -5,6 +5,7 @@ import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.owl.dao.Competence
 
 object CompOntologyAccessScala {
+
   def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass, ontologyManager: CompOntologyManager): String = {
     if (getPropertyString(subclass, "definition", ontologyManager) != null) {
       return (getPropertyString(subclass, "definition", ontologyManager).toString().replaceAll("[\n\r]", "")).replaceAll("[\n]", "")
@@ -45,6 +46,7 @@ object CompOntologyAccessScala {
   }
 
   def createIdentifierForAssessment(user: User, competence: Competence): String = {
-    return user.getName + competence.getIdentifier
+
+    return user.getName + competence.getId
   }
 }

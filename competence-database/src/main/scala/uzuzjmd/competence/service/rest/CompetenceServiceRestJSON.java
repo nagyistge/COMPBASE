@@ -233,7 +233,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	 * @param competences
 	 *            the competences acquired
 	 * @param evidences
-	 *            the activities that stand as evidences
+	 *            the activities that stand as evidences in the form [url,
+	 *            speakingname]
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -248,13 +249,17 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		for (String evidence : evidences) {
 			for (String competence : competences) {
 				CourseContext courseContext = new CourseContext(compOntologyManager, course);
+				courseContext.persist();
 				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext, creator);
+				creatorUser.persist();
 				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext, linkedUser);
-				scala.collection.immutable.List<Comment> comments = null;
+				linkedUserUser.persist();
+
 				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
 				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
-				AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(compOntologyManager, (evidence + competence), creatorUser, linkedUserUser, courseContext, comments,
-						evidenceActivity, Long.valueOf(System.currentTimeMillis()), Boolean.valueOf(false), competenceDao);
+				competenceDao.persist(false);
+				AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(compOntologyManager, null, creatorUser, linkedUserUser, courseContext, evidenceActivity, Long.valueOf(System
+						.currentTimeMillis()), Boolean.valueOf(false), competenceDao, null);
 				abstractEvidenceLink.persist();
 			}
 		}
@@ -379,7 +384,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/link/delete/{linkId}")
 	public Response deleteLink(@PathParam("linkId") String linkId) {
 		CompOntologyManager manager = initManagerInCriticalMode();
-		AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(manager, linkId, null, null, null, null, null, null, null, null);
+		AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(manager, linkId);
 		abstractEvidenceLink.delete();
 		manager.close();
 		return Response.ok("link deleted").build();
@@ -445,13 +450,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/link/overview/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public CompetenceLinksMap getCompetenceLinksMap(@PathParam("user") String user) {
-		CompOntologyManager comp = new CompOntologyManager();
-		Ont2CompetenceLinkMap competenceLinkMap = new Ont2CompetenceLinkMap(comp, user);
-		CompetenceLinksMap map = competenceLinkMap.getCompetenceLinkMap();
-		// for (List<CompetenceLinksView> linkCollections :
-		// map.getMapUserCompetenceLinks().values()) {
-		// Collections.sort(linkCollections);
-		// }
+
+		CompOntologyManager compOntManag2 = new CompOntologyManager();
+		compOntManag2.begin();
+		Ont2CompetenceLinkMap competenceMapCalculator = new Ont2CompetenceLinkMap(compOntManag2, user);
+		CompetenceLinksMap map = competenceMapCalculator.getCompetenceLinkMap();
+		compOntManag2.close();
 		return map;
 	}
 

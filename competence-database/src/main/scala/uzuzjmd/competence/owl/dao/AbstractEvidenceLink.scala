@@ -5,22 +5,42 @@ import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess
+import com.google.gwt.thirdparty.guava.common.collect.Collections2.PermutationCollection
 
 case class AbstractEvidenceLink(
-  val comp: CompOntologyManager,
-  val identifier2: String,
-  val creator: User = null,
-  val linkedUser: User = null,
-  val courseContexts: CourseContext = null,
-  val comments: List[Comment] = null,
-  val evidenceActivity: EvidenceActivity = null,
-  val dateCreated: java.lang.Long = null,
-  val isValidated: java.lang.Boolean = null,
-  val competence: Competence = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
 
+
+  val comp: CompOntologyManager,  
+  val identifier2: String = null,
+  val creator: User,
+  val linkedUser: User,
+  val courseContexts: CourseContext,  
+  val evidenceActivity: EvidenceActivity,
+  val dateCreated: java.lang.Long,
+  val isValidated: java.lang.Boolean = false,
+  val competence: Competence,
+  val comments: List[Comment] = null 
+) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
+  
+  
   def CREATED = "datecreated"
   def ISVALIDATED = "isValidated"
-
+  
+  def this(comp: CompOntologyManager,  identifier2: String) = this(comp, identifier2, null, null, null, null, null, null, null, null)    
+  
+  def this(comp: CompOntologyManager,  identifier2: String,  comments: List[Comment] ) = this(comp, identifier2, null, null, null, null, null, null, null, comments) 
+  
+  override def computeEncodedString : String = {
+    if (identifier2 != null) {
+      return identifier2
+    } else {
+      if (competence == null || evidenceActivity == null) {
+        throw new Exception("evidenceActivity and competence need to be defined")
+      }
+      return competence.getId+evidenceActivity.getId
+    }
+  }
+  
   @Override
   protected def deleteMore() {
     if (comments != null) {
@@ -62,7 +82,7 @@ case class AbstractEvidenceLink(
     val creator = getAssociatedStandardDaosAsRange(CompObjectProperties.createdBy, classOf[User]).head
     val courseContext = getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext])
     val evidenceActivity = getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity])
-    return new AbstractEvidenceLink(comp, identifier, creator.getFullDao, null, null, comments, null, getDataFieldLong(CREATED), getDataFieldBoolean(ISVALIDATED), null)
+    return new AbstractEvidenceLink(comp, identifier, creator.getFullDao, null, null, null, getDataFieldLong(CREATED), getDataFieldBoolean(ISVALIDATED), null, comments)
   }
 
   def getAllLinkedUsers(): List[User] = {
@@ -80,5 +100,7 @@ case class AbstractEvidenceLink(
   def getAllLinkedCompetences(): List[Competence] = {
     return getAssociatedSingletonDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence]).map(x => x.getFullDao.asInstanceOf[Competence])
   }
+  
+  
 
 }
