@@ -1,9 +1,7 @@
 package uzuzjmd.competence.service.rest.client.dto;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
 import java.util.TreeMap;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,8 +18,7 @@ public class CompetenceLinksMap {
 
 	}
 
-	public CompetenceLinksMap(
-			Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
+	public CompetenceLinksMap(Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
 		super();
 		this.mapUserCompetenceLinks = mapUserCompetenceLinks;
 	}
@@ -30,19 +27,18 @@ public class CompetenceLinksMap {
 		return mapUserCompetenceLinks;
 	}
 
-	public void setMapUserCompetenceLinks(
-			Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
+	public void setMapUserCompetenceLinks(Map<String, List<CompetenceLinksView>> mapUserCompetenceLinks) {
 		this.mapUserCompetenceLinks = mapUserCompetenceLinks;
 	}
 
-	public CompetenceLinksMap(
-			TreeMap<String, SortedSet<CompetenceLinksView>> mapUserCompetenceLinks) {
-		super();
-		for (String element : mapUserCompetenceLinks.keySet()) {
-			List<CompetenceLinksView> output = new LinkedList<CompetenceLinksView>();
-			output.addAll(mapUserCompetenceLinks.get(element));
-			this.mapUserCompetenceLinks.put(element, output);
-		}
-
-	}
+	// public CompetenceLinksMap(
+	// TreeMap<String, SortedSet<CompetenceLinksView>> mapUserCompetenceLinks) {
+	// super();
+	// for (String element : mapUserCompetenceLinks.keySet()) {
+	// List<CompetenceLinksView> output = new LinkedList<CompetenceLinksView>();
+	// output.addAll(mapUserCompetenceLinks.get(element));
+	// this.mapUserCompetenceLinks.put(element, output);
+	// }
+	//
+	// }
 }
