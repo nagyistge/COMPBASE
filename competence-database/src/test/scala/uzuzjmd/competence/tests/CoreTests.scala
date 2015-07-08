@@ -47,7 +47,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
   test("The CSV import should run without errors") {
 
     // change this, if you want to really reset the database
-    //CompFileUtil.deleteTDB()
+    CompFileUtil.deleteTDB()
 
     val compOntManag = new CompOntologyManager()
 
@@ -221,7 +221,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    val link = new AbstractEvidenceLink(compOntManag, user.name + evidenceActivity.printableName, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
+    val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
     link.exists should not be false
     link.delete
@@ -234,14 +234,14 @@ class CoreTests extends FunSuite with ShouldMatchers {
   test("if a string is given the identified full dao should be returnable") {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
-    val linkId = "hellolinkId"
+    
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, linkId, userstudent)
+    val link = createAbstract(compOntManag, userstudent)
 
     // now getting it by example
-    val exampleLink = new AbstractEvidenceLink(compOntManag, linkId)
+    val exampleLink = new AbstractEvidenceLink(compOntManag, link.getId)
     val fullExampleLink = exampleLink.getFullDao
 
     fullExampleLink.creator should not be null
@@ -279,7 +279,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, linkId, userstudent)
+    val link = createAbstract(compOntManag, userstudent)
     compOntManag.close()
     compOntManag.begin()
     val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil
@@ -348,7 +348,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, linkId, userstudent)
+    val link = createAbstract(compOntManag, userstudent)
 
     compOntManag.close()
     showResult
@@ -504,6 +504,11 @@ class CoreTests extends FunSuite with ShouldMatchers {
   //    showResult
   //  }
 
+  
+  
+  
+  
+  
   private def showResult() {
     val compOntManag = new CompOntologyManager()
     compOntManag.begin()
@@ -512,7 +517,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     compOntManag.close()
   }
 
-  private def createAbstract(compOntManag: CompOntologyManager, linkId: String, userstudent: User): AbstractEvidenceLink = {
+  private def createAbstract(compOntManag: CompOntologyManager, userstudent: User): AbstractEvidenceLink = {
     val coursecontext = new CourseContext(compOntManag, "2")
     val teacherRole = new TeacherRole(compOntManag)
     val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
@@ -529,7 +534,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
-    val link = new AbstractEvidenceLink(compOntManag, linkId, user, userstudent, coursecontext, (comment :: comment2 :: Nil), evidenceActivity, System.currentTimeMillis(), false, competence)
+    val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false

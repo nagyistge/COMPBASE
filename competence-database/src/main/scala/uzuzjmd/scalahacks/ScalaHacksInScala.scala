@@ -82,7 +82,6 @@ object ScalaHacksInScala {
           e.printStackTrace()
           println("hello my friend")
       }
-
     }
 
     throw new Error("error with instantiation of class" + clazz)
