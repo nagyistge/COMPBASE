@@ -31,27 +31,25 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
     result ++ input.mapValues(toSortedSet)
   }
 
-  def getCompetenceLinkMap(): CompetenceLinksMap = {
-    comp.begin()
-
+  def getCompetenceLinkMap(): CompetenceLinksMap = {    
     val userDap = new User(comp, user)
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
     val maps = links.map(link => (link -> link.getAllLinkedCompetences)).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
-    val resultScala: scala.collection.immutable.Map[String, SortedSet[CompetenceLinksView]] = competencesLinked.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView))).filterKeys(p => p != null)
-    val map = new TreeMap[String, java.util.SortedSet[CompetenceLinksView]]
-    if (resultScala != null && !resultScala.isEmpty) {
-      map.putAll(resultScala.asJava)
-    }
-    val result = new CompetenceLinksMap(map);
-    comp.close()
+    val resultScala: scala.collection.immutable.Map[String, java.util.List[CompetenceLinksView]] = competencesLinked.map(x => (x._1.getDefinition(), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten.asJava)).filterKeys(p => p != null)
+//    val map = new TreeMap[String, java.util.List[CompetenceLinksView]]
+//    if (resultScala != null && !resultScala.isEmpty) {
+//      map.putAll(resultScala.asJava)
+//    }
+    val result = new CompetenceLinksMap(resultScala.asJava);    
+    result.getMapUserCompetenceLinks.isEmpty()
     return result
   }
 
-  def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): CompetenceLinksView = {
-    val linkedEvidence = input.getAllActivities.head.getFullDao
+  def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): List[CompetenceLinksView] = {
+    val linkedEvidence = input.getAllActivities.map(x=>x.getFullDao())
     val linkedComments = input.comments.map(mapCommentToCommentEntry)
-    val competenceLinksView = new CompetenceLinksView(input.identifier, linkedEvidence.printableName, linkedEvidence.url, linkedComments.asJava, input.isValidated)
+    val competenceLinksView = linkedEvidence.map(x =>new CompetenceLinksView(input.identifier, x.url, x.printableName, linkedComments.asJava, input.isValidated))
     return competenceLinksView
   }
 
