@@ -19,22 +19,6 @@ public class CompetenceServiceRestJSONTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		// serverThread = new Thread(new Runnable() {
-		// @Override
-		// public void run() {
-		// MagicStrings.TDBLocationPath =
-		// "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/tdb2";
-		// try {
-		// RestServer.startServer();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// });
-
-		// serverThread.start();
-
 		// warm up database
 		Client client2 = Client.create();
 		// WebResource webResource2 =
