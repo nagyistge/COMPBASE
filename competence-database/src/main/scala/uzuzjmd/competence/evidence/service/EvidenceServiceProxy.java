@@ -1,8 +1,5 @@
 package uzuzjmd.competence.evidence.service;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
@@ -10,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.owl.access.PropUtil;
 import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
 import uzuzjmd.competence.service.rest.client.dto.UserTree;
 
@@ -20,17 +18,9 @@ public class EvidenceServiceProxy implements EvidenceService {
 	public EvidenceServiceProxy() {
 		this.evidenceProviderMap = new EvidenceProviderMap();
 
-		Properties prop = new Properties();
-		String propfFileName = "evidenceserver.properties";
-
-		// find file
-		InputStream inputStream;
-		try {
-			inputStream = new FileInputStream(propfFileName);
-			prop.load(inputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PropUtil propUtil = new uzuzjmd.competence.owl.access.PropUtil();
+		propUtil.doStandard();
+		Properties prop = propUtil.getProperties();
 
 		if (prop.get("liferayEnabled").equals("true")) {
 			String adminUserName = prop.getProperty("adminUserName");

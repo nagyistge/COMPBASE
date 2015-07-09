@@ -1,5 +1,6 @@
 package uzuzjmd.competence.evidence.service.moodle;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
@@ -96,11 +97,16 @@ public class SimpleMoodleService {
 	}
 
 	public MoodleEvidenceList getMoodleEvidenceList(String courseId) {
+		if (courseId == null || courseId.equals("undefined")) {
+			throw new WebApplicationException(new Exception("courseId is null or undefined when getting Moodle evidences"));
+		}
+
 		Client client = Client.create();
 		String moodleRestBase = getMoodleCompetenceRestBase();
 		WebResource webResource = null;
+		String requestString = null;
 		try {
-			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
+			requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
 			// System.out.println("fetching evidenceList from " +
 			// requestString);
 			webResource = client.resource(requestString);
@@ -108,7 +114,16 @@ public class SimpleMoodleService {
 			System.err.println("Probably the moodle web services not configured properly");
 			e.printStackTrace();
 		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleEvidenceList.class);
+
+		MoodleEvidenceList result = null;
+		try {
+			result = webResource.accept(MediaType.APPLICATION_JSON).get(MoodleEvidenceList.class);
+		} catch (Exception e) {
+			System.out.println("Problem with Moodle Evidence List for Request String \n: " + requestString);
+			result = new MoodleEvidenceList();
+		}
+
+		return result;
 	}
 
 }
