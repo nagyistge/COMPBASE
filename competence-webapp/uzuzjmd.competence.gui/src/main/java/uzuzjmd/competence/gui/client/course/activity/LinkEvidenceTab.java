@@ -66,12 +66,15 @@ public class LinkEvidenceTab extends CompetenceTab {
 	public LinkEvidenceTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "";
-		if (Controller.contextFactory.getRole().equals("teacher")) {
-			infoText = "Ordnen Sie die Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
-		} else {
-			infoText = "Ordnen Sie die Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das Bestehen des Kurses verpflichtend sind!";
-		}
-		infoText += "Wichtig: Wenn die Kompetenzauswahl LEER ist, müssen sie in dem Anforderungstab Kompetenzen auswählen";
+		// if (Controller.contextFactory.getRole().equals("teacher")) {
+		// infoText =
+		// "Ordnen Sie die Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über die erreichten Kompetenzen pro Teilnehmer.";
+		// } else {
+		// infoText =
+		// "Ordnen Sie die Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über ihre erreichten Kompetenzen und die der anderen Teilnehmer. Das Häckchen bedeutet, dass die Kompetenzen für das Bestehen des Kurses verpflichtend sind!";
+		// }
+		// infoText +=
+		// "Wichtig: Wenn die Kompetenzauswahl LEER ist, müssen sie in dem Anforderungstab Kompetenzen auswählen";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(HrPanelContainer);
 		initCompetenceSelectionWidget();

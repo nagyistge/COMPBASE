@@ -83,6 +83,10 @@ public class LmsContextFactory implements java.io.Serializable {
 		return role;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String getUser() {
 		return userName;
 	}
