@@ -27,7 +27,8 @@ public class StandaloneContextFactory extends LmsContextFactory {
 		this.serverUrl = serverUrl;
 		this.evidenceServerUrl = evidenceUrl;
 		this.coursesHashmap = new HashMap<String, Long>();
-		// this.coursesHashmap.put("university", 0l);
+		this.coursesHashmap.put("university", 0l);
+		setCourseContext("university");
 	}
 
 	public HashMap<String, Long> getCoursesHashmap() {

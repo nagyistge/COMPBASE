@@ -27,14 +27,10 @@ import uzuzjmd.competence.service.rest.client.dto.UserTree;
 @Path("/lms")
 public class EvidenceServiceRestServerImpl implements EvidenceService {
 
-	public static EvidenceService evidenceService;
+	private EvidenceService evidenceService;
 
 	public EvidenceServiceRestServerImpl() {
-
-	}
-
-	public static void setEvidenceServiceProxy() {
-		EvidenceServiceRestServerImpl.evidenceService = new EvidenceServiceProxy();
+		evidenceService = new EvidenceServiceProxy();
 	}
 
 	@Override
