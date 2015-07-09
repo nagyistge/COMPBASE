@@ -2,8 +2,6 @@ package uzuzjmd.competence.main;
 
 import java.io.IOException;
 
-import uzuzjmd.competence.evidence.service.EvidenceService;
-import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.ResponseCorsFilter;
@@ -27,12 +25,10 @@ public class EvidenceServer {
 	}
 
 	private static void startServer(String adminlogin, String adminloginpassword) throws IOException {
-		MoodleEvidenceRestServiceImpl evidenceServiceImpl = new MoodleEvidenceRestServiceImpl(adminlogin, adminloginpassword);
-		publishServer(evidenceServiceImpl);
+		publishServer();
 	}
 
-	private static void publishServer(final EvidenceService evidenceServiceImpl) throws IOException {
-		EvidenceServiceRestServerImpl.evidenceService = evidenceServiceImpl;
+	private static void publishServer() throws IOException {
 
 		// publishSoapServer(evidenceServiceImpl);
 		publishRestServer();

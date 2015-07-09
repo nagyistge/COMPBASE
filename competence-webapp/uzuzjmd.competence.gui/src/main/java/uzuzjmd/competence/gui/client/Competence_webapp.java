@@ -24,23 +24,20 @@ public class Competence_webapp implements EntryPoint {
 	public void onModuleLoad() {
 
 		MyConstants myConstants = GWT.create(MyConstants.class);
-		if (myConstants.contextImplementation().equals("moodle")) {
+		if (myConstants.contextImplementation().equals(
+				StringConstants.MOOODLE.toString())) {
 			RootPanel container = RootPanel.get("rootContainer");
 
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
 			competenceUIContainer
 					.setContextFactory(new JavaScriptContextFactory());
 			container.add(competenceUIContainer);
-		}
-
-		if (myConstants.contextImplementation().equals("test")
-				|| myConstants.contextImplementation().equals("standalone")
-				|| myConstants.contextImplementation().equals("deploy")) {
+		} else {
 			RootPanel container = RootPanel.get("rootContainer");
-
 			CompetenceUIContainer competenceUIContainer = new CompetenceUIContainer();
-			if (myConstants.contextImplementation().equals("deploy")
-					|| myConstants.contextImplementation().equals("standalone")) {
+			if (myConstants.contextImplementation().equals(
+					StringConstants.DEPLOY.toString())) {
+
 				String serverUrl = myConstants.serverName() + "/"
 						+ myConstants.restserverPrefix();
 				String evidenceUrl = myConstants.serverName() + "/"
@@ -54,24 +51,19 @@ public class Competence_webapp implements EntryPoint {
 			}
 			container.add(competenceUIContainer);
 
-			if (myConstants.contextImplementation().equals("standalone")
-					|| myConstants.contextImplementation().equals("test")) {
-				PopupPanel popupPanel = new PopupPanel();
-				popupPanel.setModal(true);
-				LoginView loginView = new LoginView(popupPanel, myConstants
-						.contextImplementation().equals("test"));
-				popupPanel.add(loginView);
-				popupPanel.setGlassEnabled(true);
-				container.add(popupPanel);
-				popupPanel.show();
-			}
-
-			Controller.contextFactory.setMode(myConstants
-					.contextImplementation());
-			Controller.contextFactory.setLmsSystem(myConstants.lmsSystem());
+			PopupPanel popupPanel = new PopupPanel();
+			popupPanel.setModal(true);
+			LoginView loginView = new LoginView(popupPanel, myConstants
+					.contextImplementation().equals("test"));
+			popupPanel.add(loginView);
+			popupPanel.setGlassEnabled(true);
+			container.add(popupPanel);
+			popupPanel.show();
 		}
-
-		// if the context is liferay the connector should inject the stuff
-
+		Controller.contextFactory.setMode(myConstants.contextImplementation());
+		Controller.contextFactory.setLmsSystem(myConstants.lmsSystem());
 	}
+
+	// if the context is liferay the connector should inject the stuff
+
 }
