@@ -43,6 +43,7 @@
 		<!-- <webappDirectory>src/main/webapp</webappDirectory>C -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
+		<superDevMode>false</superDevMode>
 	</properties>
 
 	<dependencies>
@@ -101,7 +102,7 @@
 			<artifactId>jetty-maven-plugin</artifactId>
 			<version>9.2.10.v20150310</version>
 		</dependency>
-	
+
 
 	</dependencies>
 
@@ -142,6 +143,7 @@
 					<runTarget>Competence-webapp.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>uzuzjmd.competence.gui.client.Messages</i18nMessagesBundle>
+					<superDevMode>false</superDevMode>
 				</configuration>
 			</plugin>
 
@@ -153,6 +155,7 @@
 				<configuration>
 					<webappDirectory>${webappDirectory}</webappDirectory>
 					<attachClasses>true</attachClasses>
+					<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
 				</configuration>
 			</plugin>
 			<plugin>

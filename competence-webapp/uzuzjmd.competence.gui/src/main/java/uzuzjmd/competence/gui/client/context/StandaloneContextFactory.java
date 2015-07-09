@@ -16,6 +16,11 @@ import com.google.gwt.json.client.JSONValue;
 
 public class StandaloneContextFactory extends LmsContextFactory {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public interface CourseListCodec extends
 			JsonEncoderDecoder<UserCourseListResponse> {
 	}
@@ -29,6 +34,7 @@ public class StandaloneContextFactory extends LmsContextFactory {
 		this.coursesHashmap = new HashMap<String, Long>();
 		this.coursesHashmap.put("university", 0l);
 		setCourseContext("university");
+		setRole("teacher");
 	}
 
 	public HashMap<String, Long> getCoursesHashmap() {
