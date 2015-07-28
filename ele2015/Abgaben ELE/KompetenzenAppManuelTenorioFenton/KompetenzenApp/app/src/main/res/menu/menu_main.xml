@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".CompetenceLoader">
+    <item android:id="@+id/fulfilled_competences"
+        android:title="@string/fulfilled_competences"
+        android:orderInCategory="90"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/comment_competences"
+        android:title="@string/comment_competences"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
+</menu>
