@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KompetenzenApp</string>
+    <string name="fulfilled_competences">Gelb: zum Markieren</string>
+    <string name="edit_message">Hier kannst du alle mögliche Kompetenzen finden</string>
+    <string name="comment_competences">Grün: zum Kommentieren</string>
+    <string name="mark_message">Hier kannst du die Kompetenzen, die du bereits erfüllt hast, unterscheiden</string>
+    <string name="comment_message">Hier kannst du die erfüllte Kompetenzen kommentieren</string>
+
+</resources>
