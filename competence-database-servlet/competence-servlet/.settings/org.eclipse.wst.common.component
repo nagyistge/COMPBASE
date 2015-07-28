@@ -2,6 +2,12 @@
     <wb-module deploy-name="competence-servlet">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="competence-shared-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/competence-shared/competence-shared">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="competence-database-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/competence-database/competence-database">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="competence-servlet"/>
         <property name="java-output-path" value="/competence-servlet/target/classes"/>
     </wb-module>

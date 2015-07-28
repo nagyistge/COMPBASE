@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="author" content="Tony Stolzenburg">
+    <title>Simple Competence Web-App</title>
+    <script src="jquery-2.1.4.js"></script>
+
+    <style>
+
+        body {
+            background-color: black;
+            color: darkgray;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 3px 3px 5px #0000FF;
+            text-align: center;
+        }
+
+        h2 {
+
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
+
+        #first_control_field {
+
+            width: 30em;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #button_load_user_competences {
+            width: 26em;
+            margin: 1em;
+        }
+
+        #button_load_all_competences {
+            width: 26em;
+            margin: 1em;
+
+        }
+
+        @keyframes blinking_competence {
+            from {
+                text-shadow: 3px 3px 3px #000000;
+            }
+            to {
+                text-shadow: 3px 3px 3px #00FF00;
+            }
+        }
+
+        .child_competence {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            margin-left: 2em;
+
+        }
+
+        .normal_competence {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            margin-left: 1em;
+
+        }
+
+        .parent_competence {
+            margin-top: 2em;
+            margin-bottom: 1em;
+            margin-left: 1em;
+            font-size: 130%;
+
+        }
+
+        .blinking_learned_comptence {
+            animation-name: blinking_competence;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+
+        }
+
+        #horizontal_seperator1 {
+
+            height: 2em;
+            background: linear-gradient(to bottom, #000000 11%, #000066 50%, #000000 89%);
+
+        }
+
+        #horizontal_seperator2 {
+
+            height: 2em;
+            background: linear-gradient(to bottom, #000000 11%, #000066 50%, #000000 89%);
+        }
+
+        .learned_competences {
+
+            margin: 1.5em;
+
+        }
+
+        .competence_comment{
+
+            margin-top: 0.5em;
+            margin-left: 5em;
+            font-size: 80%;
+            color: #757575
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Kompetenz App</h1>
+
+<div id="first_control_field">
+    Dein Benutzername: <input type="text" id="username_textfield" required> <br>
+    <input type="button" onclick="loadCompetences()" title="Lädt alle verfügbaren Kompetenzen" id="button_load_all_competences"
+           value="Alle verfügbaren Kompetenzen laden">
+    <input type="button" onclick="load_users_competences()" title="Lädt die bereits vom Nutzer gelernten Kompetenzen" id="button_load_user_competences"
+           value="Gelernte Kompetenzen des Nutzers laden">
+</div>
+
+<div id="horizontal_seperator1"></div>
+
+<h2 id="headline_available_competences">Verfügbare Kompetenzen</h2>
+<ul id="all_available_comptences_list">
+
+</ul>
+
+<div id="horizontal_seperator2"></div>
+
+<h2 id="headline_learned_user_competences"> Alle gelernten Kompetenzen von</h2>
+<ul id="learned_competences_list">
+</ul>
+<br>
+
+<div class="make_comment_area">
+    Kommentar zur ausgewählten Kompetenz: <input type="text" id="comment_box">
+    <input type="button" onclick="save_comment()" value="Kommentar zur gewählten Kompetenz hinzufügen">
+
+</div>
+
+<script>
+
+    $("#headline_available_competences").hide();
+    $("#headline_learned_user_competences").hide();
+    $("#horizontal_seperator1").hide();
+    $("#horizontal_seperator2").hide();
+
+
+    $(".make_comment_area").hide();
+    var hostname = "http://localhost:8084"
+
+    function loadCompetences() {
+
+//        falls vorhanden, bereits geladene Kompetenzen löschen
+        $(".headline").remove();
+        $(".available_competence").remove();
+
+//        benutzername muss länger als 2 Zeichen sein
+        var username_pattern = /[a-zA-z]{3,}/;
+        var username = document.getElementById("username_textfield").value;
+
+
+        if (username_pattern.test(username)) {
+            $("#headline_available_competences").show(1000);
+            $("#horizontal_seperator1").show(1000);
+
+            $.get(hostname + "/competences/xml/competencetree/university/all/nocache", function (data, status) {
+
+                var children_counter;
+
+                $(data).find('competence').each(function () {
+
+                    var kompetenz_text = $(this).attr("name");
+
+                    var hasChildren = $(this).children('competence').length > 0;
+
+                    if (hasChildren) {
+                        children_counter = $(this).children('competence').length;
+
+                        $("#all_available_comptences_list").append('<li class="parent_competence">' + kompetenz_text + '</li>');
+                    }
+                    else if (children_counter > 0) {
+
+                        $("#all_available_comptences_list").append('<li class="child_competence" title="Doppelclick um als gelernt zu markieren">' + kompetenz_text + '</li>');
+                        children_counter = children_counter - 1;
+                    } else {
+
+                        $("#all_available_comptences_list").append('<li class="normal_competence" title="Doppelclick um als gelernt zu markieren">' + kompetenz_text + '</li>');
+                    }
+
+
+                });
+                $(".child_competence").dblclick(function () {
+
+                    $(this).addClass("blinking_learned_comptence");
+                    set_learned_competence($(this).html());
+
+                });
+                $(".normal_competence").dblclick(function () {
+
+                    $(this).addClass("blinking_learned_comptence");
+                    set_learned_competence($(this).html());
+
+                });
+
+            });
+        } else {
+
+            alert("Benutzername muss mindestens 3 Zeichen lang sein.");
+        }
+
+    }
+
+
+    function set_learned_competence(competence_text) {
+
+        var username = document.getElementById("username_textfield").value;
+
+
+        $.ajax({
+            method: "POST",
+            url: hostname + "/competences/json/link/create/university/tony/teacher/" + username + "?competences=" + competence_text + "&evidences=app,link",
+            accepts: {
+                json: 'application/json'
+            },
+            contentType: "application/json"
+
+        });
+
+        check_for_prerequisite_competence(competence_text);
+    }
+
+    function load_users_competences() {
+
+        $("#headline_learned_user_competences").show(1000);
+
+        $(".make_comment_area").show(1000);
+        $("#horizontal_seperator2").show(1000);
+
+        $("#headline_learned_user_competences").text("Die gelernten Kompetenzen von " + document.getElementById("username_textfield").value)
+
+        //wenn vorhanden, bereits geladene gelernte Kompetenzen löschen
+        $(".learned_competences").remove();
+        $(".competence_comment").remove();
+
+        var username = document.getElementById("username_textfield").value;
+
+        $.getJSON(hostname + "/competences/json/link/overview/" + username, function (data, status) {
+
+
+            $.each(data.mapUserCompetenceLinks, function (key, value) {
+
+
+                var competence_text = '<li class="learned_competences">' + '<input type="radio" name="has_comment" value="' + value[0].abstractLinkId + '" >' + key + '</li>';
+                $('#learned_competences_list').append(competence_text);
+
+                $.each(value[0].comments,function(key2,value2){
+
+                    var comment_text = '<li class="competence_comment">' + value2.userName +': ' + value2.commentName + '</li>';
+                    $('#learned_competences_list').append(comment_text);
+
+
+//                    console.log(value2.commentName)
+
+
+
+
+                });
+            });
+
+        });
+
+        $(".headline").remove();
+        $(".available_competence").remove();
+
+
+    }
+
+    function save_comment() {
+
+        var comment_pattern = /[a-zA-z]{5,}/;
+        var comment = document.getElementById("comment_box").value;
+
+
+        if (($("input:checked").length > 0) && (comment_pattern.test(comment))) {
+            var abstractlink = $("input:checked").val();
+            var creator_name = document.getElementById("username_textfield").value;
+
+            $.ajax({
+                method: "POST",
+                url: hostname + "/competences/json/link/comment/" + abstractlink + "/" + creator_name + "/university/teacher?text=" + comment,
+                accepts: {
+                    json: 'application/json'
+                },
+                contentType: "application/json"
+
+            });
+
+            setTimeout(load_users_competences, 3000);
+            document.getElementById("comment_box").value = "";
+
+        } else {
+
+            alert("Wähle eine zu kommentierende Kompetenz aus. Dein Kommentar muss mindestens 5 Zeichen lang sein.")
+        }
+
+
+
+    }
+
+    function check_for_prerequisite_competence(learned_competence_text) {
+
+        var competence_list = [];
+
+//        graph für relationen laden
+        $.getJSON(hostname + "/competences/json/prerequisite/graph/university", function (data, status) {
+
+            $.each(data.triples, function (key, value) {
+
+                competence_list.push(value.fromNode)
+
+            });
+            console.log(competence_list);
+
+            if ($.inArray(learned_competence_text, competence_list) != -1) {
+                alert("Neue Komepetenz(en) freigeschaltet!")
+            }
+
+        });
+
+
+    }
+
+
+</script>
+</body>
+</html>

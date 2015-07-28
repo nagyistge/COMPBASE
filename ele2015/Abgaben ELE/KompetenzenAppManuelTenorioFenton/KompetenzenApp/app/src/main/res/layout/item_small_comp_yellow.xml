@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_shape_yellow"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/noticia_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logopotsdamuni" />
+
+
+        <TextView
+            android:id="@+id/competence_textview_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contenido"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/noticia_imageView"
+            android:layout_toEndOf="@+id/noticia_imageView" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Markieren"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/competence_textview_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="14dp"
+            android:layout_marginEnd="14dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
