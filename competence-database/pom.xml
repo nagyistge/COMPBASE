@@ -79,6 +79,20 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.googlecode.mate-tools</groupId>
+			<artifactId>anna</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-parser</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+
+
+		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-reflect</artifactId>
 			<version>2.10.3</version>
@@ -324,7 +338,7 @@
 			<classifier>classes</classifier>
 		</dependency>
 
-	
+
 
 		<!-- <dependency> -->
 		<!-- <groupId>uzuzjmd.competence</groupId> -->
@@ -387,33 +401,28 @@
 					</execution>
 				</executions>
 			</plugin>
-									
-         <plugin>
-            <groupId>com.qmino</groupId>
-            <artifactId>miredot-plugin</artifactId>
-            <version>1.6.0</version>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>restdoc</goal>
-                  </goals>
-               </execution>
-            </executions>
-            <configuration>
-             <licence>UHJvamVjdHx1enV6am1kLmNvbXBldGVuY2UuY29tcGV0ZW5jZS1kYXRhYmFzZXwyMDE2LTA2LTAxfGZhbHNlI01Dd0NGQ3EvSERBaHE2dm5tOFE2b0dZWE1DbWJUcnB0QWhRcXE0TmZQR01xZkh3b29hbFo2cDdNYjJRMDJBPT0=</licence> 
-               <!-- apply for spring mvc support
-               <restModel>
-                  <restFramework>
-                     <name>spring-mvc</name>
-                  </restFramework>
-               </restModel>
-               -->
-               <!-- insert other configuration here (optional) -->
-            </configuration>
-         </plugin>
-			
 
-			
+			<plugin>
+				<groupId>com.qmino</groupId>
+				<artifactId>miredot-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>restdoc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<licence>UHJvamVjdHx1enV6am1kLmNvbXBldGVuY2UuY29tcGV0ZW5jZS1kYXRhYmFzZXwyMDE2LTA2LTAxfGZhbHNlI01Dd0NGQ3EvSERBaHE2dm5tOFE2b0dZWE1DbWJUcnB0QWhRcXE0TmZQR01xZkh3b29hbFo2cDdNYjJRMDJBPT0=</licence>
+					<!-- apply for spring mvc support <restModel> <restFramework> <name>spring-mvc</name> 
+						</restFramework> </restModel> -->
+					<!-- insert other configuration here (optional) -->
+				</configuration>
+			</plugin>
+
+
+
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
