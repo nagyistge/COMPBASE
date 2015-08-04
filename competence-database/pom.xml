@@ -78,11 +78,11 @@
 			<version>1.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.googlecode.mate-tools</groupId>
-			<artifactId>anna</artifactId>
-			<version>3.5</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.googlecode.mate-tools</groupId> -->
+		<!-- <artifactId>anna</artifactId> -->
+		<!-- <version>3.5</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
@@ -90,7 +90,11 @@
 			<version>2.0.2</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.github.rholder</groupId>
+			<artifactId>snowball-stemmer</artifactId>
+			<version>1.3.0.581.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.scala-lang</groupId>
