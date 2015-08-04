@@ -28,13 +28,14 @@ public class SimpleDependencyParserTest {
 
 	@Test
 	public void test() {
-		LexicalizedParser lp = LexicalizedParser.loadModel(MagicStrings.GERMANMODELLOCATION, "-maxLength", "80", "-retainTmpSubcategories");
+		LexicalizedParser lp = LexicalizedParser.loadModel(MagicStrings.GERMANMODELLOCATION, "-maxLength", "80");
 		TreebankLanguagePack tlp = new PennTreebankLanguagePack();
 		// Uncomment the following line to obtain original Stanford Dependencies
 		// tlp.setGenerateOriginalDependencies(true);
 		GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
-		String[] sent = new String[] { "This", "is", "an", "easy", "sentence", "." };
+		String[] sent = new String[] { "Da", "läuft", "ein", "deutscher", "Satz", "." };
 		Tree parse = lp.apply(Sentence.toWordList(sent));
+
 		GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 		List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 		System.out.println(tdl);
