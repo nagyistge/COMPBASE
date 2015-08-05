@@ -29,5 +29,10 @@ public class PropUtil {
 	public void doStandard() {
 		MagicStrings.webapplicationPath = getProperties().getProperty("webapplicationPath");
 		MagicStrings.TDBLocationPath = getProperties().getProperty("tdblocation");
+		// do ThesaurusLogin
+		MagicStrings.thesaurusLogin = getProperties().getProperty("thesaurusLogin");
+		MagicStrings.thesaurusPassword = getProperties().getProperty("thesaurusPassword");
+		MagicStrings.thesaurusDatabaseName = getProperties().getProperty("thesaurusDatabaseName");
+		MagicStrings.thesaurusDatabaseUrl = getProperties().getProperty("thesaurusDatabaseUrl");
 	}
 }
