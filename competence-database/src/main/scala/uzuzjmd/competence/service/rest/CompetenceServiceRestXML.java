@@ -231,16 +231,17 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/learningtemplates")
-	public List<String> getAllLearningTemplates() {
-		List<String> learningTemplates = new LinkedList<String>();
+	public StringList getAllLearningTemplates() {
+
 		CompOntologyManager compOntologyManager = new CompOntologyManager();
 		compOntologyManager.begin();
 
 		List<String> result = compOntologyManager.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate);
-		learningTemplates.addAll(result);
+
+		StringList learningTemplates = new StringList(result);
 
 		compOntologyManager.close();
-		return result;
+		return learningTemplates;
 	}
 
 	/**
