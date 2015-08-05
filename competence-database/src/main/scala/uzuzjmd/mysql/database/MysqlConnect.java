@@ -3,6 +3,7 @@ package uzuzjmd.mysql.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -15,8 +16,7 @@ import org.apache.log4j.Logger;
  */
 public class MysqlConnect {
 
-	static final Logger logger = LogManager.getLogger(MysqlConnect.class
-			.getName());
+	static final Logger logger = LogManager.getLogger(MysqlConnect.class.getName());
 
 	public Connection conn = null;
 	public static Boolean isLokal = true;
@@ -62,8 +62,7 @@ public class MysqlConnect {
 	 * @return
 	 * @throws SQLException
 	 */
-	private PreparedStatement addParameters(final String statement,
-			final Object[] args) {
+	private PreparedStatement addParameters(final String statement, final Object[] args) {
 		try {
 			final PreparedStatement ps = conn.prepareStatement(statement);
 			if (args != null) {
@@ -86,11 +85,11 @@ public class MysqlConnect {
 	 * @param args
 	 * @return
 	 */
-	public VereinfachtesResultSet issueSelectStatement(final String statement,
-			final Object... args) {
+	public VereinfachtesResultSet issueSelectStatement(final String statement, final Object... args) {
 		try {
 			PreparedStatement ps = addParameters(statement, args);
-			return new VereinfachtesResultSet(ps.executeQuery());
+			ResultSet queryResult = ps.executeQuery();
+			return new VereinfachtesResultSet(queryResult);
 		} catch (SQLException ex) {
 			logger.error(ex);
 		}
@@ -118,8 +117,7 @@ public class MysqlConnect {
 	 * @param args
 	 * @return
 	 */
-	public Integer issueUpdateStatement(final String statement,
-			final Object... args) {
+	public Integer issueUpdateStatement(final String statement, final Object... args) {
 		PreparedStatement ps = addParameters(statement, args);
 		try {
 			return ps.executeUpdate();
@@ -136,8 +134,7 @@ public class MysqlConnect {
 	 * @param statement
 	 * @param args
 	 */
-	public void issueInsertOrDeleteStatement(final String statement,
-			final Object... args) {
+	public void issueInsertOrDeleteStatement(final String statement, final Object... args) {
 		PreparedStatement ps = addParameters(statement, args);
 		try {
 			ps.execute();
@@ -146,8 +143,7 @@ public class MysqlConnect {
 		}
 	}
 
-	private void setParam(final PreparedStatement ps, final Object arg,
-			final int i) throws SQLException {
+	private void setParam(final PreparedStatement ps, final Object arg, final int i) throws SQLException {
 		if (arg instanceof String) {
 			ps.setString(i, (String) arg);
 		} else if (arg instanceof Integer) {

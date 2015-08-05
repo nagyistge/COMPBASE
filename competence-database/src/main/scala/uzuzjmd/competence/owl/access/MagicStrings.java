@@ -27,5 +27,9 @@ public class MagicStrings {
 	public static String EPOSLocation = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/epos.xml";
 	public static Boolean runsAsJar = false;
 	public static String GERMANMODELLOCATION = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/languagemodels/germanPCFG.ser.gz";
+	public static String thesaurusLogin = "root";
+	public static String thesaurusPassword = "voyager";
+	public static String thesaurusDatabaseName = "thesaurus";
+	public static String thesaurusDatabaseUrl = "localhost:3306";
 
 }
