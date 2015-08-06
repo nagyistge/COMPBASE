@@ -14,6 +14,6 @@ object WordToStem {
     stemmer.setCurrent(input);
     stemmer.stem();
     val result = stemmer.getCurrent();
-    return result
+    return result.substring(0, result.length()-1)
   }
 }
