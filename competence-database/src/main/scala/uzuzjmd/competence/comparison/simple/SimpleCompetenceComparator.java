@@ -4,7 +4,7 @@ import uzuzjmd.competence.comparison.CompetenceComparator;
 import uzuzjmd.competence.comparison.simple.mapper.SimpleCompetenceComparatorMapper;
 import uzuzjmd.competence.owl.dao.Competence;
 
-public abstract class SimpleCompetenceComparator implements CompetenceComparator {
+public class SimpleCompetenceComparator implements CompetenceComparator {
 
 	@Override
 	public Boolean isSimilar(Competence dao1, Competence dao2) {
@@ -16,7 +16,7 @@ public abstract class SimpleCompetenceComparator implements CompetenceComparator
 		return isSimilarStrings(firstCompetence, secondCompetence);
 	}
 
-	public Boolean isSimilarStrings(String input1, String input2) {
+	private Boolean isSimilarStrings(String input1, String input2) {
 		SimpleCompetenceComparatorMapper mapper = new SimpleCompetenceComparatorMapper();
 		return mapper.isSimilarStrings(input1, input2);
 
