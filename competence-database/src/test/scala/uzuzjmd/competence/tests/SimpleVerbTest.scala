@@ -14,6 +14,10 @@ import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator
 @RunWith(classOf[JUnitRunner])
 class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
+  def getTestList: List[String] = {
+    "Ich kann den Einfluss meiner Biografie, meiner Werteund Normvorstellungen auf mein berufliches Handeln erkennen und reflektieren. " :: "Ich bin in der Lage, Entscheidungen zu treffen, deren mögliche Konsequenzen zu antizipieren und Verantwortung für mein Handeln zu übernehmen. " :: "Ich kann meine Arbeit sinnvoll planen, verfüge über effektive Arbeitstechniken, kann in meiner Arbeitsorganisation Prioritäten setzen und selbständig arbeiten." :: "Ich kann verschiedene berufliche Handlungen (z.B. informieren, beraten, begleiten, befähigen, verhandeln, konfrontieren) situationsgerecht ausführen und reflektieren." :: "Ich kann Probleme aus der Perspektive der AdressatInnen erkennen und verstehen, mich aber auch abgrenzen. " :: "Ich kann berufliche  Beziehungen zu AdressatInnen unabhängig von deren Herkunft, gesellschaftlicher Stellung sowie mir fremder Werte- und Normvorstellungen aufbauen und gestalten. " :: "Ich kann verschiedene Gesprächstechniken situationsadäquat anwenden. " :: "Ich kann (Beratungs-) Gespräche selbständig vorbereiten, durchführen und auswerten. " :: "Ich kann für die mir übertragenen Aufgaben selbständig eine Problem- und Ressourcenanalyse durchführen, kann Prioritäten setzen, Ziele formulieren und vereinbaren, Lösungsstrategien entwickeln und meine Tätigkeit reflektieren. " :: "Ich kenne Bedürfnisse und Ansprüche der AdressatInnen." :: "Ich verfüge über relevantes Fachwissen in Bezug auf die Themen/Problemlagen, mit denen die Praxisstelle hauptsächlich konfrontiert ist." :: Nil
+  }
+
   test("given a sentence, the verb should be returned") {
     val input = "Die Lehramtsstudenten der alten Schule sind in der Lage komplexe Texte zu verstehen und gehen gerne baden ."
     SentenceToOperator.convertSentenceToFilteredElement(input) should not be ('empty)
@@ -74,23 +78,54 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
     val result = comparator.isSimilarVerbsStrat2(input1, input2)
     result should not be false
-    
 
   }
-  
-   test("given a sentence with similar verbs, similar = true should be returned with strat 2- case 2") {
+
+  test("given a sentence with similar verbs, similar = true should be returned with strat 2- case 2") {
 
     val input1 = "Ein Lehramtsstudent begreift"
     val input2 = "Ein Lehramtsstudenten versteht"
 
     val comparator = new SimpleCompetenceComparatorMapper
 
-    val result = comparator.isSimilarVerbsStrat2(input1, input2)    
+    val result = comparator.isSimilarVerbsStrat2(input1, input2)
     result should not be false
-    
-    val result2 = comparator.isSimilarVerbsStrat1(input1, input2)    
+
+    val result2 = comparator.isSimilarVerbsStrat1(input1, input2)
     result2 should not be true
 
   }
 
+  test("given a sentence with similar nouns, similar = true should be returned with strat 1") {
+
+    val input1 = "Ein Lehramtsstudent begreift"
+    val input2 = "Ein Lehramtsstudenten versteht"
+
+    val comparator = new SimpleCompetenceComparatorMapper
+
+    val result = comparator.isSimilarCatchwordStrat2(input1, input2)
+    result should not be false
+
+    val result2 = comparator.isSimilarCatchwordStrat1(input1, input2)
+    result2 should not be true
+  }
+
+  test("given a sentence with similar nouns or verbs, similar = true should be returned with strat 1") {
+
+    val input1 = "Ein Lehramtsstudent begreift"
+    val input2 = "Ein Lehramtsstudenten versteht"
+
+    val comparator = new SimpleCompetenceComparatorMapper
+
+    val result = comparator.isSimilarStrings(input1, input2)
+    result should not be false
+
+  }
+
+  test("given a set of competencies from a domain, the relatedness should be of high percentage") {
+    val list = getTestList.combinations(2).toList
+    val comparator = new SimpleCompetenceComparatorMapper
+    println("similar count: " + list.map { x => comparator.isSimilarStrings(x.head, x.last) }.count { x => x == true })
+    println("total number of pairs is: " + list.length)
+  }
 }
