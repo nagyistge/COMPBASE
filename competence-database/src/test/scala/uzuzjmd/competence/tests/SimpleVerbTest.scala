@@ -122,10 +122,13 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
   }
 
+   //39:55
   test("given a set of competencies from a domain, the relatedness should be of high percentage") {
     val list = getTestList.combinations(2).toList
     val comparator = new SimpleCompetenceComparatorMapper
-    println("similar count: " + list.map { x => comparator.isSimilarStrings(x.head, x.last) }.count { x => x == true })
-    println("total number of pairs is: " + list.length)
+    //println("similar count: " + list.map { x => comparator.isSimilarStrings2(x.head, x.last) }.count { x => x == true })
+    //println("total number of pairs is: " + list.length)
+
+    list.map(x => (comparator.isSimilarStrings2(x.head, x.last), x.head, x.last)).foreach(x=> print("##########\n"+ x._1 + "\n " + x._2 + " \n"+ x._3+ "\n##########\n"))
   }
 }

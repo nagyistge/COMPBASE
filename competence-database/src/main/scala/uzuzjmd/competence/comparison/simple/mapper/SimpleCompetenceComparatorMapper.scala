@@ -19,6 +19,10 @@ class SimpleCompetenceComparatorMapper() {
     return isSimilarVerbsStrat1(input1, input2) || isSimilarVerbsStrat2(input1, input2) || isSimilarCatchwordStrat1(input1, input2) || isSimilarCatchwordStrat2(input1, input2)
   }
   
+  def isSimilarStrings2(input1: String, input2: String): Boolean = {
+    return (isSimilarVerbsStrat1(input1, input2) || isSimilarVerbsStrat2(input1, input2)) && (isSimilarCatchwordStrat1(input1, input2) || isSimilarCatchwordStrat2(input1, input2))
+  }
+  
   def isSimilarCatchwordStrat1(input1: String, input2: String): Boolean = {
      return isSimilarStratHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat1_Words)
   }
