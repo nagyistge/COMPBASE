@@ -9,17 +9,18 @@ import uzuzjmd.competence.owl.access.MagicStrings
 object OpenThesaurusSynonymCreator {
   def getSynonyms(input: String): List[String] = {
 
-    val connector = new MysqlConnect
+     val connector = new MysqlConnect
     connector.connect(createConnectionString)
 
     var result = List(): List[String]
 
-    val resultSet = connector.issueSelectStatement("SELECT synset_id, word FROM term a WHERE a.word = ?", input)
+    val resultSet = connector.issueSelectStatement("SELECT synset_id, word FROM term a WHERE a.word = ? LIMIT 10", input)
 
+    
     while (resultSet.next()) {
       val resultInt = resultSet.getInt("synset_id"): java.lang.Integer;
 
-      val resultSet2 = connector.issueSelectStatement("SELECT word, b.id FROM term a JOIN synset b on a.synset_id = b.id where b.id = ?", resultInt);
+      val resultSet2 = connector.issueSelectStatement("SELECT word, b.id FROM term a JOIN synset b on a.synset_id = b.id where b.id = ? LIMIT 10", resultInt);
 
       while (resultSet2.next()) {
         val currentWord = resultSet2.getString("word")
@@ -32,9 +33,10 @@ object OpenThesaurusSynonymCreator {
   }
 
   def getSimilarWords(input: String): List[String] = {
+
     val connector = new MysqlConnect
     connector.connect(createConnectionString)
-    val resultSet = connector.issueSelectStatement("SELECT id, word FROM term a WHERE a.word like ?", "%" + input + "%")
+    val resultSet = connector.issueSelectStatement("SELECT id, word FROM term a WHERE a.word like ? LIMIT 10", "%" + input + "%")
 
     var result = List(): List[String]
     while (resultSet.next()) {
