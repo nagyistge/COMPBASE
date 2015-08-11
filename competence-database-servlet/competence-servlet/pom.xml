@@ -8,6 +8,7 @@
 	<name>competence-servlet Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -231,7 +232,38 @@
 		</dependency>
 
 	</dependencies>
+
+
+
 	<build>
 		<finalName>competence-servlet</finalName>
+		<!-- <plugins> -->
+		<!-- <plugin> -->
+		<!-- <groupId>org.apache.maven.plugins</groupId> -->
+		<!-- <artifactId>maven-war-plugin</artifactId> -->
+		<!-- <configuration> -->
+		<!-- <outputDirectory>/opt/up/tomcat/7.0/</outputDirectory> -->
+		<!-- </configuration> -->
+		<!-- </plugin> -->
+		<!-- </plugins> -->
 	</build>
+
+
+	<profiles>
+		<profile>
+			<id>fleckenroller</id>
+			<build>
+				<finalName>competence-servlet</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<outputDirectory>/opt/up/tomcat/7.0/</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
