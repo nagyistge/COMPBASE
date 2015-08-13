@@ -57,6 +57,8 @@ public class SelectedLearningTemplateDAO {
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
 				+ "/competences/xml/learningtemplates/selected");
+		
+		System.out.println("FETCHING FROM_: "+webResource.getURI());
 
 		StringList result = null;
 		String user = ContextUtil.getUserLoggedIn().getLogin();

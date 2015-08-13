@@ -64,7 +64,7 @@ class PerformanceTests extends FunSuite with ShouldMatchers {
     val client = Client.create();
 
     val webResource = client
-      .resource("http://localhost:8084/competences/xml/competencetree/university/all/nocache");
+      .resource("http://fleckenroller.cs.uni-potsdam.de/app/competence-servlet/competence/competences/xml/competencetree/university/all/nocache");
 
     val response = webResource.accept(MediaType.APPLICATION_XML)
       .get(classOf[ClientResponse]);
