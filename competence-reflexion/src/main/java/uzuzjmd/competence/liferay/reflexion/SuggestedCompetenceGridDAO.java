@@ -1,7 +1,5 @@
 package uzuzjmd.competence.liferay.reflexion;
 
-import java.util.Collections;
-
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.liferay.util.ContextUtil;
