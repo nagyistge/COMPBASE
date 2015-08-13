@@ -34,7 +34,7 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
     val result = stemWord("verstehen")
     val result2 = stemWord("verstehst")
 
-    (result == result2) should not be false
+    (result.equals(result2)) should not be false
   }
 
   def stemWord(input: String): String = {
@@ -53,8 +53,8 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
   }
 
   test("given a word, similar words should be returned") {
-    val result = OpenThesaurusSynonymCreator.getSimilarWords("Atom");
-    result.contains("Atomsorte") should not be false
+    val result = OpenThesaurusSynonymCreator.getSimilarWords("Atomenerg");
+    result.contains("Atomenergie") should not be false
   }
 
   test("given a sentence with similar verbs, similar = true should be returned ith strat 1") {
@@ -123,12 +123,12 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
   }
 
    //39:55
-  test("given a set of competencies from a domain, the relatedness should be of high percentage") {
-    val list = getTestList.combinations(2).toList
-    val comparator = new SimpleCompetenceComparatorMapper
-    //println("similar count: " + list.map { x => comparator.isSimilarStrings2(x.head, x.last) }.count { x => x == true })
-    //println("total number of pairs is: " + list.length)
-
-    list.map(x => (comparator.isSimilarStrings2(x.head, x.last), x.head, x.last)).foreach(x=> print("##########\n"+ x._1 + "\n " + x._2 + " \n"+ x._3+ "\n##########\n"))
-  }
+//  test("given a set of competencies from a domain, the relatedness should be of high percentage") {
+//    val list = getTestList.combinations(2).toList
+//    val comparator = new SimpleCompetenceComparatorMapper
+//    //println("similar count: " + list.map { x => comparator.isSimilarStrings2(x.head, x.last) }.count { x => x == true })
+//    //println("total number of pairs is: " + list.length)
+//
+//    list.map(x => (comparator.isSimilarStrings2(x.head, x.last), x.head, x.last)).foreach(x=> print("##########\n"+ x._1 + "\n " + x._2 + " \n"+ x._3+ "\n##########\n"))
+//  }
 }
