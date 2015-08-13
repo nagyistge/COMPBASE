@@ -52,7 +52,7 @@ class PerformanceTests extends FunSuite with ShouldMatchers {
 
   test("Getting the competence tree 1000 times should not be a problem") {
 
-    val counter = 1 to 1999
+    val counter = 1 to 100
 
     counter.to[ParVector].foreach(x => getCompetenceTree)
 

@@ -42,26 +42,26 @@ import uzuzjmd.competence.owl.dao.Competence
 @RunWith(classOf[JUnitRunner])
 class EposTests extends FunSuite with ShouldMatchers {
 
-  test("if the xml is loaded no error should occur") {
-
-    val jaxbContext = JAXBContext.newInstance(classOf[DESCRIPTORSETType])
-    val eposUnMarshallUnmarshaller = jaxbContext.createUnmarshaller()
-    val descriptorsetType = eposUnMarshallUnmarshaller.unmarshal(new File(MagicStrings.EPOSLocation)).asInstanceOf[DESCRIPTORSETType]
-    // we assume that there will be more than just one descriptorset (but
-    // don't know ey)
-    val eposList = List(descriptorsetType).asJava
-
-    val manager = new CompOntologyManager();
-    manager.begin()
-    EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
-    EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
-    manager.close()
-
-    manager.begin()
-    val fileUtil = new CompFileUtil(manager.getM())
-    fileUtil.writeOntologyout()
-    manager.close()
-  }
+//  test("if the xml is loaded no error should occur") {
+//
+//    val jaxbContext = JAXBContext.newInstance(classOf[DESCRIPTORSETType])
+//    val eposUnMarshallUnmarshaller = jaxbContext.createUnmarshaller()
+//    val descriptorsetType = eposUnMarshallUnmarshaller.unmarshal(new File(MagicStrings.EPOSLocation)).asInstanceOf[DESCRIPTORSETType]
+//    // we assume that there will be more than just one descriptorset (but
+//    // don't know ey)
+//    val eposList = List(descriptorsetType).asJava
+//
+//    val manager = new CompOntologyManager();
+//    manager.begin()
+//    EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
+//    EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList)
+//    manager.close()
+//
+//    manager.begin()
+//    val fileUtil = new CompFileUtil(manager.getM())
+//    fileUtil.writeOntologyout()
+//    manager.close()
+//  }
 
   test("learning projects should be available") {
     val manager = new CompOntologyManager
