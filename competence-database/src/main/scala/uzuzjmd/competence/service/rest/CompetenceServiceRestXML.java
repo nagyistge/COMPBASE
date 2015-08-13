@@ -440,6 +440,12 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return Response.ok("reflexion updated").build();
 	}
 
+	/**
+	 * This Method allows to import Competences in the EPOS-Format
+	 * 
+	 * @param eposCompetences
+	 * @return
+	 */
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
