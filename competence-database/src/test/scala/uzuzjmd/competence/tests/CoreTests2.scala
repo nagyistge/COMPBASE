@@ -49,33 +49,33 @@ import scala.collection.JavaConverters._
 @RunWith(classOf[JUnitRunner])
 class CoreTests2 extends FunSuite with ShouldMatchers {
 
-  def init() {
-    
-       // change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
-
-    val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    CompetenceImporter.convertCSVArray();
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    EposImporter.importEpos()
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    compOntManag.begin()
-    val fileUtil = new CompFileUtil(compOntManag.getM())
-    fileUtil.writeOntologyout()
-    compOntManag.close()
-    
-  }
+//  def init() {
+//    
+//       // change this, if you want to really reset the database
+//    CompFileUtil.deleteTDB()
+//
+//    val compOntManag = new CompOntologyManager()
+//
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    CompetenceImporter.convertCSVArray();
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    EposImporter.importEpos()
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    compOntManag.begin()
+//    val fileUtil = new CompFileUtil(compOntManag.getM())
+//    fileUtil.writeOntologyout()
+//    compOntManag.close()
+//    
+//  }
 
   test("if two evidence links are created with different evidences with same user and competence") {
     //init()

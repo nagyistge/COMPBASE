@@ -15,29 +15,19 @@ import uzuzjmd.competence.owl.access.MagicStrings
 @RunWith(classOf[JUnitRunner])
 class OntologyView extends FunSuite with ShouldMatchers {
 
-  test("the ontology write process should be ok") {
+//  test("the ontology write process should be ok") {
+//
+//    val compOntManag = new CompOntologyManager()
+//
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    compOntManag.begin()
+//    val fileUtil = new CompFileUtil(compOntManag.getM())
+//    fileUtil.writeOntologyout()
+//    compOntManag.close()
+//  }
 
-    val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    compOntManag.begin()
-    val fileUtil = new CompFileUtil(compOntManag.getM())
-    fileUtil.writeOntologyout()
-    compOntManag.close()
-  }
-
-  //  test("A non-empty list should not be empty") {
-  //    List(1, 2, 3) should not be ('empty)
-  //    List("fee", "fie", "foe", "fum") should not be ('empty)
-  //  }
-  //
-  //  test("A list's length should equal the number of elements it contains") {
-  //    List() should have length (0)
-  //    List(1, 2) should have length (2)
-  //    List("fee", "fie", "foe", "fum") should have length (4)
-  //  }
 }
 
