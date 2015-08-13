@@ -19,8 +19,7 @@ public class MagicStrings {
 	public static String CSVLOCATION = "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/kompetenzen_moodle_utf8.csv";
 	public static String MOODLEURL = "http://localhost/moodle";
 	public static String webapplicationPath = "http://localhost:8080/competence-portlet";
-	public static final String RESTURL = "http://localhost:8083";
-	public static final String RESTURLCompetence = "http://localhost:8084";
+	public static String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String ICONPATHGWT = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String USERICONPATH = "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png";

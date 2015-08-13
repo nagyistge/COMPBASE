@@ -28,6 +28,19 @@ public class EposImporter {
 	}
 
 	public static void importEpos() throws JAXBException, IOException {
+		List<DESCRIPTORSETType> eposList = parseEPOSXML();
+
+		CompOntologyManager manager = importEposCompetences(eposList);
+
+		// write result out
+		manager.begin();
+		CompFileUtil fileUtil = new CompFileUtil(manager.getM());
+		fileUtil.writeOntologyout();
+		manager.close();
+
+	}
+
+	public static List<DESCRIPTORSETType> parseEPOSXML() throws JAXBException {
 		// convert xml to java data
 		JAXBContext jaxbContext = JAXBContext.newInstance(DESCRIPTORSETType.class);
 		Unmarshaller eposUnMarshallUnmarshaller = jaxbContext.createUnmarshaller();
@@ -36,7 +49,10 @@ public class EposImporter {
 		// don't know ey)
 		List<DESCRIPTORSETType> eposList = new ArrayList<DESCRIPTORSETType>();
 		eposList.add(descriptorsetType);
+		return eposList;
+	}
 
+	public static CompOntologyManager importEposCompetences(List<DESCRIPTORSETType> eposList) {
 		// write competences in database as usual
 		List<FilteredCSVCompetence> result = EposXML2FilteredCSVCompetence.mapEposXML(eposList);
 		CompOntologyManager manager = new CompOntologyManager();
@@ -46,12 +62,6 @@ public class EposImporter {
 		EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
 		EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList);
 		manager.close();
-
-		// write result out
-		manager.begin();
-		CompFileUtil fileUtil = new CompFileUtil(manager.getM());
-		fileUtil.writeOntologyout();
-		manager.close();
-
+		return manager;
 	}
 }

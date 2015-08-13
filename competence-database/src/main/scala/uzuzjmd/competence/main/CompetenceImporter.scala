@@ -18,6 +18,7 @@ import uzuzjmd.competence.owl.access.MagicStrings
 
 object CompetenceImporter {
 
+
   def main(args: Array[String]) {
 
     if (args.size != 3) {
@@ -33,6 +34,7 @@ object CompetenceImporter {
   }
 
   def convertCSVArray() {
+
     val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
@@ -40,10 +42,12 @@ object CompetenceImporter {
   }
 
   def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
+
     return getCompetencesFromCSV.asJava
   }
 
   def getCompetencesFromCSV(): Seq[Rdceo] = {
+
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
