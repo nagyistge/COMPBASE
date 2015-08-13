@@ -32,6 +32,8 @@ public class EposRemoteImporter {
 		List<DESCRIPTORSETType> eposCompetences = EposImporter.parseEPOSXML();
 
 		Client client = Client.create();
+		// client.setConnectTimeout(300);
+		// client.setReadTimeout(300);
 
 		WebResource webResource = client.resource(MagicStrings.RESTURLCompetence + "/competences/xml/learningtemplates/addEpos");
 
@@ -40,6 +42,7 @@ public class EposRemoteImporter {
 		ClientResponse response = webResource.accept(MediaType.APPLICATION_XML).post(ClientResponse.class, eposCompetences.toArray(new DESCRIPTORSETType[0]));
 
 		if (response.getStatus() != 200) {
+			System.out.println(response.toString());
 			throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
 		}
 
