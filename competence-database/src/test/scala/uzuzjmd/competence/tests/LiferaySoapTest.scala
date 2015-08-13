@@ -41,19 +41,19 @@ class LiferaySoapTest extends FunSuite with ShouldMatchers {
   //    result.toList.foreach(x => println(x.getLastName()))
   //  }
 
-  test("if liferay group activities are requested there should be no empty result  ") {
-
-    System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger")
-    System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl")
-
-    val endpoint = new EvidenceServiceSoapProxy("http://127.0.0.1:8080/competence-portlet/api/axis/Plugin_UPServices_EvidenceService?wsdl")
-    endpoint.getEvidenceServiceSoap().asInstanceOf[Stub].setUsername("elistest")
-    endpoint.getEvidenceServiceSoap().asInstanceOf[Stub].setPassword("eLiS14")
-    val result = endpoint.getGroupEvidences(10184l)
-    val resultList = Nil ++ result
-    resultList should not be ('empty)
-    resultList.toList.foreach(x => println(x.getTitle() + " hat gemacht: " + x.getUserName()))
-  }
+  //  test("if liferay group activities are requested there should be no empty result  ") {
+  //
+  //    System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger")
+  //    System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl")
+  //
+  //    val endpoint = new EvidenceServiceSoapProxy("http://127.0.0.1:8080/competence-portlet/api/axis/Plugin_UPServices_EvidenceService?wsdl")
+  //    endpoint.getEvidenceServiceSoap().asInstanceOf[Stub].setUsername("elistest")
+  //    endpoint.getEvidenceServiceSoap().asInstanceOf[Stub].setPassword("eLiS14")
+  //    val result = endpoint.getGroupEvidences(10184l)
+  //    val resultList = Nil ++ result
+  //    resultList should not be ('empty)
+  //    resultList.toList.foreach(x => println(x.getTitle() + " hat gemacht: " + x.getUserName()))
+  //  }
 
   //  test("The CompetenceTree should not be empty") {
   //    val compOntManag = new CompOntologyManager()

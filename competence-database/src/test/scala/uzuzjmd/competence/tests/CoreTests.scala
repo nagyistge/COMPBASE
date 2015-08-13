@@ -44,32 +44,32 @@ import uzuzjmd.competence.owl.access.MagicStrings
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
 
-  test("The CSV import should run without errors") {
-
-    // change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
-
-    val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    CompetenceImporter.convertCSVArray();
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    EposImporter.importEpos()
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    compOntManag.begin()
-    val fileUtil = new CompFileUtil(compOntManag.getM())
-    fileUtil.writeOntologyout()
-    compOntManag.close()
-  }
+//  test("The CSV import should run without errors") {
+//
+//    // change this, if you want to really reset the database
+//    CompFileUtil.deleteTDB()
+//
+//    val compOntManag = new CompOntologyManager()
+//
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    CompetenceImporter.convertCSVArray();
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    EposImporter.importEpos()
+//    compOntManag.begin()
+//    compOntManag.getM().validate()
+//    compOntManag.close()
+//
+//    compOntManag.begin()
+//    val fileUtil = new CompFileUtil(compOntManag.getM())
+//    fileUtil.writeOntologyout()
+//    compOntManag.close()
+//  }
 
   test("if a user is persisted, the course context should be acessable") {
 
