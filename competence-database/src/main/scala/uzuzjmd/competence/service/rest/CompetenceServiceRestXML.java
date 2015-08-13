@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
+import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.mapper.gui.ReflectiveAssessmentHolder2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
@@ -434,6 +437,16 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
 		ReflectiveAssessmentHolder2Ont.convert(compOntologyManager, user, context, reflectiveAssessmentHolder);
 		closeManagerInCriticalMode(compOntologyManager);
+		return Response.ok("reflexion updated").build();
+	}
+
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/learningtemplates/addEpos")
+	public Response importEpos(DESCRIPTORSETType[] eposCompetences) {
+
+		EposImporter.importEposCompetences(Arrays.asList(eposCompetences));
 		return Response.ok("reflexion updated").build();
 	}
 
