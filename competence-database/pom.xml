@@ -539,4 +539,28 @@
 
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>fleckenroller-maven-profil</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/scala/resourcesfleckenroller</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>julians-maven-profil</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/scala/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+
+	</profiles>
 </project>

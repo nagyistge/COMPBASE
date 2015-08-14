@@ -18,7 +18,6 @@ import uzuzjmd.competence.owl.access.MagicStrings
 
 object CompetenceImporter {
 
-
   def main(args: Array[String]) {
 
     if (args.size != 3) {
@@ -43,11 +42,18 @@ object CompetenceImporter {
 
   def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
 
+
     return getCompetencesFromCSV.asJava
   }
 
   def getCompetencesFromCSV(): Seq[Rdceo] = {
 
+    val list = parseCompetenceBeans()
+    return competenceBeansToRDCEO(list)
+  }
+  
+  def parseCompetenceBeans() : java.util.List[CompetenceBean] = {
+    
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
@@ -55,6 +61,10 @@ object CompetenceImporter {
     strat.setColumnMapping(columns.toArray);
     val csv = new CsvToBean[CompetenceBean];
     val list = csv.parse(strat, new FileReader(new File(MagicStrings.CSVLOCATION)));
+    return list
+  }
+
+  def competenceBeansToRDCEO(list: java.util.List[CompetenceBean]): Seq[Rdceo] = {
 
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
@@ -67,6 +77,13 @@ object CompetenceImporter {
     //mapping CSVObjects to RCD
     val rcdeoCompetences = CSV2RCD.mapCompetence(filteredList)
     rcdeoCompetences
+  }
+
+  def competenceBeanToDatabase(list: Array[CompetenceBean]) {
+    val rdceos = competenceBeansToRDCEO(list.toList.asJava)
+    val compOntManager = new CompOntologyManager
+    compOntManager.createBaseOntology()
+    val result = RCD2OWL.convert(rdceos, compOntManager)
   }
 
 }
