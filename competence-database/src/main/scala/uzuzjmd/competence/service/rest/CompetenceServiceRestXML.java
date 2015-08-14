@@ -14,7 +14,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import uzuzjmd.competence.csv.CompetenceBean;
 import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
+import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.mapper.gui.ReflectiveAssessmentHolder2Ont;
@@ -53,6 +55,14 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		System.out.println("Competences inserted");
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
 		competenceServiceImpl.insertCompetence(input);
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/addCompetenceBean")
+	public Response addCompetenceBean(CompetenceBean[] competenceBean) {
+		CompetenceImporter.competenceBeanToDatabase(competenceBean);
+		return Response.ok("competences updated").build();
 	}
 
 	/**
@@ -453,7 +463,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	public Response importEpos(DESCRIPTORSETType[] eposCompetences) {
 
 		EposImporter.importEposCompetences(Arrays.asList(eposCompetences));
-		return Response.ok("reflexion updated").build();
+		return Response.ok("epos templates updated").build();
 	}
 
 	// private Response dummyGridResult() {
