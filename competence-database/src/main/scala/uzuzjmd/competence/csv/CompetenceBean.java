@@ -1,9 +1,12 @@
 package uzuzjmd.competence.csv;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  * Diese Klasse mappt eine Zeile in der Excel Tabelle 
  * Dies muss ein Bean sein, weil das von dem Framework gefordert wird
  */
+@XmlRootElement
 public class CompetenceBean {
 	private String learner;
 	private String operator;
@@ -15,6 +18,10 @@ public class CompetenceBean {
 	private String evidenzen;
 	private String competenceArea;
 	private String metaoperator;
+
+	public CompetenceBean() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getOperator() {
 		return operator;
