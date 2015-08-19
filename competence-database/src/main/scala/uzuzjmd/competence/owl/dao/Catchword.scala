@@ -3,7 +3,7 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 
-class Catchword(compManager: CompOntologyManager, identifer: String, val definition: String = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Catchword, identifer) {
+class Catchword(compManager: CompOntologyManager, identifer: String, val definition: String) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Catchword, identifer) {
 
   @Override
   protected def persistMore() {

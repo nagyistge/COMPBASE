@@ -45,42 +45,18 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.EvidenceActivity
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.service.rest.client.dto.Graph
+import uzuzjmd.competence.service.rest.client.dto.GraphNode
+import uzuzjmd.competence.service.rest.client.dto.GraphTriple
+import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt
+import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import java.util.HashMap
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests2 extends FunSuite with ShouldMatchers {
 
-//  def init() {
-//    
-//       // change this, if you want to really reset the database
-//    CompFileUtil.deleteTDB()
-//
-//    val compOntManag = new CompOntologyManager()
-//
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    CompetenceImporter.convertCSVArray();
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    EposImporter.importEpos()
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    compOntManag.begin()
-//    val fileUtil = new CompFileUtil(compOntManag.getM())
-//    fileUtil.writeOntologyout()
-//    compOntManag.close()
-//    
-//  }
-
   test("if two evidence links are created with different evidences with same user and competence") {
-    //init()
-    
-    MagicStrings.TDBLocationPath="C:/dev/scalaworkspace/Wissensmodellierung/competence-database/tdb2";
     
     //basic data
     val interface = new CompetenceOntologyInterface
@@ -181,17 +157,38 @@ class CoreTests2 extends FunSuite with ShouldMatchers {
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     return link
   }
-
-  //  test("A non-empty list should not be empty") {
-  //    List(1, 2, 3) should not be ('empty)
-  //    List("fee", "fie", "foe", "fum") should not be ('empty)
-  //
-  //    val assessment = "schlecht"
-  //    val enumMap = List("gar nicht" -> 0, "schlecht" -> 1, "mittel" -> 2, "gut" -> 3)
-  //    val map = enumMap.toMap.get(assessment).get
-  //    println(map);
-  //
-  //  }
-
+  
+  test ("if a learning template is created this should not cause any error") {
+    val comp = new CompOntologyManager
+    comp.begin()
+    
+    val node1 = new GraphNode("Erste Kompetenz")
+    val node2 = new GraphNode("Zweite Kompetenz")
+    val node3 = new GraphNode("Dritte Kompetenz")
+    val triple1 = new GraphTriple(node1.getLabel, node2.getLabel, "suggestedCompetenceRequisite", true)
+    val triple2 = new GraphTriple(node1.getLabel, node3.getLabel, "suggestedCompetenceRequisite", true)
+    
+    
+    val nodes = List()
+    val graph = new Graph
+    graph.addTriple(node1.getLabel, node2.getLabel, "suggestedCompetenceRequisite", true)
+    graph.addTriple(node1.getLabel, node3.getLabel, "suggestedCompetenceRequisite", true)
+    
+    val catchwordMap = new HashMap() : HashMap[GraphTriple, java.util.List[String]]
+    catchwordMap.put(triple1, ("die erstenbeiden"  :: Nil).asJava)
+    catchwordMap.put(triple2, ("die anderenbeiden" :: Nil).asJava)
+    
+    
+    val testLearningTemplateName = "TestLearningTemplate"
+    LearningTemplateToOnt.convert(comp, graph, catchwordMap, testLearningTemplateName)
+ 
+    
+    val user = new User(comp, "TestUser")      
+    val learningProjectTemplate = new LearningProjectTemplate(comp, testLearningTemplateName)
+    val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(comp, learningProjectTemplate, user)
+    result.getSuggestedCompetenceRows should not be ('empty)
+    
+    comp.close()
+  }
 }
 

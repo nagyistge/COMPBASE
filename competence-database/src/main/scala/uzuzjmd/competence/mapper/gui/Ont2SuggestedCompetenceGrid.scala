@@ -45,29 +45,32 @@ import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.Assessment
 
 object Ont2SuggestedCompetenceGrid {
-  type ComPairList = Buffer[(Competence, Competence)]
+  protected type ComPairList = Buffer[(Competence, Competence)]
 
-  val log = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
+  private val log = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
   log.setLevel(Level.WARN)
-  val logStream = new LogStream(log, Level.DEBUG);
+  private val logStream = new LogStream(log, Level.DEBUG);
 
   def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
     val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
     val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.owl.dao.Catchword, List[uzuzjmd.competence.owl.dao.Competence])] = Buffer.empty
     scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
-    result.setSuggestedCompetenceRows(scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user)).sortBy(_.getSuggestedCompetenceRowHeader()).asJava)
+    
+    val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
+    val rows = unsortedRows.sortBy(_.getSuggestedCompetenceRowHeader()).asJava
+    result.setSuggestedCompetenceRows(rows)
     return result
   }
 
-  def mapScalaGridToSuggestedCompetenceRow(catchword: Catchword, competences: List[Competence], user: User): SuggestedCompetenceRow = {
+  private def mapScalaGridToSuggestedCompetenceRow(catchword: Catchword, competences: List[Competence], user: User): SuggestedCompetenceRow = {
     val result = new SuggestedCompetenceRow
     result.setSuggestedCompetenceRowHeader(catchword.getDataField(catchword.DEFINITION))
     result.setSuggestedCompetenceColumns(competences.map(convertCompetenceToColumn(_)(user)).asJava)
     return result
   }
 
-  def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
+  private def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
     result.setProgressInPercent(calculateAssessmentIndex(competence, user))
@@ -75,7 +78,7 @@ object Ont2SuggestedCompetenceGrid {
     return result
   }
 
-  def competenceToReflextiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
+  private def competenceToReflextiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
     val holder = new ReflectiveAssessmentsListHolder
     val assessment = new Assessment
     holder.setAssessment(assessment)
@@ -84,7 +87,7 @@ object Ont2SuggestedCompetenceGrid {
     return holder
   }
 
-  def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
+  private def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
     val result = new ReflectiveAssessment
     val index = competence.getAssessment(user).getAssmentIndex
     val assessment = new Assessment
@@ -94,7 +97,7 @@ object Ont2SuggestedCompetenceGrid {
     return result
   }
 
-  def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
+  private def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
     val listSubclases = competence.listSubClasses(classOf[Competence])
     val size = competence.listSubClasses(classOf[Competence]).size
     val sizeInJava: java.lang.Double = size
@@ -126,7 +129,7 @@ object Ont2SuggestedCompetenceGrid {
   /**
    * in case of bad run time performance topological sorting might be a better choice
    */
-  def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
+  private def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
 
     log.debug("list of competences to be sorted: ")
     log.debug(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
@@ -147,7 +150,7 @@ object Ont2SuggestedCompetenceGrid {
     return sortListOfSuggestedCompetences1(hList0WithoutPivot, hList1)
   }
 
-  def sortListOfSuggestedCompetences1(hList0WithoutPivot: ComPairList, hList1: ComPairList): List[List[Competence]] = {
+  private def sortListOfSuggestedCompetences1(hList0WithoutPivot: ComPairList, hList1: ComPairList): List[List[Competence]] = {
 
     // need to copy the result of this run in order to calculate longest path
     val hListThisRun: ComPairList = Buffer.empty
@@ -156,7 +159,7 @@ object Ont2SuggestedCompetenceGrid {
     return sortListOfSuggestedCompetences2(hList0WithoutPivot, hList1, hListThisRun)
   }
 
-  def sortListOfSuggestedCompetences2(hList0WithoutPivot: ComPairList, hList1: ComPairList, hList1LastRun: ComPairList): List[List[Competence]] = {
+  private def sortListOfSuggestedCompetences2(hList0WithoutPivot: ComPairList, hList1: ComPairList, hList1LastRun: ComPairList): List[List[Competence]] = {
     val hList2: ComPairList = Buffer.empty
     val sortedhList0WithoutPivot = hList0WithoutPivot.sortWith(Ont2SuggestedCompetencyGridFilter.sortCompetencePairs)
     sortedhList0WithoutPivot.foreach(addHlist0ElementToCorrectList(_)(hList1, hList2))
@@ -184,7 +187,7 @@ object Ont2SuggestedCompetenceGrid {
   /**
    * returns Pair Of (Hlist1, and HList2)
    */
-  def addHlist0ElementToCorrectList(hList0Element: (Competence, Competence))(hList1: ComPairList, hList2: ComPairList) = {
+  private def addHlist0ElementToCorrectList(hList0Element: (Competence, Competence))(hList1: ComPairList, hList2: ComPairList) = {
 
     if (hList0Element._2.equals(hList1.head._1)) {
       hList1.prepend(hList0Element)
@@ -202,7 +205,7 @@ object Ont2SuggestedCompetenceGrid {
     return input.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.getDataField(x._2.DEFINITION))).map(x => "(" + x._1 + "," + x._2 + ")").reduce((a, b) => a + " , " + b)
   }
 
-  def catchwordsStoString(input: Buffer[Catchword]): String = {
+  private def catchwordsStoString(input: Buffer[Catchword]): String = {
     return input.map(x => x.getDataField(x.DEFINITION)).reduce((a, b) => a + ", " + b)
   }
 

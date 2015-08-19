@@ -145,7 +145,12 @@ public class CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.PrerequisiteOf);
 		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.NotPrerequisiteOf);
 		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.Competence, CompObjectProperties.NotAllowedToView);
-
+		getUtil().createObjectProperty(CompOntClass.Competence, CompOntClass.Competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf);
+		getUtil().createObjectProperty(CompOntClass.LearningProjectTemplate, CompOntClass.Competence, CompObjectProperties.LearningProjectTemplateOf);
+		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.SelectedLearningProjectTemplate, CompObjectProperties.CourseContextOfSelectedLearningProjectTemplate);
+		getUtil().createObjectProperty(CompOntClass.SelectedLearningProjectTemplate, CompOntClass.LearningProjectTemplate, CompObjectProperties.SelectedTemplateOfLearningTemplate);
+		getUtil().createObjectProperty(CompOntClass.SelfAssessment, CompOntClass.User, CompObjectProperties.AssessmentOfUser);
+		getUtil().createObjectProperty(CompOntClass.SelfAssessment, CompOntClass.User, CompObjectProperties.AssessmentOfCompetence);
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
 		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
