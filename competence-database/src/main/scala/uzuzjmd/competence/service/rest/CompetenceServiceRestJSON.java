@@ -750,6 +750,23 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("link updated").build();
 	}
 
+	/**
+	 * This allows to add competences for reflection in the epos ui-format
+	 * 
+	 * 
+	 * @param graph
+	 *            the triples describe the suggested prerequisite relationships
+	 *            between the competences. The directed and the label properties
+	 *            may be ignored in this case
+	 * @param catchwordMap
+	 *            This map is necessary to ensure that all competences in a
+	 *            prerequisite relationship share a common catchword to order
+	 *            them vertically All the triples contained in the graph must be
+	 *            present in the catchword map
+	 * @param learningTemplateName
+	 *            the name of the learning template
+	 * @return
+	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/learningtemplate/add")
