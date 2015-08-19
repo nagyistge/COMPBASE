@@ -7,6 +7,11 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.shared.StringList
 
+/**
+ * This class is the entry point for a template
+ * 
+ * Given the name of a learning template the associated competences and their structure can be retrieved
+ */
 case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associatedUser: User, associatedCourse: CourseContext, var identifiery: String = null, associatedTemplates: List[LearningProjectTemplate] = null) extends CompetenceOntologyDao(comp, CompOntClass.SelectedLearningProjectTemplate, CompOntologyAccessScala.createIdentifierForSelectedTemplate(associatedUser, associatedCourse, identifiery)) {
 
   @Override

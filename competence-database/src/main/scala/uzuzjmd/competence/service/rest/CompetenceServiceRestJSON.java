@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
+import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
@@ -38,6 +40,7 @@ import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
 import uzuzjmd.competence.service.rest.client.dto.Graph;
+import uzuzjmd.competence.service.rest.client.dto.GraphTriple;
 import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
 import uzuzjmd.competence.service.rest.client.dto.ProgressMap;
 
@@ -736,6 +739,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
+
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
 		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
@@ -744,6 +748,22 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		compOntologyManager.close();
 
 		return Response.ok("link updated").build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/learningtemplate/add")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addLearningTemplate(@QueryParam("graph") Graph graph, @QueryParam("catchwordMap") HashMap<GraphTriple, List<String>> catchwordMap,
+			@QueryParam("learningTemplateName") String learningTemplateName) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap, learningTemplateName);
+
+		compOntologyManager.close();
+
+		return Response.ok("learningTemplate added").build();
+
 	}
 
 }
