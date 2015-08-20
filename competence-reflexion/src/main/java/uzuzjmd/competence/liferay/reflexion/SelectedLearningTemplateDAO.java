@@ -1,10 +1,10 @@
 package uzuzjmd.competence.liferay.reflexion;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionResponse;
 import javax.ws.rs.core.MediaType;
+
+import uzuzjmd.competence.liferay.util.ContextUtil;
+import uzuzjmd.competence.liferay.util.SOAUtil;
+import uzuzjmd.competence.shared.StringList;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -13,11 +13,14 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
-import uzuzjmd.competence.liferay.util.ContextUtil;
-import uzuzjmd.competence.liferay.util.SOAUtil;
-import uzuzjmd.competence.shared.StringList;
-
 public class SelectedLearningTemplateDAO {
+	
+	/**
+	 * Send the information that the user has selected a learning template for personal
+	 * competence reflection to the server
+	 * 
+	 * @param selectedLearningTemplate
+	 */
 	public static synchronized void persist(String selectedLearningTemplate) {
 
 		Client client = com.sun.jersey.api.client.Client.create();

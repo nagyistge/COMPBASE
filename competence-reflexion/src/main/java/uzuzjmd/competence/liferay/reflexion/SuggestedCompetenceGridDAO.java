@@ -16,29 +16,17 @@ import com.sun.jersey.api.client.WebResource;
 
 public class SuggestedCompetenceGridDAO {
 
-	// public static synchronized SuggestedCompetenceGrid getGrid(
-	// String selectedLearningTemplate) {
-	// System.out.println("fetching grid for:" + selectedLearningTemplate);
-	//
-	// if (selectedLearningTemplate.equals("test")) {
-	// SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
-	// SuggestedCompetenceRow row = new SuggestedCompetenceRow();
-	// SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
-	// column.setProgressInPercent(33);
-	// column.setTestOutput("deimudday is here");
-	// row.setSuggestedCompetenceColumns(Collections.singletonList(column));
-	// result.setSuggestedCompetenceRows(Collections.singletonList(row));
-	// return result;
-	// }
-	//
-	// return new SuggestedCompetenceGrid();
-	// }
 
+	/**
+	 * Given a learningTemplate this returns a paintable competence grid format.
+	 * TODO extract API Paths Strings in static variables
+	 * 
+	 * @param selectedLearningTemplate
+	 * @return
+	 */
 	public static synchronized SuggestedCompetenceGrid getGrid(
 			String selectedLearningTemplate) {
-
-		System.out.println("fetching grid for: " + selectedLearningTemplate);
-
+		
 		Client client = com.sun.jersey.api.client.Client.create();
 		WebResource webResource = client.resource(SOAUtil.getRestserverUrl()
 				+ "/competences/xml/learningtemplates/gridview");
@@ -66,6 +54,10 @@ public class SuggestedCompetenceGridDAO {
 		return result;
 	}
 
+	/**
+	 * Sends user interaction to the server
+	 * @param holder
+	 */
 	public static synchronized void updateReflexion(
 			ReflectiveAssessmentsListHolder holder) {
 		System.out.println("updating: " + holder.getSuggestedMetaCompetence());

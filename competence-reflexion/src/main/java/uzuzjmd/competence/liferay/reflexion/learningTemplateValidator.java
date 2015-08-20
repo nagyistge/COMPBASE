@@ -30,11 +30,9 @@ public class learningTemplateValidator implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
-		if (!allLearningTemplates.getLearningTemplates().contains(value)) {
-			System.out.println("throwing conversion exception:" + value);
+		if (!allLearningTemplates.getLearningTemplates().contains(value)) {			
 			throw new ValidatorException(new FacesMessage("EingabeFehler: Es gibt kein Lernziel mit diesem Namen"));
-		}
-		System.out.println("not throwing conversion exception:" + value);		
+		}			
 	}
 
 }
