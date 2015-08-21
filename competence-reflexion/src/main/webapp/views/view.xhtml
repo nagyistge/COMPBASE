@@ -75,69 +75,227 @@
 						</p:selectOneMenu>
 					</div>
 
-					<!-- 		Hier wird das Kompetenzraster angezeigt -->
-					<div id="suggestedCompetenceGrid">
-						<ui:repeat var="suggestedCompetenceRow"
-							value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
-							id="gridView">
-							<f:event type="preRenderView"
-								listener="#{LearningTemplates.updateGrid}" />
-							<br></br>
-							<div class="flexiflex">
-								<h:outputText class="suggestedCompetenceRowHeader}"
-									value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
-								<ui:repeat var="suggestedCompetenceColumn"
-									value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
-									<span class="icon-arrow-right"></span>
-									<p:commandLink
-										action="#{GridViewController.update(suggestedCompetenceColumn)}"
-										update="@(.reflexionSelection)">
-										<div class="suggestedCompetenceCluster">
-											<h:outputText class="competenceGridEntry"
-												value="#{suggestedCompetenceColumn.testOutput}" />
-											<p:progressBar
-												value="#{suggestedCompetenceColumn.progressInPercent}"
-												labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
-												displayOnly="true" style="width:80px"></p:progressBar>
-										</div>
-									</p:commandLink>
-								</ui:repeat>
-							</div>
-						</ui:repeat>
-					</div>
 
-					<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt process="@(.reflexionSelection)" -->
-					<p:panel id="reflexionSelection" styleClass="reflexionSelection">					    
-						<div id="assessmentsForSelected">
-							<H3>#{GridViewController.holder.suggestedMetaCompetence}</H3>
-							<ui:repeat var="reflectiveAssessment"
-								value="#{GridViewController.holder.reflectiveAssessmentList}">
+					<!-- Table view für kompetenzen -->
+					<p:dataTable var="suggestedCompetenceRow" id="tableView"
+						value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
+						widgetVar="kompetenzenTable" scrollable="true" scrollWidth="100%">
+
+						<p:column headerText="Kompetenze" width="150">
+							<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
+						</p:column>
+						
+						<p:column headerText="Niveau 1" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn[0])}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[0].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[0].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Niveau 2" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn[1])}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[1].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[1].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Niveau 3" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn[2])}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[2].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[2].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Niveau 4" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn[3])}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[3].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[3].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Niveau 5" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn[5])}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[4].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[4].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Niveau 6" width="100">
+							<p:commandLink
+								action="#{GridViewController.update(suggestedCompetenceColumn)}"
+								update="@(.reflexionSelection)">
+								<div class="suggestedCompetenceCluster">
+									<h:outputText class="suggestedCompetenceRowHeader}"
+									value="#{suggestedCompetenceRow.suggestedCompetenceColumns[0].testOutput}"></h:outputText>
+									<p:progressBar
+										value="#{suggestedCompetenceColumn.progressInPercent}"
+										labelTemplate="#{suggestedCompetenceColumn[0].progressInPercent}%"
+										displayOnly="true" style="width:80px"></p:progressBar>
+								</div>
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+					<!-- Ende von Table -->
+
+					<br /><br />
+					<br /><br />
+					<div class="table-responsive">
+					<table class="table  table-striped table-hover table-condensed">
+					
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Kompetenze:</th>
+								<ui:repeat var="suggestedCompetenceColumn"
+								value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows[0].suggestedCompetenceColumns}"
+								varStatus="varStatus">
+									<th>Niveau #{varStatus.index +1}</th>
+								</ui:repeat>
+							</tr>
+						</thead>
+						
+						<ui:repeat var="suggestedCompetenceRow"
+								value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
+								varStatus="varStatus">
+								<f:event type="preRenderView"
+									listener="#{LearningTemplates.updateGrid}" />
+
+							<tr>
+								<td>#{varStatus.index +1}</td>
+								<td><h:outputText class="suggestedCompetenceRowHeader}"
+										value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText></td>
+								<ui:repeat var="suggestedCompetenceColumn"
+										value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
+										<td>
+										<p:commandLink
+											action="#{GridViewController.update(suggestedCompetenceColumn)}"
+											update="@(.reflexionSelection)">
+											<div class="suggestedCompetenceCluster">
+												<h:outputText class="competenceGridEntry"
+													value="#{suggestedCompetenceColumn.testOutput}" />
+												<p:progressBar
+													value="#{suggestedCompetenceColumn.progressInPercent}"
+													labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
+													displayOnly="true" style="width:80px"></p:progressBar>
+											</div>
+										</p:commandLink>
+										</td>
+								</ui:repeat>
+							</tr>
+
+						</ui:repeat>
+					</table>
+					</div>
+					
+
+					<!-- 		Hier wird das Kompetenzraster angezeigt -->
+						<div id="suggestedCompetenceGrid">
+							<ui:repeat var="suggestedCompetenceRow"
+								value="#{LearningTemplates.suggestedCompetenceGrid.suggestedCompetenceRows}"
+								id="gridView">
+								<f:event type="preRenderView"
+									listener="#{LearningTemplates.updateGrid}" />
+								<br></br>
 								<div class="flexiflex">
-									<p:outputLabel for="assessmentRadio"
-										value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
-									<p:selectOneRadio id="assessmentRadio" value="#{reflectiveAssessment.assessment}">
-										<p:ajax event="change" listener="#{GridViewController.handleChange}" />
-										<f:selectItem
-											itemLabel="#{GridViewController.holder.assessment.items[0]}"
-											itemValue="#{GridViewController.holder.assessment.items[0]}" />
-										<f:selectItem
-											itemLabel="#{GridViewController.holder.assessment.items[1]}"
-											itemValue="#{GridViewController.holder.assessment.items[1]}" />
-										<f:selectItem
-											itemLabel="#{GridViewController.holder.assessment.items[2]}"
-											itemValue="#{GridViewController.holder.assessment.items[2]}" />
-										<f:selectItem
-											itemLabel="#{GridViewController.holder.assessment.items[3]}"
-											itemValue="#{GridViewController.holder.assessment.items[3]}" />
-									</p:selectOneRadio>
-									<p:selectBooleanCheckbox
-										value="#{reflectiveAssessment.isLearningGoal}">
-										<p:ajax event="change" listener="#{GridViewController.handleChange}" />
-									</p:selectBooleanCheckbox>
+									<h:outputText class="suggestedCompetenceRowHeader}"
+										value="#{suggestedCompetenceRow.suggestedCompetenceRowHeader}"></h:outputText>
+									<ui:repeat var="suggestedCompetenceColumn"
+										value="#{suggestedCompetenceRow.suggestedCompetenceColumns}">
+										<span class="icon-arrow-right"></span>
+										<p:commandLink
+											action="#{GridViewController.update(suggestedCompetenceColumn)}"
+											update="@(.reflexionSelection)">
+											<div class="suggestedCompetenceCluster">
+												<h:outputText class="competenceGridEntry"
+													value="#{suggestedCompetenceColumn.testOutput}" />
+												<p:progressBar
+													value="#{suggestedCompetenceColumn.progressInPercent}"
+													labelTemplate="#{suggestedCompetenceColumn.progressInPercent}%"
+													displayOnly="true" style="width:80px"></p:progressBar>
+											</div>
+										</p:commandLink>
+									</ui:repeat>
 								</div>
 							</ui:repeat>
 						</div>
-					</p:panel>
+
+						<!-- Hier werden bei Button-Click dynamisch Assessment-Fragen angezeigt process="@(.reflexionSelection)" -->
+						<p:panel id="reflexionSelection" styleClass="reflexionSelection">
+							<div id="assessmentsForSelected">
+								<H3>#{GridViewController.holder.suggestedMetaCompetence}</H3>
+								<ui:repeat var="reflectiveAssessment"
+									value="#{GridViewController.holder.reflectiveAssessmentList}">
+									<div class="flexiflex">
+										<p:outputLabel for="assessmentRadio"
+											value="#{reflectiveAssessment.competenceDescription}"></p:outputLabel>
+										<p:selectOneRadio id="assessmentRadio"
+											value="#{reflectiveAssessment.assessment}">
+											<p:ajax event="change"
+												listener="#{GridViewController.handleChange}" />
+											<f:selectItem
+												itemLabel="#{GridViewController.holder.assessment.items[0]}"
+												itemValue="#{GridViewController.holder.assessment.items[0]}" />
+											<f:selectItem
+												itemLabel="#{GridViewController.holder.assessment.items[1]}"
+												itemValue="#{GridViewController.holder.assessment.items[1]}" />
+											<f:selectItem
+												itemLabel="#{GridViewController.holder.assessment.items[2]}"
+												itemValue="#{GridViewController.holder.assessment.items[2]}" />
+											<f:selectItem
+												itemLabel="#{GridViewController.holder.assessment.items[3]}"
+												itemValue="#{GridViewController.holder.assessment.items[3]}" />
+										</p:selectOneRadio>
+										<p:selectBooleanCheckbox
+											value="#{reflectiveAssessment.isLearningGoal}">
+											<p:ajax event="change"
+												listener="#{GridViewController.handleChange}" />
+										</p:selectBooleanCheckbox>
+									</div>
+								</ui:repeat>
+							</div>
+						</p:panel>
 				</h:form>
 			</p:tab>
 		</p:tabView>
