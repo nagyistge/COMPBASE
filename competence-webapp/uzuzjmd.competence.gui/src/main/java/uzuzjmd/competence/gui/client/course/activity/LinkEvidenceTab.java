@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -88,8 +89,9 @@ public class LinkEvidenceTab extends CompetenceTab {
 		activityPlaceholder.clear();
 		activityPanel = new ActivityTree(
 				RestUrlFactory.computeActivityRestURL(), "Aktivitäten",
-				"activityView", 655, 180, "Aktivitäten",
-				Controller.contextFactory);
+				"activityView",
+				RootPanel.get("rootContainer").getOffsetWidth() - 300, 350,
+				"Aktivitäten", Controller.contextFactory);
 		activityPlaceholder.add(activityPanel);
 	}
 
