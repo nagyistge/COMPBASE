@@ -16,8 +16,9 @@ object CompOntologyAccessScala {
   private def getPropertyString(subclass: com.hp.hpl.jena.ontology.OntClass, propertyName: String, ontologyManager: CompOntologyManager): Object = {
     val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + propertyName)
     val value = subclass.getPropertyValue(iProperty)
-    if (value == null) { return null }
-    else { return value.asNode().getLiteralValue() }
+    if (value == null) { return null } else if (value.toString().equals("http://www.w3.org/2002/07/owl#Thing")) {
+      return null
+    } else { return value.asNode().getLiteralValue() }
   }
 
   def convertMoodleIdToName(name: String): String = {
