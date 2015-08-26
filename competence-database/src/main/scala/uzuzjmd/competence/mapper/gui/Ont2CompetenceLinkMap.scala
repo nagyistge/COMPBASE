@@ -49,7 +49,7 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
   def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): List[CompetenceLinksView] = {
     val linkedEvidence = input.getAllActivities.map(x=>x.getFullDao())
     val linkedComments = input.comments.map(mapCommentToCommentEntry)
-    val competenceLinksView = linkedEvidence.map(x =>new CompetenceLinksView(input.identifier, x.url, x.printableName, linkedComments.asJava, input.isValidated))
+    val competenceLinksView = linkedEvidence.map(x =>new CompetenceLinksView(input.identifier, x.printableName, x.url, linkedComments.asJava, input.isValidated))
     return competenceLinksView
   }
 
