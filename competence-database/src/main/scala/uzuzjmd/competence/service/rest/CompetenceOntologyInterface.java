@@ -9,6 +9,7 @@ public class CompetenceOntologyInterface {
 		super();
 		PropUtil propUtil = new PropUtil();
 		propUtil.doStandard();
+
 	}
 
 	public void closeManagerInCriticalMode(CompOntologyManager compOntologyManager) {
