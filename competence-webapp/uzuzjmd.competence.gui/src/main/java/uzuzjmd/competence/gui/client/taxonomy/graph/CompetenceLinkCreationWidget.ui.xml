@@ -4,30 +4,19 @@
 	<ui:style>
 	
 	</ui:style>
-	<g:HTMLPanel height="100%" width="100%">
-		<g:VerticalPanel height="100%" width="100%">
+	<g:HTMLPanel height="100%" width="1800px" ui:field="htmlPanel" >
+		<g:VerticalPanel horizontalAlignment="ALIGN_CENTER"   >
 			<b:Alert heading="Voraussetzungen erstellen" type="INFO"
 				close="false">Wählen Sie oben die Kompetenzen aus, die für die Kompetenzen
 				unten als Voraussetzungen gelten sollen! Die Konsistenz der
 				Zuordnungen werden automatisch überprüft!</b:Alert>
-			<b:Container pullRight="true">
+			<b:Container width="1700px" ui:field="container">
 				<b:Row>
 					<g:SimplePanel ui:field="requiredKompetenzesPlaceholder" />
 				</b:Row>
 				<b:Row>
 					<g:SimplePanel ui:field="followingCompetences" />
-				</b:Row>
-				<!-- </b:Container> -->
-				<!-- <b:Container showOn="DESKTOP"> -->
-				<!-- <b:Row> -->
-				<!-- <g:SimplePanel ui:field="horizontalPanelContainer" -->
-				<!-- styleName="horizontalPanelContainer"> -->
-				<!-- <g:HorizontalPanel height="100%" width="100%"> -->
-				<!-- <g:SimplePanel ui:field="requiredKompetenzesPlaceholder2" /> -->
-				<!-- <g:SimplePanel ui:field="followingCompetences2" /> -->
-				<!-- </g:HorizontalPanel> -->
-				<!-- </g:SimplePanel> -->
-				<!-- </b:Row> -->
+				</b:Row>			
 			</b:Container>
 			<g:FocusPanel ui:field="warningPlaceholderPanel" />
 			<g:HorizontalPanel>
