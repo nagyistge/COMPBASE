@@ -11,6 +11,7 @@ import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.Container;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,7 +25,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -54,6 +57,12 @@ public class CompetenceLinkCreationWidget extends Composite {
 	private PopupPanel parent;
 	private GraphTab graphtab;
 
+	@UiField
+	HTMLPanel htmlPanel;
+
+	@UiField
+	Container container;
+
 	interface CompetenceLinkCreationWidgetUiBinder extends
 			UiBinder<Widget, CompetenceLinkCreationWidget> {
 	}
@@ -62,6 +71,13 @@ public class CompetenceLinkCreationWidget extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.graphtab = graphtab;
 		this.parent = parent;
+
+		int width = RootPanel.get("rootContainer").getOffsetWidth() - 100;
+		htmlPanel.setWidth(width + "px");
+
+		int width2 = RootPanel.get("rootContainer").getOffsetWidth() - 200;
+		container.setWidth(width2 + "px");
+
 		requiredCompetenceSelectionWidget = new CompetenceSelectionWidget(null,
 				"coursecontextnofilter/", "  Vorausgesetzte Kompetenzen", false);
 		requiredKompetenzesPlaceholder.add(requiredCompetenceSelectionWidget);
