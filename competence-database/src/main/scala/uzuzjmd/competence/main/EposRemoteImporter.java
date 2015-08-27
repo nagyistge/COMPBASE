@@ -9,8 +9,8 @@ import javax.xml.bind.JAXBException;
 
 import org.apache.commons.io.IOUtils;
 
-import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;

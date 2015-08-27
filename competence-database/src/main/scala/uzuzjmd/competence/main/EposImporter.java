@@ -10,13 +10,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import uzuzjmd.competence.csv.FilteredCSVCompetence;
-import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
 import uzuzjmd.competence.datasource.epos.mapper.EposXML2FilteredCSVCompetence;
 import uzuzjmd.competence.datasource.epos.mapper.EposXMLToSuggestedLearningPath;
 import uzuzjmd.competence.mapper.rcd.RCD2OWL;
 import uzuzjmd.competence.owl.access.CompFileUtil;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
 public class EposImporter {
 

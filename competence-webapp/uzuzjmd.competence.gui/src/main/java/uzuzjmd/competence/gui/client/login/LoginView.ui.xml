@@ -11,18 +11,22 @@
 
 		<g:VerticalPanel ui:field="errorHolder">
 			<g:HorizontalPanel>
-				<g:Label>Dein Nutzername (somone@uni-potsdam.de)</g:Label>
-				<b:TextBox ui:field="loginTextBox" />
-				<b:Button ui:field="button">einloggen</b:Button>
-				<b:Button ui:field="debug">debug</b:Button>				
+				<g:Label width="300px">Dein Nutzername (somone@uni-potsdam.de)</g:Label>
+				<b:TextBox ui:field="loginTextBox" />				
 			</g:HorizontalPanel>
+			<g:HorizontalPanel >
+				<g:Label width="300px">Passwort</g:Label>
+				<b:PasswordTextBox ui:field="passwordTextBox" />				
+			</g:HorizontalPanel>
+			<b:Button ui:field="button">einloggen</b:Button>
+			<b:Button ui:field="debug">debug</b:Button>
 			<b:Alert type="ERROR" animation="true" visible="false"
 				ui:field="numberError">Der Nutzername darf nicht mit einer Zahl anfangen</b:Alert>
 			<b:Alert type="ERROR" animation="true" visible="false"
 				ui:field="emptyError">Der Nutzername darf nicht leer sein</b:Alert>
 			<b:Alert type="ERROR" animation="true" visible="false"
-				ui:field="notExistError">Der Nutzername existiert nicht!</b:Alert>	
-				<b:Alert type="ERROR" animation="true" visible="false"
+				ui:field="notExistError">Der Nutzername existiert nicht!</b:Alert>
+			<b:Alert type="ERROR" animation="true" visible="false"
 				ui:field="otherError"></b:Alert>
 		</g:VerticalPanel>
 	</g:HTMLPanel>

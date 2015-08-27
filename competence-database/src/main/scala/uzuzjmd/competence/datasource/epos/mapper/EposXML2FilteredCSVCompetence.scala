@@ -1,6 +1,6 @@
 package uzuzjmd.competence.datasource.epos.mapper
 
-import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType
+
 import uzuzjmd.competence.csv.FilteredCSVCompetence
 import uzuzjmd.competence.csv.FilteredCSVCompetence
 import scala.collection.JavaConverters._
@@ -8,7 +8,8 @@ import uzuzjmd.competence.csv.FilteredCSVCompetence
 import scala.collection.mutable.Buffer
 import uzuzjmd.competence.mapper.rcd.CSV2RCD
 import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.datasource.epos.DESCRIPTORType
+import uzuzjmd.competence.shared.DESCRIPTORType
+import uzuzjmd.competence.shared.DESCRIPTORSETType
 
 object EposXML2FilteredCSVCompetence {
   def mapEposXML(eposCompetences: java.util.List[DESCRIPTORSETType]): java.util.List[FilteredCSVCompetence] = {

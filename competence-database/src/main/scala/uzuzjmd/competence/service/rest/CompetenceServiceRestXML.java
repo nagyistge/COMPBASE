@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.csv.CompetenceBean;
-import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
@@ -32,6 +31,7 @@ import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.client.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree;
+import uzuzjmd.competence.shared.DESCRIPTORSETType;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
