@@ -10,6 +10,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 object Ont2SuggestedCompetencyGridMapper {
 
+
   type ComPairList = Buffer[(Competence, Competence)]
 
   val log = LogManager.getLogger(Ont2SuggestedCompetencyGridMapper.getClass().getName());
@@ -17,6 +18,7 @@ object Ont2SuggestedCompetencyGridMapper {
   val logStream = new LogStream(log, Level.DEBUG);
 
   def convertListToSuggestedCompetenceTriples(input: Buffer[Competence]): ComPairList = {
+
     val pairs = input.combinations(2)
     val pairsTMP = pairs.map(x => (x.head, x.last))
     val filteredResult = pairsTMP.map(reorderPairs).filter(Ont2SuggestedCompetencyGridFilter.filterisSuggestedCompetency).toBuffer
