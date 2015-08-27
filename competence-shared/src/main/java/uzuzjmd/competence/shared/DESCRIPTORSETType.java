@@ -5,7 +5,7 @@
 // Generated on: 2015.02.25 at 02:03:45 PM CET 
 //
 
-package uzuzjmd.competence.datasource.epos;
+package uzuzjmd.competence.shared;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -715,12 +715,6 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 			Operator operatorDAO = new Operator(compOntologyManager, operator, operator);
 			operatorDAO.persist(true);
 			operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
-			// new Catchword(compOntologyManager, )
-
-			// addedCompetence.createEdgeWith(, edgeType);
-			// CompetenceInstance competenceRoot = new
-			// CompetenceInstance(compOntologyManager);
-			// addedCompetence.addSuperClass(competenceRoot);
 			for (Competence subCompetence : subCompetencesTyped) {
 				subCompetence.addSuperCompetence(addedCompetence);
 			}

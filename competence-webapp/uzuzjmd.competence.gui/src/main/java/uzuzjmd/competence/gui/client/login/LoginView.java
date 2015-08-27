@@ -29,6 +29,9 @@ public class LoginView extends Composite {
 			.create(LoginViewUiBinder.class);
 	@UiField
 	TextBox loginTextBox;
+
+	@UiField
+	TextBox passwordTextBox;
 	@UiField
 	Button button;
 
@@ -71,7 +74,8 @@ public class LoginView extends Composite {
 			if (loginTextBox.getValue().trim().equals("")) {
 				emptyError.setVisible(true);
 			} else {
-				checkUserExists(loginTextBox.getValue());
+				checkUserExists(loginTextBox.getValue(),
+						passwordTextBox.getValue());
 			}
 		}
 	}
@@ -85,15 +89,17 @@ public class LoginView extends Composite {
 		setUsername(loginTextBox.getValue());
 		Controller.contextFactory.setIsValidUserLoggedIn(true);
 		Controller.contextFactory.setUser(loginTextBox.getValue());
+		Controller.contextFactory.setPassword(passwordTextBox.getValue());
 		((StandaloneContextFactory) Controller.contextFactory).updateCourses();
 		parent.hide();
 	}
 
-	private void checkUserExists(String userEmail) {
+	private void checkUserExists(String userEmail, String password) {
 		String moodleEvidenceUrl = Controller.contextFactory
 				.getEvidenceServerURL() + "/lms/user/exists";
 		Resource resource = new Resource(moodleEvidenceUrl);
 		resource.addQueryParam("user", userEmail)
+				.addQueryParam("password", password)
 				.addQueryParam("lmsSystem",
 						Controller.contextFactory.getLMSsystem()).get()
 				.send(new JsonCallback() {

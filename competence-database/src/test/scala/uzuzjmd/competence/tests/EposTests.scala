@@ -29,7 +29,6 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.owl.dao.CourseContext
 import javax.xml.bind.JAXBContext
-import uzuzjmd.competence.datasource.epos.DESCRIPTORSETType
 import java.util.ArrayList
 import java.io.File
 import uzuzjmd.competence.owl.access.MagicStrings
