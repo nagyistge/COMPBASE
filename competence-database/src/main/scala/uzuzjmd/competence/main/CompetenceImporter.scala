@@ -18,6 +18,7 @@ import uzuzjmd.competence.owl.access.MagicStrings
 
 object CompetenceImporter {
 
+
   def main(args: Array[String]) {
 
     if (args.size != 3) {

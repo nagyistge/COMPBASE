@@ -100,5 +100,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   def getCatchwordsAsJava(): java.util.List[Catchword] = {
     return getCatchwords.asJava
   }
+  
+  def addCatchword(dao: Catchword) {
+     dao.persist(true)
+     dao.createEdgeWith(CompObjectProperties.CatchwordOf, this)
+  }
 
 }
