@@ -1,32 +1,17 @@
 package uzuzjmd.competence.service.rest;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+import java.io.IOException;
 
-import com.sun.jersey.spi.container.ContainerRequest;
-import com.sun.jersey.spi.container.ContainerResponse;
-import com.sun.jersey.spi.container.ContainerResponseFilter;
- 
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerResponseContext;
+import javax.ws.rs.container.ContainerResponseFilter;
+
 public class ResponseCorsFilter implements ContainerResponseFilter {
- 
-    @Override
-    public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {    	
-        ResponseBuilder resp = Response.fromResponse(contResp.getResponse());
-//        if (req.getMethod().equals(Method.OPTIONS)) {
-//        	resp = Response.fromResponse(Response.ok().build());                	
-//    	}
-        
-        resp.header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST");
- 
-        String reqHead = req.getHeaderValue("Access-Control-Request-Headers");
- 
-        if(null != reqHead && !reqHead.equals("")){
-            resp.header("Access-Control-Allow-Headers", reqHead);
-        }
- 
-        contResp.setResponse(resp.build());
-            return contResp;
-    }
- 
+
+	@Override
+	public void filter(ContainerRequestContext arg0, ContainerResponseContext arg1) throws IOException {
+		// TODO Auto-generated method stub
+		// TODO implement new reesponse core filter
+	}
+
 }

@@ -1,14 +1,13 @@
 package uzuzjmd.competence.evidence.service.moodle;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 /**
  * DTOs für den Moodle REST-Service
@@ -27,17 +26,15 @@ public class SimpleMoodleService {
 	}
 
 	private Token initToken(String username, String userpassword, String serviceShortName) {
-		Client client = Client.create();
 		String connectionPath = MagicStrings.MOODLEURL + "/login/token.php?username=" + username + "&password=" + userpassword + "&service=" + serviceShortName;
-		WebResource webResource = client.resource(connectionPath);
-		ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-		if (response.getStatus() != 200) {
-			this.errorCode = "Failed : HTTP error code : " + response.getStatus();
-			throw new RuntimeException(errorCode);
-		}
+		return sendRequest(connectionPath, Token.class);
+	}
 
-		return response.getEntity(Token.class);
-
+	private <T> T sendRequest(String url, Class<T> responseTyp) {
+		Client client = ClientBuilder.newClient();
+		WebTarget webResource = client.target(url);
+		T response = webResource.request(MediaType.APPLICATION_JSON).get(responseTyp);
+		return response;
 	}
 
 	public String getErrorCode() {
@@ -45,31 +42,18 @@ public class SimpleMoodleService {
 	}
 
 	public MoodleContentResponseList getMoodleContents(String courseId) {
-		Client client = Client.create();
+
 		String moodleRestBase = getMoodleRestBase();
-		WebResource webResource = null;
-		try {
-			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "core_course_get_contents&courseid=" + courseId;
-			webResource = client.resource(requestString);
-		} catch (Exception e) {
-			System.err.println("Probably the moodle web services not configured properly");
-			e.printStackTrace();
-		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(MoodleContentResponseList.class);
+
+		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "core_course_get_contents&courseid=" + courseId;
+
+		return sendRequest(requestString, MoodleContentResponseList.class);
 	}
 
 	public UserCourseListResponse getMoodleCourseList(String userEmail) {
-		Client client = Client.create();
 		String moodleRestBase = getMoodleCompetenceRestBase();
-		WebResource webResource = null;
-		try {
-			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_courses_for_user&user=" + userEmail;
-			webResource = client.resource(requestString);
-		} catch (Exception e) {
-			System.err.println("Probably the moodle web services not configured properly");
-			e.printStackTrace();
-		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(UserCourseListResponse.class);
+		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_courses_for_user&user=" + userEmail;
+		return sendRequest(requestString, UserCourseListResponse.class);
 	}
 
 	private String getMoodleRestBase() {
@@ -83,17 +67,9 @@ public class SimpleMoodleService {
 	}
 
 	public boolean isUserExist(String userEmail) {
-		Client client = Client.create();
 		String moodleRestBase = getMoodleCompetenceRestBase();
-		WebResource webResource = null;
-		try {
-			String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_user_exists&user=" + userEmail;
-			webResource = client.resource(requestString);
-		} catch (Exception e) {
-			System.err.println("Probably the moodle web services not configured properly");
-			e.printStackTrace();
-		}
-		return webResource.accept(MediaType.APPLICATION_JSON).get(Boolean.class);
+		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_user_exists&user=" + userEmail;
+		return sendRequest(requestString, Boolean.class);
 	}
 
 	public MoodleEvidenceList getMoodleEvidenceList(String courseId) {
@@ -101,29 +77,9 @@ public class SimpleMoodleService {
 			throw new WebApplicationException(new Exception("courseId is null or undefined when getting Moodle evidences"));
 		}
 
-		Client client = Client.create();
 		String moodleRestBase = getMoodleCompetenceRestBase();
-		WebResource webResource = null;
-		String requestString = null;
-		try {
-			requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
-			// System.out.println("fetching evidenceList from " +
-			// requestString);
-			webResource = client.resource(requestString);
-		} catch (Exception e) {
-			System.err.println("Probably the moodle web services not configured properly");
-			e.printStackTrace();
-		}
-
-		MoodleEvidenceList result = null;
-		try {
-			result = webResource.accept(MediaType.APPLICATION_JSON).get(MoodleEvidenceList.class);
-		} catch (Exception e) {
-			System.out.println("Problem with Moodle Evidence List for Request String \n: " + requestString);
-			result = new MoodleEvidenceList();
-		}
-
-		return result;
+		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_evidences_for_course&courseId=" + courseId;
+		return sendRequest(requestString, MoodleEvidenceList.class);
 	}
 
 }
