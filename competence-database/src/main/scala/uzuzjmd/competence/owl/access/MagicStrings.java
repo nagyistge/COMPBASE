@@ -6,7 +6,7 @@ public class MagicStrings {
 	public static final String PREFIX = "http://comp#"; // better don't change,
 														// might be hardcoded
 														// somewhere
-	public static String TDBLocationPath = "C:/dev/scalaworkspace/Wissensmodellierung/tdb2";
+	public static String TDBLocationPath = "C:/Users/dehne/Desktop/tdb2";
 	// public static final String ONTOLOGYFORMAT = "TURTLE";
 	public static final String ONTOLOGYFORMAT = "RDF/XML";
 	// public static final String ONTOLOGYFORMAT = "RDF/XML-ABBREV";
