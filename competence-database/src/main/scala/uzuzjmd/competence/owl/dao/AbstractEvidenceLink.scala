@@ -5,9 +5,10 @@ import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess
-import com.google.gwt.thirdparty.guava.common.collect.Collections2.PermutationCollection
+//import com.google.gwt.thirdparty.guava.common.collect.Collections2.PermutationCollection
 
 case class AbstractEvidenceLink(
+
 
 
   val comp: CompOntologyManager,  

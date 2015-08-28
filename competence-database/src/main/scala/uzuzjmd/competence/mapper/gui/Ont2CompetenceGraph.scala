@@ -4,7 +4,8 @@ import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.service.rest.client.dto.Graph
+import uzuzjmd.competence.shared.dto.Graph
+
 
 class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.util.List[String], course: String) {
   def getCompetenceGraph(): Graph = {

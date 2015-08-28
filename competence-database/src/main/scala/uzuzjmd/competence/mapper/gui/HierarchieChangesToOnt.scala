@@ -4,8 +4,9 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet
-import uzuzjmd.competence.service.rest.client.dto.HierarchieChange
+import uzuzjmd.competence.shared.dto.HierarchieChangeSet
+import uzuzjmd.competence.shared.dto.HierarchieChange
+
 
 object HierarchieChangesToOnt {
   def convertChanges(comp: CompOntologyManager, changes: HierarchieChangeSet) {

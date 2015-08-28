@@ -7,7 +7,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
 /**
  * DTOs für den Moodle REST-Service

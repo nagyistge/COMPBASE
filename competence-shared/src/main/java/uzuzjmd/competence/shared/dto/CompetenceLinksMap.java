@@ -1,4 +1,4 @@
-package uzuzjmd.competence.service.rest.client.dto;
+package uzuzjmd.competence.shared.dto;
 
 import java.util.Map;
 import java.util.TreeMap;

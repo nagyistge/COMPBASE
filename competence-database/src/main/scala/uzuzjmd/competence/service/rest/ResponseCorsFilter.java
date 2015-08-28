@@ -12,6 +12,7 @@ public class ResponseCorsFilter implements ContainerResponseFilter {
 	public void filter(ContainerRequestContext arg0, ContainerResponseContext arg1) throws IOException {
 		// TODO Auto-generated method stub
 		// TODO implement new reesponse core filter
+
 	}
 
 }

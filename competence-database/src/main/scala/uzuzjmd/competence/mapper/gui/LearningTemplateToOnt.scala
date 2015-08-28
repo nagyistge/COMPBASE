@@ -1,12 +1,13 @@
 package uzuzjmd.competence.mapper.gui
 
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.service.rest.client.dto._
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.Catchword
 import javax.ws.rs.WebApplicationException
+import uzuzjmd.competence.shared.dto.GraphTriple
+import uzuzjmd.competence.shared.dto.Graph
 
 /**
  * @author dehne
