@@ -17,11 +17,11 @@ import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.mapper.gui.mapper.TextValidator
-import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree
-import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree
-import uzuzjmd.competence.service.rest.client.dto.CatchwordXMLTree
-import uzuzjmd.competence.service.rest.client.dto.AbstractXMLTree
 import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
+import uzuzjmd.competence.service.rest.database.dto.AbstractXMLTree
+import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree
+import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist

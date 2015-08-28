@@ -16,9 +16,9 @@ import uzuzjmd.competence.owl.access.OntResult;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
-import uzuzjmd.competence.service.rest.client.dto.CatchwordXMLTree;
-import uzuzjmd.competence.service.rest.client.dto.CompetenceXMLTree;
-import uzuzjmd.competence.service.rest.client.dto.OperatorXMLTree;
+import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
+import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
+import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;

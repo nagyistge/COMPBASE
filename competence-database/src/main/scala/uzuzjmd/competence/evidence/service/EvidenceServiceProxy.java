@@ -8,8 +8,8 @@ import javax.ws.rs.core.Response;
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.owl.access.PropUtil;
-import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
-import uzuzjmd.competence.service.rest.client.dto.UserTree;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.dto.UserTree;
 
 public class EvidenceServiceProxy implements EvidenceService {
 
@@ -26,8 +26,11 @@ public class EvidenceServiceProxy implements EvidenceService {
 			String adminUserName = prop.getProperty("adminUserName");
 			String adminPassword = prop.getProperty("adminPassword");
 			String liferayURL = prop.getProperty("liferayURL");
-			LiferayEvidenceRestServiceImpl evidenceRestServiceImpl = new LiferayEvidenceRestServiceImpl(adminUserName, adminPassword, liferayURL);
-			evidenceProviderMap.evidenceMap.put(LMSSystems.liferay.toString(), evidenceRestServiceImpl);
+			// LiferayEvidenceRestServiceImpl evidenceRestServiceImpl = new
+			// LiferayEvidenceRestServiceImpl(adminUserName, adminPassword,
+			// liferayURL);
+			// evidenceProviderMap.evidenceMap.put(LMSSystems.liferay.toString(),
+			// evidenceRestServiceImpl);
 		}
 
 		if (prop.get("moodleEnabled").equals("true")) {

@@ -45,13 +45,13 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.EvidenceActivity
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.service.rest.client.dto.Graph
-import uzuzjmd.competence.service.rest.client.dto.GraphNode
-import uzuzjmd.competence.service.rest.client.dto.GraphTriple
 import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import java.util.HashMap
+import uzuzjmd.competence.shared.dto.GraphTriple
+import uzuzjmd.competence.shared.dto.Graph
+import uzuzjmd.competence.shared.dto.GraphNode
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests2 extends FunSuite with ShouldMatchers {

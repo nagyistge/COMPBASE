@@ -2,10 +2,10 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -38,11 +38,11 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap;
-import uzuzjmd.competence.service.rest.client.dto.Graph;
-import uzuzjmd.competence.service.rest.client.dto.GraphTriple;
-import uzuzjmd.competence.service.rest.client.dto.HierarchieChangeSet;
-import uzuzjmd.competence.service.rest.client.dto.ProgressMap;
+import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
+import uzuzjmd.competence.shared.dto.Graph;
+import uzuzjmd.competence.shared.dto.GraphTriple;
+import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
+import uzuzjmd.competence.shared.dto.ProgressMap;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -765,11 +765,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/learningtemplate/add")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addLearningTemplate(@QueryParam("graph") Graph graph, @QueryParam("catchwordMap") HashMap<GraphTriple, List<String>> catchwordMap,
-			@QueryParam("learningTemplateName") String learningTemplateName) {
+	public Response addLearningTemplate(@BeanParam Graph graph, @BeanParam MapWrapper<GraphTriple, List<String>> catchwordMap, @QueryParam("learningTemplateName") String learningTemplateName) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
-		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap, learningTemplateName);
+		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap.getMap(), learningTemplateName);
 
 		compOntologyManager.close();
 
