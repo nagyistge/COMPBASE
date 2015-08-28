@@ -1,22 +1,18 @@
 package uzuzjmd.competence.mapper.gui
 
+import java.util.SortedSet
+import java.util.TreeSet
+import scala.collection.JavaConverters.mapAsJavaMapConverter
+import scala.collection.JavaConverters.seqAsJavaListConverter
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.owl.dao.DaoFactory
-import uzuzjmd.java.collections.MapsMagic
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.Comment
-import scala.collection.JavaConverters._
-import scala.collection.breakOut
-import java.util.HashMap
-import java.util.TreeMap
-import java.util.SortedSet
-import scala.reflect.internal.util.Collections
-import java.util.TreeSet
-import uzuzjmd.competence.service.rest.client.dto.CommentEntry
-import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksViewComparator
-import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksMap
-import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView
+import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.shared.dto.CommentEntry
+import uzuzjmd.competence.shared.dto.CompetenceLinksMap
+import uzuzjmd.competence.shared.dto.CompetenceLinksView
+import uzuzjmd.java.collections.MapsMagic
+import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
 
 class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
 

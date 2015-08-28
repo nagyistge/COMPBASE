@@ -8,27 +8,7 @@
 	<name>competence-servlet Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-shared</artifactId>
-			<version>1.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>competence-database</artifactId>
@@ -39,14 +19,6 @@
 					<artifactId>jetty</artifactId>
 				</exclusion>
 
-				<exclusion>
-					<groupId>org.specs2</groupId>
-					<artifactId>specs2_${scala.tools.version}</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.scalatest</groupId>
-					<artifactId>scalatest_${scala.tools.version}</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>wsdl4j</groupId>
 					<artifactId>wsdl4j</artifactId>
@@ -111,82 +83,71 @@
 					<groupId>net.htmlparser.jericho</groupId>
 					<artifactId>jericho-html</artifactId>
 				</exclusion>
+
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish.jersey.core</groupId>
+					<artifactId>jersey-server</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.glassfish.jersey.core</groupId>
+					<artifactId>jersey-common</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.glassfish.jersey.containers</groupId>
+					<artifactId>jersey-container-servlet</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.glassfish.jersey.containers</groupId>
+					<artifactId>jersey-container-grizzly2-servlet</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.glassfish.jersey.core</groupId>
+					<artifactId>jersey-client</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</exclusion>
+
 			</exclusions>
 		</dependency>
+
+
+
 		<dependency>
-			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>gui</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<classifier>classes</classifier>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.5.1</version>
 			<exclusions>
 				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
 				</exclusion>
-
 				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-servlet</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-codeserver</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>com.gwtext</groupId>
-					<artifactId>gwtext</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>com.github.gwtbootstrap</groupId>
-					<artifactId>gwt-bootstrap</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>org.fusesource.restygwt</groupId>
-					<artifactId>restygwt</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>com.googlecode.gwtquery</groupId>
-					<artifactId>gwtquery</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
 				</exclusion>
 			</exclusions>
+
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
+			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
-			<version>1.18.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>javax.servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-servlet</artifactId>
-			<version>1.18.1</version>
+			<version>2.5.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>servlet-api</artifactId>
@@ -200,25 +161,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>3.3.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>javax.servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>jsr250-api</artifactId>
-			<version>1.0</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-common</artifactId>
+			<version>2.5.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>servlet-api</artifactId>

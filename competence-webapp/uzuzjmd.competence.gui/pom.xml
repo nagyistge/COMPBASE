@@ -47,6 +47,8 @@
 	</properties>
 
 	<dependencies>
+	
+<!-- 	   GWT  -->
 
 		<dependency>
 			<groupId>com.google.gwt</groupId>

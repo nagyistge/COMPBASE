@@ -3,14 +3,14 @@ package uzuzjmd.competence.main;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.csv.CompetenceBean;
 import uzuzjmd.competence.owl.access.MagicStrings;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 public class CompetenceRemoteImporter {
 
@@ -28,23 +28,13 @@ public class CompetenceRemoteImporter {
 
 		List<CompetenceBean> competenceBeans = CompetenceImporter.parseCompetenceBeans();
 
-		Client client = Client.create();
+		Client client = ClientBuilder.newClient();
 		// client.setConnectTimeout(300);
 		// client.setReadTimeout(300);
 
-		WebResource webResource = client.resource(MagicStrings.RESTURLCompetence + "/competences/xml/addCompetenceBean");
-
-		System.out.println(webResource.getURI());
-
-		ClientResponse response = webResource.accept(MediaType.APPLICATION_XML).post(ClientResponse.class, competenceBeans.toArray(new CompetenceBean[0]));
-
-		if (response.getStatus() != 200) {
-			System.out.println(response.toString());
-			throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
-		}
-
-		client.destroy();
+		WebTarget webResource = client.target(MagicStrings.RESTURLCompetence + "/competences/xml/addCompetenceBean");
+		System.out.println(webResource.getUri());
+		webResource.request(MediaType.APPLICATION_XML).post(Entity.entity(competenceBeans.toArray(new CompetenceBean[0]), MediaType.APPLICATION_XML));
 
 	}
-
 }

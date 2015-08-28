@@ -15,8 +15,8 @@ import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
-import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
-import uzuzjmd.competence.service.rest.client.dto.UserTree;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.dto.UserTree;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

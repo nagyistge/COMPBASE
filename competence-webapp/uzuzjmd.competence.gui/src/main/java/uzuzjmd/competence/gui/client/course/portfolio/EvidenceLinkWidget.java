@@ -1,7 +1,5 @@
 package uzuzjmd.competence.gui.client.course.portfolio;
 
-import java.util.List;
-
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView;
 
@@ -31,7 +29,7 @@ public class EvidenceLinkWidget extends Composite {
 			UiBinder<Widget, EvidenceLinkWidget> {
 	}
 
-	public EvidenceLinkWidget(List<CompetenceLinksView> links,
+	public EvidenceLinkWidget(CompetenceLinksView[] links,
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initCompetenceLinksView(links, stackPanelReloader, userName);
@@ -43,7 +41,7 @@ public class EvidenceLinkWidget extends Composite {
 		}
 	}
 
-	private void initCompetenceLinksView(List<CompetenceLinksView> links,
+	private void initCompetenceLinksView(CompetenceLinksView[] links,
 			StackPanelReloader stackPanelReloader, String username) {
 		for (CompetenceLinksView competenceLinksView : links) {
 			this.verticalPanel.add(new EvidenceLinkEntry(competenceLinksView

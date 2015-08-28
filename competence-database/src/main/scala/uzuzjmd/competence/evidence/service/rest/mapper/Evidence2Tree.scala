@@ -7,9 +7,10 @@ import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence
 import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.service.rest.client.dto.UserTree
-import uzuzjmd.competence.service.rest.client.dto.ActivityEntry
-import uzuzjmd.competence.service.rest.client.dto.ActivityTyp
+import uzuzjmd.competence.shared.dto.UserTree
+import uzuzjmd.competence.shared.dto.ActivityEntry
+import uzuzjmd.competence.shared.dto.ActivityTyp
+
 
 /**
  * Diese Klasse mappt die Evidenzen aus der Moodle-Datenbank und von dem Moodle-RestService so, dass

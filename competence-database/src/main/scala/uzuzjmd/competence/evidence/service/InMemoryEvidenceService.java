@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.service.rest.client.dto.UserCourseListResponse;
-import uzuzjmd.competence.service.rest.client.dto.UserTree;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.dto.UserTree;
 
 public class InMemoryEvidenceService extends AbstractEvidenceService {
 

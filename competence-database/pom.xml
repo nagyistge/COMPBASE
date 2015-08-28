@@ -15,8 +15,6 @@
 		<!-- </license> -->
 	</licenses>
 
-
-
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -24,6 +22,7 @@
 		<scala.tools.version>2.10</scala.tools.version>
 		<scala.version>2.10.3</scala.version>
 		<org.springframework.version>3.2.4.RELEASE</org.springframework.version>
+		<liferay.version>6.2.1</liferay.version>
 	</properties>
 
 	<repositories>
@@ -72,11 +71,45 @@
 	</pluginRepositories>
 
 	<dependencies>
+
+		<!-- Eigene Dependencies -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>uzuzjmd.competence</groupId> -->
+		<!-- <artifactId>gui</artifactId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- <classifier>classes</classifier> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>*</groupId> -->
+		<!-- <artifactId>*</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>competence-shared</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+
+		<!-- Liferay -->
+
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>portal-service</artifactId>
+			<version>${liferay.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>util-java</artifactId>
+			<version>${liferay.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Computerlinguistic -->
 
 		<!-- <dependency> -->
 		<!-- <groupId>com.googlecode.mate-tools</groupId> -->
@@ -96,16 +129,12 @@
 			<version>1.3.0.581.1</version>
 		</dependency>
 
+		<!-- Scala -->
+
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-reflect</artifactId>
 			<version>2.10.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
-			<version>6.1.26</version>
 		</dependency>
 
 		<dependency>
@@ -120,89 +149,18 @@
 			<version>2.0.M6-SNAP8</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>wsdl4j</groupId>
-			<artifactId>wsdl4j</artifactId>
-			<version>1.6.2</version>
-		</dependency>
 
 		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr-runtime</artifactId>
-			<version>3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.collections</groupId>
-			<artifactId>collections-generic</artifactId>
-			<version>4.01</version>
-		</dependency>
-		<dependency>
-			<groupId>colt</groupId>
-			<artifactId>colt</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.10.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>concurrent</groupId>
-			<artifactId>concurrent</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ibm.icu</groupId>
-			<artifactId>icu4j</artifactId>
-			<version>3.4.4</version>
-		</dependency>
+		<!-- Webservices SOAP -->
 
-		<dependency>
-			<groupId>java3d</groupId>
-			<artifactId>j3d-core</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis</groupId>
-			<artifactId>axis-jaxrpc</artifactId>
-			<version>1.4</version>
-		</dependency>
+
+		<!-- Ontologien -->
+
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
@@ -215,78 +173,34 @@
 			<artifactId>jena-fuseki</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+
+
+		<!-- HTML-Clean -->
+
+
 		<dependency>
 			<groupId>net.htmlparser.jericho</groupId>
 			<artifactId>jericho-html</artifactId>
 			<version>3.1</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.jgrapht</groupId> -->
-		<!-- <artifactId>jgrapht-jdk1.5</artifactId> -->
-		<!-- <version>0.7.3</version> -->
-		<!-- </dependency> -->
-		<dependency>
-			<groupId>com.github.ansell.jjtraveler</groupId>
-			<artifactId>jjtraveler</artifactId>
-			<version>0.6</version>
-		</dependency>
+
+
+		<!-- JUNIT -->
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 		</dependency>
+
+		<!-- LOGGIN -->
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.jaxrs</groupId>
-			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.2.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-grizzly2</artifactId>
-			<version>1.8</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>2.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>msv</groupId>
-			<artifactId>relaxngDatatype</artifactId>
-			<version>20030225</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis</groupId>
-			<artifactId>axis-saaj</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.10.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>12.0</version>
-		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -297,31 +211,88 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.4</version>
 		</dependency>
+
+
+		<!-- REST-Service -->
+
+
 		<dependency>
-			<groupId>stax</groupId>
-			<artifactId>stax-api</artifactId>
-			<version>1.0.1</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.codehaus.woodstox</groupId>
-			<artifactId>wstx-asl</artifactId>
-			<version>3.2.9</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-common</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.10.0</version>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>1.4.01</version>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-servlet</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>msv</groupId>
-			<artifactId>xsdlib</artifactId>
-			<version>20030225</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.media</groupId> -->
+		<!-- <artifactId>jersey-media-moxy</artifactId> -->
+		<!-- <version>2.21</version> -->
+		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+
+		<!-- Excel import -->
+
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+
+		<!-- Utilities -->
+
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>12.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+
+
+		<!-- Databases -->
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -329,34 +300,6 @@
 			<version>5.1.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>1.17</version>
-		</dependency>
-
-		<dependency>
-			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>gui</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<classifier>classes</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		
-
-
-
-		<!-- <dependency> -->
-		<!-- <groupId>uzuzjmd.competence</groupId> -->
-		<!-- <artifactId>reflexion</artifactId> -->
-		<!-- <version>1.0.0-SNAPSHOT</version> -->
-		<!-- <classifier>classes</classifier> -->
-		<!-- </dependency> -->
 	</dependencies>
 
 	<build>
@@ -391,6 +334,27 @@
 				</executions>
 			</plugin>
 
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-enforcer-plugin</artifactId> -->
+			<!-- <version>1.0.1</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>enforce</id> -->
+			<!-- <configuration> -->
+			<!-- <rules> -->
+			<!-- <DependencyConvergence /> -->
+			<!-- </rules> -->
+			<!-- </configuration> -->
+			<!-- <goals> -->
+			<!-- <goal>enforce</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+
+			<!-- compile Scala and Java -->
+
 			<plugin>
 				<!-- see http://davidb.github.com/scala-maven-plugin -->
 				<groupId>net.alchim31.maven</groupId>
@@ -413,6 +377,8 @@
 				</executions>
 			</plugin>
 
+			<!-- Create Docs -->
+
 			<plugin>
 				<groupId>com.qmino</groupId>
 				<artifactId>miredot-plugin</artifactId>
@@ -432,9 +398,6 @@
 				</configuration>
 			</plugin>
 
-
-
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -444,6 +407,7 @@
 				</configuration>
 			</plugin>
 
+			<!-- Create Executable Jars -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -477,32 +441,6 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>uzuzjmd.competence.main.RestServer</mainClass>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.handlers</resource>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.schemas</resource>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-					<execution>
-						<id>evidence-server</id>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<outputFile>target/EvidenceServer.jar</outputFile>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>uzuzjmd.competence.main.EvidenceServer</mainClass>
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
