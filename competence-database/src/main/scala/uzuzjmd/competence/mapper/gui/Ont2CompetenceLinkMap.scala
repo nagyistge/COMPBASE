@@ -13,6 +13,7 @@ import uzuzjmd.competence.shared.dto.CompetenceLinksMap
 import uzuzjmd.competence.shared.dto.CompetenceLinksView
 import uzuzjmd.java.collections.MapsMagic
 import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
+import scala.collection.JavaConverters._
 
 class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
 
@@ -37,7 +38,10 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
 //    if (resultScala != null && !resultScala.isEmpty) {
 //      map.putAll(resultScala.asJava)
 //    }
-    val result = new CompetenceLinksMap(resultScala.asJava);    
+    
+    val arrayDummy = new Array(0) : Array[CompetenceLinksView]
+    val resultAsArray = resultScala.mapValues { x => x.toArray(arrayDummy) }
+    val result = new CompetenceLinksMap(resultAsArray.asJava);    
     result.getMapUserCompetenceLinks.isEmpty()
     return result
   }

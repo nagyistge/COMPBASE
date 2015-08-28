@@ -96,11 +96,10 @@ class CoreTests2 extends FunSuite with ShouldMatchers {
     
     println("Kompetenz linked is: "+ competenceString)
     // both evidences should be returned
-    (map.getMapUserCompetenceLinks.get(competenceString).size() >= 2) should not be false
+    (map.getMapUserCompetenceLinks.get(competenceString).length >= 2) should not be false
     
-    val results = map.getMapUserCompetenceLinks.get(competence.getDefinition())
-    println(results.size() + " evidences linked")
-    results.asScala.foreach(x=>println(x.getEvidenceUrl + x.getEvidenceTitel))
+    val results = map.getMapUserCompetenceLinks.get(competence.getDefinition())    
+    results.foreach(x=>println(x.getEvidenceUrl + x.getEvidenceTitel))
 
     compOntManag2.close()
     

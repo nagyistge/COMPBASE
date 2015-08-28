@@ -27,6 +27,7 @@ public class EposRemoteImporter {
 		}
 
 		List<DESCRIPTORSETType> eposCompetences = EposImporter.parseEPOSXML();
+		// List<DESCRIPTORSETType> eposCompetences = null;
 		Client client = ClientBuilder.newClient();
 		// client.setConnectTimeout(300);
 		// client.setReadTimeout(300);
