@@ -2,10 +2,10 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -765,11 +765,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/learningtemplate/add")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addLearningTemplate(@QueryParam("graph") Graph graph, @QueryParam("catchwordMap") HashMap<GraphTriple, List<String>> catchwordMap,
-			@QueryParam("learningTemplateName") String learningTemplateName) {
+	public Response addLearningTemplate(@BeanParam Graph graph, @BeanParam MapWrapper<GraphTriple, List<String>> catchwordMap, @QueryParam("learningTemplateName") String learningTemplateName) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 
-		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap, learningTemplateName);
+		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap.getMap(), learningTemplateName);
 
 		compOntologyManager.close();
 
