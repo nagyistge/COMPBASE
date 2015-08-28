@@ -1,7 +1,5 @@
 package uzuzjmd.competence.gui.client.course.portfolio;
 
-import java.util.List;
-
 import org.fusesource.restygwt.client.JsonCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.Resource;
@@ -65,10 +63,9 @@ class StackPanelReloader {
 			GWT.log(competenceLinksMap.getMapUserCompetenceLinks().size() + "");
 			for (String competenceName : competenceLinksMap
 					.getMapUserCompetenceLinks().keySet()) {
-				List<CompetenceLinksView> links = competenceLinksMap
+				CompetenceLinksView[] links = competenceLinksMap
 						.getMapUserCompetenceLinks().get(competenceName);
 
-				GWT.log(links.size() + "");
 				Panel panel = new SimplePanel();
 				// panel.setStylePrimaryName("accordion-group");
 				EvidenceLinkWidget evidenceWidget = new EvidenceLinkWidget(
