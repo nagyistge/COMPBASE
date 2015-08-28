@@ -16,32 +16,32 @@ import uzuzjmd.competence.main.EposImporter
 @RunWith(classOf[JUnitRunner])
 class MapperTest extends FunSuite with ShouldMatchers {
 
-//  test("The CSV import should run without errors") {
-//
-//    // change this, if you want to really reset the database
-//    CompFileUtil.deleteTDB()
-//
-//    val compOntManag = new CompOntologyManager()
-//
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    CompetenceImporter.convertCSVArray();
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    EposImporter.importEpos();
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    compOntManag.begin()
-//    val fileUtil = new CompFileUtil(compOntManag.getM())
-//    fileUtil.writeOntologyout()
-//    compOntManag.close()
-//  }
+  test("The CSV import should run without errors") {
+
+    // change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+
+    val compOntManag = new CompOntologyManager()
+
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    CompetenceImporter.convertCSVArray();
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    EposImporter.importEpos();
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    compOntManag.begin()
+    val fileUtil = new CompFileUtil(compOntManag.getM())
+    fileUtil.writeOntologyout()
+    compOntManag.close()
+  }
 
 
 }
