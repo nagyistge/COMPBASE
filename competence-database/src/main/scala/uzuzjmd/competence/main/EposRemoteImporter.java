@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBException;
 
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
+import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 
 public class EposRemoteImporter {
 
@@ -33,6 +34,8 @@ public class EposRemoteImporter {
 		// client.setReadTimeout(300);
 		WebTarget webResource = client.target(MagicStrings.RESTURLCompetence + "/competences/xml/learningtemplates/addEpos");
 		System.out.println(webResource.getUri());
-		webResource.request(MediaType.APPLICATION_XML).post(Entity.entity(eposCompetences.toArray(new DESCRIPTORSETType[0]), MediaType.APPLICATION_XML));
+		EPOSTypeWrapper typeWrapper = new EPOSTypeWrapper();
+		typeWrapper.setEposCompetences(eposCompetences.toArray(new DESCRIPTORSETType[0]));
+		webResource.request(MediaType.APPLICATION_XML).post(Entity.entity(typeWrapper, MediaType.APPLICATION_XML));
 	}
 }

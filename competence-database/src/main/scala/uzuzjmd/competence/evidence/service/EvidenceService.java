@@ -2,14 +2,11 @@ package uzuzjmd.competence.evidence.service;
 
 import java.util.List;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 
-@WebService(name = "EvidenceService", targetNamespace = "http://service.evidence.competence.uzuzjmd/")
 public interface EvidenceService {
 
 	/**
@@ -33,7 +30,7 @@ public interface EvidenceService {
 	 * @param organization
 	 * @return
 	 */
-	@WebMethod
+
 	public abstract UserTree[] getUserTree(String course, String lmssystem, String organization);
 
 	/**
@@ -79,7 +76,7 @@ public interface EvidenceService {
 	 * @param organization
 	 * @return
 	 */
-	@WebMethod
+
 	public abstract Response getUserTreeCrossDomain(String course, String lmssystem, String organization);
 
 	/**

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,10 +32,10 @@ import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;
-import uzuzjmd.competence.shared.DESCRIPTORSETType;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -460,9 +461,9 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/addEpos")
-	public Response importEpos(DESCRIPTORSETType[] eposCompetences) {
+	public Response importEpos(@BeanParam EPOSTypeWrapper wrapper) {
 
-		EposImporter.importEposCompetences(Arrays.asList(eposCompetences));
+		EposImporter.importEposCompetences(Arrays.asList(wrapper.getEposCompetences()));
 		return Response.ok("epos templates updated").build();
 	}
 
