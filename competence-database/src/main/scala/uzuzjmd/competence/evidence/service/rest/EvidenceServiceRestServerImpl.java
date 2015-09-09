@@ -40,6 +40,7 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_XML)
 	public UserTree[] getUserTree(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization, @QueryParam("user") String user,
 			@QueryParam("password") String password) {
+		user = checkLoginisEmail(user);
 		return evidenceService.getUserTree(course, lmsSystem, organization, user, password);
 	}
 
@@ -60,6 +61,7 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 		if (course == null || course.equals("0")) {
 			return Response.status(404).build();
 		}
+		user = checkLoginisEmail(user);
 		Response response = Response.status(200).entity(evidenceService.getUserTree(course, lmsSystem, organization, user, password)).build();
 		// Response response =
 		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
