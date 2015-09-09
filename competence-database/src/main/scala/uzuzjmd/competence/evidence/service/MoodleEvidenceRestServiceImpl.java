@@ -105,7 +105,7 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public UserCourseListResponse getCourses(String user, String lmsSystem, String userPassword, String organization) {
+	public UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String userPassword) {
 		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
 			return new UserCourseListResponse();
 		}
@@ -116,8 +116,16 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 
 	@Override
 	public Boolean exists(String username, String password, String lmsSystem, String organization) {
-		SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
-		return simpleService.isUserExist(username);
+		try {
+			SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
+			simpleService.toString();
+			if (simpleService.wasError()) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

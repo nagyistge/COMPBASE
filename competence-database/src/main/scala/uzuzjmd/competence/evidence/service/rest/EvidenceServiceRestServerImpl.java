@@ -88,11 +88,16 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Override
 	public UserCourseListResponse getCourses(@PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization, @PathParam("userEmail") String username,
 			@QueryParam("password") String password) {
+		username = checkLoginisEmail(username);
+		UserCourseListResponse result = evidenceService.getCourses(lmsSystem, organization, username, password);
+		return result;
+	}
+
+	private String checkLoginisEmail(String username) {
 		if (username.contains("@")) {
 			username = username.split("@")[0];
 		}
-		UserCourseListResponse result = evidenceService.getCourses(lmsSystem, organization, username, password);
-		return result;
+		return username;
 	}
 
 	@POST
@@ -109,6 +114,7 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Override
 	public Boolean exists(@QueryParam(value = "user") String user, @QueryParam(value = "password") String password, @QueryParam("lmsSystem") String lmsSystem,
 			@QueryParam("organization") String organization) {
+		user = checkLoginisEmail(user);
 		Boolean result = evidenceService.exists(user, password, lmsSystem, organization);
 		return result;
 	}
