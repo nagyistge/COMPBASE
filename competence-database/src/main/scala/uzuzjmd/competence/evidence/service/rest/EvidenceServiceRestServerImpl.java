@@ -88,6 +88,9 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Override
 	public UserCourseListResponse getCourses(@PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization, @PathParam("userEmail") String username,
 			@QueryParam("password") String password) {
+		if (username.contains("@")) {
+			username = username.split("@")[0];
+		}
 		UserCourseListResponse result = evidenceService.getCourses(lmsSystem, organization, username, password);
 		return result;
 	}

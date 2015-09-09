@@ -50,7 +50,11 @@ public class RestUrlFactory {
 				+ "/lms/activities/usertree/xml/crossdomain/"
 				+ Controller.contextFactory.getCourseId()
 				+ "?lmsSystem="
-				+ Controller.contextFactory.getLMSsystem();
+				+ Controller.contextFactory.getLMSsystem()
+				+ "&user="
+				+ Controller.contextFactory.getUser()
+				+ "&password="
+				+ Controller.contextFactory.getPassword();
 		return moodleEvidenceUrl;
 	}
 
