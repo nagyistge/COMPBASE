@@ -27,30 +27,7 @@ require_once($CFG->libdir . "/accesslib.php");
 class local_competence_external extends external_api {#
 
 
-    /**
-     * get courses for a given user-email
-     *
-     * @return array Array of course objects
-     * @since Moodle 2.5
-     */
-
-    public static function get_courses_for_user($useremail) {
-
-        global $DB, $CFG, $USER;
-
-        if ($USER->email == $useremail) {
-
-            $query = 'SELECT c.id, c.fullname FROM {user} u INNER JOIN {user_enrolments} ue ON ue.userid = u.id INNER JOIN {enrol} e ON e.id = ue.enrolid INNER JOIN {course} c ON e.courseid = c.id WHERE u.email = ?';
-            $result = $DB->get_records_sql($query, array($useremail));
-            $mapper = function ($arrayElement) {
-                return array('courseid' => $arrayElement->id, 'name' => $arrayElement->fullname);
-            };
-            $result_mapped = array_map($mapper, $result);
-            return $result_mapped;
-        } else {
-            return array();
-        }
-    }
+    
 
     /**
      * Returns description of method parameters
@@ -126,6 +103,8 @@ class local_competence_external extends external_api {#
             return array();
         }
     }
+    
+    
 
     /**
      * Returns description of method parameters
@@ -136,8 +115,7 @@ class local_competence_external extends external_api {#
     public static function get_courses_for_user_parameters() {
         return new external_function_parameters(
                 array(
-            'user' => new external_value(PARAM_TEXT, 'multilang compatible name'),
-            'password' => new external_value(PARAM_TEXT, 'multilang compatible name'),
+            
                 )
         );
     }
@@ -156,26 +134,25 @@ class local_competence_external extends external_api {#
                 )
         );
     }
+    
+    /**
+     * get courses for a given user-email
+     *
+     * @return array Array of course objects
+     * @since Moodle 2.5
+     */
 
-    public static function user_exists_parameters() {
-        return new external_function_parameters(
-                array(
-            'user' => new external_value(PARAM_TEXT, 'multilang compatible email'),
-                )
-        );
+    public static function get_courses_for_user() {
+
+        global $DB, $CFG, $USER;
+        $query = 'SELECT c.id, c.fullname FROM {user} u INNER JOIN {user_enrolments} ue ON ue.userid = u.id INNER JOIN {enrol} e ON e.id = ue.enrolid INNER JOIN {course} c ON e.courseid = c.id WHERE u.email = ?';
+        $result = $DB->get_records_sql($query, array($USER->email));
+        $mapper = function ($arrayElement) {
+            return array('courseid' => $arrayElement->id, 'name' => $arrayElement->fullname);
+        };
+        $result_mapped = array_map($mapper, $result);
+        return $result_mapped;
     }
 
-    public static function user_exists_returns() {
-        return new external_value(PARAM_BOOL, 'flag if user exists');
-    }
-
-    public static function user_exists($useremail) {
-        global $DB, $USER;
-
-        if ($USER->email == $useremail) {
-            return true;
-        }
-        return false;
-    }
-
+   
 }
