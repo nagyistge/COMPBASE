@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	<h:head />
+	<h:body>
+		<h:form>
+			<p:panel>
+				<h:outputText
+					value="Geben Sie einen Namen für das Template an oder wählen sie ein bestehendes aus!" />
+				<br />
+				<br />
+				<h:panelGroup layout="block" id="templateFromDbField">
+					<h:outputText value="Learning-Template von DB auswählen: " />
+					<p:autoComplete maxResults="10" id="autocomplete"
+						value="#{learningTemplateView.selectedLearningTemplate}"
+						completeMethod="#{learningTemplateView.complete}" />
+					<p:commandButton value="auswählen" icon="ui-icon-check"
+						update="selectedLearningProject"
+						actionListener="#{learningTemplateView.selectLearningTemplate}">
+						<f:ajax render="@form" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup layout="block" id="newTemplateField">
+					<h:outputText value="neu Learning-Template erstellen: " />
+					<p:inputText id="name"
+						value="#{learningTemplateView.newLearningTemplate}" />
+					<p:commandButton value="erstellen" icon="ui-icon-check"
+						update="selectedLearningProject"
+						actionListener="#{learningTemplateView.createLearningTemplate}">
+					</p:commandButton>
+				</h:panelGroup>
+			</p:panel>
+
+
+			<br />
+			<br />
+			<br />
+			<p:panel>
+
+				<h2>
+					<h:outputText id="selectedLearningProject"
+						value="Lernprojekte : #{templateCompetenceView.descriptorsetName}" />
+				</h2>
+				<p:button icon="ui-icon-plus" value="Überschrift hinzufügen" onclick="return false">
+					<p:effect type="fade" event="click" for="newHeadField">
+						<f:param name="mode" value="'show'" />
+					</p:effect>
+				</p:button>
+
+				<br />
+				<h:panelGroup layout="block" id="newHeadField" style="display:none">
+					<h:outputText value="Geben sie eine Überschrift ein!  " />
+					<p:inputText
+						value="#{learningTemplateView.selectedLearningTemplate}" />
+					<br />
+					<h:outputText
+						value="Geben Sie mind. ein Schlagwort ein (kommasepariert)!  " />
+					<p:inputText
+						value="#{learningTemplateView.selectedLearningTemplate}" />
+					<br />
+					<p:commandButton value="erstellen" icon="ui-icon-check" />
+					<p:button value="abbrechen" onclick="return false">
+						<p:effect type="fade" event="click" for="newHeadField">
+							<f:param name="mode" value="'hide'" />
+						</p:effect>
+					</p:button>
+				</h:panelGroup>
+				
+				<hr />
+				<ui:repeat var="competenceHeader" value="#{templateCompetenceView.competenceHeaders}">
+					<h6><h:outputText value="Überschrift 1: #{competenceHeader}" /></h6>
+					<ui:repeat var="descriptorType" value="#{templateCompetenceView.descriptorTypes}" >
+						<h:panelGroup layout="block" rendered="#{descriptorType.COMPETENCE eq competenceHeader}" >
+							<h:outputText value="name: #{descriptorType.NAME}" /> <br />
+							<h:outputText value="goal: #{descriptorType.GOAL}" /> <br />
+							<h:outputText value="evaluations: #{descriptorType.EVALUATIONS}" /> <br />
+							<h:outputText value="level: #{descriptorType.LEVEL}" /> <br />
+							<h:outputText value="value: #{descriptorType.value}" /> <br />
+							<h:outputText value="link: #{descriptorType.LINK}" /> <br />
+						</h:panelGroup>
+					</ui:repeat>
+					<p:button icon="ui-icon-plus" value="Kompetencen hinzufügen"
+						onclick="return false">
+						<p:effect type="fade" event="click" for="competenceField">
+							<f:param name="mode" value="'show'" />
+						</p:effect>
+					</p:button>
+	
+					<br />
+					<h:panelGroup layout="block" id="competenceField" style="display:none">
+						<h:outputText value="Geben Sie eine Beschreibung ein!  " />
+						<p:inputText value="#{descriptorTypeView.newDescriptorType.NAME}" />
+						<br />
+						
+						<h:outputText value="Geben Sie ein Level ein!  " />
+						<p:inputText value="#{descriptorTypeView.newDescriptorType.LEVEL}" />
+						<br />
+						
+						<h:outputText value="Geben Sie Evaluationen ein!  " />
+						<p:inputText value="#{descriptorTypeView.newDescriptorType.EVALUATIONS}" />
+						<br />
+						
+						<h:outputText value="Geben Sie Goal(0 oder 1) ein!  " />
+						<p:inputText value="#{descriptorTypeView.newDescriptorType.GOAL}" />
+						<br />
+						
+						<h:outputText value="Geben Sie Link ein!  " />
+						<p:inputText value="#{descriptorTypeView.newDescriptorType.LINK}" />
+						<br />
+						<p:button value="abbrechen" onclick="return false">
+							<p:effect type="fade" event="click" for="competenceField">
+								<f:param name="mode" value="'hide'" />
+							</p:effect>
+						</p:button>
+						<p:commandButton value="erstellen" icon="ui-icon-check"
+							actionListener="#{descriptorTypeView.createDescriptorType}">
+						</p:commandButton>
+					</h:panelGroup>
+					<hr />
+				</ui:repeat>
+				
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
