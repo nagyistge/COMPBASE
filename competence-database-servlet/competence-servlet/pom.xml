@@ -18,6 +18,11 @@
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>jetty</artifactId>
 				</exclusion>
+				
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-server</artifactId>					
+				</exclusion>
 
 				<exclusion>
 					<groupId>wsdl4j</groupId>
@@ -176,8 +181,11 @@
 			</exclusions>
 		</dependency>
 
+	
+
 	</dependencies>
 
+	
 
 
 	<build>
