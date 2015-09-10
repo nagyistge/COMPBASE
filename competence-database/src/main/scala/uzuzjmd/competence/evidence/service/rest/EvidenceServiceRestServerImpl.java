@@ -38,8 +38,10 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Path("/activities/usertree/xml/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public UserTree[] getUserTree(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
-		return evidenceService.getUserTree(course, lmsSystem, organization);
+	public UserTree[] getUserTree(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization, @QueryParam("user") String user,
+			@QueryParam("password") String password) {
+		user = checkLoginisEmail(user);
+		return evidenceService.getUserTree(course, lmsSystem, organization, user, password);
 	}
 
 	@POST
@@ -54,11 +56,13 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Path("/activities/usertree/xml/crossdomain/{course}")
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public Response getUserTreeCrossDomain(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
+	public Response getUserTreeCrossDomain(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization,
+			@QueryParam("user") String user, @QueryParam("password") String password) {
 		if (course == null || course.equals("0")) {
 			return Response.status(404).build();
 		}
-		Response response = Response.status(200).entity(evidenceService.getUserTree(course, lmsSystem, organization)).build();
+		user = checkLoginisEmail(user);
+		Response response = Response.status(200).entity(evidenceService.getUserTree(course, lmsSystem, organization, user, password)).build();
 		// Response response =
 		// Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
 		return response;
@@ -84,9 +88,18 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Override
-	public UserCourseListResponse getCourses(@PathParam("userEmail") String useremail, @PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization) {
-		UserCourseListResponse result = evidenceService.getCourses(useremail, lmsSystem, organization);
+	public UserCourseListResponse getCourses(@PathParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization, @PathParam("userEmail") String username,
+			@QueryParam("password") String password) {
+		username = checkLoginisEmail(username);
+		UserCourseListResponse result = evidenceService.getCourses(lmsSystem, organization, username, password);
 		return result;
+	}
+
+	private String checkLoginisEmail(String username) {
+		if (username.contains("@")) {
+			username = username.split("@")[0];
+		}
+		return username;
 	}
 
 	@POST
@@ -103,6 +116,7 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	@Override
 	public Boolean exists(@QueryParam(value = "user") String user, @QueryParam(value = "password") String password, @QueryParam("lmsSystem") String lmsSystem,
 			@QueryParam("organization") String organization) {
+		user = checkLoginisEmail(user);
 		Boolean result = evidenceService.exists(user, password, lmsSystem, organization);
 		return result;
 	}

@@ -33,14 +33,10 @@ import com.google.common.cache.LoadingCache;
 public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 
 	public static LoadingCache<String, UserTree[]> cacheImpl;
-	private String adminLogin;
-	private String adminLoginPassword;
 	Logger logger = LogManager.getLogger(MoodleEvidenceRestServiceImpl.class.getName());
 	private Thread cacheThread;
 
-	public MoodleEvidenceRestServiceImpl(String adminLogin, String adminLoginPassword) {
-		this.adminLogin = adminLogin;
-		this.adminLoginPassword = adminLoginPassword;
+	public MoodleEvidenceRestServiceImpl() {
 		initCache();
 	}
 
@@ -54,18 +50,18 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 		throw new Error("Cache not working");
 	}
 
-	public MoodleContentResponseList getCourseContents(String courseId) {
-		SimpleMoodleService moodleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
+	public MoodleContentResponseList getCourseContents(String courseId, String username, String password) {
+		SimpleMoodleService moodleService = new SimpleMoodleService(username, password);
 		return moodleService.getMoodleContents(courseId);
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course, String lmsSystem, String organization) {
+	public UserTree[] getUserTree(String course, String lmsSystem, String organization, String username, String password) {
 		// MoodleEvidence[] moodleEvidences =
 		// this.getUserEvidencesforMoodleCourse(course);
-		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
+		SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
 		MoodleEvidence[] moodleEvidences = simpleService.getMoodleEvidenceList(course).toArray(new MoodleEvidence[0]);
-		MoodleContentResponseList listMoodleContent = this.getCourseContents(course);
+		MoodleContentResponseList listMoodleContent = this.getCourseContents(course, username, password);
 
 		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent, moodleEvidences);
 		UserTree[] result = mapper.getUserTrees().toArray(new UserTree[0]);
@@ -75,8 +71,9 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	private void initCache() {
 		if (cacheImpl == null) {
 			cacheImpl = CacheBuilder.newBuilder().maximumSize(1000).build(new CacheLoader<String, UserTree[]>() {
+
 				public UserTree[] load(final String key) {
-					return getUserTree(key, null, null);
+					return getUserTree(key, null, null, null, null);
 				}
 			});
 		}
@@ -103,24 +100,32 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course, String lmsSystem, String organization) {
+	public Response getUserTreeCrossDomain(String course, String lmsSystem, String organization, String username, String password) {
 		throw new Error("decorator called");
 	}
 
 	@Override
-	public UserCourseListResponse getCourses(String user, String lmsSystem, String organization) {
+	public UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String userPassword) {
 		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
 			return new UserCourseListResponse();
 		}
-		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
-		UserCourseListResponse result = simpleService.getMoodleCourseList(user);
+		SimpleMoodleService simpleService = new SimpleMoodleService(user, userPassword);
+		UserCourseListResponse result = simpleService.getMoodleCourseList();
 		return result;
 	}
 
 	@Override
 	public Boolean exists(String username, String password, String lmsSystem, String organization) {
-		SimpleMoodleService simpleService = new SimpleMoodleService(adminLogin, adminLoginPassword);
-		return simpleService.isUserExist(username);
+		try {
+			SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
+			simpleService.toString();
+			if (simpleService.wasError()) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

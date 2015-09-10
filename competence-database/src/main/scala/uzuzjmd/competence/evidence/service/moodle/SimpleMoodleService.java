@@ -17,7 +17,7 @@ import uzuzjmd.competence.shared.dto.UserCourseListResponse;
  */
 public class SimpleMoodleService {
 	private Token mooodleStandardInterfaceToken;
-	private String errorCode;
+
 	private Token competenceInterfaceToken;
 
 	public SimpleMoodleService(String username, String userpassword) {
@@ -37,8 +37,11 @@ public class SimpleMoodleService {
 		return response;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+	public Boolean wasError() {
+		if (!mooodleStandardInterfaceToken.containsKey("error")) {
+			return false;
+		} else
+			return true;
 	}
 
 	public MoodleContentResponseList getMoodleContents(String courseId) {
@@ -50,9 +53,9 @@ public class SimpleMoodleService {
 		return sendRequest(requestString, MoodleContentResponseList.class);
 	}
 
-	public UserCourseListResponse getMoodleCourseList(String userEmail) {
+	public UserCourseListResponse getMoodleCourseList() {
 		String moodleRestBase = getMoodleCompetenceRestBase();
-		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_courses_for_user&user=" + userEmail;
+		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_get_courses_for_user";
 		return sendRequest(requestString, UserCourseListResponse.class);
 	}
 
@@ -64,12 +67,6 @@ public class SimpleMoodleService {
 	private String getMoodleCompetenceRestBase() {
 		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken=" + competenceInterfaceToken.get("token") + "&wsfunction=";
 		return moodleRestBase;
-	}
-
-	public boolean isUserExist(String userEmail) {
-		String moodleRestBase = getMoodleCompetenceRestBase();
-		String requestString = MagicStrings.MOODLEURL + moodleRestBase + "local_upcompetence_user_exists&user=" + userEmail;
-		return sendRequest(requestString, Boolean.class);
 	}
 
 	public MoodleEvidenceList getMoodleEvidenceList(String courseId) {

@@ -21,7 +21,7 @@ public class InMemoryEvidenceService extends AbstractEvidenceService {
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course, String lmssystem, String organization) {
+	public UserTree[] getUserTree(String course, String lmssystem, String organization, String username, String password) {
 		if (!courseUserTreeMap.containsKey(course)) {
 			throw new BadParameterException("course " + course + " wurde nicht in dem System " + lmssystem + " gefunden");
 		}
@@ -29,12 +29,12 @@ public class InMemoryEvidenceService extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course, String lmssystem, String organization) {
+	public Response getUserTreeCrossDomain(String course, String lmssystem, String organization, String username, String password) {
 		throw new Error("docorator called");
 	}
 
 	@Override
-	public UserCourseListResponse getCourses(String user, String lmsSystem, String organization) {
+	public UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String password) {
 		if (!courseUserTreeMap.containsKey(user)) {
 			throw new BadParameterException("user " + user + " wurde nicht in dem System " + lmsSystem + " gefunden");
 		}

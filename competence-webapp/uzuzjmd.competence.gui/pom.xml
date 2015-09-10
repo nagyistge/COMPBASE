@@ -39,11 +39,11 @@
 		<!-- Convenience property to set the GWT version -->
 		<gwtVersion>2.6.1</gwtVersion>
 		<!-- GWT needs at least java 1.5 -->
-		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-		<!-- <webappDirectory>src/main/webapp</webappDirectory>C -->
+<!-- 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory> -->
+		<webappDirectory>src/main/webapp</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
-		<superDevMode>false</superDevMode>
+		<superDevMode>false</superDevMode>		
 	</properties>
 
 	<dependencies>
@@ -64,11 +64,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-codeserver</artifactId>
-			<version>2.6.1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.gwt</groupId> -->
+<!-- 			<artifactId>gwt-codeserver</artifactId> -->
+<!-- 			<version>2.6.1</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>com.gwtext</groupId>
@@ -103,6 +104,7 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-maven-plugin</artifactId>
 			<version>9.2.10.v20150310</version>
+			<scope>provided</scope>
 		</dependency>
 
 
@@ -133,9 +135,9 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
-							<!-- <goal>test</goal> -->
-							<!-- <goal>i18n</goal> -->
-							<!-- <goal>generateAsync</goal> -->
+							<goal>test</goal>
+							<goal>i18n</goal>
+							<goal>generateAsync</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -146,29 +148,24 @@
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>uzuzjmd.competence.gui.client.Messages</i18nMessagesBundle>
 					<superDevMode>false</superDevMode>
+					<draftCompile>true</draftCompile>
+					<forceCompilation>true</forceCompilation>
+					<style>DETAILED</style>
 				</configuration>
 			</plugin>
 
 			<!-- Copy static web files before executing gwt:run -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<webappDirectory>${webappDirectory}</webappDirectory>
-					<attachClasses>true</attachClasses>
-					<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<!-- <configuration> -->
-				<!-- <source>1.7</source> -->
-				<!-- <target>1.7</target> -->
-				<!-- </configuration> -->
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-war-plugin</artifactId> -->
+<!-- 				<version>2.4</version> -->
+<!-- 				<configuration> -->
+<!-- 					<webappDirectory>${webappDirectory}</webappDirectory> -->
+<!-- 					<attachClasses>true</attachClasses> -->
+<!-- 					<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+		
 		</plugins>
 
 		<!-- This is necessary so the widget can be reused in vaadin -->

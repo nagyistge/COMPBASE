@@ -36,7 +36,7 @@ public class EvidenceServiceProxy implements EvidenceService {
 		if (prop.get("moodleEnabled").equals("true")) {
 			try {
 				MagicStrings.MOODLEURL = prop.getProperty("moodleURL").toString();
-				EvidenceService evidenceRestServiceImpl = new MoodleEvidenceRestServiceImpl(prop.get("moodleadminLogin").toString(), prop.get("moodleadminLoginPassword").toString());
+				EvidenceService evidenceRestServiceImpl = new MoodleEvidenceRestServiceImpl();
 				evidenceProviderMap.evidenceMap.put(LMSSystems.moodle.toString(), evidenceRestServiceImpl);
 			} catch (NullPointerException e) {
 				System.err.println("moodle configuration mistake");
@@ -56,24 +56,24 @@ public class EvidenceServiceProxy implements EvidenceService {
 	}
 
 	@Override
-	public UserCourseListResponse getCourses(String user, String lmsSystem, String organization) {
+	public UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String password) {
 		if (!evidenceProviderMap.evidenceMap.containsKey(lmsSystem)) {
 			throw new BadParameterException("Anwendungsplattform " + lmsSystem + " wurde nicht konfiguriert");
 		}
-		return evidenceProviderMap.evidenceMap.get(lmsSystem).getCourses(user, lmsSystem, organization);
+		return evidenceProviderMap.evidenceMap.get(lmsSystem).getCourses(lmsSystem, organization, user, password);
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course, String lmssystem, String organization) {
+	public UserTree[] getUserTree(String course, String lmssystem, String organization, String username, String password) {
 		if (!evidenceProviderMap.evidenceMap.containsKey(lmssystem)) {
 			throw new BadParameterException("Anwendungsplattform " + lmssystem + " wurde nicht konfiguriert");
 		}
 
-		return evidenceProviderMap.evidenceMap.get(lmssystem).getUserTree(course, lmssystem, organization);
+		return evidenceProviderMap.evidenceMap.get(lmssystem).getUserTree(course, lmssystem, organization, username, password);
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course, String lmssystem, String organization) {
+	public Response getUserTreeCrossDomain(String course, String lmssystem, String organization, String username, String password) {
 		throw new Error("decorator called");
 	}
 

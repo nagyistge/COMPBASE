@@ -1,18 +1,13 @@
 package uzuzjmd.competence.gui.client.login;
 
-import org.fusesource.restygwt.client.JsonCallback;
-import org.fusesource.restygwt.client.Method;
-import org.fusesource.restygwt.client.Resource;
-
-import uzuzjmd.competence.gui.client.context.StandaloneContextFactory;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
+import uzuzjmd.competence.service.rest.client.api.GetRequestManager;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -74,8 +69,9 @@ public class LoginView extends Composite {
 			if (loginTextBox.getValue().trim().equals("")) {
 				emptyError.setVisible(true);
 			} else {
-				checkUserExists(loginTextBox.getValue(),
-						passwordTextBox.getValue());
+				GetRequestManager manager = new GetRequestManager();
+				manager.checkUserExists(loginTextBox.getValue(),
+						passwordTextBox.getValue(), this);
 			}
 		}
 	}
@@ -85,43 +81,23 @@ public class LoginView extends Composite {
 		parent.hide();
 	}
 
-	private void logUserIn() {
+	public void logUserIn() {
 		setUsername(loginTextBox.getValue());
 		Controller.contextFactory.setIsValidUserLoggedIn(true);
 		Controller.contextFactory.setUser(loginTextBox.getValue());
 		Controller.contextFactory.setPassword(passwordTextBox.getValue());
-		((StandaloneContextFactory) Controller.contextFactory).updateCourses();
+
+		GetRequestManager manager = new GetRequestManager();
+		manager.updateCourses();
 		parent.hide();
 	}
 
-	private void checkUserExists(String userEmail, String password) {
-		String moodleEvidenceUrl = Controller.contextFactory
-				.getEvidenceServerURL() + "/lms/user/exists";
-		Resource resource = new Resource(moodleEvidenceUrl);
-		resource.addQueryParam("user", userEmail)
-				.addQueryParam("password", password)
-				.addQueryParam("lmsSystem",
-						Controller.contextFactory.getLMSsystem()).get()
-				.send(new JsonCallback() {
+	public Alert getNotExistError() {
+		return notExistError;
+	}
 
-					@Override
-					public void onSuccess(Method method, JSONValue response) {
-						if (response.isBoolean().booleanValue()) {
-							logUserIn();
-						} else {
-							notExistError.setVisible(true);
-						}
-					}
-
-					@Override
-					public void onFailure(Method method, Throwable exception) {
-						otherError.setText("hello" + exception.getMessage()
-								+ method.toString());
-						otherError.setHTML("hello" + exception.getMessage()
-								+ method.toString());
-						otherError.setVisible(true);
-					}
-				});
+	public Alert getOtherError() {
+		return otherError;
 	}
 
 	public native void setUsername(String username)/*-{
