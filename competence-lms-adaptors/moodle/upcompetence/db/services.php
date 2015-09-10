@@ -28,15 +28,7 @@ $functions = array(
         'classpath' => 'local/upcompetence/externallib.php',
         'description' => 'Returns the courses a user is enrolled in',
         'type' => 'read',
-    ), 
-    
-    'local_upcompetence_user_exists' => array(
-        'classname' => 'local_competence_external',
-        'methodname' => 'user_exists',
-        'classpath' => 'local/upcompetence/externallib.php',
-        'description' => 'Returns whether a user exists',
-        'type' => 'read',
-    ),     
+    ),      
     
      'local_upcompetence_get_evidences_for_course' => array(
         'classname' => 'local_competence_external',
@@ -45,9 +37,7 @@ $functions = array(
         'description' => 'Get the activities of a user for a given course as evidences for competence assessment',
         'type' => 'read',
     )  
-    
-    
-    
+           
     
 );
 
@@ -55,8 +45,7 @@ $functions = array(
 $services = array(
     'UPCompetence Service' => array(
         'functions' => array(
-            'local_upcompetence_get_courses_for_user',
-            'local_upcompetence_user_exists',
+            'local_upcompetence_get_courses_for_user',            
             'local_upcompetence_get_evidences_for_course'
         ),
         'restrictedusers' => 0,

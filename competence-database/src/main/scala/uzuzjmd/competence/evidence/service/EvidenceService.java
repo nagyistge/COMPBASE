@@ -31,7 +31,7 @@ public interface EvidenceService {
 	 * @return
 	 */
 
-	public abstract UserTree[] getUserTree(String course, String lmssystem, String organization);
+	public abstract UserTree[] getUserTree(String course, String lmssystem, String organization, String username, String password);
 
 	/**
 	 * Add the activites users can do (from end application)
@@ -77,7 +77,7 @@ public interface EvidenceService {
 	 * @return
 	 */
 
-	public abstract Response getUserTreeCrossDomain(String course, String lmssystem, String organization);
+	public abstract Response getUserTreeCrossDomain(String course, String lmssystem, String organization, String username, String password);
 
 	/**
 	 * Get all the organizations the system is available for.
@@ -112,7 +112,7 @@ public interface EvidenceService {
 	 * @param organization
 	 * @return
 	 */
-	public abstract UserCourseListResponse getCourses(String user, String lmsSystem, String organization);
+	public abstract UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String password);
 
 	/**
 	 * Fügt Kurse zu der Datenbank hinzu, damit UIs zwischen verschiedenen

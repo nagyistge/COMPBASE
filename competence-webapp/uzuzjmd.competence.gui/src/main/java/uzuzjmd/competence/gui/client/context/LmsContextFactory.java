@@ -145,4 +145,5 @@ public class LmsContextFactory implements java.io.Serializable {
 	public String getPassword() {
 		return password;
 	}
+
 }
