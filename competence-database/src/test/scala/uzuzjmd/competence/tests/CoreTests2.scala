@@ -173,9 +173,9 @@ class CoreTests2 extends FunSuite with ShouldMatchers {
     graph.addTriple(node1.getLabel, node2.getLabel, "suggestedCompetenceRequisite", true)
     graph.addTriple(node1.getLabel, node3.getLabel, "suggestedCompetenceRequisite", true)
     
-    val catchwordMap = new HashMap() : HashMap[GraphTriple, java.util.List[String]]
-    catchwordMap.put(triple1, ("die erstenbeiden"  :: Nil).asJava)
-    catchwordMap.put(triple2, ("die anderenbeiden" :: Nil).asJava)
+    val catchwordMap = new HashMap() : HashMap[GraphTriple, Array[String]]
+    catchwordMap.put(triple1, ("die erstenbeiden"  :: Nil).toArray)
+    catchwordMap.put(triple2, ("die anderenbeiden" :: Nil).toArray)
     
     
     val testLearningTemplateName = "TestLearningTemplate"

@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import javax.ws.rs.ProcessingException;
 
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
@@ -39,7 +40,7 @@ public class RestServer {
 		MagicStrings.runsAsJar = true;
 
 		ResourceConfig resourceConfig = new ResourceConfig(CompetenceServiceRestXML.class, CompetenceServiceRestJSON.class, EvidenceServiceRestServerImpl.class);
-
+		resourceConfig.register(JacksonFeature.class);
 		// final Map<String, Object> initParams = new HashMap<String, Object>();
 		// // initParams.put("com.sun.jersey.config.property.packages", "rest");
 		// initParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
@@ -53,7 +54,9 @@ public class RestServer {
 		// resourceConfig.getContainerResponseFilters().add(ResponseCorsFilter.class);
 		// GrizzlyHttpServerFactory.createHttpServer(new
 		// URI(MagicStrings.RESTURLCompetence), resourceConfig);
+
 		GrizzlyHttpServerFactory.createHttpServer(new URI(MagicStrings.RESTURLCompetence), resourceConfig);
+
 		System.out.println("publishing competence server to to " + MagicStrings.RESTURLCompetence);
 		System.out.println("Test this with: " + MagicStrings.RESTURLCompetence + "/competences/xml/competencetree/university/all/nocache");
 

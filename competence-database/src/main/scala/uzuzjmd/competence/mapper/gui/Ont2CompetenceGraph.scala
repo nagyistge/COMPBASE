@@ -8,6 +8,7 @@ import uzuzjmd.competence.shared.dto.Graph
 
 
 class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.util.List[String], course: String) {
+  
   def getCompetenceGraph(): Graph = {
     comp.begin();
     val courseContext = new CourseContext(comp, course)

@@ -18,9 +18,12 @@ import javax.ws.rs.core.Response;
 import uzuzjmd.competence.csv.CompetenceBean;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
+import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt;
+import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.mapper.gui.ReflectiveAssessmentHolder2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
 import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate;
@@ -36,6 +39,8 @@ import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
+import uzuzjmd.competence.shared.dto.GraphNode;
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -477,4 +482,103 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	// result.setSuggestedCompetenceRows(Collections.singletonList(row));
 	// return RestUtil.buildCachedResponse(result, false);
 	// }
+
+	/**
+	 * This allows to add competences for reflection in the epos ui-format
+	 * 
+	 * 
+	 * @param graph
+	 *            the triples describe the suggested prerequisite relationships
+	 *            between the competences. The directed and the label properties
+	 *            may be ignored in this case
+	 * 
+	 *            public class Graph { public Set<GraphTriple> triples; public
+	 *            Set<GraphNode> nodes; }
+	 * 
+	 * @param catchwordMap
+	 *            This map is necessary to ensure that all competences in a
+	 *            prerequisite relationship share a common catchword to order
+	 *            them vertically All the triples contained in the graph must be
+	 *            present in the catchword map
+	 * 
+	 *            MapWrapper<GraphTriple, List<String>> catchwordMap
+	 * 
+	 *            public class MapWrapper<KEY, VALUE> { private HashMap<KEY,
+	 *            VALUE> map; }
+	 * 
+	 * @param learningTemplateName
+	 *            the name of the learning template as String
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/learningtemplate/add/{learningTemplateName}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response addLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName, LearningTemplateResultSet learningTemplateResultSet) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		LearningTemplateToOnt.convert(compOntologyManager, learningTemplateResultSet.getResultGraph(), learningTemplateResultSet.getCatchwordMap(), learningTemplateName);
+
+		compOntologyManager.close();
+
+		return Response.ok("learningTemplate added").build();
+
+	}
+
+	/**
+	 * The LearningTemplate
+	 * 
+	 * @param learningTemplateName
+	 *            String learningTemplateName
+	 * @return
+	 * 
+	 *         public class LearningTemplateResultSet { private GraphNode root;
+	 *         // root is set if graph consists of one node private Graph
+	 *         resultGraph; private HashMap<GraphTriple, List<String>>
+	 *         catchwordMap; private String nameOfTheLearningTemplate;
+	 * 
+	 *         also look at: /learningtemplate/add
+	 */
+	@Consumes(MediaType.APPLICATION_XML)
+	@GET
+	@Path("/learningtemplate/get/{learningTemplateName}")
+	@Produces(MediaType.APPLICATION_XML)
+	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
+
+		CompOntologyManager comp = new CompOntologyManager();
+		comp.begin();
+
+		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);
+		List<Competence> associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
+
+		if (associatedCompetences.isEmpty()) {
+			return null;
+		}
+		if (associatedCompetences.size() == 1) {
+			return new LearningTemplateResultSet(new GraphNode(learningTemplateName));
+		}
+
+		// TODO generate LearningTemplateResultSet
+		LearningTemplateResultSet result = Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
+
+		comp.close();
+
+		return result;
+	}
+
+	@Consumes(MediaType.APPLICATION_XML)
+	@POST
+	@Path("/learningtemplate/delete/{learningTemplateName}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response deleteLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
+		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
+
+		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(compOntologyManager, learningTemplateName, null, null);
+		learningProjectTemplate.delete();
+
+		compOntologyManager.close();
+
+		return Response.ok("learningTemplate deleted").build();
+	}
+
 }

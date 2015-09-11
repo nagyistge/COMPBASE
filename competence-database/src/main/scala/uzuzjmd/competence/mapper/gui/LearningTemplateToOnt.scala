@@ -15,7 +15,8 @@ import uzuzjmd.competence.shared.dto.Graph
  * Dieses Objekt konvertiert 
  */
 object LearningTemplateToOnt {
-  def convert(comp : CompOntologyManager, graph: Graph, tripleCatchwordMap : java.util.HashMap[GraphTriple, java.util.List[String]],  learningTemplateName: String) {
+
+  def convert(comp : CompOntologyManager, graph: Graph, tripleCatchwordMap : java.util.HashMap[GraphTriple, Array[String]],  learningTemplateName: String) {
      if (!graph.triples.asScala.forall { x => tripleCatchwordMap.keySet().asScala.contains(x) }) {
         throw new WebApplicationException(new Exception("All the triples must be contained in the catchwordMap"))
      }    
@@ -25,11 +26,11 @@ object LearningTemplateToOnt {
      template.persist()
   }
   
-  def convertTriple(triple : GraphTriple, comp : CompOntologyManager,  tripleCatchwordMap : java.util.HashMap[GraphTriple, java.util.List[String]])  {
+  def convertTriple(triple : GraphTriple, comp : CompOntologyManager,  tripleCatchwordMap : java.util.HashMap[GraphTriple, Array[String]])  {
      val competenceFrom = new Competence(comp, triple.fromNode, triple.fromNode, null)
      val competenceTo = new Competence(comp, triple.toNode, triple.toNode, null)
      competenceTo.addSuggestedCompetenceRequirement(competenceFrom)
-     val catchwords = tripleCatchwordMap.get(triple).asScala
+     val catchwords = tripleCatchwordMap.get(triple)
    
      catchwords.foreach { x => competenceFrom.addCatchword(new Catchword(comp, x, x)) }
      catchwords.foreach { x => competenceTo.addCatchword(new Catchword(comp, x, x)) }       
