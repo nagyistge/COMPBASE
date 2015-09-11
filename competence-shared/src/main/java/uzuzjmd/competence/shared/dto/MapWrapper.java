@@ -1,4 +1,4 @@
-package uzuzjmd.competence.service.rest;
+package uzuzjmd.competence.shared.dto;
 
 import java.util.HashMap;
 

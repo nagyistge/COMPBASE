@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
-import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
@@ -29,6 +27,7 @@ import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.owl.dao.EvidenceActivity;
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
 import uzuzjmd.competence.owl.dao.Operator;
 import uzuzjmd.competence.owl.dao.Role;
 import uzuzjmd.competence.owl.dao.StudentRole;
@@ -40,7 +39,6 @@ import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.GraphTriple;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
 
@@ -644,19 +642,27 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	 * add a competence to the model
 	 * 
 	 * @param forCompetence
+	 *            the name of the competences as a String (necessary)
 	 * @param operator
+	 *            the verb of the competence (necessary)
 	 * @param catchwords
+	 *            (at least one)
 	 * @param superCompetences
+	 *            (optional)
 	 * @param subCompetences
+	 *            (optional)
+	 * @param learningTemplateName
+	 *            (optional) the name of the learningTemplate it is associated
+	 *            with
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
 	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
-			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
+			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("learningTemplateName") String learningTemplateName) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, learningTemplateName);
 		closeManagerInCriticalMode(compOntologyManager);
 
 		return Response.ok(resultMessage).build();
@@ -685,13 +691,14 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		Competence original = new Competence(compOntologyManager, orgininalCompetence, orgininalCompetence, null);
 		original.delete();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, null);
 		closeManagerInCriticalMode(compOntologyManager);
 
 		return Response.ok(resultMessage).build();
 	}
 
-	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager) {
+	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager,
+			String learningProjectName) {
 
 		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, forCompetence, null);
 		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
@@ -715,6 +722,11 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 				catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
 
 			}
+			if (learningProjectName != null) {
+				LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(compOntologyManager, learningProjectName, null, null);
+				addedCompetence.addLearningTemplate(learningProjectTemplate);
+			}
+
 			Operator operatorDAO = new Operator(compOntologyManager, operator, operator);
 			operatorDAO.persist(true);
 			operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
@@ -742,38 +754,6 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		compOntologyManager.close();
 
 		return Response.ok("link updated").build();
-	}
-
-	/**
-	 * This allows to add competences for reflection in the epos ui-format
-	 * 
-	 * 
-	 * @param graph
-	 *            the triples describe the suggested prerequisite relationships
-	 *            between the competences. The directed and the label properties
-	 *            may be ignored in this case
-	 * @param catchwordMap
-	 *            This map is necessary to ensure that all competences in a
-	 *            prerequisite relationship share a common catchword to order
-	 *            them vertically All the triples contained in the graph must be
-	 *            present in the catchword map
-	 * @param learningTemplateName
-	 *            the name of the learning template
-	 * @return
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("/learningtemplate/add")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addLearningTemplate(@BeanParam Graph graph, @BeanParam MapWrapper<GraphTriple, List<String>> catchwordMap, @QueryParam("learningTemplateName") String learningTemplateName) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap.getMap(), learningTemplateName);
-
-		compOntologyManager.close();
-
-		return Response.ok("learningTemplate added").build();
-
 	}
 
 }

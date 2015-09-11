@@ -36,6 +36,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   def addSuggestedCompetenceRequirement(competence: Competence) {
     createEdgeWith(competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf)
   }
+  
+  def getSuggestedCompetenceRequirements() : List[Competence] = {
+     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, classOf[Competence])
+  }
 
   def addRequiredCompetence(competence: Competence) {
     deleteEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf)
@@ -104,6 +108,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
   def addCatchword(dao: Catchword) {
      dao.persist(true)
      dao.createEdgeWith(CompObjectProperties.CatchwordOf, this)
+  }
+  
+  def addLearningTemplate(learningTemplate: LearningProjectTemplate) {
+     createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf)
   }
 
 }
