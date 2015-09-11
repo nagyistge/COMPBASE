@@ -29,6 +29,7 @@ import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.owl.dao.EvidenceActivity;
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
 import uzuzjmd.competence.owl.dao.Operator;
 import uzuzjmd.competence.owl.dao.Role;
 import uzuzjmd.competence.owl.dao.StudentRole;
@@ -40,8 +41,10 @@ import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
+import uzuzjmd.competence.shared.dto.GraphNode;
 import uzuzjmd.competence.shared.dto.GraphTriple;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
 
 /**
@@ -644,19 +647,27 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	 * add a competence to the model
 	 * 
 	 * @param forCompetence
+	 *            the name of the competences as a String (necessary)
 	 * @param operator
+	 *            the verb of the competence (necessary)
 	 * @param catchwords
+	 *            (at least one)
 	 * @param superCompetences
+	 *            (optional)
 	 * @param subCompetences
+	 *            (optional)
+	 * @param learningTemplateName
+	 *            (optional) the name of the learningTemplate it is associated
+	 *            with
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
 	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
-			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences) {
+			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("learningTemplateName") String learningTemplateName) {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, learningTemplateName);
 		closeManagerInCriticalMode(compOntologyManager);
 
 		return Response.ok(resultMessage).build();
@@ -685,13 +696,14 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
 		Competence original = new Competence(compOntologyManager, orgininalCompetence, orgininalCompetence, null);
 		original.delete();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager);
+		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, null);
 		closeManagerInCriticalMode(compOntologyManager);
 
 		return Response.ok(resultMessage).build();
 	}
 
-	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager) {
+	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager,
+			String learningProjectName) {
 
 		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, forCompetence, null);
 		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
@@ -715,6 +727,11 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 				catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
 
 			}
+			if (learningProjectName != null) {
+				LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(compOntologyManager, learningProjectName, null, null);
+				addedCompetence.addLearningTemplate(learningProjectTemplate);
+			}
+
 			Operator operatorDAO = new Operator(compOntologyManager, operator, operator);
 			operatorDAO.persist(true);
 			operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
@@ -752,13 +769,23 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	 *            the triples describe the suggested prerequisite relationships
 	 *            between the competences. The directed and the label properties
 	 *            may be ignored in this case
+	 * 
+	 *            public class Graph { public Set<GraphTriple> triples; public
+	 *            Set<GraphNode> nodes; }
+	 * 
 	 * @param catchwordMap
 	 *            This map is necessary to ensure that all competences in a
 	 *            prerequisite relationship share a common catchword to order
 	 *            them vertically All the triples contained in the graph must be
 	 *            present in the catchword map
+	 * 
+	 *            MapWrapper<GraphTriple, List<String>> catchwordMap
+	 * 
+	 *            public class MapWrapper<KEY, VALUE> { private HashMap<KEY,
+	 *            VALUE> map; }
+	 * 
 	 * @param learningTemplateName
-	 *            the name of the learning template
+	 *            the name of the learning template as String
 	 * @return
 	 */
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -776,4 +803,43 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 
 	}
 
+	/**
+	 * The LearningTemplate
+	 * 
+	 * @param learningTemplateName
+	 *            String learningTemplateName
+	 * @return
+	 * 
+	 *         public class LearningTemplateResultSet { private GraphNode root;
+	 *         // root is set if graph consists of one node private Graph
+	 *         resultGraph; private HashMap<GraphTriple, List<String>>
+	 *         catchwordMap; private String nameOfTheLearningTemplate;
+	 * 
+	 *         also look at: /learningtemplate/add
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/learningtemplate/get")
+	@Produces(MediaType.APPLICATION_JSON)
+	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
+
+		CompOntologyManager comp = new CompOntologyManager();
+		comp.begin();
+
+		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);
+		List<Competence> associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
+
+		if (associatedCompetences.isEmpty()) {
+			return null;
+		}
+		if (associatedCompetences.size() == 1) {
+			return new LearningTemplateResultSet(new GraphNode(learningTemplateName));
+		}
+
+		// TODO generate LearningTemplateResultSet
+
+		comp.close();
+
+		return null;
+	}
 }
