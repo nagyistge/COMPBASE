@@ -1,12 +1,21 @@
 package uzuzjmd.competence.shared.dto;
 
 import java.util.HashMap;
-import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+import javax.ws.rs.QueryParam;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class LearningTemplateResultSet {
+
 	private GraphNode root; // root is set if graph consists of one node
+
 	private Graph resultGraph;
-	private HashMap<GraphTriple, List<String>> catchwordMap;
+
+	private HashMap<GraphTriple, String[]> catchwordMap;
+	@QueryParam("nameOfTheLearningTemplate")
+	@ManagedProperty(value = "nameOfTheLearningTemplate")
 	private String nameOfTheLearningTemplate;
 
 	public LearningTemplateResultSet() {
@@ -18,7 +27,7 @@ public class LearningTemplateResultSet {
 	}
 
 	public LearningTemplateResultSet(Graph resultGraph,
-			HashMap<GraphTriple, List<String>> catchwordMap,
+			HashMap<GraphTriple, String[]> catchwordMap,
 			String nameOfTheLearningTemplate) {
 		super();
 		this.resultGraph = resultGraph;
@@ -34,11 +43,11 @@ public class LearningTemplateResultSet {
 		this.resultGraph = resultGraph;
 	}
 
-	public HashMap<GraphTriple, List<String>> getCatchwordMap() {
+	public HashMap<GraphTriple, String[]> getCatchwordMap() {
 		return catchwordMap;
 	}
 
-	public void setCatchwordMap(HashMap<GraphTriple, List<String>> catchwordMap) {
+	public void setCatchwordMap(HashMap<GraphTriple, String[]> catchwordMap) {
 		this.catchwordMap = catchwordMap;
 	}
 

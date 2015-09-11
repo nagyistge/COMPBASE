@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
-import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
@@ -41,10 +39,7 @@ import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.GraphNode;
-import uzuzjmd.competence.shared.dto.GraphTriple;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
 
 /**
@@ -761,85 +756,4 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		return Response.ok("link updated").build();
 	}
 
-	/**
-	 * This allows to add competences for reflection in the epos ui-format
-	 * 
-	 * 
-	 * @param graph
-	 *            the triples describe the suggested prerequisite relationships
-	 *            between the competences. The directed and the label properties
-	 *            may be ignored in this case
-	 * 
-	 *            public class Graph { public Set<GraphTriple> triples; public
-	 *            Set<GraphNode> nodes; }
-	 * 
-	 * @param catchwordMap
-	 *            This map is necessary to ensure that all competences in a
-	 *            prerequisite relationship share a common catchword to order
-	 *            them vertically All the triples contained in the graph must be
-	 *            present in the catchword map
-	 * 
-	 *            MapWrapper<GraphTriple, List<String>> catchwordMap
-	 * 
-	 *            public class MapWrapper<KEY, VALUE> { private HashMap<KEY,
-	 *            VALUE> map; }
-	 * 
-	 * @param learningTemplateName
-	 *            the name of the learning template as String
-	 * @return
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("/learningtemplate/add")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addLearningTemplate(@BeanParam Graph graph, @BeanParam MapWrapper<GraphTriple, List<String>> catchwordMap, @QueryParam("learningTemplateName") String learningTemplateName) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		LearningTemplateToOnt.convert(compOntologyManager, graph, catchwordMap.getMap(), learningTemplateName);
-
-		compOntologyManager.close();
-
-		return Response.ok("learningTemplate added").build();
-
-	}
-
-	/**
-	 * The LearningTemplate
-	 * 
-	 * @param learningTemplateName
-	 *            String learningTemplateName
-	 * @return
-	 * 
-	 *         public class LearningTemplateResultSet { private GraphNode root;
-	 *         // root is set if graph consists of one node private Graph
-	 *         resultGraph; private HashMap<GraphTriple, List<String>>
-	 *         catchwordMap; private String nameOfTheLearningTemplate;
-	 * 
-	 *         also look at: /learningtemplate/add
-	 */
-	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
-	@Path("/learningtemplate/get")
-	@Produces(MediaType.APPLICATION_JSON)
-	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-
-		CompOntologyManager comp = new CompOntologyManager();
-		comp.begin();
-
-		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);
-		List<Competence> associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
-
-		if (associatedCompetences.isEmpty()) {
-			return null;
-		}
-		if (associatedCompetences.size() == 1) {
-			return new LearningTemplateResultSet(new GraphNode(learningTemplateName));
-		}
-
-		// TODO generate LearningTemplateResultSet
-
-		comp.close();
-
-		return null;
-	}
 }
