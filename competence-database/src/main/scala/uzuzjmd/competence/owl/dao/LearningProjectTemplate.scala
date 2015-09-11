@@ -1,9 +1,11 @@
 package uzuzjmd.competence.owl.dao
 
 import uzuzjmd.competence.owl.ontology.CompOntClass
+
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
+import scala.collection.JavaConverters._
 
 class LearningProjectTemplate(comp: CompOntologyManager, var name: String, associatedComptences: Seq[Competence] = null, readableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.LearningProjectTemplate, CompOntologyAccessScala.convertMoodleIdToName(name)) {
   name = CompOntologyAccessScala.convertMoodleIdToName(name)
@@ -34,6 +36,10 @@ class LearningProjectTemplate(comp: CompOntologyManager, var name: String, assoc
 
   def getAssociatedCompetences(): Seq[Competence] = {
     return getAssociatedSingletonDaosAsRange(CompObjectProperties.LearningProjectTemplateOf, classOf[Competence])
+  }
+
+  def getAssociatedCompetencesAsJava(): java.util.List[Competence] = {
+    return getAssociatedCompetences.asJava
   }
 
   def addCompetenceToProject(competence: Competence) {

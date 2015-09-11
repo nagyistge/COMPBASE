@@ -45,6 +45,7 @@ import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.Assessment
 
 object Ont2SuggestedCompetenceGrid {
+
   protected type ComPairList = Buffer[(Competence, Competence)]
 
   private val log = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
