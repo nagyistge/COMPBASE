@@ -20,6 +20,11 @@
 				</exclusion>
 
 				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-server</artifactId>
+				</exclusion>
+
+				<exclusion>
 					<groupId>wsdl4j</groupId>
 					<artifactId>wsdl4j</artifactId>
 				</exclusion>
@@ -96,6 +101,24 @@
 					<groupId>org.glassfish.jersey.core</groupId>
 					<artifactId>jersey-server</artifactId>
 				</exclusion>
+
+				<exclusion>
+					<groupId>org.glassfish.jersey.core</groupId>
+					<artifactId>jersey-server</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.eclipse.jetty
+					</groupId>
+					<artifactId>jetty-servlet</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.eclipse.jetty
+					</groupId>
+					<artifactId>jetty-servlets</artifactId>
+				</exclusion>
+
 
 				<exclusion>
 					<groupId>org.glassfish.jersey.core</groupId>
@@ -176,7 +199,10 @@
 			</exclusions>
 		</dependency>
 
+
+
 	</dependencies>
+
 
 
 

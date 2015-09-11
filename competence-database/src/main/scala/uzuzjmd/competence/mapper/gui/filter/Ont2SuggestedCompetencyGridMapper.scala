@@ -11,6 +11,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 object Ont2SuggestedCompetencyGridMapper {
 
 
+
   type ComPairList = Buffer[(Competence, Competence)]
 
   val log = LogManager.getLogger(Ont2SuggestedCompetencyGridMapper.getClass().getName());
