@@ -59,7 +59,8 @@ public class EvidenceServiceRestServerImpl implements EvidenceService {
 	public Response getUserTreeCrossDomain(@PathParam("course") String course, @QueryParam("lmsSystem") String lmsSystem, @QueryParam("organization") String organization,
 			@QueryParam("user") String user, @QueryParam("password") String password) {
 		if (course == null || course.equals("0")) {
-			return Response.status(404).build();
+			Response response = Response.status(200).entity(new UserTree[0]).build();
+			return response;
 		}
 		user = checkLoginisEmail(user);
 		Response response = Response.status(200).entity(evidenceService.getUserTree(course, lmsSystem, organization, user, password)).build();
