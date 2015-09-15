@@ -22,17 +22,6 @@ public class EvidenceServiceProxy implements EvidenceService {
 		propUtil.doStandard();
 		Properties prop = propUtil.getProperties();
 
-		if (prop.get("liferayEnabled").equals("true")) {
-			String adminUserName = prop.getProperty("adminUserName");
-			String adminPassword = prop.getProperty("adminPassword");
-			String liferayURL = prop.getProperty("liferayURL");
-			// LiferayEvidenceRestServiceImpl evidenceRestServiceImpl = new
-			// LiferayEvidenceRestServiceImpl(adminUserName, adminPassword,
-			// liferayURL);
-			// evidenceProviderMap.evidenceMap.put(LMSSystems.liferay.toString(),
-			// evidenceRestServiceImpl);
-		}
-
 		if (prop.get("moodleEnabled").equals("true")) {
 			try {
 				MagicStrings.MOODLEURL = prop.getProperty("moodleURL").toString();
