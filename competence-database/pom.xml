@@ -109,6 +109,16 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Miredot Deps -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sun</groupId> -->
+<!-- 			<artifactId>tools</artifactId> -->
+<!-- 			<version>1.7</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>C:\dev\jdk1.6.0_45\lib\tools.jar</systemPath> -->
+<!-- 		</dependency> -->
+
 		<!-- Computerlinguistic -->
 
 		<!-- <dependency> -->
@@ -227,7 +237,7 @@
 			<artifactId>jersey-common</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -246,7 +256,7 @@
 			<version>2.5.1</version>
 		</dependency>
 
-		
+
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.glassfish.jersey.media</groupId> -->
@@ -397,6 +407,9 @@
 					<!-- apply for spring mvc support <restModel> <restFramework> <name>spring-mvc</name> 
 						</restFramework> </restModel> -->
 					<!-- insert other configuration here (optional) -->
+					<source>1.7</source>
+					<target>1.7</target>
+					
 				</configuration>
 			</plugin>
 
