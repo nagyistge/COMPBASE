@@ -1,4 +1,4 @@
-package uzuzjmd.competence;
+package uzuzjmd.competence.config;
 
 import javax.ws.rs.ApplicationPath;
 
