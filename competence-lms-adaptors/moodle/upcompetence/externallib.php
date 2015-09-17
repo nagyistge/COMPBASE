@@ -75,16 +75,14 @@ class local_competence_external extends external_api {#
     public static function get_evidences_for_course($courseId) {
         global $DB, $CFG, $USER;
 
-
         $userId = $USER->id;
         $roles = get_user_roles_in_course($userId, $courseId);
 
-        if (strpos($roles, 'Teacher') !== FALSE) {
+        if (strpos($roles, 'Teacher') !== FALSE || strpos($roles, 'Lehrer') !== FALSE || strpos($roles, 'Trainer') !== FALSE) {
 
             $query = 'SELECT {log}.*,firstname,lastname,email,lastaccess FROM {log} , {user} INNER JOIN {role_assignments} ra ON ra.userid = {user}.id INNER JOIN {context} ct ON ct.id = ra.contextid INNER JOIN {course} c ON c.id = ct.instanceid INNER JOIN {role} r ON r.id = ra.roleid INNER JOIN {course_categories} cc ON cc.id = c.category WHERE {log}.userid = {user}.id AND {log}.course= ? AND r.id =5 ORDER BY time DESC';
             $result = $DB->get_records_sql($query, array($courseId));
-            $mapper = function ($arrayElement) {
-                $actual_link = 'http://localhost/moodle'; // to be changed  
+            $mapper = function ($arrayElement) {                
                 return array(
                     'shortname' => $arrayElement->module . $arrayElement->info . " am " . $arrayElement->lastaccess,
                     'url' => $actual_link . "/mod/" . $arrayElement->module . "/" . $arrayElement->url,
