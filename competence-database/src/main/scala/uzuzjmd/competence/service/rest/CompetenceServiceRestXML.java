@@ -576,6 +576,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 
 		compOntologyManager.close();
 
+		// change for testcommit to gitup
 		return Response.ok("learningTemplate deleted").build();
 	}
 
