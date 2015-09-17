@@ -551,18 +551,16 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);
 		List<Competence> associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
 
+		LearningTemplateResultSet result = null;
+
 		if (associatedCompetences.isEmpty()) {
-			return null;
+			result = null;
+		} else if (associatedCompetences.size() == 1) {
+			result = new LearningTemplateResultSet(new GraphNode(associatedCompetences.get(0).getDefinition()));
+		} else {
+			result = Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
 		}
-		if (associatedCompetences.size() == 1) {
-			return new LearningTemplateResultSet(new GraphNode(learningTemplateName));
-		}
-
-		// TODO generate LearningTemplateResultSet
-		LearningTemplateResultSet result = Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
-
 		comp.close();
-
 		return result;
 	}
 

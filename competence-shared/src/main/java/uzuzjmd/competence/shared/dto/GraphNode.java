@@ -34,13 +34,14 @@ public class GraphNode {
 	}
 
 	public void setLabel(String label) {
-		this.label = encode(label);
+		// this.label = encode(label);
+		this.label = label;
 		this.id = label.hashCode();
 	}
 
-	private String encode(String label2) {
-		return label2.replaceAll(" ", "-");
-	}
+	// private String encode(String label2) {
+	// return label2.replaceAll(" ", "-");
+	// }
 
 	public int getId() {
 		return id;
