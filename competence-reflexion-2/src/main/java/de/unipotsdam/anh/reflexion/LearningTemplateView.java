@@ -6,15 +6,22 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 
+import de.unipotsdam.anh.dao.LearningTemplateDao;
+
 @ManagedBean(name = "learningTemplateView")
-public class LearningTemplateView implements Serializable{
+public class LearningTemplateView implements Serializable, Validator{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +35,7 @@ public class LearningTemplateView implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-//		learningTemplates = LearningTemplateDao.findAll().getData();
+		learningTemplates = LearningTemplateDao.findAll().getData();
 	}
 	
 	public List<String> complete(String query) {
@@ -40,14 +47,13 @@ public class LearningTemplateView implements Serializable{
     }
 	
 	public void createLearningTemplate(ActionEvent e) {
-//		LearningTemplateDao.createTemplate(newLearningTemplate);
-		this.selectedLearningTemplate = this.newLearningTemplate;
-		templateCompetenceView.setDescriptorsetName(selectedLearningTemplate);
-		System.out.println(selectedLearningTemplate);
+		LearningTemplateDao.createTemplate(newLearningTemplate);
+		templateCompetenceView.update(newLearningTemplate);
 	}
 	
 	public void selectLearningTemplate(ActionEvent e) {
 		System.out.println(selectedLearningTemplate);
+		templateCompetenceView.update(selectedLearningTemplate);
 	}
 
 	public String getNewLearningTemplate() {
@@ -81,5 +87,14 @@ public class LearningTemplateView implements Serializable{
 	public void setTemplateCompetenceView(
 			TemplateCompetenceView templateCompetenceView) {
 		this.templateCompetenceView = templateCompetenceView;
+	}
+
+	@Override
+	public void validate(FacesContext arg0, UIComponent arg1, Object arg2)
+			throws ValidatorException {
+		if (!learningTemplates.contains(arg2)) {			
+			throw new ValidatorException(new FacesMessage("EingabeFehler: Es gibt kein Lernziel mit diesem Namen"));
+		}	
+		
 	}
 }
