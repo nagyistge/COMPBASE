@@ -2,6 +2,8 @@ package uzuzjmd.competence.service.rest.client.api;
 
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 
+import com.google.gwt.core.shared.GWT;
+
 public class RestUrlFactory {
 	public static String getRequirementTextFieldUrl() {
 		return Controller.contextFactory.getServerURL()
@@ -55,6 +57,7 @@ public class RestUrlFactory {
 				+ Controller.contextFactory.getUser()
 				+ "&password="
 				+ Controller.contextFactory.getPassword();
+		GWT.log("activity url queried is: " + moodleEvidenceUrl);
 		return moodleEvidenceUrl;
 	}
 
