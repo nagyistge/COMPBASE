@@ -3,4 +3,4 @@
 	url = https://github.com/uzuzjmd/competence-reflexion-learner.git
 [submodule "competence-reflexion-teacher"]
 	path = competence-reflexion-teacher
-	url = https://github.com/uzuzjmd/competence-reflexion-learner.git
+	url = https://github.com/uzuzjmd/competence-reflexion-teacher.git
