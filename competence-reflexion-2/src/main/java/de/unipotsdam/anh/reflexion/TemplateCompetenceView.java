@@ -2,76 +2,210 @@ package de.unipotsdam.anh.reflexion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
-import uzuzjmd.competence.shared.DESCRIPTORType;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
+import uzuzjmd.competence.shared.dto.Graph;
+import uzuzjmd.competence.shared.dto.GraphNode;
+import uzuzjmd.competence.shared.dto.GraphTriple;
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
 
 @ManagedBean(name = "templateCompetenceView")
-@ViewScoped
+@SessionScoped
 public class TemplateCompetenceView implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String descriptorsetName;
+	private String learnProject;
 	
-	private List<DESCRIPTORType> descriptorTypes;
+	private Map<String, List<String>> competencen;
 	
-	private List<String> competenceHeaders;
+	private List<String> catchWords;
 	
+	private String newCatchWord;
+	private String newCompetence;
+	
+	private String selectedCatchword;
+	
+	private String selectedCompetenceToNode;
+	private String selectedCompetenceFromNode;
+	
+	private Graph graph;
+	
+	private TreeNode root;
+
 	@PostConstruct
 	public void init() {
-		descriptorsetName = "Programmieren";
-		descriptorTypes = new ArrayList<DESCRIPTORType>();
+		graph = new Graph();
+		root = new DefaultTreeNode("Root", null);
 		
-		DESCRIPTORType desType1 = new DESCRIPTORType();
-		desType1.setNAME("ich kann Funktion schreiben");
-		desType1.setCOMPETENCE("pascal");
-		desType1.setEVALUATIONS("gar nicht; ausreichend; befriedigend; gut");
-		desType1.setGOAL((byte) 1);
-		desType1.setLEVEL("niedrig");
+		competencen = new HashMap<String, List<String>>();
+		catchWords = new ArrayList<String>();
 		
-		DESCRIPTORType desType2 = new DESCRIPTORType();
-		desType2.setNAME("Ich kann Klasse schreiben");
-		desType2.setCOMPETENCE("java");
-		desType2.setEVALUATIONS("gar nicht; ausreichend; befriedigend; gut");
-		desType2.setGOAL((byte) 1);
-		desType2.setLEVEL("hoch");
+		String[] test = {"java","pascal","C++"};
+		catchWords.addAll(Arrays.asList(test));
+	}
+	
+	public void update(String learnProject) {
+		this.learnProject = learnProject;
+	}
+	
+	public void addNewCatchWord(ActionEvent e) {
+		catchWords.add(newCatchWord);
+	}
+	
+	public void addNewCompetence(ActionEvent e) {
+		final List<String> newCompetencen = new ArrayList<String>();
+		newCompetencen.add(newCompetence);
 		
-		descriptorTypes.add(desType1);
-		descriptorTypes.add(desType2);
+		List<String> competencenFromCatchWord = competencen.get(selectedCatchword);
+		if(competencenFromCatchWord == null) {
+			competencen.put(selectedCatchword, newCompetencen);
+		} else {
+			competencenFromCatchWord.addAll(newCompetencen);
+		}
+	}
+	
+	public void selecteCatchWord(String catchWord) {
+		this.selectedCatchword = catchWord;
+		System.out.println(selectedCatchword);
+	}
+	
+	public void selecteCompetence(String competence) {
+		this.selectedCompetenceFromNode = competence;
+		System.out.println(selectedCompetenceFromNode);
+	}
+	
+	public List<String> complete(String query) {
+		final List<String> results = new ArrayList<String>();
+        final List<String> dbCompetencen = new ArrayList<String>();
+        
+        for(Entry<String, List<String>> entry : competencen.entrySet()) {
+        	dbCompetencen.addAll(entry.getValue());
+        }
+        
+		final Collection<String> tmp = Collections2.filter(dbCompetencen, Predicates.containsPattern(query));	
+		results.addAll(tmp);
 		
-		competenceHeaders = new ArrayList<String>();
-		for(DESCRIPTORType des : descriptorTypes) {
-			if(!competenceHeaders.contains(des.getCOMPETENCE())) {
-				competenceHeaders.add(des.getCOMPETENCE());
+        return results;
+	}
+	
+	public void branchCompetenceAction(ActionEvent e) {
+		System.out.println("From node: " + selectedCompetenceFromNode);
+		System.out.println("To Node: " + selectedCompetenceToNode);
+		
+		graph.addTriple(selectedCompetenceFromNode, selectedCompetenceToNode, "", true);
+		
+		convertGraphToTree();
+	}
+	
+	private void convertGraphToTree() {
+		Map<Integer, DefaultTreeNode> nodes = new HashMap<Integer, DefaultTreeNode>();
+		for(GraphNode n : graph.nodes) {
+			nodes.put(n.getId(), new DefaultTreeNode(n.getLabel()));
+		}
+		int n = 0;
+		root.getChildren().clear();
+		for(GraphTriple t : graph.triples) {
+			if(n == 0) {
+				root.getChildren().add(nodes.get(t.getNode1id()));
+				n++;
 			}
+			nodes.get(t.getNode1id()).getChildren().add(nodes.get(t.getNode2id()));
 		}
 	}
 
-	public String getDescriptorsetName() {
-		return descriptorsetName;
+	public String getLearnProject() {
+		return learnProject;
 	}
 
-	public void setDescriptorsetName(String descriptorsetName) {
-		this.descriptorsetName = descriptorsetName;
+	public void setLearnProject(String learnProject) {
+		this.learnProject = learnProject;
 	}
 
-	public List<DESCRIPTORType> getDescriptorTypes() {
-		return descriptorTypes;
+	public List<String> getCatchWords() {
+		return catchWords;
 	}
 
-	public void setDescriptorTypes(List<DESCRIPTORType> descriptorTypes) {
-		this.descriptorTypes = descriptorTypes;
+	public void setCatchWords(List<String> catchWords) {
+		this.catchWords = catchWords;
 	}
 
-	public List<String> getCompetenceHeaders() {
-		return competenceHeaders;
+	public String getNewCatchWord() {
+		return newCatchWord;
 	}
 
-	public void setCompetenceHeaders(List<String> competenceHeaders) {
-		this.competenceHeaders = competenceHeaders;
+	public void setNewCatchWord(String newCatchWord) {
+		this.newCatchWord = newCatchWord;
 	}
+
+	public String getNewCompetence() {
+		return newCompetence;
+	}
+
+	public void setNewCompetence(String newCompetence) {
+		this.newCompetence = newCompetence;
+	}
+
+	public Map<String, List<String>> getCompetencen() {
+		return competencen;
+	}
+
+	public void setCompetencen(Map<String, List<String>> competencen) {
+		this.competencen = competencen;
+	}
+
+	public String getSelectedCatchword() {
+		return selectedCatchword;
+	}
+
+	public void setSelectedCatchword(String selectedCatchword) {
+		this.selectedCatchword = selectedCatchword;
+	}
+
+	public String getSelectedCompetenceToNode() {
+		return selectedCompetenceToNode;
+	}
+
+	public void setSelectedCompetenceToNode(String selectedCompetenceToNode) {
+		this.selectedCompetenceToNode = selectedCompetenceToNode;
+	}
+
+	public String getSelectedCompetenceFromNode() {
+		return selectedCompetenceFromNode;
+	}
+
+	public void setSelectedCompetenceFromNode(String selectedCompetenceFromNode) {
+		this.selectedCompetenceFromNode = selectedCompetenceFromNode;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+	
 }
