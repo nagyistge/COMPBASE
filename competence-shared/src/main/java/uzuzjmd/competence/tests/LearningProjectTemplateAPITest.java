@@ -1,5 +1,8 @@
 package uzuzjmd.competence.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,13 @@ public class LearningProjectTemplateAPITest {
 	private static LearningTemplateResultSet learningTemplateResultSet;
 	private static LearningTemplateResultSetWrapper wrapper;
 	private static LoggingFilter logginFilter;
+	private static String serveradress = "http://localhost:8084";
+
+	private static String templateName = "TheTemplateName"; // the name of the
+															// tested for
+															// single-case
+
+	// learningTemplate
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -80,37 +90,40 @@ public class LearningProjectTemplateAPITest {
 
 		logginFilter = new LoggingFilter(logger, true);
 
+		// add single learningTemplate
+		addSingleRootLearningProjectTemplate();
+		createLearningProjectTemplate();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		graph = null;
 		learningTemplateName = null;
+
+		// TODO: Delete Templates
 	}
 
-	@Test
-	public void testCreateLearningProjectTemplate() {
+	/**
+	 * creates a learningprojectTemplate
+	 */
+	public static void createLearningProjectTemplate() {
 
 		// make client call
 
 		Client client = ClientBuilder.newBuilder()
 				.register(JacksonFeature.class).build();
-
 		try {
-
-			// client.setConnectTimeout(300);
-			// client.setReadTimeout(300);
 			WebTarget webResource = client
-					.target("http://localhost:8084/competences/xml/learningtemplate/add/"
+					.target(serveradress
+							+ "/competences/xml/learningtemplate/add/"
 							+ learningTemplateName)
 					.register(logginFilter)
 					.queryParam("learningTemplateResultSet",
 							learningTemplateResultSet);
 
 			// .queryParam("graph", graph)
-			Response result = webResource.request(
-					javax.ws.rs.core.MediaType.APPLICATION_XML).post(
-					Entity.entity(learningTemplateResultSet,
+			Response result = webResource.request(MediaType.APPLICATION_XML)
+					.post(Entity.entity(learningTemplateResultSet,
 							MediaType.APPLICATION_XML));
 
 			System.out.println(result.getStatus());
@@ -122,27 +135,93 @@ public class LearningProjectTemplateAPITest {
 		}
 	}
 
+	/**
+	 * test if learning project template can be used
+	 */
 	@Test
 	public void testGetLearningProjectTemplate() {
-
-		// make client call
-
 		Client client = ClientBuilder.newClient();
-		// client.setConnectTimeout(300);
-		// client.setReadTimeout(300);
 		try {
 
 			WebTarget webResource = client.target(
-					"http://localhost:8084/competences/xml/learningtemplate/get/"
+					serveradress + "/competences/xml/learningtemplate/get/"
 							+ learningTemplateName).register(logginFilter);
-
-			// .queryParam("graph", graph)
 			LearningTemplateResultSet result = webResource.request(
 					MediaType.APPLICATION_XML).get(
 					LearningTemplateResultSet.class);
+			assertNotNull(result);
+			client.close();
+		} finally {
+			client.close();
+		}
+	}
+
+	/**
+	 * creates a learning project template with one element
+	 */
+	public static void addSingleRootLearningProjectTemplate() {
+
+		// make client call
+
+		Client client = ClientBuilder.newBuilder()
+				.register(JacksonFeature.class).build();
+
+		try {
+
+			// client.setConnectTimeout(300);
+			// client.setReadTimeout(300);
+			WebTarget webResource = client
+					.target(serveradress + "/competences/json/addOne/")
+					.register(logginFilter)
+					.queryParam("competence",
+							"The ability to jump high distances")
+					.queryParam("operator", "jump")
+					.queryParam("catchword", "ability")
+					.queryParam("learningTemplateName", templateName);
+
+			// .queryParam("graph", graph)
+			Response result = webResource.request(MediaType.APPLICATION_JSON)
+					.post(null);
+
+			System.out.println(result.getStatus());
+
+			client.close();
 
 		} finally {
 			client.close();
+		}
+
+	}
+
+	/**
+	 * check if template with one element can be returned
+	 */
+	@Test
+	public void checkSingletonLearningTemplate() {
+		// make client call
+
+		Client client2 = ClientBuilder.newClient();
+		// client.setConnectTimeout(300);
+		// client.setReadTimeout(300);
+		LearningTemplateResultSet result2 = null;
+		try {
+
+			WebTarget webResource = client2.target(
+					serveradress + "/competences/xml/learningtemplate/get/"
+							+ templateName).register(logginFilter);
+
+			// .queryParam("graph", graph)
+			result2 = webResource.request(MediaType.APPLICATION_XML).get(
+					LearningTemplateResultSet.class);
+			assertNotNull(result2);
+			assertEquals(
+					result2.getRoot().getLabel()
+							.equals("The ability to jump high distances"), true);
+
+			client2.close();
+		} finally {
+			client2.close();
+
 		}
 	}
 }
