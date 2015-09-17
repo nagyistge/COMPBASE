@@ -1,6 +1,6 @@
-[submodule "uzuzjmd"]
-	path = uzuzjmd
-	url = https://github.com/uzuzjmd/competence-reflexion-learner.git
 [submodule "competence-reflexion-learner"]
 	path = competence-reflexion-learner
+	url = https://github.com/uzuzjmd/competence-reflexion-learner.git
+[submodule "competence-reflexion-teacher"]
+	path = competence-reflexion-teacher
 	url = https://github.com/uzuzjmd/competence-reflexion-learner.git
