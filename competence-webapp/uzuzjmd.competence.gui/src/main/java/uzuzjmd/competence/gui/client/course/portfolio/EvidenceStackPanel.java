@@ -42,6 +42,7 @@ public class EvidenceStackPanel extends Composite {
 	}
 
 	public EvidenceStackPanel(PopupPanel container, String userName) {
+		GWT.log("beginning constructor of EvidenceStackPanel");
 		this.userName = userName;
 		initWidget(uiBinder.createAndBindUi(this));
 		// evidenceStackPanel.add(new Label("test"), userName);
@@ -51,6 +52,7 @@ public class EvidenceStackPanel extends Composite {
 		StackPanelReloader stackPanelReloader = new StackPanelReloader(
 				evidenceStackPanel, userName, null);
 		stackPanelReloader.reload();
+		GWT.log("finish constructor of EvidenceStackPanel");
 	}
 
 	@UiHandler("closeButton")

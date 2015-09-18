@@ -1,6 +1,7 @@
 package uzuzjmd.competence.gui.client.course.portfolio;
 
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
+import uzuzjmd.competence.service.rest.client.dto.CommentEntry;
 import uzuzjmd.competence.service.rest.client.dto.CompetenceLinksView;
 
 import com.google.gwt.core.client.GWT;
@@ -32,6 +33,7 @@ public class EvidenceLinkWidget extends Composite {
 	public EvidenceLinkWidget(CompetenceLinksView[] links,
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
+		GWT.log("start initiating EvidenceLinkWidget");
 		initCompetenceLinksView(links, stackPanelReloader, userName);
 		if (Controller.contextFactory.getRole().equals("student")) {
 			// validityPanelHeader.setVisible(false);
@@ -39,6 +41,7 @@ public class EvidenceLinkWidget extends Composite {
 			// deletePanelHeader.setTitle("");
 			// deletePanelHeader.clear();
 		}
+		GWT.log("finish initiating EvidenceLinkWidget");
 	}
 
 	private void initCompetenceLinksView(CompetenceLinksView[] links,
@@ -47,7 +50,8 @@ public class EvidenceLinkWidget extends Composite {
 			this.verticalPanel.add(new EvidenceLinkEntry(competenceLinksView
 					.getAbstractLinkId(), competenceLinksView
 					.getEvidenceTitel(), competenceLinksView.getEvidenceUrl(),
-					competenceLinksView.getComments(), competenceLinksView
+					competenceLinksView.getComments().toArray(
+							new CommentEntry[0]), competenceLinksView
 							.getValidated(), stackPanelReloader, username));
 		}
 	}

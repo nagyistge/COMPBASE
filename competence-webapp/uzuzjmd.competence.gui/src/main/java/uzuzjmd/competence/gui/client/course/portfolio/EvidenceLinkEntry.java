@@ -1,7 +1,5 @@
 package uzuzjmd.competence.gui.client.course.portfolio;
 
-import java.util.List;
-
 import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.context.NativeContext;
@@ -70,7 +68,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	}
 
 	public EvidenceLinkEntry(String abstractLinkId, String evidenceTitel,
-			String evidenceUrl, List<CommentEntry> list, Boolean validated,
+			String evidenceUrl, CommentEntry[] list, Boolean validated,
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initContent(evidenceTitel, evidenceUrl, list, validated);
@@ -107,7 +105,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	}
 
 	private void initContent(String evidenceTitel, final String evidenceUrl,
-			List<CommentEntry> list, Boolean validated) {
+			CommentEntry[] list, Boolean validated) {
 		this.textPlaceholder.add(new HTML(evidenceTitel));
 		this.evidenceUrl = evidenceUrl;
 
