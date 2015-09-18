@@ -56,6 +56,11 @@ public class LoginView extends Composite {
 		this.parent = parent;
 		debug.setVisible(isDebug);
 		debug.setEnabled(isDebug);
+		if (isDebug) {
+			loginTextBox.setValue("test2@stuff.com");
+			passwordTextBox.setValue("voyager1;A");
+			button.click();
+		}
 	}
 
 	@UiHandler("button")

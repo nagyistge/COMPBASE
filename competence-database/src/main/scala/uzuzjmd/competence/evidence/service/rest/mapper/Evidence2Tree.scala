@@ -11,7 +11,6 @@ import uzuzjmd.competence.shared.dto.UserTree
 import uzuzjmd.competence.shared.dto.ActivityEntry
 import uzuzjmd.competence.shared.dto.ActivityTyp
 
-
 /**
  * Diese Klasse mappt die Evidenzen aus der Moodle-Datenbank und von dem Moodle-RestService so, dass
  * Die Evidenzen als GWT-Tree angezeigt werden können
@@ -29,22 +28,26 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
   def getUserTrees(): java.util.List[UserTree] = {
     val groupedByUser = moodleEvidences.filterNot(x => x.getActivityTyp().equals("course")).groupBy(evidence => evidence.getUsername())
     val groupedByModAndMappedToPlural = groupedByUser.map(x => (x._1, x._2.groupBy(x => x.getActivityTyp()).map(y => (getValueFromMap(y._1)(pluralMap), y._2.map(z => z.getUrl()).distinct))))
-    return groupedByModAndMappedToPlural.map(x => new UserTree(x._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", activityTypEntryMapToActivityTyp(x._2))).toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+    val testresult = groupedByModAndMappedToPlural.map(x => activityTypEntryMapToActivityTyp(x._2))
+    val result = groupedByModAndMappedToPlural.map(x => new UserTree(x._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", activityTypEntryMapToActivityTyp(x._2)))
+    return result.toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
   }
 
   def getValueFromMap(key: String)(map: Map[String, String]): String = {
     return map.get(key) match {
       case Some(i) => return i;
-      case None => return "notfound";
+      case None    => return "notfound";
     };
   }
 
   def activityTypEntryMapToActivityTyp(activityTypMap: Map[String, Array[String]]): java.util.List[ActivityTyp] = {
-    return activityTypMap.map(y => new ActivityTyp(y._1, "Aktivitätstyp", getValueFromMap(y._1)(modiconMap), createActivityEntries(y._2))).toList.filterNot(x => x.getName().equals(x.getIcon())).filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+    val testresult = activityTypMap.map(y => y._2)
+    val result = activityTypMap.map(y => new ActivityTyp(y._1, "Aktivitätstyp", getValueFromMap(y._1)(modiconMap), createActivityEntries(y._2)))
+    return result.toList.filterNot(x => x.getName().equals(x.getIcon())).filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
   }
 
   def createActivityEntries(urls: Array[String]): java.util.List[ActivityEntry] = {
-    return urls.map(url => new ActivityEntry(getValueFromMap(url)(printableNameMap), "Activität", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", url)).toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
+    return urls.map { x => x.replace("\\", "") }.map { x => MagicStrings.MOODLEURL + x }.map(url => new ActivityEntry(getValueFromMap(url)(printableNameMap), "Activität", MagicStrings.ICONPATHMOODLE + "/appbar.monitor.to.svg", url)).toList.filterNot(userEntry => userEntry.getName().equals("notfound")).asJava
   }
 
   def printMap(map: Map[String, String]) {
