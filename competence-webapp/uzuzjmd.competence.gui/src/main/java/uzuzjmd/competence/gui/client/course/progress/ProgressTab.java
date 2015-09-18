@@ -24,7 +24,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -34,13 +33,8 @@ public class ProgressTab extends CompetenceTab {
 			.create(ProgressTabUiBinder.class);
 
 	@UiField
-	SimplePanel HrPanelContainer;
-	@UiField
 	VerticalPanel progressPlaceHolder;
-	@UiField
-	SimplePanel hrPanelContainer2;
-	@UiField
-	SimplePanel tabExplainationPanel;
+
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
 	@UiField
@@ -56,12 +50,6 @@ public class ProgressTab extends CompetenceTab {
 
 	public ProgressTab() {
 		initWidget(uiBinder.createAndBindUi(this));
-
-		String infoText = "Hier können Sie die Zuordnung von den Kompetenzen und den Teilnehmern einsehen. Die Balken zeigen an, wie viele der ausgewählten Kompetenzen mit einer Aktivität eines Teilnehmers verknüpft wurden.";
-		infoText += "Wenn keine Fortschrittsbalken angezeigt werden, müssen sie in dem Zuordung-Tab Aktivitäten zuordnen";
-		fillInfoTab(infoText, tabExplainationPanel);
-		initHrLines(HrPanelContainer);
-
 		competenceSelectionWidget = new CompetenceSelectionWidget(null,
 				"coursecontext/", "Auswahl der Kompetenzen für Fortschritt",
 				true);
@@ -82,6 +70,7 @@ public class ProgressTab extends CompetenceTab {
 
 					@Override
 					public void onSuccess(Method arg0, JSONValue arg1) {
+						GWT.log("got progress");
 						Map<String, String> userProgressMap = JsonUtil
 								.toMap(arg1);
 						GWT.log("addin progress entries to Progress Tab");
