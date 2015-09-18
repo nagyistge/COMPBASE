@@ -40,3 +40,5 @@ competence-webapp/uzuzjmd.competence.gui/src/main/webapp/WEB-INF/lib/
 competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/competence_webapp.devmode.js
 competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/competence_webapp.nocache.js
 competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/compilation-mappings.txt
+competence-webapp/uzuzjmd.competence.gui/src/main/java/uzuzjmd/competence/gui/client/MyConstants.properties
+competence-webapp/uzuzjmd.competence.gui/src/main/resources/uzuzjmd/competence/gui/client/MyConstants.properties
