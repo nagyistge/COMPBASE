@@ -5,6 +5,8 @@
 	.important {
 		font-weight: bold;
 	}
+	
+	
 	</ui:style>
 	<g:HTMLPanel>
 
@@ -12,7 +14,7 @@
 
 		<b:TabPanel ui:field="tabPanel">
 			<b:Tab heading="Kompetenzenverwaltung">
-				<b:TabPanel ui:field="taxonomy" >
+				<b:TabPanel ui:field="taxonomy">
 					<b:Tab heading="Taxonomie">
 						<b:TabPanel tabPosition="left">
 							<b:Tab heading="Neue Kompetenz anlegen">
@@ -37,34 +39,40 @@
 				</b:TabPanel>
 			</b:Tab>
 			<b:Tab heading="Kurskontext">
-				<g:HorizontalPanel>
-					<b:TabPanel ui:field="courseContext">
-						<b:Tab heading="Kompetenzauswahl für Kurs">
-							<g:HTMLPanel ui:field="requirementTabPlaceholder" />
-						</b:Tab>
+				<g:VerticalPanel>
+					<g:HorizontalPanel>
+						<b:DropdownButton ui:field="coursesDropdown"
+							text="Test-Moodle">
+							<b:NavHeader>Angebundene Systeme</b:NavHeader>
+							<b:Button>Test-Moodle</b:Button>
+						</b:DropdownButton>
+						<g:SimplePanel ui:field="coursesSelectionPlaceHolder"></g:SimplePanel>
+					</g:HorizontalPanel>
+					<b:VerticalDivider />
+					<g:HorizontalPanel>
+						<b:TabPanel ui:field="courseContext">
+							<b:Tab heading="Kompetenzauswahl für Kurs">
+								<g:HTMLPanel ui:field="requirementTabPlaceholder" />
+							</b:Tab>
+							<b:Tab heading="Zuordnung zu Aktivitäten">
+								<g:HTMLPanel ui:field="linkTabPlaceholder" />
+							</b:Tab>
+							<b:Tab heading="Stand der Teilnehmer">
+								<g:HTMLPanel ui:field="progressTabPlaceholder" />
+							</b:Tab>
+						</b:TabPanel>
 
-						<b:Tab heading="Zuordnung zu Aktivitäten">
-							<g:HTMLPanel ui:field="linkTabPlaceholder" />
-						</b:Tab>
-						<b:Tab heading="Stand der Teilnehmer">
-							<g:HTMLPanel ui:field="progressTabPlaceholder" />
-						</b:Tab>
-					</b:TabPanel>
-					<b:DropdownButton ui:field="coursesDropdown" text="Test-Moodle">
-						<b:NavHeader>Angebundene Systeme</b:NavHeader>
-						<b:Button>Test-Moodle</b:Button>
-					</b:DropdownButton>
-					<g:SimplePanel ui:field="coursesSelectionPlaceHolder"></g:SimplePanel>
-					<!-- <b:DropdownButton text="E-Learning"> -->
-					<!-- <b:NavHeader>Deine Kurse</b:NavHeader> -->
-					<!-- <b:Button>E-Learning</b:Button> -->
-					<!-- <b:Button>E-Learning2</b:Button> -->
-					<!-- </b:DropdownButton> -->
-<!-- 					<g:ListBox visibleItemCount="1" ui:field="courseSelection"> -->
-						
-<!-- 					</g:ListBox> -->
+						<!-- <b:DropdownButton text="E-Learning"> -->
+						<!-- <b:NavHeader>Deine Kurse</b:NavHeader> -->
+						<!-- <b:Button>E-Learning</b:Button> -->
+						<!-- <b:Button>E-Learning2</b:Button> -->
+						<!-- </b:DropdownButton> -->
+						<!-- <g:ListBox visibleItemCount="1" ui:field="courseSelection"> -->
 
-				</g:HorizontalPanel>
+						<!-- </g:ListBox> -->
+
+					</g:HorizontalPanel>
+				</g:VerticalPanel>
 			</b:Tab>
 		</b:TabPanel>
 
