@@ -124,6 +124,8 @@ object Ont2SuggestedCompetenceGrid {
     // convert to datagrid structure for visualization
     val grid = groupedCompetences.mapValues(x => x.toList).mapValues(sortListOfSuggestedCompetences)
 
+    // TODO: Fix Problem here with junit test from Anh
+    
     return grid
   }
 

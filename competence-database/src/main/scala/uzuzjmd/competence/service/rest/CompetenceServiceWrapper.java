@@ -189,7 +189,9 @@ public class CompetenceServiceWrapper {
 
 	public static CompetenceXMLTree[] getCompetenceTreeForCourse(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean, String textFilter) {
 		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
-		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTreeForCourse();
+		// List<CompetenceXMLTree> tmpResult =
+		// ont2CompetenceTree.getComptenceTreeForCourse();
+		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTree();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
