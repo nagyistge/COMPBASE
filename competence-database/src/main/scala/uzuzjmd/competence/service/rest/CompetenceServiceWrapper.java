@@ -175,15 +175,21 @@ public class CompetenceServiceWrapper {
 		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
 		// List<CompetenceXMLTree> tmpResult =
 		// ont2CompetenceTree.getComptenceTreeForCourse();
-		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTree();
+		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getComptenceTreeForCourse();
 		assert (!tmpResult.isEmpty());
 		return tmpResult.toArray(new CompetenceXMLTree[0]);
 	}
 
-	public static CompetenceXMLTree[] getCompetenceTreeForCourseNoFilter(List<String> selectedCatchwords, List<String> selectedOperators, String course, Boolean compulsoryBoolean, String textFilter) {
-		Ont2CompetenceTree ont2CompetenceTree = initOnt2Mapper(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
-		List<CompetenceXMLTree> tmpResult = ont2CompetenceTree.getCompetenceTreeForCourseNoFilter();
-		assert (!tmpResult.isEmpty());
-		return tmpResult.toArray(new CompetenceXMLTree[0]);
-	}
+	// public static CompetenceXMLTree[]
+	// getCompetenceTreeForCourseNoFilter(List<String> selectedCatchwords,
+	// List<String> selectedOperators, String course, Boolean compulsoryBoolean,
+	// String textFilter) {
+	// Ont2CompetenceTree ont2CompetenceTree =
+	// initOnt2Mapper(selectedCatchwords, selectedOperators, course,
+	// compulsoryBoolean, textFilter);
+	// List<CompetenceXMLTree> tmpResult =
+	// ont2CompetenceTree.getCompetenceTreeForCourseNoFilter();
+	// assert (!tmpResult.isEmpty());
+	// return tmpResult.toArray(new CompetenceXMLTree[0]);
+	// }
 }
