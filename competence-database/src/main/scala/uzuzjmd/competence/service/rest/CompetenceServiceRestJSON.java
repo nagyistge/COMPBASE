@@ -257,8 +257,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 				linkedUserUser.persist();
 
 				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
-				Competence competenceDao = new Competence(compOntologyManager, competence, null, null);
-				competenceDao.persist(false);
+				Competence competenceDao = new Competence(compOntologyManager, competence, competence, null);
+				competenceDao.persist(true);
 				AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(compOntologyManager, null, creatorUser, linkedUserUser, courseContext, evidenceActivity, Long.valueOf(System
 						.currentTimeMillis()), Boolean.valueOf(false), competenceDao, null);
 				abstractEvidenceLink.persist();

@@ -73,7 +73,7 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
     val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, ontologyManager) match {
       case "" => label
-      case x => x
+      case x  => x
     }
 
     val adaptedIconPath = MagicStrings.webapplicationPath + "/" + iconPath;
@@ -184,12 +184,22 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   }
 
   def getComptenceTreeForCourse(): java.util.List[CompetenceXMLTree] = {
-    getCompetenceTreeHelperNoTree(allowedAndCourse)
+    val noTree = getCompetenceTreeHelperNoTree(allowedAndCourse)
+    val tree = getCompetenceTreeHelper(allowedAndCourse)
+    if (noTree.isEmpty() && tree.isEmpty()) {
+      return tree
+    } else {
+      tree.get(0).getChildren.addAll(noTree.get(0).getChildren)
+      return tree
+    }
   }
 
-  def getCompetenceTreeForCourseNoFilter: java.util.List[CompetenceXMLTree] = {
-    getCompetenceTreeHelperNoTree(hasLinksAndCourse)
-  }
+  //  def getCompetenceTreeForCourseNoFilter: java.util.List[CompetenceXMLTree] = {
+  //    val noTree = getCompetenceTreeHelperNoTree(allowedAndCourse)
+  //    val tree = getCompetenceTreeHelper(allowedAndCourse)
+  //    tree.addAll(noTree)
+  //    return tree
+  //  }
 
   private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
     ontologyManager.begin()

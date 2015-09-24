@@ -162,35 +162,45 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 		return response;
 	}
 
-	/**
-	 * 
-	 * @param course
-	 * @param compulsory
-	 * @param cache
-	 *            can be either "cache" or "nocache"
-	 * @param selectedCatchwords
-	 * @param selectedOperators
-	 * @param textFilter
-	 * @return
-	 */
-	@Produces(MediaType.APPLICATION_XML)
-	@GET
-	@Path("/competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}")
-	public Response getCompetenceTreeForCourseWithoutFilter(@PathParam("course") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators,
-			@QueryParam("textFilter") String textFilter) {
-
-		CompetenceXMLTree[] result = null;
-		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords, selectedOperators, course, null, textFilter);
-		} else {
-			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
-		}
-
-		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
-		return response;
-	}
+	// /**
+	// *
+	// * @param course
+	// * @param compulsory
+	// * @param cache
+	// * can be either "cache" or "nocache"
+	// * @param selectedCatchwords
+	// * @param selectedOperators
+	// * @param textFilter
+	// * @return
+	// */
+	// @Produces(MediaType.APPLICATION_XML)
+	// @GET
+	// @Path("/competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}")
+	// public Response
+	// getCompetenceTreeForCourseWithoutFilter(@PathParam("course") String
+	// course, @PathParam("compulsory") String compulsory, @PathParam("cache")
+	// String cache,
+	// @QueryParam(value = "selectedCatchwords") List<String>
+	// selectedCatchwords, @QueryParam(value = "selectedOperators") List<String>
+	// selectedOperators,
+	// @QueryParam("textFilter") String textFilter) {
+	//
+	// CompetenceXMLTree[] result = null;
+	// if (compulsory.equals("all")) {
+	// result =
+	// CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords,
+	// selectedOperators, course, null, textFilter);
+	// } else {
+	// Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
+	// result =
+	// CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords,
+	// selectedOperators, course, compulsoryBoolean, textFilter);
+	// }
+	//
+	// Response response = RestUtil.buildCachedResponse(result,
+	// cache.equals("cached"));
+	// return response;
+	// }
 
 	/**
 	 * Get the GUI operator tree
