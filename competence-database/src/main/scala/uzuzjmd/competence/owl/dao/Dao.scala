@@ -18,6 +18,10 @@ abstract class Dao(comp: CompOntologyManager) {
   def getPropertyPair(key: String): (Property, Statement)
   protected def persistMore()
 
+  protected def replaceWrongCharacters(input: String): String = {
+    return input.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
+  }
+
   def getFullDao(): Dao
 
   def exists(): Boolean;

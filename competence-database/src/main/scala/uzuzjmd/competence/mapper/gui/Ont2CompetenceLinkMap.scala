@@ -31,16 +31,11 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
   def getCompetenceLinkMap(): CompetenceLinksMap = {    
     val userDap = new User(comp, user)
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
-    val maps = links.map(link => (link -> link.getAllLinkedCompetences)).toMap
+    val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getFullDao().getDefinition()))).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
-    val resultScala: scala.collection.immutable.Map[String, java.util.List[CompetenceLinksView]] = competencesLinked.map(x => (x._1.getDefinition(), x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten.asJava)).filterKeys(p => p != null)
-//    val map = new TreeMap[String, java.util.List[CompetenceLinksView]]
-//    if (resultScala != null && !resultScala.isEmpty) {
-//      map.putAll(resultScala.asJava)
-//    }
-    
-    val arrayDummy = new Array(0) : Array[CompetenceLinksView]
-    val resultAsArray = resultScala.mapValues { x => x.toArray(arrayDummy) }
+    val resultScalaTmp1: scala.collection.immutable.Map[String, List[CompetenceLinksView]] = competencesLinked.map(x => (x._1, x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten))
+    val resultScalaTmp2 = resultScalaTmp1.filterKeys(p => p != null)
+    val resultAsArray = resultScalaTmp2.mapValues { x => x.toArray }
     val result = new CompetenceLinksMap(resultAsArray.asJava);    
     result.getMapUserCompetenceLinks.isEmpty()
     return result

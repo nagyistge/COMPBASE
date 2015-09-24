@@ -44,32 +44,32 @@ import uzuzjmd.competence.owl.access.MagicStrings
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends FunSuite with ShouldMatchers {
 
-//  test("The CSV import should run without errors") {
-//
-//    // change this, if you want to really reset the database
-//    CompFileUtil.deleteTDB()
-//
-//    val compOntManag = new CompOntologyManager()
-//
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    CompetenceImporter.convertCSVArray();
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    EposImporter.importEpos()
-//    compOntManag.begin()
-//    compOntManag.getM().validate()
-//    compOntManag.close()
-//
-//    compOntManag.begin()
-//    val fileUtil = new CompFileUtil(compOntManag.getM())
-//    fileUtil.writeOntologyout()
-//    compOntManag.close()
-//  }
+  test("The CSV import should run without errors") {
+
+    // change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+
+    val compOntManag = new CompOntologyManager()
+
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    CompetenceImporter.convertCSVArray();
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    EposImporter.importEpos()
+    compOntManag.begin()
+    compOntManag.getM().validate()
+    compOntManag.close()
+
+    compOntManag.begin()
+    val fileUtil = new CompFileUtil(compOntManag.getM())
+    fileUtil.writeOntologyout()
+    compOntManag.close()
+  }
 
   test("if a user is persisted, the course context should be acessable") {
 
@@ -220,6 +220,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val user = new User(compOntManag, "me", teacherRole, coursecontext)
 
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    competence.persist(true)
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
@@ -257,20 +258,23 @@ class CoreTests extends FunSuite with ShouldMatchers {
   }
 
   // TODO: Find out why this test fails
-  //  test("the competencelinksmap should not be empty") {
-  //    val compOntManag = new CompOntologyManager()
-  //    compOntManag.begin()
-  //    val linkId = "hellolinkId"
-  //    val studentRole = new StudentRole(compOntManag)
-  //    val coursecontext = new CourseContext(compOntManag, "2")
-  //    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-  //    val link = createAbstract(compOntManag, linkId, userstudent)
-  //    compOntManag.close()
-  //    val mapper = new Ont2CompetenceLinkMap(compOntManag, "student meäää 10AA")
-  //    mapper.getCompetenceLinkMap.getMapUserCompetenceLinks().entrySet() should not be ('empty)
-  //    link.delete
-  //    showResult
-  //  }
+    test("the competencelinksmap should not be empty") {
+      val compOntManag = new CompOntologyManager()
+      compOntManag.begin()
+      val linkId = "hellolinkId"
+      val studentRole = new StudentRole(compOntManag)
+      val coursecontext = new CourseContext(compOntManag, "2")
+      val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+      val link = createAbstract(compOntManag, userstudent)
+      
+      val mapper = new Ont2CompetenceLinkMap(compOntManag, "student meäää 10AA")
+      val tmp0 = mapper.getCompetenceLinkMap
+      val tmp1 = tmp0.getMapUserCompetenceLinks()
+      tmp1.entrySet() should not be ('empty)
+      link.delete      
+      compOntManag.close()
+      showResult
+    }
 
   test("progresbarmap should not be empty") {
     val compOntManag = new CompOntologyManager()
@@ -282,7 +286,8 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val link = createAbstract(compOntManag, userstudent)
     compOntManag.close()
     compOntManag.begin()
-    val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil
+    val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil    
+//    competenceList.foreach { x => x.persist(true) }
     val competenceListString = competenceList.map(x => x.getFullDao.definition).asJava
     val mapper = new Ont2ProgressMap(compOntManag, coursecontext.name, competenceListString)
     mapper.getProgressMap() should not be null
@@ -533,9 +538,14 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    competence.persist(true)
     competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
+    val competencex = competence.getDefinition()
+    
+    competencex should not be null
+    
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     return link
