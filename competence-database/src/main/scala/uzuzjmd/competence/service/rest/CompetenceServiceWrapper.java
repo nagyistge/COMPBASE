@@ -133,26 +133,10 @@ public class CompetenceServiceWrapper {
 		}
 	}
 
-	// private static void testResult(CompOntologyManager compOntologyManager) {
-	// compOntologyManager.begin();
-	//
-	// CompFileUtil compFileUtil = new CompFileUtil(compOntologyManager.getM());
-	// try {
-	// compFileUtil.writeOntologyout();
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// compOntologyManager.close();
-	// }
-
 	public static void delete(String course) {
 		CompOntologyManager compOntologyManager = CompOntologyManagerFactory.startManager();
 		CourseContext courseContext = new CourseContext(compOntologyManager, course);
-		courseContext.delete();
 		compOntologyManager.close();
-		// testResult(compOntologyManager);
-
 	}
 
 	public static String getRequirements(String course) {

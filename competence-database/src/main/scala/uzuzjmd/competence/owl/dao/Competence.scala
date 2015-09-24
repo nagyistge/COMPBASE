@@ -9,7 +9,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
 
-class Competence(compManager: CompOntologyManager, identifier: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifier) {
+class Competence(compManager: CompOntologyManager, identifierlocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierlocal) {
 
   def COMPULSORY = "compulsory"
 
@@ -19,8 +19,10 @@ class Competence(compManager: CompOntologyManager, identifier: String, val defin
     val ontClass = persist(false).getOntclass()
     ontClass.addSuperClass(competenceRoot.persist(false).getOntclass())
     if (definition != null) {
-      //addDataField(DEFINITION, definition) legacy problem
-      compManager.getUtil().createOntClassForString(definition, definition)
+      addDataField(DEFINITION, definition) 
+//      compManager.getUtil().createOntClassForString(definition, definition)
+    } else {      
+      addDataField(DEFINITION, identifierlocal)
     }
   }
 

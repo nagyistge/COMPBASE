@@ -6,7 +6,15 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<g:VerticalPanel>
-			<g:SimplePanel ui:field="tabExplainationPanel" />
+			<g:SimplePanel ui:field="tabExplainationPanel" />			
+			<g:FocusPanel ui:field="warningPlaceHolder" />			
+			<g:HorizontalPanel ui:field="buttonPanel">
+				<b:Button icon="PLUS" ui:field="submitButton">Markierte Kompetenzen dem
+					Kurs hinzufügen</b:Button>
+<!-- 				<b:Button icon="TRASH" ui:field="deleteContextButton">Zuordnung für diesen Kurs -->
+<!-- 					löschen</b:Button> -->
+			</g:HorizontalPanel>
+			<g:HTMLPanel styleName="buttonSpacer"></g:HTMLPanel>
 			<g:VerticalPanel ui:field="competenceSelectionAndRequirementPanel"
 				verticalAlignment="ALIGN_TOP">
 				<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder" />
@@ -20,14 +28,8 @@
 					</g:CaptionPanel>
 				</g:HTMLPanel>
 			</g:VerticalPanel>
-			<g:SimplePanel ui:field="hrDividerPanel2" />
-			<g:FocusPanel ui:field="warningPlaceHolder" />
-			<g:HorizontalPanel ui:field="buttonPanel">
-				<b:Button icon="PLUS" ui:field="submitButton">Markierte Kompetenzen dem
-					Kurs hinzufügen</b:Button>
-				<b:Button icon="TRASH" ui:field="deleteContextButton">Zuordnung für diesen Kurs
-					löschen</b:Button>
-			</g:HorizontalPanel>
+			
+			
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

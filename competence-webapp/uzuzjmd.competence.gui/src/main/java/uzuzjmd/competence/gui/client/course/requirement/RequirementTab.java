@@ -41,16 +41,15 @@ public class RequirementTab extends CompetenceTab {
 	HorizontalPanel buttonPanel;
 	@UiField
 	Button submitButton;
-	@UiField
-	Button deleteContextButton;
+	// @UiField
+	// Button deleteContextButton;
 	@UiField
 	TextArea requirementTextAreaWidget;
 	@UiField
 	Panel competenceSelectionPanelPlaceholder;
 	@UiField
 	SimplePanel hrDividerPanel;
-	@UiField
-	SimplePanel hrDividerPanel2;
+
 	@UiField
 	FocusPanel warningPlaceHolder;
 
@@ -61,7 +60,6 @@ public class RequirementTab extends CompetenceTab {
 		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(hrDividerPanel);
-		initHrLines(hrDividerPanel2);
 		competenceSelectionWidget = new CompetenceSelectionWidget("selected",
 				true, false);
 		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
@@ -79,13 +77,13 @@ public class RequirementTab extends CompetenceTab {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	@UiHandler("deleteContextButton")
-	void onDeleteContextButtonClick(ClickEvent event) {
-		competenceSelectionWidget.handleDeleteClick();
-		alert = new Alert("Die Verknüpfungen wurden erfolgreich gelöscht",
-				AlertType.SUCCESS);
-		warningPlaceHolder.add(alert);
-	}
+	// @UiHandler("deleteContextButton")
+	// void onDeleteContextButtonClick(ClickEvent event) {
+	// competenceSelectionWidget.handleDeleteClick();
+	// alert = new Alert("Die Verknüpfungen wurden erfolgreich gelöscht",
+	// AlertType.SUCCESS);
+	// warningPlaceHolder.add(alert);
+	// }
 
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {

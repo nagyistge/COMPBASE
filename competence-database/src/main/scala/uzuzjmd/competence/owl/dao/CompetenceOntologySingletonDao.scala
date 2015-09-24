@@ -1,6 +1,7 @@
 package uzuzjmd.competence.owl.dao
 
 import uzuzjmd.competence.owl.ontology.CompOntClass
+import java.nio.charset.StandardCharsets
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.OntResult
 import com.hp.hpl.jena.ontology.Individual
@@ -15,6 +16,7 @@ import uzuzjmd.scalahacks.ScalaHacksInScala
 import com.hp.hpl.jena.ontology.OntTools
 import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import scala.io.UTF8Codec
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -25,8 +27,8 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     var result: OntResult = null
     if (identifier == null) {
       result = util.accessSingletonResourceWithClass(compOntClass)
-    } else {
-      result = util.accessSingletonResource(identifier)
+    } else {      
+      result = util.accessSingletonResource(identifier, identifier)
     }
     if (more) {
       val uniContext = new UniversityContext(comp)

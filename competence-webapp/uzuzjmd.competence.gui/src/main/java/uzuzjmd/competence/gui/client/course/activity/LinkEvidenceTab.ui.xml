@@ -5,7 +5,17 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
-		<g:SimplePanel ui:field="tabExplainationPanel" />
+		<b:Alert type="INFO" animation="true">Ordnen Sie die
+			Aktivitäten den Kompetenzen zu! Dies ermöglicht eine Übersicht über
+			die erreichten Kompetenzen pro Teilnehmer!</b:Alert>
+    	<g:FocusPanel ui:field="warningPlaceholder" width="auto"
+			height="auto" />
+		<g:HTMLPanel styleName="buttonSpacer"></g:HTMLPanel>
+		<g:HorizontalPanel ui:field="buttonContainer">
+			<b:Button icon="LINK" ui:field="submitButton">Markierte Kompetenzen und
+				Aktivitäten verknüpfen</b:Button>
+		</g:HorizontalPanel>
+		<g:HTMLPanel styleName="buttonSpacer"></g:HTMLPanel>
 		<g:VerticalPanel ui:field="competenceSelectionAndActivity">
 			<g:HTMLPanel ui:field="competenceSelectionPanelPlaceholder"></g:HTMLPanel>
 			<g:SimplePanel ui:field="HrPanelContainer" />
@@ -14,14 +24,6 @@
 					<g:HTMLPanel ui:field="activityPlaceholder" />
 				</g:CaptionPanel>
 			</g:HTMLPanel>
-			<g:SimplePanel ui:field="hrPanelContainer2" />
-			<g:FocusPanel ui:field="warningPlaceholder" width="auto"
-				height="auto" />
-			<g:HTMLPanel styleName="buttonSpacer"></g:HTMLPanel>	
-			<g:HorizontalPanel ui:field="buttonContainer">
-				<b:Button icon="LINK" ui:field="submitButton">Markierte Kompetenzen und
-					Aktivitäten verknüpfen</b:Button>
-			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
