@@ -50,7 +50,7 @@ object Ont2SuggestedCompetenceGrid {
 
   private val log = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
   log.setLevel(Level.WARN)
-  private val logStream = new LogStream(log, Level.DEBUG);
+  private val logStream = new LogStream(log, Level.WARN);
 
   def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
@@ -116,7 +116,7 @@ object Ont2SuggestedCompetenceGrid {
     val allCatchwords = includedCompetences.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
 
     val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
-    log.debug("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
+    log.warn("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
 
     // group by catchwords
     val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.filter(_.getCatchwords.contains(x._1)))).toMap

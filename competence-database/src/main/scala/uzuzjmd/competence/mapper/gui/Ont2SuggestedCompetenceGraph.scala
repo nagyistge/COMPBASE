@@ -15,6 +15,7 @@ import scala.collection.JavaConverters._
  */
 object Ont2SuggestedCompetenceGraph {
 
+
   def getLearningTemplateResultSet(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): LearningTemplateResultSet = {
 
     val name = learningProjectTemplate.name
