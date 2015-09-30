@@ -26,6 +26,7 @@ public class CompetenceRemoteImporter {
 			MagicStrings.RESTURLCompetence = args[1];
 		}
 
+		// CompetenceImporter importer = new CompetenceImporter();
 		List<CompetenceBean> competenceBeans = CompetenceImporter.parseCompetenceBeans();
 
 		Client client = ClientBuilder.newClient();

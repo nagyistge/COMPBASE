@@ -2,21 +2,18 @@ package uzuzjmd.competence.main
 
 import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 
-object OntologyWriter {
+object OntologyWriter extends TDBREADTransactional[Any, Any] {
 
   def main(args: Array[String]) {
+    execute2(writeOut)
+  }
 
-    val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    compOntManag.begin()
-    val fileUtil = new CompFileUtil(compOntManag.getM())
+  def writeOut(comp: CompOntologyManager) {
+    comp.getM().validate()
+    val fileUtil = new CompFileUtil(comp.getM())
     fileUtil.writeOntologyout()
-    compOntManag.close()
   }
 
 }
