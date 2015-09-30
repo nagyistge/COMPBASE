@@ -1,0 +1,81 @@
+package uzuzjmd.competence.service.rest.model.dto;
+
+import java.util.List;
+
+import uzuzjmd.competence.owl.access.CompOntologyManager;
+
+public class CompetenceData {
+
+	private String operator;
+	private List<String> catchwords;
+	private List<String> superCompetences;
+	private List<String> subCompetences;
+	private String learningProjectName;
+	private String forCompetence;
+
+	public CompetenceData(String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, String learningProjectName, String forCompetence) {
+		super();
+		this.operator = operator;
+		this.catchwords = catchwords;
+		this.superCompetences = superCompetences;
+		this.subCompetences = subCompetences;
+		this.learningProjectName = learningProjectName;
+		this.forCompetence = forCompetence;
+	}
+
+	public String getForCompetence() {
+		return forCompetence;
+	}
+
+	public void setForCompetence(String forCompetence) {
+		this.forCompetence = forCompetence;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public List<String> getCatchwords() {
+		return catchwords;
+	}
+
+	public void setCatchwords(List<String> catchwords) {
+		this.catchwords = catchwords;
+	}
+
+	public List<String> getSuperCompetences() {
+		return superCompetences;
+	}
+
+	public void setSuperCompetences(List<String> superCompetences) {
+		this.superCompetences = superCompetences;
+	}
+
+	public List<String> getSubCompetences() {
+		return subCompetences;
+	}
+
+	public void setSubCompetences(List<String> subCompetences) {
+		this.subCompetences = subCompetences;
+	}
+
+	public CompOntologyManager getCompOntologyManager() {
+		return compOntologyManager;
+	}
+
+	public void setCompOntologyManager(CompOntologyManager compOntologyManager) {
+		this.compOntologyManager = compOntologyManager;
+	}
+
+	public String getLearningProjectName() {
+		return learningProjectName;
+	}
+
+	public void setLearningProjectName(String learningProjectName) {
+		this.learningProjectName = learningProjectName;
+	}
+}
