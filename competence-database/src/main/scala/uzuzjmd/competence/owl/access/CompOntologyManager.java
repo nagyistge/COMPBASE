@@ -83,11 +83,11 @@ public class CompOntologyManager {
 		dataset.end();
 	}
 
-	public void commit() {
+	protected void commit() {
 		dataset.commit();
 	}
 
-	public void end() {
+	protected void end() {
 		dataset.end();
 	}
 
@@ -177,7 +177,7 @@ public class CompOntologyManager {
 	 * 
 	 * @return
 	 */
-	public void begin() {
+	protected void begin() {
 		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.WRITE);
 		initModel();
@@ -189,7 +189,7 @@ public class CompOntologyManager {
 	 * 
 	 * @return
 	 */
-	public void beginRead() {
+	protected void beginRead() {
 		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.READ);
 		initModel();

@@ -23,20 +23,23 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
 import java.util.ArrayList
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
 /**
  *
  * Diese Klasse mappt Daten im RDCEO-Format auf die Ontologie
  */
 
-object RCD2OWL extends RCDImplicits {
+object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
+
 
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
   logger.setLevel(Level.TRACE)
   val logStream = new LogStream(logger, Level.DEBUG);
 
   def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
-    convert(rcdeos.asScala, manager);
+    val executable = rcdeos.asScala    
+    execute(convert, executable)
   }
 
   /**
@@ -50,9 +53,9 @@ object RCD2OWL extends RCDImplicits {
    * _2 == similarTo should be transitiv and reflexiv property
    * _2 == DescriptionElementOf -> should be linked to the DescriptionElement instead of the Competence directly
    */
-  def convert(rcdeos: Seq[Rdceo], manager: CompOntologyManager) {
+  def convert(manager: CompOntologyManager, rcdeos: Seq[Rdceo]) {
 
-    manager.begin()
+    
     val logger = RCD2OWL.logger
     val logStream = RCD2OWL.logStream
 
@@ -79,8 +82,7 @@ object RCD2OWL extends RCDImplicits {
 
     //    util.getIndividualForString("INothing").remove()
     //    util.getOntClassForString("Nothing").remove()
-
-    manager.close()
+    
   }
 
   /**

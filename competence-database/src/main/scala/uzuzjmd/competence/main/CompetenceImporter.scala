@@ -15,8 +15,9 @@ import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.csv.CompetenceFilter
 import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
-object CompetenceImporter {
+object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]]{
 
 
   def main(args: Array[String]) {
@@ -38,7 +39,7 @@ object CompetenceImporter {
     val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
-    val result = RCD2OWL.convert(rcdeoCompetences, compOntManager)
+    execute(RCD2OWL.convert _, rcdeoCompetences) // ensures transaction context
   }
 
   def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
@@ -80,11 +81,11 @@ object CompetenceImporter {
     rcdeoCompetences
   }
 
-  def competenceBeanToDatabase(list: Array[CompetenceBean]) {
-    val rdceos = competenceBeansToRDCEO(list.toList.asJava)
-    val compOntManager = new CompOntologyManager
-    compOntManager.createBaseOntology()
-    val result = RCD2OWL.convert(rdceos, compOntManager)
-  }
+//  def competenceBeanToDatabase(list: Array[CompetenceBean]) {
+//    val rdceos = competenceBeansToRDCEO(list.toList.asJava)
+//    val compOntManager = new CompOntologyManager
+//    compOntManager.createBaseOntology()
+//    val result = RCD2OWL.convert(rdceos, compOntManager)
+//  }
 
 }
