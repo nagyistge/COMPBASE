@@ -22,17 +22,16 @@ import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
 import uzuzjmd.competence.service.rest.database.dto.AbstractXMLTree
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) {
+class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBREADTransactional[Any, AbstractXMLTree[Object]] {
 
-  val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_))
+  
   val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
-  val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(ontologyManager.getUtil().createSingleTonIndividualWithClass2(_))
-  val util = ontologyManager.getUtil()
-
+ 
   /**
    * Hilfsfunktion, um eine generisch spezifizierte Klasse zu instantiieren
    */
@@ -69,9 +68,9 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * needs a Ontclass to start recursively collection subclasses
    * needs label and iconpath in order to create the view
    */
-  private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean), realTree: Boolean = true): A = {
+  private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](comp : CompOntologyManager,subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean), realTree: Boolean = true): A = {
 
-    val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, ontologyManager) match {
+    val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, comp) match {
       case "" => label
       case x  => x
     }
@@ -80,31 +79,37 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
 
     var result: A = instantiate[A](clazz)(definitionString, label, adaptedIconPath, new LinkedList).asInstanceOf[A]
     if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
-      val subberclasses = subclass.listSubClasses(realTree).toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](x, label, iconPath, clazz, allow)).toList
+      val subberclasses = subclass.listSubClasses(realTree).toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](comp,x, label, iconPath, clazz, allow)).toList
       result = instantiate[A](clazz)(definitionString, label, adaptedIconPath, subberclasses.asJava).asInstanceOf[A]
     }
     if (clazz.equals(classOf[CompetenceXMLTree])) {
-      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(subclass))
+      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(comp, subclass))
     }
     return result
 
   }
 
-  def hasLinks(ontClass: OntClass): Boolean = {
-    val util = ontologyManager.getUtil()
+  def hasLinks(comp : CompOntologyManager,ontClass: OntClass): Boolean = {
+    val util = comp.getUtil()
+    
+    val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(comp.getUtil().createSingleTonIndividualWithClass2(_))
+    val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(comp.getUtil().createSingleTonIndividualWithClass2(_))
+    
     return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.CatchwordOf))
       && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass), CompObjectProperties.OperatorOf)))
   }
 
-  def allowedAndCourse(ontClass: OntClass): Boolean = {
-    val competence = new Competence(ontologyManager, ontClass.getLocalName())
-    val courseIndividual = new CourseContext(ontologyManager, course).createIndividual
-    return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf) && competence.isAllowed()
+  def allowedAndCourse(comp : CompOntologyManager,ontClass: OntClass): Boolean = {
+    val util = comp.getUtil()
+    val competence = new Competence(comp, ontClass.getLocalName())
+    val courseIndividual = new CourseContext(comp, course).createIndividual
+    return hasLinks(comp,ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf) && competence.isAllowed()
   }
 
-  def hasLinksAndCourse(ontClass: OntClass): Boolean = {
-    val courseIndividual = new CourseContext(ontologyManager, course).createIndividual
-    return hasLinks(ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
+  def hasLinksAndCourse(comp : CompOntologyManager, ontClass: OntClass): Boolean = {
+    val util = comp.getUtil()
+    val courseIndividual = new CourseContext(comp, course).createIndividual
+    return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass), CompObjectProperties.CourseContextOf)
   }
 
   def containsCatchword(ontClass: OntClass): Boolean = {
@@ -119,38 +124,44 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
    * returns the operatortree
    */
   def getOperatorXMLTree(): java.util.List[OperatorXMLTree] = {
-    ontologyManager.begin()
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val operatorClass = ontologyManager.getUtil().getClass(CompOntClass.Operator);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)
-    ontologyManager.close()
+    return executeNoParam[java.util.List[OperatorXMLTree]](getOperatorXMLTree)
+  }
+  
+  /**
+   * returns the operatortree
+   */
+  def getOperatorXMLTree(comp : CompOntologyManager): java.util.List[OperatorXMLTree] = {
+    val operatorClass = comp.getUtil().getClass(CompOntClass.Operator);
+    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](comp : CompOntologyManager,operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)    
     val filteredResult = filterResults(result)
-    return filteredResult.asJava
+    return filteredResult.asJava 
   }
 
   /**
    * returns the catchwordtree
    */
   def getCatchwordXMLTree(): java.util.List[CatchwordXMLTree] = {
-    ontologyManager.begin()
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Catchword);
-    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsCatchword)
-    ontologyManager.close()
+   return executeNoParam[java.util.List[CatchwordXMLTree]](getCatchwordXMLTree)
+  }
+  
+  
+  def getCatchwordXMLTree(comp: CompOntologyManager) : java.util.List[CatchwordXMLTree] = {
+     val catchwordClass = comp.getUtil().getClass(CompOntClass.Catchword);
+    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](comp,catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsCatchword)    
     val filteredResult = filterResults(result)
     return filteredResult.asJava
   }
 
-  /**
-   * returns the competencetree
-   */
-  def getComptenceTree(): java.util.List[CompetenceXMLTree] = {
-    if (selectedCatchwordArray.isEmpty() && selectedOperatorsArray.isEmpty()) {
-      getCompetenceTreeHelper(hasLinks)
-    } else {
-      getCompetenceTreeHelperNoTree(hasLinks)
-    }
-  }
+//  /**
+//   * returns the competencetree
+//   */
+//  def getComptenceTree(): java.util.List[CompetenceXMLTree] = {
+//    if (selectedCatchwordArray.isEmpty() && selectedOperatorsArray.isEmpty()) {
+//      getCompetenceTreeHelper(hasLinks)
+//    } else {
+//      getCompetenceTreeHelperNoTree(hasLinks)
+//    }
+//  }
 
   def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
 
@@ -178,14 +189,19 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
   //    return false
   //  }
 
-  private def getCompulsory(subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
+  private def getCompulsory(comp : CompOntologyManager,subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
+    val util = comp.getUtil
     return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass), CompObjectProperties.CompulsoryOf);
 
   }
 
   def getComptenceTreeForCourse(): java.util.List[CompetenceXMLTree] = {
-    val noTree = getCompetenceTreeHelperNoTree(allowedAndCourse)
-    val tree = getCompetenceTreeHelper(allowedAndCourse)
+     executeNoParam [java.util.List[CompetenceXMLTree]](getCompetenceTree)
+  }
+  
+  def getCompetenceTree(comp : CompOntologyManager) : java.util.List[CompetenceXMLTree] = {
+     val noTree = getCompetenceTreeHelperNoTree(comp,allowedAndCourse(comp,_))
+    val tree = getCompetenceTreeHelper(comp,allowedAndCourse(comp,_))
     if (noTree.isEmpty() && tree.isEmpty()) {
       return tree
     } else {
@@ -194,31 +210,22 @@ class Ont2CompetenceTree(ontologyManager: CompOntologyManager, selectedCatchword
     }
   }
 
-  //  def getCompetenceTreeForCourseNoFilter: java.util.List[CompetenceXMLTree] = {
-  //    val noTree = getCompetenceTreeHelperNoTree(allowedAndCourse)
-  //    val tree = getCompetenceTreeHelper(allowedAndCourse)
-  //    tree.addAll(noTree)
-  //    return tree
-  //  }
 
-  private def getCompetenceTreeHelper(allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
-    ontologyManager.begin()
+
+  private def getCompetenceTreeHelper(comp : CompOntologyManager, allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {    
     // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow)
-    result.setIsCompulsory(compulsory);
-    ontologyManager.close()
+    val catchwordClass = comp.getUtil().getClass(CompOntClass.Competence);
+    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](comp,catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow)
+    result.setIsCompulsory(compulsory);    
     val filteredResult = filterCompetenceTree(filterResults(result))
     return filteredResult.asJava
   }
 
-  private def getCompetenceTreeHelperNoTree(allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
-    ontologyManager.begin()
+  private def getCompetenceTreeHelperNoTree(comp : CompOntologyManager,allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {    
     // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = ontologyManager.getUtil().getClass(CompOntClass.Competence);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow, false)
-    result.setIsCompulsory(compulsory);
-    ontologyManager.close()
+    val catchwordClass = comp.getUtil().getClass(CompOntClass.Competence);
+    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](comp,catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow, false)
+    result.setIsCompulsory(compulsory);    
     val filteredResult = filterCompetenceTree(filterResults(result))
     return filteredResult.asJava
   }
