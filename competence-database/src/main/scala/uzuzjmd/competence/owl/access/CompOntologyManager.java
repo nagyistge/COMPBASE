@@ -77,8 +77,17 @@ public class CompOntologyManager {
 		return this.m;
 	}
 
+	@Deprecated
 	public void close() {
 		dataset.commit();
+		dataset.end();
+	}
+
+	public void commit() {
+		dataset.commit();
+	}
+
+	public void end() {
 		dataset.end();
 	}
 
@@ -171,9 +180,24 @@ public class CompOntologyManager {
 	public void begin() {
 		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.WRITE);
+		initModel();
+	}
+
+	/**
+	 * Also creates a database, if it does not exist already If there already
+	 * exist one, Nullpointer is thrown
+	 * 
+	 * @return
+	 */
+	public void beginRead() {
+		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
+		dataset.begin(ReadWrite.READ);
+		initModel();
+	}
+
+	private void initModel() {
 		Model tdb = dataset.getDefaultModel();
 		setM(ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF, tdb));
-
 	}
 
 	private SimpleRulesReasoner initRulesFactory(SimpleRulesReasoner rulesReasoner) {
