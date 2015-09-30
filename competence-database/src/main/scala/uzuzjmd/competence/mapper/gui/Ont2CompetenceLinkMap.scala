@@ -14,10 +14,11 @@ import uzuzjmd.competence.shared.dto.CompetenceLinksView
 import uzuzjmd.java.collections.MapsMagic
 import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 
-class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
+object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLinksMap] {
 
-  def toSortedSet[A](input: List[CompetenceLinksView]): SortedSet[CompetenceLinksView] = {
+  private def toSortedSet[A](input: List[CompetenceLinksView]): SortedSet[CompetenceLinksView] = {
     val sorted = java.util.Collections.synchronizedSortedSet(new TreeSet(new CompetenceLinksViewComparator));
     sorted.addAll(input.asJava)
     return sorted
@@ -28,7 +29,11 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
     result ++ input.mapValues(toSortedSet)
   }
 
-  def getCompetenceLinkMap(): CompetenceLinksMap = {    
+  def getCompetenceLinkMap(user: String): CompetenceLinksMap = {
+    return execute(getCompetenceLinkMap, user)
+  }
+
+  private def getCompetenceLinkMap(comp: CompOntologyManager, user: String): CompetenceLinksMap = {
     val userDap = new User(comp, user)
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
     val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getFullDao().getDefinition()))).toMap
@@ -36,19 +41,19 @@ class Ont2CompetenceLinkMap(comp: CompOntologyManager, user: String) {
     val resultScalaTmp1: scala.collection.immutable.Map[String, List[CompetenceLinksView]] = competencesLinked.map(x => (x._1, x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten))
     val resultScalaTmp2 = resultScalaTmp1.filterKeys(p => p != null)
     val resultAsArray = resultScalaTmp2.mapValues { x => x.toArray }
-    val result = new CompetenceLinksMap(resultAsArray.asJava);    
+    val result = new CompetenceLinksMap(resultAsArray.asJava);
     result.getMapUserCompetenceLinks.isEmpty()
     return result
   }
 
-  def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): List[CompetenceLinksView] = {
-    val linkedEvidence = input.getAllActivities.map(x=>x.getFullDao())
+  private def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): List[CompetenceLinksView] = {
+    val linkedEvidence = input.getAllActivities.map(x => x.getFullDao())
     val linkedComments = input.comments.map(mapCommentToCommentEntry)
-    val competenceLinksView = linkedEvidence.map(x =>new CompetenceLinksView(input.identifier, x.printableName, x.url, linkedComments.asJava, input.isValidated))
+    val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.identifier, x.printableName, x.url, linkedComments.asJava, input.isValidated))
     return competenceLinksView
   }
 
-  def mapCommentToCommentEntry(input: Comment): CommentEntry = {
+  private def mapCommentToCommentEntry(input: Comment): CommentEntry = {
     val fullComment = input.getFullDao
     val creatorName = fullComment.creator.getFullDao.readableName
     val result = new CommentEntry(creatorName, fullComment.textReadable, fullComment.created)

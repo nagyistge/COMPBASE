@@ -32,13 +32,12 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
 object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
 
-
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
   logger.setLevel(Level.TRACE)
   val logStream = new LogStream(logger, Level.DEBUG);
 
   def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
-    val executable = rcdeos.asScala    
+    val executable = rcdeos.asScala
     execute(convert, executable)
   }
 
@@ -55,7 +54,6 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
    */
   def convert(manager: CompOntologyManager, rcdeos: Seq[Rdceo]) {
 
-    
     val logger = RCD2OWL.logger
     val logStream = RCD2OWL.logStream
 
@@ -72,7 +70,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
     logger.debug("Classes for Titles created")
     createObjectPropertiesForDefaultCases(util, triplesWithObjectProperties)
     logger.debug("ObjectProps for default cases created")
-    //RCD2Operators.createSubOperatorRels(util, rcdeos)    
+    //RCD2Operators.createSubOperatorRels(util, rcdeos)
     RCD2Catchword.createMetaCatchwordRels(util, rcdeos)
     logger.debug("SubOperator rels created")
     logger.debug("metaoperator rels created")
@@ -82,7 +80,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
 
     //    util.getIndividualForString("INothing").remove()
     //    util.getOntClassForString("Nothing").remove()
-    
+
   }
 
   /**
@@ -108,7 +106,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
    * @return triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
    */
   private def getStatementTriples(rcdeos: Seq[Rdceo]): Buffer[RCDFilter.CompetenceTriple] = {
-    // transform to pairs of titel and statement 
+    // transform to pairs of titel and statement
     val inputStatements = rcdeos.map(x => (x.getTitle(), x.getDefinition().asScala.head.getStatement().asScala)).map(x => flatStatements(x)).flatten
     // triples: _1 KompetenzIndividual _2 (Title), ObjectProperty, _3 Individual related to that ObjectProperty i.e. OperatorIndividual to OperatorOf
     val triples = inputStatements.map(x => (x._1, x._2.getStatementname(), x._2.getStatementtext()))

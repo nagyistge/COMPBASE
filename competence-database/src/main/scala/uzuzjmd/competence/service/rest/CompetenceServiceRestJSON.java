@@ -16,27 +16,25 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.mapper.gui.HierarchieChangesToOnt;
+import uzuzjmd.competence.mapper.gui.Ont2Catchwords;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
+import uzuzjmd.competence.mapper.gui.Ont2Operator;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
+import uzuzjmd.competence.mapper.rest.Comment2Ont;
+import uzuzjmd.competence.mapper.rest.Competence2Ont;
+import uzuzjmd.competence.mapper.rest.Link2Ont;
+import uzuzjmd.competence.mapper.rest.User2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
-import uzuzjmd.competence.owl.dao.Catchword;
-import uzuzjmd.competence.owl.dao.Comment;
 import uzuzjmd.competence.owl.dao.Competence;
-import uzuzjmd.competence.owl.dao.CourseContext;
 import uzuzjmd.competence.owl.dao.DaoFactory;
-import uzuzjmd.competence.owl.dao.EvidenceActivity;
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
-import uzuzjmd.competence.owl.dao.Operator;
-import uzuzjmd.competence.owl.dao.Role;
-import uzuzjmd.competence.owl.dao.StudentRole;
-import uzuzjmd.competence.owl.dao.TeacherRole;
-import uzuzjmd.competence.owl.dao.User;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.validation.CompetenceGraphValidator;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.rest.model.dto.CommentData;
+import uzuzjmd.competence.service.rest.model.dto.CompetenceData;
+import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData;
+import uzuzjmd.competence.service.rest.model.dto.UserData;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
@@ -245,26 +243,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("role") String role, @PathParam("linkedUser") String linkedUser,
 			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
 
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		Role creatorRole = convertRole(role, compOntologyManager);
-		for (String evidence : evidences) {
-			for (String competence : competences) {
-				CourseContext courseContext = new CourseContext(compOntologyManager, course);
-				courseContext.persist();
-				User creatorUser = new User(compOntologyManager, creator, creatorRole, courseContext, creator);
-				creatorUser.persist();
-				User linkedUserUser = new User(compOntologyManager, linkedUser, new StudentRole(compOntologyManager), courseContext, linkedUser);
-				linkedUserUser.persist();
-
-				EvidenceActivity evidenceActivity = new EvidenceActivity(compOntologyManager, evidence.split(",")[0], evidence.split(",")[1]);
-				Competence competenceDao = new Competence(compOntologyManager, competence, competence, null);
-				competenceDao.persist(true);
-				AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(compOntologyManager, null, creatorUser, linkedUserUser, courseContext, evidenceActivity, Long.valueOf(System
-						.currentTimeMillis()), Boolean.valueOf(false), competenceDao, null);
-				abstractEvidenceLink.persist();
-			}
-		}
-		closeManagerInCriticalMode(compOntologyManager);
+		CompetenceLinkData data = new CompetenceLinkData(course, creator, role, linkedUser, competences, evidences);
+		Link2Ont.writeLinkToDatabase(data);
 		return Response.ok("competences linked to evidences").build();
 	}
 
@@ -293,46 +273,13 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/link/comment/{linkId}/{user}/{courseContext}/{role}")
 	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text, @PathParam("courseContext") String courseContext,
 			@PathParam("role") String role) {
+		UserData userData = new UserData(user, courseContext, role);
+		User2Ont.convert(userData);
 
-		createUserIfNotExists(user, courseContext, role);
+		CommentData commentData = new CommentData(linkId, user, text, courseContext, role);
+		Comment2Ont.convert(commentData);
 
-		createComment(linkId, user, text, courseContext, role);
 		return Response.ok("link commented").build();
-	}
-
-	private void createComment(String linkId, String user, String text, String courseContext, String role) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		Role creatorRole2 = convertRole(role, compOntologyManager);
-		CourseContext coursecontext2 = new CourseContext(compOntologyManager, courseContext);
-		User creator2 = new User(compOntologyManager, user, creatorRole2, coursecontext2, user);
-		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
-		Comment comment = new Comment(compOntologyManager, text, creator2, System.currentTimeMillis(), text);
-		comment.persist();
-		abstractEvidenceLink.linkComment(comment);
-
-		closeManagerInCriticalMode(compOntologyManager);
-	}
-
-	private void createUserIfNotExists(String user, String courseContext, String role) {
-		CompOntologyManager comp = initManagerInCriticalMode();
-		Role creatorRole = convertRole(role, comp);
-		creatorRole.persist(false);
-		CourseContext coursecontext = new CourseContext(comp, courseContext);
-		coursecontext.persist();
-		User creator = new User(comp, user, creatorRole, coursecontext, user);
-		creator.persist();
-		comp.close();
-	}
-
-	private Role convertRole(String role, CompOntologyManager comp) {
-		Role creatorRole = null;
-		if (role.equals("student")) {
-			creatorRole = new StudentRole(comp);
-		} else {
-			creatorRole = new TeacherRole(comp);
-		}
-		return creatorRole;
 	}
 
 	/**
@@ -451,13 +398,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/link/overview/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public CompetenceLinksMap getCompetenceLinksMap(@PathParam("user") String user) {
-
-		CompOntologyManager compOntManag2 = new CompOntologyManager();
-		compOntManag2.begin();
-		Ont2CompetenceLinkMap competenceMapCalculator = new Ont2CompetenceLinkMap(compOntManag2, user);
-		CompetenceLinksMap map = competenceMapCalculator.getCompetenceLinkMap();
-		compOntManag2.close();
-		return map;
+		return Ont2CompetenceLinkMap.getCompetenceLinkMap(user);
 	}
 
 	/**
@@ -595,19 +536,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/operator")
 	public String getOperatorForCompetence(@QueryParam("competence") String forCompetence) {
-		CompOntologyManager comp = new CompOntologyManager();
-		comp.begin();
-
-		Competence competence = new Competence(comp, forCompetence, forCompetence, null);
-		scala.collection.immutable.List<Operator> operators = competence.getAssociatedSingletonDaosAsDomain(CompObjectProperties.OperatorOf, Operator.class);
-
-		String result = "";
-		if (!operators.isEmpty()) {
-			result = operators.head().getDefinition();
-		}
-
-		comp.close();
-		return result;
+		// Ont2Operator.
+		Ont2Operator.convert(forCompetence);
 	}
 
 	/**
@@ -620,22 +550,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/catchwords")
 	public String getCatchwordsForCompetence(@QueryParam("competence") String forCompetence) {
-		CompOntologyManager comp = new CompOntologyManager();
-		comp.begin();
-
-		Competence competence = new Competence(comp, forCompetence, forCompetence, null);
-		List<Catchword> catchwords = competence.getCatchwordsAsJava();
-
-		String result = "";
-		if (!catchwords.isEmpty()) {
-			for (Catchword catchword : catchwords) {
-				result += catchword.getDefinition() + ",";
-			}
-			result = result.substring(0, result.length() - 1);
-		}
-
-		comp.close();
-		return result;
+		Ont2Catchwords.convert(forCompetence);
 	}
 
 	/**
@@ -661,10 +576,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/addOne")
 	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("learningTemplateName") String learningTemplateName) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, learningTemplateName);
-		closeManagerInCriticalMode(compOntologyManager);
-
+		CompetenceData competenceData = new CompetenceData(operator, catchwords, superCompetences, subCompetences, learningTemplateName, forCompetence);
+		String resultMessage = Competence2Ont.convert(competenceData);
 		return Response.ok(resultMessage).build();
 	}
 
@@ -688,60 +601,16 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	public Response editCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
 			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("originalCompetence") String orgininalCompetence) {
 
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		Competence original = new Competence(compOntologyManager, orgininalCompetence, orgininalCompetence, null);
-		original.delete();
-		String resultMessage = addCompetence(forCompetence, operator, catchwords, superCompetences, subCompetences, compOntologyManager, null);
-		closeManagerInCriticalMode(compOntologyManager);
+		/**
+		 * TODO: Competence should be updated and not deleted
+		 */
+		// Competence original = new Competence(compOntologyManager,
+		// orgininalCompetence, orgininalCompetence, null);
+		// original.delete();
 
+		CompetenceData competenceData = new CompetenceData(operator, catchwords, superCompetences, subCompetences, null, forCompetence);
+		String resultMessage = Competence2Ont.convert(competenceData);
 		return Response.ok(resultMessage).build();
-	}
-
-	private String addCompetence(String forCompetence, String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, CompOntologyManager compOntologyManager,
-			String learningProjectName) {
-
-		Competence addedCompetence = new Competence(compOntologyManager, forCompetence, forCompetence, null);
-		List<Competence> superCompetencesTyped = new LinkedList<Competence>();
-		for (String competence : superCompetences) {
-			Competence superCompetence = new Competence(compOntologyManager, competence, competence, null);
-			superCompetencesTyped.add(superCompetence);
-		}
-		List<Competence> subCompetencesTyped = new LinkedList<Competence>();
-		for (String competence : subCompetences) {
-			Competence subCompetence = new Competence(compOntologyManager, competence, competence, null);
-			subCompetencesTyped.add(subCompetence);
-		}
-
-		CompetenceGraphValidator competenceGraphValidator = new CompetenceGraphValidator(compOntologyManager, addedCompetence, superCompetencesTyped, subCompetencesTyped);
-
-		if (competenceGraphValidator.isValid()) {
-			addedCompetence.persist(true);
-			for (String catchwordItem : catchwords) {
-				Catchword catchword = new Catchword(compOntologyManager, catchwordItem, catchwordItem);
-				catchword.persist(true);
-				catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
-
-			}
-			if (learningProjectName != null) {
-				LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(compOntologyManager, learningProjectName, null, null);
-				addedCompetence.addLearningTemplate(learningProjectTemplate);
-			}
-
-			Operator operatorDAO = new Operator(compOntologyManager, operator, operator);
-			operatorDAO.persist(true);
-			operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
-			for (Competence subCompetence : subCompetencesTyped) {
-				subCompetence.addSuperCompetence(addedCompetence);
-			}
-
-			for (Competence superCompetence : superCompetencesTyped) {
-				addedCompetence.addSuperCompetence(superCompetence);
-			}
-
-		}
-		String resultMessage = competenceGraphValidator.getExplanationPath();
-
-		return resultMessage;
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {

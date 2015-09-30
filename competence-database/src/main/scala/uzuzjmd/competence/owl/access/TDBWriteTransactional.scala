@@ -4,8 +4,8 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 
 /**
  * @author dehne
- * 
- * ensures a write transaction ont 
+ *
+ * ensures a write transaction ont
  */
 trait TDBWriteTransactional[A] {
   val comp = new CompOntologyManager
@@ -22,7 +22,20 @@ trait TDBWriteTransactional[A] {
       comp.end()
     }
   }
-  
+
+  def execute[T](f: (CompOntologyManager, A) => T, g: A): T = {
+    comp.begin
+    comp.getM.enterCriticalSection(false)
+    try {
+      val result = f(comp, g)
+      comp.commit()
+      return result
+    } finally {
+      comp.getM.leaveCriticalSection()
+      comp.end()
+    }
+  }
+
   /**
    * in case multiple purposes are followed in one class
    */

@@ -19,9 +19,9 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     val ontClass = persist(false).getOntclass()
     ontClass.addSuperClass(competenceRoot.persist(false).getOntclass())
     if (definition != null) {
-      addDataField(DEFINITION, definition) 
-//      compManager.getUtil().createOntClassForString(definition, definition)
-    } else {      
+      addDataField(DEFINITION, definition)
+      //      compManager.getUtil().createOntClassForString(definition, definition)
+    } else {
       addDataField(DEFINITION, identifierlocal)
     }
   }
@@ -31,16 +31,16 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
   }
 
-//  def getIdentifier(): String = {
-//    return identifier
-//  }
+  //  def getIdentifier(): String = {
+  //    return identifier
+  //  }
 
   def addSuggestedCompetenceRequirement(competence: Competence) {
     createEdgeWith(competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf)
   }
-  
-  def getSuggestedCompetenceRequirements() : List[Competence] = {
-     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, classOf[Competence])
+
+  def getSuggestedCompetenceRequirements(): List[Competence] = {
+    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, classOf[Competence])
   }
 
   def addRequiredCompetence(competence: Competence) {
@@ -106,14 +106,18 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   def getCatchwordsAsJava(): java.util.List[Catchword] = {
     return getCatchwords.asJava
   }
-  
+
   def addCatchword(dao: Catchword) {
-     dao.persist(true)
-     dao.createEdgeWith(CompObjectProperties.CatchwordOf, this)
+    dao.persist(true)
+    dao.createEdgeWith(CompObjectProperties.CatchwordOf, this)
   }
-  
+
   def addLearningTemplate(learningTemplate: LearningProjectTemplate) {
-     createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf)
+    createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf)
+  }
+
+  def getOperators(): List[Operator] = {
+    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.OperatorOf, classOf[Operator]);
   }
 
 }
