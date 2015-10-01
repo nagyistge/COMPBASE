@@ -41,7 +41,7 @@ trait TDBREADTransactional[A, T] {
     }
   }
 
-  def executeNoParam[X](f: CompOntologyManager => X): X = {
+  def executeNoParamX[X](f: CompOntologyManager => X): X = {
     comp.beginRead()
     try {
       return f(comp)

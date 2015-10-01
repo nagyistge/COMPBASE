@@ -21,6 +21,7 @@ import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2Operator;
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
+import uzuzjmd.competence.mapper.rest.AbstractEvidenceLink2Ont;
 import uzuzjmd.competence.mapper.rest.Comment2Ont;
 import uzuzjmd.competence.mapper.rest.Competence2Ont;
 import uzuzjmd.competence.mapper.rest.Link2Ont;
@@ -75,11 +76,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	public Response updateHierarchie(@QueryParam("changes") List<String> changes) {
 
 		HierarchieChangeSet changeSet = new HierarchieChangeSet().convertListToModel(changes);
-
-		CompOntologyManager comp = initManagerInCriticalMode();
-		HierarchieChangesToOnt.convertChanges(comp, changeSet);
-		comp.close();
-
+		HierarchieChangesToOnt.convert(changeSet);
 		return Response.ok("updated taxonomy").build();
 	}
 
@@ -96,11 +93,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/updateHierarchie2")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateHierarchie2(@QueryParam("changes") HierarchieChangeSet changes) {
-
-		CompOntologyManager comp = initManagerInCriticalMode();
-		HierarchieChangesToOnt.convertChanges(comp, changes);
-		comp.close();
-
+		HierarchieChangesToOnt.convert(changes);
 		return Response.ok("updated taxonomy").build();
 	}
 
@@ -331,10 +324,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/link/delete/{linkId}")
 	public Response deleteLink(@PathParam("linkId") String linkId) {
-		CompOntologyManager manager = initManagerInCriticalMode();
-		AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink(manager, linkId);
-		abstractEvidenceLink.delete();
-		manager.close();
+		AbstractEvidenceLink2Ont.convert(linkId);
 		return Response.ok("link deleted").build();
 	}
 
