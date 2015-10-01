@@ -28,6 +28,7 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 /**
  *
  * Diese Klasse mappt Daten im RDCEO-Format auf die Ontologie
+ * TODO change name
  */
 
 object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
@@ -37,8 +38,8 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
   val logStream = new LogStream(logger, Level.DEBUG);
 
   def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
-    val executable = rcdeos.asScala
-    execute(convert, executable)
+    val rdceos = rcdeos.asScala
+    execute(convert _, rdceos)
   }
 
   /**

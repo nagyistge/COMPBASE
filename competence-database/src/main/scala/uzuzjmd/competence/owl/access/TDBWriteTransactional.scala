@@ -39,7 +39,7 @@ trait TDBWriteTransactional[A] {
   /**
    * in case multiple purposes are followed in one class
    */
-  def execute[X](f: (CompOntologyManager, X) => Unit, g: X) {
+  def executeX[X](f: (CompOntologyManager, X) => Unit, g: X) {
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
