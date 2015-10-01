@@ -17,8 +17,7 @@ import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
-object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]]{
-
+object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] {
 
   def main(args: Array[String]) {
 
@@ -44,7 +43,6 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
 
   def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
 
-
     return getCompetencesFromCSV.asJava
   }
 
@@ -53,9 +51,9 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
     val list = parseCompetenceBeans()
     return competenceBeansToRDCEO(list)
   }
-  
-  def parseCompetenceBeans() : java.util.List[CompetenceBean] = {
-    
+
+  def parseCompetenceBeans(): java.util.List[CompetenceBean] = {
+
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])
@@ -70,7 +68,7 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
 
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
-      map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences).view. // erstellt neue Klasse    
+      map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences).view. // erstellt neue Klasse
       map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString).map(CompetenceMaps.cleanCatchwords))). //filtered leere Catchwords und überschrift
       map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
       map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
@@ -81,11 +79,13 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
     rcdeoCompetences
   }
 
-//  def competenceBeanToDatabase(list: Array[CompetenceBean]) {
-//    val rdceos = competenceBeansToRDCEO(list.toList.asJava)
-//    val compOntManager = new CompOntologyManager
-//    compOntManager.createBaseOntology()
-//    val result = RCD2OWL.convert(rdceos, compOntManager)
-//  }
+  def competenceBeanToDatabase(list: Array[CompetenceBean]) {
+    executeX[Array[CompetenceBean]](competenceBeanToDatabase_helper, list)
+  }
+
+  def competenceBeanToDatabase_helper(comp: CompOntologyManager, list: Array[CompetenceBean]) {
+    val rdceos = competenceBeansToRDCEO(list.toList.asJava)
+    val result = RCD2OWL.convert(comp, rdceos)
+  }
 
 }

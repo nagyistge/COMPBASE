@@ -9,11 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import uzuzjmd.competence.csv.FilteredCSVCompetence;
-import uzuzjmd.competence.datasource.epos.mapper.EposXML2FilteredCSVCompetence;
-import uzuzjmd.competence.datasource.epos.mapper.EposXMLToSuggestedLearningPath;
-import uzuzjmd.competence.mapper.rcd.RCD2OWL;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.datasource.epos.mapper.EposXML2Ont;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
@@ -44,14 +40,6 @@ public class EposImporter {
 	}
 
 	public static void importEposCompetences(List<DESCRIPTORSETType> eposList) {
-		// write competences in database as usual
-		List<FilteredCSVCompetence> result = EposXML2FilteredCSVCompetence.mapEposXML(eposList);
-		CompOntologyManager manager = new CompOntologyManager();
-		RCD2OWL.convert(EposXML2FilteredCSVCompetence.EPOSXML2RCD(result), manager);
-
-		manager.begin();
-		EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(manager, eposList);
-		EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(manager, eposList);
-		manager.close();
+		EposXML2Ont.convert(eposList);
 	}
 }

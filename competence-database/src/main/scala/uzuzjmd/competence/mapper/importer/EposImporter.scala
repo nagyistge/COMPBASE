@@ -18,7 +18,7 @@ class EposImporter extends TDBWriteTransactional[java.util.List[DESCRIPTORSETTyp
     val result = EposXML2FilteredCSVCompetence.mapEposXML(eposList);
     val manager = new CompOntologyManager();
 
-    execute[Seq[Rdceo]](RCD2OWL.convert _, EposXML2FilteredCSVCompetence.EPOSXML2RCD(result))
+    executeX[Seq[Rdceo]](RCD2OWL.convert _, EposXML2FilteredCSVCompetence.EPOSXML2RCD(result))
     val listOfExecuteAbles = Array(EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations _, EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate _)
     executeAllinOneTransaction(listOfExecuteAbles, eposList)
   }

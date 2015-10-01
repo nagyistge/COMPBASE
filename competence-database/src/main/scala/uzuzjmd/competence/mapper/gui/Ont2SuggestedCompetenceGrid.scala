@@ -43,8 +43,11 @@ import uzuzjmd.competence.shared.SuggestedCompetenceGrid
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
 import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.Assessment
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 
-object Ont2SuggestedCompetenceGrid {
+object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
 
   protected type ComPairList = Buffer[(Competence, Competence)]
 
@@ -52,12 +55,27 @@ object Ont2SuggestedCompetenceGrid {
   log.setLevel(Level.WARN)
   private val logStream = new LogStream(log, Level.WARN);
 
+  def convert(changes: LearningTemplateData): SuggestedCompetenceGrid = {
+    return execute(convertHelper _, changes)
+  }
+
+  private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData): SuggestedCompetenceGrid = {
+    val context = new CourseContext(comp, changes.getGroupId);
+    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+    val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, null);
+    if (!learningTemplate.exists()) {
+      return null;
+    }
+    val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(comp, learningTemplate, user);
+    return result
+  }
+
   def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
     val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
     val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.owl.dao.Catchword, List[uzuzjmd.competence.owl.dao.Competence])] = Buffer.empty
     scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
-    
+
     val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
     val rows = unsortedRows.sortBy(_.getSuggestedCompetenceRowHeader()).asJava
     result.setSuggestedCompetenceRows(rows)
@@ -125,7 +143,7 @@ object Ont2SuggestedCompetenceGrid {
     val grid = groupedCompetences.mapValues(x => x.toList).mapValues(sortListOfSuggestedCompetences)
 
     // TODO: Fix Problem here with junit test from Anh
-    
+
     return grid
   }
 
@@ -140,7 +158,7 @@ object Ont2SuggestedCompetenceGrid {
     // map to triples and filter the ones that have a suggested prerequisiste relationship
     val hList0TMP = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriples(rawList.toBuffer)
     val hList0 = hList0TMP.filter(Ont2SuggestedCompetencyGridFilter.filterisSuggestedCompetency)
-    // init algorithm 
+    // init algorithm
     val hList1 = Buffer(hList0.head)
     val hList0WithoutPivot = hList0.tail
 
@@ -149,7 +167,7 @@ object Ont2SuggestedCompetenceGrid {
     log.debug("hListWithoutPivot:" + compairListToString(hList0WithoutPivot))
     log.debug("hList1:" + compairListToString(hList1))
 
-    // start recursive algorithm 
+    // start recursive algorithm
     return sortListOfSuggestedCompetences1(hList0WithoutPivot, hList1)
   }
 

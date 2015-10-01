@@ -13,7 +13,8 @@ import uzuzjmd.competence.owl.dao.SelfAssessment
 import uzuzjmd.competence.owl.dao.Competence
 
 object ReflectiveAssessmentHolder2Ont {
-  def convert(comp: CompOntologyManager, user: User, courseContext: CourseContext, reflectiveAssessmentHolder: ReflectiveAssessmentsListHolder) {
+
+  def convertAssessment(comp: CompOntologyManager, user: User, courseContext: CourseContext, reflectiveAssessmentHolder: ReflectiveAssessmentsListHolder) {
     reflectiveAssessmentHolder.getReflectiveAssessmentList().asScala.foreach(updateSingleAssessment(_, comp, user, courseContext))
   }
 
