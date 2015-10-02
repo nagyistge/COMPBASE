@@ -40,19 +40,19 @@ object RCD2Catchword extends RCDImplicits {
    */
   private def handleCatchwordTriple(util: CompOntologyAccess)(input: RCDFilter.OperatorTriple)(compObjectProperties: CompObjectProperties) {
     //println("title: " + input._1 + "		metacatchword:" + input._2 + "		catchword :" + input._3 )
-    val catchwordRootClass = util.createOntClassForString(RCDMaps.objectPropertyToClass(compObjectProperties).name())
+    val catchwordRootClass = util.createOntClassForString(RCDMaps.objectPropertyToClass(compObjectProperties).name(), false)
 
-    val catchwordResource = util.accessSingletonResource(input._3)
+    val catchwordResource = util.accessSingletonResource(input._3, false)
     //val catchwordsIndividual: Individual = util.createSingleTonIndividualWithClass2(input._3)
     //val catchwordClass: OntClass = util.createSingleTonIndividualWithClass(input._3)
     val catchwordsIndividual = catchwordResource.getIndividual()
     val catchwordClass = catchwordResource.getOntclass()
 
-    val competenceResource = util.accessSingletonResource(input._1)
+    val competenceResource = util.accessSingletonResource(input._1, false)
     val competenceIndividual: Individual = competenceResource.getIndividual()
 
     if (!(input._2 == null) && !input._2.equals("")) {
-      val metacatchwordsClass: OntClass = util.createSingleTonIndividualWithClass(input._2, input._2)
+      val metacatchwordsClass: OntClass = util.createSingleTonIndividualWithClass(input._2, false, input._2)
       metacatchwordsClass.addSuperClass(catchwordRootClass)
       catchwordClass.addSuperClass(metacatchwordsClass)
     }

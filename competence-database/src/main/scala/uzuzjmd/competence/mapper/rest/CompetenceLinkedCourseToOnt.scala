@@ -44,7 +44,7 @@ object CompetenceLinkedCourseToOnt extends TDBWriteTransactional[CompetenceLinke
     }
 
     for (competence <- competences.asScala) {
-      val result = util.accessSingletonResource(competence);
+      val result = util.accessSingletonResource(competence, false);
       val competenceIndividual = result.getIndividual();
       util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
       handleCompulsoryLink(compulsoryBoolean, competenceIndividual, courseContextIndividual, compOntologyManager);

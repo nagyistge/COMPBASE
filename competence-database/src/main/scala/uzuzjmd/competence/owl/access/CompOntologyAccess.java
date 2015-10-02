@@ -62,11 +62,15 @@ public class CompOntologyAccess {
 	 * @param individualName
 	 * @return
 	 */
-	public Individual createIndividualForString(OntClass ontClass, String individualName) {
+	public Individual createIndividualForString(OntClass ontClass, String individualName, Boolean isRead) {
 		if (individualName == null) {
 			throw new Error("individual name should not be null");
 		}
-		return manager.getM().createIndividual(encode(individualName), ontClass);
+		if (isRead) {
+			return manager.getM().getIndividual(encode(individualName));
+		} else {
+			return manager.getM().createIndividual(encode(individualName), ontClass);
+		}
 	}
 
 	/**
@@ -91,8 +95,8 @@ public class CompOntologyAccess {
 	 */
 	public ObjectProperty createObjectProperty(CompOntClass domain, CompOntClass range, CompObjectProperties propertyName) {
 
-		OntClass ontClass1 = getClass(domain);
-		OntClass ontclass2 = getClass(range);
+		OntClass ontClass1 = getClass(domain, false);
+		OntClass ontclass2 = getClass(range, false);
 		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
 	}
 
@@ -169,8 +173,8 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
-	public OntClass createOntClass(CompOntClass ontClass) {
-		return createOntClassForString(ontClass.name());
+	public OntClass createOntClass(CompOntClass ontClass, Boolean isRead) {
+		return createOntClassForString(ontClass.name(), isRead);
 	}
 
 	/**
@@ -179,13 +183,17 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
-	public OntClass createOntClassForString(String string, String... definitions) {
+	public OntClass createOntClassForString(String string, Boolean isRead, String... definitions) {
 		if (string.equals("")) {
 			return null;
 		}
 		OntClass paper = null;
 		try {
-			paper = manager.getM().createClass(encode(string));
+			if (isRead) {
+				paper = manager.getM().getOntClass(encode(string));
+			} else {
+				paper = manager.getM().createClass(encode(string));
+			}
 		} catch (NullPointerException e) {
 			System.out.println("und deine mudda");
 		}
@@ -202,83 +210,40 @@ public class CompOntologyAccess {
 	 * @param ontclass
 	 * @return
 	 */
-	public Individual createSingleTonIndividual(OntClass ontclass) {
+	public Individual createSingleTonIndividual(OntClass ontclass, Boolean isRead) {
 		String singletonstring = MagicStrings.SINGLETONPREFIX + ontclass.getURI().substring(MagicStrings.PREFIX.length(), ontclass.getURI().length());
-		return createIndividualForString(ontclass, singletonstring);
+		return createIndividualForString(ontclass, singletonstring, isRead);
 	}
 
-	// /**
-	// * convenience method for accessing the underlying individual but only
-	// * String given
-	// *
-	// * @param ontclass
-	// * @return
-	// */
-	//
-	// public Individual createSingleTonIndividual(String ontclass) {
-	// return createIndividualForString(getOntClassForString(ontclass),
-	// MagicStrings.SINGLETONPREFIX + ontclass);
-	// }
-
-	public OntClass createSingleTonIndividualWithClass(String classname, String... definitions) {
-		OntClass classOnt = createOntClassForString(classname, definitions);
-		createSingleTonIndividual(classOnt);
+	public OntClass createSingleTonIndividualWithClass(String classname, Boolean isRead, String... definitions) {
+		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
+		createSingleTonIndividual(classOnt, isRead);
 		return classOnt;
 	}
 
-	public Individual createSingleTonIndividualWithClass2(String classname, String... definitions) {
-		OntClass classOnt = createOntClassForString(classname, definitions);
-		return createSingleTonIndividual(classOnt);
+	public Individual createSingleTonIndividualWithClass2(String classname, Boolean isRead, String... definitions) {
+		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
+		return createSingleTonIndividual(classOnt, isRead);
 	}
 
-	public OntResult accessSingletonResource(String classname, String... definitions) {
+	public OntResult accessSingletonResource(String classname, Boolean isRead, String... definitions) {
 		if (classname.startsWith("I")) {
 			logger.warn("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
 		}
-		OntClass classOnt = createOntClassForString(classname, definitions);
-		Individual individual = createSingleTonIndividual(classOnt);
+		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
+		Individual individual = createSingleTonIndividual(classOnt, isRead);
 		return new OntResult(individual, classOnt);
 	}
 
-	public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass) {
-		OntClass classOnt = createOntClass(compOntClass);
-		Individual individual = createSingleTonIndividual(classOnt);
+	public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass, Boolean isRead) {
+		OntClass classOnt = createOntClass(compOntClass, isRead);
+		Individual individual = createSingleTonIndividual(classOnt, isRead);
 		return new OntResult(individual, classOnt);
 	}
 
-	// /**
-	// * creates/gets the corresponding ontclass for the given individual
-	// * (assuming the ontclass is named as the individual without the
-	// * singletonprefix) wirkt erstmal hacky
-	// *
-	// * @param individual
-	// * @return
-	// */
-	// @Deprecated
-	// public OntClass createOntClassForIndividual(Individual individual) {
-	// String typeClass =
-	// individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
-	// return createOntClassForString(typeClass);
-	// }
-
-	public OntClass getClass(CompOntClass compOntClass) {
-		return createOntClassForString(compOntClass.name());
+	public OntClass getClass(CompOntClass compOntClass, Boolean isRead) {
+		return createOntClassForString(compOntClass.name(), isRead);
 	}
-
-	// /**
-	// * creates/gets the corresponding ontclass for the given individual
-	// * (assuming the ontclass is named as the individual without the
-	// * singletonprefix) wirkt erstmal hacky
-	// *
-	// * @param individual
-	// * @return
-	// */
-	// @Deprecated
-	// public OntClass createOntClassForIndividual(Individual individual) {
-	// String typeClass =
-	// individual.getLocalName().substring(MagicStrings.SINGLETONPREFIX.length());
-	// return createOntClassForString(typeClass);
-	// }
 
 	public static String encode(String string) {
 		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {

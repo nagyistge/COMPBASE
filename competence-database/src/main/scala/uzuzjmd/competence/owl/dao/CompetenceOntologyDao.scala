@@ -47,16 +47,22 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   def exists(): Boolean = {
     val result = util.getIndividualForString(computeEncodedString)
     if (result != null) {
-      return util.getClass(compOntClass).equals(result.getOntClass())
+      return util.getClass(compOntClass, true).equals(result.getOntClass())
     } else {
       return false
     }
   }
 
   def createIndividual: Individual = {
-    val ontClass = util.createOntClass(compOntClass)
+    val ontClass = util.createOntClass(compOntClass, false)
     val encodedString = computeEncodedString
-    return util.createIndividualForString(ontClass, encodedString)
+    return util.createIndividualForString(ontClass, encodedString, false)
+  }
+
+  def getIndividual: Individual = {
+    val ontClass = util.createOntClass(compOntClass, true)
+    val encodedString = computeEncodedString
+    return util.createIndividualForString(ontClass, encodedString, true)
   }
 
   def getId: String = {

@@ -26,9 +26,9 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   def persist(more: Boolean): OntResult = {
     var result: OntResult = null
     if (identifier == null) {
-      result = util.accessSingletonResourceWithClass(compOntClass)
-    } else {      
-      result = util.accessSingletonResource(identifier, identifier)
+      result = util.accessSingletonResourceWithClass(compOntClass, false)
+    } else {
+      result = util.accessSingletonResource(identifier, false, identifier)
     }
     if (more) {
       val uniContext = new UniversityContext(comp)
@@ -77,7 +77,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
       definition = compOntClass.toString()
     }
     val id = getId
-    val ontClass = comp.getUtil().accessSingletonResource(definition).getOntclass()
+    val ontClass = comp.getUtil().accessSingletonResource(definition, true).getOntclass()
     val classList = ontClass.listSubClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing"))
 
     val identifierList = classList.map(x => x.getLocalName()).toList
