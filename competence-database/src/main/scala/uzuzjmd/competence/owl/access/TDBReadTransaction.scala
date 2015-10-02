@@ -1,7 +1,5 @@
 package uzuzjmd.competence.owl.access
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-
 /**
  * @author dehne
  */

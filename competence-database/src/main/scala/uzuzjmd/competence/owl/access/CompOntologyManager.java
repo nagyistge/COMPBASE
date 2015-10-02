@@ -78,7 +78,7 @@ public class CompOntologyManager {
 	}
 
 	@Deprecated
-	public void close() {
+	protected void close() {
 		dataset.commit();
 		dataset.end();
 	}

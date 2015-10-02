@@ -1,7 +1,5 @@
 package uzuzjmd.competence.owl.access
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-
 /**
  * @author dehne
  *
@@ -9,13 +7,60 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
  */
 trait TDBWriteTransactional[A] {
   val comp = new CompOntologyManager
+  val debugOn = true
   type TRANSACTIONAL = (CompOntologyManager, A) => Unit
+  type TRANSACTIONAL2 = (CompOntologyManager) => Unit
 
   def execute(f: TRANSACTIONAL, g: A) {
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
       f(comp, g)
+      comp.commit()
+    } finally {
+      comp.getM.leaveCriticalSection()
+      comp.end()
+    }
+  }
+
+  def executeWithReasoning(f: TRANSACTIONAL, g: A) {
+    comp.begin
+    comp.getM.enterCriticalSection(false)
+    if (!debugOn) {
+      comp.switchOffDebugg();
+    }
+    comp.startReasoning();
+    try {
+      f(comp, g)
+      comp.commit()
+    } finally {
+      comp.getM.leaveCriticalSection()
+      comp.end()
+    }
+  }
+
+  def executeNoParam(f: TRANSACTIONAL2) {
+    comp.begin
+    comp.getM.enterCriticalSection(false)
+    try {
+      f(comp)
+      comp.commit()
+    } finally {
+      comp.getM.leaveCriticalSection()
+      comp.end()
+    }
+  }
+
+  def executeNoParamWithReasoning(f: TRANSACTIONAL2) {
+    comp.begin
+    comp.getM.enterCriticalSection(false)
+    comp.startReasoning();
+    if (!debugOn) {
+      comp.switchOffDebugg();
+    }
+    try {
+      f(comp)
+      comp.getM.validate()
       comp.commit()
     } finally {
       comp.getM.leaveCriticalSection()

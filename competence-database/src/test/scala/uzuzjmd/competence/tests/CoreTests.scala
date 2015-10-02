@@ -40,66 +40,52 @@ import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.main.EposImporter
 import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
+import uzuzjmd.competence.service.rest.model.dto.CourseData
+import uzuzjmd.competence.mapper.rest.GetProgressMInOnt
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt
 
 @RunWith(classOf[JUnitRunner])
-class CoreTests extends FunSuite with ShouldMatchers {
+class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
 
   test("The CSV import should run without errors") {
 
     // change this, if you want to really reset the database
     CompFileUtil.deleteTDB()
-
     val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
     CompetenceImporter.convertCSVArray();
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
 
     EposImporter.importEpos()
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    compOntManag.begin()
     val fileUtil = new CompFileUtil(compOntManag.getM())
     fileUtil.writeOntologyout()
-    compOntManag.close()
   }
 
   test("if a user is persisted, the course context should be acessable") {
+    executeNoParam(userPersistTest _)
+  }
 
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-
-    val teacherRole = new TeacherRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
+  def userPersistTest(comp: CompOntologyManager) {
+    val teacherRole = new TeacherRole(comp)
+    val coursecontext = new CourseContext(comp, "2")
     coursecontext.persist
-    val user = new User(compOntManag, "me", teacherRole, coursecontext, "Julian Dehne")
+    val user = new User(comp, "me", teacherRole, coursecontext, "Julian Dehne")
     user.persist()
-    val user2 = new User(compOntManag, "me")
+    val user2 = new User(comp, "me")
     val fullUser = user2.getFullDao
     fullUser.getName.equals(user.getName) should not be false
     fullUser.hasCourseContext(coursecontext)
     user.hasCourseContext(coursecontext)
     user.delete
     coursecontext.delete
-    compOntManag.close()
   }
 
   test("The CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
-
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false, null)
-    val competenceTree = mapper.getComptenceTree
+    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
+    val competenceTree = mapper.getComptenceTreeForCourse()
     competenceTree should not be ('empty)
 
   }
@@ -107,66 +93,70 @@ class CoreTests extends FunSuite with ShouldMatchers {
   test("The filtered CompetenceTree should not be empty") {
     val compOntManag = new CompOntologyManager()
 
-    compOntManag.begin()
-    compOntManag.getM().validate()
-    compOntManag.close()
-
     val catchwords = "Kooperation" :: "Diagnostik" :: List.empty
     val operators = "bewerten" :: "kooperieren" :: List.empty
-    val mapper = new Ont2CompetenceTree(compOntManag, catchwords.asJava, operators.asJava, "4", false, null)
-    val competenceTree = mapper.getComptenceTree
+    val mapper = new Ont2CompetenceTree(catchwords.asJava, operators.asJava, "university", false, null)
+    val competenceTree = mapper.getComptenceTreeForCourse()
     competenceTree should not be ('empty)
 
   }
 
   test("the operator tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false, null)
+    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
     val result = mapper.getOperatorXMLTree
     result should not be ('empty)
   }
 
   test("the catchword tree should not be empty") {
     val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(compOntManag, List.empty.asJava, List.empty.asJava, "4", false, null)
+    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
   }
 
   test("the singletondao should persist without error") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    val studentRole = new StudentRole(compOntManag)
+    executeNoParam(singletondaoTest)
+    showResult
+  }
+
+  def singletondaoTest(comp: CompOntologyManager) {
+    val studentRole = new StudentRole(comp)
     studentRole.persist(true)
     studentRole.setRole
     studentRole.persist(false).getIndividual() should not be null
     studentRole.persist(false).getOntclass() should not be null
-    val teacherRole = new TeacherRole(compOntManag)
+    val teacherRole = new TeacherRole(comp)
     teacherRole.persist(true)
     teacherRole.setRole
     teacherRole.persist(false).getIndividual() should not be null
     teacherRole.persist(false).getOntclass() should not be null
-    compOntManag.close()
-    showResult
+
   }
 
   test("the regular dao should persist without error") {
     val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    val teacherRole = new TeacherRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
+    executeNoParam(regularDaoTest _)
+    showResult
+  }
+
+  def regularDaoTest(comp: CompOntologyManager) {
+    val teacherRole = new TeacherRole(comp)
+    val coursecontext = new CourseContext(comp, "2")
+    val user = new User(comp, "me", teacherRole, coursecontext, "me")
     user.persist
     user.exists should not be false
     user.delete
     user.exists should not be true
-    compOntManag.close()
-    showResult
+
   }
 
   test("if a dao is linked the link should exist") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+    executeNoParam(linkTest _)
+    showResult
+  }
+
+  def linkTest(compOntManag: CompOntologyManager) {
     val teacherRole = new TeacherRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
@@ -182,18 +172,18 @@ class CoreTests extends FunSuite with ShouldMatchers {
     teacherRole.deleteEdge(CompObjectProperties.RoleOf, user)
     user.exists should not be false
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
-    compOntManag.close()
-    showResult
   }
 
   test("if a comment is persisted it should have its datafields in place") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+    executeNoParam(doCommentTest _)
+  }
+
+  def doCommentTest(comp: CompOntologyManager) {
     val testkommentar = "mein testkommentar"
-    val teacherRole = new TeacherRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
-    val comment = new Comment(compOntManag, testkommentar, user, System.currentTimeMillis())
+    val teacherRole = new TeacherRole(comp)
+    val coursecontext = new CourseContext(comp, "2")
+    val user = new User(comp, "me", teacherRole, coursecontext, "me")
+    val comment = new Comment(comp, testkommentar, user, System.currentTimeMillis())
     comment.persist
     comment.exists should not be false
     val testkommentar2 = comment.getDataField(comment.TEXT)
@@ -202,13 +192,16 @@ class CoreTests extends FunSuite with ShouldMatchers {
     comment.deleteDataField(comment.TEXT)
     (comment.getDataField(comment.TEXT) != null) should not be true
     comment.hasDataField(comment.TEXT) should not be true
-    compOntManag.close()
-    showResult
+
   }
 
   test("if a evidence link is created this should not cause errors") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+    executeNoParam(doEvidenceLinkTest _)
+    executeNoParam(doDeleteEvidenceLink _)
+    showResult
+  }
+
+  def doEvidenceLinkTest(compOntManag: CompOntologyManager) {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
@@ -225,17 +218,30 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
     link.exists should not be false
+
+  }
+
+  def doDeleteEvidenceLink(compOntManag: CompOntologyManager) {
+    val studentRole = new StudentRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+    val teacherRole = new TeacherRole(compOntManag)
+    val user = new User(compOntManag, "me", teacherRole, coursecontext)
+    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
+    val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, null)
+    link.exists should not be false
     link.delete
     evidenceActivity.delete
     evidenceActivity.exists should not be true
-    compOntManag.close()
-    showResult
   }
 
   test("if a string is given the identified full dao should be returnable") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    
+    executeNoParam(doidentifiedLinkTest _)
+    showResult
+  }
+
+  def doidentifiedLinkTest(compOntManag: CompOntologyManager) {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
@@ -253,72 +259,55 @@ class CoreTests extends FunSuite with ShouldMatchers {
     //    linkedUser.equals(userstudent) should not be false
     link.delete
 
-    compOntManag.close()
+  }
+
+  test("the competencelinksmap should not be empty") {
+    executeNoParam(docompetencelinksmapTest _)
+    val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
+    val tmp1 = tmp0.getMapUserCompetenceLinks()
+    tmp1.entrySet() should not be ('empty)
     showResult
   }
 
-  // TODO: Find out why this test fails
-    test("the competencelinksmap should not be empty") {
-      val compOntManag = new CompOntologyManager()
-      compOntManag.begin()
-      val linkId = "hellolinkId"
-      val studentRole = new StudentRole(compOntManag)
-      val coursecontext = new CourseContext(compOntManag, "2")
-      val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-      val link = createAbstract(compOntManag, userstudent)
-      
-      val mapper = new Ont2CompetenceLinkMap(compOntManag, "student meäää 10AA")
-      val tmp0 = mapper.getCompetenceLinkMap
-      val tmp1 = tmp0.getMapUserCompetenceLinks()
-      tmp1.entrySet() should not be ('empty)
-      link.delete      
-      compOntManag.close()
-      showResult
-    }
-
-  test("progresbarmap should not be empty") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+  def docompetencelinksmapTest(compOntManag: CompOntologyManager) {
     val linkId = "hellolinkId"
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, userstudent)
-    compOntManag.close()
-    compOntManag.begin()
-    val competenceList = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung") :: Nil    
-//    competenceList.foreach { x => x.persist(true) }
-    val competenceListString = competenceList.map(x => x.getFullDao.definition).asJava
-    val mapper = new Ont2ProgressMap(compOntManag, coursecontext.name, competenceListString)
-    mapper.getProgressMap() should not be null
-    mapper.getProgressMap().entrySet() should not be ('empty)
     link.delete
-    compOntManag.close()
+  }
+
+  test("progresbarmap should not be empty") {
+    executeNoParam(doEvidenceLinkTest _)
+    val changes = new CourseData("2", ("Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung" :: Nil).asJava)
+    val progressMap = GetProgressMInOnt.convert(changes);
+    progressMap should not be null
+    progressMap.entrySet() should not be ('empty)
+    executeNoParam(doDeleteEvidenceLink _)
     showResult
   }
 
   test("if a requires b and b requires c, a should require c") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    compOntManag.getM().enterCriticalSection(false);
-    compOntManag.startReasoning();
+    executeNoParamWithReasoning(doRequiresTransitivityTest)
+    showResult
+  }
+
+  def doRequiresTransitivityTest(compOntManag: CompOntologyManager) {
     val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
     val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     competenceC.addRequiredCompetence(competenceB)
     competenceB.addRequiredCompetence(competenceA)
     competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
-    compOntManag.close()
-    showResult
   }
 
   test("testing the rules") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    compOntManag.getM().enterCriticalSection(false);
-    compOntManag.startReasoning();
-    compOntManag.switchOffDebugg();
+    executeNoParamWithReasoning(doTestTheRules _)
+    showResult
+  }
 
+  def doTestTheRules(compOntManag: CompOntologyManager) {
     val courseContext = new CourseContext(compOntManag, "n2");
     val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceA)
@@ -354,59 +343,24 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, userstudent)
-
-    compOntManag.close()
-    showResult
   }
 
   test("if a learning template is selected it should be persisted without errors") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    compOntManag.getM().enterCriticalSection(false);
 
     val groupId = "111332";
     val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";
     val userId = "Julian Dehne 12 12"
 
-    val courseContext = new CourseContext(compOntManag, groupId)
-    val user = new User(compOntManag, userId, new TeacherRole(compOntManag), courseContext, userId)
-    val selectedTemplate = new SelectedLearningProjectTemplate(compOntManag, user, courseContext)
-    selectedTemplate.persist()
-    val learningProjectTemplate = new LearningProjectTemplate(compOntManag, selectedTemplateName, null, selectedTemplateName)
-    learningProjectTemplate.persist
-    selectedTemplate.addAssociatedTemplate(learningProjectTemplate)
-
-    compOntManag.getM().leaveCriticalSection();
-    compOntManag.close();
-    showResult
-  }
-
-  test("a user and a course give you should be able to get all the associatedTemplates") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    compOntManag.getM().enterCriticalSection(false);
-
-    val groupId = "111332";
-    val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";
-    val userId = "Julian Dehne 12 12"
-
-    val courseContext = new CourseContext(compOntManag, groupId)
-    val user = new User(compOntManag, userId, new TeacherRole(compOntManag), courseContext, userId)
-    val selectedTemplate = new SelectedLearningProjectTemplate(compOntManag, user, courseContext)
-    val selectedTemplateFull = selectedTemplate.getFullDao
-    selectedTemplateFull.getAssociatedTemplates should not be ('empty)
-
-    compOntManag.getM().leaveCriticalSection();
-    compOntManag.close();
+    val changes = new LearningTemplateData(userId, groupId, selectedTemplateName)
+    LearningTemplateToOnt.convert(changes)
     showResult
   }
 
   test("listing all the subdaos should not throw any error and provide an existing list") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+    executeNoParam(doListingAllSubdaos _)
+  }
 
-    CompOntologyAccess.logger.setLevel(Level.DEBUG)
-
+  def doListingAllSubdaos(compOntManag: CompOntologyManager) {
     val competenceRoot = new CompetenceInstance(compOntManag)
     val result2 = competenceRoot.listSubClasses(classOf[Competence])
     competenceRoot.listSubClasses(classOf[Competence]) should not be ('empty)
@@ -416,13 +370,13 @@ class CoreTests extends FunSuite with ShouldMatchers {
     result should not be ('empty)
     (result.head.getDefinition != null) should not be false
 
-    compOntManag.close();
   }
 
   test("listing all the the shortest path should not throw any error and provide an existing list") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
+    executeNoParam(doListingAllSubdaos _)
+  }
 
+  def doListingShotrestPath(compOntManag: CompOntologyManager) {
     CompOntologyAccess.logger.setLevel(Level.DEBUG)
 
     val competenceRoot = new CompetenceInstance(compOntManag)
@@ -435,15 +389,14 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val result = compOntManag.getUtil().getShortestSubClassPath(bottomClass, topClass)
     result should not be ('empty)
 
-    compOntManag.close();
   }
 
   test("getOperations should not leave status in database") {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-
     CompOntologyAccess.logger.setLevel(Level.DEBUG)
+    executeNoParam(doNoSideEffectTest _)
+  }
 
+  def doNoSideEffectTest(compOntManag: CompOntologyManager) {
     val competenceRoot = new CompetenceInstance(compOntManag)
     val topClass = competenceRoot.toOntClass
 
@@ -468,8 +421,6 @@ class CoreTests extends FunSuite with ShouldMatchers {
 
     // test whether isSuperClass modifies database
     bottomClass.exists should not be true
-
-    compOntManag.close();
   }
 
   //  test("test consistency of subclass relations") {
@@ -509,17 +460,13 @@ class CoreTests extends FunSuite with ShouldMatchers {
   //    showResult
   //  }
 
-  
-  
-  
-  
-  
   private def showResult() {
-    val compOntManag = new CompOntologyManager()
-    compOntManag.begin()
-    val fileUtil = new CompFileUtil(compOntManag.getM())
+    executeNoParam(showResultHelper _)
+  }
+
+  private def showResultHelper(comp: CompOntologyManager) {
+    val fileUtil = new CompFileUtil(comp.getM())
     fileUtil.writeOntologyout()
-    compOntManag.close()
   }
 
   private def createAbstract(compOntManag: CompOntologyManager, userstudent: User): AbstractEvidenceLink = {
@@ -530,7 +477,7 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
     fullUser.role.equals(teacherRole) should not be false
-    // and now a more complicated example    
+    // and now a more complicated example
     val testkommentar = "mein testkommentar"
     val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
     val testkommentar2 = "mein testkommentar2"
@@ -543,9 +490,9 @@ class CoreTests extends FunSuite with ShouldMatchers {
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
     val competencex = competence.getDefinition()
-    
+
     competencex should not be null
-    
+
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     return link

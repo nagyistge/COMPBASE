@@ -14,6 +14,7 @@ import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 
 /**
  * @author dehne
@@ -26,6 +27,10 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
     execute(convertHelper _, changes)
   }
 
+  def convertLearningTemplateResultSet(learningTemplateResultSet: LearningTemplateResultSet) {
+    executeX[LearningTemplateResultSet](convertLearningTemplateResultSet, learningTemplateResultSet)
+  }
+
   private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData) {
     val context = new CourseContext(comp, changes.getGroupId);
     val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
@@ -33,6 +38,10 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
     selected.persist();
     val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, changes.getSelectedTemplate);
     selected.addAssociatedTemplate(learningTemplate);
+  }
+
+  private def convertLearningTemplateResultSet(comp: CompOntologyManager, learningTemplateResultSet: LearningTemplateResultSet) {
+    convertLearningTemplate(comp, learningTemplateResultSet.getResultGraph, learningTemplateResultSet.getCatchwordMap, learningTemplateResultSet.getNameOfTheLearningTemplate)
   }
 
   private def convertLearningTemplate(comp: CompOntologyManager, graph: Graph, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]], learningTemplateName: String) {
