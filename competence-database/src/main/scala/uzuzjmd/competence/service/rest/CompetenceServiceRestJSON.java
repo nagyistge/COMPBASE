@@ -24,6 +24,11 @@ import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
 import uzuzjmd.competence.mapper.rest.AbstractEvidenceLink2Ont;
 import uzuzjmd.competence.mapper.rest.Comment2Ont;
 import uzuzjmd.competence.mapper.rest.Competence2Ont;
+import uzuzjmd.competence.mapper.rest.CreatePrerequisiteInOnt;
+import uzuzjmd.competence.mapper.rest.DeletePrerequisiteInOnt;
+import uzuzjmd.competence.mapper.rest.GetProgressMInOnt;
+import uzuzjmd.competence.mapper.rest.GetRequiredCompetencesInOnt;
+import uzuzjmd.competence.mapper.rest.HandleLinkValidationInOnt;
 import uzuzjmd.competence.mapper.rest.Link2Ont;
 import uzuzjmd.competence.mapper.rest.User2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
@@ -32,9 +37,13 @@ import uzuzjmd.competence.owl.dao.Competence;
 import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
+import uzuzjmd.competence.service.mapper.rest.DeleteCompetenceInOnt;
 import uzuzjmd.competence.service.rest.model.dto.CommentData;
 import uzuzjmd.competence.service.rest.model.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData;
+import uzuzjmd.competence.service.rest.model.dto.CourseData;
+import uzuzjmd.competence.service.rest.model.dto.LinkValidationData;
+import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData;
 import uzuzjmd.competence.service.rest.model.dto.UserData;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
@@ -338,16 +347,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/competence/delete")
 	public Response deleteCompetence(@QueryParam("competences") List<String> competences) {
-		CompOntologyManager manager = initManagerInCriticalMode();
 
-		System.out.println("deleting competences" + competences);
-
-		for (String string : competences) {
-			Competence toDelete = new Competence(manager, string, string, null);
-			toDelete.delete();
-		}
-
-		manager.close();
+		DeleteCompetenceInOnt.convert(competences);
 		return Response.ok("competences deleted").build();
 	}
 
@@ -362,16 +363,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/competence/deleteTree")
 	public Response deleteCompetenceTree(@QueryParam("competences") List<String> competences) {
-		CompOntologyManager manager = initManagerInCriticalMode();
-
-		System.out.println("deleting competences" + competences);
-
-		for (String string : competences) {
-			Competence toDelete = new Competence(manager, string, string, null);
-			toDelete.deleteTree();
-		}
-
-		manager.close();
+		DeleteCompetenceTreeInOnt.convert(competences);
 		return Response.ok("competences deleted").build();
 	}
 
@@ -405,13 +397,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/link/progress/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProgressMap getProgressM(@PathParam("course") String course, @QueryParam("competences") List<String> selectedCompetences) {
-
-		ProgressMap result = null;
-		CompOntologyManager comp = initManagerInCriticalMode();
-		Ont2ProgressMap map = new Ont2ProgressMap(comp, course, selectedCompetences);
-		result = map.getProgressMap();
-		closeManagerInCriticalMode(comp);
-		return result;
+		return GetProgressMInOnt.convert(new CourseData(course, selectedCompetences));
 	}
 
 	/**
@@ -431,15 +417,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/prerequisite/create/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("selectedCompetences") List<String> selectedCompetences) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		compOntologyManager.startReasoning();
-		compOntologyManager.switchOffDebugg();
-		Competence competence = new Competence(compOntologyManager, linkedCompetence, null, null);
-		for (String string : selectedCompetences) {
-			Competence preCompetence = new Competence(compOntologyManager, string, null, null);
-			competence.addRequiredCompetence(preCompetence);
-		}
-		compOntologyManager.close();
+		CreatePrerequisiteInOnt.convert(new PrerequisiteData(course, linkedCompetence, selectedCompetences));
+		
 		return Response.ok("prerequisite created").build();
 	}
 
@@ -461,21 +440,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/prerequisite/delete/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deletePrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("competences") List<String> selectedCompetences) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		compOntologyManager.startReasoning();
-		compOntologyManager.switchOffDebugg();
-		Competence competence = new Competence(compOntologyManager, linkedCompetence, null, null);
-		if (selectedCompetences == null || selectedCompetences.isEmpty()) {
-			selectedCompetences = new LinkedList<String>();
-			for (String string : competence.getRequiredCompetencesAsArray()) {
-				selectedCompetences.add(string);
-			}
-		}
-		for (String string : selectedCompetences) {
-			Competence preCompetence = new Competence(compOntologyManager, string, null, null);
-			competence.addNotRequiredCompetence(preCompetence);
-		}
-		compOntologyManager.close();
+		DeletePrerequisiteInOnt.convert(new PrerequisiteData(course, linkedCompetence, selectedCompetences));
 		return Response.ok("prerequisite deleted").build();
 	}
 
@@ -507,13 +472,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/prerequisite/required/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String[] getRequiredCompetences(@QueryParam("competence") String forCompetence) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-		compOntologyManager.startReasoning();
-		compOntologyManager.switchOffDebugg();
-		Competence competence = new Competence(compOntologyManager, forCompetence, null, null);
-		String[] requiredCompetences = competence.getRequiredCompetencesAsArray();
-		compOntologyManager.close();
-		return requiredCompetences;
+		return GetRequiredCompetencesInOnt.convert(forCompetence);
 	}
 
 	/**
@@ -604,14 +563,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	}
 
 	private Response handleLinkValidation(String linkId, Boolean isvalid) {
-
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		AbstractEvidenceLink abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(compOntologyManager, linkId);
-		abstractEvidenceLink.addDataField(abstractEvidenceLink.ISVALIDATED(), isvalid);
-
-		compOntologyManager.close();
-
+		HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isvalid));
 		return Response.ok("link updated").build();
 	}
 
