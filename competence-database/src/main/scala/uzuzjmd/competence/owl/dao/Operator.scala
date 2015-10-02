@@ -12,7 +12,7 @@ class Operator(compManager: CompOntologyManager, identifer: String, val definiti
     ontClass.addSuperClass(operatorRoot.persist(false).getOntclass())
     if (definition != null) {
       //addDataField(DEFINITION, definition) legacy problem
-      compManager.getUtil().createOntClassForString(definition, definition)
+      compManager.getUtil().createOntClassForString(definition, false, definition)
     }
 
   }

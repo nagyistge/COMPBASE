@@ -167,7 +167,7 @@ public class CompOntologyManager {
 
 	private void initClasses() {
 		for (CompOntClass compOntClass : CompOntClass.values()) {
-			getUtil().createOntClass(compOntClass);
+			getUtil().createOntClass(compOntClass, false);
 		}
 	}
 

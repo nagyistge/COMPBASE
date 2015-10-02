@@ -384,7 +384,7 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
 
     val definition2 = "Ich kann die Hauptinformation von Fernsehmeldungen über Ereignisse, Unglücksfälle usw. erfassen, wenn der Kommentar durch Bilder unterstützt wird."
     //val bottomCompetence = new Competence(compOntManag, definition2)
-    val bottomClass = compOntManag.getUtil().createOntClassForString(definition2, definition2)
+    val bottomClass = compOntManag.getUtil().createOntClassForString(definition2, false, definition2)
 
     val result = compOntManag.getUtil().getShortestSubClassPath(bottomClass, topClass)
     result should not be ('empty)

@@ -76,7 +76,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
     logger.debug("SubOperator rels created")
     logger.debug("metaoperator rels created")
     // data properties
-    rcdeos.foreach(x => util.createOntClassForString(x.getTitle()).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
+    rcdeos.foreach(x => util.createOntClassForString(x.getTitle(), false).addLiteral(ontModel.createProperty(MagicStrings.PREFIX, "definition"), x.getDescription().getLangstring().asScala.head.getValue()))
     logger.debug("definition properties created")
 
     //    util.getIndividualForString("INothing").remove()
@@ -129,10 +129,10 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
 
     // die ohne subcompetence
     val triplesGroupedByTitles2b = triples.filterNot(RCDFilter.isSubClassTriple).groupBy(x => x._1)
-    triplesGroupedByTitles2b.foreach(x => util.createOntClassForString(x._1).addSuperClass(util.getClass(CompOntClass.Competence)))
+    triplesGroupedByTitles2b.foreach(x => util.createOntClassForString(x._1, false).addSuperClass(util.getClass(CompOntClass.Competence, false)))
 
     // finally noch individuals  jede Kompetenz erstellen
-    triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1))
+    triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1, false))
   }
 
   private def createDescriptionElementOfRels(util: CompOntologyAccess, triplesWithObjectProperties: Seq[(String, String, String)]) = {
@@ -158,16 +158,16 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
    * HelferClass  handledefaultcases
    */
   private def getPropertyClass(util: CompOntologyAccess, input: String): OntClass = {
-    return util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((input))))
+    return util.getClass(RCDMaps.objectPropertyToClass(CompObjectProperties.valueOf((input))), false)
   }
 
   private def handleDefaultCases(util: CompOntologyAccess)(input: RCDFilter.CompetenceTriple) {
     val genericClass = getPropertyClass(util, input._2)
     val localname = input._3
-    val genericClassAsOnt = util.createOntClassForString(localname, localname)
+    val genericClassAsOnt = util.createOntClassForString(localname, false, localname)
     genericClassAsOnt.addSuperClass(genericClass)
-    val genericIndividual = util.createSingleTonIndividual(genericClassAsOnt)
-    val competenceIndividual = util.createSingleTonIndividual(util.getOntClassForString(input._1))
+    val genericIndividual = util.createSingleTonIndividual(genericClassAsOnt, false)
+    val competenceIndividual = util.createSingleTonIndividual(util.getOntClassForString(input._1), false)
     util.createObjectPropertyWithIndividual(genericIndividual, competenceIndividual, CompObjectProperties.valueOf(input._2))
   }
 

@@ -12,7 +12,7 @@ class Catchword(compManager: CompOntologyManager, identifer: String, val definit
     ontClass.addSuperClass(catchwordRoot.persist(false).getOntclass())
     if (definition != null) {
       //addDataField(DEFINITION, definition) legacy problem
-      compManager.getUtil().createOntClassForString(definition, definition)
+      compManager.getUtil().createOntClassForString(definition, false, definition)
     }
 
   }
