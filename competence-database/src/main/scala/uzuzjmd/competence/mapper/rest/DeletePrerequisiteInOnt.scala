@@ -2,7 +2,6 @@ package uzuzjmd.competence.mapper.rest
 
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import org.specs2.internal.scalaz.std.string
 import uzuzjmd.competence.owl.dao.Competence
 import java.util.LinkedList
 import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData

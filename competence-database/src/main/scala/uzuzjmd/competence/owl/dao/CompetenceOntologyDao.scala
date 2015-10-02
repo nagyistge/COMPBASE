@@ -4,7 +4,6 @@ import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import com.hp.hpl.jena.ontology.OntClass
-import uzuzjmd.competence.owl.access.CompOntologyManagerFactory
 import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess

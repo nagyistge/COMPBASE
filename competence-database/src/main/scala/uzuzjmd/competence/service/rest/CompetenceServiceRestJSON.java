@@ -2,7 +2,6 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -20,11 +19,12 @@ import uzuzjmd.competence.mapper.gui.Ont2Catchwords;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.Ont2Operator;
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap;
 import uzuzjmd.competence.mapper.rest.AbstractEvidenceLink2Ont;
 import uzuzjmd.competence.mapper.rest.Comment2Ont;
 import uzuzjmd.competence.mapper.rest.Competence2Ont;
 import uzuzjmd.competence.mapper.rest.CreatePrerequisiteInOnt;
+import uzuzjmd.competence.mapper.rest.DeleteCompetenceInOnt;
+import uzuzjmd.competence.mapper.rest.DeleteCompetenceTreeInOnt;
 import uzuzjmd.competence.mapper.rest.DeletePrerequisiteInOnt;
 import uzuzjmd.competence.mapper.rest.GetProgressMInOnt;
 import uzuzjmd.competence.mapper.rest.GetRequiredCompetencesInOnt;
@@ -32,12 +32,8 @@ import uzuzjmd.competence.mapper.rest.HandleLinkValidationInOnt;
 import uzuzjmd.competence.mapper.rest.Link2Ont;
 import uzuzjmd.competence.mapper.rest.User2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
-import uzuzjmd.competence.owl.dao.AbstractEvidenceLink;
-import uzuzjmd.competence.owl.dao.Competence;
-import uzuzjmd.competence.owl.dao.DaoFactory;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.mapper.rest.DeleteCompetenceInOnt;
 import uzuzjmd.competence.service.rest.model.dto.CommentData;
 import uzuzjmd.competence.service.rest.model.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData;
@@ -166,7 +162,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/coursecontext/delete/{course}")
 	public Response deleteCourseContextJSON(@PathParam("course") String course) {
-		CompetenceServiceWrapper.delete(course);
+		// TODO implement
 		return Response.ok("competences deleted from course:" + course).build();
 	}
 
@@ -418,7 +414,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("selectedCompetences") List<String> selectedCompetences) {
 		CreatePrerequisiteInOnt.convert(new PrerequisiteData(course, linkedCompetence, selectedCompetences));
-		
+
 		return Response.ok("prerequisite created").build();
 	}
 
@@ -486,7 +482,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/operator")
 	public String getOperatorForCompetence(@QueryParam("competence") String forCompetence) {
 		// Ont2Operator.
-		Ont2Operator.convert(forCompetence);
+		return Ont2Operator.convert(forCompetence);
 	}
 
 	/**
@@ -499,7 +495,7 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/catchwords")
 	public String getCatchwordsForCompetence(@QueryParam("competence") String forCompetence) {
-		Ont2Catchwords.convert(forCompetence);
+		return Ont2Catchwords.convert(forCompetence);
 	}
 
 	/**

@@ -20,27 +20,22 @@ import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt;
 import uzuzjmd.competence.mapper.gui.Ont2LearningTemplates;
 import uzuzjmd.competence.mapper.gui.Ont2SelectedLearningTemplate;
-import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGraph;
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.mapper.gui.ReflectiveAssessmentHolder2Ont;
+import uzuzjmd.competence.mapper.rest.DeleteLearningTemplateinOnt;
 import uzuzjmd.competence.mapper.rest.DeleteTemplateInOnt;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
-import uzuzjmd.competence.owl.dao.Competence;
-import uzuzjmd.competence.owl.dao.CourseContext;
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate;
-import uzuzjmd.competence.owl.dao.TeacherRole;
-import uzuzjmd.competence.owl.dao.User;
+import uzuzjmd.competence.mapper.rest.Ont2LearningTemplateResultSet;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;
 import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData;
+import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
-import uzuzjmd.competence.shared.dto.GraphNode;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 
 /**
@@ -411,15 +406,10 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@POST
 	@Path("learningtemplates/gridview/update")
 	public Response updateGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
-		fummy(userName, groupId, reflectiveAssessmentHolder);
 
+		ReflectiveAssessmentChangeData assessmentChangeData = new ReflectiveAssessmentChangeData(userName, groupId, reflectiveAssessmentHolder);
+		ReflectiveAssessmentHolder2Ont.convert(assessmentChangeData);
 		return Response.ok("reflexion updated").build();
-	}
-
-	private void fummy(String userName, String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
-		CourseContext context = new CourseContext(compOntologyManager, groupId);
-		User user = new User(compOntologyManager, userName, new TeacherRole(compOntologyManager), context, userName);
-		ReflectiveAssessmentHolder2Ont.convert(compOntologyManager, user, context, reflectiveAssessmentHolder);
 	}
 
 	/**
@@ -481,12 +471,8 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Path("/learningtemplate/add/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response addLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName, LearningTemplateResultSet learningTemplateResultSet) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		LearningTemplateToOnt.convert(compOntologyManager, learningTemplateResultSet.getResultGraph(), learningTemplateResultSet.getCatchwordMap(), learningTemplateName);
-
-		compOntologyManager.close();
-
+		learningTemplateResultSet.setNameOfTheLearningTemplate(learningTemplateName);
+		LearningTemplateToOnt.convertLearningTemplateResultSet(learningTemplateResultSet);
 		return Response.ok("learningTemplate added").build();
 
 	}
@@ -510,24 +496,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Path("/learningtemplate/get/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
 	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-
-		CompOntologyManager comp = new CompOntologyManager();
-		comp.begin();
-
-		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);
-		List<Competence> associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
-
-		LearningTemplateResultSet result = null;
-
-		if (associatedCompetences.isEmpty()) {
-			result = null;
-		} else if (associatedCompetences.size() == 1) {
-			result = new LearningTemplateResultSet(new GraphNode(associatedCompetences.get(0).getDefinition()));
-		} else {
-			result = Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
-		}
-		comp.close();
-		return result;
+		return Ont2LearningTemplateResultSet.convert(learningTemplateName);
 	}
 
 	@Consumes(MediaType.APPLICATION_XML)
@@ -535,12 +504,7 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Path("/learningtemplate/delete/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response deleteLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-		CompOntologyManager compOntologyManager = initManagerInCriticalMode();
-
-		LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(compOntologyManager, learningTemplateName, null, null);
-		learningProjectTemplate.delete();
-
-		compOntologyManager.close();
+		DeleteLearningTemplateinOnt.convert(learningTemplateName);
 
 		// change for testcommit to gitup
 		return Response.ok("learningTemplate deleted").build();

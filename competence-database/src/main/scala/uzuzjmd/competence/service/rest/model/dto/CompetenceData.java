@@ -2,8 +2,6 @@ package uzuzjmd.competence.service.rest.model.dto;
 
 import java.util.List;
 
-import uzuzjmd.competence.owl.access.CompOntologyManager;
-
 public class CompetenceData {
 
 	private String operator;
@@ -61,14 +59,6 @@ public class CompetenceData {
 
 	public void setSubCompetences(List<String> subCompetences) {
 		this.subCompetences = subCompetences;
-	}
-
-	public CompOntologyManager getCompOntologyManager() {
-		return compOntologyManager;
-	}
-
-	public void setCompOntologyManager(CompOntologyManager compOntologyManager) {
-		this.compOntologyManager = compOntologyManager;
 	}
 
 	public String getLearningProjectName() {

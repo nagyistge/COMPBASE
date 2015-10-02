@@ -11,8 +11,21 @@ import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.SelfAssessment
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData
+import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
-object ReflectiveAssessmentHolder2Ont {
+object ReflectiveAssessmentHolder2Ont extends TDBWriteTransactional[ReflectiveAssessmentChangeData] {
+
+  def convert(reflectiveAssement: ReflectiveAssessmentChangeData) {
+    execute(convertHelper _, reflectiveAssement)
+  }
+
+  def convertHelper(comp: CompOntologyManager, reflectiveAssessment: ReflectiveAssessmentChangeData) {
+    val context = new CourseContext(comp, reflectiveAssessment.getGroupId);
+    val user = new User(comp, reflectiveAssessment.getUserName, new TeacherRole(comp), context, reflectiveAssessment.getUserName);
+    ReflectiveAssessmentHolder2Ont.convertAssessment(comp, user, context, reflectiveAssessment.getReflectiveAssessmentHolder);
+  }
 
   def convertAssessment(comp: CompOntologyManager, user: User, courseContext: CourseContext, reflectiveAssessmentHolder: ReflectiveAssessmentsListHolder) {
     reflectiveAssessmentHolder.getReflectiveAssessmentList().asScala.foreach(updateSingleAssessment(_, comp, user, courseContext))
