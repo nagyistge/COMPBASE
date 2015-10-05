@@ -42,3 +42,11 @@ competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/compe
 competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/compilation-mappings.txt
 competence-webapp/uzuzjmd.competence.gui/src/main/java/uzuzjmd/competence/gui/client/MyConstants.properties
 competence-webapp/uzuzjmd.competence.gui/src/main/resources/uzuzjmd/competence/gui/client/MyConstants.properties
+mymodelrdf.owl
+competence-database/.cache-main
+competence-database/.cache-tests
+competence-database/catalog-v001.xml
+competence-database/*.log
+competence-database/*.log.*
+competence-database-servlet/competence-servlet/.cache-main
+*.owl
