@@ -1,14 +1,17 @@
 package uzuzjmd.competence.mapper.gui
 
+import java.util.HashMap
+
+import scala.collection.JavaConverters.asScalaSetConverter
+import scala.collection.JavaConverters.mapAsJavaMapConverter
+
+import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.Graph
-import java.util.HashMap
 import uzuzjmd.competence.shared.dto.GraphTriple
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 import uzuzjmd.java.collections.MapsMagic
-import scala.collection.JavaConverters._
 
 /**
  * @author dehne

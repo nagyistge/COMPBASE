@@ -1,6 +1,5 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBREADTransactional

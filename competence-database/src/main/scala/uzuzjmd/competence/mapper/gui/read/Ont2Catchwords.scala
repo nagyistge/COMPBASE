@@ -1,9 +1,8 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.owl.dao.Competence
 
 /**
  * @author dehne

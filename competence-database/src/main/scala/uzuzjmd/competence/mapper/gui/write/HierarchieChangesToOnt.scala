@@ -1,12 +1,12 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.write
 
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import scala.collection.JavaConverters.asScalaBufferConverter
+
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.shared.dto.HierarchieChangeSet
-import uzuzjmd.competence.shared.dto.HierarchieChange
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.shared.dto.HierarchieChange
+import uzuzjmd.competence.shared.dto.HierarchieChangeSet
 
 object HierarchieChangesToOnt extends TDBWriteTransactional[HierarchieChangeSet] {
 

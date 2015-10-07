@@ -1,9 +1,9 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.shared.StringList
-import uzuzjmd.competence.owl.access.TDBREADTransactional
 
 /**
  * @author dehne

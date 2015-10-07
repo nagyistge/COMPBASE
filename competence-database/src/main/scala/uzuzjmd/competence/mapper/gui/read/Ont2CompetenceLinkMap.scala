@@ -1,20 +1,21 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
 import java.util.SortedSet
 import java.util.TreeSet
+
 import scala.collection.JavaConverters.mapAsJavaMapConverter
 import scala.collection.JavaConverters.seqAsJavaListConverter
+
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.Comment
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
 import uzuzjmd.competence.shared.dto.CommentEntry
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap
 import uzuzjmd.competence.shared.dto.CompetenceLinksView
 import uzuzjmd.java.collections.MapsMagic
-import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.access.TDBREADTransactional
 
 object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLinksMap] {
 

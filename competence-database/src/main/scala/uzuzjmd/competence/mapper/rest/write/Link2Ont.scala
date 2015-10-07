@@ -1,16 +1,17 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData
+import scala.collection.JavaConverters.asScalaBufferConverter
+
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.dao.EvidenceActivity
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.dao.EvidenceActivity
+import uzuzjmd.competence.owl.dao.StudentRole
+import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData
+import uzuzjmd.competence.service.rest.model.dto.RoleConverter
 
 /**
  * @author dehne

@@ -1,19 +1,20 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.write
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.Catchword
+
 import javax.ws.rs.WebApplicationException
-import uzuzjmd.competence.shared.dto.GraphTriple
-import uzuzjmd.competence.shared.dto.Graph
+import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.dao.Catchword
+import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
+import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.shared.dto.Graph
+import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 
 /**

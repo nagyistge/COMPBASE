@@ -1,12 +1,14 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.queries.CompetenceQueries
 import java.util.LinkedList
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+
+import scala.collection.JavaConverters.asScalaBufferConverter
+
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
-import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.queries.CompetenceQueries
 
 /**
  * @author dehne

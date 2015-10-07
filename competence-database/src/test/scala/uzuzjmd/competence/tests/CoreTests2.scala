@@ -5,7 +5,7 @@ import org.junit.AfterClass
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree
+import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree
 import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.StudentRole
@@ -24,7 +24,7 @@ import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.mapper.gui.Ont2CompetenceLinkMap
+import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.owl.dao.CourseContext
@@ -45,8 +45,8 @@ import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.EvidenceActivity
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.mapper.gui.LearningTemplateToOnt
-import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGrid
+import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
+import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import java.util.HashMap
 import uzuzjmd.competence.shared.dto.GraphTriple

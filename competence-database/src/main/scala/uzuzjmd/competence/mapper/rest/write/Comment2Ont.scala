@@ -1,13 +1,13 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.service.rest.model.dto.CommentData
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.dao.Comment
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.DaoFactory
-import uzuzjmd.competence.owl.dao.Comment
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.model.dto.CommentData
+import uzuzjmd.competence.service.rest.model.dto.RoleConverter
 
 /**
  * @author dehne

@@ -1,11 +1,13 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.Competence
 import java.util.LinkedList
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData
-import scala.collection.JavaConversions._
 
 /**
 * @author jbe

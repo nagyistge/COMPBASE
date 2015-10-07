@@ -1,10 +1,12 @@
 package uzuzjmd.competence.mapper.gui
 
+import scala.collection.JavaConverters.mapAsJavaMapConverter
+import scala.collection.JavaConverters.seqAsJavaListConverter
+
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.User
-import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.StudentRole
+import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.shared.dto.ProgressMap
 
 

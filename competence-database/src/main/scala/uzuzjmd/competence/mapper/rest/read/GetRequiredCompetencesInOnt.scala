@@ -1,8 +1,7 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.dao.Competence
 
 /**
