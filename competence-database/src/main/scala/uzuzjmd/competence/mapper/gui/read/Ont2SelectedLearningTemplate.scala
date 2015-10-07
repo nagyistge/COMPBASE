@@ -1,14 +1,13 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import edu.stanford.nlp.ling.StringLabel
-import uzuzjmd.competence.shared.StringList
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
+import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.shared.StringList
 
 /**
  * @author dehne

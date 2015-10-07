@@ -1,16 +1,17 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkedToCourseData
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.CourseContext
+import scala.collection.JavaConverters.asScalaBufferConverter
+
 import com.hp.hpl.jena.ontology.Individual
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import com.hp.hpl.jena.rdf.model.Property
-import scala.collection.JavaConverters._
+
 import javax.ws.rs.WebApplicationException
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.AccessHelper
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkedToCourseData
 
 /**
  * @author dehne

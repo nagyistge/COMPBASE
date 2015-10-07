@@ -1,11 +1,11 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGraph
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.GraphNode
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 
 /**
  * @author dehne

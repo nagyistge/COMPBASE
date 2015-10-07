@@ -1,4 +1,4 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.service.rest.model.dto.LinkValidationData

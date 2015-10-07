@@ -1,17 +1,18 @@
-package uzuzjmd.competence.mapper.rest
+package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.validation.CompetenceGraphValidator
-import uzuzjmd.competence.owl.dao.Competence
 import java.util.LinkedList
-import uzuzjmd.competence.owl.validation.CompetenceGraphValidator
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+
+import scala.collection.JavaConverters.asScalaBufferConverter
+
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.Catchword
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.Operator
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.validation.CompetenceGraphValidator
+import uzuzjmd.competence.service.rest.model.dto.CompetenceData
 
 /**
  * @author dehne

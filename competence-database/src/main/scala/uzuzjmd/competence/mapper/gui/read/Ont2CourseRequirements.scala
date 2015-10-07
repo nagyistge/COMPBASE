@@ -1,8 +1,8 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.AccessHelper
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 
 /**

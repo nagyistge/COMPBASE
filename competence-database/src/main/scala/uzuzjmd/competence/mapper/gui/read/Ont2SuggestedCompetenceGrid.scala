@@ -1,51 +1,30 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridFilter
-import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridMapper
-import uzuzjmd.competence.owl.dao.Catchword
-import scala.collection.mutable.MutableList
+import scala.collection.JavaConverters.bufferAsJavaListConverter
+import scala.collection.JavaConverters.seqAsJavaListConverter
 import scala.collection.mutable.Buffer
+
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
-import org.apache.log4j.Logger
-import scala.collection.mutable.Buffer
-import scala.collection.JavaConverters._
-import com.hp.hpl.jena.ontology.OntModel
-import com.hp.hpl.jena.ontology.ObjectProperty
-import com.hp.hpl.jena.ontology.OntClass
-import com.hp.hpl.jena.ontology.Individual
-import com.hp.hpl.jena.util.iterator.Filter
-import uzuzjmd.competence.rcd.RCDMaps
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.rcd.generated.Title
+
 import uzuzjmd.competence.console.util.LogStream
-import uzuzjmd.competence.rcd.generated.Statement
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.MagicStrings
-import java.util.ArrayList
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.mapper.rcd.RCD2OWL
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.shared.SuggestedCompetenceColumn
-import uzuzjmd.competence.shared.SuggestedCompetenceRow
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
-import uzuzjmd.competence.shared.ReflectiveAssessment
-import uzuzjmd.competence.shared.Assessment
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridFilter
+import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridMapper
+import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.owl.dao.Catchword
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import uzuzjmd.competence.owl.dao.TeacherRole
+import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.shared.Assessment
+import uzuzjmd.competence.shared.ReflectiveAssessment
+import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
+import uzuzjmd.competence.shared.SuggestedCompetenceColumn
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid
+import uzuzjmd.competence.shared.SuggestedCompetenceRow
 
 object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
 

@@ -3,10 +3,10 @@ package uzuzjmd.competence.service.rest;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.mapper.gui.Ont2CompetenceTree;
-import uzuzjmd.competence.mapper.gui.Ont2CourseRequirements;
-import uzuzjmd.competence.mapper.rest.CompetenceLinkedCourseToOnt;
-import uzuzjmd.competence.mapper.rest.Ont2SelectedCompetencesForCourse;
+import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree;
+import uzuzjmd.competence.mapper.gui.read.Ont2CourseRequirements;
+import uzuzjmd.competence.mapper.rest.read.Ont2SelectedCompetencesForCourse;
+import uzuzjmd.competence.mapper.rest.write.CompetenceLinkedCourseToOnt;
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;

@@ -1,28 +1,26 @@
-package uzuzjmd.competence.mapper.gui
+package uzuzjmd.competence.mapper.gui.read
 
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.MagicStrings
-import com.hp.hpl.jena.ontology.OntProperty
-import scala.collection.mutable.Buffer
-import com.hp.hpl.jena.ontology.OntClass
-import scala.reflect._
 import java.util.LinkedList
-import scala.reflect.runtime.universe._
-import uzuzjmd.scalahacks.ScalaHacks
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.owl.access.CompOntologyAccessScala
-import uzuzjmd.competence.service.rest.CompetenceServiceWrapper
-import uzuzjmd.competence.owl.dao.Competence
+
+import scala.collection.JavaConverters.asScalaBufferConverter
+import scala.collection.JavaConverters.asScalaIteratorConverter
+import scala.collection.JavaConverters.seqAsJavaListConverter
+
+import com.hp.hpl.jena.ontology.OntClass
+
 import uzuzjmd.competence.mapper.gui.mapper.TextValidator
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.service.rest.database.dto.AbstractXMLTree
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree
+import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree
-import uzuzjmd.competence.owl.access.TDBREADTransactional
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
