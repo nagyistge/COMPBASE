@@ -38,22 +38,11 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return result
   }
 
-  /**
-   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
-   */
-  @Override
-  def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    val prop: Statement = persist(false).getOntclass().getProperty(literal);
-    return (literal, prop)
-  }
-
   def createIndividual: Individual = {
     return persist(false).getIndividual()
   }
 
   def exists(): Boolean = {
-
     if (identifier != null) {
       val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
       return result != null
@@ -62,8 +51,37 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return result != null
   }
 
-  def getId: String = {
-    return createIndividual.getLocalName()
+  override def getId: String = {
+    //    return createIndividual.getLocalName()
+    val individual = getIndividual
+    if (individual == null) {
+      return null
+    } else {
+      return individual.getLocalName
+    }
+  }
+
+  override def getIndividual: Individual = {
+    //    return createIndividual.getLocalName()
+    if (identifier != null) {
+      val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
+      return result
+    } else {
+      val result = util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
+      return result
+    }
+  }
+
+  @Override
+  def getOntClass: OntClass = {
+    //    return createIndividual.getLocalName()
+    if (identifier != null) {
+      val result = comp.getUtil().getOntClassForString(MagicStrings.SINGLETONPREFIX + identifier)
+      return result
+    } else {
+      val result = util.getOntClassForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
+      return result
+    }
   }
 
   @Override

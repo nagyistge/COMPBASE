@@ -15,12 +15,16 @@ import scala.collection.JavaConverters._
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
   def getId: String;
-  def getPropertyPair(key: String): (Property, Statement)
+  //  def getPropertyPair(key: String): (Property, Statement)
+  def getOntClass: OntClass;
+
   protected def persistMore()
 
   protected def replaceWrongCharacters(input: String): String = {
     return input.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
   }
+
+  def getIndividual: Individual
 
   def getFullDao(): Dao
 
@@ -173,6 +177,19 @@ abstract class Dao(comp: CompOntologyManager) {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
     val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
+  }
+
+  /**
+   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
+   */
+
+  def getPropertyPair(key: String): (Property, Statement) = {
+    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    if (getOntClass == null) {
+      return (literal, null)
+    }
+    val prop: Statement = getOntClass.getProperty(literal);
+    return (literal, prop)
   }
 
 }

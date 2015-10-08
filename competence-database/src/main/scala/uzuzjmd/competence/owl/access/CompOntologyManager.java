@@ -237,6 +237,8 @@ public class CompOntologyManager {
 
 	public void sync() {
 		TDB.sync(dataset);
+		TDB.sync(m);
+		// commit();
 	}
 
 }

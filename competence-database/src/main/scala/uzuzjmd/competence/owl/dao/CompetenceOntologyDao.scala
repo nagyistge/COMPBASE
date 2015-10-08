@@ -11,6 +11,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.rdf.model.Property
 import java.net.URLEncoder
+import uzuzjmd.competence.owl.access.MagicStrings
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
 
@@ -22,11 +23,18 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
   }
 
   @Override
-  def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    val prop: Statement = createIndividual.getProperty(literal);
-    return (literal, prop)
+  def getOntClass: OntClass = {
+    val result = comp.getUtil().getOntClassForString(MagicStrings.SINGLETONPREFIX + identifier)
+    return result
+
   }
+
+  //  @Override
+  //  def getPropertyPair(key: String): (Property, Statement) = {
+  //    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+  //    val prop: Statement = createIndividual.getProperty(literal);
+  //    return (literal, prop)
+  //  }
 
   def persist(): Individual = {
     val result = createIndividual
@@ -59,13 +67,13 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     return util.createIndividualForString(ontClass, encodedString, false)
   }
 
-  def getIndividual: Individual = {
+  override def getIndividual: Individual = {
     val ontClass = util.createOntClass(compOntClass, true)
     val encodedString = computeEncodedString
     return util.createIndividualForString(ontClass, encodedString, true)
   }
 
-  def getId: String = {
+  override def getId: String = {
     return computeEncodedString;
   }
 
