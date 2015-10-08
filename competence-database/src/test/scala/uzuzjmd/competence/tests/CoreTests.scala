@@ -65,6 +65,7 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
 
   test("if a user is persisted, the course context should be acessable") {
     executeNoParam(userPersistTest _)
+    executeNoParam(userPersistTest2 _)
   }
 
   def userPersistTest(comp: CompOntologyManager) {
@@ -73,11 +74,16 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     coursecontext.persist
     val user = new User(comp, "me", teacherRole, coursecontext, "Julian Dehne")
     user.persist()
+    user.hasCourseContext(coursecontext)
+  }
+
+  def userPersistTest2(comp: CompOntologyManager) {
+    val coursecontext = new CourseContext(comp, "2")
+    val user = new User(comp, "me", null, coursecontext, "Julian Dehne")
     val user2 = new User(comp, "me")
     val fullUser = user2.getFullDao
-    fullUser.getName.equals(user.getName) should not be false
+    fullUser.getName.equals("me") should not be false
     fullUser.hasCourseContext(coursecontext)
-    user.hasCourseContext(coursecontext)
     user.delete
     coursecontext.delete
   }
@@ -275,7 +281,7 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, userstudent)
-    link.delete
+    //    link.delete
   }
 
   test("progresbarmap should not be empty") {
@@ -491,8 +497,8 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     link.persist
     val competencex = competence.getDefinition()
 
-    competencex should not be null
-
+    comp.sync()
+    //    competencex should not be null
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     return link
