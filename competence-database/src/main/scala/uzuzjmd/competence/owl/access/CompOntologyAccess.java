@@ -274,7 +274,9 @@ public class CompOntologyAccess {
 	}
 
 	private ObjectProperty getObjectPropertyForString(String objectProperty) {
+		// manager.getM().getObjectProperty(uri)
 		return manager.getM().createObjectProperty(encode(objectProperty));
+
 	}
 
 	/**
