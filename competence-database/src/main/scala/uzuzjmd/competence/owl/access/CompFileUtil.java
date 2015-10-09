@@ -24,33 +24,13 @@ public class CompFileUtil {
 		this.m = m;
 	}
 
-	// /**
-	// * reads relativ from src dir
-	// *
-	// * @param m
-	// * @param path
-	// */
-	// public void readFileOntology(String path) {
-	// m.read(this.getClass().getResourceAsStream("/" + path),
-	// MagicStrings.PREFIX);
-	// }
-
-	/**
-	 * 
-	 * @param m
-	 * @throws IOException
-	 */
-	public void writeOntologyout(Model m) throws IOException {
-		writeOut(m);
-	}
-
 	public void readOntologyIn() {
 		this.m.removeAll();
 		Model newMOdel = RDFDataMgr.loadModel(MagicStrings.ONTOLOGYFILE);
 		this.m.add(newMOdel);
 	}
 
-	private void writeOut(Model m) {
+	public void writeOut() {
 		OutputStream out = null;
 		try {
 			// // XML format - long and verbose
@@ -87,15 +67,6 @@ public class CompFileUtil {
 				}
 			}
 		}
-	}
-
-	/**
-	 * 
-	 * @param m
-	 * @throws IOException
-	 */
-	public void writeOntologyout() throws IOException {
-		writeOut(m);
 	}
 
 	public static void deleteTDB() {

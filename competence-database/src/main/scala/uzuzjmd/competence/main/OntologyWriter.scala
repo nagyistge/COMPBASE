@@ -10,10 +10,14 @@ object OntologyWriter extends TDBREADTransactional[Any, Any] {
     execute2(writeOut)
   }
 
-  def writeOut(comp: CompOntologyManager) {
+  private def writeOut(comp: CompOntologyManager) {
     comp.getM().validate()
     val fileUtil = new CompFileUtil(comp.getM())
-    fileUtil.writeOntologyout()
+    fileUtil.writeOut();
+  }
+
+  def convert() {
+    execute2(writeOut)
   }
 
 }

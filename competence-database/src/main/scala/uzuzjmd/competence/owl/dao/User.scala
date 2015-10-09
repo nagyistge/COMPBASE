@@ -14,7 +14,9 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
 
   @Override
   protected def deleteMore() {
-    role.deleteEdge(CompObjectProperties.RoleOf, this)
+    //    if (role != null) {
+    //      role.deleteEdge(CompObjectProperties.RoleOf, this)
+    //    }
   }
 
   @Override
