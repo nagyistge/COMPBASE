@@ -126,7 +126,7 @@ public class CompOntologyAccess {
 	 */
 	public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
 
-		ObjectProperty result = getObjectPropertyForString(compObjectProperties.name());
+		ObjectProperty result = createObjectPropertyForString(compObjectProperties.name());
 		domainIndividual.addProperty(result.asObjectProperty(), rangeIndividual);
 		return result;
 	}
@@ -211,6 +211,9 @@ public class CompOntologyAccess {
 	 * @return
 	 */
 	public Individual createSingleTonIndividual(OntClass ontclass, Boolean isRead) {
+		if (ontclass == null) {
+			return null;
+		}
 		String singletonstring = MagicStrings.SINGLETONPREFIX + ontclass.getURI().substring(MagicStrings.PREFIX.length(), ontclass.getURI().length());
 		return createIndividualForString(ontclass, singletonstring, isRead);
 	}
@@ -230,8 +233,10 @@ public class CompOntologyAccess {
 		if (classname.startsWith("I")) {
 			logger.warn("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
 		}
+
 		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
 		Individual individual = createSingleTonIndividual(classOnt, isRead);
+
 		return new OntResult(individual, classOnt);
 	}
 
@@ -275,8 +280,13 @@ public class CompOntologyAccess {
 
 	private ObjectProperty getObjectPropertyForString(String objectProperty) {
 		// manager.getM().getObjectProperty(uri)
-		return manager.getM().createObjectProperty(encode(objectProperty));
+		return manager.getM().getObjectProperty(encode(objectProperty));
 
+	}
+
+	private ObjectProperty createObjectPropertyForString(String objectProperty) {
+		// manager.getM().getObjectProperty(uri)
+		return manager.getM().createObjectProperty(encode(objectProperty));
 	}
 
 	/**

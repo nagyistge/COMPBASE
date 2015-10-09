@@ -11,16 +11,22 @@ import uzuzjmd.scalahacks.ScalaHacksInScala
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.queries.CompetenceQueries
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
   def getId: String;
   def getPropertyPair(key: String): (Property, Statement)
+  def getOntClass: OntClass;
+
   protected def persistMore()
 
   protected def replaceWrongCharacters(input: String): String = {
     return input.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
   }
+
+  def getIndividual: Individual
 
   def getFullDao(): Dao
 
@@ -77,17 +83,16 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def addDataField(key: String, value: Object) {
-    deleteDataField(key)
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    //    createIndividual.removeAll(literal)
+    createIndividual.removeRDFType(literal);
     createIndividual.addLiteral(literal, value);
   }
+
+  @throws[OntClassForDaoNotInitializedException]
   def getDataField(key: String): String = {
     val tmpResult = getPropertyPair(key)
-    if (tmpResult._2 == null) {
-      return null;
-    }
-    return tmpResult._2.asTriple().getObject().getLiteralLexicalForm();
+    val triple = tmpResult._2.asTriple()
+    return triple.getObject().getLiteralLexicalForm();
   }
 
   def getDataFieldBoolean(key: String): java.lang.Boolean = {
@@ -115,11 +120,17 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def deleteDataField(key: String) = {
-    val tmpResult = getPropertyPair(key)
-    if (tmpResult._2 != null) {
-      comp.getM().remove(tmpResult._2);
+    if (exists()) {
+      val tmpResult = getPropertyPair(key)
+      if (tmpResult._2 != null) {
+        comp.getM().remove(tmpResult._2);
+      }
     }
   }
+
+  //  def existDataField(key: String): Boolean = {
+  //
+  //  }
 
   def hasDataField(key: String): Boolean = {
     return getDataField(key) != null
