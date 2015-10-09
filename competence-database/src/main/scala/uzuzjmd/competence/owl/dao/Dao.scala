@@ -11,11 +11,13 @@ import uzuzjmd.scalahacks.ScalaHacksInScala
 import uzuzjmd.scalahacks.ScalaHacks
 import uzuzjmd.competence.owl.queries.CompetenceQueries
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 
 abstract class Dao(comp: CompOntologyManager) {
   def createIndividual: Individual;
   def getId: String;
-  //  def getPropertyPair(key: String): (Property, Statement)
+  def getPropertyPair(key: String): (Property, Statement)
   def getOntClass: OntClass;
 
   protected def persistMore()
@@ -81,17 +83,16 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def addDataField(key: String, value: Object) {
-    deleteDataField(key)
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    //    createIndividual.removeAll(literal)
+    createIndividual.removeRDFType(literal);
     createIndividual.addLiteral(literal, value);
   }
+
+  @throws[OntClassForDaoNotInitializedException]
   def getDataField(key: String): String = {
     val tmpResult = getPropertyPair(key)
-    if (tmpResult._2 == null) {
-      return null;
-    }
-    return tmpResult._2.asTriple().getObject().getLiteralLexicalForm();
+    val triple = tmpResult._2.asTriple()
+    return triple.getObject().getLiteralLexicalForm();
   }
 
   def getDataFieldBoolean(key: String): java.lang.Boolean = {
@@ -119,11 +120,17 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def deleteDataField(key: String) = {
-    val tmpResult = getPropertyPair(key)
-    if (tmpResult._2 != null) {
-      comp.getM().remove(tmpResult._2);
+    if (exists()) {
+      val tmpResult = getPropertyPair(key)
+      if (tmpResult._2 != null) {
+        comp.getM().remove(tmpResult._2);
+      }
     }
   }
+
+  //  def existDataField(key: String): Boolean = {
+  //
+  //  }
 
   def hasDataField(key: String): Boolean = {
     return getDataField(key) != null
@@ -177,19 +184,6 @@ abstract class Dao(comp: CompOntologyManager) {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
     val result = ontClasses.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
-  }
-
-  /**
-   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
-   */
-
-  def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    if (getOntClass == null) {
-      return (literal, null)
-    }
-    val prop: Statement = getOntClass.getProperty(literal);
-    return (literal, prop)
   }
 
 }

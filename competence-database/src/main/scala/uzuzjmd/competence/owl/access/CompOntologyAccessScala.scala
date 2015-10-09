@@ -1,8 +1,10 @@
 package uzuzjmd.competence.owl.access
 
+import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.exceptions.NoCompetenceInDBException
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 
 object CompOntologyAccessScala {
 
@@ -13,10 +15,19 @@ object CompOntologyAccessScala {
       return ""
     }
   }
+  @throws[NoCompetenceInDBException]
+  @throws[DataFieldNotInitializedException]
   private def getPropertyString(subclass: com.hp.hpl.jena.ontology.OntClass, propertyName: String, ontologyManager: CompOntologyManager): Object = {
     val iProperty = ontologyManager.getM.getOntProperty(MagicStrings.PREFIX + propertyName)
+    if (subclass == null) {
+      throw new NoCompetenceInDBException
+    }
     val value = subclass.getPropertyValue(iProperty)
-    if (value == null) { return null } else if (value.toString().equals("http://www.w3.org/2002/07/owl#Thing")) {
+    if (value == null) {
+      //      throw new DataFieldNotInitializedException
+      val result = subclass.getLocalName
+      return result
+    } else if (value.toString().equals("http://www.w3.org/2002/07/owl#Thing")) {
       return null
     } else { return value.asNode().getLiteralValue() }
   }

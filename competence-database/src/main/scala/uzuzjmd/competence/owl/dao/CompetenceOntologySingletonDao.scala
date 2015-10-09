@@ -17,6 +17,9 @@ import com.hp.hpl.jena.ontology.OntTools
 import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import scala.io.UTF8Codec
+import javax.ws.rs.NotFoundException
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -43,12 +46,17 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def exists(): Boolean = {
-    if (identifier != null) {
-      val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
-      return result != null
+    val result = util.getClass(compOntClass, true)
+    if (result != null) {
+      if (identifier != null) {
+        val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
+        return result != null
+      } else {
+        return true
+      }
     }
-    val result = util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
-    return result != null
+    return false
+
   }
 
   override def getId: String = {
@@ -147,6 +155,24 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     }
 
     return toOntClass.hasSubClass(child.toOntClass, false)
+  }
+
+  /**
+   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
+   */
+
+  @throws[OntClassForDaoNotInitializedException]
+  @throws[DataFieldNotInitializedException]
+  override def getPropertyPair(key: String): (Property, Statement) = {
+    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    if (getOntClass == null) {
+      throw new OntClassForDaoNotInitializedException
+    }
+    val prop: Statement = getOntClass.getProperty(literal);
+    if (prop == null) {
+      throw new DataFieldNotInitializedException
+    }
+    return (literal, prop)
   }
 
   //  def getPathToSuperClass[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T], parentClass: CompetenceOntologySingletonDao): List[T] = {

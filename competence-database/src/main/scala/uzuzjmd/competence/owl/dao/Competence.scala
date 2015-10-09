@@ -17,7 +17,7 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   protected def persistMore() {
     val competenceRoot = new CompetenceInstance(comp)
     val ontClass = persist(false).getOntclass()
-    ontClass.addSuperClass(competenceRoot.persist(false).getOntclass())
+    ontClass.addSuperClass(competenceRoot.persist(true).getOntclass())
     if (definition != null) {
       addDataField(DEFINITION, definition)
       //      compManager.getUtil().createOntClassForString(definition, definition)
