@@ -17,6 +17,9 @@ import com.hp.hpl.jena.ontology.OntTools
 import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import scala.io.UTF8Codec
+import javax.ws.rs.NotFoundException
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -38,32 +41,55 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return result
   }
 
-  /**
-   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
-   */
-  @Override
-  def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    val prop: Statement = persist(false).getOntclass().getProperty(literal);
-    return (literal, prop)
-  }
-
   def createIndividual: Individual = {
     return persist(false).getIndividual()
   }
 
   def exists(): Boolean = {
-
-    if (identifier != null) {
-      val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
-      return result != null
+    val result = util.getClass(compOntClass, true)
+    if (result != null) {
+      if (identifier != null) {
+        val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
+        return result != null
+      } else {
+        return true
+      }
     }
-    val result = util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
-    return result != null
+    return false
+
   }
 
-  def getId: String = {
-    return createIndividual.getLocalName()
+  override def getId: String = {
+    //    return createIndividual.getLocalName()
+    val individual = getIndividual
+    if (individual == null) {
+      return null
+    } else {
+      return individual.getLocalName
+    }
+  }
+
+  override def getIndividual: Individual = {
+    //    return createIndividual.getLocalName()
+    if (identifier != null) {
+      val result = comp.getUtil().getIndividualForString(MagicStrings.SINGLETONPREFIX + identifier)
+      return result
+    } else {
+      val result = util.getIndividualForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
+      return result
+    }
+  }
+
+  @Override
+  def getOntClass: OntClass = {
+    //    return createIndividual.getLocalName()
+    if (identifier != null) {
+      val result = comp.getUtil().getOntClassForString(MagicStrings.SINGLETONPREFIX + identifier)
+      return result
+    } else {
+      val result = util.getOntClassForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
+      return result
+    }
   }
 
   @Override
@@ -129,6 +155,24 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     }
 
     return toOntClass.hasSubClass(child.toOntClass, false)
+  }
+
+  /**
+   * needs this override, because the definition is not placed at the level of the individual but the corresponding class
+   */
+
+  @throws[OntClassForDaoNotInitializedException]
+  @throws[DataFieldNotInitializedException]
+  override def getPropertyPair(key: String): (Property, Statement) = {
+    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    if (getOntClass == null) {
+      throw new OntClassForDaoNotInitializedException
+    }
+    val prop: Statement = getOntClass.getProperty(literal);
+    if (prop == null) {
+      throw new DataFieldNotInitializedException
+    }
+    return (literal, prop)
   }
 
   //  def getPathToSuperClass[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T], parentClass: CompetenceOntologySingletonDao): List[T] = {

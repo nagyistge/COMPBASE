@@ -11,6 +11,9 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.rdf.model.Property
 import java.net.URLEncoder
+import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
 
@@ -21,10 +24,23 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     return encodedString
   }
 
-  @Override
-  def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    val prop: Statement = createIndividual.getProperty(literal);
+  override def getOntClass: OntClass = {
+
+    return comp.getUtil.getClass(compOntClass, true)
+
+  }
+
+  @throws[OntClassForDaoNotInitializedException]
+  @throws[DataFieldNotInitializedException]
+  override def getPropertyPair(key: String): (Property, Statement) = {
+    val keyEncoded = CompOntologyAccess.encode(key)
+    val literal = comp.getM().createProperty(keyEncoded);
+
+    val individual = getIndividual
+    val prop: Statement = individual.getProperty(literal);
+    if (prop == null) {
+      throw new DataFieldNotInitializedException
+    }
     return (literal, prop)
   }
 
@@ -59,13 +75,13 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     return util.createIndividualForString(ontClass, encodedString, false)
   }
 
-  def getIndividual: Individual = {
+  override def getIndividual: Individual = {
     val ontClass = util.createOntClass(compOntClass, true)
     val encodedString = computeEncodedString
     return util.createIndividualForString(ontClass, encodedString, true)
   }
 
-  def getId: String = {
+  override def getId: String = {
     return computeEncodedString;
   }
 

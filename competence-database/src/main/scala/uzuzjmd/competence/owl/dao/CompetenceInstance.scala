@@ -16,4 +16,8 @@ class CompetenceInstance(comp: CompOntologyManager) extends CompetenceOntologySi
     return this
   }
 
+  override def getDefinition(): String = {
+    return CompOntClass.Competence.toString()
+  }
+
 }
