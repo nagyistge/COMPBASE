@@ -115,16 +115,9 @@
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:CommentOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444394904724</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444394984541</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444395173718</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444395297124</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444395927879</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396109890</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396266466</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396449458</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396449589</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396450687</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643663543</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643663630</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643664135</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#SelectedLearningProjectTemplate">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -296,8 +289,8 @@
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:CommentOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396449589</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396450687</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643663630</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643664135</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iact">
     <rdf:type rdf:resource="http://comp#act"/>
@@ -490,7 +483,7 @@
     <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
     <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
     <j.0:createdBy rdf:resource="http://comp#me"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444396450700</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444643664151</j.0:datecreated>
     <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
     <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>

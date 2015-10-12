@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 public class PropUtil {
-	public Properties getProperties() {
+	public static Properties getProperties() {
 		Properties prop = new Properties();
 		String propfFileName = "evidenceserver.properties";
 
@@ -22,7 +22,7 @@ public class PropUtil {
 			if (MagicStrings.runsAsJar) {
 				inputStream = new FileInputStream(propfFileName);
 			} else {
-				inputStream = this.getClass().getClassLoader().getResourceAsStream(propfFileName);
+				inputStream = PropUtil.class.getClassLoader().getResourceAsStream(propfFileName);
 			}
 			prop.load(inputStream);
 		} catch (IOException e) {
@@ -32,14 +32,32 @@ public class PropUtil {
 
 	}
 
-	public void doStandard() {
-		MagicStrings.webapplicationPath = getProperties().getProperty("webapplicationPath");
-		MagicStrings.TDBLocationPath = getProperties().getProperty("tdblocation");
-		// do ThesaurusLogin
-		MagicStrings.thesaurusLogin = getProperties().getProperty("thesaurusLogin");
-		MagicStrings.thesaurusPassword = getProperties().getProperty("thesaurusPassword");
-		MagicStrings.thesaurusDatabaseName = getProperties().getProperty("thesaurusDatabaseName");
-		MagicStrings.thesaurusDatabaseUrl = getProperties().getProperty("thesaurusDatabaseUrl");
+	public static String getProp(String key) {
+		return getProperties().getProperty(key).replaceAll("\"", "");
+	}
+
+	/**
+	 * adds the rootPath as prefix
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String getRelativeFileProp(String key) {
+		return MagicStrings.ROOTPATH + getProperties().getProperty(key).replaceAll("\"", "");
+	}
+
+	/**
+	 * adds the rootPath as prefix
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String getRelativeOrAbsoluteFileProp(String relativeKey, String absoluteKey) {
+		if (getProperties().getProperty(relativeKey) != null) {
+			return MagicStrings.ROOTPATH + getProperties().getProperty(relativeKey).replaceAll("\"", "");
+		} else {
+			return getProperties().getProperty(absoluteKey).replaceAll("\"", "");
+		}
 	}
 
 	public void configureLogger() {

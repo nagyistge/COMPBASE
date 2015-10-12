@@ -178,7 +178,6 @@ public class CompOntologyManager {
 	 * @return
 	 */
 	protected void begin() {
-		String str = MagicStrings.TDBLocationPath;
 		dataset = TDBFactory.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.WRITE);
 		initModel();

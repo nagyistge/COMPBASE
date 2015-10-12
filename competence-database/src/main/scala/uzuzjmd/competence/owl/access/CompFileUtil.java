@@ -70,10 +70,9 @@ public class CompFileUtil {
 	}
 
 	public static void deleteTDB() {
-		String fileName = MagicStrings.TDBLocationPath;
 		// A File object to represent the filename
 		try {
-			FileUtils.deleteDirectory(new File(fileName));
+			FileUtils.deleteDirectory(new File(MagicStrings.TDBLocationPath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
