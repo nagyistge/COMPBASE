@@ -1,12 +1,10 @@
 package uzuzjmd.competence.evidence.service;
 
 import java.util.List;
-import java.util.Properties;
 
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
-import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.owl.access.PropUtil;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
@@ -18,13 +16,8 @@ public class EvidenceServiceProxy implements EvidenceService {
 	public EvidenceServiceProxy() {
 		this.evidenceProviderMap = new EvidenceProviderMap();
 
-		PropUtil propUtil = new uzuzjmd.competence.owl.access.PropUtil();
-		propUtil.doStandard();
-		Properties prop = propUtil.getProperties();
-
-		if (prop.get("moodleEnabled").equals("true")) {
+		if (PropUtil.getProp("moodleEnabled").equals("true")) {
 			try {
-				MagicStrings.MOODLEURL = prop.getProperty("moodleURL").toString();
 				EvidenceService evidenceRestServiceImpl = new MoodleEvidenceRestServiceImpl();
 				evidenceProviderMap.evidenceMap.put(LMSSystems.moodle.toString(), evidenceRestServiceImpl);
 			} catch (NullPointerException e) {

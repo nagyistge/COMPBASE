@@ -7,32 +7,33 @@ public class MagicStrings {
 														// might be hardcoded
 														// somewhere
 
-	public static final String ABSOLUTPATH = "/development/scala_workspace/Wissensmodellierung/";
-	public static String TDBLocationPath = ABSOLUTPATH + "tdb2";
+	public static Boolean runsAsJar = false;
+	public static final String ROOTPATH = PropUtil.getProp("rootPath");
+	public static final String TDBLocationPath = PropUtil.getRelativeOrAbsoluteFileProp("tdblocationRelative", "tdblocation");
 	// public static final String ONTOLOGYFORMAT = "TURTLE";
 	public static final String ONTOLOGYFORMAT = "RDF/XML";
 	// public static final String ONTOLOGYFORMAT = "RDF/XML-ABBREV";
-	public static final String ONTOLOGYFILE = ABSOLUTPATH + "mymodelrdf.owl";
+	public static final String ONTOLOGYFILE = PropUtil.getRelativeFileProp("ontologyFile");
+	// public static String ONTOLOGYFILE = null;
 	public static final String SERVICEENDPOINT = "http://localhost:8081/WS/Competence";
 	public static final String EVIDENCESERVICEENDPOINT = "http://localhost:8082/WS/Competence/Evidence";
 	// public static final String RULESFILE =
 	// "C:/dev/scalaworkspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules";
 	public static final String SINGLETONPREFIX = "I";
-	public static String CSVLOCATION = ABSOLUTPATH + "competence-database/src/main/scala/resources/kompetenzen_moodle_utf8.csv";
-	public static String MOODLEURL = "http://localhost/moodle";
-	public static String webapplicationPath = "http://localhost:8080/competence-portlet";
-	public static String RESTURLCompetence = "http://localhost:8084";
+	public static final String CSVLOCATION = PropUtil.getRelativeFileProp("csvFile");
+	public static final String MOODLEURL = PropUtil.getProp("moodleURL");
+	public static final String webapplicationPath = PropUtil.getProp("webapplicationPath");
+	public static final String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String ICONPATHGWT = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String USERICONPATH = "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png";
-	public static String EPOSLocation = ABSOLUTPATH + "competence-database/src/main/scala/resources/epos.xml";
-	public static Boolean runsAsJar = false;
+	public static final String EPOSLocation = PropUtil.getRelativeFileProp("eposfile");
 	// public static String GERMANMODELLOCATION =
 	// "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/languagemodels/germanPCFG.ser.gz";
-	public static String GERMANMODELLOCATION = "germanPCFG.ser.gz";
-	public static String thesaurusLogin = "root";
-	public static String thesaurusPassword = "voyager";
-	public static String thesaurusDatabaseName = "thesaurus";
-	public static String thesaurusDatabaseUrl = "localhost:3306";
+	public static final String GERMANMODELLOCATION = "germanPCFG.ser.gz";
+	public static final String thesaurusLogin = PropUtil.getProp("thesaurusLogin");
+	public static final String thesaurusPassword = PropUtil.getProp("thesaurusPassword");
+	public static final String thesaurusDatabaseName = PropUtil.getProp("thesaurusDatabaseName");
+	public static final String thesaurusDatabaseUrl = PropUtil.getProp("thesaurusDatabaseUrl");
 
 }

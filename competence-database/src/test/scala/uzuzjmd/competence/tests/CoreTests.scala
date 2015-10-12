@@ -48,20 +48,24 @@ import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt
 import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
 import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
 import uzuzjmd.competence.main.OntologyWriter
+import uzuzjmd.competence.owl.access.PropUtil
+import org.junit.BeforeClass
+import org.junit.Assert._
+import org.junit.Test
+import org.junit.Before
 
 @RunWith(classOf[JUnitRunner])
-class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
+class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
 
-  //  test("The CSV import should run without errors") {
-  //
-  //    // change this, if you want to really reset the database
-  //    CompFileUtil.deleteTDB()
-  //    val compOntManag = new CompOntologyManager()
-  //    CompetenceImporter.convertCSVArray();
-  //
-  //    EposImporter.importEpos()
-  //    OntologyWriter.convert()
-  //  }
+  test("The CSV import should run without errors") {
+
+    // change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+    val compOntManag = new CompOntologyManager()
+    CompetenceImporter.convertCSVArray();
+    EposImporter.importEpos()
+    OntologyWriter.convert()
+  }
 
   test("if a user is persisted, the course context should be acessable") {
     executeNoParam(userPersistTest _)
@@ -507,17 +511,6 @@ class CoreTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     return link
-  }
-
-  test("A non-empty list should not be empty") {
-    List(1, 2, 3) should not be ('empty)
-    List("fee", "fie", "foe", "fum") should not be ('empty)
-
-    val assessment = "schlecht"
-    val enumMap = List("gar nicht" -> 0, "schlecht" -> 1, "mittel" -> 2, "gut" -> 3)
-    val map = enumMap.toMap.get(assessment).get
-    println(map);
-
   }
 
 }

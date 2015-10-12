@@ -20,17 +20,8 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] {
 
   def main(args: Array[String]) {
-
-    if (args.size != 3) {
-      println("usage ist java -jar CompetenceImporter.jar TDBLocationPath CompetenceCSVLocation EposFileLocation");
-    } else {
-      MagicStrings.TDBLocationPath = args(0)
-      MagicStrings.CSVLOCATION = args(1)
-      MagicStrings.EPOSLocation = args(2)
-
-      convertCSVArray()
-      EposImporter.importEpos()
-    }
+    convertCSVArray()
+    EposImporter.importEpos()
   }
 
   def convertCSVArray() {
