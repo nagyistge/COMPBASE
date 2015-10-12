@@ -26,8 +26,10 @@ object EposXMLToSuggestedLearningPath {
 
     //TODO
     val templateName = x.getNAME()
-    val competences = x.getDESCRIPTOR().asScala.map(EposXML2FilteredCSVCompetence.descriptorSetType2Id).map(x => new Competence(comp, x, x, false))
-    competences.foreach(competence => competence.createEdgeWith(new Catchword(comp, EposXML2FilteredCSVCompetence.identifier2Definition(competence.getDataField(competence.DEFINITION)), EposXML2FilteredCSVCompetence.identifier2Definition(competence.getDefinition())), CompObjectProperties.CatchwordOf))
+    val competences = x.getDESCRIPTOR().asScala.map(EposXML2FilteredCSVCompetence.descriptorSetType2Id).map(x => new Competence(comp, x, x, false).persistFluent(true)).map(x => x.asInstanceOf[Competence])
+    competences.foreach(competence => competence.createEdgeWith(
+      new Catchword(comp, EposXML2FilteredCSVCompetence.identifier2Definition(competence.definition), EposXML2FilteredCSVCompetence.identifier2Definition(competence.definition)).persistFluent(true),
+      CompObjectProperties.CatchwordOf))
     val learningProjectTemplate = new LearningProjectTemplate(comp, templateName, competences, templateName)
     learningProjectTemplate.persist
   }

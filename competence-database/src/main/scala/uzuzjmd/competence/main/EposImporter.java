@@ -16,9 +16,7 @@ import uzuzjmd.competence.shared.DESCRIPTORSETType;
 public class EposImporter {
 
 	public static void main(String[] args) throws JAXBException, IOException {
-		if (!(args.length < 1)) {
-			MagicStrings.EPOSLocation = args[0];
-		}
+
 		importEpos();
 	}
 

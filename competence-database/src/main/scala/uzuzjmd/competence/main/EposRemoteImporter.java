@@ -18,15 +18,6 @@ public class EposRemoteImporter {
 
 	public static void main(String[] args) throws JAXBException, IOException {
 
-		if (args.length < 2) {
-			System.err.println("Usage is java -jar EposRemoteImporter path/to/epos.xml serverurl");
-		}
-
-		else {
-			MagicStrings.EPOSLocation = args[0];
-			MagicStrings.RESTURLCompetence = args[1];
-		}
-
 		List<DESCRIPTORSETType> eposCompetences = EposImporter.parseEPOSXML();
 		// List<DESCRIPTORSETType> eposCompetences = null;
 		Client client = ClientBuilder.newClient();

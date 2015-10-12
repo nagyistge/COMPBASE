@@ -41,6 +41,11 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return result
   }
 
+  def persistFluent(more: Boolean): CompetenceOntologySingletonDao = {
+    persist(more)
+    return this
+  }
+
   def createIndividual: Individual = {
     return persist(false).getIndividual()
   }

@@ -17,15 +17,6 @@ public class CompetenceRemoteImporter {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		if (args.length < 2) {
-			System.err.println("Usage is java -jar CompetenceRemoteImporter path/to/kompetenzen.csv serverurl");
-		}
-
-		else {
-			MagicStrings.CSVLOCATION = args[0];
-			MagicStrings.RESTURLCompetence = args[1];
-		}
-
 		// CompetenceImporter importer = new CompetenceImporter();
 		List<CompetenceBean> competenceBeans = CompetenceImporter.parseCompetenceBeans();
 

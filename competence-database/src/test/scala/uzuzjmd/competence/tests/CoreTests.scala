@@ -262,17 +262,17 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("if a string is given the identified full dao should be returnable") {
     executeNoParam(doidentifiedLinkTest _)
+    executeNoParam(doidentifiedLinkTest2 _)
     OntologyWriter.convert
   }
 
-  def doidentifiedLinkTest(compOntManag: CompOntologyManager) {
+  def doidentifiedLinkTest2(compOntManag: CompOntologyManager) {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, userstudent)
 
-    // now getting it by example
-    val exampleLink = new AbstractEvidenceLink(compOntManag, link.getId)
+    val link = createAbstract(compOntManag, userstudent)
+    val exampleLink = new AbstractEvidenceLink(compOntManag, "IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest")
     val fullExampleLink = exampleLink.getFullDao
 
     fullExampleLink.creator should not be null
@@ -282,15 +282,33 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     val linkedUser = fullExampleLink.getAllLinkedUsers.head
     //    linkedUser.equals(userstudent) should not be false
     link.delete
+  }
+
+  def doidentifiedLinkTest(compOntManag: CompOntologyManager) {
+    val studentRole = new StudentRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+    val link = createAbstract(compOntManag, userstudent)
+
+    // now getting it by example
 
   }
 
   test("the competencelinksmap should not be empty") {
+    executeNoParam(docompetencelinksmapTest0 _)
     executeNoParam(docompetencelinksmapTest _)
     val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
     OntologyWriter.convert
+  }
+
+  def docompetencelinksmapTest0(compOntManag: CompOntologyManager) {
+    val studentRole = new StudentRole(compOntManag)
+    val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+    val link = createAbstract(compOntManag, userstudent)
+
   }
 
   def docompetencelinksmapTest(compOntManag: CompOntologyManager) {
@@ -299,10 +317,11 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
     val link = createAbstract(compOntManag, userstudent)
-    //    link.delete
+    link.delete
   }
 
   test("progresbarmap should not be empty") {
+    executeNoParam(docompetencelinksmapTest0 _)
     executeNoParam(doEvidenceLinkTest _)
     val changes = new CourseData("2", ("Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung" :: Nil).asJava)
     val progressMap = GetProgressMInOnt.convert(changes);
@@ -499,12 +518,12 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
 
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
+    evidenceActivity.persist()
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     competence.persist(true)
     competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
-    val competencex = competence.getDefinition()
 
     comp.sync()
     //    competencex should not be null
