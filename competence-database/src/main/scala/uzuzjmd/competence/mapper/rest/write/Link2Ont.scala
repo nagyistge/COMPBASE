@@ -35,6 +35,7 @@ object Link2Ont extends TDBWriteTransactional[CompetenceLinkData] with RoleConve
         linkedUserUser.persist();
 
         val evidenceActivity = new EvidenceActivity(comp, evidence.split(",")(0), evidence.split(",")(1));
+        evidenceActivity.persist()
         val competenceDao = new Competence(comp, competence, competence, null);
         competenceDao.persist(true);
         val abstractEvidenceLink = new AbstractEvidenceLink(comp, null, creatorUser,

@@ -14,6 +14,7 @@ import java.net.URLEncoder
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
 
@@ -32,11 +33,15 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
   @throws[OntClassForDaoNotInitializedException]
   @throws[DataFieldNotInitializedException]
+  @throws[IndividualNotFoundException]
   override def getPropertyPair(key: String): (Property, Statement) = {
     val keyEncoded = CompOntologyAccess.encode(key)
     val literal = comp.getM().createProperty(keyEncoded);
 
     val individual = getIndividual
+    if (individual == null) {
+      throw new IndividualNotFoundException
+    }
     val prop: Statement = individual.getProperty(literal);
     if (prop == null) {
       throw new DataFieldNotInitializedException

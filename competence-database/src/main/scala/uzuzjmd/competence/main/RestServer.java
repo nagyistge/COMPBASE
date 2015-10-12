@@ -18,15 +18,6 @@ import uzuzjmd.competence.service.rest.CompetenceServiceRestXML;
 public class RestServer {
 
 	public static void main(String[] args) throws IllegalArgumentException, NullPointerException, IOException, ProcessingException, URISyntaxException {
-
-		if (args.length > 0) {
-			MagicStrings.TDBLocationPath = args[0];
-		}
-
-		if (args.length > 1) {
-			MagicStrings.webapplicationPath = args[1];
-		}
-
 		startServer();
 	}
 
