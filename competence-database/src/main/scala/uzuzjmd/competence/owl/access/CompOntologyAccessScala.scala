@@ -5,6 +5,7 @@ import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.owl.dao.exceptions.NoCompetenceInDBException
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.dao.EvidenceActivity
 
 object CompOntologyAccessScala {
 
@@ -32,18 +33,6 @@ object CompOntologyAccessScala {
     } else { return value.asNode().getLiteralValue() }
   }
 
-  def convertMoodleIdToName(name: String): String = {
-    if (name.startsWith("0") || name.startsWith("1") || name.startsWith("2") ||
-      name.startsWith("3") || name.startsWith("4") ||
-      name.startsWith("5") || name.startsWith("6") ||
-      name.startsWith("7")
-      || name.startsWith("8") || name.startsWith("9")) {
-      return "n" + name
-    } else {
-      return name;
-    }
-  }
-
   def createIdentifierForSelectedTemplate(user: User, course: CourseContext, identifier: String): String = {
     if (identifier != null) {
       return identifier
@@ -54,6 +43,14 @@ object CompOntologyAccessScala {
       user.persist
       course.persist
       return user.getName + course.getId
+    }
+  }
+
+  def computeEncodedStringForLink(identifier2: String, competence: Competence, evidence: EvidenceActivity): String = {
+    if (identifier2 != null) {
+      return identifier2
+    } else {
+      return competence.identifier + evidence.identifier
     }
   }
 

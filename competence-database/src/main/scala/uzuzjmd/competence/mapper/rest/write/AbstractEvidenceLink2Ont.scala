@@ -14,7 +14,7 @@ object AbstractEvidenceLink2Ont extends TDBWriteTransactional[String] {
   }
 
   def convertAbstractEvidenceLink(comp: CompOntologyManager, changes: String) {
-    val abstractEvidenceLink = new AbstractEvidenceLink(comp, changes);
+    val abstractEvidenceLink = new AbstractEvidenceLink(comp, changes, null, null);
     abstractEvidenceLink.delete;
   }
 }

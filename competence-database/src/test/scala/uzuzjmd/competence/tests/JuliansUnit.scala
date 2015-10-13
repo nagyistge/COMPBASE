@@ -16,6 +16,6 @@ trait JuliansUnit extends FunSuite {
       super.test(testName, testTags.head)(testFun)
     }
     println("finishing test with name: " + testName)
-    Thread.sleep(100)
+    //    Thread.sleep(100)
   }
 }
