@@ -41,7 +41,6 @@
     <rdf:type rdf:resource="http://comp#SchreibenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ISchreibenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben A2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenA2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanninGeschäftenaufderPostoderBankeinfacheErledigungenmachen">
     <rdf:type rdf:resource="http://comp#IchkanninGeschäftenaufderPostoderBankeinfacheErledigungenmachen"/>
@@ -148,7 +147,6 @@
   <rdf:Description rdf:about="http://comp#IHörverstehenC2">
     <rdf:type rdf:resource="http://comp#HörverstehenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen C2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenC2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#CourseContextOfSelectedLearningProjectTemplate">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -211,7 +209,6 @@
     <rdf:type rdf:resource="http://comp#SchreibenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ISchreibenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben A1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenA1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ichkannmitanderenbesprechenwasmantunoderwohinmangehenwillundkannvereinbarenwannundwomansichtrifft">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -478,7 +475,6 @@
     <rdf:type rdf:resource="http://comp#HörverstehenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen C1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenC1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannmeineAusbildungundmeinegegenwärtigeoderletzteberuflicheTätigkeitbeschreiben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -901,7 +897,6 @@
   <rdf:Description rdf:about="http://comp#ILesenC2">
     <rdf:type rdf:resource="http://comp#LesenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen C2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenC2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHauptsachevondemwasinkurzeneinfachenundklarenDurchsagenoderMitteilungengesagtwirdmitbekommen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -935,11 +930,9 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#meintestkommentar2">
     <rdf:type rdf:resource="http://comp#Comment"/>
-    <j.0:CommentOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
+    <j.0:CommentOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973067</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973470</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444656012445</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444743875488</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannraschdenInhaltunddieWichtigkeitvonNachrichtenArtikelnundBerichtenüberThemendiemitmeinenInteressenodermeinemBerufzusammenhängenerfassenundentscheidenobsicheingenaueresLesenlohnt">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -992,7 +985,6 @@
     <rdf:type rdf:resource="http://comp#LesenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ILesenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen C1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenC1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LesenA2">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1031,7 +1023,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#httptestest">
     <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
-    <j.0:ActivityOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
+    <j.0:ActivityOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://testest</j.0:url>
     <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">meine testaktivitat</j.0:printableName>
   </rdf:Description>
@@ -1305,7 +1297,6 @@
     <rdf:type rdf:resource="http://comp#SchreibenB1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ISchreibenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben B1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenB1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Role">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -1324,7 +1315,6 @@
     <rdf:type rdf:resource="http://comp#SchreibenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ISchreibenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben C1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenC1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmündlichetwasausführlichdarstellenoderberichtendabeiThemenpunktemiteinanderverbindeneinzelneAspektebesondersausführenundmeinenBeitragangemessenabschließen">
     <rdf:type rdf:resource="http://comp#IchkannmündlichetwasausführlichdarstellenoderberichtendabeiThemenpunktemiteinanderverbindeneinzelneAspektebesondersausführenundmeinenBeitragangemessenabschließen"/>
@@ -1392,7 +1382,6 @@
     <rdf:type rdf:resource="http://comp#SchreibenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ISchreibenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben B2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenB2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#CatchwordOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -1420,7 +1409,6 @@
   <rdf:Description rdf:about="http://comp#ISchreibenC2">
     <rdf:type rdf:resource="http://comp#SchreibenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schreiben C2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SchreibenC2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanneinevorbereiteteunkompliziertePräsentationzueinemvertrautenThemaausmeinemFachgebietklarundpräzisegenugvortragendassmanihrmeistmühelosfolgenkannunddieHauptpunkteverstandenwerden">
     <rdf:type rdf:resource="http://comp#IchkanneinevorbereiteteunkompliziertePräsentationzueinemvertrautenThemaausmeinemFachgebietklarundpräzisegenugvortragendassmanihrmeistmühelosfolgenkannunddieHauptpunkteverstandenwerden"/>
@@ -1674,7 +1662,6 @@
     <rdf:type rdf:resource="http://comp#HörverstehenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen B2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenB2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICSstudentsinteractinheterogeneousgroups">
     <rdf:type rdf:resource="http://comp#CSstudentsinteractinheterogeneousgroups"/>
@@ -1791,7 +1778,6 @@
     <rdf:type rdf:resource="http://comp#HörverstehenB1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen B1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenB1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanninpersönlichenBriefenausführlichErfahrungenGefühleundGeschehnissebeschreiben">
     <rdf:type rdf:resource="http://comp#IchkanninpersönlichenBriefenausführlichErfahrungenGefühleundGeschehnissebeschreiben"/>
@@ -1948,7 +1934,6 @@
     <rdf:type rdf:resource="http://comp#MiteinandersprechenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen A1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenA1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannGedankenundStandpunktesehrflexibelvortragenunddabeietwashervorhebendifferenzierenundMehrdeutigkeitbeseitigen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2065,7 +2050,6 @@
     <rdf:type rdf:resource="http://comp#MiteinandersprechenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen A2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenA2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#SchreibenA2">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2276,11 +2260,9 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#meintestkommentar">
     <rdf:type rdf:resource="http://comp#Comment"/>
-    <j.0:CommentOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
+    <j.0:CommentOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973067</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973470</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444656012445</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444743875488</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken">
     <rdf:type rdf:resource="http://comp#IchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken"/>
@@ -2439,7 +2421,6 @@
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IZusammenhängendsprechenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen B2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenB2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannverstehenwasmanineinemAlltagsgesprächzumirsagtfallsdeutlichgesprochenwirdichmussabermanchmaldarumbittenbestimmteWörterundWendungenzuwiederholen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2621,7 +2602,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannbeschreibenwoichwohne">
     <rdf:type rdf:resource="http://comp#Ichkannbeschreibenwoichwohne"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann beschreiben, wo ich wohne. </j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann beschreiben, wo ich wohne.</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannAngabenzumeinerPersonmachenzBAdresseTelefonnummerAlterHerkunftslandFamilieHobbys">
@@ -2756,7 +2736,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#studentmeäää1AA">
     <rdf:type rdf:resource="http://comp#User"/>
-    <j.0:UserOfLink rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
+    <j.0:UserOfLink rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar"/>
     <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar2"/>
     <j.0:NotAllowedToView rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
@@ -2806,13 +2786,11 @@
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IZusammenhängendsprechenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen C1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenC1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IZusammenhängendsprechenB1">
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenB1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IZusammenhängendsprechenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen B1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenB1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ILesen">
     <rdf:type rdf:resource="http://comp#Lesen"/>
@@ -3262,7 +3240,6 @@
   <rdf:Description rdf:about="http://comp#IZusammenhängendsprechenC2">
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen C2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenC2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneinentabellarischenLebenslaufschreiben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3289,7 +3266,6 @@
     <rdf:type rdf:resource="http://comp#LesenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ILesenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen A2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenA2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneineschriftlicheStellungnahmezueinemArbeitspapierodereinemProjektschreibensieklargliedernunddarinmeineMeinungbegründen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3397,7 +3373,6 @@
     <rdf:type rdf:resource="http://comp#HörverstehenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen A1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenA1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannkurzeeinfacheschriftlicheWegerklärungenverstehen">
     <rdf:type rdf:resource="http://comp#IchkannkurzeeinfacheschriftlicheWegerklärungenverstehen"/>
@@ -3451,6 +3426,14 @@
     <rdf:type rdf:resource="http://comp#IchkannmichschriftlichzuunterschiedlichstenThemenallgemeineroderberuflicherArtklarundgutlesbaräußern"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann mich schriftlich zu unterschiedlichsten Themen allgemeiner oder beruflicher Art klar und gut lesbar äußern. </j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#me"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444743875530</j.0:datecreated>
+    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -3484,7 +3467,6 @@
     <rdf:type rdf:resource="http://comp#LesenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ILesenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen A1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenA1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannkurzeTexteüberfliegenzBMeldungeninKürzeundwichtigeFaktenundInformationenfindenzBwerwaswogemachthat">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3524,7 +3506,6 @@
     <rdf:type rdf:resource="http://comp#HörverstehenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IHörverstehenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hörverstehen A2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HörverstehenA2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneffizientProblemelösendiemitderOrganisationdesStudiumszusammenhängenzBinKontaktenmitDozierendenundderVerwaltung">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3628,6 +3609,11 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICatchword">
     <rdf:type rdf:resource="http://comp#Catchword"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#111332">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOfSelectedLearningProjectTemplate rdf:resource="http://comp#JulianDehne1212"/>
+    <j.0:CourseContextOfSelectedLearningProjectTemplate rdf:resource="http://comp#JulianDehne1212111332"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneineeinfachePostkartezBmitFeriengrüßenschreiben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3765,7 +3751,6 @@
     <rdf:type rdf:resource="http://comp#LesenB1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ILesenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen B1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenB1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Learner">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3837,7 +3822,6 @@
     <rdf:type rdf:resource="http://comp#LesenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#ILesenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lesen B2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LesenB2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanneinfacheSätzeschreibenundsiemitWörternwieundaberweildennverbinden">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3997,7 +3981,6 @@
   <rdf:Description rdf:about="http://comp#IMiteinandersprechenC2">
     <rdf:type rdf:resource="http://comp#MiteinandersprechenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen C2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenC2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichaufeinfacheArtverständigenbinaberdaraufangewiesendassdieGesprächspartnerinderGesprächspartnerbereitistetwaslangsamerzuwiederholenoderanderszusagenundmirdabeihilftzuformulierenwasichsagenmöchte">
     <rdf:type rdf:resource="http://comp#IchkannmichaufeinfacheArtverständigenbinaberdaraufangewiesendassdieGesprächspartnerinderGesprächspartnerbereitistetwaslangsamerzuwiederholenoderanderszusagenundmirdabeihilftzuformulierenwasichsagenmöchte"/>
@@ -4007,13 +3990,11 @@
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenA1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IZusammenhängendsprechenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen A1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenA1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IMiteinandersprechenB2">
     <rdf:type rdf:resource="http://comp#MiteinandersprechenB2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen B2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenB2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannBekanntenoderMitarbeiterinnenundMitarbeiternperFaxEMailoderLaufzettelkurzeeinfacheSachinformationenmitteilenodernachsolchenfragen">
     <rdf:type rdf:resource="http://comp#IchkannBekanntenoderMitarbeiterinnenundMitarbeiternperFaxEMailoderLaufzettelkurzeeinfacheSachinformationenmitteilenodernachsolchenfragen"/>
@@ -4031,6 +4012,10 @@
     <rdfs:subClassOf rdf:resource="http://comp#HörverstehenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann eine strukturierte Vorlesung über ein vertrautes Thema verstehen und mir die Punkte notieren, die mir wichtig erscheinen, auch wenn ich manchmal an Wörtern hängen bleibe und deshalb einen Teil der Informationen verpasse.</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#JulianDehne1212111332">
+    <rdf:type rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
+    <j.0:SelectedTemplateOfLearningTemplate rdf:resource="http://comp#SprachkompetenzUnivELCDE"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -4047,7 +4032,6 @@
     <rdf:type rdf:resource="http://comp#MiteinandersprechenB1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenB2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen B1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenB1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannzuverschiedenenvertrautenThemenmeinesInteressenoderFachbereichsunkomplizierteBeschreibungenoderBerichtegeben">
     <rdf:type rdf:resource="http://comp#IchkannzuverschiedenenvertrautenThemenmeinesInteressenoderFachbereichsunkomplizierteBeschreibungenoderBerichtegeben"/>
@@ -4084,7 +4068,6 @@
     <rdf:type rdf:resource="http://comp#MiteinandersprechenC1"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IMiteinandersprechenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen C1</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenC1</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#UserOfLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -4208,9 +4191,16 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#JulianDehne1212">
     <rdf:type rdf:resource="http://comp#User"/>
+    <rdf:type rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#IDieLehramtsanwärtererkennenEntwicklungsständeLernpotentialeLernhindernisseundLernfortschritte"/>
+    <j.0:SelectedTemplateOfLearningTemplate rdf:resource="http://comp#SprachkompetenzUnivELCDE"/>
     <j.0:belongsToCourseContext rdf:resource="http://comp#n111332"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#111332"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Julian Dehne 12 12</j.0:name>
+    <j.0:UserOfSelectedLearningProjectTemplate rdf:resource="http://comp#JulianDehne1212"/>
     <j.0:UserOfSelectedLearningProjectTemplate rdf:resource="http://comp#JulianDehne1212n111332"/>
+    <j.0:UserOfSelectedLearningProjectTemplate rdf:resource="http://comp#JulianDehne1212111332"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannjemandengrüssenfragenwieesihrihmgehtundaufNeuigkeitenreagieren">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -4255,21 +4245,10 @@
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann einen einfachen zusammenhängenden Text über verschiedene Themen meines Interessengebietes schreiben und persönliche Ansichten und Meinungen ausdrücken. </j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest">
-    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
-    <j.0:createdBy rdf:resource="http://comp#me"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973107</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444655973510</j.0:datecreated>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444656021911</j.0:datecreated>
-    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IZusammenhängendsprechenA2">
     <rdf:type rdf:resource="http://comp#ZusammenhängendsprechenA2"/>
     <j.0:SuggestedCompetencePrerequisiteOf rdf:resource="http://comp#IZusammenhängendsprechenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechen A2</j.0:definition>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenA2</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannkurzundeinfachübereinEreignisberichten">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

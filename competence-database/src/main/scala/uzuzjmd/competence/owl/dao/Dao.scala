@@ -22,10 +22,6 @@ abstract class Dao(comp: CompOntologyManager) {
 
   protected def persistMore()
 
-  protected def replaceWrongCharacters(input: String): String = {
-    return input.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "").replaceAll("_", "");
-  }
-
   def getIndividual: Individual
 
   def getFullDao(): Dao
@@ -84,7 +80,7 @@ abstract class Dao(comp: CompOntologyManager) {
 
   def addDataField(key: String, value: Object) {
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
-    createIndividual.removeRDFType(literal);
+    createIndividual.removeAll(literal)
     createIndividual.addLiteral(literal, value);
   }
 
@@ -127,10 +123,6 @@ abstract class Dao(comp: CompOntologyManager) {
       }
     }
   }
-
-  //  def existDataField(key: String): Boolean = {
-  //
-  //  }
 
   def hasDataField(key: String): Boolean = {
     return getDataField(key) != null

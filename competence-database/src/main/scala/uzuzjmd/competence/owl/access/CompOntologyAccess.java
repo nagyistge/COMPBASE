@@ -260,6 +260,9 @@ public class CompOntologyAccess {
 		 * nicht gut
 		 */
 		//
+		if (string.matches("^[0-9]")) {
+			string = "n" + string;
+		}
 		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "");
 		return (MagicStrings.PREFIX + string).replaceAll("_", "");
 	}

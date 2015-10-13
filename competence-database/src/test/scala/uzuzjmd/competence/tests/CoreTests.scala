@@ -57,15 +57,15 @@ import org.junit.Before
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
 
-  test("The CSV import should run without errors") {
-
-    // change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
-    val compOntManag = new CompOntologyManager()
-    CompetenceImporter.convertCSVArray();
-    EposImporter.importEpos()
-    OntologyWriter.convert()
-  }
+  //  test("The CSV import should run without errors") {
+  //
+  //    change this, if you want to really reset the database
+  //    CompFileUtil.deleteTDB()
+  //    val compOntManag = new CompOntologyManager()
+  //    CompetenceImporter.convertCSVArray();
+  //    EposImporter.importEpos()
+  //    OntologyWriter.convert()
+  //  }
 
   test("if a user is persisted, the course context should be acessable") {
     executeNoParam(userPersistTest _)
@@ -79,13 +79,13 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     coursecontext.persist
     val user = new User(comp, "me", teacherRole, coursecontext, "Julian Dehne")
     user.persist()
-    user.hasCourseContext(coursecontext)
   }
 
   def userPersistTest2(comp: CompOntologyManager) {
     val coursecontext = new CourseContext(comp, "2")
     val user2 = new User(comp, "me")
     val fullUser = user2.getFullDao
+    user2.hasCourseContext(coursecontext) should not be false
     fullUser.getName.equals("Julian Dehne") should not be false
     fullUser.hasCourseContext(coursecontext)
     val user = new User(comp, "me", null, coursecontext, "Julian Dehne")
@@ -222,7 +222,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   test("if a evidence link is created this should not cause errors") {
     executeNoParam(doEvidenceLinkTest _)
     executeNoParam(doDeleteEvidenceLink _)
-    OntologyWriter.convert
   }
 
   def doEvidenceLinkTest(compOntManag: CompOntologyManager) {
@@ -261,41 +260,35 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   }
 
   test("if a string is given the identified full dao should be returnable") {
-    executeNoParam(doidentifiedLinkTest _)
+    executeNoParam(createAbstract _)
+    OntologyWriter.convert
     executeNoParam(doidentifiedLinkTest2 _)
     OntologyWriter.convert
   }
 
+  /**
+   *
+   */
   def doidentifiedLinkTest2(compOntManag: CompOntologyManager) {
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-
-    val link = createAbstract(compOntManag, userstudent)
     val exampleLink = new AbstractEvidenceLink(compOntManag, "IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest")
     val fullExampleLink = exampleLink.getFullDao
 
-    fullExampleLink.creator should not be null
+    //    fullExampleLink.creator should not be null
     fullExampleLink.getAllActivities should not be ('empty)
     fullExampleLink.getAllCourseContexts should not be ('empty)
     fullExampleLink.getAllLinkedUsers should not be ('empty)
     val linkedUser = fullExampleLink.getAllLinkedUsers.head
     //    linkedUser.equals(userstudent) should not be false
+
+    val link = createAbstract(compOntManag)
     link.delete
   }
 
-  def doidentifiedLinkTest(compOntManag: CompOntologyManager) {
-    val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, userstudent)
-
-    // now getting it by example
-
-  }
-
   test("the competencelinksmap should not be empty") {
-    executeNoParam(docompetencelinksmapTest0 _)
+    executeNoParam(createAbstract _)
     executeNoParam(docompetencelinksmapTest _)
     val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
@@ -303,25 +296,13 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     OntologyWriter.convert
   }
 
-  def docompetencelinksmapTest0(compOntManag: CompOntologyManager) {
-    val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, userstudent)
-
-  }
-
   def docompetencelinksmapTest(compOntManag: CompOntologyManager) {
-    val linkId = "hellolinkId"
-    val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, userstudent)
+    val link = createAbstract(compOntManag)
     link.delete
   }
 
   test("progresbarmap should not be empty") {
-    executeNoParam(docompetencelinksmapTest0 _)
+    executeNoParam(createAbstract _)
     executeNoParam(doEvidenceLinkTest _)
     val changes = new CourseData("2", ("Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung" :: Nil).asJava)
     val progressMap = GetProgressMInOnt.convert(changes);
@@ -380,12 +361,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     competenceB.addRequiredCompetence(competenceA)
     competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
 
-    // testing the create link transition
-    val linkId = "hellolinkId"
-    val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val link = createAbstract(compOntManag, userstudent)
   }
 
   test("if a learning template is selected it should be persisted without errors") {
@@ -503,8 +478,12 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   //    OntologyWriter.convert
   //  }
 
-  private def createAbstract(compOntManag: CompOntologyManager, userstudent: User): AbstractEvidenceLink = {
+  private def createAbstract(compOntManag: CompOntologyManager): AbstractEvidenceLink = {
+
+    val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
+    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+
     val teacherRole = new TeacherRole(compOntManag)
     val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
     user.persist
@@ -517,8 +496,8 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     val testkommentar2 = "mein testkommentar2"
     val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
 
+    //
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    evidenceActivity.persist()
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     competence.persist(true)
     competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
@@ -529,6 +508,8 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     //    competencex should not be null
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+
+    //println("linkId ist: " + link.getId)
     return link
   }
 

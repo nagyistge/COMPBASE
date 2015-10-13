@@ -7,8 +7,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import scala.collection.JavaConverters._
 
-case class LearningProjectTemplate(comp: CompOntologyManager, var name: String, associatedComptences: Seq[Competence] = null, readableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.LearningProjectTemplate, CompOntologyAccessScala.convertMoodleIdToName(name)) {
-  name = CompOntologyAccessScala.convertMoodleIdToName(name)
+case class LearningProjectTemplate(comp: CompOntologyManager, var name: String, associatedComptences: Seq[Competence] = null, readableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.LearningProjectTemplate, name) {
 
   def DEFINITION = "definition"
 

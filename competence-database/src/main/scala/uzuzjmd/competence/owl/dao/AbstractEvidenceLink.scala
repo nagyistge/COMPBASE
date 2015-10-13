@@ -5,6 +5,7 @@ import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 //import com.google.gwt.thirdparty.guava.common.collect.Collections2.PermutationCollection
 
 case class AbstractEvidenceLink(
@@ -14,29 +15,29 @@ case class AbstractEvidenceLink(
     val creator: User,
     val linkedUser: User,
     val courseContexts: CourseContext,
-    val evidenceActivity: EvidenceActivity,
+    val evidenceActivity: EvidenceActivity = null,
     val dateCreated: java.lang.Long,
     val isValidated: java.lang.Boolean = false,
-    val competence: Competence,
-    val comments: List[Comment] = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, identifier2) {
+    val competence: Competence = null,
+    val comments: List[Comment] = null) extends CompetenceOntologyDao(comp, CompOntClass.AbstractEvidenceLink, CompOntologyAccessScala.computeEncodedStringForLink(identifier2, competence, evidenceActivity)) {
 
   def CREATED = "datecreated"
   def ISVALIDATED = "isValidated"
 
-  def this(comp: CompOntologyManager, identifier2: String) = this(comp, identifier2, null, null, null, null, null, null, null, null)
+  def this(comp: CompOntologyManager, identifier2: String, competence: Competence = null, evidenceActivity: EvidenceActivity = null) = this(comp, CompOntologyAccessScala.computeEncodedStringForLink(identifier2, competence, evidenceActivity), null, null, null, null, null, null, competence, null)
 
-  def this(comp: CompOntologyManager, identifier2: String, comments: List[Comment]) = this(comp, identifier2, null, null, null, null, null, null, null, comments)
+  def this(comp: CompOntologyManager, identifier2: String, competence2: Competence, evidenceActivity2: EvidenceActivity, comments: List[Comment]) = this(comp, CompOntologyAccessScala.computeEncodedStringForLink(identifier2, competence2, evidenceActivity2), null, null, null, null, null, null, competence2, comments)
 
-  override def computeEncodedString: String = {
-    if (identifier2 != null) {
-      return identifier2
-    } else {
-      if (competence == null || evidenceActivity == null) {
-        throw new Exception("evidenceActivity and competence need to be defined")
-      }
-      return competence.getId + evidenceActivity.getId
-    }
-  }
+  //  def computeEncodedString: String = {
+  //    if (identifier2 != null) {
+  //      return identifier2
+  //    } else {
+  //      if (competence == null || evidenceActivity == null) {
+  //        throw new Exception("evidenceActivity and competence need to be defined")
+  //      }
+  //      return competence.getId + evidenceActivity.getId
+  //    }
+  //  }
 
   @Override
   protected def deleteMore() {

@@ -21,4 +21,3 @@ object OntologyWriter extends TDBREADTransactional[Any, Any] {
   }
 
 }
-

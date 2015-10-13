@@ -21,7 +21,10 @@ case class EvidenceActivity(comp: CompOntologyManager, val url: String, val prin
   }
 
   def getFullDao(): EvidenceActivity = {
-    if (getDataField(PRINTABLENAME) != null && getDataField(URL) != null) {
+
+    val hasPrintableName = getDataField(PRINTABLENAME) != null;
+    val hasURL = getDataField(URL) != null;
+    if (hasPrintableName && hasURL) {
       return new EvidenceActivity(comp, getDataField(PRINTABLENAME), getDataField(URL))
     } else {
       return this;

@@ -6,12 +6,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
-case class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, CompOntologyAccessScala.convertMoodleIdToName(name)) {
-
-  override def computeEncodedString(): String = {
-    val nName = CompOntologyAccessScala.convertMoodleIdToName(name)
-    return nName
-  }
+case class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, name) {
 
   @Override
   protected def deleteMore() {
