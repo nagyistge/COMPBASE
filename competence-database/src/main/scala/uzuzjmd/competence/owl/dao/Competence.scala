@@ -39,7 +39,6 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     } catch {
 
       case e: DataFieldNotInitializedException =>
-        println("caught datafield not initialized")
         return new Competence(compManager, identifier, getDataField(DEFINITION), false)
     }
   }
