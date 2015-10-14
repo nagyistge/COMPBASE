@@ -28,8 +28,6 @@ public class RestServer {
 		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
 
-		MagicStrings.runsAsJar = true;
-
 		ResourceConfig resourceConfig = new ResourceConfig(CompetenceServiceRestXML.class, CompetenceServiceRestJSON.class, EvidenceServiceRestServerImpl.class);
 		resourceConfig.register(JacksonFeature.class);
 		// final Map<String, Object> initParams = new HashMap<String, Object>();

@@ -6,8 +6,6 @@ public class MagicStrings {
 	public static final String PREFIX = "http://comp#"; // better don't change,
 														// might be hardcoded
 														// somewhere
-
-	public static Boolean runsAsJar = false;
 	public static final String ROOTPATH = PropUtil.getProp("rootPath");
 	public static final String TDBLocationPath = PropUtil.getRelativeOrAbsoluteFileProp("tdblocationRelative", "tdblocation");
 	// public static final String ONTOLOGYFORMAT = "TURTLE";
