@@ -57,19 +57,18 @@ import org.junit.Before
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
 
-  //  test("The CSV import should run without errors") {
-  //
-  //    change this, if you want to really reset the database
-  //    CompFileUtil.deleteTDB()
-  //    val compOntManag = new CompOntologyManager()
-  //    CompetenceImporter.convertCSVArray();
-  //    EposImporter.importEpos()
-  //    OntologyWriter.convert()
-  //  }
+  test("The CSV import should run without errors") {
+
+    //      change this, if you want to really reset the database
+    //    CompFileUtil.deleteTDB()
+    //    val compOntManag = new CompOntologyManager()
+    //    CompetenceImporter.convertCSVArray();
+    //    EposImporter.importEpos()
+    //    ()
+  }
 
   test("if a user is persisted, the course context should be acessable") {
     executeNoParam(userPersistTest _)
-    OntologyWriter.convert()
     executeNoParam(userPersistTest2 _)
   }
 
@@ -94,7 +93,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   }
 
   test("The CompetenceTree should not be empty") {
-    OntologyWriter.convert()
+
     val compOntManag = new CompOntologyManager()
     val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
     val competenceTree = mapper.getComptenceTreeForCourse()
@@ -126,7 +125,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("the singletondao should persist without error") {
     executeNoParam(singletondaoTest)
-    OntologyWriter.convert
+
   }
 
   def singletondaoTest(comp: CompOntologyManager) {
@@ -146,7 +145,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   test("the regular dao should persist without error") {
     val compOntManag = new CompOntologyManager()
     executeNoParam(regularDaoTest _)
-    OntologyWriter.convert
+
   }
 
   def regularDaoTest(comp: CompOntologyManager) {
@@ -162,7 +161,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("if a dao is linked the link should exist") {
     executeNoParam(linkTest _)
-    OntologyWriter.convert
+
   }
 
   def linkTest(compOntManag: CompOntologyManager) {
@@ -185,7 +184,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("if a comment is persisted it should have its datafields in place") {
     executeNoParam(doCommentTest _)
-    OntologyWriter.convert()
+    ()
     //    executeNoParam(doCommentTest2 _)
   }
 
@@ -261,9 +260,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("if a string is given the identified full dao should be returnable") {
     executeNoParam(createAbstract _)
-    OntologyWriter.convert
+
     executeNoParam(doidentifiedLinkTest2 _)
-    OntologyWriter.convert
+
   }
 
   /**
@@ -273,7 +272,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     val studentRole = new StudentRole(compOntManag)
     val coursecontext = new CourseContext(compOntManag, "2")
     val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
-    val exampleLink = new AbstractEvidenceLink(compOntManag, "IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest")
+    val exampleLink = new AbstractEvidenceLink(compOntManag, "DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest")
     val fullExampleLink = exampleLink.getFullDao
 
     //    fullExampleLink.creator should not be null
@@ -289,16 +288,11 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("the competencelinksmap should not be empty") {
     executeNoParam(createAbstract _)
-    executeNoParam(docompetencelinksmapTest _)
+    OntologyWriter.convert()
     val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
-    OntologyWriter.convert
-  }
 
-  def docompetencelinksmapTest(compOntManag: CompOntologyManager) {
-    val link = createAbstract(compOntManag)
-    link.delete
   }
 
   test("progresbarmap should not be empty") {
@@ -309,12 +303,12 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
     progressMap should not be null
     progressMap.entrySet() should not be ('empty)
     executeNoParam(doDeleteEvidenceLink _)
-    OntologyWriter.convert
+
   }
 
   test("if a requires b and b requires c, a should require c") {
     executeNoParamWithReasoning(doRequiresTransitivityTest)
-    OntologyWriter.convert
+
   }
 
   def doRequiresTransitivityTest(compOntManag: CompOntologyManager) {
@@ -328,7 +322,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("testing the rules") {
     executeNoParamWithReasoning(doTestTheRules _)
-    OntologyWriter.convert
+
   }
 
   def doTestTheRules(compOntManag: CompOntologyManager) {
@@ -371,7 +365,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
     val changes = new LearningTemplateData(userId, groupId, selectedTemplateName)
     LearningTemplateToOnt.convert(changes)
-    OntologyWriter.convert
+
   }
 
   test("listing all the subdaos should not throw any error and provide an existing list") {
@@ -475,7 +469,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   //    println(compOntManag2.getUtil().validityReportTostring(validationreport2));
   //    validationreport2.isValid() should not be false
   //    compOntManag2.close()
-  //    OntologyWriter.convert
+  //
   //  }
 
   private def createAbstract(compOntManag: CompOntologyManager): AbstractEvidenceLink = {
@@ -514,4 +508,3 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
   }
 
 }
-

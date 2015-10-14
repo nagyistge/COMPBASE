@@ -74,13 +74,17 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     val ontClass = util.createOntClass(compOntClass, true)
     val result = util.createIndividualForString(ontClass, identifier, true)
     if (result == null) {
-      throw new IndividualNotFoundException
     }
     return result
   }
 
+  @throws[IndividualNotFoundException]
   override def getId: String = {
-    return identifier
+    //    return identifier
+    if (getIndividual == null) {
+      throw new IndividualNotFoundException
+    }
+    return getIndividual.getLocalName
   }
 
 }

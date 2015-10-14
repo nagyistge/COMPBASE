@@ -300,7 +300,8 @@ public class CompOntologyAccess {
 	 */
 	public OntClass getOntClassForString(String className) {
 		manager.sync();
-		OntClass paper = manager.getM().getOntClass(encode(className));
+		String encoded = encode(className);
+		OntClass paper = manager.getM().getOntClass(encoded);
 		return paper;
 	}
 
