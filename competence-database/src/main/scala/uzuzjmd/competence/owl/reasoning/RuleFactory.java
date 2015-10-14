@@ -26,6 +26,7 @@ public class RuleFactory {
 		// result.add(getInheritanceOneWayOnlyRule());
 		result.add(noNothingArtefacts());
 		result.add(noNothingArtefacts2());
+		result.add(superCompetencesHaveSameCourseContext());
 	}
 
 	private void generateInverseRules() {
@@ -99,6 +100,10 @@ public class RuleFactory {
 
 	public String allCompetencesHaveGlobalContext2() {
 		return "[globalContext2: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
+	}
+
+	public String superCompetencesHaveSameCourseContext() {
+		return "[superHaveSameCourseContext: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) (?competenceClass rdfs:subClassOf ?competenceClass2) (?courseContext comp:CourseContextOf ?competenceClass)  -> (?courseContext comp:CourseContextOf ?competenceClass2)]";
 	}
 
 	public String noNothingArtefacts() {

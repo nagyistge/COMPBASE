@@ -166,6 +166,20 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return toOntClass.hasSubClass(child.toOntClass, false)
   }
 
+  def listSuperClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
+    val definition = getDefinition()
+    val id = getId
+    val ontClass = comp.getUtil().accessSingletonResource(definition, true).getOntclass()
+    val classList = ontClass.listSuperClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing")).filterNot { x => x.getLocalName.equals("IThing") || x.getLocalName.equals("Thing") }
+
+    val identifierList = classList.map(x => x.getLocalName()).toList
+    return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
+  }
+
+  def hasSuperClass: Boolean = {
+    return !listSuperClasses(classOf[Competence]).isEmpty
+  }
+
   /**
    * needs this override, because the definition is not placed at the level of the individual but the corresponding class
    */
