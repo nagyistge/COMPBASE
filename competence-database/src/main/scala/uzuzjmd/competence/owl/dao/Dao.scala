@@ -63,8 +63,8 @@ abstract class Dao(comp: CompOntologyManager) {
 
   def hasEdge(domain: Dao, edgeType: CompObjectProperties): Boolean = {
     if (this.exists && domain.exists) {
-      val domainIndividual = domain.createIndividual
-      val rangeIndividual = createIndividual
+      val domainIndividual = domain.getIndividual
+      val rangeIndividual = getIndividual
       val result = comp.getUtil().existsObjectPropertyWithIndividual(domainIndividual, rangeIndividual, edgeType)
       return result
     } else { return false }

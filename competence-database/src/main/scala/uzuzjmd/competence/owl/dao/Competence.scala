@@ -8,6 +8,7 @@ import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 
 class Competence(compManager: CompOntologyManager, identifierlocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierlocal) {
 
@@ -24,11 +25,20 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     } else {
       addDataField(DEFINITION, identifierlocal)
     }
+    if (compulsory == null) {
+      addDataField(COMPULSORY, new java.lang.Boolean(false))
+    } else {
+      addDataField(COMPULSORY, compulsory)
+    }
   }
 
   @Override
   def getFullDao(): Competence = {
-    return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
+    try {
+      return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
+    } catch {
+      case e: DataFieldNotInitializedException => return new Competence(compManager, identifier, getDataField(DEFINITION), false)
+    }
   }
 
   //  def getIdentifier(): String = {

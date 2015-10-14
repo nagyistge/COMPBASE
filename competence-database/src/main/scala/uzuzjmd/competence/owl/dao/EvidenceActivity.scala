@@ -3,6 +3,7 @@ package uzuzjmd.competence.owl.dao
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 
 case class EvidenceActivity(comp: CompOntologyManager, val url: String, val printableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, url) {
 
@@ -22,12 +23,14 @@ case class EvidenceActivity(comp: CompOntologyManager, val url: String, val prin
 
   def getFullDao(): EvidenceActivity = {
 
-    val hasPrintableName = getDataField(PRINTABLENAME) != null;
-    val hasURL = getDataField(URL) != null;
-    if (hasPrintableName && hasURL) {
-      return new EvidenceActivity(comp, getDataField(PRINTABLENAME), getDataField(URL))
-    } else {
-      return this;
+    try {
+      val hasPrintableName = getDataField(PRINTABLENAME) != null;
+      val hasURL = getDataField(URL) != null;
+      return new EvidenceActivity(comp, getDataField(URL), getDataField(PRINTABLENAME))
+    } catch {
+      case e: IndividualNotFoundException =>
+        return this
     }
+
   }
 }

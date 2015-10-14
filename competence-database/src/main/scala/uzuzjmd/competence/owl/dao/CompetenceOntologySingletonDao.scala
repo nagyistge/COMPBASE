@@ -74,6 +74,10 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     }
   }
 
+  //  override def getId: String = {
+  //    return CompOntologyAccess.encode(identifier)
+  //  }
+
   override def getIndividual: Individual = {
     //    return createIndividual.getLocalName()
     if (identifier != null) {
@@ -89,7 +93,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   def getOntClass: OntClass = {
     //    return createIndividual.getLocalName()
     if (identifier != null) {
-      val result = comp.getUtil().getOntClassForString(MagicStrings.SINGLETONPREFIX + identifier)
+      val result = comp.getUtil().getOntClassForString(identifier)
       return result
     } else {
       val result = util.getOntClassForString(MagicStrings.SINGLETONPREFIX + compOntClass.name())
