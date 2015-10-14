@@ -496,7 +496,8 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Path("/learningtemplate/get/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
 	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-		return Ont2LearningTemplateResultSet.convert(learningTemplateName);
+		LearningTemplateResultSet result = Ont2LearningTemplateResultSet.convert(learningTemplateName);
+		return result;
 	}
 
 	@Consumes(MediaType.APPLICATION_XML)
