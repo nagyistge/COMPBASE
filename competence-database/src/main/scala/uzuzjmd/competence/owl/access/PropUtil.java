@@ -19,21 +19,25 @@ public class PropUtil {
 		// find file
 		InputStream inputStream;
 		try {
-			if (MagicStrings.runsAsJar) {
-				inputStream = new FileInputStream(propfFileName);
-			} else {
-				inputStream = PropUtil.class.getClassLoader().getResourceAsStream(propfFileName);
-			}
+			inputStream = new FileInputStream(propfFileName);
 			prop.load(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			ClassLoader loader = PropUtil.class.getClassLoader();
+			inputStream = loader.getResourceAsStream(propfFileName);
 		}
 		return prop;
 
 	}
 
 	public static String getProp(String key) {
-		return getProperties().getProperty(key).replaceAll("\"", "");
+		try {
+			return getProperties().getProperty(key).replaceAll("\"", "");
+		} catch (NullPointerException p) {
+			p.printStackTrace();
+			throw new Error();
+		}
 	}
 
 	/**
