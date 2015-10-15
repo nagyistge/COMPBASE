@@ -7,6 +7,7 @@ public class MagicStrings {
 														// might be hardcoded
 														// somewhere
 	public static final String ROOTPATH = PropUtil.getProp("rootPath");
+	public static final String LOG4JXMLPATH = PropUtil.getRelativeOrAbsoluteFileProp("log4jlocationRelative","log4jlocation");
 	public static final String TDBLocationPath = PropUtil.getRelativeOrAbsoluteFileProp("tdblocationRelative", "tdblocation");
 	// public static final String ONTOLOGYFORMAT = "TURTLE";
 	public static final String ONTOLOGYFORMAT = "RDF/XML";
