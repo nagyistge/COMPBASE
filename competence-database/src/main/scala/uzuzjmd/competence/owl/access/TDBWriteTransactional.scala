@@ -1,5 +1,7 @@
 package uzuzjmd.competence.owl.access
 
+import uzuzjmd.competence.main.OntologyWriter
+
 /**
  * @author dehne
  *
@@ -20,6 +22,9 @@ trait TDBWriteTransactional[A] {
     } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
+    }
+    if (debugOn) {
+      OntologyWriter.convert
     }
   }
 
@@ -49,6 +54,10 @@ trait TDBWriteTransactional[A] {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
+
+    if (debugOn) {
+      OntologyWriter.convert
+    }
   }
 
   def executeNoParamWithReasoning(f: TRANSACTIONAL2) {
@@ -66,6 +75,9 @@ trait TDBWriteTransactional[A] {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
+    if (debugOn) {
+      OntologyWriter.convert
+    }
   }
 
   def execute[T](f: (CompOntologyManager, A) => T, g: A): T = {
@@ -78,6 +90,10 @@ trait TDBWriteTransactional[A] {
     } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
+
+      if (debugOn) {
+        OntologyWriter.convert
+      }
     }
   }
 
@@ -94,6 +110,9 @@ trait TDBWriteTransactional[A] {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
+    if (debugOn) {
+      OntologyWriter.convert
+    }
   }
 
   def executeAll(l: Array[TRANSACTIONAL], g: A) {
@@ -109,6 +128,9 @@ trait TDBWriteTransactional[A] {
     } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
+      if (debugOn) {
+        OntologyWriter.convert
+      }
     }
   }
 

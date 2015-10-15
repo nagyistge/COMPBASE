@@ -54,6 +54,9 @@ import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphNode
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.dao.CourseContext
+import sun.security.krb5.internal.ccache.CCacheInputStream
+import uzuzjmd.competence.owl.dao.CourseContext
 
 /**
  * @author dehne
@@ -61,7 +64,39 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests3 extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
-  test("if a superdao is added, one should be able to retrieve it by getSuperDAO") {
+  //  test("if a superdao is added, one should be able to retrieve it by getSuperDAO") {
+  //
+  //  }
 
+  test("The CSV import should run without errors") {
+
+    //      change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+    val compOntManag = new CompOntologyManager()
+    CompetenceImporter.convertCSVArray();
+
+  }
+
+  test("if a competence is added to a courseContext, the supercompetence should also be available in that Kontext") {
+    executeNoParamWithReasoning(doCourseContextRule1 _)
+    executeNoParam(doCourseContextRule2 _)
+  }
+
+  def doCourseContextRule1(comp: CompOntologyManager) {
+    val competenceSub = new Competence(comp, "I like to move it move it")
+    competenceSub.persist(true)
+    val superCompetence = new Competence(comp, "I really like to move it top");
+    superCompetence.persist(true)
+    competenceSub.addSuperCompetence(superCompetence)
+
+    val courseContext = new CourseContext(comp, "MovingCourse")
+    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceSub)
+  }
+
+  def doCourseContextRule2(comp: CompOntologyManager) {
+    val superCompetence = new Competence(comp, "I really like to move it top");
+    val courseContext = new CourseContext(comp, "MovingCourse")
+    courseContext.getLinkedCompetences().map(x => x.getDefinition()).contains(superCompetence.getDefinition()) should not be false
+    courseContext.getLinkedCompetences().map(x => x.getDefinition()).foreach { x => println(x) }
   }
 }
