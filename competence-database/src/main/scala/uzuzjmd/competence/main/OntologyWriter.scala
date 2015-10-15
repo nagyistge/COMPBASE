@@ -18,6 +18,7 @@ object OntologyWriter extends TDBREADTransactional[Any, Any] {
 
   def convert() {
     execute2(writeOut)
+    println("RDF-FILE WRITTEN")
   }
 
 }

@@ -231,7 +231,7 @@ public class CompOntologyAccess {
 
 	public OntResult accessSingletonResource(String classname, Boolean isRead, String... definitions) {
 		if (classname.startsWith("I")) {
-			logger.warn("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
+			logger.trace("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
 		}
 
 		OntClass classOnt = createOntClassForString(classname, isRead, definitions);

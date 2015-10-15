@@ -196,14 +196,15 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
   }
 
   def getCompetenceTree(comp: CompOntologyManager): java.util.List[CompetenceXMLTree] = {
-    val noTree = getCompetenceTreeHelperNoTree(comp, allowedAndCourse(comp, _))
+    //    val noTree = getCompetenceTreeHelperNoTree(comp, allowedAndCourse(comp, _))
     val tree = getCompetenceTreeHelper(comp, allowedAndCourse(comp, _))
-    if (noTree.isEmpty() && tree.isEmpty()) {
-      return tree
-    } else {
-      tree.get(0).getChildren.addAll(noTree.get(0).getChildren)
-      return tree
-    }
+    //    if (noTree.isEmpty() && tree.isEmpty()) {
+    //      return tree
+    //    } else {
+    //      tree.get(0).getChildren.addAll(noTree.get(0).getChildren)
+    //      return tree
+    //    }
+    return tree
   }
 
   private def getCompetenceTreeHelper(comp: CompOntologyManager, allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {

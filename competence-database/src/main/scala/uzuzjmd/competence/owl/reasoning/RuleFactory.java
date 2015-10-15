@@ -26,14 +26,23 @@ public class RuleFactory {
 		// result.add(getInheritanceOneWayOnlyRule());
 		result.add(noNothingArtefacts());
 		result.add(noNothingArtefacts2());
+		result.add(superCompetencesHaveSameCourseContext());
 	}
 
 	private void generateInverseRules() {
-		for (CompObjectProperties prop : CompObjectProperties.values()) {
+		for (CompObjectProperties prop : CompObjectProperties
+				.values()) {
 			if (!prop.name().endsWith("Inverse")) {
-				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:" + prop.name() + " ?b) -> (?b comp:" + prop.name() + "Inverse ?a)]");
+				result.add("[operatorInverse"
+						+ prop.hashCode() + ": (?a comp:"
+						+ prop.name() + " ?b) -> (?b comp:"
+						+ prop.name() + "Inverse ?a)]");
 			} else if (prop.name().endsWith("Inverse")) {
-				result.add("[operatorInverse" + prop.hashCode() + ": (?a comp:" + prop.name() + "Inverse ?b) -> (?b comp:" + prop.name() + " ?a)]");
+				result.add("[operatorInverse"
+						+ prop.hashCode() + ": (?a comp:"
+						+ prop.name()
+						+ "Inverse ?b) -> (?b comp:"
+						+ prop.name() + " ?a)]");
 			}
 		}
 	}
@@ -52,7 +61,9 @@ public class RuleFactory {
 	}
 
 	public String catchwordOfConclusions() {
-		return "[catchwordTransition: (?a rdfs:subClassOf comp:Catchword)" + " (?a rdfs:subClassOf ?b) " + "-> (?b rdfs:subClassOf comp:Catchword)]";
+		return "[catchwordTransition: (?a rdfs:subClassOf comp:Catchword)"
+				+ " (?a rdfs:subClassOf ?b) "
+				+ "-> (?b rdfs:subClassOf comp:Catchword)]";
 	}
 
 	public String getPrerequisiteConclusion() {
@@ -88,7 +99,9 @@ public class RuleFactory {
 	}
 
 	public String getInheritanceOneWayOnlyRule() {
-		return "[inheritanceOneWayOnly:" + " (?competence rdfs:subClassOf ?supercompetence) (?supercompetence rdfs:subClassOf ?competence)" + " notEqual(?Isupercompetence, ?Icompetence) "
+		return "[inheritanceOneWayOnly:"
+				+ " (?competence rdfs:subClassOf ?supercompetence) (?supercompetence rdfs:subClassOf ?competence)"
+				+ " notEqual(?Isupercompetence, ?Icompetence) "
 				+ " (?Isupercompetence rdf:type ?supercompetence) (?Icompetence rdf:type ?competence) "
 				+ "-> (?Isupercompetence rb:violation error('Konsistenzfehler', 'Die Kompetenz kann nicht gleichzeitig oberhalb und unterhalb in der Hierarchie stehen!', ?Icompetence))]";
 	}
@@ -98,7 +111,26 @@ public class RuleFactory {
 	}
 
 	public String allCompetencesHaveGlobalContext2() {
-		return "[globalContext2: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
+		return "[globalContext2: (?competence rdf:type ?competenceClass) "
+				+ "(?competenceClass rdfs:subClassOf comp:Competence) ->"
+				+ " (comp:university comp:CourseContextOf ?competence)]";
+	}
+
+	public String superCompetencesHaveSameCourseContext() {
+		return "[superHaveSameCourseContext: "
+				+ " notEqual(?competenceClass2, comp:Thing)"
+				+ " notEqual(?competenceClass2, ?competence2)"
+				+ " notEqual(?competence2, http://comp#ICompetence)"
+				+ " notEqual(?competenceClass2, http://comp#Competence)"
+				+ " notEqual(?competenceClass, ?competence)"
+				+ " (?competence rdf:type ?competenceClass) "
+				+ " (?competence2 rdf:type ?competenceClass2)"
+				+ " (?competenceClass rdfs:subClassOf comp:Competence)"
+				+ " (?competenceClass2 rdfs:subClassOf comp:Competence)"
+				+ " (?competenceClass rdfs:subClassOf ?competenceClass2)"
+				+ " (?courseContext comp:CourseContextOf ?competence)"
+				+ " notEqual(?courseContext, comp:university)"
+				+ "  -> (?courseContext comp:CourseContextOf ?competence2)]";
 	}
 
 	public String noNothingArtefacts() {
