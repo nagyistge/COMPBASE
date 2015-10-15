@@ -7,25 +7,19 @@
   <rdf:Description rdf:about="http://comp#AbstractEvidenceLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ITeacherRole">
+    <rdf:type rdf:resource="http://comp#TeacherRole"/>
+    <j.0:RoleOf rdf:resource="http://comp#test2stuffcom"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#CSstudentsusetoolsinteractively">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students use tools interactively</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CompulsoryOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#EvidencOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Competence"/>
     <rdfs:range rdf:resource="http://comp#Evidence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#groups">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">groups</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#SuggestedCompetencePrerequisiteOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -35,34 +29,236 @@
   <rdf:Description rdf:about="http://comp#MetaCatchword">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#act">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">act</j.0:definition>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#use">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#ICSstudentsinteractinheterogeneousgroups">
-    <rdf:type rdf:resource="http://comp#CSstudentsinteractinheterogeneousgroups"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CSstudentsactautonomously">
+  <rdf:Description rdf:about="http://comp#act">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students act autonomously</j.0:definition>
+    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">act</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElementOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#CompetenceDescription"/>
     <rdfs:range rdf:resource="http://comp#DescriptionElement"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CSstudentsactautonomously">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students act autonomously</j.0:definition>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iliketomoveitmoveit">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#Ireallyliketomoveittop"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I like to move it move it</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Role">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#TeacherRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CourseContextOfSelectedLearningProjectTemplate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
+    <rdfs:range rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#UserOfComment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#User"/>
+    <rdfs:range rdf:resource="http://comp#Comment"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#NotPrerequisiteOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CourseContextOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#MetaCompetence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CatchwordOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Catchword"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#interact">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">interact</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#RoleOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Role"/>
+    <rdfs:range rdf:resource="http://comp#User"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Igroups">
+    <rdf:type rdf:resource="http://comp#groups"/>
+    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#createdBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <rdfs:range rdf:resource="http://comp#User"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AdminUser">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfLink rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Admin User</j.0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SelectedLearningProjectTemplate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#OperatorOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Operator"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#LinkOfCourseContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <rdfs:range rdf:resource="http://comp#CourseContext"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICSstudentsusetoolsinteractively">
+    <rdf:type rdf:resource="http://comp#CSstudentsusetoolsinteractively"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#PrerequisiteOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CSstudentsinteractinheterogeneousgroups">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students interact in heterogeneous groups</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IIliketomoveitmoveit">
+    <rdf:type rdf:resource="http://comp#Iliketomoveitmoveit"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I like to move it move it</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SelectedTemplateOfLearningTemplate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
+    <rdfs:range rdf:resource="http://comp#LearningProjectTemplate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Learner">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#tools">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tools</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#belongsToCourseContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Iinteract">
+    <rdf:type rdf:resource="http://comp#interact"/>
+    <j.0:OperatorOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AssessmentOfUser">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#SelfAssessment"/>
+    <rdfs:range rdf:resource="http://comp#User"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SubOperator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Catchword">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#EvidencOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Evidence"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SpecifiedByInverse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#CompetenceSpec"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CatchwordOfInverse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdfs:range rdf:resource="http://comp#Catchword"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICSstudentsexploreinformaticssystemssystematically">
+    <rdf:type rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students explore informatics systems systematically</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#User">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#computerscience">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">computerscience</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#LearningProjectTemplate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SimilarTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Evidence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#AssessmentOfCompetence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#SelfAssessment"/>
+    <rdfs:range rdf:resource="http://comp#User"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#test2stuffcom">
+    <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">test2@stuff.com</j.0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Itools">
+    <rdf:type rdf:resource="http://comp#tools"/>
+    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
+    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
+    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CompulsoryOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#groups">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">groups</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3">
+    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
+    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
+    <j.0:createdBy rdf:resource="http://comp#test2stuffcom"/>
+    <j.0:linksCompetence rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444917567922</j.0:datecreated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICSstudentsinteractinheterogeneousgroups">
+    <rdf:type rdf:resource="http://comp#CSstudentsinteractinheterogeneousgroups"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#MetaOperator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#NotAllowedToView">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#User"/>
+    <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IDieLehramtsanwärter">
     <rdf:type rdf:resource="http://comp#DieLehramtsanwärter"/>
@@ -71,61 +267,42 @@
     <j.0:LearnerOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
     <j.0:LearnerOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#NotAllowedToView">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#User"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Role">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#MetaOperator">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#TeacherRole">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#SelfAssessment">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CourseContextOfSelectedLearningProjectTemplate">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
-    <rdfs:range rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Iact">
     <rdf:type rdf:resource="http://comp#act"/>
     <j.0:OperatorOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#UserOfComment">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#User"/>
-    <rdfs:range rdf:resource="http://comp#Comment"/>
+  <rdf:Description rdf:about="http://comp#IStudentRole">
+    <rdf:type rdf:resource="http://comp#StudentRole"/>
+    <j.0:RoleOf rdf:resource="http://comp#AdminUser"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#CompetenceDescriptionOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#CompetenceDescription"/>
     <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SpecifiedBy">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#CompetenceSpec"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#ActivityOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#EvidenceActivity"/>
     <rdfs:range rdf:resource="http://comp#AbstractEvidenceLink"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#SpecifiedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://comp#Competence"/>
+    <rdfs:range rdf:resource="http://comp#CompetenceSpec"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LearnerOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Learner"/>
     <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#NotPrerequisiteOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
+  <rdf:Description rdf:about="http://comp#n2">
+    <rdf:type rdf:resource="http://comp#CourseContext"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+    <j.0:requirements rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></j.0:requirements>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Icomputerscience">
     <rdf:type rdf:resource="http://comp#computerscience"/>
@@ -133,14 +310,6 @@
     <j.0:CatchwordOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
     <j.0:CatchwordOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
     <j.0:CatchwordOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#MetaCompetence">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CourseContextOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#CourseContext"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#university">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
@@ -152,27 +321,8 @@
     <j.0:CourseContextOf rdf:resource="http://comp#ICompetence"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIreallyliketomoveittop"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#interact">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">interact</j.0:definition>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#EvidenceActivity">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CatchwordOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Catchword"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Igroups">
-    <rdf:type rdf:resource="http://comp#groups"/>
-    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#RoleOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Role"/>
-    <rdfs:range rdf:resource="http://comp#User"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICompetence">
     <rdf:type rdf:resource="http://comp#Competence"/>
@@ -183,26 +333,21 @@
     <j.0:CourseContextOf rdf:resource="http://comp#IIliketomoveitmoveit"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIreallyliketomoveittop"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#createdBy">
+  <rdf:Description rdf:about="http://comp#CommentOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <rdfs:range rdf:resource="http://comp#User"/>
+    <rdfs:domain rdf:resource="http://comp#Comment"/>
+    <rdfs:range rdf:resource="http://comp#AbstractEvidenceLink"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ireallyliketomoveittop">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I really like to move it top</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CommentOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Comment"/>
-    <rdfs:range rdf:resource="http://comp#AbstractEvidenceLink"/>
+  <rdf:Description rdf:about="http://comp#CourseContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICSstudentsactautonomously">
     <rdf:type rdf:resource="http://comp#CSstudentsactautonomously"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CourseContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#UserOfLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -218,41 +363,10 @@
     <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">explore</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SelectedLearningProjectTemplate">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#CompetenceDescriptionOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Competence"/>
     <rdfs:range rdf:resource="http://comp#CompetenceDescription"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#OperatorOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Operator"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#LinkOfCourseContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <rdfs:range rdf:resource="http://comp#CourseContext"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#ICSstudentsusetoolsinteractively">
-    <rdf:type rdf:resource="http://comp#CSstudentsusetoolsinteractively"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IIliketomoveitmoveit">
-    <rdf:type rdf:resource="http://comp#Iliketomoveitmoveit"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I like to move it move it</j.0:definition>
-    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CSstudentsinteractinheterogeneousgroups">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students interact in heterogeneous groups</j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#PrerequisiteOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElement">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -261,36 +375,14 @@
     <rdf:type rdf:resource="http://comp#explore"/>
     <j.0:OperatorOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SelectedTemplateOfLearningTemplate">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
-    <rdfs:range rdf:resource="http://comp#LearningProjectTemplate"/>
+  <rdf:Description rdf:about="http://comp#CompetenceSpec">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Operator">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Learner">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CompetenceSpec">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#tools">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Evidence"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tools</j.0:definition>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#Comment">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Iinteract">
-    <rdf:type rdf:resource="http://comp#interact"/>
-    <j.0:OperatorOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#AssessmentOfUser">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#SelfAssessment"/>
-    <rdfs:range rdf:resource="http://comp#User"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DescriptionElementOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -302,55 +394,26 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS students explore informatics systems systematically</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Catchword">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SubOperator">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#EvidencOf">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Evidence"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#ICSstudentsexploreinformaticssystemssystematically">
-    <rdf:type rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematically"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CatchwordOfInverse">
+  <rdf:Description rdf:about="http://comp#LearnerOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#Catchword"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SpecifiedByInverse">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#CompetenceSpec"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#User">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:range rdf:resource="http://comp#Learner"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#DieLehramtsanwärter">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Learner"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#LearnerOfInverse">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#Learner"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#computerscience">
+  <rdf:Description rdf:about="http://comp#CompetenceDescription">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">computerscience</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIreallyliketomoveittop">
     <rdf:type rdf:resource="http://comp#Ireallyliketomoveittop"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I really like to move it top</j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CompetenceDescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:Description rdf:about="http://comp#linksCompetence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Competence">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -358,7 +421,7 @@
   <rdf:Description rdf:about="http://comp#StudentRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#LearningProjectTemplate">
+  <rdf:Description rdf:about="http://comp#CompetenceArea">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LearningProjectTemplateOf">
@@ -366,31 +429,15 @@
     <rdfs:domain rdf:resource="http://comp#LearningProjectTemplate"/>
     <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#CompetenceArea">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#OperatorOfInverse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#Operator"/>
     <rdfs:range rdf:resource="http://comp#Competence"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Evidence">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#SimilarTo">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#Competence"/>
-    <rdfs:range rdf:resource="http://comp#Competence"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#AssessmentOfCompetence">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://comp#SelfAssessment"/>
-    <rdfs:range rdf:resource="http://comp#User"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#Itools">
-    <rdf:type rdf:resource="http://comp#tools"/>
-    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
-    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
-    <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
+  <rdf:Description rdf:about="http://comp#httplocalhostmoodlemodchoiceviewphpid3">
+    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
+    <j.0:ActivityOf rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
+    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://localhost/moodle/mod/choice/view.php?id=3</j.0:url>
+    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">my choice of choices</j.0:printableName>
   </rdf:Description>
 </rdf:RDF>

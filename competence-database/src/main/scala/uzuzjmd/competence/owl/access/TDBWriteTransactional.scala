@@ -81,20 +81,20 @@ trait TDBWriteTransactional[A] {
   }
 
   def execute[T](f: (CompOntologyManager, A) => T, g: A): T = {
+    var result: Any = null
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
-      val result = f(comp, g)
+      result = f(comp, g)
       comp.commit()
-      return result
     } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
-
       if (debugOn) {
         OntologyWriter.convert
       }
     }
+    return result.asInstanceOf[T]
   }
 
   /**

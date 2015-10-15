@@ -13,51 +13,61 @@ trait TDBREADTransactional[A, T] {
   val comp = new CompOntologyManager
 
   def execute(f: TRANSACTIONAL, g: A): T = {
+    var result: Any = null
     comp.beginRead()
     try {
-      f(comp, g)
+      result = f(comp, g)
     } finally {
       comp.end()
     }
+    return result.asInstanceOf[T]
   }
 
   def executeOnlyParam(f: TRANSACTIONAL3, g: A): T = {
+    var result: Any = null
     comp.beginRead()
     try {
-      f(g)
+      result = f(g)
     } finally {
       comp.end()
     }
+    return result.asInstanceOf[T]
   }
 
   def executeNoParam(f: TRANSACTIONAL4): T = {
+    var result: Any = null
     comp.beginRead()
     try {
-      return f(comp)
+      result = f(comp)
     } finally {
       comp.end()
     }
+    return result.asInstanceOf[T]
   }
 
   def executeNoParamX[X](f: CompOntologyManager => X): X = {
+    var result: Any = null
     comp.beginRead()
     try {
-      return f(comp)
+      result = f(comp)
     } finally {
       comp.end()
     }
+    return result.asInstanceOf[X]
   }
 
   /**
    * no return
    */
   def execute2(f: TRANSACTIONAL2) {
+    var result: Any = null
     comp.beginRead()
     try {
-      f(comp)
+      result = f(comp)
     } finally {
       comp.end()
     }
+    result
   }
 
 }
