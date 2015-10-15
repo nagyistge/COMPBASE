@@ -99,11 +99,13 @@ public class RuleFactory {
 	}
 
 	public String allCompetencesHaveGlobalContext2() {
-		return "[globalContext2: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
+		return "[globalContext2: (?competence rdf:type ?competenceClass) " + "(?competenceClass rdfs:subClassOf comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
 	}
 
 	public String superCompetencesHaveSameCourseContext() {
-		return "[superHaveSameCourseContext: (?competence rdf:type ?competenceClass) (?competenceClass rdfs:subClassOf comp:Competence) (?competenceClass rdfs:subClassOf ?competenceClass2) (?courseContext comp:CourseContextOf ?competenceClass)  -> (?courseContext comp:CourseContextOf ?competenceClass2)]";
+		return "[superHaveSameCourseContext: " + "(?competence rdf:type ?competenceClass) " + "(?competenceClass rdfs:subClassOf comp:Competence)" + " (?competence2 rdf:type comp:CompetenceClass2)"
+				+ "(?competenceClass2 rdf:type comp:Competence)" + " (?competenceClass rdfs:subClassOf ?competenceClass2)" + " (?courseContext comp:CourseContextOf ?competence)"
+				+ "  -> (?courseContext comp:CourseContextOf ?competence2)]";
 	}
 
 	public String noNothingArtefacts() {
