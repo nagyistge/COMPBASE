@@ -26,7 +26,7 @@ object Link2Ont extends TDBWriteTransactional[CompetenceLinkData] with RoleConve
 
     val creatorRole = convertRole(data.getRole, comp);
     for (evidence <- data.getEvidences().asScala) {
-      for (competence <- data.getEvidences().asScala) {
+      for (competence <- data.getCompetences.asScala) {
         val courseContext = new CourseContext(comp, data.getCourse);
         courseContext.persist();
         val creatorUser = new User(comp, data.getCreator, creatorRole, courseContext, data.getCreator);
@@ -34,7 +34,7 @@ object Link2Ont extends TDBWriteTransactional[CompetenceLinkData] with RoleConve
         val linkedUserUser = new User(comp, data.getLinkedUser, new StudentRole(comp), courseContext, data.getLinkedUser);
         linkedUserUser.persist();
 
-        val evidenceActivity = new EvidenceActivity(comp, evidence.split(",")(0), evidence.split(",")(1));
+        val evidenceActivity = new EvidenceActivity(comp, evidence.split(",")(1), evidence.split(",")(0));
         evidenceActivity.persist()
         val competenceDao = new Competence(comp, competence, competence, null);
         competenceDao.persist(true);
