@@ -22,7 +22,7 @@ import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.DefinitionNotInitalizedException
 
-abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
+abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp, compOntClass, identifier) {
   val util = comp.getUtil()
 
   def DEFINITION = "definition"

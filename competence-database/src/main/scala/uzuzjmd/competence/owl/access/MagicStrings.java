@@ -1,6 +1,28 @@
 package uzuzjmd.competence.owl.access;
 
+import java.io.File;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+
 public class MagicStrings {
+
+	public static void initLogger()
+	{
+		
+		File f = new File(MagicStrings.LOG4JXMLPATH);
+		if (f.exists() && !f.isDirectory()) {
+			DOMConfigurator.configure(MagicStrings.LOG4JXMLPATH);
+		} else {
+			System.out.println("ERROR: The path of log4j.xml is not valid. Configure in your server properties file log4jlocation.");
+		}
+	    Logger logJena = Logger.getLogger("com.hp.hpl.jena");
+	    logJena.setLevel(Level.WARN);
+	    System.out.println("Initialized Logging");
+	    Logger.getLogger("uzuzjmd.competence.owl.access.MagicStrings").debug("Start with Logging");
+	}
+	
 	// public static final String PREFIX =
 	// "http://www.uzuzjmd.de/proof-of-concept.owl#";
 	public static final String PREFIX = "http://comp#"; // better don't change,

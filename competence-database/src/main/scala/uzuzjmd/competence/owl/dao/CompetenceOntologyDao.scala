@@ -12,7 +12,7 @@ import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.ontology.CompOntClass
 
-abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp) {
+abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) {
 
   val util = comp.getUtil()
 

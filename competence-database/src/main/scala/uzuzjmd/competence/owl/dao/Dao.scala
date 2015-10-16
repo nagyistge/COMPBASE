@@ -13,8 +13,9 @@ import uzuzjmd.competence.owl.queries.CompetenceQueries
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.ontology.CompOntClass
 
-abstract class Dao(comp: CompOntologyManager) {
+abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass, val identifierTop: String = null) {
   def createIndividual: Individual;
   def getId: String;
   def getPropertyPair(key: String): (Property, Statement)
@@ -27,6 +28,16 @@ abstract class Dao(comp: CompOntologyManager) {
   def getFullDao(): Dao
 
   def exists(): Boolean;
+  
+  override def toString(): String= {
+    var str = ""
+    try {
+      str += compOntClassTop.toString + "{identifier:" + identifierTop + "}"  
+    } catch {
+      case e: Exception => return ""
+    }
+    return str
+  }
 
   def createEdgeWith(edgeType: CompObjectProperties, range: Dao) {
     val domainIndividual = createIndividual
