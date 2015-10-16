@@ -134,10 +134,25 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     log.debug("list of competences to be sorted: ")
     log.debug(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
 
+    if (rawList.isEmpty) {
+      return List.empty
+    }
+    if (rawList.size == 1) {
+      return rawList :: Nil
+    }
+
     // map to triples and filter the ones that have a suggested prerequisiste relationship
     val hList0TMP = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriples(rawList.toBuffer)
     val hList0 = hList0TMP.filter(Ont2SuggestedCompetencyGridFilter.filterisSuggestedCompetency)
     // init algorithm
+
+    if (hList0.isEmpty) {
+      return rawList.map(x => x :: Nil)
+    }
+    if (hList0.size == 1) {
+      return rawList.map(x => x :: Nil)
+    }
+
     val hList1 = Buffer(hList0.head)
     val hList0WithoutPivot = hList0.tail
 
