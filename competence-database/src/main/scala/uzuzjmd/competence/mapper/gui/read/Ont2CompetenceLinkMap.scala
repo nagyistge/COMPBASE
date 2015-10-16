@@ -36,6 +36,9 @@ object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLink
 
   private def getCompetenceLinkMap(comp: CompOntologyManager, user: String): CompetenceLinksMap = {
     val userDap = new User(comp, user)
+    if (!userDap.exists) {
+      return new CompetenceLinksMap
+    }
     val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
     val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getFullDao().getDefinition()))).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
