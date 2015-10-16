@@ -34,13 +34,8 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
 
   @Override
   def getFullDao(): Competence = {
-    try {
-      return new Competence(compManager, identifier, getDataField(DEFINITION), getDataFieldBoolean(COMPULSORY))
-    } catch {
-
-      case e: DataFieldNotInitializedException =>
-        return new Competence(compManager, identifier, getDataField(DEFINITION), false)
-    }
+    val definition2 = getDefinition
+    return new Competence(compManager, identifier, definition2, getDataFieldBoolean(COMPULSORY))
   }
 
   //  def getIdentifier(): String = {
@@ -100,7 +95,7 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   }
 
   def toStrinz(): String = {
-    return getDataField(DEFINITION)
+    return getDefinition()
   }
 
   def getAssessment(user: User): SelfAssessment = {

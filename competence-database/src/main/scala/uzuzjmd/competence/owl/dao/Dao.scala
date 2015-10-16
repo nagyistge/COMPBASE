@@ -92,11 +92,14 @@ abstract class Dao(comp: CompOntologyManager) {
   }
 
   def getDataFieldBoolean(key: String): java.lang.Boolean = {
-    val tmpResult = getPropertyPair(key)
-    if (tmpResult._2 == null) {
-      return null;
+    var tmpResult: (Property, Statement) = null
+    try {
+      tmpResult = getPropertyPair(key)
+      return tmpResult._2.getBoolean();
+    } catch {
+      case e: DataFieldNotInitializedException => return false
     }
-    return tmpResult._2.getBoolean();
+
   }
 
   def getDataFieldLong(key: String): java.lang.Long = {

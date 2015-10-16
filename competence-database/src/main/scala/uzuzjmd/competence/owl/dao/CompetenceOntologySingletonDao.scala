@@ -20,6 +20,7 @@ import scala.io.UTF8Codec
 import javax.ws.rs.NotFoundException
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.DefinitionNotInitalizedException
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp) {
   val util = comp.getUtil()
@@ -120,7 +121,12 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def getDefinition(): String = {
-    return getDataField(DEFINITION)
+    try {
+      return getDataField(DEFINITION)
+    } catch {
+      case e: DefinitionNotInitalizedException => return compOntClass.toString()
+    }
+
   }
 
   def isSublass(parent: Competence): Boolean = {
@@ -186,12 +192,16 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   @throws[OntClassForDaoNotInitializedException]
   @throws[DataFieldNotInitializedException]
+  @throws[DefinitionNotInitalizedException]
   override def getPropertyPair(key: String): (Property, Statement) = {
     val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
     if (getOntClass == null) {
       throw new OntClassForDaoNotInitializedException
     }
     val prop: Statement = getOntClass.getProperty(literal);
+    if (key.equals(DEFINITION) && prop == null) {
+      throw new DefinitionNotInitalizedException
+    }
     if (prop == null) {
       throw new DataFieldNotInitializedException
     }
