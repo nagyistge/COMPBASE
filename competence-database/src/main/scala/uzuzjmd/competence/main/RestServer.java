@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 import javax.ws.rs.ProcessingException;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
@@ -15,6 +16,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
+import uzuzjmd.competence.logging.LogConfigurator;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestXML;
@@ -31,14 +33,8 @@ public class RestServer {
 
 	public static void startServer() throws IOException, ProcessingException,
 			URISyntaxException {
-
-		File f = new File(MagicStrings.LOG4JXMLPATH);
-		if (f.exists() && !f.isDirectory()) {
-			DOMConfigurator.configure(MagicStrings.LOG4JXMLPATH);
-		} else {
-			System.out.println("ERROR: The path of log4j.xml is not valid. Configure in your server properties file log4jlocation.");
-		}
-		logger.info("Begin - Starting Server");
+		LogConfigurator.initLogger();
+		logger.debug("Entering startServer");
 		System.out.println("usage is java - jar *.version.jar TDBPATH WEBAPPATH");
 		System.out.println("for example java jar competence-server.jar tdb2 pojana.soft.cs.uni-potsdam.de/competence-portlet");
 
@@ -66,15 +62,20 @@ public class RestServer {
 		// GrizzlyHttpServerFactory.createHttpServer(new
 		// URI(MagicStrings.RESTURLCompetence), resourceConfig);
 
+
 		GrizzlyHttpServerFactory.createHttpServer(new URI(
 				MagicStrings.RESTURLCompetence), resourceConfig);
 
+		logger.info("Publlished HTTP Server to " + MagicStrings.RESTURLCompetence);
+		Logger logJena = Logger.getLogger("com.hp.hpl.jena");
+		logJena.setLevel(Level.WARN);
 		System.out.println("publishing competence server to to "
 				+ MagicStrings.RESTURLCompetence);
 		System.out.println("Test this with: " + MagicStrings.RESTURLCompetence
 				+ "/competences/xml/competencetree/university/all/nocache");
 
 		System.out.println("Press enter to exit");
+		logger.debug("Leaving startServer");
 		System.in.read();
 	}
 

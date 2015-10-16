@@ -53,10 +53,15 @@ import org.junit.BeforeClass
 import org.junit.Assert._
 import org.junit.Test
 import org.junit.Before
+import uzuzjmd.competence.tests.CoreTests
+import org.apache.log4j.LogManager
+import org.apache.log4j.xml.DOMConfigurator
+import org.apache.log4j.Logger
+import uzuzjmd.competence.logging.LoggingTDBWriteTransactional
 
 @RunWith(classOf[JUnitRunner])
-class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
-
+class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTransactional[Any] {
+  
   test("The CSV import should run without errors") {
 
     //          change this, if you want to really reset the database
