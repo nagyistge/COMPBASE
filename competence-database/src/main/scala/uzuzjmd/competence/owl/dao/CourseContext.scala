@@ -23,10 +23,16 @@ case class CourseContext(comp: CompOntologyManager, val name: String) extends Co
   }
 
   def getLinkedCompetences(): List[Competence] = {
+    if (name.equals("0") || name.equals("n0")) {
+      return List.empty
+    }
     return getAssociatedSingletonDaosAsRange(CompObjectProperties.CourseContextOf, classOf[Competence])
   }
 
   def getLinkedUser(): List[User] = {
+    if (name.equals("0") || name.equals("n0")) {
+      return List.empty
+    }
     return getAssociatedStandardDaosAsDomain(CompObjectProperties.belongsToCourseContext, classOf[User])
   }
 

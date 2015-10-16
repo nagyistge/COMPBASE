@@ -17,8 +17,9 @@ trait TDBREADTransactional[A, T] {
     comp.beginRead()
     try {
       result = f(comp, g)
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.end()
+      return result.asInstanceOf[T]
     }
     return result.asInstanceOf[T]
   }
@@ -28,8 +29,9 @@ trait TDBREADTransactional[A, T] {
     comp.beginRead()
     try {
       result = f(g)
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.end()
+      return result.asInstanceOf[T]
     }
     return result.asInstanceOf[T]
   }
@@ -53,7 +55,7 @@ trait TDBREADTransactional[A, T] {
     comp.beginRead()
     try {
       result = f(comp)
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.end()
       return result.asInstanceOf[X]
     }
@@ -68,7 +70,7 @@ trait TDBREADTransactional[A, T] {
     comp.beginRead()
     try {
       result = f(comp)
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.end()
       result
     }
