@@ -39,10 +39,13 @@ trait TDBREADTransactional[A, T] {
     comp.beginRead()
     try {
       result = f(comp)
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() }
+    finally {
       comp.end()
+      return result.asInstanceOf[T]
     }
     return result.asInstanceOf[T]
+
   }
 
   def executeNoParamX[X](f: CompOntologyManager => X): X = {
@@ -52,6 +55,7 @@ trait TDBREADTransactional[A, T] {
       result = f(comp)
     } finally {
       comp.end()
+      return result.asInstanceOf[X]
     }
     return result.asInstanceOf[X]
   }
@@ -66,6 +70,7 @@ trait TDBREADTransactional[A, T] {
       result = f(comp)
     } finally {
       comp.end()
+      result
     }
     result
   }

@@ -4,6 +4,12 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:j.0="http://comp#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://comp#Ireallyreallyhopeitworksnow">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:CommentOf rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444977998247</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I really really hope it works now</j.0:text>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#AbstractEvidenceLink">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
@@ -66,6 +72,9 @@
     <rdfs:domain rdf:resource="http://comp#CourseContext"/>
     <rdfs:range rdf:resource="http://comp#SelectedLearningProjectTemplate"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#ICatchword">
+    <rdf:type rdf:resource="http://comp#Catchword"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#UserOfComment">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#User"/>
@@ -103,19 +112,41 @@
     <rdf:type rdf:resource="http://comp#groups"/>
     <j.0:EvidencOf rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IOperator">
+    <rdf:type rdf:resource="http://comp#Operator"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#createdBy">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:domain rdf:resource="http://comp#AbstractEvidenceLink"/>
     <rdfs:range rdf:resource="http://comp#User"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Iliketomoveitmoveitbot">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Iliketomoveitmoveit"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I like to move it move it bot</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Ianotheronehitsthedust">
+    <rdf:type rdf:resource="http://comp#anotheronehitsthedust"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IIliketomoveitmoveitbot"/>
+    <j.0:OperatorOf rdf:resource="http://comp#IIliketomoveitmoveitbot"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#AdminUser">
     <rdf:type rdf:resource="http://comp#User"/>
     <j.0:UserOfLink rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
     <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Admin User</j.0:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#SelectedLearningProjectTemplate">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#anotheronehitsthedust">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">another one hits the dust</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#OperatorOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -129,6 +160,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICSstudentsusetoolsinteractively">
     <rdf:type rdf:resource="http://comp#CSstudentsusetoolsinteractively"/>
+    <j.0:PrerequisiteOf rdf:resource="http://comp#IIliketomoveitmoveit"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#PrerequisiteOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -222,6 +254,11 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#test2stuffcom">
     <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfComment rdf:resource="http://comp#Irealllyhopethedbworksnow"/>
+    <j.0:UserOfComment rdf:resource="http://comp#Ireallyreallyhopeitworksnow"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsusetoolsinteractively"/>
+    <j.0:NotAllowedToView rdf:resource="http://comp#ICSstudentsinteractinheterogeneousgroups"/>
+    <j.0:belongsToCourseContext rdf:resource="http://comp#university"/>
     <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">test2@stuff.com</j.0:name>
   </rdf:Description>
@@ -247,10 +284,16 @@
     <j.0:createdBy rdf:resource="http://comp#test2stuffcom"/>
     <j.0:linksCompetence rdf:resource="http://comp#ICSstudentsexploreinformaticssystemssystematically"/>
     <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444917567922</j.0:datecreated>
-    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
+    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:isValidated>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IIliketomoveitmoveitbot">
+    <rdf:type rdf:resource="http://comp#Iliketomoveitmoveitbot"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I like to move it move it bot</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ICSstudentsinteractinheterogeneousgroups">
     <rdf:type rdf:resource="http://comp#CSstudentsinteractinheterogeneousgroups"/>
+    <j.0:PrerequisiteOf rdf:resource="http://comp#ICSstudentsactautonomously"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#MetaOperator">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -320,6 +363,8 @@
     <j.0:CourseContextOf rdf:resource="http://comp#IIliketomoveitmoveit"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ICompetence"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIreallyliketomoveittop"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIliketomoveitmoveitbot"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#Ianotheronehitsthedust"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#EvidenceActivity">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -332,6 +377,7 @@
     <rdf:type rdf:resource="http://comp#CourseContext"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIliketomoveitmoveit"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIreallyliketomoveittop"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIliketomoveitmoveitbot"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#CommentOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -439,5 +485,11 @@
     <j.0:ActivityOf rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
     <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://localhost/moodle/mod/choice/view.php?id=3</j.0:url>
     <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">my choice of choices</j.0:printableName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Irealllyhopethedbworksnow">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:CommentOf rdf:resource="http://comp#CSstudentsexploreinformaticssystemssystematicallyhttplocalhostmoodlemodchoiceviewphpid3"/>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1444977971762</j.0:datecreated>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I reallly hope the db works now</j.0:text>
   </rdf:Description>
 </rdf:RDF>
