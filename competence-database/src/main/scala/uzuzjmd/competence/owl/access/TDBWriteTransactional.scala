@@ -9,9 +9,14 @@ import uzuzjmd.competence.main.OntologyWriter
  */
 trait TDBWriteTransactional[A] {
   val comp = new CompOntologyManager
-  val debugOn = true
+
+  var debugOn = false
   type TRANSACTIONAL = (CompOntologyManager, A) => Unit
   type TRANSACTIONAL2 = (CompOntologyManager) => Unit
+
+  def setDebug() {
+    debugOn = MagicStrings.WRITEDEBUGRDF
+  }
 
   def execute(f: TRANSACTIONAL, g: A) {
     comp.begin

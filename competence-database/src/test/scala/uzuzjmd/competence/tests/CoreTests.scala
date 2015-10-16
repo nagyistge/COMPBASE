@@ -59,12 +59,12 @@ class CoreTests extends JuliansUnit with ShouldMatchers with TDBWriteTransaction
 
   test("The CSV import should run without errors") {
 
-    //      change this, if you want to really reset the database
-    //    CompFileUtil.deleteTDB()
-    //    val compOntManag = new CompOntologyManager()
-    //    CompetenceImporter.convertCSVArray();
-    //    EposImporter.importEpos()
-    //    ()
+    //          change this, if you want to really reset the database
+    CompFileUtil.deleteTDB()
+    val compOntManag = new CompOntologyManager()
+    CompetenceImporter.convertCSVArray();
+    EposImporter.importEpos()
+
   }
 
   test("if a user is persisted, the course context should be acessable") {
