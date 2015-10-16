@@ -19,7 +19,7 @@ trait TDBWriteTransactional[A] {
     try {
       f(comp, g)
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
@@ -38,7 +38,7 @@ trait TDBWriteTransactional[A] {
     try {
       f(comp, g)
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
@@ -50,7 +50,7 @@ trait TDBWriteTransactional[A] {
     try {
       f(comp)
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
@@ -71,7 +71,7 @@ trait TDBWriteTransactional[A] {
       f(comp)
       comp.getM.validate()
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
     }
@@ -87,7 +87,7 @@ trait TDBWriteTransactional[A] {
     try {
       result = f(comp, g)
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
       if (debugOn) {
@@ -106,7 +106,7 @@ trait TDBWriteTransactional[A] {
     try {
       f(comp, g)
       comp.commit()
-    } finally {
+    } catch { case e: Exception => e.printStackTrace() } finally {
       comp.getM.leaveCriticalSection()
       comp.end()
     }

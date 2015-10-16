@@ -15,10 +15,12 @@ object Ont2CourseRequirements extends TDBREADTransactional[String, String] with 
   }
 
   def convertHelper(comp: CompOntologyManager, changes: String): String = {
-    val courseContextIndividual = new CourseContext(comp, changes).createIndividual;
+    val courseContextIndividual = new CourseContext(comp, changes).getIndividual;
     val requirementsLiteral = extractRequirementsLiteral(comp);
+    if (courseContextIndividual == null) {
+      return ""
+    }
     val statement = courseContextIndividual.getProperty(requirementsLiteral);
-
     if (statement != null) {
       return statement.asTriple().getObject().getLiteralLexicalForm();
     } else {
