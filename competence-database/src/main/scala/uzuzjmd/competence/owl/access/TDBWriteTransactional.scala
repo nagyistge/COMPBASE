@@ -36,10 +36,7 @@ trait TDBWriteTransactional[A] {
   def executeWithReasoning(f: TRANSACTIONAL, g: A) {
     comp.begin
     comp.getM.enterCriticalSection(false)
-    if (!debugOn) {
-      comp.switchOffDebugg();
-    }
-    comp.startReasoning();
+    comp.startReasoning(debugOn);
     try {
       f(comp, g)
       comp.commit()
@@ -68,10 +65,8 @@ trait TDBWriteTransactional[A] {
   def executeNoParamWithReasoning(f: TRANSACTIONAL2) {
     comp.begin
     comp.getM.enterCriticalSection(false)
-    comp.startReasoning();
-    if (!debugOn) {
-      comp.switchOffDebugg();
-    }
+    comp.startReasoning(debugOn);
+
     try {
       f(comp)
       comp.getM.validate()

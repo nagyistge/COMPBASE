@@ -1,10 +1,8 @@
 package uzuzjmd.competence.mapper.gui
 
 import java.util.HashMap
-
 import scala.collection.JavaConverters.asScalaSetConverter
 import scala.collection.JavaConverters.mapAsJavaMapConverter
-
 import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
@@ -12,11 +10,12 @@ import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 import uzuzjmd.java.collections.MapsMagic
+import uzuzjmd.competence.owl.access.Logging
 
 /**
  * @author dehne
  */
-object Ont2SuggestedCompetenceGraph {
+object Ont2SuggestedCompetenceGraph extends Logging {
 
   def getLearningTemplateResultSet(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): LearningTemplateResultSet = {
 
@@ -46,6 +45,8 @@ object Ont2SuggestedCompetenceGraph {
     val result1 = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(comp, learningProjectTemplate).mapValues { x => x.flatten }
 
     val resultInverted = MapsMagic.invertAssociation(result1).map { case (key, value) => (key.getDefinition(), value) }.mapValues(x => x.map(y => y.getDefinition()))
+    resultInverted.foreach(x => logger.debug(" key: " + x._1 + ", values"))
+
     // test if both parts of triple have same catchword
     val result2 = graph.triples.asScala.map { x => (x, resultInverted.get(x.fromNode).toSet.intersect(resultInverted.get(x.toNode).toSet).flatten.toArray) }.filterNot(p => p._2.isEmpty).toMap
 

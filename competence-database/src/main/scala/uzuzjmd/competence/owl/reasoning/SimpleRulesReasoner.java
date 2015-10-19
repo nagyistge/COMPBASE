@@ -29,8 +29,10 @@ public class SimpleRulesReasoner {
 	/*
 	 * Logging
 	 */
-	public static final Logger logger = LogManager.getLogger(SimpleRulesReasoner.class.getName());
-	public static LogStream logStream = new LogStream(logger, Level.DEBUG);
+	public static final Logger logger = LogManager
+			.getLogger(SimpleRulesReasoner.class.getName());
+	public static LogStream logStream = new LogStream(
+			logger, Level.DEBUG);
 
 	/**
 	 * properties
@@ -38,18 +40,21 @@ public class SimpleRulesReasoner {
 	public GenericRuleReasoner reasoner;
 	private CompOntologyManager manager;
 
-	public SimpleRulesReasoner(CompOntologyManager manager, Boolean ruleLogging) throws IOException {
+	public SimpleRulesReasoner(CompOntologyManager manager,
+			Boolean ruleLogging) throws IOException {
 		this.manager = manager;
 		setupRulesReasoner(ruleLogging);
 	}
 
 	public synchronized Model reason() {
-		InfModel inf = ModelFactory.createInfModel(reasoner, manager.getM());
+		InfModel inf = ModelFactory.createInfModel(
+				reasoner, manager.getM());
 		manager.getM().validate();
 		manager.getM().add(inf.getDeductionsModel());
 		if (!inf.getDeductionsModel().isEmpty()) {
 			logger.debug("RulesReasoner * * =>");
-			inf.getDeductionsModel().write(logStream, "N-TRIPLE", "comp:");
+			inf.getDeductionsModel().write(logStream,
+					"N-TRIPLE", "comp:");
 			printTrace(inf);
 			logger.debug("RulesReasoner close");
 		}
@@ -62,17 +67,20 @@ public class SimpleRulesReasoner {
 		reasoner.setDerivationLogging(true);
 		reasoner.setOWLTranslation(true); // not needed in RDFS case
 		reasoner.setTransitiveClosureCaching(true);
-		reasoner.setParameter(ReasonerVocabulary.PROPtraceOn, ruleLogging);
+		reasoner.setParameter(
+				ReasonerVocabulary.PROPtraceOn, ruleLogging);
 		reasoner.setTraceOn(ruleLogging);
 		reason();
 	}
 
 	public void printTrace(InfModel inf) {
 		PrintWriter out = new PrintWriter(System.out);
-		for (StmtIterator i = inf.listStatements(); i.hasNext();) {
+		for (StmtIterator i = inf.listStatements(); i
+				.hasNext();) {
 			Statement s = i.nextStatement();
 			// System.out.println("Statement is " + s);
-			for (Iterator id = inf.getDerivation(s); id.hasNext();) {
+			for (Iterator id = inf.getDerivation(s); id
+					.hasNext();) {
 				Derivation deriv = (Derivation) id.next();
 				deriv.printTrace(out, true);
 			}
@@ -103,7 +111,8 @@ public class SimpleRulesReasoner {
 	// }
 
 	public synchronized void addRuleAsString(String rule) {
-		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
+		rule = rule
+				.replaceAll("comp:", MagicStrings.PREFIX);
 		List<Rule> rules = Rule.parseRules(rule);
 		reasoner.addRules(rules);
 	}
@@ -114,9 +123,12 @@ public class SimpleRulesReasoner {
 	 * @param rule
 	 * @param rulename
 	 */
-	synchronized public void addRuleAsString(String rule, String rulename) {
-		rule = rule.replaceAll("comp:", MagicStrings.PREFIX);
-		String resultRule = "[" + rulename + ":" + rule + "]";
+	synchronized public void addRuleAsString(String rule,
+			String rulename) {
+		rule = rule
+				.replaceAll("comp:", MagicStrings.PREFIX);
+		String resultRule = "[" + rulename + ":" + rule
+				+ "]";
 		List<Rule> rules = Rule.parseRules(resultRule);
 		reasoner.addRules(rules);
 	}
@@ -126,8 +138,16 @@ public class SimpleRulesReasoner {
 	}
 
 	public void switchOnDebug() {
-		getReasoner().setParameter(ReasonerVocabulary.PROPtraceOn, true);
+		getReasoner().setParameter(
+				ReasonerVocabulary.PROPtraceOn, true);
 		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
+	}
+
+	public void switchOffDebug() {
+		getReasoner().setParameter(
+				ReasonerVocabulary.PROPtraceOn, false);
+		SimpleRulesReasoner.logger.setLevel(Level.INFO);
+		logStream = new LogStream(logger, Level.ERROR);
 	}
 
 }

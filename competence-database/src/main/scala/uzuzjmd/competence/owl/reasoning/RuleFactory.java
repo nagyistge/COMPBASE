@@ -118,6 +118,7 @@ public class RuleFactory {
 
 	public String superCompetencesHaveSameCourseContext() {
 		return "[superHaveSameCourseContext: "
+				+ "(?courseContext comp:CourseContextOf ?competence2) <-"
 				+ " notEqual(?competenceClass2, comp:Thing)"
 				+ " notEqual(?competenceClass2, ?competence2)"
 				+ " notEqual(?competence2, http://comp#ICompetence)"
@@ -130,7 +131,7 @@ public class RuleFactory {
 				+ " (?competenceClass rdfs:subClassOf ?competenceClass2)"
 				+ " (?courseContext comp:CourseContextOf ?competence)"
 				+ " notEqual(?courseContext, comp:university)"
-				+ "  -> (?courseContext comp:CourseContextOf ?competence2)]";
+				+ " ]";
 	}
 
 	public String noNothingArtefacts() {

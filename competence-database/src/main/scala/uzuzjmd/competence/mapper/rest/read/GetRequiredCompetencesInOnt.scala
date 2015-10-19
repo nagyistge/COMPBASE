@@ -5,19 +5,18 @@ import uzuzjmd.competence.owl.access.TDBREADTransactional
 import uzuzjmd.competence.owl.dao.Competence
 
 /**
-* @author jbe
-**/
+ * @author jbe
+ */
 
-object GetRequiredCompetencesInOnt extends TDBREADTransactional[String, Array[String]]{
-  def convert(changes:String) : Array[String]= {
+object GetRequiredCompetencesInOnt extends TDBREADTransactional[String, Array[String]] {
+  def convert(changes: String): Array[String] = {
     return execute(convertGetRequiredCompetencesInOnt _, changes)
   }
-  
-  def convertGetRequiredCompetencesInOnt(comp: CompOntologyManager, changes: String) : Array[String]= {
-    comp.startReasoning();
-		comp.switchOffDebugg();
-		val competence = new Competence(comp, changes, null, null);
-		return competence.getRequiredCompetencesAsArray();
+
+  def convertGetRequiredCompetencesInOnt(comp: CompOntologyManager, changes: String): Array[String] = {
+    comp.startReasoning(false);
+    val competence = new Competence(comp, changes, null, null);
+    return competence.getRequiredCompetencesAsArray();
 
   }
 }
