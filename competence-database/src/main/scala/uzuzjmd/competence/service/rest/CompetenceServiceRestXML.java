@@ -42,7 +42,8 @@ import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/xml")
-public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
+public class CompetenceServiceRestXML extends
+		CompetenceOntologyInterface {
 
 	/**
 	 * new competences can be added via this function. They must be encoded as
@@ -62,8 +63,10 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/addCompetenceBean")
-	public Response addCompetenceBean(CompetenceBean[] competenceBean) {
-		CompetenceImporter.competenceBeanToDatabase(competenceBean);
+	public Response addCompetenceBean(
+			CompetenceBean[] competenceBean) {
+		CompetenceImporter
+				.competenceBeanToDatabase(competenceBean);
 		return Response.ok("competences updated").build();
 	}
 
@@ -85,19 +88,31 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/{context}/{compulsory}/{cache}")
-	public Response getCompetenceTree(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators,
+	public Response getCompetenceTree(
+			@PathParam("context") String course,
+			@PathParam("compulsory") String compulsory,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+			@QueryParam(value = "selectedOperators") List<String> selectedOperators,
 			@QueryParam("textFilter") String textFilter) {
 
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, null, textFilter);
+			result = CompetenceServiceWrapper
+					.getCompetenceTree(selectedCatchwords,
+							selectedOperators, course,
+							null, textFilter);
 		} else {
-			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper.getCompetenceTree(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
+			Boolean compulsoryBoolean = RestUtil
+					.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper
+					.getCompetenceTree(selectedCatchwords,
+							selectedOperators, course,
+							compulsoryBoolean, textFilter);
 		}
 
-		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(
+				result, cache.equals("cached"));
 		return response;
 	}
 
@@ -119,8 +134,12 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/{context}/{compulsory}/{cache}/example")
-	public List<CompetenceXMLTree> getCompetenceTreeExample(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators,
+	public List<CompetenceXMLTree> getCompetenceTreeExample(
+			@PathParam("context") String course,
+			@PathParam("compulsory") String compulsory,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+			@QueryParam(value = "selectedOperators") List<String> selectedOperators,
 			@QueryParam("textFilter") String textFilter) {
 
 		return null;
@@ -142,19 +161,33 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/competencetree/coursecontext/{context}/{compulsory}/{cache}")
-	public Response getCompetenceTreeForCourse(@PathParam("context") String course, @PathParam("compulsory") String compulsory, @PathParam("cache") String cache,
-			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords, @QueryParam(value = "selectedOperators") List<String> selectedOperators,
+	public Response getCompetenceTreeForCourse(
+			@PathParam("context") String course,
+			@PathParam("compulsory") String compulsory,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+			@QueryParam(value = "selectedOperators") List<String> selectedOperators,
 			@QueryParam("textFilter") String textFilter) {
 
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(selectedCatchwords, selectedOperators, course, null, textFilter);
+			result = CompetenceServiceWrapper
+					.getCompetenceTreeForCourse(
+							selectedCatchwords,
+							selectedOperators, course,
+							null, textFilter);
 		} else {
-			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(selectedCatchwords, selectedOperators, course, compulsoryBoolean, textFilter);
+			Boolean compulsoryBoolean = RestUtil
+					.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper
+					.getCompetenceTreeForCourse(
+							selectedCatchwords,
+							selectedOperators, course,
+							compulsoryBoolean, textFilter);
 		}
 
-		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(
+				result, cache.equals("cached"));
 		return response;
 	}
 
@@ -215,12 +248,18 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/operatortree/{course}/{cache}")
-	public Response getOperatorTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+	public Response getOperatorTree(
+			@PathParam("course") String course,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree(selectedCatchwords, selectedOperators, course);
+		OperatorXMLTree[] result = CompetenceServiceWrapper
+				.getOperatorTree(selectedCatchwords,
+						selectedOperators, course);
 
-		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(
+				result, cache.equals("cached"));
 		return response;
 	}
 
@@ -241,10 +280,16 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/catchwordtree/{course}/{cache}")
-	public Response getCatchwordTree(@PathParam("course") String course, @PathParam("cache") String cache, @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+	public Response getCatchwordTree(
+			@PathParam("course") String course,
+			@PathParam("cache") String cache,
+			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree(selectedCatchwords, selectedOperators, course);
-		Response response = RestUtil.buildCachedResponse(result, cache.equals("cached"));
+		CatchwordXMLTree[] result = CompetenceServiceWrapper
+				.getCatchwordTree(selectedCatchwords,
+						selectedOperators, course);
+		Response response = RestUtil.buildCachedResponse(
+				result, cache.equals("cached"));
 		return response;
 	}
 
@@ -257,7 +302,8 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@GET
 	@Path("/learningtemplates")
 	public StringList getAllLearningTemplates() {
-		StringList learningTemplates = Ont2LearningTemplates.convert();
+		StringList learningTemplates = Ont2LearningTemplates
+				.convert();
 		return learningTemplates;
 	}
 
@@ -271,8 +317,10 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@GET
 	@Path("/learningtemplates/cache")
 	public Response getAllLearningTemplates2() {
-		StringList learningTemplates = Ont2LearningTemplates.convert();
-		Response response = RestUtil.buildCachedResponse(learningTemplates, true);
+		StringList learningTemplates = Ont2LearningTemplates
+				.convert();
+		Response response = RestUtil.buildCachedResponse(
+				learningTemplates, true);
 		return response;
 	}
 
@@ -292,11 +340,15 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/add")
-	public Response addLearningTemplateSelection(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
+	public Response addLearningTemplateSelection(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, selectedTemplate);
 		LearningTemplateToOnt.convert(data);
-		return Response.ok("templateSelection updated").build();
+		return Response.ok("templateSelection updated")
+				.build();
 	}
 
 	/**
@@ -309,9 +361,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/learningtemplates/selected")
-	public Response getSelectedLearningTemplates(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId) {
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, null);
-		StringList result = Ont2SelectedLearningTemplate.convert(data);
+	public Response getSelectedLearningTemplates(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId) {
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, null);
+		StringList result = Ont2SelectedLearningTemplate
+				.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
@@ -325,9 +381,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("/learningtemplates/selected/cache")
-	public Response getSelectedLearningTemplates2(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId) {
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, null);
-		StringList result = Ont2SelectedLearningTemplate.convert(data);
+	public Response getSelectedLearningTemplates2(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId) {
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, null);
+		StringList result = Ont2SelectedLearningTemplate
+				.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
@@ -342,12 +402,17 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/delete")
-	public Response deleteSelectedLearningTemplate(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
+	public Response deleteSelectedLearningTemplate(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, selectedTemplate);
 		DeleteTemplateInOnt.convert(data);
-		return Response.ok("templateSelection updated after delete").build();
+		return Response.ok(
+				"templateSelection updated after delete")
+				.build();
 	}
 
 	/**
@@ -363,10 +428,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("learningtemplates/gridview")
-	public SuggestedCompetenceGrid getGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId,
+	public SuggestedCompetenceGrid getGridView(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, selectedTemplate);
 		return Ont2SuggestedCompetenceGrid.convert(data);
 	}
 
@@ -383,9 +451,14 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("learningtemplates/gridview/cache")
-	public Response getGridView2(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, @QueryParam(value = "selectedTemplate") String selectedTemplate) {
-		LearningTemplateData data = new LearningTemplateData(userName, groupId, selectedTemplate);
-		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid.convert(data);
+	public Response getGridView2(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId,
+			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
+		LearningTemplateData data = new LearningTemplateData(
+				userName, groupId, selectedTemplate);
+		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
+				.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
@@ -405,10 +478,16 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("learningtemplates/gridview/update")
-	public Response updateGridView(@QueryParam(value = "userId") String userName, @QueryParam(value = "groupId") String groupId, ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
+	public Response updateGridView(
+			@QueryParam(value = "userId") String userName,
+			@QueryParam(value = "groupId") String groupId,
+			ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
 
-		ReflectiveAssessmentChangeData assessmentChangeData = new ReflectiveAssessmentChangeData(userName, groupId, reflectiveAssessmentHolder);
-		ReflectiveAssessmentHolder2Ont.convert(assessmentChangeData);
+		ReflectiveAssessmentChangeData assessmentChangeData = new ReflectiveAssessmentChangeData(
+				userName, groupId,
+				reflectiveAssessmentHolder);
+		ReflectiveAssessmentHolder2Ont
+				.convert(assessmentChangeData);
 		return Response.ok("reflexion updated").build();
 	}
 
@@ -422,10 +501,13 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/addEpos")
-	public Response importEpos(@BeanParam EPOSTypeWrapper wrapper) {
+	public Response importEpos(
+			@BeanParam EPOSTypeWrapper wrapper) {
 
-		EposImporter.importEposCompetences(Arrays.asList(wrapper.getEposCompetences()));
-		return Response.ok("epos templates updated").build();
+		EposImporter.importEposCompetences(Arrays
+				.asList(wrapper.getEposCompetences()));
+		return Response.ok("epos templates updated")
+				.build();
 	}
 
 	// private Response dummyGridResult() {
@@ -470,10 +552,18 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@POST
 	@Path("/learningtemplate/add/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Response addLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName, LearningTemplateResultSet learningTemplateResultSet) {
-		learningTemplateResultSet.setNameOfTheLearningTemplate(learningTemplateName);
-		LearningTemplateToOnt.convertLearningTemplateResultSet(learningTemplateResultSet);
-		return Response.ok("learningTemplate added").build();
+	public Response addLearningTemplate(
+			@PathParam("learningTemplateName") String learningTemplateName,
+			LearningTemplateResultSet learningTemplateResultSet) {
+		if (learningTemplateResultSet == null) {
+			learningTemplateResultSet = new LearningTemplateResultSet();
+		}
+		learningTemplateResultSet
+				.setNameOfTheLearningTemplate(learningTemplateName);
+		LearningTemplateToOnt
+				.convertLearningTemplateResultSet(learningTemplateResultSet);
+		return Response.ok("learningTemplate added")
+				.build();
 
 	}
 
@@ -495,8 +585,11 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@GET
 	@Path("/learningtemplate/get/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
-	public LearningTemplateResultSet getLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-		LearningTemplateResultSet result = Ont2LearningTemplateResultSet.convert(learningTemplateName);
+	public LearningTemplateResultSet getLearningTemplate(
+			@PathParam("learningTemplateName") String learningTemplateName) {
+		// OntologyWriter.convert();
+		LearningTemplateResultSet result = Ont2LearningTemplateResultSet
+				.convert(learningTemplateName);
 		return result;
 	}
 
@@ -504,11 +597,14 @@ public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 	@POST
 	@Path("/learningtemplate/delete/{learningTemplateName}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Response deleteLearningTemplate(@PathParam("learningTemplateName") String learningTemplateName) {
-		DeleteLearningTemplateinOnt.convert(learningTemplateName);
+	public Response deleteLearningTemplate(
+			@PathParam("learningTemplateName") String learningTemplateName) {
+		DeleteLearningTemplateinOnt
+				.convert(learningTemplateName);
 
 		// change for testcommit to gitup
-		return Response.ok("learningTemplate deleted").build();
+		return Response.ok("learningTemplate deleted")
+				.build();
 	}
 
 }
