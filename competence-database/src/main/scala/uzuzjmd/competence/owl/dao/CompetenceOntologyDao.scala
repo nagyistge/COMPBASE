@@ -4,15 +4,15 @@ import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
-
 import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.owl.access.Logging
 
-abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) {
+abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {
 
   val util = comp.getUtil()
 
@@ -80,8 +80,10 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
   @throws[IndividualNotFoundException]
   override def getId: String = {
+
     //    return identifier
     if (getIndividual == null) {
+      logger.debug("could not get Individual for class: " + compOntClass.toString() + ", und identifier: " + identifier)
       throw new IndividualNotFoundException
     }
     return getIndividual.getLocalName

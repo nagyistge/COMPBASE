@@ -72,6 +72,6 @@ public class MagicStrings {
 	public static final String thesaurusDatabaseUrl = PropUtil
 			.getProp("thesaurusDatabaseUrl");
 	public static final Boolean WRITEDEBUGRDF = PropUtil
-			.getProp("writeDebugRDF").equals("true");
+			.getProp("writeDebugRDF").equals("false");
 
 }

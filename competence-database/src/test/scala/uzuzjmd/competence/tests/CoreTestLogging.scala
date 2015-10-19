@@ -11,13 +11,13 @@ import uzuzjmd.competence.owl.dao.TeacherRole
 import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
 import org.apache.log4j.Logger
-import uzuzjmd.competence.logging.ObjectUtil
+//import uzuzjmd.competence.logging.ObjectUtil
 
 @RunWith(classOf[JUnitRunner])
 class CoreTestLogging extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
 
   private val logger = Logger.getLogger(getClass.getName);
-  
+
   test("Write LearningTemplateData with logging") {
     val groupId = "111332";
     val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";
@@ -27,14 +27,14 @@ class CoreTestLogging extends JuliansUnit with ShouldMatchers with TDBWriteTrans
     logger.info("Created Object: " + changes.toString)
     LearningTemplateToOnt.convert(changes)
   }
-  
+
   test("Test the Dao Objects") {
     //User
     executeNoParam(userPersistTest _)
-    
+
   }
-  
-  def userPersistTest(comp:CompOntologyManager) {
+
+  def userPersistTest(comp: CompOntologyManager) {
     val teacherRole = new TeacherRole(comp)
     val coursecontext = new CourseContext(comp, "2")
     val user = new User(comp, "me", teacherRole, coursecontext, "Julian Dehne")
