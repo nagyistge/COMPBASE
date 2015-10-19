@@ -46,13 +46,17 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
   }
 
   private def convertLearningTemplate(comp: CompOntologyManager, graph: Graph, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]], learningTemplateName: String) {
-    if (!graph.triples.asScala.forall { x => tripleCatchwordMap.keySet().asScala.contains(x) }) {
-      throw new WebApplicationException(new Exception("All the triples must be contained in the catchwordMap"))
-    }
+    if (graph != null) {
+      if (graph.triples != null) {
+        if (!graph.triples.asScala.forall { x => tripleCatchwordMap.keySet().asScala.contains(x) }) {
+          throw new WebApplicationException(new Exception("All the triples must be contained in the catchwordMap"))
+        }
 
-    graph.triples.asScala.foreach { x => convertTriple(x, comp, tripleCatchwordMap) }
-    val template = new LearningProjectTemplate(comp, learningTemplateName, graph.nodes.asScala.map(x => new Competence(comp, x.getLabel, x.getLabel, null)).toList, learningTemplateName)
-    template.persist()
+        graph.triples.asScala.foreach { x => convertTriple(x, comp, tripleCatchwordMap) }
+        val template = new LearningProjectTemplate(comp, learningTemplateName, graph.nodes.asScala.map(x => new Competence(comp, x.getLabel, x.getLabel, null)).toList, learningTemplateName)
+        template.persist()
+      }
+    }
   }
 
   private def convertTriple(triple: GraphTriple, comp: CompOntologyManager, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]]) {
