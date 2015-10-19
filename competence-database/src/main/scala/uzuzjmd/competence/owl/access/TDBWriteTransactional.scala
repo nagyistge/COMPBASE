@@ -10,7 +10,7 @@ import uzuzjmd.competence.main.OntologyWriter
 trait TDBWriteTransactional[A] {
   val comp = new CompOntologyManager
 
-  var debugOn = true
+  var debugOn = false
   type TRANSACTIONAL = (CompOntologyManager, A) => Unit
   type TRANSACTIONAL2 = (CompOntologyManager) => Unit
 
