@@ -113,7 +113,7 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     val allCatchwords = includedCompetences.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
 
     val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
-    logger.warn("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
+    logger.trace("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
 
     // group by catchwords
     val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.filter(_.getCatchwords.contains(x._1)))).toMap
@@ -131,8 +131,8 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
    */
   private def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
 
-    logger.debug("list of competences to be sorted: ")
-    logger.debug(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
+    logger.trace("list of competences to be sorted: ")
+    logger.trace(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
 
     if (rawList.isEmpty) {
       return List.empty
@@ -156,10 +156,10 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     val hList1 = Buffer(hList0.head)
     val hList0WithoutPivot = hList0.tail
 
-    logger.debug("init algorithm with:")
-    logger.debug("hList0:" + compairListToString(hList0))
-    logger.debug("hListWithoutPivot:" + compairListToString(hList0WithoutPivot))
-    logger.debug("hList1:" + compairListToString(hList1))
+    logger.trace("init algorithm with:")
+    logger.trace("hList0:" + compairListToString(hList0))
+    logger.trace("hListWithoutPivot:" + compairListToString(hList0WithoutPivot))
+    logger.trace("hList1:" + compairListToString(hList1))
 
     // start recursive algorithm
     return sortListOfSuggestedCompetences1(hList0WithoutPivot, hList1)
@@ -179,10 +179,10 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     val sortedhList0WithoutPivot = hList0WithoutPivot.sortWith(Ont2SuggestedCompetencyGridFilter.sortCompetencePairs)
     sortedhList0WithoutPivot.foreach(addHlist0ElementToCorrectList(_)(hList1, hList2))
 
-    logger.debug("after adding elements to correct lists:")
-    logger.debug("hList0:" + compairListToString(sortedhList0WithoutPivot))
-    logger.debug("hList1:" + compairListToString(hList1))
-    logger.debug("hList2:" + compairListToString(hList2))
+    logger.trace("after adding elements to correct lists:")
+    logger.trace("hList0:" + compairListToString(sortedhList0WithoutPivot))
+    logger.trace("hList1:" + compairListToString(hList1))
+    logger.trace("hList2:" + compairListToString(hList2))
 
     val reverseConvertedList = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriplesInverse(hList1).toList
     // stop if all elements have been added to a path

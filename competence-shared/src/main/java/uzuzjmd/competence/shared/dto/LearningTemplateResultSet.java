@@ -19,11 +19,18 @@ public class LearningTemplateResultSet {
 	private String nameOfTheLearningTemplate;
 
 	public LearningTemplateResultSet() {
-
+		this.catchwordMap = new HashMap<GraphTriple, String[]>();
+		this.resultGraph = new Graph();
 	}
 
 	public LearningTemplateResultSet(GraphNode root) {
 		this.root = root;
+	}
+
+	public void addTriple(GraphTriple triple,
+			String[] catchwords) {		
+		resultGraph.addSuggestedCompetenceTriple(triple);
+		catchwordMap.put(triple, catchwords);
 	}
 
 	public LearningTemplateResultSet(Graph resultGraph,
@@ -47,7 +54,8 @@ public class LearningTemplateResultSet {
 		return catchwordMap;
 	}
 
-	public void setCatchwordMap(HashMap<GraphTriple, String[]> catchwordMap) {
+	public void setCatchwordMap(
+			HashMap<GraphTriple, String[]> catchwordMap) {
 		this.catchwordMap = catchwordMap;
 	}
 
@@ -55,7 +63,8 @@ public class LearningTemplateResultSet {
 		return nameOfTheLearningTemplate;
 	}
 
-	public void setNameOfTheLearningTemplate(String nameOfTheLearningTemplate) {
+	public void setNameOfTheLearningTemplate(
+			String nameOfTheLearningTemplate) {
 		this.nameOfTheLearningTemplate = nameOfTheLearningTemplate;
 	}
 
