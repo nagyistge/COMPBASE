@@ -61,7 +61,10 @@ import uzuzjmd.competence.logging.LoggingTDBWriteTransactional
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTransactional[Any] {
-  
+
+  /**
+   * TEST CASE 1
+   */
   test("The CSV import should run without errors") {
 
     //          change this, if you want to really reset the database
@@ -72,11 +75,17 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 2
+   */
   test("if a user is persisted, the course context should be acessable") {
     executeNoParam(userPersistTest _)
     executeNoParam(userPersistTest2 _)
   }
 
+  /**
+   * TEST CASE 3
+   */
   def userPersistTest(comp: CompOntologyManager) {
     val teacherRole = new TeacherRole(comp)
     val coursecontext = new CourseContext(comp, "2")
@@ -85,6 +94,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     user.persist()
   }
 
+  /**
+   * TEST CASE 4
+   */
   def userPersistTest2(comp: CompOntologyManager) {
     val coursecontext = new CourseContext(comp, "2")
     val user2 = new User(comp, "me")
@@ -97,6 +109,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     coursecontext.delete
   }
 
+  /**
+   * TEST CASE 5
+   */
   test("The CompetenceTree should not be empty") {
 
     val compOntManag = new CompOntologyManager()
@@ -105,6 +120,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     competenceTree should not be ('empty)
   }
 
+  /**
+   * TEST CASE 6
+   */
   test("The filtered CompetenceTree should not be empty") {
     val catchwords = "Kooperation" :: "Diagnostik" :: List.empty
     val operators = "bewerten" :: "kooperieren" :: List.empty
@@ -114,6 +132,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 7
+   */
   test("the operator tree should not be empty") {
     val compOntManag = new CompOntologyManager()
     val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
@@ -121,6 +142,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     result should not be ('empty)
   }
 
+  /**
+   * TEST CASE 8
+   */
   test("the catchword tree should not be empty") {
     val compOntManag = new CompOntologyManager()
     val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
@@ -128,6 +152,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     result should not be ('empty)
   }
 
+  /**
+   * TEST CASE 9
+   */
   test("the singletondao should persist without error") {
     executeNoParam(singletondaoTest)
 
@@ -147,6 +174,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 10
+   */
   test("the regular dao should persist without error") {
     val compOntManag = new CompOntologyManager()
     executeNoParam(regularDaoTest _)
@@ -164,6 +194,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 11
+   */
   test("if a dao is linked the link should exist") {
     executeNoParam(linkTest _)
 
@@ -187,10 +220,11 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     teacherRole.hasEdge(CompObjectProperties.RoleOf, user) should not be true
   }
 
+  /**
+   * TEST CASE 12
+   */
   test("if a comment is persisted it should have its datafields in place") {
     executeNoParam(doCommentTest _)
-    ()
-    //    executeNoParam(doCommentTest2 _)
   }
 
   def doCommentTest(comp: CompOntologyManager) {
@@ -204,7 +238,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
   }
 
   /**
-   * TODO refactor create commentar extra function
+   * TEST CASE 13
    */
   def doCommentTest2(comp: CompOntologyManager) {
     val testkommentar = "mein testkommentar"
@@ -222,7 +256,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     comment.hasDataField(comment.TEXT) should not be true
 
   }
-
+  /**
+   * TEST CASE 14
+   */
   test("if a evidence link is created this should not cause errors") {
     executeNoParam(doEvidenceLinkTest _)
     executeNoParam(doDeleteEvidenceLink _)
@@ -263,6 +299,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     evidenceActivity.exists should not be true
   }
 
+  /**
+   * TEST CASE 15
+   */
   test("if a string is given the identified full dao should be returnable") {
     executeNoParam(createAbstract _)
 
@@ -291,15 +330,20 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     link.delete
   }
 
+  /**
+   * TEST CASE 16
+   */
   test("the competencelinksmap should not be empty") {
     executeNoParam(createAbstract _)
     OntologyWriter.convert()
     val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
-
   }
 
+  /**
+   * TEST CASE 17
+   */
   test("progresbarmap should not be empty") {
     executeNoParam(createAbstract _)
     executeNoParam(doEvidenceLinkTest _)
@@ -308,23 +352,34 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     progressMap should not be null
     progressMap.entrySet() should not be ('empty)
     executeNoParam(doDeleteEvidenceLink _)
-
   }
 
+  /**
+   * TEST CASE 18
+   */
   test("if a requires b and b requires c, a should require c") {
     executeNoParamWithReasoning(doRequiresTransitivityTest)
+    executeNoParam(doRequiresTransitivityTest2)
 
   }
-
   def doRequiresTransitivityTest(compOntManag: CompOntologyManager) {
     val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
     val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     competenceC.addRequiredCompetence(competenceB)
     competenceB.addRequiredCompetence(competenceA)
+
+  }
+
+  def doRequiresTransitivityTest2(compOntManag: CompOntologyManager) {
+    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
   }
 
+  /**
+   * TEST CASE 19
+   */
   test("testing the rules") {
     executeNoParamWithReasoning(doTestTheRules _)
 
@@ -362,6 +417,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 20
+   */
   test("if a learning template is selected it should be persisted without errors") {
 
     val groupId = "111332";
@@ -373,6 +431,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 21
+   */
   test("listing all the subdaos should not throw any error and provide an existing list") {
     executeNoParam(doListingAllSubdaos _)
   }
@@ -389,6 +450,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 22
+   */
   test("listing all the the shortest path should not throw any error and provide an existing list") {
     executeNoParam(doListingAllSubdaos _)
   }
@@ -408,6 +472,9 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
 
   }
 
+  /**
+   * TEST CASE 23
+   */
   test("getOperations should not leave status in database") {
     CompOntologyAccess.logger.setLevel(Level.DEBUG)
     executeNoParam(doNoSideEffectTest _)

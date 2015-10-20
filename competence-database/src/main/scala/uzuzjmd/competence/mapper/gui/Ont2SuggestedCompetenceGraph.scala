@@ -57,11 +57,11 @@ object Ont2SuggestedCompetenceGraph extends Logging {
     val resultInvertedCleaned = resultInverted.keySet.toList.distinct
     val resultInvertedCleaned2 = resultInvertedCleaned.map(x => (x, resultInverted.get(x).toList.flatten.distinct)).toMap
 
-    logger.debug("AFTER INVERT and CLEAN")
-    resultInvertedCleaned2.foreach(x => logger.debug(" key: " + x._1 + ", values:" + x._2))
+    logger.trace("AFTER INVERT and CLEAN")
+    resultInvertedCleaned2.foreach(x => logger.trace(" key: " + x._1 + ", values:" + x._2))
 
-    logger.debug("before matching same catchword")
-    logger.debug(graph.triples)
+    logger.trace("before matching same catchword")
+    logger.trace(graph.triples)
 
     // test if both parts of triple have same catchword
     val result2 = graph.triples.asScala.map(mapTripleToCommonCatchwords(_)(resultInvertedCleaned2)).filterNot(p => p._2.isEmpty).toMap
