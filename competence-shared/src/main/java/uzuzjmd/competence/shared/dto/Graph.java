@@ -17,13 +17,20 @@ public class Graph {
 		return nodeIdValues;
 	}
 
-	public void setNodeIdValues(Map<Integer, String> nodeIdValues) {
+	public void setNodeIdValues(
+			Map<Integer, String> nodeIdValues) {
 		this.nodeIdValues = nodeIdValues;
 	}
 
 	public Graph() {
 		this.triples = new HashSet<GraphTriple>(10000);
 		this.nodes = new HashSet<GraphNode>(10000);
+	}
+
+	public void addSuggestedCompetenceTriple(
+			GraphTriple graphTriple) {
+		addTriple(graphTriple.fromNode, graphTriple.toNode,
+				"SuggestedCompetencePrerequisite", true);
 	}
 
 	/**
@@ -34,11 +41,12 @@ public class Graph {
 	 * @param label
 	 * @param directed
 	 */
-	public void addTriple(String fromNode, String toNode, String label,
-			Boolean directed) {
-		if (fromNode != null && toNode != null && label != null) {
-			GraphTriple graphTriple = new GraphTriple(fromNode, toNode, label,
-					directed);
+	public void addTriple(String fromNode, String toNode,
+			String label, Boolean directed) {
+		if (fromNode != null && toNode != null
+				&& label != null) {
+			GraphTriple graphTriple = new GraphTriple(
+					fromNode, toNode, label, directed);
 			nodeIdValues.put(fromNode.hashCode(), fromNode);
 			nodeIdValues.put(toNode.hashCode(), toNode);
 			GraphNode fromNode1 = new GraphNode(fromNode);
@@ -73,7 +81,8 @@ public class Graph {
 
 	public Graph addConnectingTriples(Graph graph) {
 		for (GraphTriple graphTriple : graph.triples) {
-			if (this.nodes.contains(new GraphNode(graphTriple.fromNode))) {
+			if (this.nodes.contains(new GraphNode(
+					graphTriple.fromNode))) {
 				this.triples.add(graphTriple);
 			}
 		}
@@ -101,8 +110,10 @@ public class Graph {
 		Collection<GraphTriple> toRemove = new HashSet<GraphTriple>();
 		while (it.hasNext())
 			graphTriple = it.next();
-		if (graphTriple.fromNode.equals(targetNode.getLabel())
-				|| graphTriple.toNode.equals(targetNode.getLabel())) {
+		if (graphTriple.fromNode.equals(targetNode
+				.getLabel())
+				|| graphTriple.toNode.equals(targetNode
+						.getLabel())) {
 			toRemove.add(graphTriple);
 		}
 		this.triples.removeAll(toRemove);
