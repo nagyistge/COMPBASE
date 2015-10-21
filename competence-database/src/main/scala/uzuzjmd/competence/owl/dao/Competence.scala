@@ -127,4 +127,17 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     return getAssociatedSingletonDaosAsDomain(CompObjectProperties.OperatorOf, classOf[Operator]);
   }
 
+  def addCourseContext(course: CourseContext) {
+    createEdgeWith(course, CompObjectProperties.CourseContextOf)
+    addSuperCompetencesToCourse(this, course)
+  }
+
+  private def addSuperCompetencesToCourse(competence: Competence, course: CourseContext) {
+    if (competence.hasSuperClass) {
+      val superCompetences = competence.listSuperClasses(classOf[Competence]).filterNot { x => x.identifier.equals("Competence") }.filterNot { x => x.identifier.equals("Resource") }
+      superCompetences.foreach { x => x.createEdgeWith(course, CompObjectProperties.CourseContextOf) }
+      superCompetences.foreach { x => addSuperCompetencesToCourse(x, course) }
+    }
+  }
+
 }
