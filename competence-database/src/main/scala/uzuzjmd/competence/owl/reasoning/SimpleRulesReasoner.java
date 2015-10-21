@@ -140,14 +140,11 @@ public class SimpleRulesReasoner {
 	public void switchOnDebug() {
 		getReasoner().setParameter(
 				ReasonerVocabulary.PROPtraceOn, true);
-		SimpleRulesReasoner.logger.setLevel(Level.DEBUG);
 	}
 
 	public void switchOffDebug() {
 		getReasoner().setParameter(
 				ReasonerVocabulary.PROPtraceOn, false);
-		SimpleRulesReasoner.logger.setLevel(Level.INFO);
-		logStream = new LogStream(logger, Level.ERROR);
 	}
 
 }

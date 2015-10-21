@@ -8,11 +8,11 @@ import com.hp.hpl.jena.rdf.model.Statement;
 public class ModelChangeListener extends ChangedListener {
 
 	private SimpleRulesReasoner rulesReasoner;
-	private CompOntologyManager manager;
 
-	public ModelChangeListener(SimpleRulesReasoner rulesReasoner, CompOntologyManager manager) {
+	public ModelChangeListener(
+			SimpleRulesReasoner rulesReasoner,
+			CompOntologyManager manager) {
 		this.rulesReasoner = rulesReasoner;
-		this.manager = manager;
 	}
 
 	@Override
