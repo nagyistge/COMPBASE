@@ -1,9 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-
 import com.hp.hpl.jena.ontology.Individual
-
 import javax.ws.rs.WebApplicationException
 import uzuzjmd.competence.owl.access.AccessHelper
 import uzuzjmd.competence.owl.access.CompOntologyAccess
@@ -12,6 +10,8 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkedToCourseData
+import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.owl.dao.CourseContext
 
 /**
  * @author dehne
@@ -49,6 +49,7 @@ object CompetenceLinkedCourseToOnt extends TDBWriteTransactional[CompetenceLinke
       val competenceIndividual = result.getIndividual();
       util.createObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CourseContextOf);
       handleCompulsoryLink(compulsoryBoolean, competenceIndividual, courseContextIndividual, compOntologyManager);
+      addSuperCompetenceToCourse(compOntologyManager, competence, courseContextIndividual.getLocalName)
     }
   }
 
@@ -58,6 +59,12 @@ object CompetenceLinkedCourseToOnt extends TDBWriteTransactional[CompetenceLinke
     } else {
       compOntologyManager.getUtil().deleteObjectPropertyWithIndividual(courseContextIndividual, competenceIndividual, CompObjectProperties.CompulsoryOf);
     }
+  }
+
+  def addSuperCompetenceToCourse(comp: CompOntologyManager, competence: String, course: String) {
+    val competenceDAO = new Competence(comp, competence)
+    val courseDAO = new CourseContext(comp, course)
+    competenceDAO.addCourseContext(courseDAO)
   }
 
 }

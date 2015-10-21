@@ -1,7 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
@@ -12,6 +11,7 @@ import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData
 import uzuzjmd.competence.service.rest.model.dto.RoleConverter
+import uzuzjmd.competence.owl.dao.CourseContext
 
 /**
  * @author dehne

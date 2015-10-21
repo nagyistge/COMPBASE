@@ -88,9 +88,8 @@ class CoreTests3 extends FunSuite with ShouldMatchers with TDBWriteTransactional
     val superCompetence = new Competence(comp, "I really like to move it top");
     superCompetence.persist(true)
     competenceSub.addSuperCompetence(superCompetence)
-
     val courseContext = new CourseContext(comp, "MovingCourse")
-    courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceSub)
+    competenceSub.addCourseContext(courseContext)
   }
 
   def doCourseContextRule2(comp: CompOntologyManager) {

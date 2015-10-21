@@ -26,7 +26,7 @@ public class RuleFactory {
 		// result.add(getInheritanceOneWayOnlyRule());
 		result.add(noNothingArtefacts());
 		result.add(noNothingArtefacts2());
-		result.add(superCompetencesHaveSameCourseContext());
+		// result.add(superCompetencesHaveSameCourseContext());
 	}
 
 	private void generateInverseRules() {
