@@ -50,3 +50,11 @@ competence-database/*.log
 competence-database/*.log.*
 competence-database-servlet/competence-servlet/.cache-main
 *.owl
+catalog-v001.xml
+competence-database/log4j.xml
+competence-database/src/main/scala/resources/evidenceserver.properties
+competence-database/src/main/scala/resources/log4j.xml
+competence-database/src/main/scala/uzuzjmd/competence/service/rest/dummy.xml
+competence-database-servlet/competence-servlet/.cache-main
+competence-database-servlet/competence-servlet/.settings/org.eclipse.wst.common.component
+mymodelrdf.owl
