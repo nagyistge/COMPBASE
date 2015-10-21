@@ -1,7 +1,6 @@
 package uzuzjmd.competence.mapper.gui.write
 
 import scala.collection.JavaConverters._
-
 import javax.ws.rs.WebApplicationException
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
@@ -16,13 +15,15 @@ import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
 import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
+import uzuzjmd.competence.owl.access.PerformanceTimer
+import uzuzjmd.competence.owl.access.AbstractTimer
 
 /**
  * @author dehne
  *
  * Dieses Objekt konvertiert
  */
-object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData] {
+object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
 
   def convert(changes: LearningTemplateData) {
     execute(convertHelper _, changes)

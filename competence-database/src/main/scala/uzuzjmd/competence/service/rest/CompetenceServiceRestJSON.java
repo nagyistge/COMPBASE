@@ -50,7 +50,8 @@ import uzuzjmd.competence.shared.dto.ProgressMap;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/json")
-public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
+public class CompetenceServiceRestJSON extends
+		CompetenceOntologyInterface {
 
 	/**
 	 * Lists all competences in the RDCEO Standard Format
@@ -64,7 +65,9 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		System.out.println("Competences queried (rest)");
 		// return "Got it!";
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-		return new ArrayList<Rdceo>(Arrays.asList(competenceServiceImpl.getCompetences()));
+		return new ArrayList<Rdceo>(
+				Arrays.asList(competenceServiceImpl
+						.getCompetences()));
 	}
 
 	/**
@@ -78,9 +81,11 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Path("/updateHierarchie")
 	@Deprecated
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateHierarchie(@QueryParam("changes") List<String> changes) {
+	public Response updateHierarchie(
+			@QueryParam("changes") List<String> changes) {
 
-		HierarchieChangeSet changeSet = new HierarchieChangeSet().convertListToModel(changes);
+		HierarchieChangeSet changeSet = new HierarchieChangeSet()
+				.convertListToModel(changes);
 		HierarchieChangesToOnt.convert(changeSet);
 		return Response.ok("updated taxonomy").build();
 	}
@@ -97,7 +102,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateHierarchie2")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateHierarchie2(@QueryParam("changes") HierarchieChangeSet changes) {
+	public Response updateHierarchie2(
+			@QueryParam("changes") HierarchieChangeSet changes) {
 		HierarchieChangesToOnt.convert(changes);
 		return Response.ok("updated taxonomy").build();
 	}
@@ -112,7 +118,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateHierarchie2/example")
 	@Produces(MediaType.APPLICATION_JSON)
-	public HierarchieChangeSet updateHierarchieExample(@QueryParam("changes") HierarchieChangeSet changes) {
+	public HierarchieChangeSet updateHierarchieExample(
+			@QueryParam("changes") HierarchieChangeSet changes) {
 		return changes;
 	}
 
@@ -140,12 +147,19 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/coursecontext/create/{course}/{compulsory}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToCourseContextJson(@PathParam("course") String course, @PathParam("compulsory") String compulsory,
-			@QueryParam(value = "competences") final List<String> competences, @QueryParam(value = "requirements") String requirements) {
+	public Response linkCompetencesToCourseContextJson(
+			@PathParam("course") String course,
+			@PathParam("compulsory") String compulsory,
+			@QueryParam(value = "competences") final List<String> competences,
+			@QueryParam(value = "requirements") String requirements) {
 
-		Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-		CompetenceServiceWrapper.linkCompetencesToCourse(course, competences, compulsoryBoolean, requirements);
-		return Response.ok("competences linked to course").build();
+		Boolean compulsoryBoolean = RestUtil
+				.convertCompulsory(compulsory);
+		CompetenceServiceWrapper.linkCompetencesToCourse(
+				course, competences, compulsoryBoolean,
+				requirements);
+		return Response.ok("competences linked to course")
+				.build();
 	}
 
 	/**
@@ -161,9 +175,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/coursecontext/delete/{course}")
-	public Response deleteCourseContextJSON(@PathParam("course") String course) {
+	public Response deleteCourseContextJSON(
+			@PathParam("course") String course) {
 		// TODO implement
-		return Response.ok("competences deleted from course:" + course).build();
+		return Response
+				.ok("competences deleted from course:"
+						+ course).build();
 	}
 
 	/**
@@ -179,8 +196,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Produces(MediaType.TEXT_PLAIN)
 	@GET
 	@Path("/coursecontext/requirements/{course}")
-	public String getRequirements(@PathParam("course") String course) {
-		String result = CompetenceServiceWrapper.getRequirements(course);
+	public String getRequirements(
+			@PathParam("course") String course) {
+		String result = CompetenceServiceWrapper
+				.getRequirements(course);
 		return result;
 	}
 
@@ -195,7 +214,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/selected/{course}")
 	@Deprecated
-	public String[] getSelected(@PathParam("course") String course) {
+	public String[] getSelected(
+			@PathParam("course") String course) {
 		return CompetenceServiceWrapper.getSelected(course);
 	}
 
@@ -210,7 +230,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/coursecontext/selected/{course}")
-	public String[] getSelected2(@PathParam("course") String course) {
+	public String[] getSelected2(
+			@PathParam("course") String course) {
 		return CompetenceServiceWrapper.getSelected(course);
 	}
 
@@ -238,12 +259,20 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/link/create/{course}/{creator}/{role}/{linkedUser}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToUserJson(@PathParam("course") String course, @PathParam("creator") String creator, @PathParam("role") String role, @PathParam("linkedUser") String linkedUser,
-			@QueryParam(value = "competences") List<String> competences, @QueryParam(value = "evidences") List<String> evidences) {
+	public Response linkCompetencesToUserJson(
+			@PathParam("course") String course,
+			@PathParam("creator") String creator,
+			@PathParam("role") String role,
+			@PathParam("linkedUser") String linkedUser,
+			@QueryParam(value = "competences") List<String> competences,
+			@QueryParam(value = "evidences") List<String> evidences) {
 
-		CompetenceLinkData data = new CompetenceLinkData(course, creator, role, linkedUser, competences, evidences);
+		CompetenceLinkData data = new CompetenceLinkData(
+				course, creator, role, linkedUser,
+				competences, evidences);
 		Link2Ont.writeLinkToDatabase(data);
-		return Response.ok("competences linked to evidences").build();
+		return Response.ok(
+				"competences linked to evidences").build();
 	}
 
 	/**
@@ -269,12 +298,18 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/comment/{linkId}/{user}/{courseContext}/{role}")
-	public Response commentCompetence(@PathParam("linkId") String linkId, @PathParam("user") String user, @QueryParam("text") String text, @PathParam("courseContext") String courseContext,
+	public Response commentCompetence(
+			@PathParam("linkId") String linkId,
+			@PathParam("user") String user,
+			@QueryParam("text") String text,
+			@PathParam("courseContext") String courseContext,
 			@PathParam("role") String role) {
-		UserData userData = new UserData(user, courseContext, role);
+		UserData userData = new UserData(user,
+				courseContext, role);
 		User2Ont.convert(userData);
 
-		CommentData commentData = new CommentData(linkId, user, text, courseContext, role);
+		CommentData commentData = new CommentData(linkId,
+				user, text, courseContext, role);
 		Comment2Ont.convert(commentData);
 
 		return Response.ok("link commented").build();
@@ -296,7 +331,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/validate/{linkId}")
-	public Response validateLink(@PathParam("linkId") String linkId) {
+	public Response validateLink(
+			@PathParam("linkId") String linkId) {
 		Boolean isvalid = true;
 		return handleLinkValidation(linkId, isvalid);
 	}
@@ -313,7 +349,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/invalidate/{linkId}")
-	public Response invalidateLink(@PathParam("linkId") String linkId) {
+	public Response invalidateLink(
+			@PathParam("linkId") String linkId) {
 		Boolean isvalid = false;
 		return handleLinkValidation(linkId, isvalid);
 	}
@@ -328,7 +365,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/link/delete/{linkId}")
-	public Response deleteLink(@PathParam("linkId") String linkId) {
+	public Response deleteLink(
+			@PathParam("linkId") String linkId) {
 		AbstractEvidenceLink2Ont.convert(linkId);
 		return Response.ok("link deleted").build();
 	}
@@ -342,7 +380,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/competence/delete")
-	public Response deleteCompetence(@QueryParam("competences") List<String> competences) {
+	public Response deleteCompetence(
+			@QueryParam("competences") List<String> competences) {
 
 		DeleteCompetenceInOnt.convert(competences);
 		return Response.ok("competences deleted").build();
@@ -358,7 +397,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/competence/deleteTree")
-	public Response deleteCompetenceTree(@QueryParam("competences") List<String> competences) {
+	public Response deleteCompetenceTree(
+			@QueryParam("competences") List<String> competences) {
 		DeleteCompetenceTreeInOnt.convert(competences);
 		return Response.ok("competences deleted").build();
 	}
@@ -375,8 +415,9 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/link/overview/{user}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public CompetenceLinksMap getCompetenceLinksMap(@PathParam("user") String user) {
-		return Ont2CompetenceLinkMap.getCompetenceLinkMap(user);
+	public CompetenceLinksMap getCompetenceLinksMap(
+			@PathParam("user") String user) {
+		return Ont2CompetenceLinkMap.convert(user);
 	}
 
 	/**
@@ -392,8 +433,11 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/link/progress/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ProgressMap getProgressM(@PathParam("course") String course, @QueryParam("competences") List<String> selectedCompetences) {
-		return GetProgressMInOnt.convert(new CourseData(course, selectedCompetences));
+	public ProgressMap getProgressM(
+			@PathParam("course") String course,
+			@QueryParam("competences") List<String> selectedCompetences) {
+		return GetProgressMInOnt.convert(new CourseData(
+				course, selectedCompetences));
 	}
 
 	/**
@@ -412,8 +456,14 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/prerequisite/create/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createPrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("selectedCompetences") List<String> selectedCompetences) {
-		CreatePrerequisiteInOnt.convert(new PrerequisiteData(course, linkedCompetence, selectedCompetences));
+	public Response createPrerequisite(
+			@PathParam("course") String course,
+			@QueryParam("linkedCompetence") String linkedCompetence,
+			@QueryParam("selectedCompetences") List<String> selectedCompetences) {
+		CreatePrerequisiteInOnt
+				.convert(new PrerequisiteData(course,
+						linkedCompetence,
+						selectedCompetences));
 
 		return Response.ok("prerequisite created").build();
 	}
@@ -435,8 +485,14 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@POST
 	@Path("/prerequisite/delete/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deletePrerequisite(@PathParam("course") String course, @QueryParam("linkedCompetence") String linkedCompetence, @QueryParam("competences") List<String> selectedCompetences) {
-		DeletePrerequisiteInOnt.convert(new PrerequisiteData(course, linkedCompetence, selectedCompetences));
+	public Response deletePrerequisite(
+			@PathParam("course") String course,
+			@QueryParam("linkedCompetence") String linkedCompetence,
+			@QueryParam("competences") List<String> selectedCompetences) {
+		DeletePrerequisiteInOnt
+				.convert(new PrerequisiteData(course,
+						linkedCompetence,
+						selectedCompetences));
 		return Response.ok("prerequisite deleted").build();
 	}
 
@@ -451,9 +507,12 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/prerequisite/graph/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Graph getPrerequisiteGraph(@QueryParam("selectedCompetences") List<String> selectedCompetences, @PathParam("course") String course) {
+	public Graph getPrerequisiteGraph(
+			@QueryParam("selectedCompetences") List<String> selectedCompetences,
+			@PathParam("course") String course) {
 		CompOntologyManager comp = new CompOntologyManager();
-		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(comp, selectedCompetences, course);
+		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(
+				comp, selectedCompetences, course);
 		return mapper.getCompetenceGraph();
 	}
 
@@ -467,8 +526,10 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@GET
 	@Path("/prerequisite/required/{course}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String[] getRequiredCompetences(@QueryParam("competence") String forCompetence) {
-		return GetRequiredCompetencesInOnt.convert(forCompetence);
+	public String[] getRequiredCompetences(
+			@QueryParam("competence") String forCompetence) {
+		return GetRequiredCompetencesInOnt
+				.convert(forCompetence);
 	}
 
 	/**
@@ -480,7 +541,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/operator")
-	public String getOperatorForCompetence(@QueryParam("competence") String forCompetence) {
+	public String getOperatorForCompetence(
+			@QueryParam("competence") String forCompetence) {
 		// Ont2Operator.
 		return Ont2Operator.convert(forCompetence);
 	}
@@ -494,7 +556,8 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/catchwords")
-	public String getCatchwordsForCompetence(@QueryParam("competence") String forCompetence) {
+	public String getCatchwordsForCompetence(
+			@QueryParam("competence") String forCompetence) {
 		return Ont2Catchwords.convert(forCompetence);
 	}
 
@@ -519,10 +582,19 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/addOne")
-	public Response addCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
-			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("learningTemplateName") String learningTemplateName) {
-		CompetenceData competenceData = new CompetenceData(operator, catchwords, superCompetences, subCompetences, learningTemplateName, forCompetence);
-		String resultMessage = Competence2Ont.convert(competenceData);
+	public Response addCompetenceToModel(
+			@QueryParam("competence") String forCompetence,
+			@QueryParam("operator") String operator,
+			@QueryParam("catchwords") List<String> catchwords,
+			@QueryParam("superCompetences") List<String> superCompetences,
+			@QueryParam("subCompetences") List<String> subCompetences,
+			@QueryParam("learningTemplateName") String learningTemplateName) {
+		CompetenceData competenceData = new CompetenceData(
+				operator, catchwords, superCompetences,
+				subCompetences, learningTemplateName,
+				forCompetence);
+		String resultMessage = Competence2Ont
+				.convert(competenceData);
 		return Response.ok(resultMessage).build();
 	}
 
@@ -543,8 +615,13 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/editOne")
-	public Response editCompetenceToModel(@QueryParam("competence") String forCompetence, @QueryParam("operator") String operator, @QueryParam("catchwords") List<String> catchwords,
-			@QueryParam("superCompetences") List<String> superCompetences, @QueryParam("subCompetences") List<String> subCompetences, @QueryParam("originalCompetence") String orgininalCompetence) {
+	public Response editCompetenceToModel(
+			@QueryParam("competence") String forCompetence,
+			@QueryParam("operator") String operator,
+			@QueryParam("catchwords") List<String> catchwords,
+			@QueryParam("superCompetences") List<String> superCompetences,
+			@QueryParam("subCompetences") List<String> subCompetences,
+			@QueryParam("originalCompetence") String orgininalCompetence) {
 
 		/**
 		 * TODO: Competence should be updated and not deleted
@@ -553,13 +630,19 @@ public class CompetenceServiceRestJSON extends CompetenceOntologyInterface {
 		// orgininalCompetence, orgininalCompetence, null);
 		// original.delete();
 
-		CompetenceData competenceData = new CompetenceData(operator, catchwords, superCompetences, subCompetences, null, forCompetence);
-		String resultMessage = Competence2Ont.convert(competenceData);
+		CompetenceData competenceData = new CompetenceData(
+				operator, catchwords, superCompetences,
+				subCompetences, null, forCompetence);
+		String resultMessage = Competence2Ont
+				.convert(competenceData);
 		return Response.ok(resultMessage).build();
 	}
 
-	private Response handleLinkValidation(String linkId, Boolean isvalid) {
-		HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isvalid));
+	private Response handleLinkValidation(String linkId,
+			Boolean isvalid) {
+		HandleLinkValidationInOnt
+				.convert(new LinkValidationData(linkId,
+						isvalid));
 		return Response.ok("link updated").build();
 	}
 

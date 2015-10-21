@@ -30,7 +30,7 @@ object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLink
     result ++ input.mapValues(toSortedSet)
   }
 
-  def getCompetenceLinkMap(user: String): CompetenceLinksMap = {
+  def convert(user: String): CompetenceLinksMap = {
     return execute(getCompetenceLinkMap, user)
   }
 
