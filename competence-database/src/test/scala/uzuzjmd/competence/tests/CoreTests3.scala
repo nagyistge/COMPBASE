@@ -57,6 +57,7 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 import sun.security.krb5.internal.ccache.CCacheInputStream
 import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.logging.LogConfigurator
 
 /**
  * @author dehne
@@ -68,13 +69,8 @@ class CoreTests3 extends FunSuite with ShouldMatchers with TDBWriteTransactional
   //
   //  }
 
-  test("The CSV import should run without errors") {
-
-    //      change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
-    val compOntManag = new CompOntologyManager()
-    CompetenceImporter.convertCSVArray();
-
+  test("SETUP AND The CSV import should run without errors") {
+    TestCommons.setup()
   }
 
   test("if a competence is added to a courseContext, the supercompetence should also be available in that Kontext") {

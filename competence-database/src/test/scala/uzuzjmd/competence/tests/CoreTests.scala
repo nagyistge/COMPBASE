@@ -65,14 +65,8 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
   /**
    * TEST CASE 1
    */
-  test("The CSV import should run without errors") {
-
-    //          change this, if you want to really reset the database
-    CompFileUtil.deleteTDB()
-    val compOntManag = new CompOntologyManager()
-    CompetenceImporter.convertCSVArray();
-    EposImporter.importEpos()
-
+  test("SETUP AND The CSV import should run without errors") {
+    TestCommons.setup()
   }
 
   /**
@@ -336,7 +330,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
   test("the competencelinksmap should not be empty") {
     executeNoParam(createAbstract _)
     OntologyWriter.convert()
-    val tmp0 = Ont2CompetenceLinkMap.getCompetenceLinkMap("student meäää 10AA")
+    val tmp0 = Ont2CompetenceLinkMap.convert("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
   }
@@ -427,7 +421,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     val userId = "Julian Dehne 12 12"
 
     val changes = new LearningTemplateData(userId, groupId, selectedTemplateName)
-    LearningTemplateToOnt.convert(changes)
+    LearningTemplateToOnt.convertTimed(changes)
 
   }
 

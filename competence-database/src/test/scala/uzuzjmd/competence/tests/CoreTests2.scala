@@ -58,6 +58,10 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 @RunWith(classOf[JUnitRunner])
 class CoreTests2 extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
 
+  test("SETUP AND The CSV import should run without errors") {
+    TestCommons.setup()
+  }
+
   //  test("if two evidence links are created with different evidences with same user and competence") {
   //
   //    //basic data

@@ -5,6 +5,8 @@ import uzuzjmd.competence.owl.access.MagicStrings
 import java.io.File
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
+import com.hp.hpl.jena.tdb.TDB
+import org.apache.log4j.Priority
 
 object LogConfigurator {
   var init = false
@@ -16,9 +18,11 @@ object LogConfigurator {
       } else {
         System.out.println("ERROR: The path of log4j.xml is not valid. Configure in your server properties file log4jlocation.");
       }
-      val logJena = Logger.getLogger("com.hp.hpl.jena");
-      logJena.setLevel(Level.WARN);
+      Logger.getRootLogger.setLevel(Level.WARN)
+      val ourLogger = Logger.getLogger("uzuzjmd.competence")
+      ourLogger.setLevel(Level.DEBUG)
       Logger.getLogger(LogConfigurator.getClass.getName).debug("Start with Logging");
+
       init = true;
     }
   }
