@@ -16,8 +16,6 @@ import org.apache.log4j.Logger
 @RunWith(classOf[JUnitRunner])
 class CoreTestLogging extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
 
-  private val logger = Logger.getLogger(getClass.getName);
-
   test("Write LearningTemplateData with logging") {
     val groupId = "111332";
     val selectedTemplateName = "Sprachkompetenz, Univ. (ELC, DE)";

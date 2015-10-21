@@ -2,11 +2,9 @@ package uzuzjmd.competence.owl.access;
 
 import java.io.IOException;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import uzuzjmd.competence.console.util.LogStream;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
@@ -27,8 +25,6 @@ public class CompOntologyManager {
 
 	static final Logger logger = LogManager
 			.getLogger(CompOntologyManager.class.getName());
-	static LogStream logStream = new LogStream(logger,
-			Level.TRACE);
 
 	private CompOntologyAccess util;
 	private OntModel m;
@@ -119,18 +115,9 @@ public class CompOntologyManager {
 
 	public OntModel createBaseOntology() {
 		begin();
-		// m = this.util.initializeOntologyModel();
 		initClasses();
 		initObjectProperties();
-		// init rulesReasoning and add standard rules
-		// rulesReasoner = initRulesReasoning();
-
 		logger.info("Base Ontology created");
-		logger.setLevel(Level.DEBUG);
-		// m.write(logStream);
-
-		// TODO create Restrictions
-
 		close();
 		return getM();
 	}
