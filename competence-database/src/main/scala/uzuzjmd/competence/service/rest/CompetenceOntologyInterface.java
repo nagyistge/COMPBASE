@@ -7,7 +7,7 @@ public class CompetenceOntologyInterface {
 	public CompetenceOntologyInterface() {
 		super();
 		PropUtil propUtil = new PropUtil();
-		propUtil.configureLogger();
+		//propUtil.configureLogger();
 
 	}
 
