@@ -9,10 +9,10 @@ import uzuzjmd.competence.shared.StringList
 
 /**
  * This class is the entry point for a template
- * 
+ *
  * Given the name of a learning template the associated competences and their structure can be retrieved
  */
-case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associatedUser: User, associatedCourse: CourseContext, var identifiery: String = null, associatedTemplates: List[LearningProjectTemplate] = null) extends CompetenceOntologyDao(comp, CompOntClass.SelectedLearningProjectTemplate, CompOntologyAccessScala.createIdentifierForSelectedTemplate(associatedUser, associatedCourse, identifiery)) {
+case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associatedUser: User, associatedCourse: CourseContext, var identifiery: String = null, associatedTemplates: List[LearningProjectTemplate] = null) extends CompetenceOntologyDao(comp, CompOntClass.SelectedLearningProjectTemplate, CompOntologyAccessScala.createIdentifierForSelectedTemplate(associatedUser.identifier, associatedCourse.identifier, identifiery)) {
 
   @Override
   def getFullDao(): SelectedLearningProjectTemplate = {
@@ -72,6 +72,9 @@ case class SelectedLearningProjectTemplate(comp: CompOntologyManager, associated
 
   def getAssociatedTemplatesAsStringList(): StringList = {
     val result = new StringList
+    if (getAssociatedTemplates().isEmpty) {
+      return result
+    }
     result.setData(getAssociatedTemplates.map(x => x.getDataField(x.DEFINITION)).asJava)
     return result
   }
