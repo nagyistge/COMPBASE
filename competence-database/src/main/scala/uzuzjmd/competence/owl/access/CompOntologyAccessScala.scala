@@ -6,6 +6,7 @@ import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.owl.dao.exceptions.NoCompetenceInDBException
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.EvidenceActivity
+import javax.ws.rs.WebApplicationException
 
 object CompOntologyAccessScala {
 
@@ -33,17 +34,8 @@ object CompOntologyAccessScala {
     } else { return value.asNode().getLiteralValue() }
   }
 
-  def createIdentifierForSelectedTemplate(user: User, course: CourseContext, identifier: String): String = {
-    if (identifier != null) {
-      return identifier
-    }
-    if (user.exists && course.exists) {
-      return user.getName + course.getId
-    } else {
-      user.persist
-      course.persist
-      return user.getName + course.getId
-    }
+  def createIdentifierForSelectedTemplate(userId: String, course: String, identifier: String): String = {
+    return userId + course
   }
 
   def computeEncodedStringForLink(identifier2: String, competence: Competence, evidence: EvidenceActivity): String = {
