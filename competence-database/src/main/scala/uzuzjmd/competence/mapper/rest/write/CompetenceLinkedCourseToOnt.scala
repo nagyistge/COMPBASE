@@ -40,9 +40,9 @@ object CompetenceLinkedCourseToOnt extends TDBWriteTransactional[CompetenceLinke
 
   def linkSingleCompetences(competences: java.util.List[String], compulsoryBoolean: Boolean, requirements: String, compOntologyManager: CompOntologyManager, util: CompOntologyAccess,
                             courseContextIndividual: Individual) {
-    if (competences == null || competences.isEmpty()) {
-      throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
-    }
+    //    if (competences == null || competences.isEmpty()) {
+    //      throw new WebApplicationException(new Exception("Es wurden keine Kompetenzen übergeben"));
+    //    }
 
     for (competence <- competences.asScala) {
       val result = util.accessSingletonResource(competence, false);
