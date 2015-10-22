@@ -19,7 +19,6 @@ import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceGraph;
 import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap;
 import uzuzjmd.competence.mapper.gui.read.Ont2Operator;
 import uzuzjmd.competence.mapper.gui.write.HierarchieChangesToOnt;
-import uzuzjmd.competence.mapper.rest.User2Ont;
 import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt;
 import uzuzjmd.competence.mapper.rest.read.GetRequiredCompetencesInOnt;
 import uzuzjmd.competence.mapper.rest.write.AbstractEvidenceLink2Ont;
@@ -31,6 +30,7 @@ import uzuzjmd.competence.mapper.rest.write.DeleteCompetenceTreeInOnt;
 import uzuzjmd.competence.mapper.rest.write.DeletePrerequisiteInOnt;
 import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
 import uzuzjmd.competence.mapper.rest.write.Link2Ont;
+import uzuzjmd.competence.mapper.rest.write.User2Ont;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
@@ -45,6 +45,7 @@ import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
+import edu.emory.mathcs.backport.java.util.LinkedList;
 
 /**
  * Root resource (exposed at "competences" path)
@@ -160,6 +161,34 @@ public class CompetenceServiceRestJSON extends
 				requirements);
 		return Response.ok("competences linked to course")
 				.build();
+	}
+
+	/**
+	 * 
+	 * @param user
+	 *            should be email-address or other unique identifier
+	 * @param role
+	 *            can be "student or teacher"
+	 * @return
+	 */
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/user/create/{user}/{role}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createUser(
+			@PathParam("user") String user,
+			@PathParam("role") String role,
+			@QueryParam("groupId") String courseContext) {
+		UserData data = new UserData(user, courseContext,
+				role);
+		User2Ont.convert(data);
+		if (courseContext != null) {
+			CompetenceServiceWrapper
+					.linkCompetencesToCourse(courseContext,
+							new LinkedList(), false, "");
+		}
+		// TODO finish
+		return Response.ok("user created").build();
 	}
 
 	/**

@@ -24,7 +24,10 @@ object Ont2SelectedLearningTemplate extends TDBREADTransactional[LearningTemplat
     }
     val context = new CourseContext(comp, changes.getGroupId);
     val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
-    val selected = new SelectedLearningProjectTemplate(comp, null, context, null, null);
+    val selected = new SelectedLearningProjectTemplate(comp, user, context, null, null);
+    if (!selected.exists()) {
+      return new StringList
+    }
     val result = selected.getAssociatedTemplatesAsStringList();
     return result;
   }
