@@ -30,10 +30,13 @@ import com.google.common.cache.LoadingCache;
  * 
  */
 @WebService(endpointInterface = "uzuzjmd.competence.evidence.service.EvidenceService")
-public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
+public class MoodleEvidenceRestServiceImpl extends
+		AbstractEvidenceService {
 
 	public static LoadingCache<String, UserTree[]> cacheImpl;
-	Logger logger = LogManager.getLogger(MoodleEvidenceRestServiceImpl.class.getName());
+	Logger logger = LogManager
+			.getLogger(MoodleEvidenceRestServiceImpl.class
+					.getName());
 	private Thread cacheThread;
 
 	public MoodleEvidenceRestServiceImpl() {
@@ -50,39 +53,61 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 		throw new Error("Cache not working");
 	}
 
-	public MoodleContentResponseList getCourseContents(String courseId, String username, String password) {
-		SimpleMoodleService moodleService = new SimpleMoodleService(username, password);
+	public MoodleContentResponseList getCourseContents(
+			String courseId, String username,
+			String password) {
+		SimpleMoodleService moodleService = new SimpleMoodleService(
+				username, password);
 		return moodleService.getMoodleContents(courseId);
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course, String lmsSystem, String organization, String username, String password) {
+	public UserTree[] getUserTree(String course,
+			String lmsSystem, String organization,
+			String username, String password) {
 		// MoodleEvidence[] moodleEvidences =
 		// this.getUserEvidencesforMoodleCourse(course);
-		SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
-		MoodleEvidence[] moodleEvidences = simpleService.getMoodleEvidenceList(course).toArray(new MoodleEvidence[0]);
-		MoodleContentResponseList listMoodleContent = this.getCourseContents(course, username, password);
+		SimpleMoodleService simpleService = new SimpleMoodleService(
+				username, password);
+		MoodleEvidence[] moodleEvidences = simpleService
+				.getMoodleEvidenceList(course).toArray(
+						new MoodleEvidence[0]);
+		if (moodleEvidences.length == 0) {
+			logger.debug("could not load moodle evidences from upcompetence plugin for course: "
+					+ course);
+		}
+		MoodleContentResponseList listMoodleContent = this
+				.getCourseContents(course, username,
+						password);
 
-		Evidence2Tree mapper = new Evidence2Tree(listMoodleContent, moodleEvidences);
-		UserTree[] result = mapper.getUserTrees().toArray(new UserTree[0]);
+		Evidence2Tree mapper = new Evidence2Tree(
+				listMoodleContent, moodleEvidences);
+		UserTree[] result = mapper.getUserTrees().toArray(
+				new UserTree[0]);
 		return result;
 	}
 
 	private void initCache() {
 		if (cacheImpl == null) {
-			cacheImpl = CacheBuilder.newBuilder().maximumSize(1000).build(new CacheLoader<String, UserTree[]>() {
+			cacheImpl = CacheBuilder
+					.newBuilder()
+					.maximumSize(1000)
+					.build(new CacheLoader<String, UserTree[]>() {
 
-				public UserTree[] load(final String key) {
-					return getUserTree(key, null, null, null, null);
-				}
-			});
+						public UserTree[] load(
+								final String key) {
+							return getUserTree(key, null,
+									null, null, null);
+						}
+					});
 		}
 		if (cacheThread == null) {
 			cacheThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
-						for (String key : cacheImpl.asMap().keySet()) {
+						for (String key : cacheImpl.asMap()
+								.keySet()) {
 							cacheImpl.refresh(key);
 						}
 						try {
@@ -100,24 +125,32 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public Response getUserTreeCrossDomain(String course, String lmsSystem, String organization, String username, String password) {
+	public Response getUserTreeCrossDomain(String course,
+			String lmsSystem, String organization,
+			String username, String password) {
 		throw new Error("decorator called");
 	}
 
 	@Override
-	public UserCourseListResponse getCourses(String lmsSystem, String organization, String user, String userPassword) {
+	public UserCourseListResponse getCourses(
+			String lmsSystem, String organization,
+			String user, String userPassword) {
 		if (!LMSSystems.moodle.toString().equals(lmsSystem)) {
 			return new UserCourseListResponse();
 		}
-		SimpleMoodleService simpleService = new SimpleMoodleService(user, userPassword);
-		UserCourseListResponse result = simpleService.getMoodleCourseList();
+		SimpleMoodleService simpleService = new SimpleMoodleService(
+				user, userPassword);
+		UserCourseListResponse result = simpleService
+				.getMoodleCourseList();
 		return result;
 	}
 
 	@Override
-	public Boolean exists(String username, String password, String lmsSystem, String organization) {
+	public Boolean exists(String username, String password,
+			String lmsSystem, String organization) {
 		try {
-			SimpleMoodleService simpleService = new SimpleMoodleService(username, password);
+			SimpleMoodleService simpleService = new SimpleMoodleService(
+					username, password);
 			simpleService.toString();
 			if (simpleService.wasError()) {
 				return false;
@@ -129,13 +162,17 @@ public class MoodleEvidenceRestServiceImpl extends AbstractEvidenceService {
 	}
 
 	@Override
-	public void addUserTree(String course, List<UserTree> usertree, String lmssystem, String organization) {
+	public void addUserTree(String course,
+			List<UserTree> usertree, String lmssystem,
+			String organization) {
 		throw new NotImplementedException();
 
 	}
 
 	@Override
-	public void addCourses(String user, UserCourseListResponse usertree, String lmssystem, String organization) {
+	public void addCourses(String user,
+			UserCourseListResponse usertree,
+			String lmssystem, String organization) {
 		throw new NotImplementedException();
 	}
 

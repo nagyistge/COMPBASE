@@ -70,4 +70,11 @@ public class MoodleContentResponse {
 		this.visible = visible;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getClass().getName() + ": ("
+				+ this.name + " , " + this.id + " , "
+				+ this.summary + " )";
+	}
 }

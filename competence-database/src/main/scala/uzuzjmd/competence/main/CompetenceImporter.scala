@@ -25,7 +25,6 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
   }
 
   def convertCSVArray() {
-
     val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
@@ -33,18 +32,15 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
   }
 
   def getCompetencesFromCSVasJava(): java.util.List[Rdceo] = {
-
     return getCompetencesFromCSV.asJava
   }
 
   def getCompetencesFromCSV(): Seq[Rdceo] = {
-
     val list = parseCompetenceBeans()
     return competenceBeansToRDCEO(list)
   }
 
   def parseCompetenceBeans(): java.util.List[CompetenceBean] = {
-
     // using csv library to map csv to java
     val strat = new ColumnPositionMappingStrategy[CompetenceBean];
     strat.setType(classOf[CompetenceBean])

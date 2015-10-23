@@ -48,7 +48,8 @@ public class UserTree extends AbstractTreeEntry {
 		return activityTypes;
 	}
 
-	public void setActivityTypes(List<ActivityTyp> activityTypes) {
+	public void setActivityTypes(
+			List<ActivityTyp> activityTypes) {
 		this.activityTypes = activityTypes;
 	}
 
@@ -62,6 +63,12 @@ public class UserTree extends AbstractTreeEntry {
 	public boolean equals(Object arg0) {
 		// TODO Auto-generated method stub
 		return super.equals(arg0);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 
 }
