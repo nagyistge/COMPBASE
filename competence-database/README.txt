@@ -1,3 +1,0 @@
-TODO: Rewrite Deploy description
-
- 	
