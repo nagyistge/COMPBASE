@@ -22,8 +22,8 @@ object LogConfigurator {
       val ourLogger = Logger.getLogger("uzuzjmd.competence")
       ourLogger.setLevel(Level.DEBUG)
       Logger.getLogger(LogConfigurator.getClass.getName).debug("Start with Logging");
-
       init = true;
     }
+
   }
 }
