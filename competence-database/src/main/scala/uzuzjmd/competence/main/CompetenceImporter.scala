@@ -20,11 +20,11 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] {
 
   def main(args: Array[String]) {
-    convertCSVArray()
-    EposImporter.importEpos()
+    convert()
+    EposImporter.convert()
   }
 
-  def convertCSVArray() {
+  def convert() {
     val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
