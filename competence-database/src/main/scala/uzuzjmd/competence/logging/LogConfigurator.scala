@@ -18,10 +18,10 @@ object LogConfigurator {
       } else {
         System.out.println("ERROR: The path of log4j.xml is not valid. Configure in your server properties file log4jlocation.");
       }
-      Logger.getRootLogger.setLevel(Level.WARN)
+      Logger.getRootLogger.setLevel(Level.INFO)
       val ourLogger = Logger.getLogger("uzuzjmd.competence")
       ourLogger.setLevel(Level.DEBUG)
-      Logger.getLogger(LogConfigurator.getClass.getName).debug("Start with Logging");
+      Logger.getLogger(LogConfigurator.getClass.getName).info("Start with Logging");
       init = true;
     }
 

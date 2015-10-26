@@ -6,7 +6,11 @@
 
 	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
 		<param name="Threshold" value="DEBUG" />
-		<param name="File" value="competence.log" />
+		<param name="File" value="/opt/up/competence/1.0/Wissensmodellierung/logs/competence.log" />
+		
+		 <param name="maxFileSize" value="1MB" />
+	   <param name="maxBackupIndex" value="5" />
+<!-- 		<param name="File" value="C:/Users/dehne/Desktop/logs/competence.log" /> -->
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
 		</layout>
