@@ -1,13 +1,10 @@
 package uzuzjmd.competence.mapper.gui.read
 
 import java.util.LinkedList
-
 import scala.collection.JavaConverters.asScalaBufferConverter
 import scala.collection.JavaConverters.asScalaIteratorConverter
 import scala.collection.JavaConverters.seqAsJavaListConverter
-
 import com.hp.hpl.jena.ontology.OntClass
-
 import uzuzjmd.competence.mapper.gui.mapper.TextValidator
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.owl.access.CompOntologyManager
@@ -21,11 +18,12 @@ import uzuzjmd.competence.service.rest.database.dto.AbstractXMLTree
 import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree
 import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
 import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree
+import uzuzjmd.competence.owl.access.Logging
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBREADTransactional[Any, Any] {
+class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBREADTransactional[Any, Any] with Logging {
 
   val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
 
@@ -196,6 +194,7 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
   }
 
   def getCompetenceTree(comp: CompOntologyManager): java.util.List[CompetenceXMLTree] = {
+    logger.debug("getting competence tree")
     //    val noTree = getCompetenceTreeHelperNoTree(comp, allowedAndCourse(comp, _))
     val tree = getCompetenceTreeHelper(comp, allowedAndCourse(comp, _))
     //    if (noTree.isEmpty() && tree.isEmpty()) {
@@ -204,6 +203,7 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
     //      tree.get(0).getChildren.addAll(noTree.get(0).getChildren)
     //      return tree
     //    }
+    logger.debug("tree is empty: " + tree.isEmpty())
     return tree
   }
 

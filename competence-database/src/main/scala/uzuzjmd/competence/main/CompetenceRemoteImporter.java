@@ -8,6 +8,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.csv.CompetenceBean;
 
@@ -28,10 +29,13 @@ public class CompetenceRemoteImporter {
 		WebTarget webResource = client
 				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-servlet/competence/competences/xml/addCompetenceBean");
 		System.out.println(webResource.getUri());
-		webResource.request(MediaType.APPLICATION_XML)
-				.post(Entity.entity(competenceBeans
+		Response result = webResource.request(
+				MediaType.APPLICATION_XML).post(
+				Entity.entity(competenceBeans
 						.toArray(new CompetenceBean[0]),
 						MediaType.APPLICATION_XML));
+
+		System.out.println(result);
 
 	}
 }

@@ -8,6 +8,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBException;
 
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
@@ -30,8 +31,10 @@ public class EposRemoteImporter {
 		EPOSTypeWrapper typeWrapper = new EPOSTypeWrapper();
 		typeWrapper.setEposCompetences(eposCompetences
 				.toArray(new DESCRIPTORSETType[0]));
-		webResource.request(MediaType.APPLICATION_XML)
-				.post(Entity.entity(typeWrapper,
+		Response result = webResource.request(
+				MediaType.APPLICATION_XML).post(
+				Entity.entity(typeWrapper,
 						MediaType.APPLICATION_XML));
+		System.out.println(result);
 	}
 }

@@ -15,21 +15,28 @@ import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
 public class EposImporter {
 
-	public static void main(String[] args) throws JAXBException, IOException {
+	public static void main(String[] args)
+			throws JAXBException, IOException {
 
-		importEpos();
+		convert();
 	}
 
-	public static void importEpos() throws JAXBException, IOException {
+	public static void convert() throws JAXBException,
+			IOException {
 		List<DESCRIPTORSETType> eposList = parseEPOSXML();
 		importEposCompetences(eposList);
 	}
 
-	public static List<DESCRIPTORSETType> parseEPOSXML() throws JAXBException {
+	public static List<DESCRIPTORSETType> parseEPOSXML()
+			throws JAXBException {
 		// convert xml to java data
-		JAXBContext jaxbContext = JAXBContext.newInstance(DESCRIPTORSETType.class);
-		Unmarshaller eposUnMarshallUnmarshaller = jaxbContext.createUnmarshaller();
-		DESCRIPTORSETType descriptorsetType = (DESCRIPTORSETType) eposUnMarshallUnmarshaller.unmarshal(new File(MagicStrings.EPOSLocation));
+		JAXBContext jaxbContext = JAXBContext
+				.newInstance(DESCRIPTORSETType.class);
+		Unmarshaller eposUnMarshallUnmarshaller = jaxbContext
+				.createUnmarshaller();
+		DESCRIPTORSETType descriptorsetType = (DESCRIPTORSETType) eposUnMarshallUnmarshaller
+				.unmarshal(new File(
+						MagicStrings.EPOSLocation));
 		// we assume that there will be more than just one descriptorset (but
 		// don't know ey)
 		List<DESCRIPTORSETType> eposList = new ArrayList<DESCRIPTORSETType>();
@@ -37,7 +44,8 @@ public class EposImporter {
 		return eposList;
 	}
 
-	public static void importEposCompetences(List<DESCRIPTORSETType> eposList) {
+	public static void importEposCompetences(
+			List<DESCRIPTORSETType> eposList) {
 		EposXML2Ont.convert(eposList);
 	}
 }

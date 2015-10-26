@@ -57,7 +57,6 @@ import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 import sun.security.krb5.internal.ccache.CCacheInputStream
 import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.logging.LogConfigurator
 
 /**
  * @author dehne

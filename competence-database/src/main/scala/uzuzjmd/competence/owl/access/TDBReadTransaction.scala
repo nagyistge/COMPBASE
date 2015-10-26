@@ -1,5 +1,9 @@
 package uzuzjmd.competence.owl.access
 
+import uzuzjmd.competence.owl.dao.exceptions.NoCompetenceInDBException
+import uzuzjmd.competence.main.CompetenceImporter
+import uzuzjmd.competence.main.EposImporter
+
 /**
  * @author dehne
  */
@@ -51,13 +55,23 @@ trait TDBREADTransactional[A, T] {
   }
 
   def executeNoParamX[X](f: CompOntologyManager => X): X = {
+    var dbIsEmpty = false
     var result: Any = null
     comp.beginRead()
     try {
       result = f(comp)
-    } catch { case e: Exception => e.printStackTrace() } finally {
+    } catch {
+      case db: NoCompetenceInDBException => dbIsEmpty = true
+      case e: Exception                  => e.printStackTrace()
+    } finally {
       comp.end()
-      return result.asInstanceOf[X]
+      if (!dbIsEmpty) {
+        return result.asInstanceOf[X]
+      } else {
+        CompetenceImporter.convert()
+        EposImporter.convert()
+        return executeNoParamX(f)
+      }
     }
     return result.asInstanceOf[X]
   }
