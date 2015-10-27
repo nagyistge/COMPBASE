@@ -85,11 +85,6 @@
 				</exclusion>
 
 				<exclusion>
-					<groupId>net.htmlparser.jericho</groupId>
-					<artifactId>jericho-html</artifactId>
-				</exclusion>
-
-				<exclusion>
 					<artifactId>servlet-api</artifactId>
 					<groupId>javax.servlet</groupId>
 				</exclusion>
