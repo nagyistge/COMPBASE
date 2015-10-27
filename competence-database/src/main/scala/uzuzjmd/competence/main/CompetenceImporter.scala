@@ -16,8 +16,9 @@ import uzuzjmd.competence.csv.CompetenceFilter
 import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.owl.access.Logging
 
-object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] {
+object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] with Logging {
 
   def main(args: Array[String]) {
     convert()
@@ -25,6 +26,7 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
   }
 
   def convert() {
+    logger.debug("Importing competences into the database from csv file: " + MagicStrings.CSVLOCATION)
     val rcdeoCompetences = getCompetencesFromCSV()
     val compOntManager = new CompOntologyManager
     compOntManager.createBaseOntology()
