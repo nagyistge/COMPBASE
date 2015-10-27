@@ -14,6 +14,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import uzuzjmd.competence.csv.CompetenceBean;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
@@ -45,6 +48,9 @@ import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 public class CompetenceServiceRestXML extends
 		CompetenceOntologyInterface {
 
+	private Logger logger = LogManager
+			.getLogger(getClass());
+
 	/**
 	 * new competences can be added via this function. They must be encoded as
 	 * Rdceo see somewhere...
@@ -55,9 +61,9 @@ public class CompetenceServiceRestXML extends
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/add")
 	public void addRcdeo(Rdceo input) {
-		System.out.println("Competences inserted");
 		CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
 		competenceServiceImpl.insertCompetence(input);
+		logger.debug("Competences inserted in rcdeo format");
 	}
 
 	@POST
@@ -65,8 +71,10 @@ public class CompetenceServiceRestXML extends
 	@Path("/addCompetenceBean")
 	public Response addCompetenceBean(
 			CompetenceBean[] competenceBean) {
+		logger.debug("Now inserting in xml bean format");
 		CompetenceImporter
 				.competenceBeanToDatabase(competenceBean);
+		logger.debug("Competences inserted in xml bean format");
 		return Response.ok("competences updated").build();
 	}
 
@@ -190,46 +198,6 @@ public class CompetenceServiceRestXML extends
 				result, cache.equals("cached"));
 		return response;
 	}
-
-	// /**
-	// *
-	// * @param course
-	// * @param compulsory
-	// * @param cache
-	// * can be either "cache" or "nocache"
-	// * @param selectedCatchwords
-	// * @param selectedOperators
-	// * @param textFilter
-	// * @return
-	// */
-	// @Produces(MediaType.APPLICATION_XML)
-	// @GET
-	// @Path("/competencetree/coursecontextnofilter/{course}/{compulsory}/{cache}")
-	// public Response
-	// getCompetenceTreeForCourseWithoutFilter(@PathParam("course") String
-	// course, @PathParam("compulsory") String compulsory, @PathParam("cache")
-	// String cache,
-	// @QueryParam(value = "selectedCatchwords") List<String>
-	// selectedCatchwords, @QueryParam(value = "selectedOperators") List<String>
-	// selectedOperators,
-	// @QueryParam("textFilter") String textFilter) {
-	//
-	// CompetenceXMLTree[] result = null;
-	// if (compulsory.equals("all")) {
-	// result =
-	// CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords,
-	// selectedOperators, course, null, textFilter);
-	// } else {
-	// Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
-	// result =
-	// CompetenceServiceWrapper.getCompetenceTreeForCourseNoFilter(selectedCatchwords,
-	// selectedOperators, course, compulsoryBoolean, textFilter);
-	// }
-	//
-	// Response response = RestUtil.buildCachedResponse(result,
-	// cache.equals("cached"));
-	// return response;
-	// }
 
 	/**
 	 * Get the GUI operator tree
