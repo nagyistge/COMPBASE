@@ -78,7 +78,7 @@ class local_competence_external extends external_api {#
         $userId = $USER->id;
         $roles = get_user_roles_in_course($userId, $courseId);
 
-        if (strpos($roles, 'Teacher') !== FALSE || strpos($roles, 'Lehrer') !== FALSE || strpos($roles, 'Trainer') !== FALSE) {
+        if (strpos($roles, 'Teacher') !== FALSE || strpos($roles, 'Lehrer') !== FALSE || strpos($roles, 'Student') !== FALSE  || strpos($roles, 'Trainer') !== FALSE) {
 
             $query = 'SELECT {log}.*,firstname,lastname,email,lastaccess FROM {log} , {user} INNER JOIN {role_assignments} ra ON ra.userid = {user}.id INNER JOIN {context} ct ON ct.id = ra.contextid INNER JOIN {course} c ON c.id = ct.instanceid INNER JOIN {role} r ON r.id = ra.roleid INNER JOIN {course_categories} cc ON cc.id = c.category WHERE {log}.userid = {user}.id AND {log}.course= ? AND r.id =5 ORDER BY time DESC';
             $result = $DB->get_records_sql($query, array($courseId));
@@ -92,8 +92,7 @@ class local_competence_external extends external_api {#
                     'course' => $arrayElement->course,
                     'activityTyp' => $arrayElement->module,
                     'email' => $arrayElement->email
-                );
-                //TODO finish
+                );                
             };
             $result_mapped = array_map($mapper, $result);
             return $result_mapped;
