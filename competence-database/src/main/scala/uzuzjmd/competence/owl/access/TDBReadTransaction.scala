@@ -62,7 +62,9 @@ trait TDBREADTransactional[A, T] {
       result = f(comp)
     } catch {
       case db: NoCompetenceInDBException => dbIsEmpty = true
-      case e: Exception                  => e.printStackTrace()
+      case e: Exception =>
+        e.printStackTrace()
+        System.err.println(e.getMessage)
     } finally {
       comp.end()
       if (!dbIsEmpty) {
