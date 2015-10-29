@@ -18,10 +18,14 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
   def persistMore() {
     if (learningGoal != null) {
       addDataField(LEARNINGGOAL, learningGoal)
+    } else {
+      addDataField(LEARNINGGOAL, new java.lang.Boolean(false))
     }
 
     if (assmentIndex != null) {
       addDataField(ASSESSMENTINDEX, assmentIndex)
+    } else {
+      addDataField(ASSESSMENTINDEX, new Integer(0))
     }
   }
 

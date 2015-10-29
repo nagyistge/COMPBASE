@@ -10,7 +10,7 @@ import uzuzjmd.competence.main.OntologyWriter
 trait TDBWriteTransactional[A] {
   val comp = new CompOntologyManager
 
-  var debugOn = false
+  var debugOn = true
   type TRANSACTIONAL = (CompOntologyManager, A) => Unit
   type TRANSACTIONAL2 = (CompOntologyManager) => Unit
 
@@ -19,6 +19,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def execute(f: TRANSACTIONAL, g: A) {
+    setDebug()
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
@@ -34,6 +35,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def executeWithReasoning(f: TRANSACTIONAL, g: A) {
+    setDebug()
     comp.begin
     comp.getM.enterCriticalSection(false)
     comp.startReasoning(debugOn);
@@ -47,6 +49,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def executeNoParam(f: TRANSACTIONAL2) {
+    setDebug()
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
@@ -63,6 +66,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def executeNoParamWithReasoning(f: TRANSACTIONAL2) {
+    setDebug()
     comp.begin
     comp.getM.enterCriticalSection(false)
     comp.startReasoning(debugOn);
@@ -81,6 +85,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def execute[T](f: (CompOntologyManager, A) => T, g: A): T = {
+    setDebug()
     var result: Any = null
     comp.begin
     comp.getM.enterCriticalSection(false)
@@ -101,6 +106,7 @@ trait TDBWriteTransactional[A] {
    * in case multiple purposes are followed in one class
    */
   def executeX[X](f: (CompOntologyManager, X) => Unit, g: X) {
+    setDebug()
     comp.begin
     comp.getM.enterCriticalSection(false)
     try {
@@ -116,6 +122,7 @@ trait TDBWriteTransactional[A] {
   }
 
   def executeAll(l: Array[TRANSACTIONAL], g: A) {
+    setDebug()
     l.foreach { x => execute(x, g) }
   }
 

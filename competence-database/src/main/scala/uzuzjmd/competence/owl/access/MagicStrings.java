@@ -1,6 +1,5 @@
 package uzuzjmd.competence.owl.access;
 
-
 public class MagicStrings {
 
 	// public static final String PREFIX =
@@ -52,6 +51,6 @@ public class MagicStrings {
 	public static final String thesaurusDatabaseUrl = PropUtil
 			.getProp("thesaurusDatabaseUrl");
 	public static final Boolean WRITEDEBUGRDF = PropUtil
-			.getProp("writeDebugRDF").equals("false");
+			.getProp("writeDebugRDF").equals("true");
 
 }
