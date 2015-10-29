@@ -20,9 +20,13 @@ object Ont2LearningTemplateResultSet extends TDBREADTransactional[String, Learni
     val associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
 
     if (associatedCompetences.isEmpty()) {
-      return null
+      val result = new LearningTemplateResultSet
+      result.setNameOfTheLearningTemplate(changes);
+      return result
     } else if (associatedCompetences.size() == 1) {
-      return new LearningTemplateResultSet(new GraphNode(associatedCompetences.get(0).getDefinition()));
+      val result = new LearningTemplateResultSet(new GraphNode(associatedCompetences.get(0).getDefinition()));
+      result.setNameOfTheLearningTemplate(changes);
+      return result
     } else {
       return Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
     }

@@ -11,6 +11,7 @@ import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.Logging
+import uzuzjmd.competence.owl.dao.exceptions.IdentifierNullException
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {
 
@@ -39,7 +40,12 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     return (literal, prop)
   }
 
+  @throws[IdentifierNullException]
   def persist(): Individual = {
+    if (identifier == null) {
+      logger.error("tried to persist " + this.toString() + " in database with identifier null")
+      throw new IdentifierNullException
+    }
     val result = createIndividual
     persistMore()
     return result
