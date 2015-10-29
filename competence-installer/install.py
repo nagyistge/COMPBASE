@@ -27,13 +27,13 @@ def download_file(file_name):
         f.write(buffer)
         status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
         status = status + chr(8)*(len(status)+1)
-        print status,
+        #print status,
 
     f.close()
     files[file_name]["downloaded"]=1
     print "Download complete."
 def modification_date(filename):
-    t = os.path.getctime(filename)
+    t = os.path.getmtime(filename)
     return datetime.datetime.fromtimestamp(t)
 
 def download_process(job_instance, file_name, file_path):
@@ -46,8 +46,8 @@ def download_process(job_instance, file_name, file_path):
         #TODO Insert comment again
         if lbd.get_timestamp() > mod_date :
             while 1:
-                answer = raw_input(file_name + " is out dated. Download new one?(yes/no)")
-                if answer == "yes" :
+                answer = raw_input(file_name + " is out dated. Download new one?(yes/no; Default is yes)")
+                if answer == "yes" or answer == "":
                     download_file(file_name);
                     break
                 elif answer == "no" :
@@ -66,6 +66,11 @@ def define_my_path(writeFile,first, end):
         answer =  end
     writeFile.write(first + "=" + answer  + "\n")
 
+def readFile(file_name):
+	with open(file_name) as stream:
+		for line in stream:
+			print line
+
 files = {
     "CompetenceServer.jar": {
         "url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database/target/CompetenceServer.jar",
@@ -73,12 +78,12 @@ files = {
         "path": "CompetenceServer.jar",
     },
     "log4j.xml": {
-        "url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database/log4j.xml",
+        #"url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database-servlet/competence-servlet/src/main/resources/log4j.xml",
         "downloaded":0,
         "path": "log4j.xml",
     },
     "evidenceserver.properties": {
-        "url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database/evidenceserver.properties",
+        #"url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database/evidenceserver.properties",
         "downloaded":0,
         "path": "evidenceserver.properties",
     },
@@ -103,7 +108,8 @@ server = Jenkins('http://fleckenroller.cs.uni-potsdam.de/')
 properties = {
     'tdblocation': "tdb2/",
     'log4jlocation': files["log4j.xml"]["path"],
-    'rootPath': os.path.abspath(".") + "/",
+    #TODO without slash because of operating systems
+    'rootPath': "",
     'writeDebugRDF': "false",
     'csvFile': files['kompetenzen_moodle_utf8.csv']["path"],
     'eposfile': files['epos.xml']["path"],
@@ -112,7 +118,8 @@ print "Established Connection to Server. Jenkins Version: " + server.version
 for job in server.get_jobs():
     if job[0] == 'competency database':
         for key in files.keys():
-            download_process(server.get_job(job[0]), key, files[key]["url"])
+            if files[key].has_key("url"):
+                download_process(server.get_job(job[0]), key, files[key]["url"])
         if files["evidenceserver.properties"]["downloaded"] :
             with open('evidenceserver.properties') as stream:
                 writeFile = open('evidenceserver.buffer', 'w')
@@ -132,9 +139,10 @@ for job in server.get_jobs():
                 if debugRdfProp :
                     define_my_path(writeFile, "writeDebugRDF", properties["writeDebugRDF"])
                 writeFile.close()
-                os.remove("evidenceserver.properties")
-                os.renames("evidenceserver.buffer", "evidenceserver.properties")
-                print "Later You can change the properties in evidenceserver.properties"
+            
+            os.remove("evidenceserver.properties")
+            os.renames("evidenceserver.buffer", "evidenceserver.properties")
+            print "Later You can change the properties in evidenceserver.properties"
 if os.path.isfile("evidenceserver.properties"):
     if not os.path.isfile("mymodelrdf.owlat") :
         print "Integrate Data"
