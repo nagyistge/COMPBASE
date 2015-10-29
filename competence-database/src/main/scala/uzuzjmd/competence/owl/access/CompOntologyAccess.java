@@ -32,7 +32,8 @@ public class CompOntologyAccess {
 	/**
 	 * init Logger
 	 */
-	public static final Logger logger = LogManager.getLogger(CompOntologyAccess.class.getName());
+	public static final Logger logger = LogManager
+			.getLogger(CompOntologyAccess.class.getName());
 	private CompFileUtil fileUtil;
 
 	private CompOntologyManager manager;
@@ -49,7 +50,9 @@ public class CompOntologyAccess {
 	 * @param queries
 	 * @param compOntologyManager
 	 */
-	public CompOntologyAccess(OntModel m, CompetenceQueries queries, CompOntologyManager compOntologyManager) {
+	public CompOntologyAccess(OntModel m,
+			CompetenceQueries queries,
+			CompOntologyManager compOntologyManager) {
 		this.queries = queries;
 		this.fileUtil = new CompFileUtil(m);
 		this.manager = compOntologyManager;
@@ -62,14 +65,19 @@ public class CompOntologyAccess {
 	 * @param individualName
 	 * @return
 	 */
-	public Individual createIndividualForString(OntClass ontClass, String individualName, Boolean isRead) {
+	public Individual createIndividualForString(
+			OntClass ontClass, String individualName,
+			Boolean isRead) {
 		if (individualName == null) {
-			throw new Error("individual name should not be null");
+			throw new Error(
+					"individual name should not be null");
 		}
 		if (isRead) {
-			return manager.getM().getIndividual(encode(individualName));
+			return manager.getM().getIndividual(
+					encode(individualName));
 		} else {
-			return manager.getM().createIndividual(encode(individualName), ontClass);
+			return manager.getM().createIndividual(
+					encode(individualName), ontClass);
 		}
 	}
 
@@ -80,10 +88,15 @@ public class CompOntologyAccess {
 	 * @param individualName
 	 * @return
 	 */
-	public Individual createIndividualForStringWithDefinition(OntClass ontClass, String individualName, String definition) {
+	public Individual createIndividualForStringWithDefinition(
+			OntClass ontClass, String individualName,
+			String definition) {
 
-		Individual individual = manager.getM().createIndividual(encode(individualName), ontClass);
-		individual.addLiteral(manager.getM().createProperty("definition"), definition);
+		Individual individual = manager.getM()
+				.createIndividual(encode(individualName),
+						ontClass);
+		individual.addLiteral(manager.getM()
+				.createProperty("definition"), definition);
 		return individual;
 	}
 
@@ -93,11 +106,14 @@ public class CompOntologyAccess {
 	 * @param propertyName
 	 * @return
 	 */
-	public ObjectProperty createObjectProperty(CompOntClass domain, CompOntClass range, CompObjectProperties propertyName) {
+	public ObjectProperty createObjectProperty(
+			CompOntClass domain, CompOntClass range,
+			CompObjectProperties propertyName) {
 
 		OntClass ontClass1 = getClass(domain, false);
 		OntClass ontclass2 = getClass(range, false);
-		return createObjectProperty(ontClass1, ontclass2, propertyName.name());
+		return createObjectProperty(ontClass1, ontclass2,
+				propertyName.name());
 	}
 
 	/**
@@ -109,9 +125,12 @@ public class CompOntologyAccess {
 	 * @param propertyName
 	 * @return
 	 */
-	private ObjectProperty createObjectProperty(OntClass domain, OntClass range, String propertyName) {
+	private ObjectProperty createObjectProperty(
+			OntClass domain, OntClass range,
+			String propertyName) {
 
-		ObjectProperty property = manager.getM().createObjectProperty(encode(propertyName));
+		ObjectProperty property = manager.getM()
+				.createObjectProperty(encode(propertyName));
 		property.setDomain(domain);
 		property.setRange(range);
 		return property;
@@ -124,10 +143,15 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+	public ObjectProperty createObjectPropertyWithIndividual(
+			Individual domainIndividual,
+			Individual rangeIndividual,
+			CompObjectProperties compObjectProperties) {
 
-		ObjectProperty result = createObjectPropertyForString(compObjectProperties.name());
-		domainIndividual.addProperty(result.asObjectProperty(), rangeIndividual);
+		ObjectProperty result = createObjectPropertyForString(compObjectProperties
+				.name());
+		domainIndividual.addProperty(
+				result.asObjectProperty(), rangeIndividual);
 		return result;
 	}
 
@@ -138,9 +162,14 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public ObjectProperty deleteObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
-		ObjectProperty result = getObjectPropertyForString(compObjectProperties.name());
-		domainIndividual.removeProperty(result.asObjectProperty(), rangeIndividual);
+	public ObjectProperty deleteObjectPropertyWithIndividual(
+			Individual domainIndividual,
+			Individual rangeIndividual,
+			CompObjectProperties compObjectProperties) {
+		ObjectProperty result = getObjectPropertyForString(compObjectProperties
+				.name());
+		domainIndividual.removeProperty(
+				result.asObjectProperty(), rangeIndividual);
 		return result;
 	}
 
@@ -151,19 +180,32 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
-	public Boolean existsObjectPropertyWithIndividual(Individual domainIndividual, final Individual rangeIndividual, CompObjectProperties compObjectProperties) {
-		if ((domainIndividual == null) || (rangeIndividual == null) || (compObjectProperties == null)) {
+	public Boolean existsObjectPropertyWithIndividual(
+			Individual domainIndividual,
+			final Individual rangeIndividual,
+			CompObjectProperties compObjectProperties) {
+		if ((domainIndividual == null)
+				|| (rangeIndividual == null)
+				|| (compObjectProperties == null)) {
 			return false;
 		}
 
-		ObjectProperty result = getObjectPropertyForString(compObjectProperties.name());
-		ExtendedIterator<Statement> linkedIndividuals = domainIndividual.listProperties(result.asProperty()).filterKeep(new Filter<Statement>() {
-			@Override
-			public boolean accept(Statement o) {
-				return o.getResource().getLocalName().equals(rangeIndividual.asResource().getLocalName());
-			}
-		});
-		Boolean exists = !linkedIndividuals.toSet().isEmpty();
+		ObjectProperty result = getObjectPropertyForString(compObjectProperties
+				.name());
+		ExtendedIterator<Statement> linkedIndividuals = domainIndividual
+				.listProperties(result.asProperty())
+				.filterKeep(new Filter<Statement>() {
+					@Override
+					public boolean accept(Statement o) {
+						return o.getResource()
+								.getLocalName()
+								.equals(rangeIndividual
+										.asResource()
+										.getLocalName());
+					}
+				});
+		Boolean exists = !linkedIndividuals.toSet()
+				.isEmpty();
 		return exists;
 	}
 
@@ -173,8 +215,10 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
-	public OntClass createOntClass(CompOntClass ontClass, Boolean isRead) {
-		return createOntClassForString(ontClass.name(), isRead);
+	public OntClass createOntClass(CompOntClass ontClass,
+			Boolean isRead) {
+		return createOntClassForString(ontClass.name(),
+				isRead);
 	}
 
 	/**
@@ -183,22 +227,28 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
-	public OntClass createOntClassForString(String string, Boolean isRead, String... definitions) {
+	public OntClass createOntClassForString(String string,
+			Boolean isRead, String... definitions) {
 		if (string.equals("")) {
 			return null;
 		}
 		OntClass paper = null;
 		try {
 			if (isRead) {
-				paper = manager.getM().getOntClass(encode(string));
+				paper = manager.getM().getOntClass(
+						encode(string));
 			} else {
-				paper = manager.getM().createClass(encode(string));
+				paper = manager.getM().createClass(
+						encode(string));
 			}
 		} catch (NullPointerException e) {
 			System.out.println("und deine mudda");
 		}
 		if (definitions != null && definitions.length > 0) {
-			paper.addLiteral(manager.getM().createProperty(encode("definition")), definitions[0]);
+			paper.addLiteral(
+					manager.getM().createProperty(
+							encode("definition")),
+					definitions[0]);
 		}
 		return paper;
 	}
@@ -210,49 +260,71 @@ public class CompOntologyAccess {
 	 * @param ontclass
 	 * @return
 	 */
-	public Individual createSingleTonIndividual(OntClass ontclass, Boolean isRead) {
+	public Individual createSingleTonIndividual(
+			OntClass ontclass, Boolean isRead) {
 		if (ontclass == null) {
 			return null;
 		}
-		String singletonstring = MagicStrings.SINGLETONPREFIX + ontclass.getURI().substring(MagicStrings.PREFIX.length(), ontclass.getURI().length());
-		return createIndividualForString(ontclass, singletonstring, isRead);
+		String singletonstring = MagicStrings.SINGLETONPREFIX
+				+ ontclass.getURI().substring(
+						MagicStrings.PREFIX.length(),
+						ontclass.getURI().length());
+		return createIndividualForString(ontclass,
+				singletonstring, isRead);
 	}
 
-	public OntClass createSingleTonIndividualWithClass(String classname, Boolean isRead, String... definitions) {
-		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
+	public OntClass createSingleTonIndividualWithClass(
+			String classname, Boolean isRead,
+			String... definitions) {
+		OntClass classOnt = createOntClassForString(
+				classname, isRead, definitions);
 		createSingleTonIndividual(classOnt, isRead);
 		return classOnt;
 	}
 
-	public Individual createSingleTonIndividualWithClass2(String classname, Boolean isRead, String... definitions) {
-		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
+	public Individual createSingleTonIndividualWithClass2(
+			String classname, Boolean isRead,
+			String... definitions) {
+		OntClass classOnt = createOntClassForString(
+				classname, isRead, definitions);
 		return createSingleTonIndividual(classOnt, isRead);
 	}
 
-	public OntResult accessSingletonResource(String classname, Boolean isRead, String... definitions) {
+	public OntResult accessSingletonResource(
+			String classname, Boolean isRead,
+			String... definitions) {
 		if (classname.startsWith("I")) {
 			logger.trace("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
 		}
 
-		OntClass classOnt = createOntClassForString(classname, isRead, definitions);
-		Individual individual = createSingleTonIndividual(classOnt, isRead);
+		OntClass classOnt = createOntClassForString(
+				classname, isRead, definitions);
+		Individual individual = createSingleTonIndividual(
+				classOnt, isRead);
 
 		return new OntResult(individual, classOnt);
 	}
 
-	public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass, Boolean isRead) {
-		OntClass classOnt = createOntClass(compOntClass, isRead);
-		Individual individual = createSingleTonIndividual(classOnt, isRead);
+	public OntResult accessSingletonResourceWithClass(
+			CompOntClass compOntClass, Boolean isRead) {
+		OntClass classOnt = createOntClass(compOntClass,
+				isRead);
+		Individual individual = createSingleTonIndividual(
+				classOnt, isRead);
 		return new OntResult(individual, classOnt);
 	}
 
-	public OntClass getClass(CompOntClass compOntClass, Boolean isRead) {
-		return createOntClassForString(compOntClass.name(), isRead);
+	public OntClass getClass(CompOntClass compOntClass,
+			Boolean isRead) {
+		return createOntClassForString(compOntClass.name(),
+				isRead);
 	}
 
 	public static String encode(String string) {
-		if (string.startsWith(MagicStrings.PREFIX) || string.equals("")) {
-			throw new Error("OntClass should not start with Prefix or empty string");
+		if (string.startsWith(MagicStrings.PREFIX)
+				|| string.equals("")) {
+			throw new Error(
+					"OntClass should not start with Prefix or empty string");
 		}
 
 		/**
@@ -260,11 +332,17 @@ public class CompOntologyAccess {
 		 * nicht gut
 		 */
 		//
-		if (string.matches("^[0-9]")) {
+		if (string.matches("^[0-9].*")) {
 			string = "n" + string;
 		}
-		string = string.trim().replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "");
-		return (MagicStrings.PREFIX + string).replaceAll("_", "");
+		string = string.trim()
+				.replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_")
+				.replaceAll("[\u0000-\u001f]", "")
+				.replaceAll("\\.", "__")
+				.replaceAll("[\n\r]", "")
+				.replaceAll("[\n]", "");
+		return (MagicStrings.PREFIX + string).replaceAll(
+				"_", "");
 	}
 
 	public CompFileUtil getFileUtil() {
@@ -277,19 +355,25 @@ public class CompOntologyAccess {
 	 * @param indivString
 	 * @return
 	 */
-	public Individual getIndividualForString(String indivString) {
-		return manager.getM().getIndividual(encode(indivString));
+	public Individual getIndividualForString(
+			String indivString) {
+		return manager.getM().getIndividual(
+				encode(indivString));
 	}
 
-	private ObjectProperty getObjectPropertyForString(String objectProperty) {
+	private ObjectProperty getObjectPropertyForString(
+			String objectProperty) {
 		// manager.getM().getObjectProperty(uri)
-		return manager.getM().getObjectProperty(encode(objectProperty));
+		return manager.getM().getObjectProperty(
+				encode(objectProperty));
 
 	}
 
-	private ObjectProperty createObjectPropertyForString(String objectProperty) {
+	private ObjectProperty createObjectPropertyForString(
+			String objectProperty) {
 		// manager.getM().getObjectProperty(uri)
-		return manager.getM().createObjectProperty(encode(objectProperty));
+		return manager.getM().createObjectProperty(
+				encode(objectProperty));
 	}
 
 	/**
@@ -301,7 +385,8 @@ public class CompOntologyAccess {
 	public OntClass getOntClassForString(String className) {
 		manager.sync();
 		String encoded = encode(className);
-		OntClass paper = manager.getM().getOntClass(encoded);
+		OntClass paper = manager.getM()
+				.getOntClass(encoded);
 		return paper;
 	}
 
@@ -315,17 +400,26 @@ public class CompOntologyAccess {
 		return queries;
 	}
 
-	public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
+	public List<String> getAllInstanceDefinitions(
+			CompOntClass clazz) {
 
 		List<String> result = new LinkedList<String>();
-		OntClass learningProjectTemplateClass = getOntClassForString(clazz.name());
-		ExtendedIterator<? extends OntResource> instances = learningProjectTemplateClass.listInstances();
+		OntClass learningProjectTemplateClass = getOntClassForString(clazz
+				.name());
+		ExtendedIterator<? extends OntResource> instances = learningProjectTemplateClass
+				.listInstances();
 		while (instances.hasNext()) {
 			OntResource res = instances.next();
-			OntProperty iProperty = manager.getM().getOntProperty(MagicStrings.PREFIX + "definition");
+			OntProperty iProperty = manager.getM()
+					.getOntProperty(
+							MagicStrings.PREFIX
+									+ "definition");
 			RDFNode value = res.getPropertyValue(iProperty);
 			if (value != null) {
-				String definitionValue = value.asNode().getLiteralValue().toString().replaceAll("[\n\r]", "").replaceAll("[\n]", "");
+				String definitionValue = value.asNode()
+						.getLiteralValue().toString()
+						.replaceAll("[\n\r]", "")
+						.replaceAll("[\n]", "");
 				result.add(definitionValue);
 			}
 		}
@@ -333,26 +427,33 @@ public class CompOntologyAccess {
 	}
 
 	// TODO: Test
-	public List<String> getShortestSubClassPath(OntClass start, OntClass end) {
+	public List<String> getShortestSubClassPath(
+			OntClass start, OntClass end) {
 		Filter<Statement> onPath = new Filter<Statement>() {
 
 			@Override
 			public boolean accept(Statement o) {
-				return o.getPredicate().equals(RDFS.subClassOf);
+				return o.getPredicate().equals(
+						RDFS.subClassOf);
 			}
 		};
 		List<String> result = new LinkedList<String>();
-		Path resultPath = OntTools.findShortestPath(manager.getM(), start, end, onPath);
-		Iterator<Statement> statementIt = resultPath.iterator();
+		Path resultPath = OntTools.findShortestPath(
+				manager.getM(), start, end, onPath);
+		Iterator<Statement> statementIt = resultPath
+				.iterator();
 		while (statementIt.hasNext()) {
-			result.add(statementIt.next().getSubject().getLocalName());
+			result.add(statementIt.next().getSubject()
+					.getLocalName());
 		}
 		return result;
 	}
 
-	public String validityReportTostring(ValidityReport report) {
+	public String validityReportTostring(
+			ValidityReport report) {
 		String result = "";
-		for (Iterator<Report> i = report.getReports(); i.hasNext();) {
+		for (Iterator<Report> i = report.getReports(); i
+				.hasNext();) {
 			result += (" - " + i.next());
 		}
 		return result;
