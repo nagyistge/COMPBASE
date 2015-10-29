@@ -54,6 +54,9 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
   //  }
 
   def getAssmentIndex(): Integer = {
+    if (!exists()) {
+      return 0
+    }
     if (getDataField(ASSESSMENTINDEX) == null) {
       return 0
     }
@@ -61,6 +64,9 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
   }
 
   def getLearningGoal(): Boolean = {
+    if (!exists()) {
+      return false
+    }
     if (getDataField(LEARNINGGOAL) == null) {
       return false;
     }
