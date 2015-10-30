@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest.model.dto;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CompetenceData {
@@ -11,7 +12,11 @@ public class CompetenceData {
 	private String learningProjectName;
 	private String forCompetence;
 
-	public CompetenceData(String operator, List<String> catchwords, List<String> superCompetences, List<String> subCompetences, String learningProjectName, String forCompetence) {
+	public CompetenceData(String operator,
+			List<String> catchwords,
+			List<String> superCompetences,
+			List<String> subCompetences,
+			String learningProjectName, String forCompetence) {
 		super();
 		this.operator = operator;
 		this.catchwords = catchwords;
@@ -19,6 +24,13 @@ public class CompetenceData {
 		this.subCompetences = subCompetences;
 		this.learningProjectName = learningProjectName;
 		this.forCompetence = forCompetence;
+
+		if (superCompetences == null) {
+			this.superCompetences = new LinkedList<String>();
+		}
+		if (subCompetences == null) {
+			this.subCompetences = new LinkedList<String>();
+		}
 	}
 
 	public String getForCompetence() {
@@ -49,7 +61,8 @@ public class CompetenceData {
 		return superCompetences;
 	}
 
-	public void setSuperCompetences(List<String> superCompetences) {
+	public void setSuperCompetences(
+			List<String> superCompetences) {
 		this.superCompetences = superCompetences;
 	}
 
@@ -57,7 +70,8 @@ public class CompetenceData {
 		return subCompetences;
 	}
 
-	public void setSubCompetences(List<String> subCompetences) {
+	public void setSubCompetences(
+			List<String> subCompetences) {
 		this.subCompetences = subCompetences;
 	}
 
@@ -65,7 +79,8 @@ public class CompetenceData {
 		return learningProjectName;
 	}
 
-	public void setLearningProjectName(String learningProjectName) {
+	public void setLearningProjectName(
+			String learningProjectName) {
 		this.learningProjectName = learningProjectName;
 	}
 }

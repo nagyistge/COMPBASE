@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ManagedBean(name = "ReflectiveAssessmentsListHolder")
 @ViewScoped
 @XmlRootElement
-public class ReflectiveAssessmentsListHolder implements Serializable {
+public class ReflectiveAssessmentsListHolder implements
+		Serializable {
 	/**
 	 * 
 	 */
@@ -41,7 +42,8 @@ public class ReflectiveAssessmentsListHolder implements Serializable {
 		return suggestedMetaCompetence;
 	}
 
-	public void setSuggestedMetaCompetence(String suggestedMetaCompetence) {
+	public void setSuggestedMetaCompetence(
+			String suggestedMetaCompetence) {
 		this.suggestedMetaCompetence = suggestedMetaCompetence;
 	}
 
@@ -56,5 +58,11 @@ public class ReflectiveAssessmentsListHolder implements Serializable {
 
 	public void setAssessment(Assessment assessment) {
 		this.assessment = assessment;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getReflectiveAssessmentList().toString();
 	}
 }
