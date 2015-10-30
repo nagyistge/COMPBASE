@@ -25,6 +25,8 @@ case class LearningProjectTemplate(comp: CompOntologyManager, var name: String, 
 
     if (readableName != null) {
       addDataField(DEFINITION, readableName);
+    } else {
+      addDataField(DEFINITION, name);
     }
   }
 

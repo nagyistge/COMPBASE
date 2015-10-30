@@ -44,6 +44,7 @@ public class RestServer {
 				CompetenceServiceRestXML.class,
 				CompetenceServiceRestJSON.class,
 				EvidenceServiceRestServerImpl.class);
+		// resourceConfig.register(LoggingFilter.class);
 		resourceConfig.register(JacksonFeature.class);
 		// final Map<String, Object> initParams = new HashMap<String, Object>();
 		// // initParams.put("com.sun.jersey.config.property.packages", "rest");

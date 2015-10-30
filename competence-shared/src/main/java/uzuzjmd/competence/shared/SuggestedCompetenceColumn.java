@@ -8,7 +8,8 @@ import javax.faces.bean.ViewScoped;
 
 @ViewScoped
 @ManagedBean(name = "SuggestedCompetenceColumn", eager = true)
-public class SuggestedCompetenceColumn implements Serializable {
+public class SuggestedCompetenceColumn implements
+		Serializable {
 
 	/**
 	 * 
@@ -51,4 +52,13 @@ public class SuggestedCompetenceColumn implements Serializable {
 		this.reflectiveAssessmentListHolder = reflectiveAssessmentListHolder;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "(percent: "
+				+ this.progressInPercent
+				+ "Assessment: "
+				+ this.getReflectiveAssessmentListHolder()
+						.toString() + ")";
+	}
 }

@@ -72,7 +72,17 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
     result.setProgressInPercent(calculateAssessmentIndex(competence, user))
-    result.setReflectiveAssessmentListHolder(competenceToReflextiveAssessmentsListHolder(competence, user))
+    if (competence.listSubClasses(classOf[Competence]).isEmpty) {
+      val holder = new ReflectiveAssessmentsListHolder
+      val assessment = new Assessment
+      holder.setAssessment(assessment)
+      holder.setSuggestedMetaCompetence(competence.getDefinition)
+      val reflectiveAssessment = new ReflectiveAssessment(false, competence.getDefinition(), "gar nicht");
+      holder.setReflectiveAssessmentList((reflectiveAssessment :: Nil).asJava)
+      result.setReflectiveAssessmentListHolder(holder)
+    } else {
+      result.setReflectiveAssessmentListHolder(competenceToReflextiveAssessmentsListHolder(competence, user))
+    }
     return result
   }
 
@@ -221,6 +231,9 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
   }
 
   private def catchwordsStoString(input: Buffer[Catchword]): String = {
+    if (input.isEmpty) {
+      return ""
+    }
     return input.map(x => x.getDataField(x.DEFINITION)).reduce((a, b) => a + ", " + b)
   }
 
