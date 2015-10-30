@@ -9,6 +9,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
 class Competence(compManager: CompOntologyManager, identifierlocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierlocal) {
 
@@ -99,9 +100,10 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   }
 
   def getAssessment(user: User): SelfAssessment = {
-    val result = getAssociatedStandardDaosAsDomain(CompObjectProperties.AssessmentOfCompetence, classOf[SelfAssessment]).filter(x => x.hasEdge(CompObjectProperties.AssessmentOfUser, user))
+    val result1 = getAssociatedStandardDaosAsDomain(CompObjectProperties.AssessmentOfCompetence, classOf[SelfAssessment])
+    val result = result1.filter(x => x.hasEdge(CompObjectProperties.AssessmentOfUser, user))
     if (result.isEmpty) {
-      return new SelfAssessment(compManager, this, user, 0)
+      return new SelfAssessment(compManager, CompOntologyAccessScala.createIdentifierForAssessment(user, this), this, user, 0, false)
     }
     return result.head
   }
