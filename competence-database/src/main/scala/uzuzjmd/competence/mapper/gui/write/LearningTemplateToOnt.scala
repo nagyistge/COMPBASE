@@ -17,6 +17,10 @@ import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 import uzuzjmd.competence.owl.access.PerformanceTimer
 import uzuzjmd.competence.owl.access.AbstractTimer
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.dao.exceptions.UserNotExistsException
+import uzuzjmd.competence.owl.dao.exceptions.ContextNotExistsException
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 /**
  * @author dehne
@@ -26,7 +30,16 @@ import uzuzjmd.competence.owl.access.AbstractTimer
 object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
 
   def convert(changes: LearningTemplateData) {
+    execute(convertHelper1 _, changes)
     execute(convertHelper _, changes)
+  }
+
+  private def convertHelper1(comp: CompOntologyManager, changes: LearningTemplateData) {
+    val context = new CourseContext(comp, changes.getGroupId);
+    context.persist()
+    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+    user.persist()
+    context.createEdgeWith(CompObjectProperties.CourseContextOf, user)
   }
 
   def convertLearningTemplateResultSet(learningTemplateResultSet: LearningTemplateResultSet) {
@@ -34,8 +47,16 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
   }
 
   private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData) {
+
     val context = new CourseContext(comp, changes.getGroupId);
     val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+    if (!user.exists()) {
+      throw new UserNotExistsException
+    }
+
+    if (!context.exists()) {
+      throw new ContextNotExistsException
+    }
     val selected = new SelectedLearningProjectTemplate(comp, user, context, null, null);
     selected.persist();
     val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, changes.getSelectedTemplate);

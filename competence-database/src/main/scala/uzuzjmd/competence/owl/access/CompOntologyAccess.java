@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
@@ -406,6 +407,14 @@ public class CompOntologyAccess {
 		List<String> result = new LinkedList<String>();
 		OntClass learningProjectTemplateClass = getOntClassForString(clazz
 				.name());
+		if (learningProjectTemplateClass == null) {
+			try {
+				throw new OntClassForDaoNotInitializedException();
+			} catch (OntClassForDaoNotInitializedException e) {
+				logger.error(e);
+				e.printStackTrace();
+			}
+		}
 		ExtendedIterator<? extends OntResource> instances = learningProjectTemplateClass
 				.listInstances();
 		while (instances.hasNext()) {

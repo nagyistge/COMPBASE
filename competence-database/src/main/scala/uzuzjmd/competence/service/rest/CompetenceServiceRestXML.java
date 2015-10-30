@@ -403,7 +403,15 @@ public class CompetenceServiceRestXML extends
 
 		LearningTemplateData data = new LearningTemplateData(
 				userName, groupId, selectedTemplate);
-		return Ont2SuggestedCompetenceGrid.convert(data);
+		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
+				.convert(data);
+
+		logger.debug("GRIDVIEW");
+		logger.debug("getting grid for username: "
+				+ userName + ", groupId" + groupId
+				+ "selectedTemplate: " + selectedTemplate);
+		logger.debug("returning the grid " + result);
+		return result;
 	}
 
 	/**

@@ -1,33 +1,36 @@
 package uzuzjmd.competence.owl.dao
 
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import java.nio.charset.StandardCharsets
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.OntResult
+import scala.collection.JavaConverters._
+
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.owl.access.CompOntologyAccessScala
-import uzuzjmd.scalahacks.ScalaHacksInScala
-import com.hp.hpl.jena.ontology.OntTools
-import com.hp.hpl.jena.util.iterator.Filter
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import scala.io.UTF8Codec
-import javax.ws.rs.NotFoundException
+
+import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.owl.access.OntResult
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
-import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.DefinitionNotInitalizedException
+import uzuzjmd.competence.owl.dao.exceptions.NoRecursiveSubClassException
+import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.scalahacks.ScalaHacksInScala
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp, compOntClass, identifier) {
   val util = comp.getUtil()
 
   def DEFINITION = "definition"
 
+  @throws[NoRecursiveSubClassException]
   def persist(more: Boolean): OntResult = {
+    //    if (hasSuperClass) {
+    //      if (listSuperClasses(this.getClass).map(x => x.getId).contains(createIndividual.getLocalName)) {
+    //        throw new NoRecursiveSubClassException
+    //      }
+    //    }
     var result: OntResult = null
     if (identifier == null) {
       result = util.accessSingletonResourceWithClass(compOntClass, false)
