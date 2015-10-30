@@ -9,6 +9,7 @@ import javax.ws.rs.ProcessingException;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -59,26 +60,45 @@ public class RestServer {
 		// GrizzlyHttpServerFactory.createHttpServer(new
 		// URI(MagicStrings.RESTURLCompetence), resourceConfig);
 
-		GrizzlyHttpServerFactory.createHttpServer(new URI(
+		final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(new URI(
 				MagicStrings.RESTURLCompetence),
 				resourceConfig);
 
+	    // register shutdown hook
+	    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        @Override
+	        public void run() {
+	            logger.info("Stopping server..");
+	            server.shutdownNow();;
+	        }
+	    }, "shutdownHook"));
+
+	    // run
+	    try {
+	        server.start();
+			System.out
+			.println("publishing competence server to to "
+					+ MagicStrings.RESTURLCompetence);
+	System.out
+			.println("Test this with: "
+					+ MagicStrings.RESTURLCompetence
+					+ "/competences/xml/competencetree/university/all/nocache");
+	        logger.info("Press CTRL^C to exit..");
+	        Thread.currentThread().join();
+	    } catch (Exception e) {
+	        logger.error(
+	                "There was an error while starting Grizzly HTTP server.", e);
+	    }
 		logger.info("Publlished HTTP Server to "
 				+ MagicStrings.RESTURLCompetence);
 		Logger logJena = Logger
 				.getLogger("com.hp.hpl.jena");
 		logJena.setLevel(Level.WARN);
-		System.out
-				.println("publishing competence server to to "
-						+ MagicStrings.RESTURLCompetence);
-		System.out
-				.println("Test this with: "
-						+ MagicStrings.RESTURLCompetence
-						+ "/competences/xml/competencetree/university/all/nocache");
 
-		System.out.println("Press enter to exit");
+
+		//System.out.println("Press enter to exit");
 		logger.debug("Leaving startServer");
-		System.in.read();
+		//System.in.read();
 	}
 
 }
