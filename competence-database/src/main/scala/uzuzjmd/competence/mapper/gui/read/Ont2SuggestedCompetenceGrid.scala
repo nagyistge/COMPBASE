@@ -72,12 +72,14 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
     val result = new SuggestedCompetenceColumn
     result.setTestOutput(competence.getDataField(competence.DEFINITION))
     result.setProgressInPercent(calculateAssessmentIndex(competence, user))
+
+    // if there are no subclasses the competence itself should be used for assessment
     if (competence.listSubClasses(classOf[Competence]).isEmpty) {
       val holder = new ReflectiveAssessmentsListHolder
       val assessment = new Assessment
       holder.setAssessment(assessment)
       holder.setSuggestedMetaCompetence(competence.getDefinition)
-      val reflectiveAssessment = new ReflectiveAssessment(false, competence.getDefinition(), "gar nicht");
+      val reflectiveAssessment = competenceToReflectiveAssessment(competence)(user)
       holder.setReflectiveAssessmentList((reflectiveAssessment :: Nil).asJava)
       result.setReflectiveAssessmentListHolder(holder)
     } else {
@@ -106,7 +108,12 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
   }
 
   private def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
+
     val listSubclases = competence.listSubClasses(classOf[Competence])
+    if (listSubclases.isEmpty) {
+      val number = Math.round(competence.getAssessment(user).getAssmentIndex() * 33.33333)
+      return Integer.parseInt(number + "")
+    }
     val size = competence.listSubClasses(classOf[Competence]).size
     val sizeInJava: java.lang.Double = size
     val sum: java.lang.Double = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum

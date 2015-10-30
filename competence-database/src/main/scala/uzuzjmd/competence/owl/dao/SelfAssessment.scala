@@ -5,13 +5,20 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
-case class SelfAssessment(comp: CompOntologyManager, competence: Competence, user: User, val assmentIndex: java.lang.Integer = null, val learningGoal: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.SelfAssessment, CompOntologyAccessScala.createIdentifierForAssessment(user, competence)) {
+case class SelfAssessment(comp: CompOntologyManager, val identifiery: String, val competence: Competence = null, val user: User = null, val assmentIndex: java.lang.Integer = null, val learningGoal: java.lang.Boolean = null) extends CompetenceOntologyDao(comp, CompOntClass.SelfAssessment, identifiery) {
   def ASSESSMENTINDEX = "assessmentIndex" // 1-4 in liferay implementation
   def LEARNINGGOAL = "learningGoal" // boolean
 
+  //comp: CompOntologyManager, competence: Competence = null, user: User = null, val assmentIndex: java.lang.Integer = null, val learningGoal: java.lang.Boolean = null, val identifiery: String = null
+
+  //  def this(comp: CompOntologyManager, competence: Competence = null, user: User = null, assmentIndex: java.lang.Integer = null, learningGoal: java.lang.Boolean = null) = this(comp, CompOntologyAccessScala.createIdentifierForAssessment(user, competence), competence, user, assmentIndex, learningGoal)
+
   @Override
   def getFullDao(): SelfAssessment = {
-    return new SelfAssessment(comp, competence, user, getDataFieldInt(ASSESSMENTINDEX))
+    //    val competenceLocal = getAssociatedSingletonDaosAsRange(CompObjectProperties.AssessmentOfCompetence, classOf[Competence]).head
+    //    val userLocal = getAssociatedStandardDaosAsRange(CompObjectProperties.AssessmentOfUser, classOf[User]).head
+    //    return new SelfAssessment(comp, identifier, null, null, getDataFieldInt(ASSESSMENTINDEX), getDataFieldBoolean(LEARNINGGOAL))
+    return this
   }
 
   @Override
@@ -25,8 +32,20 @@ case class SelfAssessment(comp: CompOntologyManager, competence: Competence, use
     if (assmentIndex != null) {
       addDataField(ASSESSMENTINDEX, assmentIndex)
     } else {
-      addDataField(ASSESSMENTINDEX, new Integer(0))
+      addDataField(ASSESSMENTINDEX, new java.lang.Integer(0))
     }
+    if (competence != null) {
+      createEdgeWith(CompObjectProperties.AssessmentOfCompetence, competence)
+    } else {
+      logger.warn("persisting SelfAssessment without corresponding competence with identifier " + identifierTop)
+    }
+
+    if (user != null) {
+      createEdgeWith(CompObjectProperties.AssessmentOfUser, user)
+    } else {
+      logger.warn("persisting SelfAssessment without corresponding user with identifier " + identifierTop)
+    }
+
   }
 
   @Override
