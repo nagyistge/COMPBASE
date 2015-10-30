@@ -1,7 +1,6 @@
 package uzuzjmd.competence.mapper.gui.write
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.Competence
@@ -12,6 +11,7 @@ import uzuzjmd.competence.owl.dao.User
 import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData
 import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
+import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
 object ReflectiveAssessmentHolder2Ont extends TDBWriteTransactional[ReflectiveAssessmentChangeData] {
 
@@ -37,7 +37,8 @@ object ReflectiveAssessmentHolder2Ont extends TDBWriteTransactional[ReflectiveAs
 
   def updateSingleAssessment(reflectiveAsssessment: ReflectiveAssessment, comp: CompOntologyManager, user: User, courseContext: CourseContext) = {
     val competence = new Competence(comp, reflectiveAsssessment.getCompetenceDescription())
-    val selfAssnew = new SelfAssessment(comp, competence, user, convertAssessmentStringToIndex(reflectiveAsssessment.getAssessment()), reflectiveAsssessment.getIsLearningGoal())
+    val selfAssnew = new SelfAssessment(comp, CompOntologyAccessScala.createIdentifierForAssessment(user, competence), competence, user, convertAssessmentStringToIndex(reflectiveAsssessment.getAssessment()), reflectiveAsssessment.getIsLearningGoal())
     selfAssnew.persist
+
   }
 }

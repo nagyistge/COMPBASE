@@ -21,6 +21,10 @@ object LogConfigurator {
       Logger.getRootLogger.setLevel(Level.INFO)
       val ourLogger = Logger.getLogger("uzuzjmd.competence")
       ourLogger.setLevel(Level.DEBUG)
+
+      //      val grizzlyLogger = Logger.getLogger("org.glassfish.jersey.grizzly2.httpserver")
+      //      grizzlyLogger.setLevel(Level.TRACE)
+
       Logger.getLogger(LogConfigurator.getClass.getName).info("Start with Logging");
       init = true;
     }

@@ -47,6 +47,6 @@ object CompOntologyAccessScala {
   }
 
   def createIdentifierForAssessment(user: User, competence: Competence): String = {
-    return user.name + competence.definition
+    return user.name + competence.identifier
   }
 }
