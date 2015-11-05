@@ -15,9 +15,9 @@ To work with the installed server you have to use your service system systemd
 ### Configure server attributes
 In the directory /usr/bin/db-competence-installer are all files you need
  - log4j.xml - the file to configure your logger [log4j](http://logging.apache.org/log4j/2.x/). The standard configuration is that the logger logs in three ways:
-   - Debug.log - logging the debug level, important for *developer*
-	 - Info.log - logging the info level, important for *server admins*
-	 - std out - logging the info level in std out, viewable via sudo service db-competence status
+	- Debug.log - logging the debug level, important for *developer*
+	-	Info.log - logging the info level, important for *server admins*
+	- std out - logging the info level in std out, viewable via sudo service db-competence status
  - evidenceserver.properties - the file to configure the paths for the server
 
 ### Delete
