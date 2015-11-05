@@ -51,7 +51,8 @@ class local_competence_external extends external_api {#
         return new external_multiple_structure(
                 new external_single_structure(
                 array(
-            'shortname' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+//                    'text' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
+            'shortname' => new external_value(PARAM_RAW, 'multilang compatible name, course unique'),
             'url' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
             "username" => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
             "userId" => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
