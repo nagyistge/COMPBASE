@@ -1,3 +1,32 @@
+# Wissensmodellierung
+
+## Competence Server Project in Ubuntu/Debian
+### Install
+This project provides a .deb file which could be easily installed via package manager. Simply use the file in the path [competence-installer/Linux/Ubuntu_Debian](https://github.com/uzuzjmd/Wissensmodellierung/tree/master/competence-installer/Linux/Ubuntu_Debian)
+Further instructions will be provided via the terminal.
+
+### Update
+After the project is installed it could be that the server is getting upgraded by developers. To check if there is an update available you can execute the file /usr/bin/db-competence-installer/install.py. This little file will check if there is a new build and ask you to install it.
+
+### Usage
+To work with the installed server you have to use your service system systemd
+**sudo service db-competence (start|status|stop)** without brackets and use only one key word
+
+### Configure server attributes
+In the directory /usr/bin/db-competence-installer are all files you need
+ - log4j.xml - the file to configure your logger [log4j](http://logging.apache.org/log4j/2.x/). The standard configuration is that the logger logs in three ways:
+	- Debug.log - logging the debug level, important for *developer*
+	-	Info.log - logging the info level, important for *server admins*
+	- std out - logging the info level in std out, viewable via sudo service db-competence status
+ - evidenceserver.properties - the file to configure the paths for the server
+
+### Delete
+It would be a pitty if you want to delete this wonderful system. Anyway, you can use apt-get to delete the server: sudo apt-get remove --purge db-competence.
+Please use purge in case you want to install this deb file again.
+
+
+
+_old README_
 Wissensmodellierung
 ===================
 
