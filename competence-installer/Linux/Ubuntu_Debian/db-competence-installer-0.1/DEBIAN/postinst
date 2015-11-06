@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export LSN="$(id -g -n $USER)"
+export WRKDIR=\/usr\/bin\/db-competence-installer\/
+
+perl -pi -e 's/\(GROUP\)/$ENV{LSN}/g' etc/systemd/system/db-competence.service
+perl -pi -e 's/\(USER\)/$ENV{USER}/g' etc/systemd/system/db-competence.service
+perl -pi -e 's/\(WORKINGDIR\)/$ENV{WRKDIR}/g' etc/systemd/system/db-competence.service
+perl -pi -e 's/\(WORKINGDIR\)/$ENV{WRKDIR}/g' etc/init.d/db-competence
+
+(cd /usr/bin/db-competence-installer/;./install.py)

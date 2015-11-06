@@ -1,0 +1,11 @@
+Package: db-competence
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: debhelper (>= 7),
+					python (>= 2.7),
+					perl (>=5.20)
+Maintainer: Jan Bernoth <jan.bernoth@gmail.com>
+Description: This package provides a service to interact with the competence database. 
+							see https://github.com/uzuzjmd/Wissensmodellierung

@@ -1,0 +1,15 @@
+[Unit]
+Description=Daemon of Competence Database
+After=syslog.target
+
+[Service]
+Type=simple
+User=(USER)
+Group=(GROUP)
+WorkingDirectory=(WORKINGDIR)
+ExecStart=(WORKINGDIR)run.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
