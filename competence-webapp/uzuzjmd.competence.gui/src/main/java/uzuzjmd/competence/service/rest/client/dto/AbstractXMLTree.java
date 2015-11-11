@@ -14,13 +14,14 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 @XmlSeeAlso(AbstractTreeEntry.class)
 @XmlRootElement
-public class AbstractXMLTree<T extends AbstractXMLTree<T>> extends
-		AbstractTreeEntry {
+public class AbstractXMLTree<T extends AbstractXMLTree<T>>
+		extends AbstractTreeEntry {
 
 	private SortedList<T> children;
 
 	public AbstractXMLTree() {
-		children = new SortedList<T>(new TreeEntryComparator());
+		children = new SortedList<T>(
+				new TreeEntryComparator());
 	}
 
 	// public AbstractXMLTree(String name, String qtip, String icon,
@@ -29,8 +30,8 @@ public class AbstractXMLTree<T extends AbstractXMLTree<T>> extends
 	// this.setChildren(children);
 	// }
 
-	public AbstractXMLTree(String name, String qtip, String icon,
-			List<T> children) {
+	public AbstractXMLTree(String name, String qtip,
+			String icon, List<T> children) {
 		super(name, qtip, icon);
 		this.setChildren(children);
 	}
@@ -44,8 +45,15 @@ public class AbstractXMLTree<T extends AbstractXMLTree<T>> extends
 	}
 
 	public void setChildren(List<T> children) {
-		this.children = new SortedList<T>(new TreeEntryComparator());
+		this.children = new SortedList<T>(
+				new TreeEntryComparator());
 		this.children.addAll(children);
+	}
+
+	@Override
+	public String toString() {
+		return "AbstractXMLTree [children=" + children
+				+ "]";
 	}
 
 }
