@@ -27,9 +27,11 @@ object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
 
     val addedCompetence = new Competence(comp, data.getForCompetence, data.getForCompetence, null);
     val superCompetencesTyped = new LinkedList[Competence]();
+
     for (competence <- data.getSuperCompetences.asScala) {
       val superCompetence = new Competence(comp, competence, competence, null);
       superCompetencesTyped.add(superCompetence);
+
     }
     val subCompetencesTyped = new LinkedList[Competence]();
     for (competence <- data.getSubCompetences.asScala) {
@@ -52,9 +54,16 @@ object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
         addedCompetence.addLearningTemplate(learningProjectTemplate);
       }
 
-      val operatorDAO = new Operator(comp, data.getOperator, data.getOperator);
-      operatorDAO.persist(true);
-      operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
+      //      val operatorDAO = new Operator(comp, data.getOperator, data.getOperator);
+      //      operatorDAO.persist(true);
+      //      operatorDAO.createEdgeWith(CompObjectProperties.OperatorOf, addedCompetence);
+
+      if (data.getOperator != null) {
+        val operatorDAO = new Operator(comp, data.getOperator, data.getOperator)
+        operatorDAO.persist(true)
+        addedCompetence.createEdgeWith(operatorDAO, CompObjectProperties.OperatorOf)
+      }
+
       for (subCompetence <- subCompetencesTyped.asScala) {
         subCompetence.addSuperCompetence(addedCompetence);
       }
