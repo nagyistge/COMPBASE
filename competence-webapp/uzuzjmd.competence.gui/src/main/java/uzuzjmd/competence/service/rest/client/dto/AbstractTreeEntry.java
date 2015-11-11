@@ -14,11 +14,18 @@ public class AbstractTreeEntry {
 	private String qtip;
 	private String icon;
 
+	@Override
+	public String toString() {
+		return "AbstractTreeEntry [name=" + name
+				+ ", qtip=" + qtip + ", icon=" + icon + "]";
+	}
+
 	public AbstractTreeEntry() {
 
 	}
 
-	public AbstractTreeEntry(String name, String qtip, String icon) {
+	public AbstractTreeEntry(String name, String qtip,
+			String icon) {
 		this.name = name;
 		this.qtip = qtip;
 		this.icon = icon;
@@ -53,7 +60,8 @@ public class AbstractTreeEntry {
 
 	@Override
 	public boolean equals(Object arg0) {
-		return ((UserTree) arg0).getName().equals(this.getName());
+		return ((UserTree) arg0).getName().equals(
+				this.getName());
 	}
 
 	@Override

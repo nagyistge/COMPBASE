@@ -28,6 +28,8 @@ public class CompetenceRemoteImporter {
 
 		WebTarget webResource = client
 				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-servlet/competence/competences/xml/addCompetenceBean");
+		// WebTarget webResource = client
+		// .target("http://localhost:8080/competence-servlet/competence/competences/xml/addCompetenceBean");
 		System.out.println(webResource.getUri());
 		Response result = webResource.request(
 				MediaType.APPLICATION_XML).post(

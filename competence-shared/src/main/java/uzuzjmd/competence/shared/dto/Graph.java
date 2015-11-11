@@ -10,21 +10,12 @@ import java.util.Set;
 public class Graph {
 	public Set<GraphTriple> triples;
 	public Set<GraphNode> nodes;
-
-	private Map<Integer, String> nodeIdValues = new HashMap<Integer, String>();
-
-	public Map<Integer, String> getNodeIdValues() {
-		return nodeIdValues;
-	}
-
-	public void setNodeIdValues(
-			Map<Integer, String> nodeIdValues) {
-		this.nodeIdValues = nodeIdValues;
-	}
+	public Map<Integer, String> nodeIdValues;
 
 	public Graph() {
 		this.triples = new HashSet<GraphTriple>(10000);
 		this.nodes = new HashSet<GraphNode>(10000);
+		this.nodeIdValues = new HashMap<Integer, String>();
 	}
 
 	public void addSuggestedCompetenceTriple(

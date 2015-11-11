@@ -8,7 +8,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlRootElement(name = "competenceRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
-public class CompetenceXMLTree extends AbstractXMLTree<CompetenceXMLTree> {
+public class CompetenceXMLTree extends
+		AbstractXMLTree<CompetenceXMLTree> {
 
 	private Boolean isCompulsory = false;
 
@@ -16,8 +17,8 @@ public class CompetenceXMLTree extends AbstractXMLTree<CompetenceXMLTree> {
 
 	}
 
-	public CompetenceXMLTree(String name, String qtip, String icon,
-			List<CompetenceXMLTree> children) {
+	public CompetenceXMLTree(String name, String qtip,
+			String icon, List<CompetenceXMLTree> children) {
 		super(name, qtip, icon, children);
 		SortedList<CompetenceXMLTree> sortedCompetences = new SortedList<CompetenceXMLTree>(
 				new CompetenceXMLTreeComparator());
@@ -37,6 +38,19 @@ public class CompetenceXMLTree extends AbstractXMLTree<CompetenceXMLTree> {
 
 	public void setIsCompulsory(Boolean isCompulsory) {
 		this.isCompulsory = isCompulsory;
+	}
+
+	@Override
+	public String toString() {
+		return "CompetenceXMLTree [isCompulsory="
+				+ isCompulsory + ", getChildren()="
+				+ getChildren() + ", getIsCompulsory()="
+				+ getIsCompulsory() + ", toString()="
+				+ super.toString() + ", getName()="
+				+ getName() + ", getQtip()=" + getQtip()
+				+ ", getIcon()=" + getIcon()
+				+ ", hashCode()=" + hashCode()
+				+ ", getClass()=" + getClass() + "]";
 	}
 
 }
