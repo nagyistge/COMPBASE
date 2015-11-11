@@ -145,6 +145,13 @@ public class RuleFactory {
 		return "[noNothing2: equal(?a, http://comp#undefined) -> remove(?a)]";
 	}
 
+	public String createUserCompetenceLinks() {
+		return "[userCompetenceLink: "
+				+ "(?user comp:UserOfLink ?abstractEvidenceLink)"
+				+ "(?abstractEvidenceLink comp:linksCompetence ?competence) "
+				+ "-> (?user comp:UserHasPerformed ?competence)]";
+	}
+
 }
 
 // create inverse relationships

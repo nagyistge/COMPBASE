@@ -71,10 +71,10 @@ public class CompetenceServiceRestXML extends
 	@Path("/addCompetenceBean")
 	public Response addCompetenceBean(
 			CompetenceBean[] competenceBean) {
-		logger.debug("Now inserting in xml bean format");
+		logger.trace("Now inserting in xml bean format");
 		CompetenceImporter
 				.competenceBeanToDatabase(competenceBean);
-		logger.debug("Competences inserted in xml bean format");
+		logger.trace("Competences inserted in xml bean format");
 		return Response.ok("competences updated").build();
 	}
 
@@ -406,11 +406,11 @@ public class CompetenceServiceRestXML extends
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
 				.convert(data);
 
-		logger.debug("GRIDVIEW");
-		logger.debug("getting grid for username: "
+		logger.trace("GRIDVIEW");
+		logger.trace("getting grid for username: "
 				+ userName + ", groupId" + groupId
 				+ "selectedTemplate: " + selectedTemplate);
-		logger.debug("returning the grid " + result);
+		logger.trace("returning the grid " + result);
 		return result;
 	}
 

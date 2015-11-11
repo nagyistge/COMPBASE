@@ -12,15 +12,6 @@ public class Graph {
 	public Set<GraphNode> nodes;
 	public Map<Integer, String> nodeIdValues;
 
-	public Map<Integer, String> getNodeIdValues() {
-		return nodeIdValues;
-	}
-
-	public void setNodeIdValues(
-			Map<Integer, String> nodeIdValues) {
-		this.nodeIdValues = nodeIdValues;
-	}
-
 	public Graph() {
 		this.triples = new HashSet<GraphTriple>(10000);
 		this.nodes = new HashSet<GraphNode>(10000);
