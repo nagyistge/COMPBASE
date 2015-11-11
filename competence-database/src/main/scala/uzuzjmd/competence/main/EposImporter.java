@@ -9,11 +9,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import uzuzjmd.competence.datasource.epos.mapper.EposXML2Ont;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
 public class EposImporter {
+
+	private static Logger logger = LogManager
+			.getLogger(EposImporter.class);
 
 	public static void main(String[] args)
 			throws JAXBException, IOException {
@@ -23,8 +29,12 @@ public class EposImporter {
 
 	public static void convert() throws JAXBException,
 			IOException {
+		logger.debug("Importing competences into the database from epos xml file: "
+				+ MagicStrings.EPOSLocation);
 		List<DESCRIPTORSETType> eposList = parseEPOSXML();
 		importEposCompetences(eposList);
+		logger.debug("Finished importing competences into the database from epos xml file: "
+				+ MagicStrings.EPOSLocation);
 	}
 
 	public static List<DESCRIPTORSETType> parseEPOSXML()

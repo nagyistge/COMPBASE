@@ -15,13 +15,15 @@ public class Evidence {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evidence(String printableName, String url, String user) {
+	public Evidence(String printableName, String url,
+			String user) {
 		this.shortname = printableName;
 		this.url = url;
 		this.userId = user;
 	}
 
-	public Evidence(String shortname, String url, String userId, String changed) {
+	public Evidence(String shortname, String url,
+			String userId, String changed) {
 		this.shortname = shortname;
 		this.url = url;
 		this.userId = userId;

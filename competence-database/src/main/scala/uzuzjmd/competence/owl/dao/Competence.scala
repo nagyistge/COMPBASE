@@ -79,8 +79,13 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     return !(getRequiredCompetences.isEmpty && getAssociatedSingletonDaosAsRange(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty);
   }
 
-  def isAllowed(): Boolean = {
-    return getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence]).isEmpty
+  def isAllowed(user: User): Boolean = {
+    val prerequesites = getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
+    if (prerequesites.isEmpty) {
+      return true
+    } else {
+      return prerequesites.forall(x => x.hasEdge(user, CompObjectProperties.UserHasPerformed) && x.isAllowed(user))
+    }
   }
 
   def addSuperCompetence(superCompetence: Competence): Competence = {

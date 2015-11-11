@@ -87,21 +87,48 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
   def hasLinks(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
     val util = comp.getUtil()
 
+    if (!(ontClass.listSubClasses().toList().asScala.filterNot { x => x.toString().equals("http://www.w3.org/2002/07/owl#Nothing") }.isEmpty)) {
+      val subClasses = ontClass.listSubClasses().toList()
+      logger.trace(subClasses)
+      return subClasses.asScala.exists { x => hasLinks(comp, x) }
+      //return true
+    }
+
+    logger.trace("HASLINKS called");
+
+    logger.trace("checking: " + ontClass.getLocalName);
+    logger.trace("selectedOperatorIndividualTMP is empty: " + selectedOperatorIndividualstmp.isEmpty)
+
     val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(comp.getUtil().createSingleTonIndividualWithClass2(_, true))
     val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(comp.getUtil().createSingleTonIndividualWithClass2(_, true))
 
-    return (selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CatchwordOf))
-      && selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.OperatorOf)))
+    logger.trace("selectedOperatorIndividualTs is empty: " + selectedOperatorIndividuals.isEmpty)
+
+    val catchwordResult = selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CatchwordOf))
+    logger.trace("catchwordFilter evaluates to: " + catchwordResult)
+
+    val operatorResult = selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.OperatorOf))
+    logger.trace("operatorResult evaluates to: " + operatorResult)
+
+    val result = catchwordResult && operatorResult
+
+    logger.trace("HAS LINKS evaluates to: " + result)
+    return result
   }
 
   def allowedAndCourse(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
+    logger.trace("ALLOWEDANDCOURSE called");
     val util = comp.getUtil()
     val competence = new Competence(comp, ontClass.getLocalName())
     val courseIndividual = new CourseContext(comp, course).getIndividual
-    return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf) && competence.isAllowed()
+
+    // TODO && competence.isAllowed() https://github.com/uzuzjmd/Wissensmodellierung/issues/21
+
+    return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf)
   }
 
   def hasLinksAndCourse(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
+    logger.trace("HASLINKSANDCOURSE called");
     val util = comp.getUtil()
     val courseIndividual = new CourseContext(comp, course).getIndividual
     return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf)
@@ -158,6 +185,7 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
   //  }
 
   def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
+    logger.trace("FilterCompetenceTree called");
 
     if (input.isEmpty || compulsory == null) {
       return input;

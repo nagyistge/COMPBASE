@@ -50,7 +50,7 @@ public class SimpleMoodleService {
 		T response = webResource.request(
 				MediaType.APPLICATION_JSON)
 				.get(responseTyp);
-		logger.debug("gotten moodle query result: "
+		logger.trace("gotten moodle query result: "
 				+ response.toString());
 		return response;
 	}
@@ -113,7 +113,7 @@ public class SimpleMoodleService {
 				+ moodleRestBase
 				+ "local_upcompetence_get_evidences_for_course&courseId="
 				+ courseId;
-		logger.debug("getting moodle evidences with url: "
+		logger.trace("getting moodle evidences with url: "
 				+ requestString);
 		return sendRequest(requestString,
 				MoodleEvidenceList.class);
