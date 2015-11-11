@@ -1,31 +1,10 @@
 #!/usr/bin/python
 
-REQUIREMENTS = ["jenkinsapi", "urllib2", "pytz", "subprocess", "wx"]
-try: 
-    import os, datetime
-    from jenkinsapi.jenkins import Jenkins
-    import urllib2, pytz, subprocess, wx
-except:
-    import os, pip
-    pip_args = [ '-vvv' ]
-    proxy = os.environ['http_proxy']
-    if proxy:
-        pip_args.append('--proxy')
-        pip_args.append(proxy)
-    pip_args.append('install')
-    for req in REQUIREMENTS:
-        pip_args.append( req )
-    print('Installing requirements: ' + str(REQUIREMENTS))
-    pip.main(initial_args = pip_args)
+REQUIREMENTS = ["jenkinsapi", "urllib2", "pytz", "subprocess"]
+import os, datetime
+from jenkinsapi.jenkins import Jenkins
+import urllib2, pytz, subprocess
 
-    # do it again
-    from setuptools import find_packages
-    from distutils.core import setup
-    from Cython.Distutils import build_ext as cython_build
-    import sortedcollection
-    from jenkinsapi.jenkins import Jenkins
-    import urllib2, pytz, subprocess, wx
-    
 
 def get_server_instance():
     server = Jenkins('http://fleckenroller.cs.uni-potsdam.de/')
@@ -110,7 +89,7 @@ files = {
     },
     "evidenceserver.properties": {
         #"url": "http://fleckenroller.cs.uni-potsdam.de/job/competency%20database/ws/competence-database/evidenceserver.properties",
-        "downloaded":0,
+        "downloaded":1,
         "path": "evidenceserver.properties",
     },
     "kompetenzen_moodle_utf8.csv": {
