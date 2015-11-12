@@ -17,7 +17,10 @@
 							<b:TextArea ui:field="competenceDescriptionTextArea"></b:TextArea>
 						</b:Column>
 						<b:Column size="4">
-							<g:SimplePanel />
+							<g:SimplePanel>
+								<g:HTMLPanel>z.B. Die Studierenden sind in der Lage,
+									Literaturrecherchen adequat darzustellen.</g:HTMLPanel>
+							</g:SimplePanel>
 						</b:Column>
 					</b:Row>
 
@@ -27,10 +30,13 @@
 						</b:Column>
 						<b:Column size="4">
 							<b:TextArea ui:field="keywordsTextArea"></b:TextArea>
-						</b:Column>
+						</b:Column>											
 						<b:Column size="4">
-							<g:SimplePanel />
+							<g:SimplePanel>
+								<g:HTMLPanel>z.B:Literatur, Recherche</g:HTMLPanel>
+							</g:SimplePanel>
 						</b:Column>
+						
 					</b:Row>
 
 					<b:Row>
@@ -39,25 +45,30 @@
 						</b:Column>
 						<b:Column size="4">
 							<b:TextArea ui:field="operatorTextArea"></b:TextArea>
-						</b:Column>
+						</b:Column>				
+						
 						<b:Column size="4">
-							<g:SimplePanel />
+							<g:SimplePanel>
+								<g:HTMLPanel>z.B darstellen, dokumentieren</g:HTMLPanel>
+							</g:SimplePanel>
 						</b:Column>
 					</b:Row>
 				</g:VerticalPanel>
 
 				<g:VerticalPanel>
 					<b:Button ui:field="button">speichern</b:Button>
-					<b:Alert type="SUCCESS" visible="false" ui:field="successAlert" close="false">Die
+					<b:Alert type="SUCCESS" visible="false" ui:field="successAlert"
+						close="false">Die
 						Kompetenz wurde abgespeichert!</b:Alert>
 					<b:Alert type="ERROR" animation="true" visible="false"
-						ui:field="emptyError" close="false">Die Kompetenzbeschreibung darf nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false" close="false"
-						ui:field="emptyError2">Der Operator darf nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false" close="false"
-						ui:field="emptyError3">Die Stichworte dürfen nicht leer sein!</b:Alert>
-					<b:Alert type="ERROR" animation="true" visible="false" close="false"
-						ui:field="logicError"></b:Alert>
+						ui:field="emptyError" close="false">Die Kompetenzbeschreibung darf nicht
+						leer sein!</b:Alert>
+					<b:Alert type="ERROR" animation="true" visible="false"
+						close="false" ui:field="emptyError2">Der Operator darf nicht leer sein!</b:Alert>
+					<b:Alert type="ERROR" animation="true" visible="false"
+						close="false" ui:field="emptyError3">Die Stichworte dürfen nicht leer sein!</b:Alert>
+					<b:Alert type="ERROR" animation="true" visible="false"
+						close="false" ui:field="logicError"></b:Alert>
 				</g:VerticalPanel>
 			</g:HorizontalPanel>
 			<g:SimplePanel ui:field="superCompetenceSelectionHolder" />

@@ -10,6 +10,8 @@ import uzuzjmd.competence.gui.client.taxonomy.CompetenceDeleteWidget;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceEditTab;
 import uzuzjmd.competence.gui.client.taxonomy.CompetenceHierarchieTab;
 
+import com.github.gwtbootstrap.client.ui.TabPanel;
+
 public class Controller {
 	public static ProgressTab progressTab;
 	public static ReloadController reloadController;
@@ -21,6 +23,7 @@ public class Controller {
 	public static CompetenceHierarchieTab competenceHierarchieTab;
 	public static CompetenceEditTab competenceEditTab;
 	public static TabbedView tabbedView;
+	public static TabPanel courseContextTabPanel;
 
 	public static void init() {
 
@@ -32,12 +35,14 @@ public class Controller {
 		Controller.linkEvidenceTab = new LinkEvidenceTab();
 		Controller.competenceCreationTab = new CompetenceCreationTab(
 				Controller.contextFactory);
-		Controller.competenceEditTab = new CompetenceEditTab(contextFactory);
-		Controller.reloadController = new ReloadController(null,
-				linkEvidenceTab, Controller.progressTab,
+		Controller.competenceEditTab = new CompetenceEditTab(
+				contextFactory);
+		Controller.reloadController = new ReloadController(
+				null, linkEvidenceTab,
+				Controller.progressTab,
 				Controller.competenceCreationTab,
-				Controller.competenceDeleteTab, competenceHierarchieTab,
-				competenceEditTab);
+				Controller.competenceDeleteTab,
+				competenceHierarchieTab, competenceEditTab);
 		Controller.requirementTab = new RequirementTab(
 				Controller.contextFactory);
 
