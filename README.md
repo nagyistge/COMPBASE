@@ -25,7 +25,18 @@ It would be a pitty if you want to delete this wonderful system. Anyway, you can
 Please use purge in case you want to install this deb file again.
 
 
+## Competence Server Project in Windows
+### Install
+Download the zip file or clone this project and build yourself the installer. To install this server just use "install.exe" and follow the instructions. After that you can run tray.exe. The software will start a icon in your system tray and with this menu you can run or stop the server.
 
+### Update
+Like Linux you have to use the install.exe to update your server
+
+### Usage
+Use the tray.exe. It deploys the server and let you start and stop it via a system tray icon.
+
+### Delete
+Just delete this folder. We didn't put something in your system..
 _old README_
 Wissensmodellierung
 ===================
