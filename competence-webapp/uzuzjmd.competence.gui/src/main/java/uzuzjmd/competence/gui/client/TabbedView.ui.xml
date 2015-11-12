@@ -33,7 +33,13 @@
 			</b:Tab>
 			<b:Tab heading="Kurskontext">
 				<g:HTMLPanel>
-					<g:SimplePanel ui:field="coursesSelectionPlaceHolder"></g:SimplePanel>
+					<g:VerticalPanel>
+						<g:HTMLPanel>
+							<h4>Wählen sie hier den Kurs aus, in dessen Bereich sie arbeiten
+								wollen!</h4>
+						</g:HTMLPanel>
+						<g:SimplePanel ui:field="coursesSelectionPlaceHolder"></g:SimplePanel>
+					</g:VerticalPanel>
 					<g:HTMLPanel styleName="buttonSpacer"></g:HTMLPanel>
 					<b:TabPanel ui:field="courseContext">
 						<b:Tab heading="Kompetenzauswahl für Kurs">

@@ -52,7 +52,8 @@ public class TabbedView extends Composite {
 	// @UiField
 	// DropdownButton coursesDropdown;
 
-	interface TabbedViewUiBinder extends UiBinder<Widget, TabbedView> {
+	interface TabbedViewUiBinder extends
+			UiBinder<Widget, TabbedView> {
 	}
 
 	public TabbedView() {
@@ -60,7 +61,7 @@ public class TabbedView extends Composite {
 		tabPanel.selectTab(0);
 		taxonomy.selectTab(0);
 		courseContext.selectTab(0);
-
+		Controller.courseContextTabPanel = courseContext;
 	}
 
 	@Override
@@ -68,7 +69,8 @@ public class TabbedView extends Composite {
 		GWT.log("loading tabbed view xx");
 		super.onLoad();
 		Date date = new Date();
-		GWT.log("attaching Tabbed View at: " + date.toString());
+		GWT.log("attaching Tabbed View at: "
+				+ date.toString());
 		GWT.log(Controller.contextFactory.getUser());
 
 		// super.onAttach();
