@@ -89,7 +89,8 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
     //    return identifier
     if (getIndividual == null) {
-      logger.debug("could not get Individual for class: " + compOntClass.toString() + ", und identifier: " + identifier)
+      logger.error("could not get Individual for class: " + compOntClass.toString() + ", und identifier: " + identifier)
+      logger.error(Thread.currentThread().getStackTrace)
       throw new IndividualNotFoundException
     }
     return getIndividual.getLocalName
