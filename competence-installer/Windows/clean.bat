@@ -11,3 +11,4 @@ del .\*.dll
 del .\*.py
 
 RD /S /Q tdb2
+RD /S /Q img
