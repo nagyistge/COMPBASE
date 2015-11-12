@@ -3,6 +3,7 @@ package uzuzjmd.competence.gui.client.course.requirement;
 import uzuzjmd.competence.gui.client.context.LmsContextFactory;
 import uzuzjmd.competence.gui.client.shared.widgets.CompetenceTab;
 import uzuzjmd.competence.gui.client.shared.widgets.taxonomy.CompetenceSelectionWidget;
+import uzuzjmd.competence.gui.client.viewcontroller.Controller;
 import uzuzjmd.competence.service.rest.client.api.GetRequestManager;
 
 import com.github.gwtbootstrap.client.ui.Alert;
@@ -25,7 +26,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class RequirementTab extends CompetenceTab {
 
-	interface RequirementTabUiBinder extends UiBinder<Widget, RequirementTab> {
+	interface RequirementTabUiBinder extends
+			UiBinder<Widget, RequirementTab> {
 	}
 
 	private static RequirementTabUiBinder uiBinder = GWT
@@ -55,14 +57,16 @@ public class RequirementTab extends CompetenceTab {
 
 	private HtmlWidget alert;
 
-	public RequirementTab(final LmsContextFactory contextFactory) {
+	public RequirementTab(
+			final LmsContextFactory contextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		String infoText = "Wählen Sie mit STRG-Click die Kompetenzen aus, die für diesen Kurs erfüllt sein müssen! Setzen Sie zusätzlich ein Häckchen, wenn diese als verpflichtend für den Scheinerwerb gelten! Beschreiben Sie die Anforderungen, die Sie für den Kompetenzerwerb stellen und klicken Sie auf abschicken!";
 		fillInfoTab(infoText, tabExplainationPanel);
 		initHrLines(hrDividerPanel);
-		competenceSelectionWidget = new CompetenceSelectionWidget("selected",
-				true, false);
-		competenceSelectionPanelPlaceholder.add(competenceSelectionWidget);
+		competenceSelectionWidget = new CompetenceSelectionWidget(
+				"selected", true, false);
+		competenceSelectionPanelPlaceholder
+				.add(competenceSelectionWidget);
 		initRequirementTextfield();
 
 	}
@@ -87,11 +91,15 @@ public class RequirementTab extends CompetenceTab {
 
 	@UiHandler("submitButton")
 	void onSubmitButtonClick(ClickEvent event) {
-		competenceSelectionWidget.handleSubmit(requirementTextAreaWidget
-				.getText());
-		alert = new Alert("Die Verknüpfungen wurden erfolgreich erstellt",
+		competenceSelectionWidget
+				.handleSubmit(requirementTextAreaWidget
+						.getText());
+		alert = new Alert(
+				"Die Verknüpfungen wurden erfolgreich erstellt",
 				AlertType.SUCCESS);
 		warningPlaceHolder.add(alert);
+		// Controller.reloadController.reload();
+		Controller.courseContextTabPanel.selectTab(1);
 	}
 
 	@UiHandler("warningPlaceHolder")

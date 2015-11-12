@@ -58,7 +58,8 @@ public class CompetenceCreationTab extends Composite {
 			UiBinder<Widget, CompetenceCreationTab> {
 	}
 
-	public CompetenceCreationTab(LmsContextFactory lmsContextFactory) {
+	public CompetenceCreationTab(
+			LmsContextFactory lmsContextFactory) {
 		initWidget(uiBinder.createAndBindUi(this));
 		superCompetencesSelectionWidget = new CompetenceSelectionWidget(
 				"all",
@@ -70,8 +71,10 @@ public class CompetenceCreationTab extends Composite {
 				null,
 				"Wählen sie Unterkompetenzen für die von Ihnen erstellte Kompetenz aus!",
 				false);
-		superCompetenceSelectionHolder.add(superCompetencesSelectionWidget);
-		subCompetencSelectionHolder.add(subCompetencesSelectionWidget);
+		superCompetenceSelectionHolder
+				.add(superCompetencesSelectionWidget);
+		subCompetencSelectionHolder
+				.add(subCompetencesSelectionWidget);
 	}
 
 	@UiHandler("button")
@@ -82,7 +85,8 @@ public class CompetenceCreationTab extends Composite {
 				.getSelectedCompetences();
 		List<String> subCompetences = subCompetencesSelectionWidget
 				.getSelectedCompetences();
-		String competence = competenceDescriptionTextArea.getValue();
+		String competence = competenceDescriptionTextArea
+				.getValue();
 		String operator = operatorTextArea.getValue();
 		String catchwords = keywordsTextArea.getValue();
 		emptyError3.setVisible(false);
@@ -98,29 +102,38 @@ public class CompetenceCreationTab extends Composite {
 			emptyError2.setVisible(true);
 		} else {
 			Resource resource = new Resource(
-					Controller.contextFactory.getServerURL()
+					Controller.contextFactory
+							.getServerURL()
 							+ "/competences/json/addOne");
-			List<String> catchwordsDTO = Arrays.asList(catchwords.split(","));
+			List<String> catchwordsDTO = Arrays
+					.asList(catchwords.split(","));
 
 			resource.addQueryParam("competence", competence)
 					.addQueryParam("operator", operator)
-					.addQueryParams("catchwords", catchwordsDTO)
-					.addQueryParams("superCompetences", superCompetences)
-					.addQueryParams("subCompetences", subCompetences).post()
+					.addQueryParams("catchwords",
+							catchwordsDTO)
+					.addQueryParams("superCompetences",
+							superCompetences)
+					.addQueryParams("subCompetences",
+							subCompetences).post()
 					.send(new TextCallback() {
 						@Override
-						public void onSuccess(Method arg0, String arg1) {
+						public void onSuccess(Method arg0,
+								String arg1) {
 							if (arg1.startsWith("ok")) {
-								successAlert.setVisible(true);
+								successAlert
+										.setVisible(true);
 							} else {
 								logicError.setText(arg1);
 								logicError.setVisible(true);
 							}
-							Controller.reloadController.reload();
+							Controller.reloadController
+									.reload();
 						}
 
 						@Override
-						public void onFailure(Method arg0, Throwable arg1) {
+						public void onFailure(Method arg0,
+								Throwable arg1) {
 							GWT.log("could not add Competence");
 
 						}

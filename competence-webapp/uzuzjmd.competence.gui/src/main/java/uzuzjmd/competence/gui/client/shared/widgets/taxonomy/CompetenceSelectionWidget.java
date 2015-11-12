@@ -124,7 +124,8 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param title
 	 */
 	public CompetenceSelectionWidget(String selectedFilter,
-			String competenceTreeFilter, String title, boolean isCourseContext) {
+			String competenceTreeFilter, String title,
+			boolean isCourseContext) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
@@ -150,8 +151,8 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param editable
 	 */
 	public CompetenceSelectionWidget(String selectedFilter,
-			String competenceTreeFilter, String title, boolean isCourseContext,
-			boolean editable) {
+			String competenceTreeFilter, String title,
+			boolean isCourseContext, boolean editable) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
@@ -173,8 +174,9 @@ public class CompetenceSelectionWidget extends Composite {
 	 * @param clickable
 	 */
 	public CompetenceSelectionWidget(String selectedFilter,
-			String competenceTreeFilter, String title, boolean isCourseContext,
-			boolean editable, boolean clickable) {
+			String competenceTreeFilter, String title,
+			boolean isCourseContext, boolean editable,
+			boolean clickable) {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.isCourseContext = isCourseContext;
 		this.showChecked = false;
@@ -184,23 +186,28 @@ public class CompetenceSelectionWidget extends Composite {
 		this.captionPanel.setCaptionHTML(title);
 	}
 
-	private void initCompetenceSelectionWidget(String selectedFilter) {
+	private void initCompetenceSelectionWidget(
+			String selectedFilter) {
 		this.selectedFilter = selectedFilter;
 
 		initOperatorTree();
 		initCatchwordTree();
 		updateFilteredPanel();
 		this.alleRadioButton.setValue(true);
-		ToggleButton toggleButton = new ToggleButton("Filter ausklappen",
-				"Filter einklappen");
+		ToggleButton toggleButton = new ToggleButton(
+				"Filter ausklappen", "Filter einklappen");
 		competenceFilterPanel.setVisible(false);
-		toggleButton.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+		toggleButton
+				.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				competenceFilterPanel.setVisible(event.getValue());
-			}
-		});
+					@Override
+					public void onValueChange(
+							ValueChangeEvent<Boolean> event) {
+						competenceFilterPanel
+								.setVisible(event
+										.getValue());
+					}
+				});
 		toggleButtonPlaceholder.add(toggleButton);
 	}
 
@@ -210,8 +217,9 @@ public class CompetenceSelectionWidget extends Composite {
 				Controller.contextFactory.getServerURL()
 						+ "/competences/xml/catchwordtree/"
 						+ Controller.contextFactory.getOrganization()
-						+ "/cached", "Schlagworte", "catchwordView", 325, 250,
-				"Schlagworte", Controller.contextFactory, isCourseContext);
+						+ "/cached", "Schlagworte",
+				"catchwordView", 325, 250, "Schlagworte",
+				Controller.contextFactory, isCourseContext);
 		catchwordCaptionPanel.add(catchwordTree);
 		GWT.log("Initiated catchword tree");
 	}
@@ -222,8 +230,9 @@ public class CompetenceSelectionWidget extends Composite {
 				Controller.contextFactory.getServerURL()
 						+ "/competences/xml/operatortree/"
 						+ Controller.contextFactory.getOrganization()
-						+ "/cached", "Operatoren", "operatorView", 300, 200,
-				"Operatoren", Controller.contextFactory, isCourseContext);
+						+ "/cached", "Operatoren",
+				"operatorView", 300, 200, "Operatoren",
+				Controller.contextFactory, isCourseContext);
 		operatorCaptionPanel.add(operatorTree);
 		GWT.log("Initiated operator tree");
 	}
@@ -232,9 +241,11 @@ public class CompetenceSelectionWidget extends Composite {
 		Resource resourceCompulsory = new Resource(
 				Controller.contextFactory.getServerURL()
 						+ "/competences/json/coursecontext/delete/"
-						+ Controller.contextFactory.getCourseId());
+						+ Controller.contextFactory
+								.getCourseId());
 		try {
-			resourceCompulsory.post().send(new OkFeedBack());
+			resourceCompulsory.post()
+					.send(new OkFeedBack());
 		} catch (RequestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -245,7 +256,8 @@ public class CompetenceSelectionWidget extends Composite {
 
 	public void handleSubmit(final String requirementText) {
 		PostRequestManager postRequestManager = new PostRequestManager();
-		postRequestManager.addCompetencesToCourse(requirementText,
+		postRequestManager.addCompetencesToCourse(
+				requirementText,
 				competenceTree.convertSelectedTreeToList(),
 				competenceTree.getCheckedNodes());
 	}
@@ -272,8 +284,10 @@ public class CompetenceSelectionWidget extends Composite {
 		competenceTreeCaptionPanel.clear();
 
 		String query = "?";
-		query += "textFilter=" + textSearchField.getValue() + "&";
-		for (String selectedOperator : operatorTree.convertSelectedTreeToList()) {
+		query += "textFilter=" + textSearchField.getValue()
+				+ "&";
+		for (String selectedOperator : operatorTree
+				.convertSelectedTreeToList()) {
 			query += "selectedOperators=";
 			query += selectedOperator;
 			query += "&";
@@ -287,9 +301,10 @@ public class CompetenceSelectionWidget extends Composite {
 		query = query.substring(0, query.length() - 1);
 
 		competenceTree = new CompetenceSelectionTree(
-				RestUrlFactory.getCompetenceTreeWithFilters(filter, query,
-						isCourseContext), Controller.contextFactory,
-				selectedFilter, showChecked, isCourseContext, editable,
+				RestUrlFactory.getCompetenceTreeWithFilters(
+						filter, query, isCourseContext),
+				Controller.contextFactory, selectedFilter,
+				showChecked, isCourseContext, editable,
 				clickable);
 		// competenceTree.setShowCheckBoxes(showChecked);
 		competenceTreeCaptionPanel.add(competenceTree);
@@ -298,9 +313,9 @@ public class CompetenceSelectionWidget extends Composite {
 	@UiHandler("resetButton")
 	void onResetButtonClick(ClickEvent event) {
 		filter = "all";
-		updateFilteredPanel();
 		operatorTree.clearSelections();
 		catchwordTree.clearSelections();
+		updateFilteredPanel();
 	}
 
 	@UiHandler("filterButton")
@@ -309,7 +324,8 @@ public class CompetenceSelectionWidget extends Composite {
 	}
 
 	public List<String> getSelectedCompetences() {
-		return this.competenceTree.convertSelectedTreeToList();
+		return this.competenceTree
+				.convertSelectedTreeToList();
 	}
 
 	public void reload() {
