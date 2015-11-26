@@ -45,11 +45,9 @@ import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/xml")
-public class CompetenceServiceRestXML extends
-		CompetenceOntologyInterface {
+public class CompetenceServiceRestXML extends CompetenceOntologyInterface {
 
-	private Logger logger = LogManager
-			.getLogger(getClass());
+	private Logger logger = LogManager.getLogger(getClass());
 
 	/**
 	 * new competences can be added via this function. They must be encoded as
@@ -69,11 +67,9 @@ public class CompetenceServiceRestXML extends
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/addCompetenceBean")
-	public Response addCompetenceBean(
-			CompetenceBean[] competenceBean) {
+	public Response addCompetenceBean(CompetenceBean[] competenceBean) {
 		logger.trace("Now inserting in xml bean format");
-		CompetenceImporter
-				.competenceBeanToDatabase(competenceBean);
+		CompetenceImporter.competenceBeanToDatabase(competenceBean);
 		logger.trace("Competences inserted in xml bean format");
 		return Response.ok("competences updated").build();
 	}
@@ -106,21 +102,18 @@ public class CompetenceServiceRestXML extends
 
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper
-					.getCompetenceTree(selectedCatchwords,
-							selectedOperators, course,
-							null, textFilter);
+			result = CompetenceServiceWrapper.getCompetenceTree(
+					selectedCatchwords, selectedOperators, course, null,
+					textFilter);
 		} else {
-			Boolean compulsoryBoolean = RestUtil
-					.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper
-					.getCompetenceTree(selectedCatchwords,
-							selectedOperators, course,
-							compulsoryBoolean, textFilter);
+			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper.getCompetenceTree(
+					selectedCatchwords, selectedOperators, course,
+					compulsoryBoolean, textFilter);
 		}
 
-		Response response = RestUtil.buildCachedResponse(
-				result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
@@ -179,23 +172,18 @@ public class CompetenceServiceRestXML extends
 
 		CompetenceXMLTree[] result = null;
 		if (compulsory.equals("all")) {
-			result = CompetenceServiceWrapper
-					.getCompetenceTreeForCourse(
-							selectedCatchwords,
-							selectedOperators, course,
-							null, textFilter);
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(
+					selectedCatchwords, selectedOperators, course, null,
+					textFilter);
 		} else {
-			Boolean compulsoryBoolean = RestUtil
-					.convertCompulsory(compulsory);
-			result = CompetenceServiceWrapper
-					.getCompetenceTreeForCourse(
-							selectedCatchwords,
-							selectedOperators, course,
-							compulsoryBoolean, textFilter);
+			Boolean compulsoryBoolean = RestUtil.convertCompulsory(compulsory);
+			result = CompetenceServiceWrapper.getCompetenceTreeForCourse(
+					selectedCatchwords, selectedOperators, course,
+					compulsoryBoolean, textFilter);
 		}
 
-		Response response = RestUtil.buildCachedResponse(
-				result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
@@ -222,12 +210,11 @@ public class CompetenceServiceRestXML extends
 			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-		OperatorXMLTree[] result = CompetenceServiceWrapper
-				.getOperatorTree(selectedCatchwords,
-						selectedOperators, course);
+		OperatorXMLTree[] result = CompetenceServiceWrapper.getOperatorTree(
+				selectedCatchwords, selectedOperators, course);
 
-		Response response = RestUtil.buildCachedResponse(
-				result, cache.equals("cached"));
+		Response response = RestUtil.buildCachedResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
@@ -253,11 +240,10 @@ public class CompetenceServiceRestXML extends
 			@PathParam("cache") String cache,
 			@QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
 			@QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-		CatchwordXMLTree[] result = CompetenceServiceWrapper
-				.getCatchwordTree(selectedCatchwords,
-						selectedOperators, course);
-		Response response = RestUtil.buildCachedResponse(
-				result, cache.equals("cached"));
+		CatchwordXMLTree[] result = CompetenceServiceWrapper.getCatchwordTree(
+				selectedCatchwords, selectedOperators, course);
+		Response response = RestUtil.buildCachedResponse(result,
+				cache.equals("cached"));
 		return response;
 	}
 
@@ -270,8 +256,7 @@ public class CompetenceServiceRestXML extends
 	@GET
 	@Path("/learningtemplates")
 	public StringList getAllLearningTemplates() {
-		StringList learningTemplates = Ont2LearningTemplates
-				.convert();
+		StringList learningTemplates = Ont2LearningTemplates.convert();
 		return learningTemplates;
 	}
 
@@ -285,10 +270,9 @@ public class CompetenceServiceRestXML extends
 	@GET
 	@Path("/learningtemplates/cache")
 	public Response getAllLearningTemplates2() {
-		StringList learningTemplates = Ont2LearningTemplates
-				.convert();
-		Response response = RestUtil.buildCachedResponse(
-				learningTemplates, true);
+		StringList learningTemplates = Ont2LearningTemplates.convert();
+		Response response = RestUtil.buildCachedResponse(learningTemplates,
+				true);
 		return response;
 	}
 
@@ -312,11 +296,10 @@ public class CompetenceServiceRestXML extends
 			@QueryParam(value = "userId") String userName,
 			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				selectedTemplate);
 		LearningTemplateToOnt.convert(data);
-		return Response.ok("templateSelection updated")
-				.build();
+		return Response.ok("templateSelection updated").build();
 	}
 
 	/**
@@ -332,10 +315,9 @@ public class CompetenceServiceRestXML extends
 	public Response getSelectedLearningTemplates(
 			@QueryParam(value = "userId") String userName,
 			@QueryParam(value = "groupId") String groupId) {
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, null);
-		StringList result = Ont2SelectedLearningTemplate
-				.convert(data);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				null);
+		StringList result = Ont2SelectedLearningTemplate.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
@@ -352,10 +334,9 @@ public class CompetenceServiceRestXML extends
 	public Response getSelectedLearningTemplates2(
 			@QueryParam(value = "userId") String userName,
 			@QueryParam(value = "groupId") String groupId) {
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, null);
-		StringList result = Ont2SelectedLearningTemplate
-				.convert(data);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				null);
+		StringList result = Ont2SelectedLearningTemplate.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
 	}
 
@@ -375,12 +356,10 @@ public class CompetenceServiceRestXML extends
 			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				selectedTemplate);
 		DeleteTemplateInOnt.convert(data);
-		return Response.ok(
-				"templateSelection updated after delete")
-				.build();
+		return Response.ok("templateSelection updated after delete").build();
 	}
 
 	/**
@@ -401,15 +380,14 @@ public class CompetenceServiceRestXML extends
 			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
 
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				selectedTemplate);
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
 				.convert(data);
 
 		logger.trace("GRIDVIEW");
-		logger.trace("getting grid for username: "
-				+ userName + ", groupId" + groupId
-				+ "selectedTemplate: " + selectedTemplate);
+		logger.trace("getting grid for username: " + userName + ", groupId"
+				+ groupId + "selectedTemplate: " + selectedTemplate);
 		logger.trace("returning the grid " + result);
 		return result;
 	}
@@ -427,12 +405,11 @@ public class CompetenceServiceRestXML extends
 	@Produces(MediaType.APPLICATION_XML)
 	@GET
 	@Path("learningtemplates/gridview/cache")
-	public Response getGridView2(
-			@QueryParam(value = "userId") String userName,
+	public Response getGridView2(@QueryParam(value = "userId") String userName,
 			@QueryParam(value = "groupId") String groupId,
 			@QueryParam(value = "selectedTemplate") String selectedTemplate) {
-		LearningTemplateData data = new LearningTemplateData(
-				userName, groupId, selectedTemplate);
+		LearningTemplateData data = new LearningTemplateData(userName, groupId,
+				selectedTemplate);
 		SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
 				.convert(data);
 		return RestUtil.buildCachedResponse(result, false);
@@ -460,10 +437,8 @@ public class CompetenceServiceRestXML extends
 			ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
 
 		ReflectiveAssessmentChangeData assessmentChangeData = new ReflectiveAssessmentChangeData(
-				userName, groupId,
-				reflectiveAssessmentHolder);
-		ReflectiveAssessmentHolder2Ont
-				.convert(assessmentChangeData);
+				userName, groupId, reflectiveAssessmentHolder);
+		ReflectiveAssessmentHolder2Ont.convert(assessmentChangeData);
 		return Response.ok("reflexion updated").build();
 	}
 
@@ -477,13 +452,11 @@ public class CompetenceServiceRestXML extends
 	@Consumes(MediaType.APPLICATION_XML)
 	@POST
 	@Path("/learningtemplates/addEpos")
-	public Response importEpos(
-			@BeanParam EPOSTypeWrapper wrapper) {
+	public Response importEpos(@BeanParam EPOSTypeWrapper wrapper) {
 
-		EposImporter.importEposCompetences(Arrays
-				.asList(wrapper.getEposCompetences()));
-		return Response.ok("epos templates updated")
-				.build();
+		EposImporter.importEposCompetences(Arrays.asList(wrapper
+				.getEposCompetences()));
+		return Response.ok("epos templates updated").build();
 	}
 
 	// private Response dummyGridResult() {
@@ -538,8 +511,7 @@ public class CompetenceServiceRestXML extends
 				.setNameOfTheLearningTemplate(learningTemplateName);
 		LearningTemplateToOnt
 				.convertLearningTemplateResultSet(learningTemplateResultSet);
-		return Response.ok("learningTemplate added")
-				.build();
+		return Response.ok("learningTemplate added").build();
 
 	}
 
@@ -575,12 +547,10 @@ public class CompetenceServiceRestXML extends
 	@Produces(MediaType.APPLICATION_XML)
 	public Response deleteLearningTemplate(
 			@PathParam("learningTemplateName") String learningTemplateName) {
-		DeleteLearningTemplateinOnt
-				.convert(learningTemplateName);
+		DeleteLearningTemplateinOnt.convert(learningTemplateName);
 
 		// change for testcommit to gitup
-		return Response.ok("learningTemplate deleted")
-				.build();
+		return Response.ok("learningTemplate deleted").build();
 	}
 
 }

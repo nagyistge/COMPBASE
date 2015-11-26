@@ -79,6 +79,11 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
         template.persist()
       }
     }
+    
+    else {
+        val learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);      
+        learningProjectTemplate.persist()
+    }
   }
 
   private def convertTriple(triple: GraphTriple, comp: CompOntologyManager, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]]) {
