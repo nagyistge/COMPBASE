@@ -1,4 +1,4 @@
-# Wissensmodellierung
+# DUCKBASE 
 
 ## Competence Server Project in Ubuntu/Debian
 ### Install
@@ -37,52 +37,33 @@ Use the tray.exe. It deploys the server and let you start and stop it via a syst
 
 ### Delete
 Just delete this folder. We didn't put something in your system..
-_old README_
-Wissensmodellierung
+
+
+
+## Deploy as war file
+
 ===================
 
-BUILDING the project
- - install the project competence-application with: clean package -Dmaven.test.skip=true.
- - This will compile all required projects but might take a while.		
+- change evidenceserver.properties in competence-database-servlet\competence-servlet\src\main\webapp\WEB-INF\classes to your needed configuration
 
-STARTING the project
-
-[optional] java -jar CompetenceImporter [pathtoCSV] [pathtotdb]
-
-java -jar CompetenceServer.jar [path to TDB location]
-
-java -jar EvidenceServer.jar [ServerIp] [db-name] [dbuser] [dbpassword] [moodleadminname] [moodleadminpassword] [fullapplicationpath]
- 
-java -jar EvidenceServer.jar localhost bitnami_moodle root voyager https://someurl/moodle
+Important to change: moodleURL, rootPath, tdblocation 
+			
+- install the project competence-application with: clean package -Dmaven.test.skip=true. This will compile all required projects but might take a while.		
+- competence-database-servlet\competence-servlet\target should contain the deploy-ready war file 
 
 
-CONFIGURING YOUR SERVER
+## Dokumentation of the interfaces
 
-Put these lines in your http.conf or open the ports mentioned. The ports can be changed in MagicString.java.
+http://fleckenroller.cs.uni-potsdam.de/doku/ contains a html documentation of the relevant interfaces. You need to replace the prefix of the rest interfaces with either localhost:8084 or the 
+the url prefix of the deployed tomcat app such as: http://localhost:8080/competence-servlet/competence.
 
-ProxyPass  /competence http://localhost:8084
-ProxyPassReverse /competence http://localhost:8084
 
-ProxyPass  /evidence http://localhost:8083
-ProxyPassReverse /evidence http://localhost:8083
+
+
+
+
 
  
-USING the project
 
-deploy the moodle app as specified in the README of https://github.com/uzuzjmd/competence
-
---Some coding hacks you should know--
-
-Encoding Verfahren (Stand 26.05.2014)
-
- - Identifier werden (alt) in CompOntologyAccess encodiert. Wenn die Formatierung des Strings zum Display wichtig ist, wird eine lesbare Form
-	als Dataproperty "definition abgespeichert"
- - Die DAO-Schicht kodiert die Identifier in CompetenceOntologyDao (ähnlich zu dem alten Verfahren)
- - Fuer SingleTonDaos werden die Identifier nach dem alten Verfahren (oben) kodiert
- - Identifier dürfen nicht mit einem Sonderzeichen oder einer Zahl beginnen
- - Moodle Kurs Ids werden als "n"+Id kodiert. 
-
-Festgelegte Strings (Stand 26.05.2014)
-Prefixe, Dateinamen ... etc sind in der Klasse MagicStrings als default definiert
 
  	
