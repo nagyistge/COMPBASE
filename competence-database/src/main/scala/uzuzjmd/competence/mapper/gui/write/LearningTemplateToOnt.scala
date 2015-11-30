@@ -71,6 +71,9 @@ object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData]
     if (graph != null) {
       if (graph.triples != null) {
         if (!graph.triples.asScala.forall { x => tripleCatchwordMap.keySet().asScala.contains(x) }) {
+          logger.error("The triples are: " + graph.triples)
+          val theProblemTriple = graph.triples.asScala.filter(x => tripleCatchwordMap.keySet().asScala.contains(x) )
+          logger.error("the problem triple is:" + theProblemTriple)
           throw new WebApplicationException(new Exception("All the triples must be contained in the catchwordMap"))
         }
 

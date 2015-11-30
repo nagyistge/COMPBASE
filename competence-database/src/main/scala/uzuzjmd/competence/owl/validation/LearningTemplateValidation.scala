@@ -1,16 +1,19 @@
 package uzuzjmd.scompetence.owl.validation
 
+import java.util.HashMap
+
+import uzuzjmd.competence.owl.access.Logging
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
+
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Stack
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import java.util.HashMap
 
 /**
  * @author dehne
  * implements Tarjans strongly connected components algorithm in order to identify cycles in graph
  * https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
  */
-case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSet) {
+case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSet) extends Logging{
 
   val graph = learningTemplate.getResultGraph
   val vertices = graph.nodes.asScala.map { x => x.getLabel }
@@ -35,26 +38,26 @@ case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSe
 
   def isValid: Boolean = {
 
-    println("stuff")
+    logger.trace("stuff")
 
-    println("edges are: " + edges)
-    println("vertices are: " + vertices)
+    logger.trace("edges are: " + edges)
+    logger.trace("vertices are: " + vertices)
 
     // check self-reference
     if (!edges.forall(x => !x._1.equals(x._2))) {
-      print("stuff1")
+      logger.trace("stuff1")
       return false
     }
 
     // to tarjan
     for (v <- vertices) {
       if (!indexMap.containsKey(v)) {
-        strongconnect(v)
+        strongConnect(v)
       }
     }
     val result = sccsResult.isEmpty
-    print(sccsResult.toList)
-    print("stuff2")
+    logger.trace(sccsResult.toList)
+    logger.trace("stuff2")
     return result
   }
 
@@ -62,7 +65,7 @@ case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSe
   //    return sccsResult
   //  }
 
-  def strongconnect(v: String) {
+  def strongConnect(v: String) {
     indexMap.put(v, index)
     lowLinkMap.put(v, index)
     index = index + 1
@@ -75,16 +78,16 @@ case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSe
       val w = x._2
 
       if (edges.contains(a, w)) {
-        println(" edge is: " + v + w)
+        logger.trace(" edge is: " + v + w)
         //      val v = a._1
         //      val w = a._2
 
         if (!indexMap.containsKey(w)) {
-          println("is not defined" + w)
-          strongconnect(w)
+          logger.trace("is not defined" + w)
+          strongConnect(w)
           lowLinkMap.put(a, Math.min(lowLinkMap.get(a), lowLinkMap.get(w)))
         } else if (onStackMap.get(w)) {
-          println("is defined and on stack" + w)
+          logger.trace("is defined and on stack" + w)
           lowLinkMap.put(a, Math.min(lowLinkMap.get(a), indexMap.get(w)))
         }
       }
@@ -96,7 +99,7 @@ case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSe
       var scc = List.empty: List[String]
       var break = true
       while (break) {
-        var w = S.pop()
+        val w = S.pop()
         onStackMap.put(w, false)
         scc = w :: scc
         if (w.equals(v)) {
@@ -104,7 +107,7 @@ case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSe
         }
       }
 
-      //      print("scc is " + scc)
+      //      logger.trace("scc is " + scc)
       if (scc.toList.size > 1) {
         sccsResult = scc :: sccsResult
       }
