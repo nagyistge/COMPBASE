@@ -8,6 +8,7 @@ import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -48,7 +49,8 @@ public class LoginView extends Composite {
 
 	private PopupPanel parent;
 
-	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
+	interface LoginViewUiBinder extends
+			UiBinder<Widget, LoginView> {
 	}
 
 	public LoginView(PopupPanel parent, boolean isDebug) {
@@ -66,7 +68,8 @@ public class LoginView extends Composite {
 	@UiHandler("button")
 	void onButtonClick(ClickEvent event) {
 		RegExp regExp = RegExp.compile("^[1-10]");
-		MatchResult matcher = regExp.exec(loginTextBox.getValue());
+		MatchResult matcher = regExp.exec(loginTextBox
+				.getValue());
 		boolean startsWithNumnber = matcher != null;
 		if (startsWithNumnber) {
 			numberError.setVisible(true);
@@ -75,7 +78,8 @@ public class LoginView extends Composite {
 				emptyError.setVisible(true);
 			} else {
 				GetRequestManager manager = new GetRequestManager();
-				manager.checkUserExists(loginTextBox.getValue(),
+				manager.checkUserExists(
+						loginTextBox.getValue(),
 						passwordTextBox.getValue(), this);
 			}
 		}
@@ -88,9 +92,16 @@ public class LoginView extends Composite {
 
 	public void logUserIn() {
 		setUsername(loginTextBox.getValue());
-		Controller.contextFactory.setIsValidUserLoggedIn(true);
-		Controller.contextFactory.setUser(loginTextBox.getValue());
-		Controller.contextFactory.setPassword(passwordTextBox.getValue());
+		Controller.contextFactory
+				.setIsValidUserLoggedIn(true);
+		String username = URL
+				.encode(loginTextBox.getText());
+		Controller.contextFactory.setUser(username);
+		String password = URL.encode(passwordTextBox
+				.getText());
+		Controller.contextFactory.setPassword(password);
+
+		// Window.alert("username is" + username);
 
 		GetRequestManager manager = new GetRequestManager();
 		manager.updateCourses();
