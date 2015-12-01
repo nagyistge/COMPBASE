@@ -1,19 +1,17 @@
 package uzuzjmd.competence.evidence.service.moodle;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import org.glassfish.grizzly.http.util.URLDecoder;
-import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
-
 import java.io.CharConversionException;
+import java.net.URLDecoder;
 
 /**
  * DTOs für den Moodle REST-Service
@@ -30,18 +28,14 @@ public class SimpleMoodleService {
 
     public SimpleMoodleService(String username,
                                String userpassword) {
-        try {
-            userpassword = URLDecoder.decode(userpassword).replaceAll(" ", "+");
-            username = URLDecoder.decode(username).replaceAll(" ", "+");
+        userpassword = URLDecoder.decode(userpassword).replaceAll(" ", "+");
+        username = URLDecoder.decode(username).replaceAll(" ", "+");
 
-            mooodleStandardInterfaceToken = initToken(username,
-                    userpassword, "moodle_mobile_app");
-            competenceInterfaceToken = initToken(username,
-                    userpassword, "upcompetence");
-        } catch (CharConversionException c) {
-            logger.error("charconversion not working");
-            c.printStackTrace();
-        }
+        mooodleStandardInterfaceToken = initToken(username,
+                userpassword, "moodle_mobile_app");
+        competenceInterfaceToken = initToken(username,
+                userpassword, "upcompetence");
+
     }
 
     private Token initToken(String username,
