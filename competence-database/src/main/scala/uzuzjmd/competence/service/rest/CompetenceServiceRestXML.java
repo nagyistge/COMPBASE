@@ -26,7 +26,6 @@ import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -458,16 +457,6 @@ public class CompetenceServiceRestXML extends
                 .build();
     }
 
-    // private Response dummyGridResult() {
-    // SuggestedCompetenceGrid result = new SuggestedCompetenceGrid();
-    // SuggestedCompetenceRow row = new SuggestedCompetenceRow();
-    // SuggestedCompetenceColumn column = new SuggestedCompetenceColumn();
-    // column.setProgressInPercent(33);
-    // column.setTestOutput("deimudday is here");
-    // row.setSuggestedCompetenceColumns(Collections.singletonList(column));
-    // result.setSuggestedCompetenceRows(Collections.singletonList(row));
-    // return RestUtil.buildCachedResponse(result, false);
-    // }
 
     /**
      * This allows to add competences for reflection in the epos ui-format

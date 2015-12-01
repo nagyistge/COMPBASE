@@ -9,114 +9,126 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import org.glassfish.grizzly.http.util.URLDecoder;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
+import java.io.CharConversionException;
+
 /**
  * DTOs für den Moodle REST-Service
- * 
+ *
  * @author julian
- * 
  */
 public class SimpleMoodleService {
 
-	private Logger logger = LogManager
-			.getLogger(getClass());
-	private Token mooodleStandardInterfaceToken;
+    private Logger logger = LogManager
+            .getLogger(getClass());
+    private Token mooodleStandardInterfaceToken;
 
-	private Token competenceInterfaceToken;
+    private Token competenceInterfaceToken;
 
-	public SimpleMoodleService(String username,
-			String userpassword) {
-		mooodleStandardInterfaceToken = initToken(username,
-				userpassword, "moodle_mobile_app");
-		competenceInterfaceToken = initToken(username,
-				userpassword, "upcompetence");
-	}
+    public SimpleMoodleService(String username,
+                               String userpassword) {
+        try {
+            userpassword = URLDecoder.decode(userpassword).replaceAll(" ", "+");
+            username = URLDecoder.decode(username).replaceAll(" ", "+");
 
-	private Token initToken(String username,
-			String userpassword, String serviceShortName) {
-		String connectionPath = MagicStrings.MOODLEURL
-				+ "/login/token.php?username=" + username
-				+ "&password=" + userpassword + "&service="
-				+ serviceShortName;
-		return sendRequest(connectionPath, Token.class);
-	}
+            mooodleStandardInterfaceToken = initToken(username,
+                    userpassword, "moodle_mobile_app");
+            competenceInterfaceToken = initToken(username,
+                    userpassword, "upcompetence");
+        } catch (CharConversionException c) {
+            logger.error("charconversion not working");
+            c.printStackTrace();
+        }
+    }
 
-	private <T> T sendRequest(String url,
-			Class<T> responseTyp) {
-		Client client = ClientBuilder.newClient();
-		WebTarget webResource = client.target(url);
-		T response = webResource.request(
-				MediaType.APPLICATION_JSON)
-				.get(responseTyp);
-		logger.trace("gotten moodle query result: "
-				+ response.toString());
-		return response;
-	}
+    private Token initToken(String username,
+                            String userpassword, String serviceShortName) {
+        String connectionPath = MagicStrings.MOODLEURL
+                + "/login/token.php?username=" + username
+                + "&password=" + userpassword + "&service="
+                + serviceShortName;
+        return sendRequest(connectionPath, Token.class);
+    }
 
-	public Boolean wasError() {
-		if (!mooodleStandardInterfaceToken
-				.containsKey("error")) {
-			return false;
-		} else
-			return true;
-	}
+    private <T> T sendRequest(String url,
+                              Class<T> responseTyp) {
+        Client client = ClientBuilder.newClient();
+        WebTarget webResource = client.target(url);
+        T response = webResource.request(
+                MediaType.APPLICATION_JSON)
+                .get(responseTyp);
+        logger.trace("gotten moodle query result: "
+                + response.toString());
+        return response;
+    }
 
-	public MoodleContentResponseList getMoodleContents(
-			String courseId) {
-		String moodleRestBase = getMoodleRestBase();
-		String requestString = MagicStrings.MOODLEURL
-				+ moodleRestBase
-				+ "core_course_get_contents&courseid="
-				+ courseId;
-		return sendRequest(requestString,
-				MoodleContentResponseList.class);
-	}
+    public Boolean wasError() {
+        if (!mooodleStandardInterfaceToken
+                .containsKey("error")) {
+            return false;
+        } else
+            return true;
+    }
 
-	public UserCourseListResponse getMoodleCourseList() {
-		String moodleRestBase = getMoodleCompetenceRestBase();
-		String requestString = MagicStrings.MOODLEURL
-				+ moodleRestBase
-				+ "local_upcompetence_get_courses_for_user";
-		return sendRequest(requestString,
-				UserCourseListResponse.class);
-	}
+    public MoodleContentResponseList getMoodleContents(
+            String courseId) {
+        String moodleRestBase = getMoodleRestBase();
+        String requestString = MagicStrings.MOODLEURL
+                + moodleRestBase
+                + "core_course_get_contents&courseid="
+                + courseId;
+        return sendRequest(requestString,
+                MoodleContentResponseList.class);
+    }
 
-	private String getMoodleRestBase() {
-		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken="
-				+ mooodleStandardInterfaceToken
-						.get("token") + "&wsfunction=";
-		return moodleRestBase;
-	}
+    public UserCourseListResponse getMoodleCourseList() {
+        String moodleRestBase = getMoodleCompetenceRestBase();
+        String requestString = MagicStrings.MOODLEURL
+                + moodleRestBase
+                + "local_upcompetence_get_courses_for_user";
+        UserCourseListResponse result = sendRequest(requestString,
+                UserCourseListResponse.class);
 
-	private String getMoodleCompetenceRestBase() {
-		String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken="
-				+ competenceInterfaceToken.get("token")
-				+ "&wsfunction=";
-		return moodleRestBase;
-	}
+        return result;
+    }
 
-	public MoodleEvidenceList getMoodleEvidenceList(
-			String courseId) {
-		if (courseId == null
-				|| courseId.equals("undefined")) {
-			String message = "courseId is null or undefined when getting Moodle evidences for course: "
-					+ courseId;
-			logger.error(message);
-			throw new WebApplicationException(
-					new Exception(message));
-		}
+    private String getMoodleRestBase() {
+        String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken="
+                + mooodleStandardInterfaceToken
+                .get("token") + "&wsfunction=";
+        return moodleRestBase;
+    }
 
-		String moodleRestBase = getMoodleCompetenceRestBase();
-		String requestString = MagicStrings.MOODLEURL
-				+ moodleRestBase
-				+ "local_upcompetence_get_evidences_for_course&courseId="
-				+ courseId;
-		logger.trace("getting moodle evidences with url: "
-				+ requestString);
-		return sendRequest(requestString,
-				MoodleEvidenceList.class);
-	}
+    private String getMoodleCompetenceRestBase() {
+        String moodleRestBase = "/webservice/rest/server.php?moodlewsrestformat=json&wstoken="
+                + competenceInterfaceToken.get("token")
+                + "&wsfunction=";
+        return moodleRestBase;
+    }
+
+    public MoodleEvidenceList getMoodleEvidenceList(
+            String courseId) {
+        if (courseId == null
+                || courseId.equals("undefined")) {
+            String message = "courseId is null or undefined when getting Moodle evidences for course: "
+                    + courseId;
+            logger.error(message);
+            throw new WebApplicationException(
+                    new Exception(message));
+        }
+
+        String moodleRestBase = getMoodleCompetenceRestBase();
+        String requestString = MagicStrings.MOODLEURL
+                + moodleRestBase
+                + "local_upcompetence_get_evidences_for_course&courseId="
+                + courseId;
+        logger.trace("getting moodle evidences with url: "
+                + requestString);
+        return sendRequest(requestString,
+                MoodleEvidenceList.class);
+    }
 
 }
