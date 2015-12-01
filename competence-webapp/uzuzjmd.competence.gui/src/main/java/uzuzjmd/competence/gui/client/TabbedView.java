@@ -2,10 +2,8 @@ package uzuzjmd.competence.gui.client;
 
 import java.util.Date;
 
-import uzuzjmd.competence.gui.client.taxonomy.GraphTab;
 import uzuzjmd.competence.gui.client.viewcontroller.ContextSelectionController;
 import uzuzjmd.competence.gui.client.viewcontroller.Controller;
-import uzuzjmd.competence.gui.client.viewcontroller.ReloadController;
 
 import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.GWT;
@@ -32,8 +30,8 @@ public class TabbedView extends Composite {
 	HTMLPanel linkTabPlaceholder;
 	@UiField
 	HTMLPanel progressTabPlaceholder;
-	@UiField
-	HTMLPanel pathTabPlaceholder;
+	// @UiField
+	// HTMLPanel pathTabPlaceholder;
 	@UiField
 	HTMLPanel competenceCreationHolder;
 	@UiField
@@ -83,8 +81,8 @@ public class TabbedView extends Composite {
 
 	public void initGraph() {
 		GWT.log("start initializing graph");
-		ReloadController.graphTab = new GraphTab();
-		pathTabPlaceholder.add(ReloadController.graphTab);
+		// ReloadController.graphTab = new GraphTab();
+		// pathTabPlaceholder.add(ReloadController.graphTab);
 	}
 
 	public void updateCourseSelectionPanel() {

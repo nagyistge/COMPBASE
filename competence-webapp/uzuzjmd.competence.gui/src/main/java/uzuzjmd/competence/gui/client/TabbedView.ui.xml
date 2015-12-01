@@ -26,9 +26,9 @@
 							</b:Tab>
 						</b:TabPanel>
 					</b:Tab>
-					<b:Tab heading="Lernpfade">
-						<g:HTMLPanel ui:field="pathTabPlaceholder" />
-					</b:Tab>
+<!-- 					<b:Tab heading="Lernpfade"> -->
+<!-- 						<g:HTMLPanel ui:field="pathTabPlaceholder" /> -->
+<!-- 					</b:Tab> -->
 				</b:TabPanel>
 			</b:Tab>
 			<b:Tab heading="Kurskontext">
