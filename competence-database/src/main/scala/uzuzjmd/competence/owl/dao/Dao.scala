@@ -21,6 +21,7 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
   def getPropertyPair(key: String): (Property, Statement)
   def getOntClass: OntClass;
 
+
   protected def persistMore()
 
   def getIndividual: Individual

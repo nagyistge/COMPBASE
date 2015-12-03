@@ -21,16 +21,7 @@ import uzuzjmd.competence.mapper.gui.read.Ont2Operator;
 import uzuzjmd.competence.mapper.gui.write.HierarchieChangesToOnt;
 import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt;
 import uzuzjmd.competence.mapper.rest.read.GetRequiredCompetencesInOnt;
-import uzuzjmd.competence.mapper.rest.write.AbstractEvidenceLink2Ont;
-import uzuzjmd.competence.mapper.rest.write.Comment2Ont;
-import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
-import uzuzjmd.competence.mapper.rest.write.CreatePrerequisiteInOnt;
-import uzuzjmd.competence.mapper.rest.write.DeleteCompetenceInOnt;
-import uzuzjmd.competence.mapper.rest.write.DeleteCompetenceTreeInOnt;
-import uzuzjmd.competence.mapper.rest.write.DeletePrerequisiteInOnt;
-import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
-import uzuzjmd.competence.mapper.rest.write.Link2Ont;
-import uzuzjmd.competence.mapper.rest.write.User2Ont;
+import uzuzjmd.competence.mapper.rest.write.*;
 import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
@@ -666,6 +657,43 @@ public class CompetenceServiceRestJSON extends
 				.convert(competenceData);
 		return Response.ok(resultMessage).build();
 	}
+
+
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/SuggestedCourseForCompetence/create")
+	public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence,@QueryParam("course") String course) {
+		SuggestedCourseForCompetence2Ont.write(course, competence);
+		return Response.ok("edge created").build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/SuggestedActivityForCompetence/create")
+	public Response createSuggestedActivityForCompetence(@QueryParam("competence") String competence,@QueryParam("activityURL") String activityUrl) {
+		SuggestedActivityForCompetence2Ont.write(activityUrl, competence);
+		return Response.ok("edge created").build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/SuggestedCourseForCompetence/delete")
+	public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence,@QueryParam("course") String course) {
+		SuggestedCourseForCompetence2Ont.delete(course, competence);
+		return Response.ok("edge created").build();
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/SuggestedActivityForCompetence/delete")
+	public Response deleteSuggestedActivityForCompetence(@QueryParam("competence") String competence,@QueryParam("activityURL") String activityUrl) {
+		SuggestedActivityForCompetence2Ont.delete(activityUrl, competence);
+		return Response.ok("edge created").build();
+	}
+
+
+
 
 	private Response handleLinkValidation(String linkId,
 			Boolean isvalid) {

@@ -13,7 +13,7 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.Logging
 import uzuzjmd.competence.owl.dao.exceptions.IdentifierNullException
 
-abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {
+abstract class CompetenceOntologyDao( comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {
 
   val util = comp.getUtil()
 

@@ -27,7 +27,7 @@ object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLink
 
   implicit def toMap(input: Map[String, List[CompetenceLinksView]]): Map[String, java.util.SortedSet[CompetenceLinksView]] = {
     val result: Map[String, java.util.SortedSet[CompetenceLinksView]] = Map.empty
-    result ++ input.mapValues(toSortedSet)
+    return result ++ input.mapValues(toSortedSet)
   }
 
   def convert(user: String): CompetenceLinksMap = {
