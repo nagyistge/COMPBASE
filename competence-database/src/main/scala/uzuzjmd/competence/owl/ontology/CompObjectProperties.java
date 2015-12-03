@@ -51,5 +51,7 @@ public enum CompObjectProperties {
     SelectedTemplateOfLearningTemplate,
     AssessmentOfUser,
     AssessmentOfCompetence,
-    UserHasPerformed
+    UserHasPerformed,
+    SuggestedActivityForCompetence, SuggestedCourseForCompetence,
+    CommendedCourseForUser
 }

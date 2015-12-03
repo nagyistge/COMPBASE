@@ -31,6 +31,8 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     } else {
       addDataField(COMPULSORY, compulsory)
     }
+
+    addCourseContext(new CourseContext(compManager, "university"))
   }
 
   @Override

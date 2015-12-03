@@ -56,6 +56,7 @@ public class MoodleEvidenceRestServiceImpl extends
 	public MoodleContentResponseList getCourseContents(
 			String courseId, String username,
 			String password) {
+
 		SimpleMoodleService moodleService = new SimpleMoodleService(
 				username, password);
 		return moodleService.getMoodleContents(courseId);
