@@ -21,12 +21,13 @@ public class RuleFactory {
 		result.add(getNotRequireTransition2());
 		result.add(getNotRequireTransition3());
 		result.add(getNotAllowedCreationRule());
-		result.add(allCompetencesHaveGlobalContext());
-		result.add(allCompetencesHaveGlobalContext2());
+		/*result.add(allCompetencesHaveGlobalContext());
+		result.add(allCompetencesHaveGlobalContext2());*/
 		// result.add(getInheritanceOneWayOnlyRule());
 		result.add(noNothingArtefacts());
 		result.add(noNothingArtefacts2());
 		// result.add(superCompetencesHaveSameCourseContext());
+		result.add(createPerformanceLinks());
 	}
 
 	private void generateInverseRules() {
@@ -48,7 +49,12 @@ public class RuleFactory {
 	}
 
 	public String getCompulsoryInheritance() {
-		return "[compulsoryInheritance: (?a comp:CompulsoryOf ?b) (?b rdf:type ?d) notEqual(?d,comp:Competence) (?d rdfs:subClassOf comp:Competence) (?d rdfs:subClassOf ?e) (?f rdf:type ?e)  (?e rdfs:subClassOf comp:Competence) "
+		return "[compulsoryInheritance: (?a comp:CompulsoryOf ?b) " +
+				"(?b rdf:type ?d) notEqual(?d,comp:Competence)" +
+				"(?d rdfs:subClassOf comp:Competence)" +
+				"(?d rdfs:subClassOf ?e)" +
+				"(?f rdf:type ?e)" +
+				"(?e rdfs:subClassOf comp:Competence) "
 				+ "-> (?a comp:CompulsoryOf ?f)]";
 	}
 
@@ -106,7 +112,7 @@ public class RuleFactory {
 				+ "-> (?Isupercompetence rb:violation error('Konsistenzfehler', 'Die Kompetenz kann nicht gleichzeitig oberhalb und unterhalb in der Hierarchie stehen!', ?Icompetence))]";
 	}
 
-	public String allCompetencesHaveGlobalContext() {
+/*	public String allCompetencesHaveGlobalContext() {
 		return "[globalContext: (?competence rdf:type comp:Competence) -> (comp:university comp:CourseContextOf ?competence)]";
 	}
 
@@ -114,7 +120,7 @@ public class RuleFactory {
 		return "[globalContext2: (?competence rdf:type ?competenceClass) "
 				+ "(?competenceClass rdfs:subClassOf comp:Competence) ->"
 				+ " (comp:university comp:CourseContextOf ?competence)]";
-	}
+	}*/
 
 	public String superCompetencesHaveSameCourseContext() {
 		return "[superHaveSameCourseContext: "
@@ -145,11 +151,25 @@ public class RuleFactory {
 		return "[noNothing2: equal(?a, http://comp#undefined) -> remove(?a)]";
 	}
 
-	public String createUserCompetenceLinks() {
+	public String createPerformanceLinks() {
 		return "[userCompetenceLink: "
 				+ "(?user comp:UserOfLink ?abstractEvidenceLink)"
 				+ "(?abstractEvidenceLink comp:linksCompetence ?competence) "
 				+ "-> (?user comp:UserHasPerformed ?competence)]";
+	}
+
+	/**
+	 * needs to be filtered so that user does not get courses he belongs or suggestions for competences he has
+	 * performed
+	 * @return
+     */
+	public String recommendCourse() {
+		return "[courseCommend: " +
+				"(?user comp:UserHasPerformed ?competence)" +
+				"(?competence comp:SuggestedCompetencePrerequisiteOf ?competence2)" +
+				"(?course comp:SuggestedCourseForCompetence ?competence2)" +
+				" -> (?course comp:CommendedCourseForUser ?user)" +
+				" ]";
 	}
 
 }

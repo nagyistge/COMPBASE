@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -46,10 +48,12 @@ public class SimpleRulesReasoner {
 		setupRulesReasoner(ruleLogging);
 	}
 
-	public synchronized Model reason() {
+	public synchronized void reason() {
+		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
+		model.add(manager.getM());
 		InfModel inf = ModelFactory.createInfModel(
-				reasoner, manager.getM());
-		manager.getM().validate();
+				reasoner, model);
+		model.validate();
 		manager.getM().add(inf.getDeductionsModel());
 		if (!inf.getDeductionsModel().isEmpty()) {
 			logger.debug("RulesReasoner * * =>");
@@ -58,7 +62,6 @@ public class SimpleRulesReasoner {
 			printTrace(inf);
 			logger.debug("RulesReasoner close");
 		}
-		return inf.getDeductionsModel();
 	}
 
 	private void setupRulesReasoner(Boolean ruleLogging) {

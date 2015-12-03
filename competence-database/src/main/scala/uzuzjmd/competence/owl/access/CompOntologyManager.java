@@ -42,18 +42,7 @@ public class CompOntologyManager {
 				getQueries(), this);
 	}
 
-	/**
-	 * user this constructor for inmemory application
-	 * 
-	 * @param m
-	 */
-	public CompOntologyManager(Model model) {
-		initializeOntologyModelInMemory();
-		this.m.add(model);
-		this.queries = new CompetenceQueries(getM());
-		this.util = new CompOntologyAccess(getM(),
-				getQueries(), this);
-	}
+
 
 	public void startReasoning(Boolean debugOn) {
 		// init simple Rules Reasoner
@@ -259,6 +248,10 @@ public class CompOntologyManager {
 						CompOntClass.SelfAssessment,
 						CompOntClass.User,
 						CompObjectProperties.AssessmentOfCompetence);
+
+		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.SuggestedCourseForCompetence);
+		getUtil().createObjectProperty(CompOntClass.EvidenceActivity, CompOntClass.Competence, CompObjectProperties.SuggestedActivityForCompetence);
+		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.CourseContext, CompObjectProperties.ActivityOf.belongsToCourseContext);
 		// getM().getObjectProperty(
 		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
 		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
@@ -312,11 +305,11 @@ public class CompOntologyManager {
 		return rulesReasoner;
 	}
 
-	private void initializeOntologyModelInMemory() {
+	/*public void initializeOntologyModelInMemory() {
 		setM(ModelFactory
 				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
 
-	}
+	}*/
 
 	public CompOntologyAccess getUtil() {
 		return util;
