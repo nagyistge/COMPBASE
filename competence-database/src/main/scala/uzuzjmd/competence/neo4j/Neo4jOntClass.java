@@ -954,23 +954,24 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
         return null;
     }
 
+
     @Override
-    public Neo4jOntClass fetchIfExists() {
+    public Neo4jOntClass fetchIfExists() throws Exception {
         return null;
     }
 
     @Override
-    public void create() {
-
+    public Neo4jOntClass create() throws Exception {
+        return null;
     }
 
     @Override
-    public void update() {
-
+    public Neo4jOntClass update() throws Exception {
+        return null;
     }
 
     @Override
-    public void delete() {
+    public void delete() throws Exception {
 
     }
 }
