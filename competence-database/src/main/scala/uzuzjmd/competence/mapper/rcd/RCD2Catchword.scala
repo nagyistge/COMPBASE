@@ -1,11 +1,12 @@
 package uzuzjmd.competence.mapper.rcd
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+
 import scala.collection.mutable.Buffer
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass

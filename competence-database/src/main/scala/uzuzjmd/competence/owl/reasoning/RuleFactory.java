@@ -28,6 +28,8 @@ public class RuleFactory {
 		result.add(noNothingArtefacts2());
 		// result.add(superCompetencesHaveSameCourseContext());
 		result.add(createPerformanceLinks());
+
+
 	}
 
 	private void generateInverseRules() {
@@ -163,14 +165,14 @@ public class RuleFactory {
 	 * performed
 	 * @return
      */
-	public String recommendCourse() {
+	/*public String recommendCourse() {
 		return "[courseCommend: " +
 				"(?user comp:UserHasPerformed ?competence)" +
 				"(?competence comp:SuggestedCompetencePrerequisiteOf ?competence2)" +
 				"(?course comp:SuggestedCourseForCompetence ?competence2)" +
 				" -> (?course comp:CommendedCourseForUser ?user)" +
 				" ]";
-	}
+	}*/
 
 }
 

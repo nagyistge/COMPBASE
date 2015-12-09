@@ -1,16 +1,14 @@
 package uzuzjmd.competence.owl.dao
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+
 import scala.collection.JavaConverters._
 
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
-
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.OntResult
+import uzuzjmd.competence.owl.access._
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.DefinitionNotInitalizedException
 import uzuzjmd.competence.owl.dao.exceptions.NoRecursiveSubClassException
@@ -197,7 +195,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   @throws[DataFieldNotInitializedException]
   @throws[DefinitionNotInitalizedException]
   override def getPropertyPair(key: String): (Property, Statement) = {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    val literal = comp.getM().createProperty(CompOntologyAccessScala.encode(key));
     if (getOntClass == null) {
       throw new OntClassForDaoNotInitializedException
     }

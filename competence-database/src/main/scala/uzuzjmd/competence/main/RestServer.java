@@ -1,3 +1,4 @@
+/*
 package uzuzjmd.competence.main;
 
 import java.io.IOException;
@@ -103,3 +104,4 @@ public class RestServer {
 	}
 
 }
+*/

@@ -6,8 +6,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access._
 import uzuzjmd.competence.owl.dao.StudentRole
 import uzuzjmd.competence.owl.dao.TeacherRole
 import org.scalatest.junit.JUnitRunner
@@ -32,14 +31,12 @@ import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.CompetenceInstance
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import org.apache.log4j.Level
 import com.hp.hpl.jena.rdf.model.InfModel
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import uzuzjmd.competence.owl.dao.Competence
 import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.main.EposImporter
-import uzuzjmd.competence.owl.access.MagicStrings
 import uzuzjmd.competence.service.rest.CompetenceOntologyInterface
 import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
 import uzuzjmd.competence.owl.dao.EvidenceActivity
@@ -53,7 +50,6 @@ import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphNode
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.CourseContext
 import sun.security.krb5.internal.ccache.CCacheInputStream
 import uzuzjmd.competence.owl.dao.CourseContext

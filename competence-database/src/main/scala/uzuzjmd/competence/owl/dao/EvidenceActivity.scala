@@ -1,8 +1,8 @@
 package uzuzjmd.competence.owl.dao
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 
 case class EvidenceActivity(comp: CompOntologyManager, val url: String, val printableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, url) {

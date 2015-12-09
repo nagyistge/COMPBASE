@@ -3,6 +3,7 @@ package uzuzjmd.competence.mapper.rcd
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.apache.log4j.Logger
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
 import com.hp.hpl.jena.ontology.OntModel
@@ -11,19 +12,16 @@ import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.util.iterator.Filter
 import uzuzjmd.competence.rcd.RCDMaps
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.{CompOntologyAccessJenaImpl, CompOntologyManager, MagicStrings, TDBWriteTransactional}
 import uzuzjmd.competence.rcd.generated.Rdceo
 import uzuzjmd.competence.rcd.generated.Title
 import uzuzjmd.competence.console.util.LogStream
 import uzuzjmd.competence.rcd.generated.Statement
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.MagicStrings
 import java.util.ArrayList
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
 /**
  *
@@ -89,7 +87,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
    * jedem CompetenceDescriptionElement wird die ObjectProperty
    * TODO:TestThisMethod
    */
-  private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyAccess) {
+  private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyAccessJenaImpl) {
     //TODO implement
     throw new NotImplementedError
   }
@@ -135,7 +133,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
     triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1, false))
   }
 
-  private def createDescriptionElementOfRels(util: CompOntologyAccess, triplesWithObjectProperties: Seq[(String, String, String)]) = {
+  private def createDescriptionElementOfRels(util: CompOntologyAccessJenaImpl, triplesWithObjectProperties: Seq[(String, String, String)]) = {
     triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).
       foreach(x => competenceDescriptionToOnt(x, util))
   }

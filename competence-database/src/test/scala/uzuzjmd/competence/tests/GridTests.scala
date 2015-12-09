@@ -1,5 +1,7 @@
 package uzuzjmd.competence.tests
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+
 import scala.collection.JavaConverters.seqAsJavaListConverter
 import org.junit.AfterClass
 import org.junit.runner.RunWith
@@ -32,7 +34,6 @@ import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.owl.dao.LearningProjectTemplate
 import uzuzjmd.competence.owl.dao.CompetenceInstance
 import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import org.apache.log4j.Level
 import com.hp.hpl.jena.rdf.model.InfModel
 import com.hp.hpl.jena.rdf.model.ModelFactory
