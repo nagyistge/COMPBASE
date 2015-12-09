@@ -40,7 +40,7 @@ http.protocol.implementation: "com.digitalpebble.storm.crawler.protocol.httpclie
 https.protocol.implementation: "com.digitalpebble.storm.crawler.protocol.httpclient.HttpProtocol"
 
 parsefilters.config.file: "parsefilters.json"
-urlfilters.config.file: "urlfilters.json"
+urlfilters.config.file: "own.urlfilters.json"
 
 # whether the sitemap parser should try to 
 # determine whether a page is a sitemap based
