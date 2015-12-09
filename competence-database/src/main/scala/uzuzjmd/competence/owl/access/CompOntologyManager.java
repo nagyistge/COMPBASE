@@ -59,7 +59,7 @@ public class CompOntologyManager {
 		this.modelChangedListener = new ModelChangeListener(
 				rulesReasoner, this);
 
-		// defaultmäßif ist derReasoner angeschaltet
+		// defaultmäßig ist derReasoner angeschaltet
 		registerReasoner();
 	}
 

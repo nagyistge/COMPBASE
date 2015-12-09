@@ -29,22 +29,8 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
-public class CompOntologyAccessJenaImpl implements CompOntologyAccess {
+public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 
-	/**
-	 * init Logger
-	 */
-	public static final Logger logger = LogManager
-			.getLogger(CompOntologyAccess.class.getName());
-	private CompFileUtil fileUtil;
-
-	private CompOntologyManager manager;
-	private CompetenceQueries queries;
-
-	@Override
-	public CompOntologyManager getManager() {
-		return manager;
-	}
 
 	/**
 	 * The QueriesObject and Model are dependencies
@@ -234,8 +220,8 @@ public class CompOntologyAccessJenaImpl implements CompOntologyAccess {
 	/**
 	 * creates class or returns class if exists
 	 * 
-	 * @param model
-	 * @param ontClass
+	 * @param string
+	 * @param isRead
 	 */
 	@Override
 	public OntClass createOntClassForString(String string,

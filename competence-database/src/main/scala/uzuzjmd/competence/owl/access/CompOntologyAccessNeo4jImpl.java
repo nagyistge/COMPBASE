@@ -14,12 +14,7 @@ import java.util.List;
 /**
  * Created by dehne on 09.12.2015.
  */
-public class CompOntologyAccessNeo4jImpl implements CompOntologyAccess{
-    @Override
-    public CompOntologyManager getManager() {
-        return null;
-    }
-
+public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     @Override
     public Individual createIndividualForString(OntClass ontClass, String individualName, Boolean isRead) {
         return null;
