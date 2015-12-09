@@ -11,7 +11,7 @@ import scala.NotImplementedError;
 /**
  * Created by dehne on 04.12.2015.
  */
-public class Neo4JObjectProperty implements ObjectProperty {
+public class Neo4JObjectProperty implements ObjectProperty, Fetchable<Neo4JObjectProperty> {
     @Override
     public void setSuperProperty(Property prop) {
         throw new NotImplementedError();
@@ -965,5 +965,25 @@ public class Neo4JObjectProperty implements ObjectProperty {
     @Override
     public Node asNode() {
         return null;
+    }
+
+    @Override
+    public Neo4JObjectProperty fetchIfExists() {
+        return null;
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

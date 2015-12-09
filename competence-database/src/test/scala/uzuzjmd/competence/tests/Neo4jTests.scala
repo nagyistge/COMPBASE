@@ -1,6 +1,6 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.neo4j.Neo4JQueryManager
+import uzuzjmd.competence.neo4j.{Neo4JModel, Neo4jIndividual, Neo4JQueryManager}
 
 import scala.collection.JavaConverters.seqAsJavaListConverter
 import org.junit.AfterClass
@@ -67,9 +67,10 @@ import uzuzjmd.competence.logging.LoggingTDBWriteTransactional
 @RunWith(classOf[JUnitRunner])
 class Neo4jTests  extends FunSuite with ShouldMatchers {
 
-  test("just testing the api calls") {
-    val getManager = new Neo4JQueryManager
-    val result = getManager.getLabelForNode("2")
+  test("just persisting individual and deleting") {
+    val indvidualy = new Neo4jIndividual("julian", "julian is strong", null);
+    val model = new Neo4JModel();
+    model.createIndividual(individualy);
   }
 
 }
