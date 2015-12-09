@@ -9,8 +9,8 @@ public interface Fetchable<T> {
      * if it does not exist
      * @return
      */
-    public T fetchIfExists();
-    public void create();
-    public void update();
-    public void delete();
+    public T fetchIfExists() throws Exception;
+    public T create() throws Exception;
+    public T update() throws Exception;
+    public void delete() throws Exception;
 }

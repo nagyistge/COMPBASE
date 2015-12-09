@@ -19,7 +19,6 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     private final String definition;
 
 
-
     public Neo4jIndividual(String id, String definition) {
         this.id = id;
         this.isSingleTonClass = false;
@@ -788,23 +787,24 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         throw new NotImplementedException();
     }
 
+
     @Override
-    public Neo4jIndividual fetchIfExists() {
+    public Neo4jIndividual fetchIfExists() throws Exception {
         return null;
     }
 
     @Override
-    public void create() {
-
+    public Neo4jIndividual create() throws Exception {
+        return null;
     }
 
     @Override
-    public void update() {
-
+    public Neo4jIndividual update() throws Exception {
+        return null;
     }
 
     @Override
-    public void delete() {
+    public void delete() throws Exception {
 
     }
 }

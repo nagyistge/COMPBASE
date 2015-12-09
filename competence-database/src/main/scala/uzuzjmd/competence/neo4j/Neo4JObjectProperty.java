@@ -973,17 +973,19 @@ public class Neo4JObjectProperty implements ObjectProperty, Fetchable<Neo4JObjec
     }
 
     @Override
-    public void create() {
-
+    public Neo4JObjectProperty create() throws Exception {
+        return null;
     }
 
     @Override
-    public void update() {
-
+    public Neo4JObjectProperty update() throws Exception {
+        return null;
     }
 
     @Override
-    public void delete() {
+    public void delete() throws Exception {
 
     }
+
+
 }
