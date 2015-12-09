@@ -12,33 +12,32 @@ import uzuzjmd.competence.owl.ontology.CompOntClass;
 /**
  * Created by dehne on 07.12.2015.
  */
-public class Neo4jIndividual implements Individual {
+public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private final String id;
     private final Boolean isSingleTonClass;
     private final String definition;
-    private final Neo4JModel model;
 
 
-    public Neo4jIndividual(String id, String definition, Neo4JModel model) {
+
+    public Neo4jIndividual(String id, String definition) {
         this.id = id;
-        this.model = model;
         this.isSingleTonClass = false;
         this.definition = definition;
     }
 
 
-    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass, Neo4JModel model) {
+    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass) {
         this.id = id;
         this.isSingleTonClass = isSingletonClass;
         this.definition = definition;
-        this.model = model;
     }
 
     /**
      * adding a class to an individual is like adding a label to a node in Neo4J
      * In order to adhere to owl standards, inheritance must be persisted
      * redundant with an extra class node
+     *
      * @param cls
      */
     @Override
@@ -47,7 +46,7 @@ public class Neo4jIndividual implements Individual {
 
         try {
             if (!isSingleTonClass) {
-            neo4JQueryManager.setLabelForNode(id, cls.getLocalName());
+                neo4JQueryManager.setLabelForNode(id, cls.getLocalName());
             } else {
                 neo4JQueryManager.setClassForNode(id, definition, CompOntClass.valueOf(cls.getLocalName()));
             }
@@ -90,7 +89,7 @@ public class Neo4jIndividual implements Individual {
     @Override
     public boolean hasOntClass(Resource ontClass, boolean direct) {
 
-        return getOntClass().equals((OntClass)ontClass);
+        return getOntClass().equals((OntClass) ontClass);
     }
 
     @Override
@@ -110,7 +109,7 @@ public class Neo4jIndividual implements Individual {
 
     @Override
     public OntModel getOntModel() {
-        return (OntModel) this.model;
+        throw new NotImplementedException();
     }
 
     @Override
@@ -586,7 +585,7 @@ public class Neo4jIndividual implements Individual {
 
     @Override
     public Model getModel() {
-        return this.model;
+        throw new NotImplementedException();
     }
 
     @Override
@@ -601,7 +600,7 @@ public class Neo4jIndividual implements Individual {
 
     @Override
     public Resource asResource() {
-        throw new NotImplementedException();
+        return new Neo4jResource(this.id);
     }
 
     @Override
@@ -616,7 +615,7 @@ public class Neo4jIndividual implements Individual {
 
     @Override
     public String getURI() {
-        return MagicStrings.PREFIX+ this.id;
+        return MagicStrings.PREFIX + this.id;
     }
 
     @Override
@@ -787,5 +786,25 @@ public class Neo4jIndividual implements Individual {
     @Override
     public Node asNode() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public Neo4jIndividual fetchIfExists() {
+        return null;
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

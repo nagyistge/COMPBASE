@@ -11,15 +11,13 @@ import uzuzjmd.competence.owl.ontology.CompOntClass;
 /**
  * Created by dehne on 04.12.2015.
  */
-public class Neo4jOntClass implements OntClass {
+public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     private final String id;
 
     public Neo4jOntClass(String id) {
         this.id = id;
     }
-
-
 
     @Override
     public void setSuperClass(Resource cls) {
@@ -954,5 +952,25 @@ public class Neo4jOntClass implements OntClass {
     @Override
     public Node asNode() {
         return null;
+    }
+
+    @Override
+    public Neo4jOntClass fetchIfExists() {
+        return null;
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }
