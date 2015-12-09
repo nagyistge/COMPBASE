@@ -1,5 +1,7 @@
 package uzuzjmd.competence.mapper.rcd
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.rcd.generated.Rdceoschema
@@ -16,7 +18,6 @@ import uzuzjmd.competence.rcd.generated.Statement
 import uzuzjmd.competence.rcd.generated.Identifier
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 /**

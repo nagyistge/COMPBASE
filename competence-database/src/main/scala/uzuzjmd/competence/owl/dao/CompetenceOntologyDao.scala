@@ -4,13 +4,12 @@ import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+import uzuzjmd.competence.owl.access.{CompOntologyAccessScala, CompOntologyManager, Logging}
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.IndividualNotFoundException
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.Logging
 import uzuzjmd.competence.owl.dao.exceptions.IdentifierNullException
 
 abstract class CompetenceOntologyDao( comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {
@@ -26,7 +25,7 @@ abstract class CompetenceOntologyDao( comp: CompOntologyManager, compOntClass: C
   @throws[DataFieldNotInitializedException]
   @throws[IndividualNotFoundException]
   override def getPropertyPair(key: String): (Property, Statement) = {
-    val keyEncoded = CompOntologyAccess.encode(key)
+    val keyEncoded = CompOntologyAccessScala.encode(key)
     val literal = comp.getM().createProperty(keyEncoded);
 
     val individual = getIndividual

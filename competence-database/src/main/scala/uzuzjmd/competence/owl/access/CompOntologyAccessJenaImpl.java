@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
@@ -28,7 +29,7 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
-public class CompOntologyAccess {
+public class CompOntologyAccessJenaImpl implements CompOntologyAccess {
 
 	/**
 	 * init Logger
@@ -40,6 +41,7 @@ public class CompOntologyAccess {
 	private CompOntologyManager manager;
 	private CompetenceQueries queries;
 
+	@Override
 	public CompOntologyManager getManager() {
 		return manager;
 	}
@@ -51,9 +53,9 @@ public class CompOntologyAccess {
 	 * @param queries
 	 * @param compOntologyManager
 	 */
-	public CompOntologyAccess(OntModel m,
-			CompetenceQueries queries,
-			CompOntologyManager compOntologyManager) {
+	public CompOntologyAccessJenaImpl(OntModel m,
+									  CompetenceQueries queries,
+									  CompOntologyManager compOntologyManager) {
 		this.queries = queries;
 		this.fileUtil = new CompFileUtil(m);
 		this.manager = compOntologyManager;
@@ -66,6 +68,7 @@ public class CompOntologyAccess {
 	 * @param individualName
 	 * @return
 	 */
+	@Override
 	public Individual createIndividualForString(
 			OntClass ontClass, String individualName,
 			Boolean isRead) {
@@ -89,6 +92,7 @@ public class CompOntologyAccess {
 	 * @param individualName
 	 * @return
 	 */
+	@Override
 	public Individual createIndividualForStringWithDefinition(
 			OntClass ontClass, String individualName,
 			String definition) {
@@ -107,6 +111,7 @@ public class CompOntologyAccess {
 	 * @param propertyName
 	 * @return
 	 */
+	@Override
 	public ObjectProperty createObjectProperty(
 			CompOntClass domain, CompOntClass range,
 			CompObjectProperties propertyName) {
@@ -144,6 +149,7 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
+	@Override
 	public ObjectProperty createObjectPropertyWithIndividual(
 			Individual domainIndividual,
 			Individual rangeIndividual,
@@ -163,6 +169,7 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
+	@Override
 	public ObjectProperty deleteObjectPropertyWithIndividual(
 			Individual domainIndividual,
 			Individual rangeIndividual,
@@ -181,6 +188,7 @@ public class CompOntologyAccess {
 	 * @param individual2
 	 * @param compObjectProperties
 	 */
+	@Override
 	public Boolean existsObjectPropertyWithIndividual(
 			Individual domainIndividual,
 			final Individual rangeIndividual,
@@ -216,8 +224,9 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
+	@Override
 	public OntClass createOntClass(CompOntClass ontClass,
-			Boolean isRead) {
+								   Boolean isRead) {
 		return createOntClassForString(ontClass.name(),
 				isRead);
 	}
@@ -228,8 +237,9 @@ public class CompOntologyAccess {
 	 * @param model
 	 * @param ontClass
 	 */
+	@Override
 	public OntClass createOntClassForString(String string,
-			Boolean isRead, String... definitions) {
+											Boolean isRead, String... definitions) {
 		if (string.equals("")) {
 			return null;
 		}
@@ -254,6 +264,10 @@ public class CompOntologyAccess {
 		return paper;
 	}
 
+	private String encode(String string) {
+		return CompOntologyAccessScala.encode(string);
+	}
+
 	/**
 	 * convenienceMethod for adding the Prefix that specifies the individual for
 	 * singleton classes
@@ -261,6 +275,7 @@ public class CompOntologyAccess {
 	 * @param ontclass
 	 * @return
 	 */
+	@Override
 	public Individual createSingleTonIndividual(
 			OntClass ontclass, Boolean isRead) {
 		if (ontclass == null) {
@@ -274,6 +289,7 @@ public class CompOntologyAccess {
 				singletonstring, isRead);
 	}
 
+	@Override
 	public OntClass createSingleTonIndividualWithClass(
 			String classname, Boolean isRead,
 			String... definitions) {
@@ -283,6 +299,7 @@ public class CompOntologyAccess {
 		return classOnt;
 	}
 
+	@Override
 	public Individual createSingleTonIndividualWithClass2(
 			String classname, Boolean isRead,
 			String... definitions) {
@@ -291,6 +308,7 @@ public class CompOntologyAccess {
 		return createSingleTonIndividual(classOnt, isRead);
 	}
 
+	@Override
 	public OntResult accessSingletonResource(
 			String classname, Boolean isRead,
 			String... definitions) {
@@ -306,6 +324,7 @@ public class CompOntologyAccess {
 		return new OntResult(individual, classOnt);
 	}
 
+	@Override
 	public OntResult accessSingletonResourceWithClass(
 			CompOntClass compOntClass, Boolean isRead) {
 		OntClass classOnt = createOntClass(compOntClass,
@@ -315,37 +334,16 @@ public class CompOntologyAccess {
 		return new OntResult(individual, classOnt);
 	}
 
+	@Override
 	public OntClass getClass(CompOntClass compOntClass,
-			Boolean isRead) {
+							 Boolean isRead) {
 		return createOntClassForString(compOntClass.name(),
 				isRead);
 	}
 
-	public static String encode(String string) {
-		if (string.startsWith(MagicStrings.PREFIX)
-				|| string.equals("")) {
-			throw new Error(
-					"OntClass should not start with Prefix or empty string");
-		}
 
-		/**
-		 * control character werden nicht akzeptiert und leerzeichen sind auch
-		 * nicht gut
-		 */
-		//
-		if (string.matches("^[0-9].*")) {
-			string = "n" + string;
-		}
-		string = string.trim()
-				.replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_")
-				.replaceAll("[\u0000-\u001f]", "")
-				.replaceAll("\\.", "__")
-				.replaceAll("[\n\r]", "")
-				.replaceAll("[\n]", "");
-		return (MagicStrings.PREFIX + string).replaceAll(
-				"_", "");
-	}
 
+	@Override
 	public CompFileUtil getFileUtil() {
 		return fileUtil;
 	}
@@ -356,6 +354,7 @@ public class CompOntologyAccess {
 	 * @param indivString
 	 * @return
 	 */
+	@Override
 	public Individual getIndividualForString(
 			String indivString) {
 		return manager.getM().getIndividual(
@@ -383,6 +382,7 @@ public class CompOntologyAccess {
 	 * @param className
 	 * @return
 	 */
+	@Override
 	public OntClass getOntClassForString(String className) {
 		manager.sync();
 		String encoded = encode(className);
@@ -396,11 +396,13 @@ public class CompOntologyAccess {
 	 * 
 	 * @return
 	 */
+	@Override
 	public CompetenceQueries getQueries() {
 
 		return queries;
 	}
 
+	@Override
 	public List<String> getAllInstanceDefinitions(
 			CompOntClass clazz) {
 
@@ -436,6 +438,7 @@ public class CompOntologyAccess {
 	}
 
 	// TODO: Test
+	@Override
 	public List<String> getShortestSubClassPath(
 			OntClass start, OntClass end) {
 		Filter<Statement> onPath = new Filter<Statement>() {
@@ -458,6 +461,7 @@ public class CompOntologyAccess {
 		return result;
 	}
 
+	@Override
 	public String validityReportTostring(
 			ValidityReport report) {
 		String result = "";

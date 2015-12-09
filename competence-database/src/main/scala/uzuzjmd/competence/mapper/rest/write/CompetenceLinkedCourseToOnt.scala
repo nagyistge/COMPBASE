@@ -1,10 +1,11 @@
 package uzuzjmd.competence.mapper.rest.write
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+
 import scala.collection.JavaConverters.asScalaBufferConverter
 import com.hp.hpl.jena.ontology.Individual
 import javax.ws.rs.WebApplicationException
 import uzuzjmd.competence.owl.access.AccessHelper
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import uzuzjmd.competence.owl.dao.CourseContext

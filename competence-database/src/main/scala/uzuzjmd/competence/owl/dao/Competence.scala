@@ -1,10 +1,10 @@
 package uzuzjmd.competence.owl.dao
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import com.hp.hpl.jena.rdf.model.Property
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._

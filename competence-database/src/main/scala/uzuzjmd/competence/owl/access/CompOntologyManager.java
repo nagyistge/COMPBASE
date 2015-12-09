@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
@@ -38,7 +39,7 @@ public class CompOntologyManager {
 	 */
 	public CompOntologyManager() {
 		this.queries = new CompetenceQueries(getM());
-		this.util = new CompOntologyAccess(getM(),
+		this.util = new CompOntologyAccessJenaImpl(getM(),
 				getQueries(), this);
 	}
 

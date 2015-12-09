@@ -2,8 +2,7 @@ package uzuzjmd.competence.owl.dao
 
 import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.CompOntologyAccess
+import uzuzjmd.competence.owl.access.{CompOntologyAccessScala, CompOntologyAccessJenaImpl, CompOntologyManager}
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
@@ -91,7 +90,7 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
   }
 
   def addDataField(key: String, value: Object) {
-    val literal = comp.getM().createProperty(CompOntologyAccess.encode(key));
+    val literal = comp.getM().createProperty(CompOntologyAccessScala.encode(key));
     createIndividual.removeAll(literal)
     createIndividual.addLiteral(literal, value);
   }

@@ -1,9 +1,9 @@
 package uzuzjmd.competence.owl.dao
 
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.queries.CompetenceQueries
 import uzuzjmd.scalahacks.ScalaHacks
 import com.hp.hpl.jena.ontology.Individual

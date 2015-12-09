@@ -1,10 +1,8 @@
 package uzuzjmd.competence.owl.dao
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.owl.access.{CompOntologyAccessJenaImpl, CompOntologyManager, CompOntologyAccessScala}
 import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.CompOntologyAccess
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
 case class CourseContext(comp: CompOntologyManager, val name: String) extends CompetenceOntologyDao(comp, CompOntClass.CourseContext, name) {
 

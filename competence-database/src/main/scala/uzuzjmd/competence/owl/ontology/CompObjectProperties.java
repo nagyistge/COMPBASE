@@ -53,5 +53,7 @@ public enum CompObjectProperties {
     AssessmentOfCompetence,
     UserHasPerformed,
     SuggestedActivityForCompetence, SuggestedCourseForCompetence,
-    CommendedCourseForUser
+    CommendedCourseForUser,
+    individualOf,
+    subClassOf,
 }

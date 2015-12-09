@@ -9,6 +9,18 @@ import uzuzjmd.competence.owl.dao.EvidenceActivity
 import javax.ws.rs.WebApplicationException
 
 object CompOntologyAccessScala {
+  def encode( string: String): String = {
+    var strungX = string
+
+    if (strungX.startsWith(MagicStrings.PREFIX) || (strungX == "")) {
+      throw new Error("OntClass should not start with Prefix or empty string")
+    }
+    if (strungX.matches("^[0-9].*")) {
+      strungX = "n" + strungX
+    }
+    strungX = strungX.trim.replaceAll("[^a-zA-ZäöüÄÖÜß1-9]", "_").replaceAll("[\u0000-\u001f]", "").replaceAll("\\.", "__").replaceAll("[\n\r]", "").replaceAll("[\n]", "")
+    return (MagicStrings.PREFIX + strungX).replaceAll("_", "")
+  }
 
   def getDefinitionString(subclass: com.hp.hpl.jena.ontology.OntClass, ontologyManager: CompOntologyManager): String = {
     if (getPropertyString(subclass, "definition", ontologyManager) != null) {

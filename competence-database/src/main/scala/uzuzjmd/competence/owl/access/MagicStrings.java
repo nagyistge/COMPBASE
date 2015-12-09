@@ -24,8 +24,7 @@ public class MagicStrings {
 	// public static String ONTOLOGYFILE = null;
 	public static final String SERVICEENDPOINT = "http://localhost:8081/WS/Competence";
 	public static final String EVIDENCESERVICEENDPOINT = "http://localhost:8082/WS/Competence/Evidence";
-	// public static final String RULESFILE =
-	// "C:/dev/scalaworkspace/Wissensmodellierung/comptetence-main/src/resources/competence.rules";
+
 	public static final String SINGLETONPREFIX = "I";
 	public static final String CSVLOCATION = PropUtil
 			.getRelativeFileProp("csvFile");
@@ -39,8 +38,6 @@ public class MagicStrings {
 	public static final String USERICONPATH = "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png";
 	public static final String EPOSLocation = PropUtil
 			.getRelativeFileProp("eposfile");
-	// public static String GERMANMODELLOCATION =
-	// "C:/dev/scalaworkspace/Wissensmodellierung/competence-database/src/main/scala/resources/languagemodels/germanPCFG.ser.gz";
 	public static final String GERMANMODELLOCATION = "germanPCFG.ser.gz";
 	public static final String thesaurusLogin = PropUtil
 			.getProp("thesaurusLogin");
@@ -52,5 +49,9 @@ public class MagicStrings {
 			.getProp("thesaurusDatabaseUrl");
 	public static final Boolean WRITEDEBUGRDF = PropUtil
 			.getProp("writeDebugRDF").equals("true");
+	public static final String NEO4JURL = PropUtil
+			.getProp("neo4jURL");
+	public static final Boolean neo4jEnabled = PropUtil
+			.getProp("neo4jEnabled").equals("true");
 
 }

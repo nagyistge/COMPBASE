@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -36,7 +37,7 @@ import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
-import edu.emory.mathcs.backport.java.util.LinkedList;
+
 
 /**
  * Root resource (exposed at "competences" path)
