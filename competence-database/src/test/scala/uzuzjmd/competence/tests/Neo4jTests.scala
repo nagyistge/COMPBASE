@@ -1,5 +1,6 @@
 package uzuzjmd.competence.tests
 
+import com.hp.hpl.jena.ontology.OntClass
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
@@ -17,7 +18,7 @@ import uzuzjmd.competence.owl.ontology.CompOntClass
 class Neo4jTests  extends FunSuite with ShouldMatchers {
 
   test("just persisting individual and deleting") {
-    val ind = new Neo4jIndividual("julian", "julian thinks he is strong", false, CompOntClass.User);
+    val ind = new Neo4jIndividual("julian", "julian thinks he is strong", OntClass, false)
     val testInd = ind.create()
     assertEquals(ind, testInd)
   }

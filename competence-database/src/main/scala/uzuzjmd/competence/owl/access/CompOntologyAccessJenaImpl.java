@@ -48,13 +48,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		this.manager = compOntologyManager;
 	}
 
-	/**
-	 * creates the individual, if not exists
-	 * 
-	 * @param classNameWithoutPrefix
-	 * @param individualName
-	 * @return
-	 */
+
 	@Override
 	public Individual createIndividualForString(
 			OntClass ontClass, String individualName,
@@ -72,13 +66,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		}
 	}
 
-	/**
-	 * creates the individual, if not exists
-	 * 
-	 * @param paper
-	 * @param individualName
-	 * @return
-	 */
+
 	@Override
 	public Individual createIndividualForStringWithDefinition(
 			OntClass ontClass, String individualName,
@@ -92,50 +80,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return individual;
 	}
 
-	/**
-	 * @param domain
-	 * @param range
-	 * @param propertyName
-	 * @return
-	 */
-	@Override
-	public ObjectProperty createObjectProperty(
-			CompOntClass domain, CompOntClass range,
-			CompObjectProperties propertyName) {
 
-		OntClass ontClass1 = getClass(domain, false);
-		OntClass ontclass2 = getClass(range, false);
-		return createObjectProperty(ontClass1, ontclass2,
-				propertyName.name());
-	}
-
-	/**
-	 * creates and object porperty or reuses one
-	 * 
-	 * @param m
-	 * @param Domain
-	 * @param Range
-	 * @param propertyName
-	 * @return
-	 */
-	private ObjectProperty createObjectProperty(
-			OntClass domain, OntClass range,
-			String propertyName) {
-
-		ObjectProperty property = manager.getM()
-				.createObjectProperty(encode(propertyName));
-		property.setDomain(domain);
-		property.setRange(range);
-		return property;
-	}
-
-	/**
-	 * links the objectProperty to
-	 * 
-	 * @param individual
-	 * @param individual2
-	 * @param compObjectProperties
-	 */
 	@Override
 	public ObjectProperty createObjectPropertyWithIndividual(
 			Individual domainIndividual,
@@ -149,13 +94,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return result;
 	}
 
-	/**
-	 * delete the link
-	 * 
-	 * @param individual
-	 * @param individual2
-	 * @param compObjectProperties
-	 */
+
 	@Override
 	public ObjectProperty deleteObjectPropertyWithIndividual(
 			Individual domainIndividual,
@@ -168,13 +107,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return result;
 	}
 
-	/**
-	 * checks if relationship exists
-	 * 
-	 * @param individual
-	 * @param individual2
-	 * @param compObjectProperties
-	 */
+
 	@Override
 	public Boolean existsObjectPropertyWithIndividual(
 			Individual domainIndividual,
@@ -205,12 +138,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return exists;
 	}
 
-	/**
-	 * creates class or returns class if exists
-	 * 
-	 * @param model
-	 * @param ontClass
-	 */
+
 	@Override
 	public OntClass createOntClass(CompOntClass ontClass,
 								   Boolean isRead) {
@@ -251,9 +179,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return paper;
 	}
 
-	private String encode(String string) {
-		return CompOntologyAccessScala.encode(string);
-	}
+
 
 	/**
 	 * convenienceMethod for adding the Prefix that specifies the individual for
@@ -286,47 +212,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return classOnt;
 	}
 
-	@Override
-	public Individual createSingleTonIndividualWithClass2(
-			String classname, Boolean isRead,
-			String... definitions) {
-		OntClass classOnt = createOntClassForString(
-				classname, isRead, definitions);
-		return createSingleTonIndividual(classOnt, isRead);
-	}
 
-	@Override
-	public OntResult accessSingletonResource(
-			String classname, Boolean isRead,
-			String... definitions) {
-		if (classname.startsWith("I")) {
-			logger.trace("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
-		}
-
-		OntClass classOnt = createOntClassForString(
-				classname, isRead, definitions);
-		Individual individual = createSingleTonIndividual(
-				classOnt, isRead);
-
-		return new OntResult(individual, classOnt);
-	}
-
-	@Override
-	public OntResult accessSingletonResourceWithClass(
-			CompOntClass compOntClass, Boolean isRead) {
-		OntClass classOnt = createOntClass(compOntClass,
-				isRead);
-		Individual individual = createSingleTonIndividual(
-				classOnt, isRead);
-		return new OntResult(individual, classOnt);
-	}
-
-	@Override
-	public OntClass getClass(CompOntClass compOntClass,
-							 Boolean isRead) {
-		return createOntClassForString(compOntClass.name(),
-				isRead);
-	}
 
 
 
@@ -448,7 +334,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return result;
 	}
 
-	@Override
+
 	public String validityReportTostring(
 			ValidityReport report) {
 		String result = "";
@@ -460,7 +346,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 	}
 
 	@Override
-	public Model getModel() {
-		return null;
+	public Boolean existsObjectPropertyWithOntClass(OntClass domainClass, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+		return existsObjectPropertyWithIndividual(domainClass.listInstances().toList().get(0).asIndividual(), rangeIndividual, compObjectProperties);
 	}
 }

@@ -9,6 +9,7 @@ import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
+import uzuzjmd.competence.owl.queries.CompetenceQueriesJenaImpl;
 import uzuzjmd.competence.owl.reasoning.ModelChangeListener;
 import uzuzjmd.competence.owl.reasoning.RuleFactory;
 import uzuzjmd.competence.owl.reasoning.SimpleRulesReasoner;
@@ -38,7 +39,7 @@ public class CompOntologyManager {
 	 * should be singleton
 	 */
 	public CompOntologyManager() {
-		this.queries = new CompetenceQueries(getM());
+		this.queries = new CompetenceQueriesJenaImpl(getM());
 		this.util = new CompOntologyAccessJenaImpl(getM(),
 				getQueries(), this);
 	}

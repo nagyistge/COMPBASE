@@ -7,7 +7,7 @@ import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.owl.ontology.*;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -20,17 +20,22 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     private final String id;
     private final Boolean isSingleTonClass;
     private final String definition;
-    private final CompOntClass clazz;
     private Neo4JQueryManager qmanager;
+    private final OntClass ontClass;
 
-
-
-
-    public Neo4jIndividual(String id, String definition, CompOntClass clazz) {
+    public Neo4jIndividual(String id, String definition, OntClass ontClass) {
         this.id = id;
-        this.clazz = clazz;
+        this.ontClass = ontClass;
         this.isSingleTonClass = false;
         this.definition = definition;
+        qmanager = new Neo4JQueryManager();
+    }
+
+    public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
+        this.id = id;
+        this.isSingleTonClass = isSingletonClass;
+        this.definition = definition;
+        this.ontClass = ontClass;
         qmanager = new Neo4JQueryManager();
     }
 
@@ -56,13 +61,6 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         return result;
     }
 
-    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass, CompOntClass clazz) {
-        this.id = id;
-        this.isSingleTonClass = isSingletonClass;
-        this.definition = definition;
-        this.clazz = clazz;
-        qmanager = new Neo4JQueryManager();
-    }
 
     /**
      * adding a class to an individual is like adding a label to a node in Neo4J
@@ -828,7 +826,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Neo4jIndividual create() throws Exception {
-        return qmanager.createUniqueNode(this.toHashmap());
+        qmanager.createUniqueNode(this.toHashmap());
+        return null;
     }
 
     @Override
@@ -841,12 +840,12 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     }
 
-    private HashMap<String,String> toHashmap(){
+    private HashMap<String,String> toHashmap() {
         HashMap<String, String> result = new HashMap<String, String>();
         for (Field prop :
                 Neo4jIndividual.class.getDeclaredFields()) {
             try {
-                if (! prop.getName().contains("qmanager")) {
+                if (!prop.getName().contains("qmanager")) {
                     result.put(prop.getName(), prop.get(this).toString());
                 }
             } catch (IllegalAccessException e) {
@@ -854,5 +853,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
             }
         }
         return result;
+    }
+    public void createEdge(CompObjectProperties edgeName, Individual individual) {
+
     }
 }
