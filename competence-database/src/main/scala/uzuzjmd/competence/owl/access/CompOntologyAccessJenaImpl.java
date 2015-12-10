@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -456,5 +457,10 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 			result += (" - " + i.next());
 		}
 		return result;
+	}
+
+	@Override
+	public Model getModel() {
+		return null;
 	}
 }

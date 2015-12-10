@@ -3,6 +3,7 @@ package uzuzjmd.competence.owl.access;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
@@ -117,6 +118,11 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public String validityReportTostring(ValidityReport report) {
+        return null;
+    }
+
+    @Override
+    public Model getModel() {
         return null;
     }
 }
