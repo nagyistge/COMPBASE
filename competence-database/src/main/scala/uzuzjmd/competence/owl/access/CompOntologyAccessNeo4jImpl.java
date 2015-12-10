@@ -5,7 +5,9 @@ import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import uzuzjmd.competence.neo4j.Neo4JObjectProperty;
+import uzuzjmd.competence.neo4j.Neo4JQueryManager;
 import uzuzjmd.competence.neo4j.Neo4jIndividual;
+import uzuzjmd.competence.neo4j.Neo4jOntClass;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
@@ -55,61 +57,70 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
-        Neo4JObjectProperty neo4JObjectProperty = new Neo4JObjectProperty(domainIndividual.get);
-
-
-        return null;
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(domainIndividual.getLocalName(), null, domainIndividual.getOntClass());
+        neo4jIndividual.createEdge(compObjectProperties, rangeIndividual);
+        return new Neo4JObjectProperty(CompOntClass.valueOf(domainIndividual.getOntClass().getLocalName()), compObjectProperties, CompOntClass.valueOf(rangeIndividual.getOntClass().getLocalName()));
     }
 
     @Override
     public ObjectProperty deleteObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
-        return null;
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        neo4JQueryManager.deleteRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+        return new Neo4JObjectProperty(CompOntClass.valueOf(domainIndividual.getOntClass().getLocalName()), compObjectProperties, CompOntClass.valueOf(rangeIndividual.getOntClass().getLocalName()));
     }
 
     @Override
     public Boolean existsObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        return neo4JQueryManager.existsRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+
+    }
+
+    @Override
+    public Boolean existsObjectPropertyWithOntClass(OntClass domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        neo4JQueryManager.existsRelationShipWithSuperClassGiven(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
         return null;
     }
 
+    /**
+     * Creates SingleTonClass with root
+     * @param ontClass
+     * @param isRead
+     * @return
+     */
     @Override
     public OntClass createOntClass(CompOntClass ontClass, Boolean isRead) {
-        return null;
+        return getOrCreateSingleTonIndividual(ontClass.toString(), ontClass.toString(), isRead);
     }
 
+
+
     @Override
-    public OntClass createOntClassForString(String string, Boolean isRead, String... definitions) {
-        return null;
+    public OntClass createOntClassForString(String id, Boolean isRead, String... definitions) {
+        if (definitions.length > 0 ) {
+            return getOrCreateSingleTonIndividual(id, definitions[0], isRead);
+        } else {
+            // if no definitions are given then the Singleton must be a rootNode
+            return createOntClass(CompOntClass.valueOf(id), isRead);
+        }
     }
 
     @Override
     public Individual createSingleTonIndividual(OntClass ontclass, Boolean isRead) {
-        return null;
+        return getOrCreateNeo4jSingletonIndividual(ontclass.getLocalName(), ontclass.getLocalName(), isRead);
     }
 
     @Override
     public OntClass createSingleTonIndividualWithClass(String classname, Boolean isRead, String... definitions) {
-        return null;
+        if (definitions.length > 0 ) {
+            return getOrCreateSingleTonIndividual(classname, definitions[0], isRead);
+        } else {
+            return getOrCreateSingleTonIndividual(classname, classname, isRead);
+        }
     }
 
-    @Override
-    public Individual createSingleTonIndividualWithClass2(String classname, Boolean isRead, String... definitions) {
-        return null;
-    }
 
-    @Override
-    public OntResult accessSingletonResource(String classname, Boolean isRead, String... definitions) {
-        return null;
-    }
-
-    @Override
-    public OntResult accessSingletonResourceWithClass(CompOntClass compOntClass, Boolean isRead) {
-        return null;
-    }
-
-    @Override
-    public OntClass getClass(CompOntClass compOntClass, Boolean isRead) {
-        return null;
-    }
 
     @Override
     public CompFileUtil getFileUtil() {
@@ -144,5 +155,29 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     @Override
     public String validityReportTostring(ValidityReport report) {
         return null;
+    }
+
+
+    private OntClass getOrCreateSingleTonIndividual(String id, String definition, Boolean isRead) {
+        Neo4jIndividual neo4jIndividual = getOrCreateNeo4jSingletonIndividual(id, definition, isRead);
+        if (neo4jIndividual == null) return null;
+
+        return neo4jIndividual.getOntClass();
+    }
+
+    private Neo4jIndividual getOrCreateNeo4jSingletonIndividual(String id, String definition, Boolean isRead) {
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(id, definition, new Neo4jOntClass(id), true);
+        try {
+            if (!isRead) {
+                neo4jIndividual.create();
+            } else {
+                if (neo4jIndividual.fetchIfExists() == null) {
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return neo4jIndividual;
     }
 }

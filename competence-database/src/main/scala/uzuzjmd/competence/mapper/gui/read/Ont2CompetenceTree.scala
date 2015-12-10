@@ -99,15 +99,15 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
     logger.trace("checking: " + ontClass.getLocalName);
     logger.trace("selectedOperatorIndividualTMP is empty: " + selectedOperatorIndividualstmp.isEmpty)
 
-    val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(comp.getUtil().createSingleTonIndividualWithClass2(_, true))
-    val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(comp.getUtil().createSingleTonIndividualWithClass2(_, true))
+    val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(comp.getUtil().createSingleTonIndividualWithClass(_, true))
+    val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(comp.getUtil().createSingleTonIndividualWithClass(_, true))
 
     logger.trace("selectedOperatorIndividualTs is empty: " + selectedOperatorIndividuals.isEmpty)
 
-    val catchwordResult = selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CatchwordOf))
+    val catchwordResult = selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithOntClass(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CatchwordOf))
     logger.trace("catchwordFilter evaluates to: " + catchwordResult)
 
-    val operatorResult = selectedOperatorIndividuals.forall(util.existsObjectPropertyWithIndividual(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.OperatorOf))
+    val operatorResult = selectedOperatorIndividuals.forall(util.existsObjectPropertyWithOntClass(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.OperatorOf))
     logger.trace("operatorResult evaluates to: " + operatorResult)
 
     val result = catchwordResult && operatorResult

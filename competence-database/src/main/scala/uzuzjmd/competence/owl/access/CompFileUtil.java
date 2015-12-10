@@ -11,7 +11,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import com.hp.hpl.jena.rdf.model.Model;
 
 /**
- * Eine hilfsklasse, um eine Ontologie-Modell als eine Datei auszugeben
+ * Eine Hilfsklasse, um eine Ontologie-Modell als eine Datei auszugeben
  * 
  * @author julian
  * 
