@@ -1,6 +1,9 @@
 package uzuzjmd.competence.neo4j;
 
 import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.ObjectProperty;
+import com.hp.hpl.jena.ontology.OntClass;
+import org.apache.commons.lang.NotImplementedException;
 import org.glassfish.jersey.client.ClientResponse;
 import uzuzjmd.competence.csv.CompetenceBean;
 import uzuzjmd.competence.owl.access.MagicStrings;
@@ -18,10 +21,7 @@ import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dehne on 04.12.2015.
@@ -137,7 +137,86 @@ public class Neo4JQueryManager {
         issueSingleStatementRequest(query);
     }
 
-    /*public  getClassForNode(String id) {
+    /**
+     * delete Relationship between domainID and RangeID
+     * @param domainId
+     * @param rangeId
+     * @param compObjectProperties
+     */
+    public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
     }
-    */
+
+
+    /**
+     *
+     * @param domainId
+     * @param rangeId
+     * @param compObjectProperties
+     * @return
+     */
+    public Boolean existsRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
+        //TODO implement
+        throw new NotImplementedException();
+    }
+
+
+    /**
+     * checks if relationship exists but a singleton classNode is given instead of the individual
+     * @param domainClassNodeId
+     * @param rangeId
+     * @param compObjectProperties
+     */
+    public void existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Get All edges in graph EXCEPT the subClass and individualOf relations
+     * @return
+     */
+    public List<ObjectProperty> getAllObjectProperties() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET ALL Individuals in graph EXCEPT the SingletonIndividuals
+     * @return
+     */
+    public List<Individual> getAllIndividuals() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a map of all singletonClassIds and their definition attribute
+     * @return
+     */
+    public List<HashMap<OntClass,String>> getAllSingletonDefinitions() {
+
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a list of all subClassRelations between the classNodes for a given label
+     * @return
+     */
+    public List<SubClassRelation> getAllSingletonRelations(CompOntClass compOntClass) {
+
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a list of all labels EXCEPT the singletonLables like Competence or Operator
+     * @return
+     */
+    public List<OntClass> getAllOntClasses() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
 }

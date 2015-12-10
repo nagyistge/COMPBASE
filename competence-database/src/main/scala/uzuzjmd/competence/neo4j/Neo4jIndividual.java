@@ -811,7 +811,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     }
 
-    public void createEdge(CompObjectProperties edgeName, Neo4jIndividual individual) {
-        
+    public void createEdge(CompObjectProperties edgeName, Individual individual) {
+
     }
 }
