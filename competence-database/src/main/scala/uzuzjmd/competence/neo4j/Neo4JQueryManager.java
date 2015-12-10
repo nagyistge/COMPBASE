@@ -195,7 +195,7 @@ public class Neo4JQueryManager {
      * GET a map of all singletonClassIds and their definition attribute
      * @return
      */
-    public List<HashMap<OntClass,String>> getAllSingletonDefinitions() {
+    public HashMap<OntClass,String> getAllSingletonDefinitions() {
 
         // TODO implement
         throw new NotImplementedException();
