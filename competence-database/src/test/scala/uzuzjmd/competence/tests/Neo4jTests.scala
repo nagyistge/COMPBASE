@@ -69,8 +69,6 @@ class Neo4jTests  extends FunSuite with ShouldMatchers {
 
   test("just persisting individual and deleting") {
     val indvidualy = new Neo4jIndividual("julian", "julian is strong", null);
-    val model = new Neo4JModel();
-    model.createIndividual(individualy);
   }
 
 }
