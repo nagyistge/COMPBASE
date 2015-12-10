@@ -7,6 +7,7 @@ import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 
 /**
@@ -17,19 +18,21 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     private final String id;
     private final Boolean isSingleTonClass;
     private final String definition;
+    private final OntClass ontClass;
 
-
-    public Neo4jIndividual(String id, String definition) {
+    public Neo4jIndividual(String id, String definition, OntClass ontClass) {
         this.id = id;
+        this.ontClass = ontClass;
         this.isSingleTonClass = false;
         this.definition = definition;
     }
 
 
-    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass) {
+    public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
         this.id = id;
         this.isSingleTonClass = isSingletonClass;
         this.definition = definition;
+        this.ontClass = ontClass;
     }
 
     /**
@@ -806,5 +809,9 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public void delete() throws Exception {
 
+    }
+
+    public void createEdge(CompObjectProperties edgeName, Neo4jIndividual individual) {
+        
     }
 }

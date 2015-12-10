@@ -27,5 +27,4 @@ abstract public class CompOntologyAccessGenericImpl  implements CompOntologyAcce
         return manager;
     }
 
-    public abstract Model getModel();
 }
