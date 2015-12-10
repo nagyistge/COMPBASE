@@ -1,6 +1,6 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.neo4j.{Neo4JModel, Neo4jIndividual, Neo4JQueryManager}
+import uzuzjmd.competence.neo4j.{Neo4jIndividual, Neo4JQueryManager}
 
 import scala.collection.JavaConverters.seqAsJavaListConverter
 import org.junit.AfterClass

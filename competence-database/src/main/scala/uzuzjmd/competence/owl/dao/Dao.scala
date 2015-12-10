@@ -6,9 +6,9 @@ import uzuzjmd.competence.owl.access.{CompOntologyAccessScala, CompOntologyAcces
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
+import uzuzjmd.competence.owl.queries.CompetenceQueriesJenaImpl
 import uzuzjmd.scalahacks.ScalaHacksInScala
 import uzuzjmd.scalahacks.ScalaHacks
-import uzuzjmd.competence.owl.queries.CompetenceQueries
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.owl.dao.exceptions.DataFieldNotInitializedException
@@ -145,14 +145,14 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
   private def getAssociatedIndividuals(edgeType: CompObjectProperties, range: Dao): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    val queries = new CompetenceQueries(comp.getM())
+    val queries = new CompetenceQueriesJenaImpl(comp.getM())
     return queries.getRelatedIndividuals(edgeType, range.getId).toArray(individualDummy).toList
   }
 
   private def getAssociatedIndividuals(domain: Dao, edgeType: CompObjectProperties): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    val queries = new CompetenceQueries(comp.getM())
+    val queries = new CompetenceQueriesJenaImpl(comp.getM())
     return queries.getRelatedIndividualsDomainGiven(domain.getId, edgeType).toArray(individualDummy).toList
   }
 

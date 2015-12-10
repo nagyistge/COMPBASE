@@ -333,7 +333,7 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 		return result;
 	}
 
-	@Override
+
 	public String validityReportTostring(
 			ValidityReport report) {
 		String result = "";

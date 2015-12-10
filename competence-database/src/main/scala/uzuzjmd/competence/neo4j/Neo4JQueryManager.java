@@ -6,6 +6,7 @@ import com.hp.hpl.jena.ontology.OntClass;
 import org.apache.commons.lang.NotImplementedException;
 import org.glassfish.jersey.client.ClientResponse;
 import uzuzjmd.competence.csv.CompetenceBean;
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 import javax.ws.rs.client.Client;
@@ -19,14 +20,16 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.codec.binary.Base64;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.owl.queries.CompetenceQueries;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by dehne on 04.12.2015.
  */
-public class Neo4JQueryManager {
+public class Neo4JQueryManager implements CompetenceQueries{
 
     final String txUri = MagicStrings.NEO4JURL + "/db/data/transaction/commit";
 
@@ -216,6 +219,47 @@ public class Neo4JQueryManager {
      * @return
      */
     public List<OntClass> getAllOntClasses() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(String domainClass, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+
+    @Override
+    public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualName) {
+        // TODO implement
+        throw new NotImplementedException();
+
+    }
+
+    @Override
+    public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+
+    }
+
+    /**
+     * @see CompOntologyAccess
+     * @param clazz
+     * @return
+     */
+    public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * @see CompOntologyAccess
+     * @param start
+     * @param end
+     */
+    public List<String>  getShortestSubClassPath(OntClass start, OntClass end) {
         // TODO implement
         throw new NotImplementedException();
     }
