@@ -7,11 +7,17 @@ import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import org.apache.commons.lang.NotImplementedException;
 import scala.NotImplementedError;
+import uzuzjmd.competence.owl.ontology.CompObjectProperties;
+import uzuzjmd.competence.owl.ontology.CompOntClass;
 
 /**
  * Created by dehne on 04.12.2015.
  */
 public class Neo4JObjectProperty implements ObjectProperty, Fetchable<Neo4JObjectProperty> {
+
+    public Neo4JObjectProperty(CompOntClass domain, CompObjectProperties propertyName, CompOntClass range) {
+    }
+
     @Override
     public void setSuperProperty(Property prop) {
         throw new NotImplementedError();

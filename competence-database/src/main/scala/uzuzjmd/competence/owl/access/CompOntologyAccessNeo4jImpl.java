@@ -4,7 +4,8 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.reasoner.ValidityReport;
-import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
+import uzuzjmd.competence.neo4j.Neo4JObjectProperty;
+import uzuzjmd.competence.neo4j.Neo4jIndividual;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
@@ -17,21 +18,46 @@ import java.util.List;
 public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     @Override
     public Individual createIndividualForString(OntClass ontClass, String individualName, Boolean isRead) {
-        return null;
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, individualName, ontClass, false);
+        try {
+            if (isRead) {
+                return neo4jIndividual.fetchIfExists();
+            } else {
+                neo4jIndividual.create();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return neo4jIndividual;
     }
 
     @Override
     public Individual createIndividualForStringWithDefinition(OntClass ontClass, String individualName, String definition) {
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, definition, ontClass, false);
+        try {
+            return neo4jIndividual.create();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public ObjectProperty createObjectProperty(CompOntClass domain, CompOntClass range, CompObjectProperties propertyName) {
+        Neo4JObjectProperty neo4JObjectProperty = new Neo4JObjectProperty(domain,propertyName,range);
+        try {
+            return neo4JObjectProperty.create();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
+        Neo4JObjectProperty neo4JObjectProperty = new Neo4JObjectProperty(domainIndividual.get);
+
+
         return null;
     }
 
