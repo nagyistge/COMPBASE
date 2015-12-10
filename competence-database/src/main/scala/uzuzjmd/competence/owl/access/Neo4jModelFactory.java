@@ -6,9 +6,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import uzuzjmd.competence.neo4j.Neo4JQueryManager;
 import uzuzjmd.competence.neo4j.SubClassRelation;
-import uzuzjmd.competence.owl.access.CompOntologyAccessJenaImpl;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
 import uzuzjmd.competence.owl.queries.CompetenceQueries;
+import uzuzjmd.competence.owl.queries.CompetenceQueriesJenaImpl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,21 +16,16 @@ import java.util.List;
  * Created by dehne on 10.12.2015.
  */
 public class Neo4jModelFactory {
-    /**
-     * No-one can make instances of this.
-     */
-    private Neo4jModelFactory() {
-    }
 
     /**
      * TODO implement
      *
      * @return
      */
-    public Model getModelFromNeo4j() {
+    public static Model createModelFromNeo4j() {
         OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
         Neo4JQueryManager manager = new Neo4JQueryManager();
-        CompetenceQueries competenceQueries = new CompetenceQueries(model);
+        CompetenceQueries competenceQueries = new CompetenceQueriesJenaImpl(model);
         CompOntologyManager jenaManager = new CompOntologyManager();
         CompOntologyAccessJenaImpl util = new CompOntologyAccessJenaImpl(model, competenceQueries, jenaManager);
         jenaManager.setM(model);

@@ -125,13 +125,23 @@ public interface CompOntologyAccess {
 
 	CompetenceQueries getQueries();
 
+	/**
+	 * returns the definition of all instances of a (non-singleton) class / label
+	 * @param clazz
+	 * @return
+     */
 	List<String> getAllInstanceDefinitions(
 			CompOntClass clazz);
 
-	// TODO: Test
+
+	/**
+	 * returns the shortest subpath form startClass to endClass (both singletons)
+	 * @param start
+	 * @param end
+     * @return
+     */
 	List<String> getShortestSubClassPath(
 			OntClass start, OntClass end);
 
-	String validityReportTostring(
-			ValidityReport report);
+
 }
