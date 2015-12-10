@@ -1,8 +1,7 @@
 package uzuzjmd.competence.neo4j;
 
-import com.hp.hpl.jena.ontology.Individual;
-import org.glassfish.jersey.client.ClientResponse;
-import uzuzjmd.competence.csv.CompetenceBean;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 import javax.ws.rs.client.Client;
@@ -10,18 +9,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.Response;
 
-import org.apache.commons.codec.binary.Base64;
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dehne on 04.12.2015.
@@ -30,6 +22,7 @@ public class Neo4JQueryManager {
 
     final String txUri = MagicStrings.NEO4JURL + "/db/data/transaction/commit";
 
+    static Logger logger = LogManager.getLogger(Neo4JQueryManager.class.getName());
 
     public ArrayList<String> getLabelForNode(String id) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) return labels(e)";
@@ -38,6 +31,7 @@ public class Neo4JQueryManager {
     }
 
     private ArrayList<String> issueSingleStatementRequest(String query) throws Exception {
+        logger.info(query);
         String payload = "{\"statements\" : [ {\"statement\" : \"" + query + "\"} ]}";
         return issueNeo4JRequest(payload);
     }
@@ -45,7 +39,7 @@ public class Neo4JQueryManager {
     private ArrayList<String> issueMultipleStatementRequest(String... queries) throws Exception {
         String statements = "";
         for (int i = 0; i < queries.length; i++) {
-            statements += "{\"statement\": " + queries[i] + "}";
+            statements += "{\"statement\": \"" + queries[i] + "\"}";
         }
         String payload = "{\"statements\" : [" + statements + "]}";
         return issueNeo4JRequest(payload);
@@ -77,6 +71,31 @@ public class Neo4JQueryManager {
         ArrayList<String> resultString = issueSingleStatementRequest(query);
     }
 
+    public ArrayList<String> createUniqueNode(HashMap<String, String> props) throws Exception {
+        logger.debug("Entering createUniqueNode with props:" + implode(props));
+        String queryMerge = "MERGE (n:";
+        if (props.containsKey("clazz")) {
+            queryMerge +=  props.get("clazz");
+        }  else {
+            queryMerge += "unknown";
+        }
+        if (props.containsKey("id")){
+            queryMerge += " {id: '" + props.get("id") + "'}";
+        }
+        queryMerge +=")";
+        //res.add(queryMerge);
+        for (Map.Entry<String, String> kvp :
+                props.entrySet()) {
+            if (kvp.getKey().contains("clazz") || kvp.getKey().contains("id")) {
+                continue;
+            } else {
+                //res.add(" Set n." + kvp.getKey() + "='" + kvp.getValue() + "'");
+                queryMerge += " Set n." + kvp.getKey() + "='" + kvp.getValue() + "'";
+            }
+        }
+        return issueSingleStatementRequest(queryMerge + "return n");
+    }
+
     /**
      * This is used for singleton DAOs who need and extra class node in order to reflect the double structure in owl
      * @param id
@@ -104,6 +123,19 @@ public class Neo4JQueryManager {
     }
 
 
+    private static String implode(Map<String, String> map){
+
+        boolean first = true;
+        StringBuilder sb = new StringBuilder();
+
+        for(Map.Entry<String, String> e : map.entrySet()){
+            if (!first) sb.append(", ");
+            sb.append(" " + e.getKey() + " : '" + e.getValue() + "' ");
+            first = false;
+        }
+
+        return sb.toString();
+    }
     /**
      *
      * @param id
@@ -136,6 +168,7 @@ public class Neo4JQueryManager {
         String query = "MATCH (n {id:\""+id+"\"}) DETACH DELETE n";
         issueSingleStatementRequest(query);
     }
+
 
     /*public  getClassForNode(String id) {
     }

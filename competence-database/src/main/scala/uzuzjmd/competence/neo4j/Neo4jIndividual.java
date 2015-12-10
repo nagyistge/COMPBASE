@@ -9,6 +9,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.owl.access.MagicStrings;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 /**
  * Created by dehne on 07.12.2015.
  */
@@ -17,19 +20,48 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     private final String id;
     private final Boolean isSingleTonClass;
     private final String definition;
+    private final CompOntClass clazz;
+    private Neo4JQueryManager qmanager;
 
 
-    public Neo4jIndividual(String id, String definition) {
+
+
+    public Neo4jIndividual(String id, String definition, CompOntClass clazz) {
         this.id = id;
+        this.clazz = clazz;
         this.isSingleTonClass = false;
         this.definition = definition;
+        qmanager = new Neo4JQueryManager();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass) {
+        Neo4jIndividual that = (Neo4jIndividual) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (isSingleTonClass != null ? !isSingleTonClass.equals(that.isSingleTonClass) : that.isSingleTonClass != null)
+            return false;
+        return !(definition != null ? !definition.equals(that.definition) : that.definition != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (isSingleTonClass != null ? isSingleTonClass.hashCode() : 0);
+        result = 31 * result + (definition != null ? definition.hashCode() : 0);
+        return result;
+    }
+
+    public Neo4jIndividual(String id, String definition, Boolean isSingletonClass, CompOntClass clazz) {
         this.id = id;
         this.isSingleTonClass = isSingletonClass;
         this.definition = definition;
+        this.clazz = clazz;
+        qmanager = new Neo4JQueryManager();
     }
 
     /**
@@ -41,18 +73,21 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
      */
     @Override
     public void setOntClass(Resource cls) {
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        createClass(cls.getLocalName());
+    }
 
+    private void createClass(String str) {
         try {
             if (!isSingleTonClass) {
-                neo4JQueryManager.setLabelForNode(id, cls.getLocalName());
+                qmanager.setLabelForNode(id, str);
             } else {
-                neo4JQueryManager.setClassForNode(id, definition, CompOntClass.valueOf(cls.getLocalName()));
+                qmanager.setClassForNode(id, definition, CompOntClass.valueOf(str));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void addOntClass(Resource cls) {
@@ -61,13 +96,12 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public OntClass getOntClass() {
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
         String className = "";
         try {
             if (!isSingleTonClass) {
-                className = neo4JQueryManager.getLabelForNode(id).get(0);
+                className = qmanager.getLabelForNode(id).get(0);
             } else {
-                className = neo4JQueryManager.getClassForNode(id);
+                className = qmanager.getClassForNode(id);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -434,9 +468,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public void remove() {
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
         try {
-            neo4JQueryManager.deleteNode(this.id);
+            qmanager.deleteNode(this.id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -795,7 +828,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Neo4jIndividual create() throws Exception {
-        return null;
+        return qmanager.createUniqueNode(this.toHashmap());
     }
 
     @Override
@@ -806,5 +839,20 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public void delete() throws Exception {
 
+    }
+
+    private HashMap<String,String> toHashmap(){
+        HashMap<String, String> result = new HashMap<String, String>();
+        for (Field prop :
+                Neo4jIndividual.class.getDeclaredFields()) {
+            try {
+                if (! prop.getName().contains("qmanager")) {
+                    result.put(prop.getName(), prop.get(this).toString());
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }
