@@ -2,6 +2,13 @@ package uzuzjmd.competence.neo4j;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.ObjectProperty;
+import com.hp.hpl.jena.ontology.OntClass;
+import org.apache.commons.lang.NotImplementedException;
+import org.glassfish.jersey.client.ClientResponse;
+import uzuzjmd.competence.csv.CompetenceBean;
+import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.owl.access.MagicStrings;
 
 import javax.ws.rs.client.Client;
@@ -12,13 +19,15 @@ import javax.ws.rs.core.MediaType;
 
 import uzuzjmd.competence.owl.ontology.CompObjectProperties;
 import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.owl.queries.CompetenceQueries;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by dehne on 04.12.2015.
  */
-public class Neo4JQueryManager {
+public class Neo4JQueryManager implements CompetenceQueries{
 
     final String txUri = MagicStrings.NEO4JURL + "/db/data/transaction/commit";
 
@@ -168,9 +177,127 @@ public class Neo4JQueryManager {
         String query = "MATCH (n {id:\""+id+"\"}) DETACH DELETE n";
         issueSingleStatementRequest(query);
     }
-
-
-    /*public  getClassForNode(String id) {
+    /**
+     * delete Relationship between domainID and RangeID
+     * @param domainId
+     * @param rangeId
+     * @param compObjectProperties
+     */
+    public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
     }
-    */
+
+
+    /**
+     *
+     * @param domainId
+     * @param rangeId
+     * @param compObjectProperties
+     * @return
+     */
+    public Boolean existsRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
+        //TODO implement
+        throw new NotImplementedException();
+    }
+
+
+    /**
+     * checks if relationship exists but a singleton classNode is given instead of the individual
+     * @param domainClassNodeId
+     * @param rangeId
+     * @param compObjectProperties
+     */
+    public void existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Get All edges in graph EXCEPT the subClass and individualOf relations
+     * @return
+     */
+    public List<ObjectProperty> getAllObjectProperties() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET ALL Individuals in graph EXCEPT the SingletonIndividuals
+     * @return
+     */
+    public List<Individual> getAllIndividuals() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a map of all singletonClassIds and their definition attribute
+     * @return
+     */
+    public HashMap<OntClass,String> getAllSingletonDefinitions() {
+
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a list of all subClassRelations between the classNodes for a given label
+     * @return
+     */
+    public List<SubClassRelation> getAllSingletonRelations(CompOntClass compOntClass) {
+
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * GET a list of all labels EXCEPT the singletonLables like Competence or Operator
+     * @return
+     */
+    public List<OntClass> getAllOntClasses() {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(String domainClass, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+
+    @Override
+    public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualName) {
+        // TODO implement
+        throw new NotImplementedException();
+
+    }
+
+    @Override
+    public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, CompObjectProperties compObjectProperties) {
+        // TODO implement
+        throw new NotImplementedException();
+
+    }
+
+    /**
+     * @see CompOntologyAccess
+     * @param clazz
+     * @return
+     */
+    public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    /**
+     * @see CompOntologyAccess
+     * @param start
+     * @param end
+     */
+    public List<String>  getShortestSubClassPath(OntClass start, OntClass end) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
 }

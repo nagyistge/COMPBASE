@@ -4,7 +4,7 @@ import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
 import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.owl.ontology.CompOntClass
 import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.queries.CompetenceQueries
+import uzuzjmd.competence.owl.queries.CompetenceQueriesJenaImpl
 import uzuzjmd.scalahacks.ScalaHacks
 import com.hp.hpl.jena.ontology.Individual
 
@@ -46,7 +46,7 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
   @Override
   def getFullDao(): User = {
     val teacherRole = new TeacherRole(comp)
-    val queries = new CompetenceQueries(comp.getM())
+    val queries = new CompetenceQueriesJenaImpl(comp.getM())
     val courseContext2 = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext]).head;
     val readableName = getDataField(NAME)
     if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
