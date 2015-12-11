@@ -10,6 +10,8 @@ import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
+import java.util.HashMap;
+
 /**
  * Created by dehne on 07.12.2015.
  */
@@ -65,17 +67,17 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public OntClass getOntClass() {
         Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
-        String className = "";
+        HashMap<String, String> idDefinition = new HashMap<String, String>();
         try {
             if (!isSingleTonClass) {
-                className = neo4JQueryManager.getLabelForNode(id).get(0);
+                return new Neo4jOntClass(neo4JQueryManager.getLabelForNode(id).get(0));
             } else {
-                className = neo4JQueryManager.getClassForNode(id);
+                idDefinition.put(neo4JQueryManager.getClassForNode(id), neo4JQueryManager.getDefinitionForClassForNode(id));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Neo4jOntClass(className);
+        return new Neo4jOntClass(idDefinition.keySet().iterator().next(), idDefinition.values().iterator().next());
     }
 
     @Override

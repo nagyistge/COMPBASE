@@ -20,6 +20,11 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
         this.definition = definition;
     }
 
+    public Neo4jOntClass(String id) {
+        this.id = id;
+        this.definition = id;
+    }
+
     @Override
     public void setSuperClass(Resource cls) {
         Neo4JQueryManager manager = new Neo4JQueryManager();
