@@ -1,696 +1,528 @@
-package uzuzjmd.competence.neo4j;
+package uzuzjmd.competence.persistence.neo4j;
 
 import com.hp.hpl.jena.datatypes.RDFDatatype;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.ontology.*;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
 /**
- * Created by dehne on 04.12.2015.
+ * Created by dehne on 07.12.2015.
  */
-public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
+public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private final String id;
+    private final Boolean isSingleTonClass;
+    private final String definition;
+    private final OntClass ontClass;
 
-    public Neo4jOntClass(String id) {
+    public Neo4jIndividual(String id, String definition, OntClass ontClass) {
         this.id = id;
+        this.ontClass = ontClass;
+        this.isSingleTonClass = false;
+        this.definition = definition;
     }
 
+
+    public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
+        this.id = id;
+        this.isSingleTonClass = isSingletonClass;
+        this.definition = definition;
+        this.ontClass = ontClass;
+    }
+
+    /**
+     * adding a class to an individual is like adding a label to a node in Neo4J
+     * In order to adhere to owl standards, inheritance must be persisted
+     * redundant with an extra class node
+     *
+     * @param cls
+     */
     @Override
-    public void setSuperClass(Resource cls) {
-        Neo4JQueryManager manager = new Neo4JQueryManager();
+    public void setOntClass(Resource cls) {
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+
         try {
-            manager.createSuperClassRelationShip(id, CompObjectProperties.subClassOf,cls.getLocalName());
+            if (!isSingleTonClass) {
+                neo4JQueryManager.setLabelForNode(id, cls.getLocalName());
+            } else {
+                neo4JQueryManager.setClassForNode(id, definition, CompOntClass.valueOf(cls.getLocalName()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void addSuperClass(Resource cls) {
-        setSuperClass(cls);
+    public void addOntClass(Resource cls) {
+        setOntClass(cls);
     }
 
     @Override
-    public OntClass getSuperClass() {
-        return null;
+    public OntClass getOntClass() {
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        String className = "";
+        try {
+            if (!isSingleTonClass) {
+                className = neo4JQueryManager.getLabelForNode(id).get(0);
+            } else {
+                className = neo4JQueryManager.getClassForNode(id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Neo4jOntClass(className);
     }
 
     @Override
-    public ExtendedIterator<OntClass> listSuperClasses() {
-        return null;
+    public OntClass getOntClass(boolean direct) {
+        return getOntClass();
     }
 
     @Override
-    public ExtendedIterator<OntClass> listSuperClasses(boolean direct) {
-        return null;
+    public <T extends OntClass> ExtendedIterator<T> listOntClasses(boolean direct) {
+        throw new NotImplementedException();
     }
 
     @Override
-    public boolean hasSuperClass(Resource cls) {
-        return false;
+    public boolean hasOntClass(Resource ontClass, boolean direct) {
+
+        return getOntClass().equals((OntClass) ontClass);
     }
 
     @Override
-    public boolean hasSuperClass() {
-        return false;
+    public boolean hasOntClass(Resource ontClass) {
+        return hasOntClass(ontClass, false);
     }
 
     @Override
-    public boolean hasSuperClass(Resource cls, boolean direct) {
-        return false;
+    public boolean hasOntClass(String uri) {
+        return getOntClass().getURI().equals(uri);
     }
 
     @Override
-    public void removeSuperClass(Resource cls) {
-
-    }
-
-    @Override
-    public void setSubClass(Resource cls) {
-
-    }
-
-    @Override
-    public void addSubClass(Resource cls) {
-
-    }
-
-    @Override
-    public OntClass getSubClass() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<OntClass> listSubClasses() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<OntClass> listSubClasses(boolean direct) {
-        return null;
-    }
-
-    @Override
-    public boolean hasSubClass(Resource cls) {
-        return false;
-    }
-
-    @Override
-    public boolean hasSubClass() {
-        return false;
-    }
-
-    @Override
-    public boolean hasSubClass(Resource cls, boolean direct) {
-        return false;
-    }
-
-    @Override
-    public void removeSubClass(Resource cls) {
-
-    }
-
-    @Override
-    public void setEquivalentClass(Resource cls) {
-
-    }
-
-    @Override
-    public void addEquivalentClass(Resource cls) {
-
-    }
-
-    @Override
-    public OntClass getEquivalentClass() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<OntClass> listEquivalentClasses() {
-        return null;
-    }
-
-    @Override
-    public boolean hasEquivalentClass(Resource cls) {
-        return false;
-    }
-
-    @Override
-    public void removeEquivalentClass(Resource cls) {
-
-    }
-
-    @Override
-    public void setDisjointWith(Resource cls) {
-
-    }
-
-    @Override
-    public void addDisjointWith(Resource cls) {
-
-    }
-
-    @Override
-    public OntClass getDisjointWith() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<OntClass> listDisjointWith() {
-        return null;
-    }
-
-    @Override
-    public boolean isDisjointWith(Resource cls) {
-        return false;
-    }
-
-    @Override
-    public void removeDisjointWith(Resource cls) {
-
-    }
-
-    @Override
-    public ExtendedIterator<OntProperty> listDeclaredProperties() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<OntProperty> listDeclaredProperties(boolean direct) {
-        return null;
-    }
-
-    @Override
-    public boolean hasDeclaredProperty(Property p, boolean direct) {
-        return false;
-    }
-
-    @Override
-    public ExtendedIterator<? extends OntResource> listInstances() {
-        return null;
-    }
-
-    @Override
-    public ExtendedIterator<? extends OntResource> listInstances(boolean direct) {
-        return null;
-    }
-
-    @Override
-    public Individual createIndividual() {
-        return null;
-    }
-
-    @Override
-    public Individual createIndividual(String uri) {
-        return null;
-    }
-
-    @Override
-    public void dropIndividual(Resource individual) {
-
-    }
-
-    @Override
-    public boolean isHierarchyRoot() {
-        return false;
-    }
-
-    @Override
-    public EnumeratedClass asEnumeratedClass() {
-        return null;
-    }
-
-    @Override
-    public UnionClass asUnionClass() {
-        return null;
-    }
-
-    @Override
-    public IntersectionClass asIntersectionClass() {
-        return null;
-    }
-
-    @Override
-    public ComplementClass asComplementClass() {
-        return null;
-    }
-
-    @Override
-    public Restriction asRestriction() {
-        return null;
-    }
-
-    @Override
-    public boolean isEnumeratedClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isUnionClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isIntersectionClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isComplementClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isRestriction() {
-        return false;
-    }
-
-    @Override
-    public EnumeratedClass convertToEnumeratedClass(RDFList individuals) {
-        return null;
-    }
-
-    @Override
-    public IntersectionClass convertToIntersectionClass(RDFList classes) {
-        return null;
-    }
-
-    @Override
-    public UnionClass convertToUnionClass(RDFList classes) {
-        return null;
-    }
-
-    @Override
-    public ComplementClass convertToComplementClass(Resource cls) {
-        return null;
-    }
-
-    @Override
-    public Restriction convertToRestriction(Property prop) {
-        return null;
+    public void removeOntClass(Resource ontClass) {
+        throw new NotImplementedException();
     }
 
     @Override
     public OntModel getOntModel() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Profile getProfile() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean isOntLanguageTerm() {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void setSameAs(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addSameAs(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public OntResource getSameAs() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<? extends Resource> listSameAs() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean isSameAs(Resource res) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeSameAs(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setDifferentFrom(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addDifferentFrom(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public OntResource getDifferentFrom() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<? extends Resource> listDifferentFrom() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean isDifferentFrom(Resource res) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeDifferentFrom(Resource res) {
 
+        throw new NotImplementedException();
     }
 
     @Override
     public void setSeeAlso(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addSeeAlso(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource getSeeAlso() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<RDFNode> listSeeAlso() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasSeeAlso(Resource res) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeSeeAlso(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setIsDefinedBy(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addIsDefinedBy(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource getIsDefinedBy() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<RDFNode> listIsDefinedBy() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean isDefinedBy(Resource res) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeDefinedBy(Resource res) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setVersionInfo(String info) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addVersionInfo(String info) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public String getVersionInfo() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<String> listVersionInfo() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasVersionInfo(String info) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeVersionInfo(String info) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setLabel(String label, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addLabel(String label, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addLabel(Literal label) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public String getLabel(String lang) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<RDFNode> listLabels(String lang) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLabel(String label, String lang) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLabel(Literal label) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeLabel(String label, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeLabel(Literal label) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setComment(String comment, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addComment(String comment, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addComment(Literal comment) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public String getComment(String lang) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<RDFNode> listComments(String lang) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasComment(String comment, String lang) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasComment(Literal comment) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeComment(String comment, String lang) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeComment(Literal comment) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void setRDFType(Resource cls) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void addRDFType(Resource cls) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource getRDFType() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource getRDFType(boolean direct) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public ExtendedIterator<Resource> listRDFTypes(boolean direct) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasRDFType(Resource ontClass, boolean direct) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasRDFType(Resource ontClass) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeRDFType(Resource cls) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasRDFType(String uri) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public int getCardinality(Property p) {
-        return 0;
+        throw new NotImplementedException();
     }
 
     @Override
     public void setPropertyValue(Property property, RDFNode value) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public RDFNode getPropertyValue(Property property) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public NodeIterator listPropertyValues(Property property) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public void removeProperty(Property property, RDFNode value) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void remove() {
-
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        try {
+            neo4JQueryManager.deleteNode(this.id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public OntProperty asProperty() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public AnnotationProperty asAnnotationProperty() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public ObjectProperty asObjectProperty() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public DatatypeProperty asDatatypeProperty() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public Individual asIndividual() {
-        return null;
+        return this;
     }
 
     @Override
     public OntClass asClass() {
-        return null;
+        return getOntClass();
     }
 
     @Override
     public Ontology asOntology() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public DataRange asDataRange() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public AllDifferent asAllDifferent() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isProperty() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isAnnotationProperty() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isObjectProperty() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isDatatypeProperty() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isIndividual() {
-        return false;
+        return true;
     }
 
     @Override
@@ -715,17 +547,20 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public AnonId getId() {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isAnon() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public boolean isLiteral() {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
@@ -740,237 +575,243 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public <T extends RDFNode> T as(Class<T> view) {
-        return null;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public <T extends RDFNode> boolean canAs(Class<T> view) {
-        return false;
+        throw new NotImplementedException();
+
     }
 
     @Override
     public Model getModel() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource inModel(Model m) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Object visitWith(RDFVisitor rv) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource asResource() {
-        return null;
+        return new Neo4jResource(this.id);
     }
 
     @Override
     public Literal asLiteral() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasURI(String uri) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public String getURI() {
-        return null;
+        return MagicStrings.PREFIX + this.id;
     }
 
     @Override
     public String getNameSpace() {
-        return null;
+        return MagicStrings.PREFIX;
     }
 
     @Override
     public String getLocalName() {
-        return null;
+        return this.id;
     }
 
     @Override
     public Statement getRequiredProperty(Property p) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Statement getProperty(Property p) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public StmtIterator listProperties(Property p) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public StmtIterator listProperties() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property p, boolean o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property p, long o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property p, char o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property value, double d) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property value, float d) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property p, Object o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addLiteral(Property p, Literal o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addProperty(Property p, String o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addProperty(Property p, String o, String l) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addProperty(Property p, String lexicalForm, RDFDatatype datatype) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource addProperty(Property p, RDFNode o) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasProperty(Property p) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, boolean o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, long o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, char o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, double o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, float o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasLiteral(Property p, Object o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasProperty(Property p, String o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasProperty(Property p, String o, String l) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean hasProperty(Property p, RDFNode o) {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource removeProperties() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource removeAll(Property p) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource begin() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource abort() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource commit() {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Resource getPropertyResourceValue(Property p) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public Node asNode() {
-        return null;
+        throw new NotImplementedException();
     }
 
 
     @Override
-    public Neo4jOntClass fetchIfExists() throws Exception {
+    public Neo4jIndividual fetchIfExists() throws Exception {
         return null;
     }
 
     @Override
-    public Neo4jOntClass create() throws Exception {
+    public Neo4jIndividual create() throws Exception {
         return null;
     }
 
     @Override
-    public Neo4jOntClass update() throws Exception {
+    public Neo4jIndividual update() throws Exception {
         return null;
     }
 
     @Override
     public void delete() throws Exception {
+
+    }
+
+    public void createEdge(CompObjectProperties edgeName, Individual individual) {
 
     }
 }

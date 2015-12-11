@@ -3,7 +3,7 @@ package uzuzjmd.competence.persistence.abstractlayer;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import uzuzjmd.competence.neo4j.CompOntologyAccessNeo4jImpl;
+import uzuzjmd.competence.persistence.neo4j.CompOntologyAccessNeo4jImpl;
 import uzuzjmd.competence.persistence.owl.CompOntologyAccessJenaImpl;
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 import uzuzjmd.competence.persistence.owl.CompetenceQueriesJenaImpl;
