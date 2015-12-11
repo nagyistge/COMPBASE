@@ -1,8 +1,8 @@
 package uzuzjmd.competence.logging
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
 import org.apache.log4j.LogManager
-import uzuzjmd.competence.owl.access.Logging
+import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
 
 trait LoggingTDBWriteTransactional[A] extends TDBWriteTransactional[A] with Logging {
 

@@ -1,14 +1,13 @@
 package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.access.AccessHelper
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.owl.AccessHelper
 
 /**
  * @author dehne
  */
-object Ont2CourseRequirements extends TDBREADTransactional[String, String] with AccessHelper {
+object Ont2CourseRequirements extends TDBReadTransactional[String, String] with AccessHelper {
 
   def convert(changes: String): String = {
     return execute(convertHelper _, changes)

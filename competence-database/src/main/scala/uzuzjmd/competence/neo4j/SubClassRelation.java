@@ -1,8 +1,7 @@
 package uzuzjmd.competence.neo4j;
 
 import com.hp.hpl.jena.ontology.Individual;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
 /**
  * Created by dehne on 10.12.2015.

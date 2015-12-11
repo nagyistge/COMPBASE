@@ -2,7 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.csv.CompetenceBean;
+import uzuzjmd.competence.datasource.csv.CompetenceBean;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.gui.read.Ont2LearningTemplates;
@@ -26,6 +26,7 @@ import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -439,9 +440,8 @@ public class CompetenceServiceRestXML extends
     }
 
     /**
-     * This Method allows to import Competences in the EPOS-Format
      *
-     * @param eposCompetences
+     * @param wrapper
      * @return
      */
     @Produces(MediaType.APPLICATION_XML)
@@ -461,13 +461,13 @@ public class CompetenceServiceRestXML extends
     /**
      * This allows to add competences for reflection in the epos ui-format
      *
-     * @param graph                the triples describe the suggested prerequisite relationships
+     * The graph                   the triples describe the suggested prerequisite relationships
      *                             between the competences. The directed and the label properties
      *                             may be ignored in this case
      *                             <p/>
      *                             public class Graph { public Set<GraphTriple> triples; public
      *                             Set<GraphNode> nodes; }
-     * @param catchwordMap         This map is necessary to ensure that all competences in a
+     * @param learningTemplateResultSet         This map is necessary to ensure that all competences in a
      *                             prerequisite relationship share a common catchword to order
      *                             them vertically All the triples contained in the graph must be
      *                             present in the catchword map

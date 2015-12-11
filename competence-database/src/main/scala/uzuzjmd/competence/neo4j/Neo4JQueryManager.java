@@ -3,26 +3,22 @@ package uzuzjmd.competence.neo4j;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
 import org.apache.commons.lang.NotImplementedException;
-import org.glassfish.jersey.client.ClientResponse;
-import uzuzjmd.competence.csv.CompetenceBean;
-import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess;
-import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
+import uzuzjmd.competence.config.MagicStrings;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.Response;
 
-import org.apache.commons.codec.binary.Base64;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
-import uzuzjmd.competence.owl.queries.CompetenceQueries;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -263,4 +259,6 @@ public class Neo4JQueryManager implements CompetenceQueries{
         // TODO implement
         throw new NotImplementedException();
     }
+
+
 }

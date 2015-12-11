@@ -1,10 +1,9 @@
 package uzuzjmd.competence.main
 
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.persistence.abstractlayer.{TDBReadTransactional, CompOntologyManager}
+import uzuzjmd.competence.persistence.owl.CompFileUtil
 
-object OntologyWriter extends TDBREADTransactional[Any, Any] {
+object OntologyWriter extends TDBReadTransactional[Any, Any] {
 
   def main(args: Array[String]) {
     execute2(writeOut)

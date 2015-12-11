@@ -1,63 +1,20 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
-
-import scala.collection.JavaConverters.seqAsJavaListConverter
-import org.junit.AfterClass
+import java.util
 import org.junit.runner.RunWith
-import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.TeacherRole
 import org.scalatest.junit.JUnitRunner
-import org.specs2.specification.After
-import org.specs2.mutable.After
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.dao.Role
-import uzuzjmd.competence.owl.dao.Comment
-import uzuzjmd.competence.owl.dao.EvidenceActivity
-import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap
-import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.CompetenceInstance
-import uzuzjmd.competence.owl.dao.Competence
-import org.apache.log4j.Level
-import com.hp.hpl.jena.rdf.model.InfModel
-import com.hp.hpl.jena.rdf.model.ModelFactory
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.main.CompetenceImporter
-import uzuzjmd.competence.main.EposImporter
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
-import uzuzjmd.competence.service.rest.model.dto.CourseData
-import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
-import uzuzjmd.competence.main.OntologyWriter
-import uzuzjmd.competence.owl.access.PropUtil
-import org.junit.BeforeClass
-import org.junit.Assert._
-import org.junit.Test
-import org.junit.Before
-import org.apache.log4j.LogManager
-import org.apache.log4j.xml.DOMConfigurator
-import org.apache.log4j.Logger
+import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.logging.LoggingTDBWriteTransactional
+import uzuzjmd.competence.main.OntologyWriter
+import uzuzjmd.competence.mapper.gui.read.{Ont2CompetenceLinkMap, Ont2CompetenceTree}
+import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
+import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManagarFactory, CompOntologyManager}
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, Competence, CompetenceInstance, CourseContext, EvidenceActivity, StudentRole, TeacherRole, User}
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.service.rest.model.dto.{CourseData, LearningTemplateData}
+import scala.collection.JavaConverters.seqAsJavaListConverter
+
 
 @RunWith(classOf[JUnitRunner])
 class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTransactional[Any] {
@@ -92,24 +49,22 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
    * TEST CASE 4
    */
   def userPersistTest2(comp: CompOntologyManager) {
-    val coursecontext = new CourseContext(comp, "2")
+    val courseContext = new CourseContext(comp, "2")
     val user2 = new User(comp, "me")
     val fullUser = user2.getFullDao
-    user2.hasCourseContext(coursecontext) should not be false
+    user2.hasCourseContext(courseContext) should not be false
     fullUser.getName.equals("Julian Dehne") should not be false
-    fullUser.hasCourseContext(coursecontext)
-    val user = new User(comp, "me", null, coursecontext, "Julian Dehne")
+    fullUser.hasCourseContext(courseContext)
+    val user = new User(comp, "me", null, courseContext, "Julian Dehne")
     user.delete
-    coursecontext.delete
+    courseContext.delete
   }
 
   /**
    * TEST CASE 5
    */
   test("The CompetenceTree should not be empty") {
-
-    val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
+    val mapper = new Ont2CompetenceTree(new util.ArrayList[String](), new util.ArrayList[String](), "university", false, null)
     val competenceTree = mapper.getComptenceTreeForCourse()
     competenceTree should not be ('empty)
   }
@@ -130,8 +85,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
    * TEST CASE 7
    */
   test("the operator tree should not be empty") {
-    val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
+    val mapper = new Ont2CompetenceTree(new util.ArrayList[String](), new util.ArrayList[String](), "university", false, null)
     val result = mapper.getOperatorXMLTree
     result should not be ('empty)
   }
@@ -140,8 +94,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
    * TEST CASE 8
    */
   test("the catchword tree should not be empty") {
-    val compOntManag = new CompOntologyManager()
-    val mapper = new Ont2CompetenceTree(List.empty.asJava, List.empty.asJava, "university", false, null)
+    val mapper = new Ont2CompetenceTree(new util.ArrayList[String](), new util.ArrayList[String](), "university", false, null)
     val result = mapper.getCatchwordXMLTree
     result should not be ('empty)
   }
@@ -150,11 +103,11 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
    * TEST CASE 9
    */
   test("the singletondao should persist without error") {
-    executeNoParam(singletondaoTest)
+    executeNoParam(singletonTest)
 
   }
 
-  def singletondaoTest(comp: CompOntologyManager) {
+  def singletonTest(comp: CompOntologyManager) {
     val studentRole = new StudentRole(comp)
     studentRole.persist(true)
     studentRole.setRole
@@ -172,7 +125,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
    * TEST CASE 10
    */
   test("the regular dao should persist without error") {
-    val compOntManag = new CompOntologyManager()
+    val compOntManag = CompOntologyManagarFactory.createManager()
     executeNoParam(regularDaoTest _)
 
   }
@@ -488,7 +441,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     // test whether toOntClass modifies database
     bottomClass.exists should not be true
 
-    bottomClass.isSublass(competenceRoot.listSubClasses(classOf[Competence]).head) should not be true
+    bottomClass.isSubClass(competenceRoot.listSubClasses(classOf[Competence]).head) should not be true
 
     // test whether isSublass modifies database
     bottomClass.exists should not be true
@@ -500,10 +453,10 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
   }
 
   //  test("test consistency of subclass relations") {
-  //    val compOntManag = new CompOntologyManager()
+  //    val compOntManag = CompOntologyManagarFactory.createManager()
   //    compOntManag.begin()
   //    compOntManag.getM().getIndividual("http://comp#I3org227owlNothing").remove()
-  //    val compOntManagInMemory = new CompOntologyManager(compOntManag.getM())
+  //    val compOntManagInMemory = CompOntologyManagarFactory.createManager(compOntManag.getM())
   //    compOntManag.close();
   //
   //    CompOntologyAccess.logger.setLevel(Level.DEBUG)
@@ -527,7 +480,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
   //    validationreport.isValid() should not be true
   //
   //    // real copy should still be valid
-  //    val compOntManag2 = new CompOntologyManager()
+  //    val compOntManag2 = CompOntologyManagarFactory.createManager()
   //    compOntManag2.begin()
   //    val validationreport2 = compOntManag2.getM.validate()
   //    println(compOntManag2.getUtil().validityReportTostring(validationreport2));
@@ -562,7 +515,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingTDBWriteTran
     val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
 
-    comp.sync()
     //    competencex should not be null
     comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false

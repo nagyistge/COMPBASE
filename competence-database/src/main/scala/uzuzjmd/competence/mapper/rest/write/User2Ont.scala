@@ -1,11 +1,11 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.User
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.service.rest.model.dto.RoleConverter
 import uzuzjmd.competence.service.rest.model.dto.UserData
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
 
 /**
  * @author dehne

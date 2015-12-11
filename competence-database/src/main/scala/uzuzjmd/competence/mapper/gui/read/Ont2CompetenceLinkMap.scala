@@ -1,23 +1,17 @@
 package uzuzjmd.competence.mapper.gui.read
 
-import java.util.SortedSet
-import java.util.TreeSet
+import java.util.{SortedSet, TreeSet}
 
-import scala.collection.JavaConverters.mapAsJavaMapConverter
-import scala.collection.JavaConverters.seqAsJavaListConverter
-
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
-import uzuzjmd.competence.owl.dao.Comment
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.service.rest.database.dto.CompetenceLinksViewComparator
-import uzuzjmd.competence.shared.dto.CommentEntry
-import uzuzjmd.competence.shared.dto.CompetenceLinksMap
-import uzuzjmd.competence.shared.dto.CompetenceLinksView
+import uzuzjmd.competence.shared.dto.{CommentEntry, CompetenceLinksMap, CompetenceLinksView}
 import uzuzjmd.java.collections.MapsMagic
 
-object Ont2CompetenceLinkMap extends TDBREADTransactional[String, CompetenceLinksMap] {
+import scala.collection.JavaConverters.{mapAsJavaMapConverter, seqAsJavaListConverter}
+
+object Ont2CompetenceLinkMap extends TDBReadTransactional[String, CompetenceLinksMap] {
 
   private def toSortedSet[A](input: List[CompetenceLinksView]): SortedSet[CompetenceLinksView] = {
     val sorted = java.util.Collections.synchronizedSortedSet(new TreeSet(new CompetenceLinksViewComparator));

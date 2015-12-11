@@ -1,22 +1,16 @@
 package uzuzjmd.competence.main
 
-import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy
-import au.com.bytecode.opencsv.bean.CsvToBean
-import java.io.FileReader
-import java.io.File
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.mapper.rcd.CSV2RCD
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.mapper.rcd.RCD2OWL
-import uzuzjmd.competence.csv.CompetenceBean
-import scala.collection.mutable.Buffer
-import uzuzjmd.competence.csv.CompetenceMaps
+import java.io.{File, FileReader}
+
+import au.com.bytecode.opencsv.bean.{ColumnPositionMappingStrategy, CsvToBean}
+import uzuzjmd.competence.config.{Logging, MagicStrings}
+import uzuzjmd.competence.datasource.csv.{CompetenceBean, CompetenceFilter, CompetenceMaps}
+import uzuzjmd.competence.mapper.rcd.{CSV2RCD, RCD2OWL}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.csv.CompetenceFilter
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.Logging
+
+import scala.collection.JavaConverters._
 
 object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] with Logging {
 
@@ -28,7 +22,7 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
   def convert() {
     logger.debug("Importing competences into the database from csv file: " + MagicStrings.CSVLOCATION)
     val rcdeoCompetences = getCompetencesFromCSV()
-    val compOntManager = new CompOntologyManager
+    val compOntManager = new CompOntologyManagerJenaImpl
     compOntManager.createBaseOntology()
     execute(RCD2OWL.convert _, rcdeoCompetences) // ensures transaction context
   }

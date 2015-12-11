@@ -7,8 +7,9 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
-import uzuzjmd.competence.owl.access.{CompOntologyManager, TDBWriteTransactional}
-import uzuzjmd.competence.owl.dao.{LearningProjectTemplate, User}
+import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
+import uzuzjmd.competence.persistence.dao.{LearningProjectTemplate, User}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.shared.dto.{Graph, GraphNode, GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 
@@ -81,7 +82,7 @@ class CoreTests2 extends FunSuite with ShouldMatchers with TDBWriteTransactional
     LearningTemplateToOnt.convertLearningTemplateResultSet(resultSet)
   }
 
-  def doLearningTemplateCreateTest(comp: CompOntologyManager, testLearningTemplateName: String) {
+  def doLearningTemplateCreateTest(comp: CompOntologyManagerJenaImpl, testLearningTemplateName: String) {
     val user = new User(comp, "TestUser")
     val learningProjectTemplate = new LearningProjectTemplate(comp, testLearningTemplateName)
     val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(comp, learningProjectTemplate, user)

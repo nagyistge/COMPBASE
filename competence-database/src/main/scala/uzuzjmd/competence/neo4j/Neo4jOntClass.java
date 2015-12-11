@@ -5,8 +5,7 @@ import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.ontology.*;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 /**
  * Created by dehne on 04.12.2015.

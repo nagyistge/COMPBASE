@@ -1,12 +1,13 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConversions.asScalaBuffer
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData
-import uzuzjmd.competence.owl.access.MagicStrings
 
 /**
  * @author jbe

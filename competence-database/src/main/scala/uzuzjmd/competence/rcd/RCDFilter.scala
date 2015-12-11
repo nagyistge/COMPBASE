@@ -1,6 +1,6 @@
 package uzuzjmd.competence.rcd
 
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 object RCDFilter {
   /**

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import uzuzjmd.competence.console.util.LogStream;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.mapper.rcd.RCD2OWL;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 
 @WebService(endpointInterface = "uzuzjmd.competence.service.CompetenceService")
@@ -32,7 +32,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 		logger.info("Competences inserted");
 		ArrayList<Rdceo> list = new ArrayList<Rdceo>();
 		list.add(rcdeo);
-		CompOntologyManager manager = new CompOntologyManager();
+		CompOntologyManagerJenaImpl manager = new CompOntologyManagerJenaImpl();
 		RCD2OWL.convertList(list, manager);
 		// uzuzjmd.console.util.ConsoleOut.printRcdeoCompetences(list);
 	}

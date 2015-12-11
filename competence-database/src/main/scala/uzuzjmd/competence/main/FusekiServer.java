@@ -2,7 +2,8 @@ package uzuzjmd.competence.main;
 
 import java.io.IOException;
 
-import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 
 public class FusekiServer {
 
@@ -11,7 +12,7 @@ public class FusekiServer {
 	}
 
 	public static void startServer() {
-		CompOntologyManager compOntologyManager = new CompOntologyManager();
+		CompOntologyManager compOntologyManager = new CompOntologyManagerJenaImpl();
 		startFuseki(compOntologyManager);
 	}
 

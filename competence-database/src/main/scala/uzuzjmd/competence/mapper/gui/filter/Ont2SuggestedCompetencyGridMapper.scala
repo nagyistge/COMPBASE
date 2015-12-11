@@ -4,9 +4,9 @@ import scala.collection.mutable.Buffer
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.console.util.LogStream
-import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 object Ont2SuggestedCompetencyGridMapper {
 

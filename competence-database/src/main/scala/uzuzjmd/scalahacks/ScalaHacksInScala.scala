@@ -1,9 +1,12 @@
 package uzuzjmd.scalahacks
 
 import java.lang.reflect.Constructor
+
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.mutable.MutableList
 import scala.collection.mutable.ListBuffer
-import uzuzjmd.competence.owl.access.CompOntologyManager
 import scala.collection.JavaConverters._
 
 object ScalaHacksInScala {

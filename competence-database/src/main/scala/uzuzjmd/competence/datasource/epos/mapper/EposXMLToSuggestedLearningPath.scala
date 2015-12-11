@@ -1,13 +1,15 @@
 package uzuzjmd.competence.datasource.epos.mapper
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.datasource.epos.filter.LevelFilter
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.Catchword
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.shared.DESCRIPTORType
 import uzuzjmd.competence.shared.DESCRIPTORSETType
 

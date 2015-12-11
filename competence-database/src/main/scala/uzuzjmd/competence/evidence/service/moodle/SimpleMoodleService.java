@@ -2,7 +2,7 @@ package uzuzjmd.competence.evidence.service.moodle;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
 import javax.ws.rs.WebApplicationException;
@@ -10,7 +10,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import java.io.CharConversionException;
 import java.net.URLDecoder;
 
 /**
