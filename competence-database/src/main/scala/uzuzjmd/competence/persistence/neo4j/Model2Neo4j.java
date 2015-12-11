@@ -86,7 +86,7 @@ public class Model2Neo4j {
             try {
                 objectDefinition = CompOntologyAccessScala.getDataField("definition", manager, model.getIndividual(statement.getSubject().getURI()));
             } catch (Exception e) {
-                
+
             }
 
             if (!subject.equals("Nothing") && !object.equals("Thing") && !object.equals("Resource") && !subject.equals(object)) {

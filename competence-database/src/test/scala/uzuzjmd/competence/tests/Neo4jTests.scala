@@ -4,7 +4,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.persistence.neo4j.{Model2Neo4j, Neo4jIndividual}
+import uzuzjmd.competence.persistence.neo4j.{Model2Neo4j, Neo4jIndividual, Neo4jModelFactory}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 
@@ -19,9 +19,12 @@ class Neo4jTests  extends FunSuite with ShouldMatchers {
     val indvidualy = new Neo4jIndividual("julian", "julian is strong", null);
   }
 
-  test("testing the model to neo4j converter") {
+  test("testing the jena to neo4j converters") {
     val manager = new CompOntologyManagerJenaImpl();
     Model2Neo4j.convertModel2Neo4jDB(manager)
+
+    val model = Neo4jModelFactory.createModelFromNeo4j();
+    manager.getM.containsAll(model) should not be false
   }
 
 }
