@@ -1,10 +1,10 @@
 package uzuzjmd.competence.mapper.gui.write
 
-import scala.collection.JavaConverters.asScalaBufferConverter
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Competence
+import scala.collection.JavaConverters.asScalaBufferConverter
+import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.shared.dto.HierarchieChange
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet
 

@@ -1,7 +1,7 @@
 package uzuzjmd.competence.rcd
 
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompOntClass
 
 object RCDMaps {
   type TripleToString = RCDFilter.CompetenceTriple => String

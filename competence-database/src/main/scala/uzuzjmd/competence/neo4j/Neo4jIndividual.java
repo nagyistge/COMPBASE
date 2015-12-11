@@ -6,9 +6,9 @@ import com.hp.hpl.jena.ontology.*;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import uzuzjmd.competence.owl.access.MagicStrings;
-import uzuzjmd.competence.owl.ontology.CompObjectProperties;
-import uzuzjmd.competence.owl.ontology.CompOntClass;
+import uzuzjmd.competence.config.MagicStrings;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
 /**
  * Created by dehne on 07.12.2015.

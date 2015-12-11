@@ -1,17 +1,17 @@
 package uzuzjmd.competence.mapper.gui.write
 
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
+
 import scala.collection.JavaConverters.asScalaBufferConverter
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.SelfAssessment
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.SelfAssessment
+import uzuzjmd.competence.persistence.dao.TeacherRole
+import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData
 import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
-import uzuzjmd.competence.owl.access.CompOntologyAccessScala
 
 object ReflectiveAssessmentHolder2Ont extends TDBWriteTransactional[ReflectiveAssessmentChangeData] {
 

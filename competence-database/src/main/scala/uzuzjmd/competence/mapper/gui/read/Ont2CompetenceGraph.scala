@@ -1,13 +1,12 @@
 package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.shared.dto.Graph
 
 
-class Ont2CompetenceGraph(comp: CompOntologyManager, selectedCompetences: java.util.List[String], course: String)  extends TDBREADTransactional[Any, Graph]{
+class Ont2CompetenceGraph(comp: CompOntologyManagerJenaImpl, selectedCompetences: java.util.List[String], course: String)  extends TDBReadTransactional[Any, Graph]{
   
   def getCompetenceGraph(): Graph = {
     return executeNoParam(getCompetenceGraphInternal _)

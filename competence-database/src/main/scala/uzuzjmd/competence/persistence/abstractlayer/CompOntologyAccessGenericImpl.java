@@ -1,0 +1,74 @@
+package uzuzjmd.competence.persistence.abstractlayer;
+
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.owl.CompFileUtil;
+import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala;
+
+
+/**
+ * Created by carl on 09.12.15.
+ */
+abstract public class CompOntologyAccessGenericImpl  implements CompOntologyAccess {
+
+    /**
+     * init Logger
+     */
+    public static final Logger logger = LogManager
+            .getLogger(CompOntologyAccess.class.getName());
+    protected CompFileUtil fileUtil;
+
+    protected CompetenceQueries queries;
+
+
+
+
+
+    /**
+     * create id from definition string
+     * @param string
+     * @return
+     */
+    protected String encode(String string) {
+        return CompOntologyAccessScala.encode(string);
+    }
+
+
+    @Override
+    public OntClass getClass(CompOntClass compOntClass,
+                             Boolean isRead) {
+        return createOntClassForString(compOntClass.name(),
+                isRead);
+    }
+
+
+    @Override
+    public OntResult accessSingletonResource(
+            String classname, Boolean isRead,
+            String... definitions) {
+        if (classname.startsWith("I")) {
+            logger.trace("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
+        }
+
+        OntClass classOnt = createOntClassForString(
+                classname, isRead, definitions);
+        Individual individual = createSingleTonIndividual(
+                classOnt, isRead);
+
+        return new OntResult(individual, classOnt);
+    }
+
+
+    @Override
+    public OntResult accessSingletonResourceWithClass(
+            CompOntClass compOntClass, Boolean isRead) {
+        OntClass classOnt = createOntClass(compOntClass,
+                isRead);
+        Individual individual = createSingleTonIndividual(
+                classOnt, isRead);
+        return new OntResult(individual, classOnt);
+    }
+}

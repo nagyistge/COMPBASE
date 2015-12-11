@@ -1,29 +1,22 @@
 package uzuzjmd.competence.mapper.gui.read
 
 import java.util.LinkedList
-import scala.collection.JavaConverters.asScalaBufferConverter
-import scala.collection.JavaConverters.asScalaIteratorConverter
-import scala.collection.JavaConverters.seqAsJavaListConverter
+
 import com.hp.hpl.jena.ontology.OntClass
+import uzuzjmd.competence.config.{Logging, MagicStrings}
 import uzuzjmd.competence.mapper.gui.mapper.TextValidator
-import uzuzjmd.competence.owl.access.CompOntologyAccessScala
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.service.rest.database.dto.AbstractXMLTree
-import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree
-import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree
-import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree
-import uzuzjmd.competence.owl.access.Logging
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
+import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
+import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
+import uzuzjmd.competence.service.rest.database.dto.{AbstractXMLTree, CatchwordXMLTree, CompetenceXMLTree, OperatorXMLTree}
+
+import scala.collection.JavaConverters.{asScalaBufferConverter, asScalaIteratorConverter, seqAsJavaListConverter}
 
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBREADTransactional[Any, Any] with Logging {
+class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBReadTransactional[Any, Any] with Logging {
 
   val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
 
@@ -127,7 +120,7 @@ class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selecte
     return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf)
   }
 
-  def hasLinksAndCourse(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
+  def hasLinksAndCourse(comp: CompOntologyManagerJenaImpl, ontClass: OntClass): Boolean = {
     logger.trace("HASLINKSANDCOURSE called");
     val util = comp.getUtil()
     val courseIndividual = new CourseContext(comp, course).getIndividual

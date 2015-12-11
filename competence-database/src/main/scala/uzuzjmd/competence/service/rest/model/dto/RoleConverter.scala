@@ -1,9 +1,7 @@
 package uzuzjmd.competence.service.rest.model.dto
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.Role
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.dao.{Role, StudentRole, TeacherRole}
 
 /**
  * @author dehne

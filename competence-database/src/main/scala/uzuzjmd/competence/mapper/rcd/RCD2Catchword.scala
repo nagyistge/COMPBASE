@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rcd
 
-import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess
 
 import scala.collection.mutable.Buffer
 import com.hp.hpl.jena.ontology.Individual
@@ -8,8 +8,8 @@ import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.rcd.RCDFilter
 import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompOntClass
 import uzuzjmd.competence.rcd.RCDMaps
 
 /**

@@ -1,10 +1,9 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.owl.access.CompFileUtil
 import uzuzjmd.competence.main.CompetenceImporter
-import uzuzjmd.competence.owl.access.CompOntologyManager
 import uzuzjmd.competence.logging.LogConfigurator
 import uzuzjmd.competence.main.EposImporter
+import uzuzjmd.competence.persistence.owl.{CompFileUtil, CompOntologyManagerJenaImpl}
 
 /**
  * @author dehne
@@ -15,7 +14,7 @@ object TestCommons {
 
     //      change this, if you want to really reset the database
     CompFileUtil.deleteTDB()
-    val compOntManag = new CompOntologyManager()
+    val compOntManag = new CompOntologyManagerJenaImpl()
     CompetenceImporter.convert();
     EposImporter.convert()
   }

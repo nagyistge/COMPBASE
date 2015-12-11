@@ -1,12 +1,12 @@
 package uzuzjmd.competence.logging
 
 import org.apache.log4j.xml.DOMConfigurator
-import uzuzjmd.competence.owl.access.MagicStrings
 import java.io.File
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
 import com.hp.hpl.jena.tdb.TDB
 import org.apache.log4j.Priority
+import uzuzjmd.competence.config.MagicStrings
 
 object LogConfigurator {
   var init = false

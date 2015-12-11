@@ -2,7 +2,7 @@ package uzuzjmd.competence.comparison.simple;
 
 import uzuzjmd.competence.comparison.CompetenceComparator;
 import uzuzjmd.competence.comparison.simple.mapper.SimpleCompetenceComparatorMapper;
-import uzuzjmd.competence.owl.dao.Competence;
+import uzuzjmd.competence.persistence.dao.Competence;
 
 public class SimpleCompetenceComparator implements CompetenceComparator {
 

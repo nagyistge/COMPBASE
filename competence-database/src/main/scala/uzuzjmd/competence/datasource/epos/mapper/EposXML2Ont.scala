@@ -1,8 +1,8 @@
 package uzuzjmd.competence.datasource.epos.mapper
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
 import uzuzjmd.competence.mapper.rcd.RCD2OWL
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.shared.DESCRIPTORSETType
 
 /**

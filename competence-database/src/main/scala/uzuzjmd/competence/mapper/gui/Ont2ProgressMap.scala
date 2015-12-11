@@ -1,12 +1,13 @@
 package uzuzjmd.competence.mapper.gui
 
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConverters.mapAsJavaMapConverter
 import scala.collection.JavaConverters.seqAsJavaListConverter
-
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.StudentRole
+import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.shared.dto.ProgressMap
 
 

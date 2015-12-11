@@ -1,16 +1,18 @@
 package uzuzjmd.competence.mapper.gui
 
 import java.util.HashMap
+import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConverters.asScalaSetConverter
 import scala.collection.JavaConverters.mapAsJavaMapConverter
 import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
 import uzuzjmd.java.collections.MapsMagic
-import uzuzjmd.competence.owl.access.Logging
 
 /**
  * @author dehne

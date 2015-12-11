@@ -1,26 +1,26 @@
 package uzuzjmd.competence.mapper.gui.write
 
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConverters._
 import javax.ws.rs.WebApplicationException
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.performance.{PerformanceTimer, AbstractTimer}
+import uzuzjmd.competence.persistence.dao.Catchword
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.TeacherRole
+import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
 import uzuzjmd.competence.shared.dto.Graph
 import uzuzjmd.competence.shared.dto.GraphTriple
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import uzuzjmd.competence.owl.access.PerformanceTimer
-import uzuzjmd.competence.owl.access.AbstractTimer
-import uzuzjmd.competence.owl.dao.exceptions.OntClassForDaoNotInitializedException
-import uzuzjmd.competence.owl.dao.exceptions.UserNotExistsException
-import uzuzjmd.competence.owl.dao.exceptions.ContextNotExistsException
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.persistence.dao.exceptions.UserNotExistsException
+import uzuzjmd.competence.persistence.dao.exceptions.ContextNotExistsException
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 /**
  * @author dehne

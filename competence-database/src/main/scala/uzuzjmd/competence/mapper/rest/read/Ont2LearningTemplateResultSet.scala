@@ -1,16 +1,14 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGraph
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.shared.dto.GraphNode
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}
 
 /**
  * @author dehne
  */
-object Ont2LearningTemplateResultSet extends TDBREADTransactional[String, LearningTemplateResultSet] {
+object Ont2LearningTemplateResultSet extends TDBReadTransactional[String, LearningTemplateResultSet] {
   def convert(changes: String): LearningTemplateResultSet = {
     return execute(convertHelper _, changes)
   }

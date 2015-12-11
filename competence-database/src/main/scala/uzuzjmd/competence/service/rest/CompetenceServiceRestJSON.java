@@ -23,7 +23,7 @@ import uzuzjmd.competence.mapper.gui.write.HierarchieChangesToOnt;
 import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt;
 import uzuzjmd.competence.mapper.rest.read.GetRequiredCompetencesInOnt;
 import uzuzjmd.competence.mapper.rest.write.*;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 import uzuzjmd.competence.rcd.generated.Rdceo;
 import uzuzjmd.competence.service.CompetenceServiceImpl;
 import uzuzjmd.competence.service.rest.model.dto.CommentData;
@@ -531,7 +531,7 @@ public class CompetenceServiceRestJSON extends
 	public Graph getPrerequisiteGraph(
 			@QueryParam("selectedCompetences") List<String> selectedCompetences,
 			@PathParam("course") String course) {
-		CompOntologyManager comp = new CompOntologyManager();
+		CompOntologyManagerJenaImpl comp = new CompOntologyManagerJenaImpl();
 		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(
 				comp, selectedCompetences, course);
 		return mapper.getCompetenceGraph();

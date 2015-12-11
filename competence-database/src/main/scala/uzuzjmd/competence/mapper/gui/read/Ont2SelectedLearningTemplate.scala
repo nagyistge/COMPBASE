@@ -1,18 +1,15 @@
 package uzuzjmd.competence.mapper.gui.read
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.User
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.dao.{CourseContext, SelectedLearningProjectTemplate, TeacherRole, User}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
 import uzuzjmd.competence.shared.StringList
 
 /**
  * @author dehne
  */
-object Ont2SelectedLearningTemplate extends TDBREADTransactional[LearningTemplateData, StringList] {
+object Ont2SelectedLearningTemplate extends TDBReadTransactional[LearningTemplateData, StringList] {
 
   def convert(changes: LearningTemplateData): StringList = {
     return execute(convertHelper _, changes)

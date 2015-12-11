@@ -1,6 +1,5 @@
 package uzuzjmd.competence.neo4j;
 
-import com.google.common.collect.Iterators;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
 import com.hp.hpl.jena.util.iterator.Map1;

@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.gui.filter
 
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 object Ont2SuggestedCompetencyGridFilter {
   def filterisSuggestedCompetency(pair: (Competence, Competence)): Boolean = {

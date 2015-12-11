@@ -3,7 +3,7 @@ package uzuzjmd.competence.neo4j;
 import com.hp.hpl.jena.datatypes.RDFDatatype;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.rdf.model.*;
-import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.config.MagicStrings;
 
 /**
  * Created by dehne on 09.12.2015.

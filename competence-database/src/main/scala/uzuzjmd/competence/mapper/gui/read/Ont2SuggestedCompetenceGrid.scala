@@ -1,32 +1,17 @@
 package uzuzjmd.competence.mapper.gui.read
 
-import scala.collection.JavaConverters.bufferAsJavaListConverter
-import scala.collection.JavaConverters.seqAsJavaListConverter
+import org.apache.log4j.LogManager
+import uzuzjmd.competence.mapper.gui.filter.{Ont2SuggestedCompetencyGridFilter, Ont2SuggestedCompetencyGridMapper}
+import uzuzjmd.competence.persistence.abstractlayer.{TDBReadTransactional, CompOntologyManager}
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, LearningProjectTemplate, TeacherRole, User}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.shared.{Assessment, ReflectiveAssessment, ReflectiveAssessmentsListHolder, SuggestedCompetenceColumn, SuggestedCompetenceGrid, SuggestedCompetenceRow}
+
+import scala.collection.JavaConverters.{bufferAsJavaListConverter, seqAsJavaListConverter}
 import scala.collection.mutable.Buffer
 
-import org.apache.log4j.Level
-import org.apache.log4j.LogManager
-
-import uzuzjmd.competence.console.util.LogStream
-import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridFilter
-import uzuzjmd.competence.mapper.gui.filter.Ont2SuggestedCompetencyGridMapper
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import uzuzjmd.competence.shared.Assessment
-import uzuzjmd.competence.shared.ReflectiveAssessment
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
-import uzuzjmd.competence.shared.SuggestedCompetenceColumn
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid
-import uzuzjmd.competence.shared.SuggestedCompetenceRow
-
-object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
+object Ont2SuggestedCompetenceGrid extends TDBReadTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
 
   protected type ComPairList = Buffer[(Competence, Competence)]
 
@@ -52,7 +37,7 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
   def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
     val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
-    val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.owl.dao.Catchword, List[uzuzjmd.competence.owl.dao.Competence])] = Buffer.empty
+    val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.persistence.dao.Catchword, List[uzuzjmd.competence.persistence.dao.Competence])] = Buffer.empty
     scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
 
     val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
@@ -115,8 +100,7 @@ object Ont2SuggestedCompetenceGrid extends TDBREADTransactional[LearningTemplate
       return Integer.parseInt(number + "")
     }
     val size = competence.listSubClasses(classOf[Competence]).size
-    val sizeInJava: java.lang.Double = size
-    val sum: java.lang.Double = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
+    val sum: Int = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
     val average = (sum) / listSubclases.size
     val result = Math.round(average * 33.33333)
     return Integer.parseInt(result + "")
