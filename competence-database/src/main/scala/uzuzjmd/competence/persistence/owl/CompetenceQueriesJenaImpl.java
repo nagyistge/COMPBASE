@@ -20,11 +20,11 @@ import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 public class CompetenceQueriesJenaImpl implements CompetenceQueries {
 
 	private OntModel m;
-	private String queryprefix;
+	private String queryPrefix;
 
 	public CompetenceQueriesJenaImpl(OntModel m) {
 		this.m = m;
-		queryprefix = "PREFIX comp: <" + MagicStrings.PREFIX + ">\n" + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+		queryPrefix = "PREFIX comp: <" + MagicStrings.PREFIX + ">\n" + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
 				+ "PREFIX owl:<http://www.w3.org/2002/07/owl#>\n" + "PREFIX dc:<http://purl.org/dc/elements/1.1/>\n";
 	}
 
@@ -57,7 +57,7 @@ public class CompetenceQueriesJenaImpl implements CompetenceQueries {
 
 	private void getClassesForDomain(String domainClass, final CompObjectProperties compObjectProperties, ConcurrentLinkedQueue<OntClass> result) {
 		// Create a new query for range
-		String queryString = queryprefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range  comp:" + domainClass + ".\n" + "comp:" + compObjectProperties.name()
+		String queryString = queryPrefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range  comp:" + domainClass + ".\n" + "comp:" + compObjectProperties.name()
 				+ " rdfs:domain ?class" + ".\n" + "FILTER (?class != owl:Thing)" + ".\n" + "FILTER (?class != rdfs:Resource)" + "\n" + "}";
 
 		sparql(result, queryString, "?class", OntClass.class);
@@ -65,7 +65,7 @@ public class CompetenceQueriesJenaImpl implements CompetenceQueries {
 
 	private void getClassesForRange(String domainClass, final CompObjectProperties compObjectProperties, ConcurrentLinkedQueue<OntClass> result) {
 		// Create a new query
-		String queryString = queryprefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range ?class" + ".\n" + "comp:" + compObjectProperties.name()
+		String queryString = queryPrefix + "SELECT ?class " + "WHERE {" + "comp:" + compObjectProperties.name() + " rdfs:range ?class" + ".\n" + "comp:" + compObjectProperties.name()
 				+ " rdfs:domain comp:" + domainClass + ".\n" + "FILTER (?class != owl:Thing)" + ".\n" + "FILTER (?class != rdfs:Resource)" + "\n" + "}";
 
 		sparql(result, queryString, "?class", OntClass.class);
@@ -87,7 +87,7 @@ public class CompetenceQueriesJenaImpl implements CompetenceQueries {
 		// rangeIndividualName = CompOntologyAccess.encode(rangeIndividualName);
 
 		// Create a new query
-		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + "?individual  comp:" + compObjectProperties.name() + " comp:" + rangeIndividualName + "}";
+		String queryString = queryPrefix + "SELECT ?individual " + "WHERE {" + "?individual  comp:" + compObjectProperties.name() + " comp:" + rangeIndividualName + "}";
 
 		sparql(result, queryString, "?individual", Individual.class);
 		return result;
@@ -99,7 +99,7 @@ public class CompetenceQueriesJenaImpl implements CompetenceQueries {
 		// domainIndividual = CompOntologyAccess.encode(domainIndividual);
 
 		// Create a new query
-		String queryString = queryprefix + "SELECT ?individual " + "WHERE {" + " comp:" + domainIndividual + " comp:" + compObjectProperties.name() + " ?individual" + "}";
+		String queryString = queryPrefix + "SELECT ?individual " + "WHERE {" + " comp:" + domainIndividual + " comp:" + compObjectProperties.name() + " ?individual" + "}";
 
 		sparql(result, queryString, "?individual", Individual.class);
 		return result;

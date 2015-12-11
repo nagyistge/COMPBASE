@@ -259,4 +259,14 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
 
+    /**
+     *
+     * @param subject
+     * @param edge
+     * @param object
+     */
+    public void createRelationShip(String subject, String edge, String object) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
 }

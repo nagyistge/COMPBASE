@@ -16,8 +16,7 @@ import java.util.List;
 public class Neo4jModelFactory {
 
     /**
-     * TODO implement
-     *
+     * Creates an export from the neo4j database
      * @return
      */
     public static Model createModelFromNeo4j() {

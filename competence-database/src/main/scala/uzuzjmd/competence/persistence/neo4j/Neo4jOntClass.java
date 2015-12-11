@@ -13,9 +13,11 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     private final String id;
+    private final String definition;
 
-    public Neo4jOntClass(String id) {
+    public Neo4jOntClass(String id, String definition) {
         this.id = id;
+        this.definition = definition;
     }
 
     @Override
