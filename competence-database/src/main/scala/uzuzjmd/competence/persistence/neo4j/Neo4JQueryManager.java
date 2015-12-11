@@ -261,11 +261,18 @@ public class Neo4JQueryManager implements CompetenceQueries{
 
     /**
      *
-     * @param subject
+     * @param subjectId
+     * @param subjectDefinition
      * @param edge
-     * @param object
+     * @param objectId
+     * @param objectDefinition
      */
-    public void createRelationShip(String subject, String edge, String object) {
+    public void createRelationShip(String subjectId, String subjectDefinition, String edge, String objectId, String objectDefinition) {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    public String getDefinitionForClassForNode(String id) {
         // TODO implement
         throw new NotImplementedException();
     }

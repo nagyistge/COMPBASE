@@ -1,6 +1,7 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.persistence.neo4j.{Neo4jIndividual, Neo4JQueryManager}
+import uzuzjmd.competence.persistence.neo4j.{Model2Neo4j, Neo4jIndividual, Neo4JQueryManager}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 import scala.collection.JavaConverters.seqAsJavaListConverter
 import org.junit.AfterClass
@@ -64,6 +65,11 @@ class Neo4jTests  extends FunSuite with ShouldMatchers {
 
   test("just persisting individual and deleting") {
     val indvidualy = new Neo4jIndividual("julian", "julian is strong", null);
+  }
+
+  test("testing the model to neo4j converter") {
+    val manager = new CompOntologyManagerJenaImpl();
+    Model2Neo4j.convertModel2Neo4jDB(manager)
   }
 
 }
