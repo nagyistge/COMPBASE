@@ -3,16 +3,12 @@ package uzuzjmd.competence.mapper.rest.write
 import java.util.LinkedList
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-
-import scala.collection.JavaConverters.asScalaBufferConverter
-import uzuzjmd.competence.persistence.dao.Catchword
-import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
-import uzuzjmd.competence.persistence.dao.Operator
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.validation.CompetenceGraphValidator
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData
+import uzuzjmd.competence.service.rest.dto.CompetenceData
+
+import scala.collection.JavaConverters.asScalaBufferConverter
 
 /**
  * @author dehne

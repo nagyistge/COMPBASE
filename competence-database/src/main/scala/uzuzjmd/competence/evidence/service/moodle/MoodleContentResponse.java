@@ -6,7 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * DTOs für den Moodle REST-Service
- * 
+ *
+ * DTOs for the moodle for the moodle rest service
+ *
  * @author julian
  * 
  */

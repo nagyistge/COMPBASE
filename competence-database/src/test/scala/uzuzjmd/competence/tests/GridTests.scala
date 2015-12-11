@@ -1,74 +1,20 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional, CompOntologyAccess}
-import uzuzjmd.competence.persistence.owl.{CompFileUtil, CompOntologyManagerJenaImpl}
-
-import scala.collection.JavaConverters.seqAsJavaListConverter
-import org.junit.AfterClass
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree
-import uzuzjmd.competence.persistence.dao.StudentRole
-import uzuzjmd.competence.persistence.dao.TeacherRole
 import org.scalatest.junit.JUnitRunner
-import org.specs2.specification.After
-import org.specs2.mutable.After
-import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.competence.persistence.dao.Role
-import uzuzjmd.competence.persistence.dao.Comment
-import uzuzjmd.competence.persistence.dao.EvidenceActivity
-import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
-import uzuzjmd.competence.persistence.dao.StudentRole
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.persistence.dao.TeacherRole
-import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap
-import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
-import uzuzjmd.competence.persistence.dao.CompetenceInstance
-import uzuzjmd.competence.persistence.dao.Competence
-import org.apache.log4j.Level
-import com.hp.hpl.jena.rdf.model.InfModel
-import com.hp.hpl.jena.rdf.model.ModelFactory
-import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.main.CompetenceImporter
-import uzuzjmd.competence.main.EposImporter
-import uzuzjmd.competence.service.rest.CompetenceOntologyInterface
-import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
-import uzuzjmd.competence.persistence.dao.EvidenceActivity
-import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
-import scala.collection.JavaConverters._
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
-import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
-import java.util.HashMap
-import uzuzjmd.competence.shared.dto.GraphTriple
-import uzuzjmd.competence.shared.dto.Graph
-import uzuzjmd.competence.shared.dto.GraphNode
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-import uzuzjmd.competence.persistence.dao.CourseContext
-import sun.security.krb5.internal.ccache.CCacheInputStream
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
-import uzuzjmd.competence.persistence.dao.SelfAssessment
-import uzuzjmd.competence.shared.Assessment
-import uzuzjmd.competence.shared.ReflectiveAssessment
-import uzuzjmd.competence.mapper.gui.write.ReflectiveAssessmentHolder2Ont
+import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.logging.LogConfigurator
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData
-import uzuzjmd.competence.mapper.rest.write.Competence2Ont
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid
+import uzuzjmd.competence.mapper.rest.write.{ReflectiveAssessmentHolder2Ont, LearningTemplateToOnt, Competence2Ont}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.dao.{CompetenceInstance, LearningProjectTemplate}
+import uzuzjmd.competence.persistence.owl.CompFileUtil
+import uzuzjmd.competence.service.rest.dto.{CompetenceData, LearningTemplateData, ReflectiveAssessmentChangeData}
+import uzuzjmd.competence.shared.{Assessment, ReflectiveAssessment, ReflectiveAssessmentsListHolder}
+import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}
+
+import scala.collection.JavaConverters.seqAsJavaListConverter
 
 /**
  * @author dehne

@@ -7,7 +7,7 @@ import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
 import uzuzjmd.competence.persistence.dao.TeacherRole
 import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 
 /**
  * @author dehne

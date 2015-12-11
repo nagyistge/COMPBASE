@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rcd
 
 import uzuzjmd.competence.datasource.csv.FilteredCSVCompetence
 import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
-import uzuzjmd.competence.rcd.generated.{Definition, Description, Langstring, Model, Rdceo, Rdceoschema, Rdceoschemaversion, Statement, Statementtext, Title}
+import uzuzjmd.competence.datasource.rcd.generated.{Definition, Description, Langstring, Model, Rdceo, Rdceoschema, Rdceoschemaversion, Statement, Statementtext, Title}
 
 import scala.collection.JavaConverters._
 

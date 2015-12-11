@@ -13,6 +13,9 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.shared.DESCRIPTORType
 import uzuzjmd.competence.shared.DESCRIPTORSETType
 
+/**
+  * Generates learning paths implied by levels in the epos xml format
+  */
 object EposXMLToSuggestedLearningPath {
 
   def convertLevelsToOWLRelations(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {

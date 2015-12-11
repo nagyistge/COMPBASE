@@ -3,15 +3,10 @@ package uzuzjmd.competence.tests
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
+import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.persistence.dao.TeacherRole
-import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
-import org.apache.log4j.Logger
-//import uzuzjmd.competence.logging.ObjectUtil
+import uzuzjmd.competence.persistence.dao.{CourseContext, TeacherRole, User}
+import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 
 @RunWith(classOf[JUnitRunner])
 class CoreTestLogging extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {

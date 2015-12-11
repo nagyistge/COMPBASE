@@ -3,6 +3,9 @@ package uzuzjmd.competence.main
 import uzuzjmd.competence.persistence.abstractlayer.{TDBReadTransactional, CompOntologyManager}
 import uzuzjmd.competence.persistence.owl.CompFileUtil
 
+/**
+  * writes the db to an protégé readable ontology format
+  */
 object OntologyWriter extends TDBReadTransactional[Any, Any] {
 
   def main(args: Array[String]) {

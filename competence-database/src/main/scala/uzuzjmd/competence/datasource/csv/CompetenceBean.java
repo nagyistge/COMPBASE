@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 /*
  * Diese Klasse mappt eine Zeile in der Excel Tabelle 
  * Dies muss ein Bean sein, weil das von dem Framework gefordert wird
+ *
+ * This class maps one row in a excel table.
  */
 @XmlRootElement
 public class CompetenceBean {

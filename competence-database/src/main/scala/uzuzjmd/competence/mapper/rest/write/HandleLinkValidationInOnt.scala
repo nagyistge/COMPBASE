@@ -2,8 +2,8 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.LinkValidationData
 import uzuzjmd.competence.persistence.dao.DaoFactory
+import uzuzjmd.competence.service.rest.dto.LinkValidationData
 
 /**
 * @author jbe

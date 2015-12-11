@@ -7,6 +7,7 @@ import uzuzjmd.competence.shared.DESCRIPTORSETType
 
 /**
  * @author dehne
+  *         utility class to bundles different steps of persisting competences given in the epos format
  */
 object EposXML2Ont extends TDBWriteTransactional[java.util.List[DESCRIPTORSETType]] {
 

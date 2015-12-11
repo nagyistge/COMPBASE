@@ -3,6 +3,7 @@ package uzuzjmd.competence.persistence.dao
 import uzuzjmd.competence.config.MagicStrings
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, OntResult, CompOntologyAccess}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.scala.reflection.ScalaHacksInScala
 
 import scala.collection.JavaConverters._
 
@@ -17,7 +18,6 @@ import uzuzjmd.competence.persistence.dao.exceptions.NoRecursiveSubClassExceptio
 import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.scalahacks.ScalaHacksInScala
 
 abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, val compOntClass: CompOntClass, val identifier: String = null) extends Dao(comp, compOntClass, identifier) {
   val util = comp.getUtil()

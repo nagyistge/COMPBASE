@@ -41,9 +41,8 @@ public class Model2Neo4j {
                 try {
                     definition = CompOntologyAccessScala.getDataField("definition", manager, individual);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
-                ;
+
                 Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individual.getLocalName(), definition, individual.getOntClass());
                 neo4jIndividual.create();
             }
@@ -63,9 +62,8 @@ public class Model2Neo4j {
                 try {
                     definition = CompOntologyAccessScala.getDataFieldForClass("definition", manager, ontClass);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+
                 }
-                ;
 
                 Neo4jOntClass neo4jOntClass = new Neo4jOntClass(ontClass.getLocalName(), definition);
                 neo4jOntClass.create();
@@ -78,7 +76,7 @@ public class Model2Neo4j {
             try {
                  subjectDefinition = CompOntologyAccessScala.getDataField("definition", manager, model.getIndividual(statement.getSubject().getURI()));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+
             }
 
             String edge = statement.getPredicate().getLocalName();
@@ -88,7 +86,7 @@ public class Model2Neo4j {
             try {
                 objectDefinition = CompOntologyAccessScala.getDataField("definition", manager, model.getIndividual(statement.getSubject().getURI()));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                
             }
 
             if (!subject.equals("Nothing") && !object.equals("Thing") && !object.equals("Resource") && !subject.equals(object)) {

@@ -1,6 +1,5 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.mapper.gui.Ont2SuggestedCompetenceGraph
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}

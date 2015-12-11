@@ -4,8 +4,7 @@ import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWri
 import uzuzjmd.competence.persistence.dao.CourseContext
 import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
-import uzuzjmd.competence.service.rest.model.dto.UserData
+import uzuzjmd.competence.service.rest.dto.UserData
 
 /**
  * @author dehne

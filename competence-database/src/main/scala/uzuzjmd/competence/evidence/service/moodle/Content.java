@@ -2,6 +2,9 @@ package uzuzjmd.competence.evidence.service.moodle;
 
 /**
  * DTOs für den Moodle REST-Service
+ *
+ *
+ * DTOs for the moodle rest service
  * 
  * @author julian
  * 

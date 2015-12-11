@@ -1,7 +1,9 @@
 package uzuzjmd.competence.config;
 
-import uzuzjmd.competence.config.PropUtil;
-
+/**
+ * contains the main configuration for the project which are defined in
+ * evidenceserver.properties
+ */
 public class MagicStrings {
 
 	// public static final String PREFIX =

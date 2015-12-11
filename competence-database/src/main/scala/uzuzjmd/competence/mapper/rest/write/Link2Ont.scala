@@ -2,6 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.CompetenceLinkData
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
@@ -10,8 +11,6 @@ import uzuzjmd.competence.persistence.dao.CourseContext
 import uzuzjmd.competence.persistence.dao.EvidenceActivity
 import uzuzjmd.competence.persistence.dao.StudentRole
 import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
 import uzuzjmd.competence.persistence.dao.CourseContext
 
 /**

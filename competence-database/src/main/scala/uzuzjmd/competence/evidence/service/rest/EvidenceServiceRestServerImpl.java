@@ -22,8 +22,7 @@ import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 
 /**
- * Implementiert den Moodle-RestService mit Grizzly. Dies ist die Hauptklasse
- * für die Rest-Services, die auf Moodle oder Liferay zugreifen
+ * implements the lms service that provides access to the lms activities
  * 
  * @author Julian Dehne
  * 

@@ -1,10 +1,9 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.persistence.dao.Competence
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-import uzuzjmd.competence.persistence.dao.Competence
 
 object DeleteCompetenceInOnt extends TDBWriteTransactional[java.util.List[String]] {
 
