@@ -7,8 +7,7 @@ import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.persistence.owl.{CompetenceQueriesJenaImpl, CompOntologyAccessScala, CompOntologyManagerJenaImpl}
-import uzuzjmd.scalahacks.ScalaHacksInScala
-import uzuzjmd.scalahacks.ScalaHacks
+import uzuzjmd.scala.reflection.{ScalaHacksInScala, ScalaHacks}
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.persistence.dao.exceptions.DataFieldNotInitializedException

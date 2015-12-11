@@ -10,52 +10,52 @@ import uzuzjmd.competence.comparison.analysis.SentenceToNoun
 /**
  * @author dehne
  */
-class SimpleCompetenceComparatorMapper() {
+class SimpleCompetenceComparatorMapper(){
 
-  var strat1Explanation = SimilarExplanations.NONE
-  var strat2Explanation = SimilarExplanations.NONE
+  var strategy1Explanation = SimilarExplanations.NONE
+  var strategy2Explanation = SimilarExplanations.NONE
 
   def isSimilarStrings(input1: String, input2: String): Boolean = {
-    return isSimilarVerbsStrat1(input1, input2) || isSimilarVerbsStrat2(input1, input2) || isSimilarCatchwordStrat1(input1, input2) || isSimilarCatchwordStrat2(input1, input2)
+    return isSimilarVerbsStrategy1(input1, input2) || isSimilarVerbsStrategy2(input1, input2) || isSimilarCatchwordStrategy1(input1, input2) || isSimilarCatchwordStrategy2(input1, input2)
   }
-  
+
   def isSimilarStrings2(input1: String, input2: String): Boolean = {
-    return (isSimilarVerbsStrat1(input1, input2) || isSimilarVerbsStrat2(input1, input2)) && (isSimilarCatchwordStrat1(input1, input2) || isSimilarCatchwordStrat2(input1, input2))
+    return (isSimilarVerbsStrategy1(input1, input2) || isSimilarVerbsStrategy2(input1, input2)) && (isSimilarCatchwordStrategy1(input1, input2) || isSimilarCatchwordStrategy2(input1, input2))
   }
-  
-  def isSimilarCatchwordStrat1(input1: String, input2: String): Boolean = {
-     return isSimilarStratHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat1_Words)
+
+  def isSimilarCatchwordStrategy1(input1: String, input2: String): Boolean = {
+     return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat1_Words)
   }
-  
-   
-  def isSimilarCatchwordStrat2(input1: String, input2: String): Boolean = {
-     return isSimilarStratHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat2_Words)
+
+
+  def isSimilarCatchwordStrategy2(input1: String, input2: String): Boolean = {
+     return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat2_Words)
   }
 
   /**
    * Simple Conmparison using stemming
    */
-  def isSimilarVerbsStrat2(input1: String, input2: String): Boolean = {        
-    return isSimilarStratHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat2_Words)
+  def isSimilarVerbsStrategy2(input1: String, input2: String): Boolean = {
+    return isSimilarStrategyHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat2_Words)
   }
-  
+
   /**
    * Simple Comparison without stemming
    */
-  def isSimilarVerbsStrat1(input1: String, input2: String): Boolean = {     
-    return isSimilarStratHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat1_Words)
+  def isSimilarVerbsStrategy1(input1: String, input2: String): Boolean = {
+    return isSimilarStrategyHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat1_Words)
   }
-  
-  private def isSimilarStratHelper(input1: String, input2: String, f:(String => List[String]), g: (List[String], List[String]) => Boolean) : Boolean = {
+
+  private def isSimilarStrategyHelper(input1: String, input2: String, f:(String => List[String]), g: (List[String], List[String]) => Boolean) : Boolean = {
      val result = f(input1)
      val result2 = f(input2)
      return g(result, result2)
   }
 
   private def isSimilarStrat1_Words(result: List[String], result2: List[String]): Boolean = {
-    // check if same 
+    // check if same
     if (!result.intersect(result2).isEmpty) {
-      strat1Explanation = SimilarExplanations.VERBSEQUAL
+      strategy1Explanation = SimilarExplanations.VERBSEQUAL
       return true
     }
 
@@ -64,7 +64,7 @@ class SimpleCompetenceComparatorMapper() {
     val similarWords2 = result2.map(OpenThesaurusSynonymCreator.getSimilarWords).flatten
 
     if (!similarWords.intersect(similarWords2).isEmpty) {
-      strat1Explanation = SimilarExplanations.VERBSSQLLIKE
+      strategy1Explanation = SimilarExplanations.VERBSSQLLIKE
       return true
     }
 
@@ -73,7 +73,7 @@ class SimpleCompetenceComparatorMapper() {
     val synonyms2 = result2.map(OpenThesaurusSynonymCreator.getSynonyms).flatten
 
     if (!synonyms.intersect(synonyms2).isEmpty) {
-      strat1Explanation = SimilarExplanations.VERBSSYNONYMS
+      strategy1Explanation = SimilarExplanations.VERBSSYNONYMS
       return true
     }
 
@@ -84,9 +84,9 @@ class SimpleCompetenceComparatorMapper() {
     val stemmedResult = input1.mapConserve(WordToStem.stemWord)
     val stemmedResult2 = input2.mapConserve(WordToStem.stemWord)
 
-    //check if same 
+    //check if same
     if (!stemmedResult.intersect(stemmedResult2).isEmpty) {
-      strat2Explanation = SimilarExplanations.VERBSEQUAL
+      strategy2Explanation = SimilarExplanations.VERBSEQUAL
       return true
     }
 
@@ -95,7 +95,7 @@ class SimpleCompetenceComparatorMapper() {
     val similarStemmedResult2 = stemmedResult2.map(OpenThesaurusSynonymCreator.getSimilarWords).flatten
 
     if (!similarStemmedResult.intersect(similarStemmedResult2).isEmpty) {
-      strat2Explanation = SimilarExplanations.VERBSSQLLIKE
+      strategy2Explanation = SimilarExplanations.VERBSSQLLIKE
       return true
     }
 
@@ -103,7 +103,7 @@ class SimpleCompetenceComparatorMapper() {
     val similarStemmedResultSyonomys = similarStemmedResult.map(OpenThesaurusSynonymCreator.getSynonyms).flatten
     val similarStemmedResultSyonomys2 = similarStemmedResult2.map(OpenThesaurusSynonymCreator.getSynonyms).flatten
     if (!similarStemmedResultSyonomys.intersect(similarStemmedResultSyonomys2).isEmpty) {
-      strat2Explanation = SimilarExplanations.VERBSSYNONYMS
+      strategy2Explanation = SimilarExplanations.VERBSSYNONYMS
       return true
     }
 

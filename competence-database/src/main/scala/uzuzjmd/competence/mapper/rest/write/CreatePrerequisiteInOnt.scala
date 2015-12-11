@@ -5,7 +5,7 @@ import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWri
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData
+import uzuzjmd.competence.service.rest.dto.PrerequisiteData
 import scala.collection.JavaConversions._
 
 /**

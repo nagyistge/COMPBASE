@@ -3,14 +3,14 @@ package uzuzjmd.competence.service.rest;
 import java.util.LinkedList;
 import java.util.List;
 
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceTree;
-import uzuzjmd.competence.mapper.gui.read.Ont2CourseRequirements;
+import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
+import uzuzjmd.competence.mapper.rest.read.Ont2CourseRequirements;
 import uzuzjmd.competence.mapper.rest.read.Ont2SelectedCompetencesForCourse;
 import uzuzjmd.competence.mapper.rest.write.CompetenceLinkedCourseToOnt;
-import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
-import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
-import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkedToCourseData;
+import uzuzjmd.competence.service.rest.dto.CatchwordXMLTree;
+import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
+import uzuzjmd.competence.service.rest.dto.OperatorXMLTree;
+import uzuzjmd.competence.service.rest.dto.CompetenceLinkedToCourseData;
 
 public class CompetenceServiceWrapper {
 

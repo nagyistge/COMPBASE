@@ -1,9 +1,12 @@
 package uzuzjmd.competence.logging
 
-import org.apache.log4j.LogManager
 import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
 
+/**
+  * A shortcut for a write transactional that provides logging
+  * @tparam A
+  */
 trait LoggingTDBWriteTransactional[A] extends TDBWriteTransactional[A] with Logging {
 
   override def execute(f: TRANSACTIONAL, g: A) {

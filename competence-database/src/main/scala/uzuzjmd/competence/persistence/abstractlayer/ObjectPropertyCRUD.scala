@@ -3,7 +3,7 @@ package uzuzjmd.competence.persistence.abstractlayer
 import uzuzjmd.competence.persistence.dao.Dao
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.scalahacks.ScalaHacksInScala
+import uzuzjmd.scala.reflection.ScalaHacksInScala
 
 /**
   * Created by dehne on 03.12.2015.

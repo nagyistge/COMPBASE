@@ -2,13 +2,13 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional, CompOntologyAccess}
 import uzuzjmd.competence.persistence.owl.{AccessHelper, CompOntologyManagerJenaImpl}
+import uzuzjmd.competence.service.rest.dto.CompetenceLinkedToCourseData
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 import com.hp.hpl.jena.ontology.Individual
 import javax.ws.rs.WebApplicationException
 import uzuzjmd.competence.persistence.dao.CourseContext
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkedToCourseData
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.dao.CourseContext
 

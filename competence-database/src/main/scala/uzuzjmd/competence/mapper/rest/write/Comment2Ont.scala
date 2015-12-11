@@ -6,8 +6,7 @@ import uzuzjmd.competence.persistence.dao.CourseContext
 import uzuzjmd.competence.persistence.dao.DaoFactory
 import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.service.rest.model.dto.CommentData
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
+import uzuzjmd.competence.service.rest.dto.CommentData
 
 /**
  * @author dehne

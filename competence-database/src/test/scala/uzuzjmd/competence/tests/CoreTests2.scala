@@ -1,12 +1,13 @@
 package uzuzjmd.competence.tests
 
 import java.util.HashMap
+
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
+import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid
+import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt
 import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
 import uzuzjmd.competence.persistence.dao.{LearningProjectTemplate, User}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl

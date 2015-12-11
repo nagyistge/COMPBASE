@@ -8,6 +8,9 @@ import com.hp.hpl.jena.tdb.TDB
 import org.apache.log4j.Priority
 import uzuzjmd.competence.config.MagicStrings
 
+/**
+  * Provides log4j logging and configures a couple of aspects herefor
+  */
 object LogConfigurator {
   var init = false
   def initLogger() {

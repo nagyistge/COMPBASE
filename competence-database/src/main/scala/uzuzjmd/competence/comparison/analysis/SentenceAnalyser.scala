@@ -1,11 +1,11 @@
 package uzuzjmd.competence.comparison.analysis
 
-import edu.stanford.nlp.parser.lexparser.LexicalizedParser
-import edu.stanford.nlp.trees.PennTreebankLanguagePack
-import uzuzjmd.competence.config.MagicStrings
-import scala.collection.JavaConverters._
 import edu.stanford.nlp.ling.Sentence
-import edu.stanford.nlp.trees.Tree
+import edu.stanford.nlp.parser.lexparser.LexicalizedParser
+import edu.stanford.nlp.trees.{PennTreebankLanguagePack, Tree}
+import uzuzjmd.competence.config.MagicStrings
+
+import scala.collection.JavaConverters._
 
 /**
  * @author dehne
@@ -29,17 +29,15 @@ trait SentenceAnalyser {
     //    val gsf = tlp.grammaticalStructureFactory();
     val sent = input.split(" ").toList
     val parse = lp.apply(Sentence.toWordList(sent.asJava));
-
     //    val gs = gsf.newGrammaticalStructure(parse);
     //    val tdl = gs.typedDependenciesCCprocessed();
     //    println(tdl.toString())
-
     val result = treeWalker(parse)
 
     return result
   }
   
-  def convertSentencetofilteredElementStemmed(input : String) : List[String] = {
+  def convertSentenceToFilteredElementStemmed(input : String) : List[String] = {
     return convertSentenceToFilteredElement(input).map { x => WordToStem.stemWord(x) }
   }
 

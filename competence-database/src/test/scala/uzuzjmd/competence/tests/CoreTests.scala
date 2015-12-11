@@ -1,18 +1,19 @@
 package uzuzjmd.competence.tests
 
 import java.util
+
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.logging.LoggingTDBWriteTransactional
 import uzuzjmd.competence.main.OntologyWriter
-import uzuzjmd.competence.mapper.gui.read.{Ont2CompetenceLinkMap, Ont2CompetenceTree}
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt
-import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt
+import uzuzjmd.competence.mapper.rest.read.{GetProgressMInOnt, Ont2CompetenceLinkMap, Ont2CompetenceTree}
+import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManagarFactory, CompOntologyManager}
 import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, Competence, CompetenceInstance, CourseContext, EvidenceActivity, StudentRole, TeacherRole, User}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.service.rest.model.dto.{CourseData, LearningTemplateData}
+import uzuzjmd.competence.service.rest.dto.{CourseData, LearningTemplateData}
+
 import scala.collection.JavaConverters.seqAsJavaListConverter
 
 

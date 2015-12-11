@@ -13,12 +13,12 @@ import com.hp.hpl.jena.ontology.ObjectProperty
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.util.iterator.Filter
-import uzuzjmd.competence.rcd.RCDMaps
-import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.rcd.generated.Title
+import uzuzjmd.competence.datasource.rcd.RCDMaps
+import uzuzjmd.competence.datasource.rcd.RCDFilter
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo
+import uzuzjmd.competence.datasource.rcd.generated.Title
 import uzuzjmd.competence.console.util.LogStream
-import uzuzjmd.competence.rcd.generated.Statement
+import uzuzjmd.competence.datasource.rcd.generated.Statement
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.ontology.CompOntClass
 import java.util.ArrayList

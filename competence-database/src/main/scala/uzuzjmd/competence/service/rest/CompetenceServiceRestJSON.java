@@ -1,42 +1,23 @@
 package uzuzjmd.competence.service.rest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import uzuzjmd.competence.mapper.gui.read.Ont2Catchwords;
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceGraph;
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap;
-import uzuzjmd.competence.mapper.gui.read.Ont2Operator;
-import uzuzjmd.competence.mapper.gui.write.HierarchieChangesToOnt;
-import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt;
-import uzuzjmd.competence.mapper.rest.read.GetRequiredCompetencesInOnt;
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
+import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
-import uzuzjmd.competence.rcd.generated.Rdceo;
-import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.model.dto.CommentData;
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData;
-import uzuzjmd.competence.service.rest.model.dto.CourseData;
-import uzuzjmd.competence.service.rest.model.dto.LinkValidationData;
-import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData;
-import uzuzjmd.competence.service.rest.model.dto.UserData;
+import uzuzjmd.competence.service.rest.dto.*;
+import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
 import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -339,7 +320,7 @@ public class CompetenceServiceRestJSON extends
 	/**
 	 * Validate an evidence link.
 	 * 
-	 * Have a look at {@link linkCompetencesToUserJson} for the nature of the
+	 * Have a look at for the nature of the
 	 * evidence link.
 	 * 
 	 * This should only be done by teacher role (which should be checked in the

@@ -4,15 +4,23 @@ import java.io.{File, FileReader}
 
 import au.com.bytecode.opencsv.bean.{ColumnPositionMappingStrategy, CsvToBean}
 import uzuzjmd.competence.config.{Logging, MagicStrings}
-import uzuzjmd.competence.datasource.csv.{CompetenceBean, CompetenceFilter, CompetenceMaps}
+import uzuzjmd.competence.datasource.csv.{CompetenceBean, CSVFilter, CSVMap}
 import uzuzjmd.competence.mapper.rcd.{CSV2RCD, RCD2OWL}
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.rcd.generated.Rdceo
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 
 import scala.collection.JavaConverters._
 
-object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.rcd.generated.Rdceo]] with Logging {
+/**
+  * Imports competences from csv and epos file format.
+  * Configuration of the paths is now found in evidenceserver.properties.
+  *
+  * At the moment, both csv and epos file must be specified.
+  *
+  *
+  */
+object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.datasource.rcd.generated.Rdceo]] with Logging {
 
   def main(args: Array[String]) {
     convert()
@@ -51,11 +59,11 @@ object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.r
 
     //using scala maps to clean the entries
     val filteredList = list.asScala. //java list nach scala list
-      map(CompetenceMaps.comptenceBeansToFilteredCSVCompetences).view. // erstellt neue Klasse
-      map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CompetenceFilter.catchwordString).map(CompetenceMaps.cleanCatchwords))). //filtered leere Catchwords und überschrift
-      map(a => a.copy(operator = CompetenceMaps.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
-      map(a => a.copy(competence = CompetenceMaps.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
-      map(a => a.copy(evidencen = CompetenceMaps.cleanHTML(a.evidencen))).filter(x => CompetenceFilter.operatorString(x.operator)).filter(x => !x.metaoperator.equals("Metaoperator")).filterNot(x => x.operator.trim().equals(""))
+      map(CSVMap.competenceBeansToFilteredCSVCompetences).view. // erstellt neue Klasse
+      map(a => a.copy(catchwordsFiltered = a.catchwordsFiltered.filter(CSVFilter.catchwordString).map(CSVMap.cleanCatchwords))). //filtered leere Catchwords und überschrift
+      map(a => a.copy(operator = CSVMap.cleanOperator(a.operator))). //bereinigt den Operator (es darf nur einen geben)
+      map(a => a.copy(competence = CSVMap.cleanHTML(a.competence))). //bereinigt HTML-Content aus der Kompetenzbeschreibung;
+      map(a => a.copy(evidencen = CSVMap.cleanHTML(a.evidencen))).filter(x => CSVFilter.operatorString(x.operator)).filter(x => !x.metaoperator.equals("Metaoperator")).filterNot(x => x.operator.trim().equals(""))
 
     //mapping CSVObjects to RCD
     val rcdeoCompetences = CSV2RCD.mapCompetence(filteredList)

@@ -15,7 +15,9 @@ import java.net.URLDecoder;
 /**
  * DTOs für den Moodle REST-Service
  *
- * @author julian
+ * DTOs for the moodle rest service
+ *
+ * @author Julian Dehne
  */
 public class SimpleMoodleService {
 

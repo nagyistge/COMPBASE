@@ -8,6 +8,9 @@ import javax.ws.rs.core.Response;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 
+/**
+ * Not used much could be used for testing evidence based aspects
+ */
 public class InMemoryEvidenceService extends AbstractEvidenceService {
 
 	public HashMap<String, UserTree[]> courseUserTreeMap = new HashMap<String, UserTree[]>();
@@ -21,9 +24,9 @@ public class InMemoryEvidenceService extends AbstractEvidenceService {
 	}
 
 	@Override
-	public UserTree[] getUserTree(String course, String lmssystem, String organization, String username, String password) {
+	public UserTree[] getUserTree(String course, String lmsSystem, String organization, String username, String password) {
 		if (!courseUserTreeMap.containsKey(course)) {
-			throw new BadParameterException("course " + course + " wurde nicht in dem System " + lmssystem + " gefunden");
+			throw new BadParameterException("course " + course + " wurde nicht in dem System " + lmsSystem + " gefunden");
 		}
 		return courseUserTreeMap.get(course);
 	}

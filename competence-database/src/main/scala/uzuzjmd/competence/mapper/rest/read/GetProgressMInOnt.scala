@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
-import uzuzjmd.competence.service.rest.model.dto.CourseData
+import uzuzjmd.competence.service.rest.dto.CourseData
 import uzuzjmd.competence.shared.dto.ProgressMap
 
 /**
