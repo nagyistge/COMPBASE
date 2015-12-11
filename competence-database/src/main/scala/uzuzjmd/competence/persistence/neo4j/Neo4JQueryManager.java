@@ -1,12 +1,10 @@
-package uzuzjmd.competence.neo4j;
+package uzuzjmd.competence.persistence.neo4j;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
 import org.apache.commons.lang.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
 import uzuzjmd.competence.config.MagicStrings;
 
 import javax.ws.rs.client.Client;

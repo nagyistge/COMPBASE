@@ -1,7 +1,7 @@
 package uzuzjmd.competence.persistence.abstractlayer;
 
 import uzuzjmd.competence.config.MagicStrings;
-import uzuzjmd.competence.neo4j.CompOntologyManagerNeo4jImpl;
+import uzuzjmd.competence.persistence.neo4j.CompOntologyManagerNeo4jImpl;
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 
 /**

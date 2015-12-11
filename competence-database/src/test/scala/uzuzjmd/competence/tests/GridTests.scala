@@ -80,7 +80,7 @@ class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
   //
   //  }
 
-  val learningTeamplatenName = "Neues Lernprojekt"
+  val learningTemplatenName = "Neues Lernprojekt"
   val rootCompetence = "adf"
   val testGroupID = "20182"
   val testUser = "test@liferay.com"
@@ -94,13 +94,13 @@ class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
 
     val competenceData = new CompetenceData(
       "adfing", ("ADFADF" :: Nil).asJava, null,
-      null, learningTeamplatenName,
+      null, learningTemplatenName,
       rootCompetence);
     Competence2Ont
       .convert(competenceData);
 
     val data = new LearningTemplateData(
-      testUser, testGroupID, learningTeamplatenName);
+      testUser, testGroupID, learningTemplatenName);
     LearningTemplateToOnt.convert(data);
 
   }
@@ -109,7 +109,7 @@ class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     val rootInstance = new CompetenceInstance(comp)
     rootInstance.persist(false)
 
-    val learningProjectTemplate = new LearningProjectTemplate(comp, learningTeamplatenName)
+    val learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplatenName)
     learningProjectTemplate.persist
 
   }
@@ -120,7 +120,7 @@ class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
     createLearningTemplateResultSet
     createReflectiveAssessment()
 
-    val learningTemplateData = new LearningTemplateData(testUser, testGroupID, learningTeamplatenName)
+    val learningTemplateData = new LearningTemplateData(testUser, testGroupID, learningTemplatenName)
     val result = Ont2SuggestedCompetenceGrid.convert(learningTemplateData)
     result.getSuggestedCompetenceRows should not be ('empty)
 
@@ -150,7 +150,7 @@ class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[
 
   private def createLearningTemplateResultSet() {
     val learningTemplateResultSet = new LearningTemplateResultSet(new GraphNode(rootCompetence));
-    learningTemplateResultSet.setNameOfTheLearningTemplate(learningTeamplatenName)
+    learningTemplateResultSet.setNameOfTheLearningTemplate(learningTemplatenName)
     LearningTemplateToOnt.convertLearningTemplateResultSet(learningTemplateResultSet)
   }
 

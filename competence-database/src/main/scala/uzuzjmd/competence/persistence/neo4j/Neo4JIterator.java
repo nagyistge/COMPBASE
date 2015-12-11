@@ -1,4 +1,4 @@
-package uzuzjmd.competence.neo4j;
+package uzuzjmd.competence.persistence.neo4j;
 
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;

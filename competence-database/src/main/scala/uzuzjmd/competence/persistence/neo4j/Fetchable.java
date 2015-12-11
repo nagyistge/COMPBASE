@@ -1,4 +1,4 @@
-package uzuzjmd.competence.neo4j;
+package uzuzjmd.competence.persistence.neo4j;
 
 /**
  * Created by dehne on 09.12.2015.
