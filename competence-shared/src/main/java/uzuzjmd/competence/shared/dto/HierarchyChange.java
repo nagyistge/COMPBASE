@@ -2,7 +2,7 @@ package uzuzjmd.competence.shared.dto;
 
 import java.io.Serializable;
 
-public class HierarchieChange implements Serializable {
+public class HierarchyChange implements Serializable {
 	/**
 	 * 
 	 */
@@ -11,8 +11,8 @@ public class HierarchieChange implements Serializable {
 	private String newClass;
 	private String nodeSelected;
 
-	public HierarchieChange(String oldClass, String newClass,
-			String nodeSelected) {
+	public HierarchyChange(String oldClass, String newClass,
+						   String nodeSelected) {
 		super();
 		this.oldClass = oldClass;
 		this.newClass = newClass;

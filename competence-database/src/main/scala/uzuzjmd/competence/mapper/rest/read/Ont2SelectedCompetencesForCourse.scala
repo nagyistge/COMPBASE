@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util.LinkedList
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl, CompetenceQueriesJenaImpl}
 
@@ -11,7 +11,7 @@ import scala.collection.JavaConverters.asScalaBufferConverter
 /**
  * @author dehne
  */
-object Ont2SelectedCompetencesForCourse extends TDBReadTransactional[String, Array[String]] {
+object Ont2SelectedCompetencesForCourse extends ReadTransactional[String, Array[String]] {
   def convert(changes: String): Array[String] = {
     execute(convertHelper _, changes)
   }

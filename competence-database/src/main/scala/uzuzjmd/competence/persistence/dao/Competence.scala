@@ -8,7 +8,7 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.persistence.dao.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.exceptions.DataFieldNotInitializedException
 
 class Competence(compManager: CompOntologyManager, identifierlocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierlocal) {
 

@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
 import uzuzjmd.competence.service.rest.dto.ReflectiveAssessmentChangeData
 
@@ -13,7 +13,7 @@ import uzuzjmd.competence.persistence.dao.User
 import uzuzjmd.competence.shared.ReflectiveAssessment
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
 
-object ReflectiveAssessmentHolder2Ont extends TDBWriteTransactional[ReflectiveAssessmentChangeData] {
+object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAssessmentChangeData] {
 
   def convert(reflectiveAssement: ReflectiveAssessmentChangeData) {
     execute(convertHelper _, reflectiveAssement)

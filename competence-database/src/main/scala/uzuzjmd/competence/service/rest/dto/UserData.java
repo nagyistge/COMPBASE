@@ -1,5 +1,8 @@
 package uzuzjmd.competence.service.rest.dto;
 
+/**
+ * A simple Wrapper class for a user, his courseContext and his role
+ */
 public class UserData {
 	private String user;
 	private String courseContext;

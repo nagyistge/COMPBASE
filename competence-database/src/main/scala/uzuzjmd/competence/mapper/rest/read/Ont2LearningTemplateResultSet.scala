@@ -1,13 +1,13 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}
 
 /**
  * @author dehne
  */
-object Ont2LearningTemplateResultSet extends TDBReadTransactional[String, LearningTemplateResultSet] {
+object Ont2LearningTemplateResultSet extends ReadTransactional[String, LearningTemplateResultSet] {
   def convert(changes: String): LearningTemplateResultSet = {
     return execute(convertHelper _, changes)
   }

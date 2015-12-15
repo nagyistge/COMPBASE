@@ -1,12 +1,12 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 import uzuzjmd.competence.persistence.dao.Competence
 
-object DeleteCompetenceTreeInOnt extends TDBWriteTransactional[java.util.List[String]] {
+object DeleteCompetenceTreeInOnt extends WriteTransactional[java.util.List[String]] {
   def convert(changes: java.util.List[String]) {
     execute(convertDelteCompetenceTreeInOnt _, changes)
   }

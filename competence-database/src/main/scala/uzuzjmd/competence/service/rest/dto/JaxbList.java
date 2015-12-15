@@ -6,6 +6,11 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+/**
+ * This class wraps a list to be easily accessible by service framworks
+ * @param <T>
+ */
 @XmlRootElement(name = "list")
 public class JaxbList<T> extends LinkedList<T> {
 	protected List<T> list;

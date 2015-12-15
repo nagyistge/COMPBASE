@@ -2,6 +2,10 @@ package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
 
+/**
+ * This class provides a wrapper for the service
+ * to exchange data necessary to like a competence to a user who has performed it.
+ */
 public class CompetenceLinkData {
 	public CompetenceLinkData(String course, String creator, String role, String linkedUser, List<String> competences, List<String> evidences) {
 		super();

@@ -8,7 +8,7 @@ import uzuzjmd.competence.service.rest.dto.*;
 import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
+import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
 import uzuzjmd.competence.shared.dto.ProgressMap;
 
 import javax.ws.rs.*;
@@ -24,8 +24,7 @@ import java.util.List;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/json")
-public class CompetenceServiceRestJSON extends
-		CompetenceOntologyInterface {
+public class CompetenceServiceRestJSON {
 
 	/**
 	 * Lists all competences in the RDCEO Standard Format
@@ -58,7 +57,7 @@ public class CompetenceServiceRestJSON extends
 	public Response updateHierarchie(
 			@QueryParam("changes") List<String> changes) {
 
-		HierarchieChangeSet changeSet = new HierarchieChangeSet()
+		HierarchyChangeSet changeSet = new HierarchyChangeSet()
 				.convertListToModel(changes);
 		HierarchieChangesToOnt.convert(changeSet);
 		return Response.ok("updated taxonomy").build();
@@ -77,7 +76,7 @@ public class CompetenceServiceRestJSON extends
 	@Path("/updateHierarchie2")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateHierarchie2(
-			@QueryParam("changes") HierarchieChangeSet changes) {
+			@QueryParam("changes") HierarchyChangeSet changes) {
 		HierarchieChangesToOnt.convert(changes);
 		return Response.ok("updated taxonomy").build();
 	}
@@ -92,8 +91,8 @@ public class CompetenceServiceRestJSON extends
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateHierarchie2/example")
 	@Produces(MediaType.APPLICATION_JSON)
-	public HierarchieChangeSet updateHierarchieExample(
-			@QueryParam("changes") HierarchieChangeSet changes) {
+	public HierarchyChangeSet updateHierarchieExample(
+			@QueryParam("changes") HierarchyChangeSet changes) {
 		return changes;
 	}
 
@@ -177,7 +176,7 @@ public class CompetenceServiceRestJSON extends
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/coursecontext/delete/{course}")
-	public Response deleteCourseContextJSON(
+	public Response deleteCourseContext(
 			@PathParam("course") String course) {
 		// TODO implement
 		return Response
@@ -232,7 +231,7 @@ public class CompetenceServiceRestJSON extends
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/coursecontext/selected/{course}")
-	public String[] getSelected2(
+	public String[] getSelectedCompetencesForCourse(
 			@PathParam("course") String course) {
 		return CompetenceServiceWrapper.getSelected(course);
 	}
@@ -261,7 +260,7 @@ public class CompetenceServiceRestJSON extends
 	@POST
 	@Path("/link/create/{course}/{creator}/{role}/{linkedUser}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToUserJson(
+	public Response linkCompetencesToUser(
 			@PathParam("course") String course,
 			@PathParam("creator") String creator,
 			@PathParam("role") String role,
@@ -280,7 +279,7 @@ public class CompetenceServiceRestJSON extends
 	/**
 	 * Add a comment to an evidence link
 	 * 
-	 * Have a look at @see linkCompetencesToUserJson in order to better
+	 * Have a look at @see linkCompetencesToUser in order to better
 	 * understand the model of a evidence link.
 	 * 
 	 * 

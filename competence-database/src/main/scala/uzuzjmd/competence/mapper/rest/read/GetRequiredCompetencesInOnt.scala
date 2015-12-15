@@ -1,13 +1,13 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.Competence
 
 /**
  * @author jbe
  */
 
-object GetRequiredCompetencesInOnt extends TDBReadTransactional[String, Array[String]] {
+object GetRequiredCompetencesInOnt extends ReadTransactional[String, Array[String]] {
   def convert(changes: String): Array[String] = {
     return execute(convertGetRequiredCompetencesInOnt _, changes)
   }

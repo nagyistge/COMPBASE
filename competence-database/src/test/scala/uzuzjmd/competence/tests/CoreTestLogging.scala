@@ -4,12 +4,12 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.{CourseContext, TeacherRole, User}
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 
 @RunWith(classOf[JUnitRunner])
-class CoreTestLogging extends JuliansUnit with ShouldMatchers with TDBWriteTransactional[Any] {
+class CoreTestLogging extends JuliansUnit with ShouldMatchers with WriteTransactional[Any] {
 
   test("Write LearningTemplateData with logging") {
     val groupId = "111332";

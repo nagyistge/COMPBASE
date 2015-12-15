@@ -1,13 +1,16 @@
 package uzuzjmd.competence.service.rest.dto;
 
+/**
+ * This class wraps a pair of a linkId and the validity given by a teacher to it
+ */
 public class LinkValidationData {
 
 	private String linkId;
-	private Boolean isvalid;
+	private Boolean isValid;
 	
-	public LinkValidationData(String linkId, Boolean isvalid) {
+	public LinkValidationData(String linkId, Boolean isValid) {
 		this.setLinkId(linkId);
-		this.setIsvalid(isvalid);
+		this.setIsValid(isValid);
 	}
 
 	public String getLinkId() {
@@ -18,11 +21,11 @@ public class LinkValidationData {
 		this.linkId = linkId;
 	}
 
-	public Boolean getIsvalid() {
-		return isvalid;
+	public Boolean getIsValid() {
+		return isValid;
 	}
 
-	public void setIsvalid(Boolean isvalid) {
-		this.isvalid = isvalid;
+	public void setIsValid(Boolean isValid) {
+		this.isValid = isValid;
 	}
 }

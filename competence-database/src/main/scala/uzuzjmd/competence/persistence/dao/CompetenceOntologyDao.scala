@@ -6,11 +6,11 @@ import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
 import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, CompOntologyAccess}
-import uzuzjmd.competence.persistence.dao.exceptions.DataFieldNotInitializedException
-import uzuzjmd.competence.persistence.dao.exceptions.IndividualNotFoundException
-import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.exceptions.IndividualNotFoundException
+import uzuzjmd.competence.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.competence.persistence.dao.exceptions.IdentifierNullException
+import uzuzjmd.competence.exceptions.IdentifierNullException
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: CompOntClass, val identifier: String) extends Dao(comp, compOntClass, identifier) with Logging {

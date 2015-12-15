@@ -1,13 +1,15 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
 import uzuzjmd.competence.shared.dto.SortedList;
 
+
+/**
+ * This class allows for competences to be sorted  by their definitions in a competence tree
+ */
 @XmlRootElement(name = "competenceRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
 public class CompetenceXMLTree extends

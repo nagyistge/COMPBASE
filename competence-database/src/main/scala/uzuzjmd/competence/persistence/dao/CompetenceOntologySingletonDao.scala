@@ -3,7 +3,7 @@ package uzuzjmd.competence.persistence.dao
 import uzuzjmd.competence.config.MagicStrings
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, OntResult, CompOntologyAccess}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.scala.reflection.ScalaHacksInScala
+import uzuzjmd.scala.reflection.DAOFactory
 
 import scala.collection.JavaConverters._
 
@@ -12,10 +12,10 @@ import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.Statement
 import uzuzjmd.competence.persistence.performance._
-import uzuzjmd.competence.persistence.dao.exceptions.DataFieldNotInitializedException
-import uzuzjmd.competence.persistence.dao.exceptions.DefinitionNotInitalizedException
-import uzuzjmd.competence.persistence.dao.exceptions.NoRecursiveSubClassException
-import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException
+import uzuzjmd.competence.exceptions.DataFieldNotInitializedException
+import uzuzjmd.competence.exceptions.DefinitionNotInitalizedException
+import uzuzjmd.competence.exceptions.NoRecursiveSubClassException
+import uzuzjmd.competence.exceptions.OntClassForDaoNotInitializedException
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.ontology.CompOntClass
 
@@ -120,7 +120,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     val classList = ontClass.listSubClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing"))
 
     val identifierList = classList.map(x => x.getLocalName()).toList
-    return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
+    return identifierList.map(x => DAOFactory.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }
 
   def getDefinition(): String = {
@@ -180,7 +180,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     val classList = ontClass.listSuperClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing")).filterNot { x => x.getLocalName.equals("IThing") || x.getLocalName.equals("Thing") }
 
     val identifierList = classList.map(x => x.getLocalName()).toList
-    return identifierList.map(x => ScalaHacksInScala.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
+    return identifierList.map(x => DAOFactory.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }
 
   def hasSuperClass: Boolean = {

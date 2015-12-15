@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util.{SortedSet, TreeSet}
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
 import uzuzjmd.competence.shared.dto.{CommentEntry, CompetenceLinksMap, CompetenceLinksView}
@@ -13,7 +13,7 @@ import scala.collection.JavaConverters._
 /**
   * Created by dehne on 11.12.2015.
   */
-object Ont2CompetenceLinkMap extends TDBReadTransactional[String, CompetenceLinksMap] {
+object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMap] {
 
   private def toSortedSet[A](input: List[CompetenceLinksView]): SortedSet[CompetenceLinksView] = {
     val sorted = java.util.Collections.synchronizedSortedSet(new TreeSet(new CompetenceLinksViewComparator));

@@ -6,7 +6,7 @@ import au.com.bytecode.opencsv.bean.{ColumnPositionMappingStrategy, CsvToBean}
 import uzuzjmd.competence.config.{Logging, MagicStrings}
 import uzuzjmd.competence.datasource.csv.{CompetenceBean, CSVFilter, CSVMap}
 import uzuzjmd.competence.mapper.rcd.{CSV2RCD, RCD2OWL}
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 
@@ -20,7 +20,7 @@ import scala.collection.JavaConverters._
   *
   *
   */
-object CompetenceImporter extends TDBWriteTransactional[Seq[uzuzjmd.competence.datasource.rcd.generated.Rdceo]] with Logging {
+object CompetenceImporter extends WriteTransactional[Seq[uzuzjmd.competence.datasource.rcd.generated.Rdceo]] with Logging {
 
   def main(args: Array[String]) {
     convert()

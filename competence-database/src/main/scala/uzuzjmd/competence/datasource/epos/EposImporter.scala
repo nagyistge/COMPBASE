@@ -2,7 +2,7 @@ package uzuzjmd.competence.datasource.epos
 
 import uzuzjmd.competence.datasource.epos.mapper.{EposXML2FilteredCSVCompetence, EposXMLToSuggestedLearningPath}
 import uzuzjmd.competence.mapper.rcd.RCD2OWL
-import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 import uzuzjmd.competence.shared.DESCRIPTORSETType
@@ -11,7 +11,7 @@ import uzuzjmd.competence.shared.DESCRIPTORSETType
  * @author dehne
  */
 
-class EposImporter extends TDBWriteTransactional[java.util.List[DESCRIPTORSETType]] {
+class EposImporter extends WriteTransactional[java.util.List[DESCRIPTORSETType]] {
   def importEposCompetences(eposList: java.util.List[DESCRIPTORSETType]) {
     // write competences in database as usual
     val result = EposXML2FilteredCSVCompetence.mapEposXML(eposList);

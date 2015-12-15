@@ -9,8 +9,10 @@ import uzuzjmd.competence.shared.dto.AbstractTreeEntry;
 import uzuzjmd.competence.shared.dto.SortedList;
 
 /**
- * This class is usefull because it can be mapped by jersey (whereas mapping the
+ * This class is useful because it can be mapped by jersey (whereas mapping the
  * scala trees I am not so sure)
+ *
+ * It wraps an abstract tree that can be visualized in an html tree with links and icons.
  * 
  * @author julian
  * 

@@ -1,13 +1,15 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
 import uzuzjmd.competence.shared.dto.SortedList;
 
+/**
+ * This class specifies the abstract tree concepts for the concept of Catchwords in order to make
+ * the API more human readable.
+ */
 @XmlRootElement(name = "catchwordRoot")
 @XmlSeeAlso(AbstractXMLTree.class)
 public class CatchwordXMLTree extends AbstractXMLTree<CatchwordXMLTree> {

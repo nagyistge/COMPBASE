@@ -2,7 +2,7 @@ package uzuzjmd.competence.persistence.dao
 
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, CompOntologyAccess}
 import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.competence.persistence.dao.exceptions.IndividualNotFoundException
+import uzuzjmd.competence.exceptions.IndividualNotFoundException
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 case class EvidenceActivity(comp: CompOntologyManager, val url: String, val printableName: String = null) extends CompetenceOntologyDao(comp, CompOntClass.EvidenceActivity, url) {

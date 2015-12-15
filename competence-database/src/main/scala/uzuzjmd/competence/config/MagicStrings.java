@@ -58,4 +58,5 @@ public class MagicStrings {
 	public static final Boolean neo4jEnabled = PropUtil
 			.getProp("neo4jEnabled").equals("true");
 
+
 }

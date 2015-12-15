@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional, CompOntologyAccess}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional, CompOntologyAccess}
 import uzuzjmd.competence.persistence.owl.{AccessHelper, CompOntologyManagerJenaImpl}
 import uzuzjmd.competence.service.rest.dto.CompetenceLinkedToCourseData
 
@@ -15,7 +15,7 @@ import uzuzjmd.competence.persistence.dao.CourseContext
 /**
  * @author dehne
  */
-object CompetenceLinkedCourseToOnt extends TDBWriteTransactional[CompetenceLinkedToCourseData] with AccessHelper {
+object CompetenceLinkedCourseToOnt extends WriteTransactional[CompetenceLinkedToCourseData] with AccessHelper {
   def convert(changes: CompetenceLinkedToCourseData) {
     executeWithReasoning(convertHelper _, changes)
   }

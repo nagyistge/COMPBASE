@@ -4,7 +4,7 @@ import java.util.LinkedList
 
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.config.{Logging, MagicStrings}
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
 import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
@@ -17,7 +17,7 @@ import scala.collection.JavaConverters.{asScalaBufferConverter, asScalaIteratorC
 /**
  * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
  */
-class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends TDBReadTransactional[Any, Any] with Logging {
+class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends ReadTransactional[Any, Any] with Logging {
 
   val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
 

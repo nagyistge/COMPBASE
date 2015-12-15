@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
 import uzuzjmd.competence.config.MagicStrings
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.service.rest.dto.PrerequisiteData
 
@@ -13,7 +13,7 @@ import uzuzjmd.competence.persistence.dao.Competence
  * @author jbe
  */
 
-object DeletePrerequisiteInOnt extends TDBWriteTransactional[PrerequisiteData] {
+object DeletePrerequisiteInOnt extends WriteTransactional[PrerequisiteData] {
   def convert(changes: PrerequisiteData) {
     execute(convertDeletePrerequisiteInOnt _, changes)
   }

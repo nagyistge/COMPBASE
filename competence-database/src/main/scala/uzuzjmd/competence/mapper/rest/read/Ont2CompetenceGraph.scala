@@ -1,12 +1,12 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.shared.dto.Graph
 
 
-class Ont2CompetenceGraph(comp: CompOntologyManagerJenaImpl, selectedCompetences: java.util.List[String], course: String)  extends TDBReadTransactional[Any, Graph]{
+class Ont2CompetenceGraph(comp: CompOntologyManagerJenaImpl, selectedCompetences: java.util.List[String], course: String)  extends ReadTransactional[Any, Graph]{
   
   def getCompetenceGraph(): Graph = {
     return executeNoParam(getCompetenceGraphInternal _)

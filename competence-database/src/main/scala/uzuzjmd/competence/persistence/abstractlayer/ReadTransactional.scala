@@ -1,20 +1,20 @@
 package uzuzjmd.competence.persistence.abstractlayer
 
 import uzuzjmd.competence.main.{CompetenceImporter, EposImporter}
-import uzuzjmd.competence.persistence.dao.exceptions.NoCompetenceInDBException
+import uzuzjmd.competence.exceptions.NoCompetenceInDBException
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 /**
  * @author dehne
  */
-trait TDBReadTransactional[A, T] {
+trait ReadTransactional[A, T] {
 
   type TRANSACTIONAL = (CompOntologyManager, A) => T
   type TRANSACTIONAL2 = (CompOntologyManager) => Unit
   type TRANSACTIONAL3 = A => T
   type TRANSACTIONAL4 = CompOntologyManager => T
 
-  val comp = CompOntologyManagarFactory.createManager();
+  val comp = CompOntologyManagerFactory.createManager();
 
   def execute(f: TRANSACTIONAL, g: A): T = {
     var result: Any = null

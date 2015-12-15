@@ -217,6 +217,12 @@ public class Neo4JQueryManager implements CompetenceQueries{
         throw new NotImplementedException();
     }
 
+    /**
+     * GET the SingletonClass that are related by the given ObjectProperty (edge) to the domain given
+     * @param domainClass
+     * @param compObjectProperties
+     * @return
+     */
     @Override
     public ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(String domainClass, CompObjectProperties compObjectProperties) {
         // TODO implement
@@ -224,13 +230,25 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
 
+    /**
+     * GET the individuals/nodes that are linked to the rangeIndividual like (domain)-[compObjectProperty]->(rangeIndividual)
+     * @param compObjectProperties
+     * @param rangeIndividualId
+     * @return
+     */
     @Override
-    public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualName) {
+    public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualId) {
         // TODO implement
         throw new NotImplementedException();
 
     }
 
+    /**
+     * GET the individuals/nodes that are linked to the rangeIndividual like (domain)-[compObjectProperty]->(rangeIndividual)
+     * @param domainIndividual
+     * @param compObjectProperties
+     * @return
+     */
     @Override
     public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, CompObjectProperties compObjectProperties) {
         // TODO implement
@@ -239,6 +257,8 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
     /**
+     * GET all nodes for a label identified by clazz
+     * ASSERT that clazz is not a singletonClass
      * @see CompOntologyAccess
      * @param clazz
      * @return
@@ -249,6 +269,7 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
     /**
+     * Should return the shortestSubClassPath between the 2 singletonClasses given
      * @see CompOntologyAccess
      * @param start
      * @param end
@@ -272,6 +293,11 @@ public class Neo4JQueryManager implements CompetenceQueries{
         throw new NotImplementedException();
     }
 
+    /**
+     * return the definition of a node if id is given
+     * @param id
+     * @return
+     */
     public String getDefinitionForClassForNode(String id) {
         // TODO implement
         throw new NotImplementedException();

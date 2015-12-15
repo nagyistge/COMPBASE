@@ -11,6 +11,11 @@ import java.util.List;
 
 /**
  * Created by dehne on 04.12.2015.
+ *
+ * This class provides a utility in order to access the persistenceLayer.
+ *
+ * It is currently implemented by a TDB (jena ontology) persistence
+ * AND a NEO4j query based persistence.
  */
 public interface CompOntologyAccess {
 

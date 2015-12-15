@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.CourseContext
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
 import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
@@ -12,7 +12,7 @@ import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 /**
  * @author dehne
  */
-object DeleteTemplateInOnt extends TDBWriteTransactional[LearningTemplateData] {
+object DeleteTemplateInOnt extends WriteTransactional[LearningTemplateData] {
 
   def convert(changes: LearningTemplateData) {
     execute(convertHelper _, changes)
