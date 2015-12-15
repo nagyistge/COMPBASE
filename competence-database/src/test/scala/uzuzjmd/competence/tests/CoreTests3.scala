@@ -7,14 +7,14 @@ import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree
-import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 
 /**
  * @author dehne
  */
 
 @RunWith(classOf[JUnitRunner])
-class CoreTests3 extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
+class CoreTests3 extends FunSuite with ShouldMatchers with WriteTransactional[Any] {
   //  test("if a superdao is added, one should be able to retrieve it by getSuperDAO") {
   //
   //  }

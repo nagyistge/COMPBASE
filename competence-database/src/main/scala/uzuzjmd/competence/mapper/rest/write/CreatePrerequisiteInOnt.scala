@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.config.MagicStrings
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
@@ -12,7 +12,7 @@ import scala.collection.JavaConversions._
  * @author jbe
  */
 
-object CreatePrerequisiteInOnt extends TDBWriteTransactional[PrerequisiteData] {
+object CreatePrerequisiteInOnt extends WriteTransactional[PrerequisiteData] {
   def convert(changes: PrerequisiteData) {
     execute(convertCreatePrerequisiteInOnt _, changes)
   }

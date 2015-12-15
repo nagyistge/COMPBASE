@@ -1,9 +1,11 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import java.util.Comparator;
-
 import uzuzjmd.competence.shared.dto.AbstractTreeEntry;
 
+/**
+ * This utility class allows for tree entry comparison on a abstract level
+ */
 public class TreeEntryComparator implements Comparator<AbstractTreeEntry> {
 
 	@Override

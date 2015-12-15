@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.validation.CompetenceGraphValidator
@@ -13,7 +13,7 @@ import scala.collection.JavaConverters.asScalaBufferConverter
 /**
  * @author dehne
  */
-object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
+object Competence2Ont extends WriteTransactional[CompetenceData] {
 
   def convert(data: CompetenceData): String = {
     execute[String](addCompetence _, data)

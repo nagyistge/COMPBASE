@@ -3,6 +3,10 @@ package uzuzjmd.competence.persistence.abstractlayer;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 
+/**
+ * utility class to tuple Singletons with their corresponding OntClass and the Individual
+ * @see uzuzjmd.competence.persistence.ontology.CompOntClass
+ */
 public class OntResult {
 	private Individual individual;
 

@@ -1,4 +1,4 @@
-package uzuzjmd.competence.persistence.dao.exceptions;
+package uzuzjmd.competence.exceptions;
 
 public class NoCompetenceInDBException extends Exception {
 

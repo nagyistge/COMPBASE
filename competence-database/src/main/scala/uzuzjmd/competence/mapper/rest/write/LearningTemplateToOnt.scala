@@ -2,9 +2,9 @@ package uzuzjmd.competence.mapper.rest.write
 
 import javax.ws.rs.WebApplicationException
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, LearningProjectTemplate, SelectedLearningProjectTemplate, TeacherRole, User}
-import uzuzjmd.competence.persistence.dao.exceptions.{ContextNotExistsException, UserNotExistsException}
+import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
@@ -17,7 +17,7 @@ import scala.collection.JavaConverters._
  *
  * Dieses Objekt konvertiert
  */
-object LearningTemplateToOnt extends TDBWriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
+object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
 
   def convert(changes: LearningTemplateData) {
     execute(convertHelper1 _, changes)

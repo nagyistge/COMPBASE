@@ -107,12 +107,11 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public OntClass createOntClassForString(String id, Boolean isRead, String... definitions) {
-        if (definitions.length > 0 ) {
-            return getOrCreateSingleTonIndividual(id, definitions[0], isRead);
-        } else {
-            // if no definitions are given then the Singleton must be a rootNode
-            return createOntClass(CompOntClass.valueOf(id), isRead);
-        }
+           if (definitions.length > 0 ) {
+               return getOrCreateSingleTonIndividual(id, definitions[0], isRead);
+           } else {
+               return getOrCreateSingleTonIndividual(id, id, isRead);
+           }
     }
 
     @Override

@@ -1,12 +1,12 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.Competence
 
 /**
  * @author dehne
  */
-object Ont2Operator extends TDBReadTransactional[String, String] {
+object Ont2Operator extends ReadTransactional[String, String] {
 
   def convert(forCompetence: String): String = {
     return execute(getOperator, forCompetence)

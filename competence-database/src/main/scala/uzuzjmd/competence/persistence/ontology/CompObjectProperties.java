@@ -1,5 +1,8 @@
 package uzuzjmd.competence.persistence.ontology;
 
+/**
+ *
+ */
 public enum CompObjectProperties {
     MetaCatchwordOf,
     SimilarTo,

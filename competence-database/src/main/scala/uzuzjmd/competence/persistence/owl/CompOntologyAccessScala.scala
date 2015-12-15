@@ -4,7 +4,7 @@ import com.hp.hpl.jena.ontology.{Individual, OntClass}
 import com.hp.hpl.jena.rdf.model.{Property, Statement}
 import uzuzjmd.competence.config.MagicStrings
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.dao.exceptions._
+import uzuzjmd.competence.exceptions._
 import uzuzjmd.competence.persistence.dao.{Competence, EvidenceActivity, User}
 
 object CompOntologyAccessScala {

@@ -45,6 +45,15 @@ abstract public class CompOntologyAccessGenericImpl  implements CompOntologyAcce
     }
 
 
+    /**
+     * SingletonInstances always have a class and a corresponding individual node.
+     *
+     * Here both are read or written simultaneously.
+     * @param classname
+     * @param isRead
+     * @param definitions
+     * @return
+     */
     @Override
     public OntResult accessSingletonResource(
             String classname, Boolean isRead,
@@ -61,7 +70,16 @@ abstract public class CompOntologyAccessGenericImpl  implements CompOntologyAcce
         return new OntResult(individual, classOnt);
     }
 
-
+    /**
+     *
+     * SingletonInstances always have a class and a corresponding individual node.
+     *
+     * Here both are read or written simultaneously.
+     *
+     * @param compOntClass
+     * @param isRead
+     * @return
+     */
     @Override
     public OntResult accessSingletonResourceWithClass(
             CompOntClass compOntClass, Boolean isRead) {

@@ -9,10 +9,15 @@ import scala.collection.mutable.MutableList
 import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConverters._
 
-object ScalaHacksInScala {
+object DAOFactory {
   /**
-   * Hilfsfunktion, um eine generisch spezifizierte Klasse zu instantiieren
-   */
+    * utility to instantiate an DAO without knowing the type at compile time
+    * @param clazz
+    * @param comp
+    * @param identifier
+    * @tparam A
+    * @return
+    */
   def instantiateDao[A](clazz: java.lang.Class[A])(comp: CompOntologyManager, identifier: String): Any = {
     val constructors = clazz.getDeclaredConstructors()
     val constructor = constructors.head

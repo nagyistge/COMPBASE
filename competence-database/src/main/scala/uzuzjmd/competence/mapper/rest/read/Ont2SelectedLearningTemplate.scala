@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.{CourseContext, SelectedLearningProjectTemplate, TeacherRole, User}
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.StringList
@@ -8,7 +8,7 @@ import uzuzjmd.competence.shared.StringList
 /**
  * @author dehne
  */
-object Ont2SelectedLearningTemplate extends TDBReadTransactional[LearningTemplateData, StringList] {
+object Ont2SelectedLearningTemplate extends ReadTransactional[LearningTemplateData, StringList] {
 
   def convert(changes: LearningTemplateData): StringList = {
     return execute(convertHelper _, changes)

@@ -7,13 +7,13 @@ import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
 /**
  * Created by dehne on 11.12.2015.
  */
-public class CompOntologyManagarFactory {
+public class CompOntologyManagerFactory {
 
-    public static CompOntologyManager createJenaManager(){
+    public static CompOntologyManager createJenaManager() {
         return new CompOntologyManagerJenaImpl();
     }
 
-    public static CompOntologyManager createNeo4jManager(){
+    public static CompOntologyManager createNeo4jManager() {
         return new CompOntologyManagerNeo4jImpl();
     }
 
@@ -24,5 +24,6 @@ public class CompOntologyManagarFactory {
             return createJenaManager();
         }
     }
+
 
 }

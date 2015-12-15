@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import org.apache.log4j.LogManager
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared._
@@ -12,7 +12,7 @@ import scala.collection.mutable.Buffer
 /**
   * Created by dehne on 11.12.2015.
   */
-object Ont2SuggestedCompetenceGrid extends TDBReadTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
+object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
 
   protected type ComPairList = Buffer[(Competence, Competence)]
 

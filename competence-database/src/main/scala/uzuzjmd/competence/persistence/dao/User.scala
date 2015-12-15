@@ -17,7 +17,7 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
 
   @Override
   protected def persistMore() {
-    val thisIndividual = createIndividual
+    createIndividual
     if (courseContext != null) {
       createEdgeWith(CompObjectProperties.belongsToCourseContext, courseContext)
     }

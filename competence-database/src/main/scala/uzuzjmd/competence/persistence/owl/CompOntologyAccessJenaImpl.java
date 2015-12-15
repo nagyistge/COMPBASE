@@ -12,7 +12,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccessGenericImpl;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
-import uzuzjmd.competence.persistence.dao.exceptions.OntClassForDaoNotInitializedException;
+import uzuzjmd.competence.exceptions.OntClassForDaoNotInitializedException;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 

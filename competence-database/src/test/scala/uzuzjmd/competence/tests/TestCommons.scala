@@ -14,7 +14,6 @@ object TestCommons {
 
     //      change this, if you want to really reset the database
     CompFileUtil.deleteTDB()
-    val compOntManag = new CompOntologyManagerJenaImpl()
     CompetenceImporter.convert();
     EposImporter.convert()
   }

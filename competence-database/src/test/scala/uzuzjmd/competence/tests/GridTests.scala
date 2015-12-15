@@ -7,7 +7,7 @@ import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.logging.LogConfigurator
 import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.mapper.rest.write.{ReflectiveAssessmentHolder2Ont, LearningTemplateToOnt, Competence2Ont}
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.{CompetenceInstance, LearningProjectTemplate}
 import uzuzjmd.competence.persistence.owl.CompFileUtil
 import uzuzjmd.competence.service.rest.dto.{CompetenceData, LearningTemplateData, ReflectiveAssessmentChangeData}
@@ -21,7 +21,7 @@ import scala.collection.JavaConverters.seqAsJavaListConverter
  */
 
 @RunWith(classOf[JUnitRunner])
-class GridTests extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
+class GridTests extends FunSuite with ShouldMatchers with WriteTransactional[Any] {
   //  test("if a superdao is added, one should be able to retrieve it by getSuperDAO") {
   //
   //  }

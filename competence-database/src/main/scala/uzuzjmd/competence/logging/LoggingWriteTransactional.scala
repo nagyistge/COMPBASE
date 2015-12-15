@@ -1,13 +1,13 @@
 package uzuzjmd.competence.logging
 
 import uzuzjmd.competence.config.Logging
-import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 
 /**
   * A shortcut for a write transactional that provides logging
   * @tparam A
   */
-trait LoggingTDBWriteTransactional[A] extends TDBWriteTransactional[A] with Logging {
+trait LoggingWriteTransactional[A] extends WriteTransactional[A] with Logging {
 
   override def execute(f: TRANSACTIONAL, g: A) {
     logger.debug("Entering TDBWriteTransactional with function:" + "dummy" + " and Parameter:" + g.toString())

@@ -33,8 +33,7 @@ import java.util.List;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/xml")
-public class CompetenceServiceRestXML extends
-        CompetenceOntologyInterface {
+public class CompetenceServiceRestXML {
 
     private Logger logger = LogManager
             .getLogger(getClass());

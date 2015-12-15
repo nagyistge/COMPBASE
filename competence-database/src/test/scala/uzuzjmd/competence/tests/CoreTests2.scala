@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt
-import uzuzjmd.competence.persistence.abstractlayer.TDBWriteTransactional
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.{LearningProjectTemplate, User}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.shared.dto.{Graph, GraphNode, GraphTriple, LearningTemplateResultSet}
@@ -16,7 +16,7 @@ import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 
 
 @RunWith(classOf[JUnitRunner])
-class CoreTests2 extends FunSuite with ShouldMatchers with TDBWriteTransactional[Any] {
+class CoreTests2 extends FunSuite with ShouldMatchers with WriteTransactional[Any] {
 
   test("SETUP AND The CSV import should run without errors") {
       //TestCommons.setup()

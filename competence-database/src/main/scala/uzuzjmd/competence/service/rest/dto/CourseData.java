@@ -3,9 +3,7 @@ package uzuzjmd.competence.service.rest.dto;
 import java.util.List;
 
 /**
- * 
- * @author jbe
- *
+ * This wraps a pair of course and competences in order to exchange competences linked to a course
  */
 public class CourseData {
 	private String course;

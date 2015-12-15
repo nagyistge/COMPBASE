@@ -3,12 +3,14 @@ package uzuzjmd.competence.persistence.abstractlayer
 import uzuzjmd.competence.persistence.dao.Dao
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.scala.reflection.ScalaHacksInScala
+import uzuzjmd.scala.reflection.DAOFactory
 
 /**
   * Created by dehne on 03.12.2015.
+  *
+  * Simplifies the creation of a simple edge.
   */
-trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends TDBWriteTransactional[( String, String)] {
+trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends WriteTransactional[( String, String)] {
 
   val domainClass =  setDomain;
   val rangeClass  =setRange;
@@ -23,8 +25,8 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends TDBWriteTransactional
   }
 
   def writeHelper(comp: CompOntologyManager, tuple: ( String, String)): Unit = {
-    val domain = ScalaHacksInScala.instantiateDao(domainClass)(comp, tuple._1).asInstanceOf[Domain]
-    val range = ScalaHacksInScala.instantiateDao(rangeClass)(comp, tuple._2).asInstanceOf[Range]
+    val domain = DAOFactory.instantiateDao(domainClass)(comp, tuple._1).asInstanceOf[Domain]
+    val range = DAOFactory.instantiateDao(rangeClass)(comp, tuple._2).asInstanceOf[Range]
     domain.createEdgeWith(edgeType,range)
   }
 
@@ -33,8 +35,8 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends TDBWriteTransactional
   }
 
   def deleteHelper(comp: CompOntologyManager, tuple: ( String, String)): Unit = {
-    val domain = ScalaHacksInScala.instantiateDao(domainClass)(comp, tuple._1).asInstanceOf[Domain]
-    val range = ScalaHacksInScala.instantiateDao(rangeClass)(comp, tuple._2).asInstanceOf[Range]
+    val domain = DAOFactory.instantiateDao(domainClass)(comp, tuple._1).asInstanceOf[Domain]
+    val range = DAOFactory.instantiateDao(rangeClass)(comp, tuple._2).asInstanceOf[Range]
     domain.deleteEdge(edgeType,range)
   }
 

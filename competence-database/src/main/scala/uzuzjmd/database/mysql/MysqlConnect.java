@@ -17,9 +17,7 @@ import org.apache.log4j.Logger;
 public class MysqlConnect {
 
 	static final Logger logger = LogManager.getLogger(MysqlConnect.class.getName());
-
 	public Connection conn = null;
-	public static Boolean isLokal = true;
 
 	/**
 	 * Mit dieser Methode stellt man die Verbindung zu der Datenbank her.

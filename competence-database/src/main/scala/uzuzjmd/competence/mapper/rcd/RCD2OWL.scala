@@ -4,7 +4,7 @@ import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.apache.log4j.Logger
 import uzuzjmd.competence.config.MagicStrings
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional, CompOntologyAccess}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional, CompOntologyAccess}
 import uzuzjmd.competence.persistence.owl.{CompOntologyManagerJenaImpl, CompOntologyAccessJenaImpl}
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
@@ -30,7 +30,7 @@ import uzuzjmd.competence.persistence.dao.Competence
  * TODO change name
  */
 
-object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
+object RCD2OWL extends RCDImplicits with WriteTransactional[Seq[Rdceo]] {
 
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
   logger.setLevel(Level.TRACE)

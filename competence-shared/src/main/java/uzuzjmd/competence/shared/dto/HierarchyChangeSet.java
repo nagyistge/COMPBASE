@@ -7,25 +7,25 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class HierarchieChangeSet implements Serializable {
+public class HierarchyChangeSet implements Serializable {
 
-	List<HierarchieChange> elements;
+	List<HierarchyChange> elements;
 
-	public HierarchieChangeSet() {
-		elements = new LinkedList<HierarchieChange>();
+	public HierarchyChangeSet() {
+		elements = new LinkedList<HierarchyChange>();
 	}
 
-	public List<HierarchieChange> getElements() {
+	public List<HierarchyChange> getElements() {
 		return elements;
 	}
 
-	public void setElements(List<HierarchieChange> elements) {
+	public void setElements(List<HierarchyChange> elements) {
 		this.elements = elements;
 	}
 
 	public List<String> convertToListString() {
 		LinkedList<String> result = new LinkedList<String>();
-		for (HierarchieChange changeelement : getElements()) {
+		for (HierarchyChange changeelement : getElements()) {
 			result.add(changeelement.getOldClass() + ":"
 					+ changeelement.getNodeSelected() + ":"
 					+ changeelement.getNewClass());
@@ -34,12 +34,12 @@ public class HierarchieChangeSet implements Serializable {
 		return result;
 	}
 
-	public HierarchieChangeSet convertListToModel(List<String> encodedSet) {
-		HierarchieChangeSet result = new HierarchieChangeSet();
+	public HierarchyChangeSet convertListToModel(List<String> encodedSet) {
+		HierarchyChangeSet result = new HierarchyChangeSet();
 		for (String string : encodedSet) {
 			String[] splitted = string.split(":");
 			result.getElements()
-					.add(new HierarchieChange(splitted[0], splitted[2],
+					.add(new HierarchyChange(splitted[0], splitted[2],
 							splitted[1]));
 		}
 		return result;

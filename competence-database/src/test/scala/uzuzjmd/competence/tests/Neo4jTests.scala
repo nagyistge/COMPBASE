@@ -9,14 +9,14 @@ import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 
 /**
-  * Created by dehne on 04.12.2015.
+  * Created by Julian Dehne on 04.12.2015.
   */
-
 @RunWith(classOf[JUnitRunner])
 class Neo4jTests  extends FunSuite with ShouldMatchers {
 
   test("just persisting individual and deleting") {
-    val indvidualy = new Neo4jIndividual("julian", "julian is strong", null);
+    val individual = new Neo4jIndividual("julian", "julian is strong", null);
+    individual.toString
   }
 
   test("testing the jena to neo4j converters") {

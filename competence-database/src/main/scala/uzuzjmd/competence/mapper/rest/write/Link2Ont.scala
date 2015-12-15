@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, TDBWriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 import uzuzjmd.competence.service.rest.dto.CompetenceLinkData
 
@@ -16,7 +16,7 @@ import uzuzjmd.competence.persistence.dao.CourseContext
 /**
  * @author dehne
  */
-object Link2Ont extends TDBWriteTransactional[CompetenceLinkData] with RoleConverter {
+object Link2Ont extends WriteTransactional[CompetenceLinkData] with RoleConverter {
 
   def writeLinkToDatabase(data: CompetenceLinkData) {
     execute(linkCompetencesToJson _, data)
