@@ -26,11 +26,6 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   @throws[NoRecursiveSubClassException]
   def persist(more: Boolean): OntResult = {
-    //    if (hasSuperClass) {
-    //      if (listSuperClasses(this.getClass).map(x => x.getId).contains(createIndividual.getLocalName)) {
-    //        throw new NoRecursiveSubClassException
-    //      }
-    //    }
     var result: OntResult = null
     if (identifier == null) {
       result = util.accessSingletonResourceWithClass(compOntClass, false)

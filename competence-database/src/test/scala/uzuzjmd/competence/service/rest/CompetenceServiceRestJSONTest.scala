@@ -4,10 +4,13 @@ import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
 import uzuzjmd.competence.datasource.rcd.generated.Rdceo
+import uzuzjmd.competence.mapper.rest.write.{CreatePrerequisiteInOnt, DeleteCompetenceTreeInOnt, DeleteCompetenceInOnt, HandleLinkValidationInOnt}
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.{CourseContext, Competence}
+import uzuzjmd.competence.persistence.dao.{CourseContext, AbstractEvidenceLink, Competence}
+import uzuzjmd.competence.service.rest.dto.{PrerequisiteData, LinkValidationData}
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
-import uzuzjmd.competence.tests.{CoreTests, TestCommons}
+import uzuzjmd.competence.tests.CoreTests
+import scala.collection.JavaConverters._
 
 /**
   * Created by dehne on 14.12.2015.
@@ -139,7 +142,6 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @throws(classOf[Exception])
   def testLinkCompetencesToUser: Unit ={
     assertTrue(true)
-    // already tested in testLinkCompetencesToCourseContext
   }
 
   @Test
@@ -151,42 +153,191 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
 
   @Test
   @throws(classOf[Exception])
-  def testValidateLink {
+  def testValidateLink: Unit = {
+    val linkId = setupValidationContext
+    val isValid = true
+    HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isValid))
+    validateValidation
+    executeNoParam(deleteValidationContext _)
+  }
+
+
+  @Test
+  @throws(classOf[Exception])
+  def testInvalidateLink: Unit = {
+    val linkId = setupValidationContext
+    val isValid = false
+    HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isValid))
+    validateInValidation
+    executeNoParam(deleteValidationContext _)
+  }
+
+
+  def validateValidation = {
+    val coreTests = new CoreTests
+    val link = executeNoParamWithReturn(coreTests.createAbstractLink _)
+    val link2 = link.asInstanceOf[AbstractEvidenceLink].getFullDao()
+    assertTrue(link2.isValidated)
+  }
+
+  def validateInValidation = {
+    val coreTests = new CoreTests
+    val link = executeNoParamWithReturn(coreTests.createAbstractLink _).asInstanceOf[AbstractEvidenceLink]
+    assertFalse(link.isValidated)
+  }
+
+  def setupValidationContext: String = {
+    val coreTests = new CoreTests
+    val link = executeNoParamWithReturn(coreTests.createAbstractLink _).asInstanceOf[AbstractEvidenceLink]
+    return link.getId
+  }
+
+  def deleteValidationContext(comp : CompOntologyManager): Unit = {
+    val coreTests = new CoreTests
+    val link = coreTests.createAbstractLink(comp)
+    link.delete
+  }
+
+
+  @Test
+  @throws(classOf[Exception])
+  def testDeleteLink: Unit = {
+      assertTrue(true); // has been used in
   }
 
   @Test
   @throws(classOf[Exception])
-  def testInvalidateLink {
+  def testDeleteCompetence: Unit = {
+    executeNoParam(testDeleteCompetenceSetup _)
+    testDeleteCompetenceDo
+    executeNoParam(testDeleteCompetenceAssertions _)
+  }
+
+  def testDeleteCompetenceDo: Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competences = competenceA :: competenceB :: competenceC :: Nil
+    DeleteCompetenceInOnt.convert(competences.asJava);
+  }
+
+  def testDeleteCompetenceSetup(comp: CompOntologyManager): Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competenceADao = new Competence(comp, competenceA);
+    competenceADao.persist(false)
+    val competenceBDao = new Competence(comp, competenceB);
+    competenceBDao.persist(false)
+    val competenceCDao = new Competence(comp, competenceC);
+    competenceCDao.persist(false)
+  }
+
+  def testDeleteCompetenceAssertions(comp : CompOntologyManager): Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competenceADao = new Competence(comp, competenceA);
+    assertFalse(competenceADao.exists())
+    val competenceBDao = new Competence(comp, competenceB);
+    assertFalse(competenceBDao.exists())
+    val competenceCDao = new Competence(comp, competenceC);
+    assertFalse(competenceCDao.exists())
   }
 
   @Test
   @throws(classOf[Exception])
-  def testDeleteLink {
+  def testDeleteCompetenceTree: Unit = {
+    executeNoParam(testDeleteCompetenceSetup _)
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competences = competenceA :: competenceB :: competenceC :: Nil
+    DeleteCompetenceTreeInOnt.convert(competences.asJava)
+    executeNoParam(testDeleteCompetenceTreeValidation _)
+  }
+
+  def testDeleteCompetenceTreeSetup(comp: CompOntologyManager): Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competenceADao = new Competence(comp, competenceA);
+    competenceADao.persist(false)
+    val competenceBDao = new Competence(comp, competenceB);
+    competenceBDao.persist(false)
+    val competenceCDao = new Competence(comp, competenceC);
+    competenceCDao.persist(false)
+    competenceADao.addSuperCompetence(competenceBDao)
+    competenceBDao.addSuperCompetence(competenceCDao)
+  }
+
+  def testDeleteCompetenceTreeValidation(comp: CompOntologyManager): Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competenceADao = new Competence(comp, competenceA);
+    val competenceBDao = new Competence(comp, competenceB);
+    val competenceCDao = new Competence(comp, competenceC);
+    assertFalse(competenceADao.exists())
+    assertFalse(competenceBDao.exists())
+    assertFalse(competenceCDao.exists())
+  }
+
+
+  @Test
+  @throws(classOf[Exception])
+  def testGetCompetenceLinksMap: Unit = {
+    val coreTests = new CoreTests
+    coreTests.testCompetenceLinksMapsCreation
   }
 
   @Test
   @throws(classOf[Exception])
-  def testDeleteCompetence {
+  def testGetProgressM: Unit = {
+    val coreTests = new CoreTests
+    coreTests.testProgressMapCreation
   }
 
   @Test
   @throws(classOf[Exception])
-  def testDeleteCompetenceTree {
+  def testCreatePrerequisite: Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competences = (competenceB :: competenceC :: Nil).asJava
+    val course = new CourseContext(comp, "university")
+    executeNoParam(testCreatePrerequisiteTestSetup _)
+    CreatePrerequisiteInOnt.convert(new PrerequisiteData(course.getId, competenceA, competences))
+    executeNoParam(testCreatePrerequisiteAssertions _)
+    executeNoParam(testDeleteCompetenceTreeValidation _)
   }
 
-  @Test
-  @throws(classOf[Exception])
-  def testGetCompetenceLinksMap {
+  def testCreatePrerequisiteAssertions(comp : CompOntologyManager): Unit = {
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competenceADao = new Competence(comp, competenceA);
+    val competenceBDao = new Competence(comp, competenceB);
+    val competenceCDao = new Competence(comp, competenceC);
+    assertTrue(competenceADao.getRequiredCompetences().contains(competenceBDao))
+    assertTrue(competenceADao.getRequiredCompetences().contains(competenceCDao))
   }
 
-  @Test
-  @throws(classOf[Exception])
-  def testGetProgressM {
-  }
+  def testCreatePrerequisiteTestSetup(comp : CompOntologyManager): Unit = {
+    val course = new CourseContext(comp, "university")
+    course.persist()
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
 
-  @Test
-  @throws(classOf[Exception])
-  def testCreatePrerequisite {
+    val competenceADao = new Competence(comp, competenceA);
+    competenceADao.persist(false)
+    val competenceBDao = new Competence(comp, competenceB);
+    competenceBDao.persist(false)
+    val competenceCDao = new Competence(comp, competenceC);
+    competenceCDao.persist(false)
+
+
   }
 
   @Test

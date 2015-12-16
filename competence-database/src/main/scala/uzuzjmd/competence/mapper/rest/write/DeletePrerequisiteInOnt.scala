@@ -20,11 +20,11 @@ object DeletePrerequisiteInOnt extends WriteTransactional[PrerequisiteData] {
 
   def convertDeletePrerequisiteInOnt(comp: CompOntologyManager, changes: PrerequisiteData) {
     comp.startReasoning(MagicStrings.WRITEDEBUGRDF);
-    val competence = new Competence(comp, changes.getLinkedCompetence, null, null);
-    if (changes.getSelectedCompetences == null || changes.getSelectedCompetences.isEmpty()) {
-      changes.setSelectedCompetences(new LinkedList[String]());
+    val competence = new Competence(comp, changes.getPostCompetence, null, null);
+    if (changes.getPrerequisiteCompetences == null || changes.getPrerequisiteCompetences.isEmpty()) {
+      changes.setPrerequisiteCompetences(new LinkedList[String]());
       competence.getRequiredCompetencesAsArray.foreach { x => changes.addElementSelectedCompetences(x) }
     }
-    changes.getSelectedCompetences.foreach { x => competence.addNotRequiredCompetence(new Competence(comp, x, null, null)) }
+    changes.getPrerequisiteCompetences.foreach { x => competence.addNotRequiredCompetence(new Competence(comp, x, null, null)) }
   }
 }
