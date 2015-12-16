@@ -5,10 +5,13 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
-import uzuzjmd.competence.owl.access.PropUtil;
+import uzuzjmd.competence.config.PropUtil;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 
+/**
+ * a proxy that routes the requests to the lms implemention provided
+ */
 public class EvidenceServiceProxy implements EvidenceService {
 
 	private EvidenceProviderMap evidenceProviderMap;

@@ -64,7 +64,7 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
     val comparator = new SimpleCompetenceComparatorMapper
 
-    val result = comparator.isSimilarVerbsStrat1(input1, input2)
+    val result = comparator.isSimilarVerbsStrategy1(input1, input2)
     result should not be false
 
   }
@@ -76,7 +76,7 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
     val comparator = new SimpleCompetenceComparatorMapper
 
-    val result = comparator.isSimilarVerbsStrat2(input1, input2)
+    val result = comparator.isSimilarVerbsStrategy2(input1, input2)
     result should not be false
 
   }
@@ -88,10 +88,10 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
     val comparator = new SimpleCompetenceComparatorMapper
 
-    val result = comparator.isSimilarVerbsStrat2(input1, input2)
+    val result = comparator.isSimilarVerbsStrategy2(input1, input2)
     result should not be false
 
-    val result2 = comparator.isSimilarVerbsStrat1(input1, input2)
+    val result2 = comparator.isSimilarVerbsStrategy1(input1, input2)
     result2 should not be true
 
   }
@@ -103,10 +103,10 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
 
     val comparator = new SimpleCompetenceComparatorMapper
 
-    val result = comparator.isSimilarCatchwordStrat2(input1, input2)
+    val result = comparator.isSimilarCatchwordStrategy2(input1, input2)
     result should not be false
 
-    val result2 = comparator.isSimilarCatchwordStrat1(input1, input2)
+    val result2 = comparator.isSimilarCatchwordStrategy1(input1, input2)
     result2 should not be true
   }
 

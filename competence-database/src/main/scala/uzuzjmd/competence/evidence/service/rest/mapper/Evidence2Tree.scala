@@ -1,19 +1,19 @@
 package uzuzjmd.competence.evidence.service.rest.mapper
 
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.competence.evidence.service.moodle.{Module, MoodleContentResponseList, MoodleEvidence}
+import uzuzjmd.competence.shared.dto.{ActivityEntry, ActivityTyp, UserTree}
+
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer
-import uzuzjmd.competence.evidence.service.moodle.Module
-import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponse
-import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList
-import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.shared.dto.UserTree
-import uzuzjmd.competence.shared.dto.ActivityEntry
-import uzuzjmd.competence.shared.dto.ActivityTyp
 
 /**
  * Diese Klasse mappt die Evidenzen aus der Moodle-Datenbank und von dem Moodle-RestService so, dass
  * Die Evidenzen als GWT-Tree angezeigt werden können
+  *
+  *
+  * Merges information from the moodle webservice and the self-written moodle plugin to generate an overview over the
+  * activities in moodle
  */
 case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvidences: Array[MoodleEvidence]) {
   val filteredMoodleResponses = moodleResponses.asScala.filterNot(x => x.getModules().isEmpty()) // nur die mit Moduldaten

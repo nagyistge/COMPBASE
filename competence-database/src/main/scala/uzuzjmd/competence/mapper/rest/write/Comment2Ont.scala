@@ -1,18 +1,17 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Comment
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.DaoFactory
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.service.rest.model.dto.CommentData
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.Comment
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.DaoFactory
+import uzuzjmd.competence.persistence.dao.User
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.CommentData
 
 /**
  * @author dehne
  */
-object Comment2Ont extends RoleConverter with TDBWriteTransactional[CommentData] {
+object Comment2Ont extends RoleConverter with WriteTransactional[CommentData] {
 
   def convert(data: CommentData) {
     execute(createComment _, data)

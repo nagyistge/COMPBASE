@@ -1,16 +1,14 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.mapper.gui.Ont2ProgressMap
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
-import uzuzjmd.competence.service.rest.model.dto.CourseData
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.service.rest.dto.CourseData
 import uzuzjmd.competence.shared.dto.ProgressMap
 
 /**
  * @author jbe
  */
 
-object GetProgressMInOnt extends TDBREADTransactional[CourseData, ProgressMap] {
+object GetProgressMInOnt extends ReadTransactional[CourseData, ProgressMap] {
   def convert(changes: CourseData): ProgressMap = {
     return execute(convertGetProgressMInOnt _, changes)
   }

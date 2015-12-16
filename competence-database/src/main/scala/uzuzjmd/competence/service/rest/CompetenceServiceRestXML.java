@@ -2,30 +2,27 @@ package uzuzjmd.competence.service.rest;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.csv.CompetenceBean;
+import uzuzjmd.competence.datasource.csv.CompetenceBean;
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
 import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
-import uzuzjmd.competence.mapper.gui.read.Ont2LearningTemplates;
-import uzuzjmd.competence.mapper.gui.read.Ont2SelectedLearningTemplate;
-import uzuzjmd.competence.mapper.gui.read.Ont2SuggestedCompetenceGrid;
-import uzuzjmd.competence.mapper.gui.write.LearningTemplateToOnt;
-import uzuzjmd.competence.mapper.gui.write.ReflectiveAssessmentHolder2Ont;
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplateResultSet;
+import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
+import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
+import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid;
 import uzuzjmd.competence.mapper.rest.write.DeleteLearningTemplateinOnt;
 import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
-import uzuzjmd.competence.rcd.generated.Rdceo;
-import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.database.dto.CatchwordXMLTree;
-import uzuzjmd.competence.service.rest.database.dto.CompetenceXMLTree;
-import uzuzjmd.competence.service.rest.database.dto.OperatorXMLTree;
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData;
-import uzuzjmd.competence.service.rest.model.dto.ReflectiveAssessmentChangeData;
+import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
+import uzuzjmd.competence.mapper.rest.write.ReflectiveAssessmentHolder2Ont;
+import uzuzjmd.competence.service.rest.dto.*;
+import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -36,8 +33,7 @@ import java.util.List;
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/xml")
-public class CompetenceServiceRestXML extends
-        CompetenceOntologyInterface {
+public class CompetenceServiceRestXML {
 
     private Logger logger = LogManager
             .getLogger(getClass());
@@ -439,9 +435,8 @@ public class CompetenceServiceRestXML extends
     }
 
     /**
-     * This Method allows to import Competences in the EPOS-Format
      *
-     * @param eposCompetences
+     * @param wrapper
      * @return
      */
     @Produces(MediaType.APPLICATION_XML)
@@ -461,13 +456,13 @@ public class CompetenceServiceRestXML extends
     /**
      * This allows to add competences for reflection in the epos ui-format
      *
-     * @param graph                the triples describe the suggested prerequisite relationships
+     * The graph                   the triples describe the suggested prerequisite relationships
      *                             between the competences. The directed and the label properties
      *                             may be ignored in this case
      *                             <p/>
      *                             public class Graph { public Set<GraphTriple> triples; public
      *                             Set<GraphNode> nodes; }
-     * @param catchwordMap         This map is necessary to ensure that all competences in a
+     * @param learningTemplateResultSet         This map is necessary to ensure that all competences in a
      *                             prerequisite relationship share a common catchword to order
      *                             them vertically All the triples contained in the graph must be
      *                             present in the catchword map

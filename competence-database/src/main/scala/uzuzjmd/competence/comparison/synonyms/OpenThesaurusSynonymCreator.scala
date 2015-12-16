@@ -1,10 +1,11 @@
 package uzuzjmd.competence.comparison.synonyms
 
-import uzuzjmd.mysql.database.MysqlConnect
-import uzuzjmd.competence.owl.access.MagicStrings
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.database.mysql.MysqlConnect
 
 /**
  * @author dehne
+  *        creates synonyms based on the openthesaurs library
  */
 object OpenThesaurusSynonymCreator {
   def getSynonyms(input: String): List[String] = {

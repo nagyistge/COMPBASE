@@ -1,8 +1,8 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.ObjectPropertyCED
-import uzuzjmd.competence.owl.dao.{Competence, EvidenceActivity}
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.abstractlayer.ObjectPropertyCED
+import uzuzjmd.competence.persistence.dao.{Competence, EvidenceActivity}
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 /**
   * Created by dehne on 03.12.2015.

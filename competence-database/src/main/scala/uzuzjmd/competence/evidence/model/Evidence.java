@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * Diese Klasse modelliert einen Kompetenznachweis
+ *
+ * this class models an evidence for a competence found in an e-learning system
  * 
  * @author Julian Dehne
  * 

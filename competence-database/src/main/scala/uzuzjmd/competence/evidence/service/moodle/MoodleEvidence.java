@@ -19,7 +19,7 @@ public class MoodleEvidence extends Evidence {
 	private String activityTyp;
 
 	public MoodleEvidence() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public MoodleEvidence(String shortname, String string, String userId,
