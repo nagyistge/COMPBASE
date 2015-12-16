@@ -3,7 +3,9 @@ package uzuzjmd.competence.mapper.rcd
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.apache.log4j.Logger
-import uzuzjmd.competence.owl.abstractlayer.CompOntologyAccess
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional, CompOntologyAccess}
+import uzuzjmd.competence.persistence.owl.{CompOntologyManagerJenaImpl, CompOntologyAccessJenaImpl}
 import scala.collection.mutable.Buffer
 import scala.collection.JavaConverters._
 import com.hp.hpl.jena.ontology.OntModel
@@ -11,17 +13,16 @@ import com.hp.hpl.jena.ontology.ObjectProperty
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.util.iterator.Filter
-import uzuzjmd.competence.rcd.RCDMaps
-import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.owl.access.{CompOntologyAccessJenaImpl, CompOntologyManager, MagicStrings, TDBWriteTransactional}
-import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.rcd.generated.Title
+import uzuzjmd.competence.datasource.rcd.RCDMaps
+import uzuzjmd.competence.datasource.rcd.RCDFilter
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo
+import uzuzjmd.competence.datasource.rcd.generated.Title
 import uzuzjmd.competence.console.util.LogStream
-import uzuzjmd.competence.rcd.generated.Statement
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
+import uzuzjmd.competence.datasource.rcd.generated.Statement
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompOntClass
 import java.util.ArrayList
-import uzuzjmd.competence.owl.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
 
 /**
  *
@@ -29,13 +30,13 @@ import uzuzjmd.competence.owl.dao.Competence
  * TODO change name
  */
 
-object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
+object RCD2OWL extends RCDImplicits with WriteTransactional[Seq[Rdceo]] {
 
   val logger = LogManager.getLogger(RCD2OWL.getClass().getName());
   logger.setLevel(Level.TRACE)
   val logStream = new LogStream(logger, Level.DEBUG);
 
-  def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManager) {
+  def convertList(rcdeos: ArrayList[Rdceo], manager: CompOntologyManagerJenaImpl) {
     val rdceos = rcdeos.asScala
     execute(convert _, rdceos)
   }
@@ -87,7 +88,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
    * jedem CompetenceDescriptionElement wird die ObjectProperty
    * TODO:TestThisMethod
    */
-  private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, util: CompOntologyAccessJenaImpl) {
+  private def competenceDescriptionToOnt(triple: RCDFilter.CompetenceTriple, manager: CompOntologyManager) {
     //TODO implement
     throw new NotImplementedError
   }
@@ -133,7 +134,7 @@ object RCD2OWL extends RCDImplicits with TDBWriteTransactional[Seq[Rdceo]] {
     triples.foreach(x => util.createIndividualForString(util.getOntClassForString(x._1), "I" + x._1, false))
   }
 
-  private def createDescriptionElementOfRels(util: CompOntologyAccessJenaImpl, triplesWithObjectProperties: Seq[(String, String, String)]) = {
+  private def createDescriptionElementOfRels(util: CompOntologyManager, triplesWithObjectProperties: Seq[(String, String, String)]) = {
     triplesWithObjectProperties.filter(RCDFilter.isDescriptionElementOfTriple).
       foreach(x => competenceDescriptionToOnt(x, util))
   }

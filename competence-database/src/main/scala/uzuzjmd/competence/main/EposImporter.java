@@ -13,7 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.datasource.epos.mapper.EposXML2Ont;
-import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
 
 public class EposImporter {

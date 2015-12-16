@@ -14,6 +14,10 @@ import javax.xml.bind.JAXBException;
 import uzuzjmd.competence.shared.DESCRIPTORSETType;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 
+
+/**
+ * provides a possibility to import competences via the rest interface if server is deployed
+ */
 public class EposRemoteImporter {
 
 	public static void main(String[] args)

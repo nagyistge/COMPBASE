@@ -1,0 +1,232 @@
+package uzuzjmd.competence.mapper.rest.read
+
+import org.apache.log4j.LogManager
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.persistence.dao._
+import uzuzjmd.competence.service.rest.dto.LearningTemplateData
+import uzuzjmd.competence.shared._
+import scala.collection.JavaConverters._
+
+import scala.collection.mutable.Buffer
+
+/**
+  * Created by dehne on 11.12.2015.
+  */
+object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateData, SuggestedCompetenceGrid] {
+
+  protected type ComPairList = Buffer[(Competence, Competence)]
+
+  private val logger = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
+  //  log.setLevel(Level.WARN)
+  //  private val logStream = new LogStream(log, Level.WARN);
+
+  def convert(changes: LearningTemplateData): SuggestedCompetenceGrid = {
+    return execute(convertHelper _, changes)
+  }
+
+  private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData): SuggestedCompetenceGrid = {
+    val context = new CourseContext(comp, changes.getGroupId);
+    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+    val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, null);
+    if (!learningTemplate.exists()) {
+      return null;
+    }
+    val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(comp, learningTemplate, user);
+    return result
+  }
+
+  def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
+    val result = new SuggestedCompetenceGrid
+    val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
+    val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.persistence.dao.Catchword, List[uzuzjmd.competence.persistence.dao.Competence])] = Buffer.empty
+    scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
+
+    val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
+    val rows = unsortedRows.sortBy(_.getSuggestedCompetenceRowHeader()).asJava
+    result.setSuggestedCompetenceRows(rows)
+    return result
+  }
+
+  private def mapScalaGridToSuggestedCompetenceRow(catchword: Catchword, competences: List[Competence], user: User): SuggestedCompetenceRow = {
+    val result = new SuggestedCompetenceRow
+    result.setSuggestedCompetenceRowHeader(catchword.getDataField(catchword.DEFINITION))
+    result.setSuggestedCompetenceColumns(competences.map(convertCompetenceToColumn(_)(user)).asJava)
+    return result
+  }
+
+  private def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
+    val result = new SuggestedCompetenceColumn
+    result.setTestOutput(competence.getDataField(competence.DEFINITION))
+    result.setProgressInPercent(calculateAssessmentIndex(competence, user))
+
+    // if there are no subclasses the competence itself should be used for assessment
+    if (competence.listSubClasses(classOf[Competence]).isEmpty) {
+      val holder = new ReflectiveAssessmentsListHolder
+      val assessment = new Assessment
+      holder.setAssessment(assessment)
+      holder.setSuggestedMetaCompetence(competence.getDefinition)
+      val reflectiveAssessment = competenceToReflectiveAssessment(competence)(user)
+      holder.setReflectiveAssessmentList((reflectiveAssessment :: Nil).asJava)
+      result.setReflectiveAssessmentListHolder(holder)
+    } else {
+      result.setReflectiveAssessmentListHolder(competenceToReflextiveAssessmentsListHolder(competence, user))
+    }
+    return result
+  }
+
+  private def competenceToReflextiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
+    val holder = new ReflectiveAssessmentsListHolder
+    val assessment = new Assessment
+    holder.setAssessment(assessment)
+    holder.setSuggestedMetaCompetence(competence.getDefinition)
+    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
+    return holder
+  }
+
+  private def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
+    val result = new ReflectiveAssessment
+    val index = competence.getAssessment(user).getAssmentIndex
+    val assessment = new Assessment
+    result.setAssessment(assessment.getItems().get(index))
+    result.setCompetenceDescription(competence.getDefinition)
+    result.setIsLearningGoal(competence.getAssessment(user).getLearningGoal)
+    return result
+  }
+
+  private def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
+
+    val listSubclases = competence.listSubClasses(classOf[Competence])
+    if (listSubclases.isEmpty) {
+      val number = Math.round(competence.getAssessment(user).getAssmentIndex() * 33.33333)
+      return Integer.parseInt(number + "")
+    }
+    val size = competence.listSubClasses(classOf[Competence]).size
+    val sum: Int = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
+    val average = (sum) / listSubclases.size
+    val result = Math.round(average * 33.33333)
+    return Integer.parseInt(result + "")
+  }
+
+  def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
+
+    val includedCompetences = learningProjectTemplate.getAssociatedCompetences
+
+    // identify most used catchwords
+    val allCatchwords = includedCompetences.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
+
+    val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
+    logger.trace("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
+
+    // group by catchwords
+    val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.filter(_.getCatchwords.contains(x._1)))).toMap
+
+    // convert to datagrid structure for visualization
+    val grid = groupedCompetences.mapValues(x => x.toList).mapValues(sortListOfSuggestedCompetences)
+
+    // TODO: Fix Problem here with junit test from Anh
+
+    return grid
+  }
+
+  /**
+   * in case of bad run time performance topological sorting might be a better choice
+   */
+  private def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
+
+    logger.trace("list of competences to be sorted: ")
+    logger.trace(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
+
+    if (rawList.isEmpty) {
+      return List.empty
+    }
+    if (rawList.size == 1) {
+      return rawList :: Nil
+    }
+
+    // map to triples and filter the ones that have a suggested prerequisiste relationship
+    val hList0TMP = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriples(rawList.toBuffer)
+    val hList0 = hList0TMP.filter(Ont2SuggestedCompetencyGridFilter.filterIsSuggestedCompetency)
+    // init algorithm
+
+    if (hList0.isEmpty) {
+      return rawList.map(x => x :: Nil)
+    }
+    if (hList0.size == 1) {
+      return rawList.map(x => x :: Nil)
+    }
+
+    val hList1 = Buffer(hList0.head)
+    val hList0WithoutPivot = hList0.tail
+
+    logger.trace("init algorithm with:")
+    logger.trace("hList0:" + compairListToString(hList0))
+    logger.trace("hListWithoutPivot:" + compairListToString(hList0WithoutPivot))
+    logger.trace("hList1:" + compairListToString(hList1))
+
+    // start recursive algorithm
+    return sortListOfSuggestedCompetences1(hList0WithoutPivot, hList1)
+  }
+
+  private def sortListOfSuggestedCompetences1(hList0WithoutPivot: ComPairList, hList1: ComPairList): List[List[Competence]] = {
+
+    // need to copy the result of this run in order to calculate longest path
+    val hListThisRun: ComPairList = Buffer.empty
+    hListThisRun.appendAll(hList1)
+
+    return sortListOfSuggestedCompetences2(hList0WithoutPivot, hList1, hListThisRun)
+  }
+
+  private def sortListOfSuggestedCompetences2(hList0WithoutPivot: ComPairList, hList1: ComPairList, hList1LastRun: ComPairList): List[List[Competence]] = {
+    val hList2: ComPairList = Buffer.empty
+    val sortedhList0WithoutPivot = hList0WithoutPivot.sortWith(Ont2SuggestedCompetencyGridFilter.sortCompetencePairs)
+    sortedhList0WithoutPivot.foreach(addHlist0ElementToCorrectList(_)(hList1, hList2))
+
+    logger.trace("after adding elements to correct lists:")
+    logger.trace("hList0:" + compairListToString(sortedhList0WithoutPivot))
+    logger.trace("hList1:" + compairListToString(hList1))
+    logger.trace("hList2:" + compairListToString(hList2))
+
+    val reverseConvertedList = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriplesInverse(hList1).toList
+    // stop if all elements have been added to a path
+    if (hList2.isEmpty) {
+      return List(reverseConvertedList)
+    }
+    // restarting if path length has increased
+    val hListThisRun: ComPairList = Buffer.empty
+    hListThisRun.appendAll(hList1)
+    if (hList1.size > hList1LastRun.size) {
+      return sortListOfSuggestedCompetences2(hList2, hList1, hListThisRun)
+    }
+    // start new list if a fork has been detected
+    return reverseConvertedList :: sortListOfSuggestedCompetences2(hList2.tail, hList2.take(1), hList2.take(1))
+  }
+
+  /**
+   * returns Pair Of (Hlist1, and HList2)
+   */
+  private def addHlist0ElementToCorrectList(hList0Element: (Competence, Competence))(hList1: ComPairList, hList2: ComPairList) = {
+
+    if (hList0Element._2.equals(hList1.head._1)) {
+      hList1.prepend(hList0Element)
+    } else if (hList0Element._1.equals(hList1.last._2)) {
+      hList1.append(hList0Element)
+    } else {
+      hList2.append(hList0Element)
+    }
+  }
+
+  def compairListToString(input: ComPairList): String = {
+    if (input.isEmpty) {
+      return "[]";
+    }
+    return input.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.getDataField(x._2.DEFINITION))).map(x => "(" + x._1 + "," + x._2 + ")").reduce((a, b) => a + " , " + b)
+  }
+
+  private def catchwordsStoString(input: Buffer[Catchword]): String = {
+    if (input.isEmpty) {
+      return ""
+    }
+    return input.map(x => x.getDataField(x.DEFINITION)).reduce((a, b) => a + ", " + b)
+  }
+
+}

@@ -10,11 +10,11 @@ import com.hp.hpl.jena.ontology.ObjectProperty
 import com.hp.hpl.jena.ontology.OntClass
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.util.iterator.Filter
-import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.rcd.generated.Langstring
-import uzuzjmd.competence.rcd.generated.Title
-import uzuzjmd.competence.rcd.generated.Statementtext
-import uzuzjmd.competence.rcd.generated.Rdceo
+import uzuzjmd.competence.datasource.rcd.RCDFilter
+import uzuzjmd.competence.datasource.rcd.generated.Langstring
+import uzuzjmd.competence.datasource.rcd.generated.Title
+import uzuzjmd.competence.datasource.rcd.generated.Statementtext
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 import java.util.ArrayList
 
 /**
@@ -25,7 +25,7 @@ import java.util.ArrayList
  */
 trait RCDImplicits {
 
-  type rcdeoView = scala.collection.SeqView[uzuzjmd.competence.rcd.generated.Rdceo, scala.collection.mutable.Buffer[uzuzjmd.competence.rcd.generated.Rdceo]]
+  type rcdeoView = scala.collection.SeqView[uzuzjmd.competence.datasource.rcd.generated.Rdceo, scala.collection.mutable.Buffer[uzuzjmd.competence.datasource.rcd.generated.Rdceo]]
 
   implicit def arrayToBuffer(buffer: Array[Rdceo]): rcdeoView = {
     return buffer.toBuffer.view;

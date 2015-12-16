@@ -1,50 +1,30 @@
 package uzuzjmd.competence.service.rest;
 
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
+import uzuzjmd.competence.mapper.rest.read.*;
+import uzuzjmd.competence.mapper.rest.write.*;
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl;
+import uzuzjmd.competence.service.rest.dto.*;
+import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
+import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
+import uzuzjmd.competence.shared.dto.Graph;
+import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
+import uzuzjmd.competence.shared.dto.ProgressMap;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import uzuzjmd.competence.mapper.gui.read.Ont2Catchwords;
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceGraph;
-import uzuzjmd.competence.mapper.gui.read.Ont2CompetenceLinkMap;
-import uzuzjmd.competence.mapper.gui.read.Ont2Operator;
-import uzuzjmd.competence.mapper.gui.write.HierarchieChangesToOnt;
-import uzuzjmd.competence.mapper.rest.read.GetProgressMInOnt;
-import uzuzjmd.competence.mapper.rest.read.GetRequiredCompetencesInOnt;
-import uzuzjmd.competence.mapper.rest.write.*;
-import uzuzjmd.competence.owl.access.CompOntologyManager;
-import uzuzjmd.competence.rcd.generated.Rdceo;
-import uzuzjmd.competence.service.CompetenceServiceImpl;
-import uzuzjmd.competence.service.rest.model.dto.CommentData;
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData;
-import uzuzjmd.competence.service.rest.model.dto.CourseData;
-import uzuzjmd.competence.service.rest.model.dto.LinkValidationData;
-import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData;
-import uzuzjmd.competence.service.rest.model.dto.UserData;
-import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
-import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.HierarchieChangeSet;
-import uzuzjmd.competence.shared.dto.ProgressMap;
 
 
 /**
  * Root resource (exposed at "competences" path)
  */
 @Path("/competences/json")
-public class CompetenceServiceRestJSON extends
-		CompetenceOntologyInterface {
+public class CompetenceServiceRestJSON {
 
 	/**
 	 * Lists all competences in the RDCEO Standard Format
@@ -77,7 +57,7 @@ public class CompetenceServiceRestJSON extends
 	public Response updateHierarchie(
 			@QueryParam("changes") List<String> changes) {
 
-		HierarchieChangeSet changeSet = new HierarchieChangeSet()
+		HierarchyChangeSet changeSet = new HierarchyChangeSet()
 				.convertListToModel(changes);
 		HierarchieChangesToOnt.convert(changeSet);
 		return Response.ok("updated taxonomy").build();
@@ -96,7 +76,7 @@ public class CompetenceServiceRestJSON extends
 	@Path("/updateHierarchie2")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateHierarchie2(
-			@QueryParam("changes") HierarchieChangeSet changes) {
+			@QueryParam("changes") HierarchyChangeSet changes) {
 		HierarchieChangesToOnt.convert(changes);
 		return Response.ok("updated taxonomy").build();
 	}
@@ -111,8 +91,8 @@ public class CompetenceServiceRestJSON extends
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateHierarchie2/example")
 	@Produces(MediaType.APPLICATION_JSON)
-	public HierarchieChangeSet updateHierarchieExample(
-			@QueryParam("changes") HierarchieChangeSet changes) {
+	public HierarchyChangeSet updateHierarchieExample(
+			@QueryParam("changes") HierarchyChangeSet changes) {
 		return changes;
 	}
 
@@ -196,7 +176,7 @@ public class CompetenceServiceRestJSON extends
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/coursecontext/delete/{course}")
-	public Response deleteCourseContextJSON(
+	public Response deleteCourseContext(
 			@PathParam("course") String course) {
 		// TODO implement
 		return Response
@@ -251,7 +231,7 @@ public class CompetenceServiceRestJSON extends
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/coursecontext/selected/{course}")
-	public String[] getSelected2(
+	public String[] getSelectedCompetencesForCourse(
 			@PathParam("course") String course) {
 		return CompetenceServiceWrapper.getSelected(course);
 	}
@@ -280,7 +260,7 @@ public class CompetenceServiceRestJSON extends
 	@POST
 	@Path("/link/create/{course}/{creator}/{role}/{linkedUser}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response linkCompetencesToUserJson(
+	public Response linkCompetencesToUser(
 			@PathParam("course") String course,
 			@PathParam("creator") String creator,
 			@PathParam("role") String role,
@@ -299,7 +279,7 @@ public class CompetenceServiceRestJSON extends
 	/**
 	 * Add a comment to an evidence link
 	 * 
-	 * Have a look at @see linkCompetencesToUserJson in order to better
+	 * Have a look at @see linkCompetencesToUser in order to better
 	 * understand the model of a evidence link.
 	 * 
 	 * 
@@ -339,7 +319,7 @@ public class CompetenceServiceRestJSON extends
 	/**
 	 * Validate an evidence link.
 	 * 
-	 * Have a look at {@link linkCompetencesToUserJson} for the nature of the
+	 * Have a look at for the nature of the
 	 * evidence link.
 	 * 
 	 * This should only be done by teacher role (which should be checked in the
@@ -531,7 +511,7 @@ public class CompetenceServiceRestJSON extends
 	public Graph getPrerequisiteGraph(
 			@QueryParam("selectedCompetences") List<String> selectedCompetences,
 			@PathParam("course") String course) {
-		CompOntologyManager comp = new CompOntologyManager();
+		CompOntologyManagerJenaImpl comp = new CompOntologyManagerJenaImpl();
 		Ont2CompetenceGraph mapper = new Ont2CompetenceGraph(
 				comp, selectedCompetences, course);
 		return mapper.getCompetenceGraph();

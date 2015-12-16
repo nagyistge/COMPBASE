@@ -2,22 +2,18 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
 
-import scala.collection.JavaConverters.asScalaBufferConverter
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.validation.CompetenceGraphValidator
+import uzuzjmd.competence.service.rest.dto.CompetenceData
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.Operator
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.validation.CompetenceGraphValidator
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData
+import scala.collection.JavaConverters.asScalaBufferConverter
 
 /**
  * @author dehne
  */
-object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
+object Competence2Ont extends WriteTransactional[CompetenceData] {
 
   def convert(data: CompetenceData): String = {
     execute[String](addCompetence _, data)

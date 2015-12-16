@@ -1,10 +1,12 @@
 package uzuzjmd.competence.main
 
-import uzuzjmd.competence.owl.access.CompFileUtil
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBREADTransactional
+import uzuzjmd.competence.persistence.abstractlayer.{ReadTransactional, CompOntologyManager}
+import uzuzjmd.competence.persistence.owl.CompFileUtil
 
-object OntologyWriter extends TDBREADTransactional[Any, Any] {
+/**
+  * writes the db to an protégé readable ontology format
+  */
+object OntologyWriter extends ReadTransactional[Any, Any] {
 
   def main(args: Array[String]) {
     execute2(writeOut)

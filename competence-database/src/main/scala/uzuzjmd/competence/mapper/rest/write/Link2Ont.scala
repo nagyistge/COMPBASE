@@ -1,22 +1,22 @@
 package uzuzjmd.competence.mapper.rest.write
 
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.CompetenceLinkData
+
 import scala.collection.JavaConverters.asScalaBufferConverter
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.AbstractEvidenceLink
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.EvidenceActivity
-import uzuzjmd.competence.owl.dao.StudentRole
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.service.rest.model.dto.CompetenceLinkData
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
-import uzuzjmd.competence.owl.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.EvidenceActivity
+import uzuzjmd.competence.persistence.dao.StudentRole
+import uzuzjmd.competence.persistence.dao.User
+import uzuzjmd.competence.persistence.dao.CourseContext
 
 /**
  * @author dehne
  */
-object Link2Ont extends TDBWriteTransactional[CompetenceLinkData] with RoleConverter {
+object Link2Ont extends WriteTransactional[CompetenceLinkData] with RoleConverter {
 
   def writeLinkToDatabase(data: CompetenceLinkData) {
     execute(linkCompetencesToJson _, data)

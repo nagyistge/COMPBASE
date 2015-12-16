@@ -1,19 +1,18 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.service.rest.model.dto.PrerequisiteData
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.PrerequisiteData
 import scala.collection.JavaConversions._
-import uzuzjmd.competence.owl.access.MagicStrings
 
 /**
  * @author jbe
  */
 
-object CreatePrerequisiteInOnt extends TDBWriteTransactional[PrerequisiteData] {
+object CreatePrerequisiteInOnt extends WriteTransactional[PrerequisiteData] {
   def convert(changes: PrerequisiteData) {
     execute(convertCreatePrerequisiteInOnt _, changes)
   }
