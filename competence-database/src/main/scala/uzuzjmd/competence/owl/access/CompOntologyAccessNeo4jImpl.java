@@ -192,8 +192,4 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
         return neo4jIndividual;
     }
 
-    @Override
-    public Model getModel() {
-        return null;
-    }
 }

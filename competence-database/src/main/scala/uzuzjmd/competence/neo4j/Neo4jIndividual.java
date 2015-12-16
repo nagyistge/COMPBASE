@@ -21,21 +21,22 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     private final Boolean isSingleTonClass;
     private final String definition;
     private Neo4JQueryManager qmanager;
-    private final OntClass ontClass;
+    private CompOntClass clazz;
+    //private final OntClass ontClass;
 
-    public Neo4jIndividual(String id, String definition, OntClass ontClass) {
+    public Neo4jIndividual(String id, String definition, CompOntClass clazz) {
         this.id = id;
-        this.ontClass = ontClass;
+        this.clazz = clazz;
         this.isSingleTonClass = false;
         this.definition = definition;
         qmanager = new Neo4JQueryManager();
     }
 
-    public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
+    public Neo4jIndividual(String id, String definition, CompOntClass clazz, Boolean isSingletonClass) {
         this.id = id;
         this.isSingleTonClass = isSingletonClass;
         this.definition = definition;
-        this.ontClass = ontClass;
+        this.clazz = clazz;
         qmanager = new Neo4JQueryManager();
     }
 
