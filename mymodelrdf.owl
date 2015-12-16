@@ -141,7 +141,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#TeacherRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Role"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Lesen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -843,6 +842,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#me">
     <rdf:type rdf:resource="http://comp#User"/>
+    <j.0:UserOfComment rdf:resource="http://comp#meintestComment"/>
     <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
     <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">me</j.0:name>
   </rdf:Description>
@@ -874,11 +874,6 @@
   <rdf:Description rdf:about="http://comp#IIchkannverstehenwasmanineinfachenAlltagsgesprächenlangsamunddeutlichzumirsagtesistmöglichsichmirverständlichzumachenwenndieSprechendensichdienötigeMühemachenkönnen">
     <rdf:type rdf:resource="http://comp#IchkannverstehenwasmanineinfachenAlltagsgesprächenlangsamunddeutlichzumirsagtesistmöglichsichmirverständlichzumachenwenndieSprechendensichdienötigeMühemachenkönnen"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann verstehen, was man in einfachen Alltagsgesprächen langsam und deutlich zu mir sagt; es ist möglich, sich mir verständlich zu machen, wenn die Sprechenden sich die nötige Mühe machen können.</j.0:definition>
-    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung">
-    <rdf:type rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung</j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHauptpunktevonkomplexenRedebeiträgenzukonkretenundabstraktenThemenverstehenwenninderStandardsprachegesprochenwirdichversteheinmeinemSpezialgebietauchFachdiskussionen">
@@ -961,9 +956,8 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#meintestkommentar2">
     <rdf:type rdf:resource="http://comp#Comment"/>
-    <j.0:CommentOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1449158546192</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1450275244951</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannraschdenInhaltunddieWichtigkeitvonNachrichtenArtikelnundBerichtenüberThemendiemitmeinenInteressenodermeinemBerufzusammenhängenerfassenundentscheidenobsicheingenaueresLesenlohnt">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -978,7 +972,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IStudentRole">
     <rdf:type rdf:resource="http://comp#StudentRole"/>
-    <j.0:RoleOf rdf:resource="http://comp#studentmeäää1AA"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben">
     <rdf:type rdf:resource="http://comp#IchkannWörterundAusdrückeaufSchildernverstehendenenmanimAlltagoftbegegnetwiezBBahnhofParkplatzRauchenverbotenrechtsbleiben"/>
@@ -1059,12 +1052,6 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenC2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann Texte von Kollegen überarbeiten und grammatisch und stilistisch verbessern; dabei habe ich nur selten Unsicherheiten.</j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#httptestest">
-    <rdf:type rdf:resource="http://comp#EvidenceActivity"/>
-    <j.0:ActivityOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
-    <j.0:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://testest</j.0:url>
-    <j.0:printableName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">meine testaktivitat</j.0:printableName>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmitanderenbesprechenwasmantunoderwohinmangehenwillundkannvereinbarenwannundwomansichtrifft">
     <rdf:type rdf:resource="http://comp#Ichkannmitanderenbesprechenwasmantunoderwohinmangehenwillundkannvereinbarenwannundwomansichtrifft"/>
@@ -1463,9 +1450,6 @@
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechen C1</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miteinander sprechenC1</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IRole">
-    <rdf:type rdf:resource="http://comp#Role"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen">
     <rdf:type rdf:resource="http://comp#IchbeherrscheidiomatischeundumgangssprachlicheWendungensowieFachjargoninmeinemSpezialgebietgutundbinmirderjeweiligenKonnotationenbewusstIchkannauchfeinereBedeutungsnuancendeutlichmachen"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich beherrsche idiomatische und umgangssprachliche Wendungen sowie Fachjargon in meinem Spezialgebiet gut und bin mir der jeweiligen Konnotationen bewusst. Ich kann auch feinere Bedeutungsnuancen deutlich machen. </j.0:definition>
@@ -1824,7 +1808,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#n2">
     <rdf:type rdf:resource="http://comp#CourseContext"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen">
     <rdf:type rdf:resource="http://comp#IchkannohneallzugroßeMüheSpielfilmeverstehenauchwenndarinvielsaloppeUmgangsspracheundvieleRedewendungenvorkommen"/>
@@ -2086,7 +2069,6 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#StudentRole">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Role"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#LearningProjectTemplateOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -2374,9 +2356,8 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#meintestkommentar">
     <rdf:type rdf:resource="http://comp#Comment"/>
-    <j.0:CommentOf rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1449158546192</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1450275092817</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken">
     <rdf:type rdf:resource="http://comp#IchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken"/>
@@ -2405,14 +2386,14 @@
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann fragen, was jemand bei der Arbeit und in der Freizeit macht, und ich kann entsprechende Fragen von anderen beantworten.</j.0:definition>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#IIchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon">
-    <rdf:type rdf:resource="http://comp#IchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann die meisten Gesprächssituationen bewältigen, die mit der Organisation des Studiums zusammenhängen, normalerweise auch am Telefon.</j.0:definition>
-    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannTräumeHoffnungenZielebeschreiben">
     <rdf:type rdf:resource="http://comp#IchkannTräumeHoffnungenZielebeschreiben"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann Träume, Hoffnungen, Ziele beschreiben. </j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IIchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon">
+    <rdf:type rdf:resource="http://comp#IchkanndiemeistenGesprächssituationenbewältigendiemitderOrganisationdesStudiumszusammenhängennormalerweiseauchamTelefon"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann die meisten Gesprächssituationen bewältigen, die mit der Organisation des Studiums zusammenhängen, normalerweise auch am Telefon.</j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannFachvorträgeoderPräsentationenverstehendievieleumgangssprachlicheoderregionalgefärbteAusdrückeoderauchfremdeTerminologieenthalten">
@@ -2874,14 +2855,6 @@
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann Meldungen und einfache Hilfetexte in Computerprogrammen verstehen. </j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
-  <rdf:Description rdf:about="http://comp#studentmeäää1AA">
-    <rdf:type rdf:resource="http://comp#User"/>
-    <j.0:UserOfLink rdf:resource="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest"/>
-    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar"/>
-    <j.0:UserOfComment rdf:resource="http://comp#meintestkommentar2"/>
-    <j.0:belongsToCourseContext rdf:resource="http://comp#n2"/>
-    <j.0:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">student meäää 10AA</j.0:name>
-  </rdf:Description>
   <rdf:Description rdf:about="http://comp#InPrivatbriefenoderEMailsversteheichgutgenugwasüberEreignisseGefühleoderWünschegeschriebenwirdumregelmäßigmiteinemFreundodereinerFreundinkorrespondierenzukönnen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -3329,10 +3302,6 @@
     <j.0:CourseContextOf rdf:resource="http://comp#IMiteinandersprechen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreiben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechen"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#ITeacherRole"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IStudentRole"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IRole"/>
-    <j.0:CourseContextOf rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndieHandlungeinerklaraufgebautenErzählungverstehenunderkennenwelchesdiewichtigstenEpisodenundEreignissesindundinwiefernsiebedeutsamsind">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3393,6 +3362,11 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenB1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann einen tabellarischen Lebenslauf schreiben. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#meintestComment">
+    <rdf:type rdf:resource="http://comp#Comment"/>
+    <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testComment</j.0:text>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1450275250284</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanninZeitungsartikelnAngabenzuPersonenWohnortAlteruswverstehen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3578,14 +3552,6 @@
     <rdf:type rdf:resource="http://comp#IchkannmichschriftlichzuunterschiedlichstenThemenallgemeineroderberuflicherArtklarundgutlesbaräußern"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann mich schriftlich zu unterschiedlichsten Themen allgemeiner oder beruflicher Art klar und gut lesbar äußern. </j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlunghttptestest">
-    <rdf:type rdf:resource="http://comp#AbstractEvidenceLink"/>
-    <j.0:LinkOfCourseContext rdf:resource="http://comp#n2"/>
-    <j.0:createdBy rdf:resource="http://comp#me"/>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1449158546232</j.0:datecreated>
-    <j.0:linksCompetence rdf:resource="http://comp#IDieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung"/>
-    <j.0:isValidated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:isValidated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanndensozialenpolitischenodergeschichtlichenHintergrundeinesliterarischenWerkeserkennen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3845,6 +3811,9 @@
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann sagen, was ich gerne habe und was nicht. </j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Individual">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannInformationenausverschiedenenQuellenzusammentragenundinzusammenhängenderFormschriftlichzusammenfassen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
@@ -4012,11 +3981,6 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#SchreibenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann einfache Sätze schreiben und sie mit Wörtern wie „und“, „aber“, „weil“, „denn“ verbinden. </j.0:definition>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://comp#DieLehramtsanwärterkooperierenmitKolleginnenundKollegenbeiderErarbeitungvonBeratungEmpfehlung">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
-    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndieHauptpunktevonkomplexenRedebeiträgenzukonkretenundabstraktenThemenverstehenwenninderStandardsprachegesprochenwirdichversteheinmeinemSpezialgebietauchFachdiskussionen">
     <rdf:type rdf:resource="http://comp#IchkanndieHauptpunktevonkomplexenRedebeiträgenzukonkretenundabstraktenThemenverstehenwenninderStandardsprachegesprochenwirdichversteheinmeinemSpezialgebietauchFachdiskussionen"/>

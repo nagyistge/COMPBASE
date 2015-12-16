@@ -372,6 +372,7 @@ public class CompetenceServiceRestJSON {
 		return Response.ok("link deleted").build();
 	}
 
+
 	/**
 	 * Deletes one or more competences
 	 * 
@@ -677,10 +678,10 @@ public class CompetenceServiceRestJSON {
 
 
 	private Response handleLinkValidation(String linkId,
-			Boolean isvalid) {
+			Boolean isValid) {
 		HandleLinkValidationInOnt
 				.convert(new LinkValidationData(linkId,
-						isvalid));
+						isValid));
 		return Response.ok("link updated").build();
 	}
 

@@ -79,7 +79,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
     val mapper = new Ont2CompetenceTree(catchwords.asJava, operators.asJava, "university", false, null)
     val competenceTree = mapper.getComptenceTreeForCourse()
     competenceTree should not be ('empty)
-
   }
 
   /**
@@ -234,7 +233,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
     val link = new AbstractEvidenceLink(compOntManag, null, user, userStudent, courseContext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
     link.exists should not be false
-
   }
 
   def doDeleteEvidenceLink(compOntologyManager: CompOntologyManager) {
@@ -260,7 +258,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
    * TEST CASE 15
    */
   test("if a string is given the identified full dao should be returnable") {
-    executeNoParamWithReturn(createAbstract _)
+    executeNoParamWithReturn(createAbstractLink _)
     executeNoParam(deleteAbstractEvidenceLink _)
   }
 
@@ -273,7 +271,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
     fullExampleLink.getAllActivities should not be ('empty)
     fullExampleLink.getAllCourseContexts should not be ('empty)
     fullExampleLink.getAllLinkedUsers should not be ('empty)
-    val link = createAbstract(comp)
+    val link = createAbstractLink(comp)
     link.delete
   }
 
@@ -281,18 +279,29 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
    * TEST CASE 16
    */
   test("the competencelinksmap should not be empty") {
-    executeNoParamWithReturn(createAbstract _)
+    testCompetenceLinksMapsCreation
+  }
+
+  /**
+   * TEST CASE 17
+   */
+  def testCompetenceLinksMapsCreation: Unit = {
+    executeNoParamWithReturn(createAbstractLink _)
     OntologyWriter.convert()
     val tmp0 = Ont2CompetenceLinkMap.convert("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
   }
 
-  /**
-   * TEST CASE 17
-   */
   test("progresbarmap should not be empty") {
-    executeNoParamWithReturn(createAbstract _)
+    testProgressMapCreation
+  }
+
+  /**
+   * TEST CASE 18
+   */
+  def testProgressMapCreation: Unit = {
+    executeNoParamWithReturn(createAbstractLink _)
     executeNoParam(doEvidenceLinkTest _)
     val changes = new CourseData("2", ("Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung" :: Nil).asJava)
     val progressMap = GetProgressMInOnt.convert(changes);
@@ -301,26 +310,23 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
     executeNoParam(doDeleteEvidenceLink _)
   }
 
-  /**
-   * TEST CASE 18
-   */
   test("if a requires b and b requires c, a should require c") {
     executeNoParamWithReasoning(doRequiresTransitivityTest)
     executeNoParam(doRequiresTransitivityTest2)
 
   }
-  def doRequiresTransitivityTest(compOntManag: CompOntologyManager) {
-    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
-    val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
-    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+  def doRequiresTransitivityTest(compOntologyManager: CompOntologyManager) {
+    val competenceA = new Competence(compOntologyManager, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val competenceB = new Competence(compOntologyManager, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    val competenceC = new Competence(compOntologyManager, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     competenceC.addRequiredCompetence(competenceB)
     competenceB.addRequiredCompetence(competenceA)
 
   }
 
-  def doRequiresTransitivityTest2(compOntManag: CompOntologyManager) {
-    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
-    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+  def doRequiresTransitivityTest2(compOntologyManager: CompOntologyManager) {
+    val competenceA = new Competence(compOntologyManager, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val competenceC = new Competence(compOntologyManager, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     competenceC.hasEdge(competenceA, CompObjectProperties.PrerequisiteOf) should not be false
   }
 
@@ -332,13 +338,13 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
 
   }
 
-  def doTestTheRules(compOntManag: CompOntologyManager) {
-    val courseContext = new CourseContext(compOntManag, "n2");
-    val competenceA = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+  def doTestTheRules(comp: CompOntologyManager) {
+    val courseContext = new CourseContext(comp, "n2");
+    val competenceA = new Competence(comp, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceA)
-    val competenceB = new Competence(compOntManag, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
+    val competenceB = new Competence(comp, "Die Lehramtsanwärter erkennen Entwicklungsstände, Lernpotentiale, Lernhindernisseund Lernfortschritte")
     courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceB)
-    val competenceC = new Competence(compOntManag, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
+    val competenceC = new Competence(comp, "Die Lehramtsanwärter beschreiben den Lernstand der SuS und ihren eigenen Wissensstand.")
     courseContext.createEdgeWith(CompObjectProperties.CourseContextOf, competenceB)
     competenceC.addRequiredCompetence(competenceB)
     competenceB.addRequiredCompetence(competenceA)
@@ -420,13 +426,13 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
     executeNoParam(doNoSideEffectTest _)
   }
 
-  def doNoSideEffectTest(compOntManag: CompOntologyManager) {
-    val competenceRoot = new CompetenceInstance(compOntManag)
+  def doNoSideEffectTest(comp: CompOntologyManager) {
+    val competenceRoot = new CompetenceInstance(comp)
 
 
     val definition2 = "some random competence"
     //val bottomCompetence = new Competence(compOntManag, definition2)
-    val bottomClass = new Competence(compOntManag, definition2, definition2, null)
+    val bottomClass = new Competence(comp, definition2, definition2, null)
 
     bottomClass.exists should not be true
     // test whether exist relation modifies database
@@ -484,35 +490,33 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
   //
   //  }
 
-  private def createAbstract(compOntManag: CompOntologyManager): AbstractEvidenceLink = {
+  def createAbstractLink(compOntManag: CompOntologyManager): AbstractEvidenceLink = {
 
     val studentRole = new StudentRole(compOntManag)
-    val coursecontext = new CourseContext(compOntManag, "2")
-    val userstudent = new User(compOntManag, "student meäää 10AA", studentRole, coursecontext, "student meäää 10AA")
+    val courseContext = new CourseContext(compOntManag, "2")
+    val userStudent = new User(compOntManag, "student meäää 10AA", studentRole, courseContext, "student meäää 10AA")
 
     val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole, coursecontext, "me")
+    val user = new User(compOntManag, "me", teacherRole, courseContext, "me")
     user.persist
     val user2 = new User(compOntManag, "me")
     val fullUser = user2.getFullDao
     fullUser.role.equals(teacherRole) should not be false
     // and now a more complicated example
-    val testkommentar = "mein testkommentar"
-    val comment = new Comment(compOntManag, testkommentar, userstudent, System.currentTimeMillis())
-    val testkommentar2 = "mein testkommentar2"
-    val comment2 = new Comment(compOntManag, testkommentar2, userstudent, System.currentTimeMillis())
-
-    //
+    val testComment = "mein testkommentar"
+    val comment = new Comment(compOntManag, testComment, userStudent, System.currentTimeMillis())
+    val testComment2 = "mein testkommentar2"
+    val comment2 = new Comment(compOntManag, testComment2, userStudent, System.currentTimeMillis())
     val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
     val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     competence.persist(true)
-    competence.createEdgeWith(coursecontext, CompObjectProperties.CourseContextOf)
-    val link = new AbstractEvidenceLink(compOntManag, null, user, userstudent, coursecontext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
+    competence.createEdgeWith(courseContext, CompObjectProperties.CourseContextOf)
+    val link = new AbstractEvidenceLink(compOntManag, null, user, userStudent, courseContext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
 
     //    competencex should not be null
-    comment.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
-    comment2.hasEdge(userstudent, CompObjectProperties.UserOfComment) should not be false
+    comment.hasEdge(userStudent, CompObjectProperties.UserOfComment) should not be false
+    comment2.hasEdge(userStudent, CompObjectProperties.UserOfComment) should not be false
 
     //println("linkId ist: " + link.getId)
     return link
