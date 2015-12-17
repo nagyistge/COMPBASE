@@ -25,14 +25,14 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   def DEFINITION = "definition"
 
   @throws[NoRecursiveSubClassException]
-  def persist(more: Boolean): OntResult = {
+  def persistManualCascades(isCascade: Boolean): OntResult = {
     var result: OntResult = null
     if (identifier == null) {
       result = util.accessSingletonResourceWithClass(compOntClass, false)
     } else {
       result = util.accessSingletonResource(identifier, false, identifier)
     }
-    if (more) {
+    if (isCascade) {
       val uniContext = new UniversityContext(comp)
       uniContext.createEdgeWith(CompObjectProperties.CourseContextOf, this)
       persistMore
@@ -40,13 +40,18 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     return result
   }
 
+
+  def persist: OntResult = {
+    return persistManualCascades(true) //enforce complete persist
+  }
+
   def persistFluent(more: Boolean): CompetenceOntologySingletonDao = {
-    persist(more)
+    persistManualCascades(more)
     return this
   }
 
   def createIndividual: Individual = {
-    return persist(false).getIndividual()
+    return persistManualCascades(false).getIndividual()
   }
 
   def exists(): Boolean = {

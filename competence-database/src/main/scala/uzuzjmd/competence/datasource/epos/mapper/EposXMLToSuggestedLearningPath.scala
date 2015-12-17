@@ -51,9 +51,9 @@ object EposXMLToSuggestedLearningPath {
       val domainId = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(domain);
       val rangeID = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(range);
       val domainCompetence = new Competence(comp, domainId, domainId, false)
-      domainCompetence.persist(true)
+      domainCompetence.persistManualCascades(true)
       val rangeCompetence = new Competence(comp, rangeID, rangeID, false)
-      rangeCompetence.persist(true)
+      rangeCompetence.persistManualCascades(true)
       rangeCompetence.addSuggestedCompetenceRequirement(domainCompetence)
     }
   }

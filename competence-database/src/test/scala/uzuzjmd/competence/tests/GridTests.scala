@@ -53,7 +53,7 @@ class GridTests extends FunSuite with ShouldMatchers with WriteTransactional[Any
 
   private def createBasicDB(comp: CompOntologyManager) {
     val rootInstance = new CompetenceInstance(comp)
-    rootInstance.persist(false)
+    rootInstance.persistManualCascades(false)
 
     val learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplatenName)
     learningProjectTemplate.persist

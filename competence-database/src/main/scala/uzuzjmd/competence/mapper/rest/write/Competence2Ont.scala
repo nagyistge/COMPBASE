@@ -38,10 +38,10 @@ object Competence2Ont extends WriteTransactional[CompetenceData] {
     val competenceGraphValidator = new CompetenceGraphValidator(comp, addedCompetence, superCompetencesTyped, subCompetencesTyped);
 
     if (competenceGraphValidator.isValid()) {
-      addedCompetence.persist(true);
+      addedCompetence.persistManualCascades(true);
       for (catchwordItem <- data.getCatchwords.asScala) {
         val catchword = new Catchword(comp, catchwordItem, catchwordItem);
-        catchword.persist(true);
+        catchword.persistManualCascades(true);
         catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
 
       }
@@ -56,7 +56,7 @@ object Competence2Ont extends WriteTransactional[CompetenceData] {
 
       if (data.getOperator != null) {
         val operatorDAO = new Operator(comp, data.getOperator, data.getOperator)
-        operatorDAO.persist(true)
+        operatorDAO.persistManualCascades(true)
         addedCompetence.createEdgeWith(operatorDAO, CompObjectProperties.OperatorOf)
       }
 
