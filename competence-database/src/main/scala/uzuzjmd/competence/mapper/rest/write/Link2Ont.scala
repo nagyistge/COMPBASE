@@ -37,7 +37,7 @@ object Link2Ont extends WriteTransactional[CompetenceLinkData] with RoleConverte
         val evidenceActivity = new EvidenceActivity(comp, evidence.split(",")(1), evidence.split(",")(0));
         evidenceActivity.persist()
         val competenceDao = new Competence(comp, competence, competence, null);
-        competenceDao.persist(true);
+        competenceDao.persistManualCascades(true);
         val abstractEvidenceLink = new AbstractEvidenceLink(comp, null, creatorUser,
           linkedUserUser, courseContext, evidenceActivity,
           System

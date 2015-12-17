@@ -87,8 +87,8 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
 
     catchwords.foreach { x => competenceFrom.addCatchword(new Catchword(comp, x, x)) }
     catchwords.foreach { x => competenceTo.addCatchword(new Catchword(comp, x, x)) }
-    competenceTo.persist(true)
-    competenceFrom.persist(true)
+    competenceTo.persistManualCascades(true)
+    competenceFrom.persistManualCascades(true)
   }
 
 }
