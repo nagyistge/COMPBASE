@@ -1,6 +1,7 @@
 package uzuzjmd.competence.persistence.neo4j;
 
 import com.hp.hpl.jena.ontology.OntModel;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccessFactory;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
@@ -23,6 +24,7 @@ public class CompOntologyManagerNeo4jImpl implements CompOntologyManager {
     @Override
     public void startReasoning(Boolean debugOn) {
             //TODO implement transferring the jena inf-Model to the neo4j-BASE
+        /*throw new NotImplementedException();*/
     }
 
     @Override

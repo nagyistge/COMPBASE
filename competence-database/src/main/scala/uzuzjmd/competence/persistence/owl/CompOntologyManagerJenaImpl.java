@@ -11,9 +11,10 @@ import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+import uzuzjmd.competence.persistence.owl.reasoning.CompRulesReasonerJenaImpl;
 import uzuzjmd.competence.persistence.owl.reasoning.ModelChangeListener;
 import uzuzjmd.competence.persistence.owl.reasoning.RuleFactory;
-import uzuzjmd.competence.persistence.owl.reasoning.SimpleRulesReasoner;
+import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -31,7 +32,7 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 
 	private CompOntologyAccess util;
 	private OntModel m;
-	private SimpleRulesReasoner rulesReasoner;
+	private CompRulesReasonerJenaImpl rulesReasoner;
 	private CompetenceQueries queries;
 	private ModelChangeListener modelChangedListener;
 	private Dataset dataset;
@@ -102,7 +103,7 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 
 	private void initReasoner() {
 		try {
-			rulesReasoner = new SimpleRulesReasoner(this,
+			rulesReasoner = new CompRulesReasonerJenaImpl(this,
 					false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

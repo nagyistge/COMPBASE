@@ -24,14 +24,15 @@ import com.hp.hpl.jena.reasoner.Derivation;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
+import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
 
-public class SimpleRulesReasoner {
+public class CompRulesReasonerJenaImpl implements SimpleRulesReasoner {
 
 	/*
 	 * Logging
 	 */
 	public static final Logger logger = LogManager
-			.getLogger(SimpleRulesReasoner.class.getName());
+			.getLogger(CompRulesReasonerJenaImpl.class.getName());
 	public static LogStream logStream = new LogStream(
 			logger, Level.DEBUG);
 
@@ -41,12 +42,13 @@ public class SimpleRulesReasoner {
 	public GenericRuleReasoner reasoner;
 	private CompOntologyManager manager;
 
-	public SimpleRulesReasoner(CompOntologyManager manager,
-			Boolean ruleLogging) throws IOException {
+	public CompRulesReasonerJenaImpl(CompOntologyManager manager,
+									 Boolean ruleLogging) throws IOException {
 		this.manager = manager;
 		setupRulesReasoner(ruleLogging);
 	}
 
+	@Override
 	public synchronized void reason() {
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
 		model.add(manager.getM());
@@ -112,6 +114,7 @@ public class SimpleRulesReasoner {
 	// return rules;
 	// }
 
+	@Override
 	public synchronized void addRuleAsString(String rule) {
 		rule = rule
 				.replaceAll("comp:", MagicStrings.PREFIX);
@@ -125,8 +128,9 @@ public class SimpleRulesReasoner {
 	 * @param rule
 	 * @param rulename
 	 */
+	@Override
 	synchronized public void addRuleAsString(String rule,
-			String rulename) {
+											 String rulename) {
 		rule = rule
 				.replaceAll("comp:", MagicStrings.PREFIX);
 		String resultRule = "[" + rulename + ":" + rule
