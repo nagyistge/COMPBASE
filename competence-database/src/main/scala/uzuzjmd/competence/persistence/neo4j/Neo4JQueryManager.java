@@ -52,6 +52,10 @@ public class Neo4JQueryManager implements CompetenceQueries{
         return issueNeo4JRequest(payload);
     }
 
+    public void executeReasoning(String... queries) throws Exception {
+        issueMultipleStatementRequest(queries);
+    }
+
     private ArrayList<String> issueNeo4JRequest(String payload) throws Exception {
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
