@@ -61,16 +61,16 @@ public class Neo4jRules {
         return "MATCH (user:User)-[r1:NotAllowedToView]->(a), (a:Competence)-[r2:PrerequisiteOf]->(b), (user:User)-[r3:UserOfLink]->(a:AbstractEvidenceLink) DELETE r1";
     }
 
-    public String superCompetencesHaveSameCourseContext() {
+    public static String superCompetencesHaveSameCourseContext() {
         return "MATCH (courseContext:Course)-[r1:CourseContextOf]->(competence),(competence)-[r2:individualOf]->(competenceClass:Competence), (competence2)-[r3:individualOf]->(competenceClass2:Competence) WHERE NOT(courseContext.id='university') AND NOT(competence.id=competence2.id) CREATE UNIQUE (courseContext)-[r4:CourseContextOf]->(competence2)";
     }
 
 
-    public String createPerformanceLinks() {
+    public static String createPerformanceLinks() {
         return "MATCH (user:User)-[r1:UserOfLink]->(abstractEvidenceLink:AbstractEvidenceLink),(abstractEvidenceLink:AbstractEvidenceLink)-[r2:linksCompetence]->(competence) CREATE UNIQUE (user)-[r3:UserHasPerformed]->(competence)";
     }
 
-    public String recommendCourse() {
+    public static String recommendCourse() {
         return  "MATCH (user:User)-[r1:UserHasPerformed]->()-[r2:SuggestedCompetencePrerequisiteOf]->(competence2), (course:Course)-[r3:SuggestedCourseForCompetence]->(competence2) CREATE UNIQUE (course)-[r4:CommendedCourseForUser]->(user)";
     }
 }

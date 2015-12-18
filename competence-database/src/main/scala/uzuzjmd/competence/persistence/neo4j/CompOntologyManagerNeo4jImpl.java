@@ -6,6 +6,7 @@ import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccessFactory;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+import uzuzjmd.competence.persistence.neo4j.reasoning.Neo4JReasoner;
 
 /**
  * Created by dehne on 11.12.2015.
@@ -23,8 +24,8 @@ public class CompOntologyManagerNeo4jImpl implements CompOntologyManager {
 
     @Override
     public void startReasoning(Boolean debugOn) {
-            //TODO implement transferring the jena inf-Model to the neo4j-BASE
-        /*throw new NotImplementedException();*/
+        Neo4JReasoner neo4JReasoner = new Neo4JReasoner();
+        neo4JReasoner.reason();
     }
 
     @Override
