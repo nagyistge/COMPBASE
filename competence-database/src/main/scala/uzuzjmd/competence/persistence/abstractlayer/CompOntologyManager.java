@@ -21,7 +21,7 @@ public interface CompOntologyManager {
 
     void end();
 
-    void begin();
+    void beginWrite();
 
     void beginRead();
 }

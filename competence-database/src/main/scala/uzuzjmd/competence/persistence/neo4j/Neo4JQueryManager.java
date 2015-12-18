@@ -8,17 +8,14 @@ import com.hp.hpl.jena.ontology.OntClass;
 import org.apache.commons.lang.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.config.MagicStrings;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

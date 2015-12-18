@@ -2,7 +2,10 @@ package uzuzjmd.competence.persistence.neo4j.reasoning;
 
 /**
  * Created by dehne on 18.12.2015.
+ *
+ * Implements the rules for the neo4j persistence layer
  */
+@SuppressWarnings("unused")
 public class Neo4jRules {
 
     public static final String getCompulsoryInheritance() {

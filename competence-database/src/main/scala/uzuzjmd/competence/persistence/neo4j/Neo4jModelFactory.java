@@ -26,7 +26,7 @@ public class Neo4jModelFactory {
         CompOntologyManagerJenaImpl jenaManager = util.getManager();
         jenaManager.createBaseOntology();
         try {
-            jenaManager.begin();
+            jenaManager.beginWrite();
             jenaManager.getM().enterCriticalSection(false);
             HashMap<OntClass, String> singleTonDefinitions = manager.getAllSingletonDefinitions();
             for (OntClass ontClass : singleTonDefinitions.keySet()) {
