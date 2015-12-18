@@ -387,9 +387,6 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     assertFalse(competenceADao.exists())
     assertFalse(competenceBDao.exists())
     assertFalse(competenceCDao.exists())
-
-
-
   }
 
 
