@@ -1,29 +1,25 @@
 package uzuzjmd.competence.persistence.owl;
 
-import java.io.IOException;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
-import uzuzjmd.competence.config.MagicStrings;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.persistence.ontology.CompOntClass;
-import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
-import uzuzjmd.competence.persistence.owl.reasoning.CompRulesReasonerJenaImpl;
-import uzuzjmd.competence.persistence.owl.reasoning.ModelChangeListener;
-import uzuzjmd.competence.persistence.owl.reasoning.RuleFactory;
-import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
-
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.tdb.TDB;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import uzuzjmd.competence.config.MagicStrings;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
+import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.owl.reasoning.CompRulesReasonerJenaImpl;
+import uzuzjmd.competence.persistence.owl.reasoning.ModelChangeListener;
+import uzuzjmd.competence.persistence.owl.reasoning.RuleFactory;
+import java.io.IOException;
 
 public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 
@@ -47,7 +43,10 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 	}
 
 
-
+	/**
+	 * Using rdf rules to infer new facts
+	 * @param debugOn
+     */
 	@Override
 	public void startReasoning(Boolean debugOn) {
 		// init simple Rules Reasoner
@@ -67,15 +66,19 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 		registerReasoner();
 	}
 
-	public Dataset getDataset() {
-		return dataset;
-	}
 
+	/**
+	 * Get the model
+	 * @return
+     */
 	@Override
 	public OntModel getM() {
 		return this.m;
 	}
 
+	/**
+	 * Close the connection to the model
+	 */
 	@Override
 	@Deprecated
 	public void close() {
@@ -83,20 +86,25 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 		dataset.end();
 	}
 
+	/**
+	 * Commit the dataset
+	 */
 	@Override
 	public void commit() {
 		dataset.commit();
 	}
 
+	/**
+	 * close the dataset
+	 */
 	@Override
 	public void end() {
 		dataset.end();
 	}
 
-	public void unregisterReasoner() {
-		m.unregister(modelChangedListener);
-	}
-
+	/**
+	 * register the reasoner listener to the model
+	 */
 	public void registerReasoner() {
 		m.register(modelChangedListener);
 	}
@@ -106,13 +114,16 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 			rulesReasoner = new CompRulesReasonerJenaImpl(this,
 					false);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Creates basic classes and relations
+	 * @return
+     */
 	public OntModel createBaseOntology() {
-		begin();
+		beginWrite();
 		initClasses();
 		initObjectProperties();
 		logger.info("Base Ontology created");
@@ -261,9 +272,6 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 		getUtil().createObjectProperty(CompOntClass.CourseContext, CompOntClass.Competence, CompObjectProperties.SuggestedCourseForCompetence);
 		getUtil().createObjectProperty(CompOntClass.EvidenceActivity, CompOntClass.Competence, CompObjectProperties.SuggestedActivityForCompetence);
 		getUtil().createObjectProperty(CompOntClass.User, CompOntClass.CourseContext, CompObjectProperties.ActivityOf.belongsToCourseContext);
-		// getM().getObjectProperty(
-		// MagicStrings.PREFIX + CompObjectProperties.SimilarTo)
-		// .addProperty(RDF.type, OWL2.ReflexiveProperty);
 	}
 
 	private void initClasses() {
@@ -273,25 +281,21 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 		}
 	}
 
+
 	/**
-	 * Also creates a database, if it does not exist already If there already
-	 * exist one, Nullpointer is thrown
-	 * 
-	 * @return
+	 * starts a write-transaction
 	 */
 	@Override
-	public void begin() {
+	public void beginWrite() {
 		dataset = TDBFactory
 				.createDataset(MagicStrings.TDBLocationPath);
 		dataset.begin(ReadWrite.WRITE);
 		initModel();
 	}
 
+
 	/**
-	 * Also creates a database, if it does not exist already If there already
-	 * exist one, Nullpointer is thrown
-	 * 
-	 * @return
+	 * starts a read-transaction
 	 */
 	public void beginRead() {
 		dataset = TDBFactory
@@ -309,40 +313,32 @@ public class CompOntologyManagerJenaImpl implements CompOntologyManager {
 	private SimpleRulesReasoner initRulesFactory(
 			SimpleRulesReasoner rulesReasoner) {
 		RuleFactory factory = new RuleFactory();
-		for (String ruleString : factory.getRuleStringss()) {
+		for (String ruleString : factory.getRuleStrings()) {
 			rulesReasoner.addRuleAsString(ruleString);
 		}
 		return rulesReasoner;
 	}
 
-	/*public void initializeOntologyModelInMemory() {
-		setM(ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF));
-
-	}*/
-
+	/**
+	 * return access class to the persistence layer
+	 * @return
+     */
 	@Override
 	public CompOntologyAccess getUtil() {
 		return util;
 	}
 
+	/**
+	 * set the model (can be used to set inmemory model instead of tdb store)
+	 * @param m
+     */
 	public void setM(OntModel m) {
 		this.m = m;
-	}
-
-	public SimpleRulesReasoner getRulesReasoner() {
-		return rulesReasoner;
 	}
 
 	@Override
 	public CompetenceQueries getQueries() {
 		return queries;
-	}
-
-	public void sync() {
-		TDB.sync(dataset);
-		TDB.sync(m);
-		// commit();
 	}
 
 }

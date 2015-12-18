@@ -1,7 +1,6 @@
 package uzuzjmd.competence.persistence.neo4j;
 
 import com.hp.hpl.jena.ontology.OntModel;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccessFactory;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
@@ -59,8 +58,8 @@ public class CompOntologyManagerNeo4jImpl implements CompOntologyManager {
     }
 
     @Override
-    public void begin() {
-        jenaManager.begin();
+    public void beginWrite() {
+        jenaManager.beginWrite();
     }
 
     @Override

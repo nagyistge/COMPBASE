@@ -455,7 +455,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
 
   //  test("test consistency of subclass relations") {
   //    val compOntManag = CompOntologyManagerFactory.createManager()
-  //    compOntManag.begin()
+  //    compOntManag.beginWrite()
   //    compOntManag.getM().getIndividual("http://comp#I3org227owlNothing").remove()
   //    val compOntManagInMemory = CompOntologyManagerFactory.createManager(compOntManag.getM())
   //    compOntManag.close();
@@ -482,7 +482,7 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
   //
   //    // real copy should still be valid
   //    val compOntManag2 = CompOntologyManagerFactory.createManager()
-  //    compOntManag2.begin()
+  //    compOntManag2.beginWrite()
   //    val validationreport2 = compOntManag2.getM.validate()
   //    println(compOntManag2.getUtil().validityReportTostring(validationreport2));
   //    validationreport2.isValid() should not be false

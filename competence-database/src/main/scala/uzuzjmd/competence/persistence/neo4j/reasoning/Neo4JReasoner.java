@@ -1,6 +1,5 @@
 package uzuzjmd.competence.persistence.neo4j.reasoning;
 
-import scala.Array;
 import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManager;
 
