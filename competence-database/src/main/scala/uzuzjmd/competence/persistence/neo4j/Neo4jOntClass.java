@@ -5,6 +5,8 @@ import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.ontology.*;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 /**
@@ -14,15 +16,20 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     private final String id;
     private final String definition;
+    static Logger logger = LogManager.getLogger(Neo4jOntClass.class.getName());
 
     public Neo4jOntClass(String id, String definition) {
+        logger.debug("Entering Neo4jOntClass Constructor with id:" + id + "definition" + definition);
         this.id = id;
         this.definition = definition;
+        logger.debug("Leaving Neo4jOntClass Constructor");
     }
 
     public Neo4jOntClass(String id) {
+        logger.debug("Entering Neo4jOntClass Constructor with id:" + id );
         this.id = id;
         this.definition = id;
+        logger.debug("Leaving Neo4jOntClass Constructor");
     }
 
     @Override
@@ -797,7 +804,17 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public String getLocalName() {
-        return null;
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        logger.debug("Convert Neo4jOntClass to String. id:" + id);
+        return this.id;
+    }
+
+    static public Neo4jOntClass valueOf(String str) {
+        return new Neo4jOntClass(str);
     }
 
     @Override

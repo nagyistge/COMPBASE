@@ -230,7 +230,6 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     }
 
-
     private OntClass getOrCreateSingleTonIndividual(String id, String definition, Boolean isRead) {
         Neo4jIndividual neo4jIndividual = getOrCreateNeo4jSingletonIndividual(id, definition, isRead);
         if (neo4jIndividual == null) return null;
