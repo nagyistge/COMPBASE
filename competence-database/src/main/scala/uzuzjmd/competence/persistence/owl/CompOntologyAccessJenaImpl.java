@@ -289,7 +289,6 @@ public class CompOntologyAccessJenaImpl extends CompOntologyAccessGenericImpl {
 	 */
 	@Override
 	public OntClass getOntClassForString(String className) {
-		manager.sync();
 		String encoded = encode(className);
 		OntClass paper = manager.getM()
 				.getOntClass(encoded);

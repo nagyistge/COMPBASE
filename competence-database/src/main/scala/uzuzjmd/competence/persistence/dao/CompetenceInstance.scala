@@ -8,6 +8,7 @@ class CompetenceInstance(comp: CompOntologyManager) extends CompetenceOntologySi
   @Override
   protected def persistMore() {
     addDataField(DEFINITION, CompOntClass.Competence.toString())
+    addDataField("compulsory", new java.lang.Boolean(false))
   }
 
   @Override

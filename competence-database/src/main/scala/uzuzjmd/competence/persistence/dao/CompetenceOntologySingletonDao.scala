@@ -95,7 +95,6 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   @Override
   def getOntClass: OntClass = {
-    //    return createIndividual.getLocalName()
     if (identifier != null) {
       val result = comp.getUtil().getOntClassForString(identifier)
       return result
@@ -107,7 +106,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
 
   @Override
   def equals(toCompare: Competence): Boolean = {
-    return getId.equals(toCompare.getId)
+    return getDefinition().equals(toCompare.getDefinition())
   }
 
   def listSubClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
@@ -115,10 +114,8 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     if (definition == null) {
       definition = compOntClass.toString()
     }
-    val id = getId
     val ontClass = comp.getUtil().accessSingletonResource(definition, true).getOntclass()
     val classList = ontClass.listSubClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing"))
-
     val identifierList = classList.map(x => x.getLocalName()).toList
     return identifierList.map(x => DAOFactory.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }
@@ -128,8 +125,8 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
       return getDataField(DEFINITION)
     } catch {
       case e: DefinitionNotInitalizedException => return compOntClass.toString()
+      case e: DataFieldNotInitializedException => return compOntClass.toString()
     }
-
   }
 
   def isSubClass(parent: Competence): Boolean = {
@@ -143,17 +140,14 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
     if (identifier == null) {
       val result = comp.getUtil().getOntClassForString(compOntClass.toString())
       return result
-      //      return comp.getUtil().createOntClass(compOntClass)
     }
     val result = comp.getUtil().getOntClassForString(identifier)
     return result
-    //    return comp.getUtil().createOntClassForString(getDefinition, getDefinition)
   }
 
   def delete() {
     val ontClass = toOntClass
     createIndividual.remove()
-    //ontClass.listInstances().toList().asScala.foreach(x => x.remove())
     ontClass.remove()
   }
 
@@ -165,20 +159,16 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def isSuperClass(child: CompetenceOntologySingletonDao): Boolean = {
-
     if (toOntClass == null) {
       return false
     }
-
     return toOntClass.hasSubClass(child.toOntClass, false)
   }
 
   def listSuperClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
     val definition = getDefinition()
-    val id = getId
     val ontClass = comp.getUtil().accessSingletonResource(definition, true).getOntclass()
     val classList = ontClass.listSuperClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing")).filterNot { x => x.getLocalName.equals("IThing") || x.getLocalName.equals("Thing") }
-
     val identifierList = classList.map(x => x.getLocalName()).toList
     return identifierList.map(x => DAOFactory.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
   }

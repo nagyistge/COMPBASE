@@ -28,14 +28,14 @@ public class SimpleMoodleService {
     private Token competenceInterfaceToken;
 
     public SimpleMoodleService(String username,
-                               String userpassword) {
-        userpassword = URLDecoder.decode(userpassword).replaceAll(" ", "+");
+                               String password) {
+        password = URLDecoder.decode(password).replaceAll(" ", "+");
         username = URLDecoder.decode(username).replaceAll(" ", "+");
 
         mooodleStandardInterfaceToken = initToken(username,
-                userpassword, "moodle_mobile_app");
+                password, "moodle_mobile_app");
         competenceInterfaceToken = initToken(username,
-                userpassword, "upcompetence");
+                password, "upcompetence");
 
     }
 

@@ -159,9 +159,9 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     val hList0WithoutPivot = hList0.tail
 
     logger.trace("init algorithm with:")
-    logger.trace("hList0:" + compairListToString(hList0))
-    logger.trace("hListWithoutPivot:" + compairListToString(hList0WithoutPivot))
-    logger.trace("hList1:" + compairListToString(hList1))
+    logger.trace("hList0:" + compareListToString(hList0))
+    logger.trace("hListWithoutPivot:" + compareListToString(hList0WithoutPivot))
+    logger.trace("hList1:" + compareListToString(hList1))
 
     // start recursive algorithm
     return sortListOfSuggestedCompetences1(hList0WithoutPivot, hList1)
@@ -182,9 +182,9 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     sortedhList0WithoutPivot.foreach(addHlist0ElementToCorrectList(_)(hList1, hList2))
 
     logger.trace("after adding elements to correct lists:")
-    logger.trace("hList0:" + compairListToString(sortedhList0WithoutPivot))
-    logger.trace("hList1:" + compairListToString(hList1))
-    logger.trace("hList2:" + compairListToString(hList2))
+    logger.trace("hList0:" + compareListToString(sortedhList0WithoutPivot))
+    logger.trace("hList1:" + compareListToString(hList1))
+    logger.trace("hList2:" + compareListToString(hList2))
 
     val reverseConvertedList = Ont2SuggestedCompetencyGridMapper.convertListToSuggestedCompetenceTriplesInverse(hList1).toList
     // stop if all elements have been added to a path
@@ -215,7 +215,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     }
   }
 
-  def compairListToString(input: ComPairList): String = {
+  def compareListToString(input: ComPairList): String = {
     if (input.isEmpty) {
       return "[]";
     }
