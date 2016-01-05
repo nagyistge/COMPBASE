@@ -832,13 +832,14 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Neo4jIndividual create() throws Exception {
-        qmanager.createUniqueNode(this.toHashmap());
-        return null;
+        qmanager.createUniqueNode(this.toHashMap());
+        return this;
     }
 
     @Override
     public Neo4jIndividual update() throws Exception {
-        return null;
+        // TODO implement
+        return this;
     }
 
     @Override
@@ -846,7 +847,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     }
 
-    private HashMap<String,String> toHashmap() {
+    protected HashMap<String,String> toHashMap() {
         HashMap<String, String> result = new HashMap<String, String>();
         for (Field prop :
                 Neo4jIndividual.class.getDeclaredFields()) {

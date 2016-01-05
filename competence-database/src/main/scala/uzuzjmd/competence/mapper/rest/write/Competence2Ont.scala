@@ -2,6 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
 
+import uzuzjmd.competence.exceptions.{OperatorNotGivenException, CatchwordNotGivenException}
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
 import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
@@ -16,6 +17,13 @@ import scala.collection.JavaConverters.asScalaBufferConverter
 object Competence2Ont extends WriteTransactional[CompetenceData] {
 
   def convert(data: CompetenceData): String = {
+    if (data.getCatchwords == null ||data.getCatchwords.isEmpty) {
+        throw new CatchwordNotGivenException
+    }
+
+    if (data.getOperator == null) {
+      throw new OperatorNotGivenException
+    }
     execute[String](addCompetence _, data)
   }
 

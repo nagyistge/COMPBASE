@@ -4,12 +4,14 @@ import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
 import uzuzjmd.competence.datasource.rcd.generated.Rdceo
+import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceGraph
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.{CourseContext, AbstractEvidenceLink, Competence}
-import uzuzjmd.competence.service.rest.dto.{PrerequisiteData, LinkValidationData}
+import uzuzjmd.competence.persistence.dao.{Operator, AbstractEvidenceLink, Competence, CourseContext}
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.service.rest.dto.{CompetenceData, GraphFilterData, LinkValidationData, PrerequisiteData}
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
-import uzuzjmd.competence.tests.CoreTests
+import uzuzjmd.competence.tests.{CoreTests, TestCommons}
 import scala.collection.JavaConverters._
 
 /**
@@ -335,10 +337,11 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
     val competenceADao = new Competence(comp, competenceA);
-    val competenceBDao = new Competence(comp, competenceB);
-    val competenceCDao = new Competence(comp, competenceC);
-    assertTrue(competenceADao.getRequiredCompetences().contains(competenceBDao))
-    assertTrue(competenceADao.getRequiredCompetences().contains(competenceCDao))
+
+    val tmpResult1 = competenceADao.getRequiredCompetences().map(x=>x.toStrinz())
+    assertTrue(tmpResult1.contains(competenceB))
+    val tmpResult2 = competenceADao.getRequiredCompetences().map(x=>x.toStrinz())
+    assertTrue(tmpResult2.contains(competenceC))
   }
 
   def testCreatePrerequisiteTestSetup(comp : CompOntologyManager): Unit = {
@@ -348,11 +351,11 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
 
-    val competenceADao = new Competence(comp, competenceA);
+    val competenceADao = new Competence(comp, competenceA, competenceA);
     competenceADao.persist
-    val competenceBDao = new Competence(comp, competenceB);
+    val competenceBDao = new Competence(comp, competenceB, competenceB);
     competenceBDao.persist
-    val competenceCDao = new Competence(comp, competenceC);
+    val competenceCDao = new Competence(comp, competenceC, competenceC);
     competenceCDao.persist
 
   }
@@ -391,29 +394,91 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
 
 
 
+
   @Test
   @throws(classOf[Exception])
-  def testGetPrerequisiteGraph {
+  def testGetPrerequisiteGraph: Unit = {
+    executeNoParam(testCreatePrerequisiteTestSetup _)
+    val competenceA: String = "I know how to program hierarchies"
+    val competenceB: String = "I know how to program"
+    val competenceC: String = "I know little"
+    val competences = (competenceB :: competenceC :: Nil).asJava
+    val course = new CourseContext(comp, "university")
+    executeNoParam(testCreatePrerequisiteTestSetup _)
+    CreatePrerequisiteInOnt.convert(new PrerequisiteData(course.getId, competenceA, competences))
+    val changes: GraphFilterData = new GraphFilterData("university", competenceA);
+    val result = Ont2CompetenceGraph.convert(changes)
+    assertNotNull(result)
+    assertFalse(result.triples.isEmpty)
+  }
+
+  @throws(classOf[Exception])
+  def testGetRequiredCompetences: Unit = {
+    // implicitly tested
+    assert(true)
   }
 
   @Test
   @throws(classOf[Exception])
-  def testGetRequiredCompetences {
+  def testGetOperatorForCompetence: Unit = {
+    testCreateOperatorPrerequisites
+    executeNoParam(testCreateOperatorValidations _)
+    executeNoParam(testCreateOperatorCleanUp _)
+  }
+
+
+
+  def testCreateOperatorPrerequisites() : Unit = {
+    val competenceA : String = "I know how to program"
+    val operator = "know"
+    val catchwords = "know" :: "how" :: "I" :: "to":: Nil;
+    val data: CompetenceData = new CompetenceData(operator, catchwords.asJava, null, null, null, competenceA)
+    Competence2Ont.convert(data)
+  }
+
+  def testCreateOperatorValidations(comp: CompOntologyManager) : Unit = {
+    val competenceA : String = "I know how to program"
+    val operator = "know"
+    val competenceDAO = new Competence(comp, competenceA)
+    val operatorDAO = new Operator(comp, operator)
+    assertTrue(competenceDAO.hasEdge(operatorDAO, CompObjectProperties.OperatorOf))
+  }
+
+  def testCreateOperatorCleanUp(comp: CompOntologyManager) : Unit = {
+    val competenceA : String = "I know how to program"
+    val operator = "know"
+    val competenceDAO = new Competence(comp, competenceA)
+    val operatorDAO = new Operator(comp, operator)
+    competenceDAO.delete()
+    operatorDAO.delete()
   }
 
   @Test
   @throws(classOf[Exception])
-  def testGetOperatorForCompetence {
+  def testGetCatchwordsForCompetence: Unit = {
+    testCreateOperatorPrerequisites
+    executeNoParam(testGetCatchwordsValidation _)
+    executeNoParam(testDeleteCatchwords _)
+  }
+
+  def testGetCatchwordsValidation(comp: CompOntologyManager): Unit = {
+    val competenceA : String = "I know how to program"
+    val competenceDAO = new Competence(comp, competenceA)
+    assertNotNull(competenceDAO.getCatchwords())
+  }
+
+  def testDeleteCatchwords(comp : CompOntologyManager): Unit = {
+    val competenceA : String = "I know how to program"
+    val competenceDAO = new Competence(comp, competenceA)
+    competenceDAO.getCatchwords().foreach(_.delete())
+    competenceDAO.delete()
   }
 
   @Test
   @throws(classOf[Exception])
-  def testGetCatchwordsForCompetence {
-  }
-
-  @Test
-  @throws(classOf[Exception])
-  def testAddCompetenceToModel {
+  def testAddCompetenceToModel: Unit = {
+    // tested above
+    assert(true)
   }
 
   @Test

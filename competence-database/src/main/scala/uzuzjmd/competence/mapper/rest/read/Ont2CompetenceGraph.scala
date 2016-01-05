@@ -1,28 +1,31 @@
 package uzuzjmd.competence.mapper.rest.read
 
+import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
 import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.GraphFilterData
 import uzuzjmd.competence.shared.dto.Graph
 
 
-class Ont2CompetenceGraph(comp: CompOntologyManagerJenaImpl, selectedCompetences: java.util.List[String], course: String)  extends ReadTransactional[Any, Graph]{
-  
-  def getCompetenceGraph(): Graph = {
-    return executeNoParam(getCompetenceGraphInternal _)
+object Ont2CompetenceGraph extends ReadTransactional[GraphFilterData, Graph] with Logging{
+
+  def convert(changes:GraphFilterData): Graph = {
+    return executeNoParam(getCompetenceGraphInternal(_, changes))
   }
 
-  def selectionFilter(x: Competence): Boolean = {
+  def selectionFilter(x: Competence, changes:GraphFilterData): Boolean = {
     val competenceDefinition = x.getDataField(x.DEFINITION)
-    return selectedCompetences.contains(competenceDefinition) || selectedCompetences.isEmpty()
+    return changes.getCompetencesSelected.contains(competenceDefinition) || changes.getCompetencesSelected.isEmpty()
   }
   
-  def getCompetenceGraphInternal(comp : CompOntologyManager) : Graph = {
-    val courseContext = new CourseContext(comp, course)
-    val comptenes = courseContext.getLinkedCompetences.view.filter(x => x.isLinkedAsRequired).filter(selectionFilter)
+  def getCompetenceGraphInternal(comp : CompOntologyManager, changes: GraphFilterData) : Graph = {
+    val courseContext = new CourseContext(comp, changes.getCourse)
+    val competences = courseContext.getLinkedCompetences.view.filter(x => x.isLinkedAsRequired).filter(selectionFilter(_,changes))
+    logger.debug("Filtered Competences are: " + competences.toList)
     val result = new Graph()
-    val requiredmap = comptenes.map(x => (x, x.getRequiredCompetences)).foreach(y => y._2.foreach(z => result.addTriple(z.getDataField(z.DEFINITION), y._1.getDataField(y._1.DEFINITION), "Voraussetzung für", true)))
-    return result 
+    competences.map(x => (x, x.getRequiredCompetences)).foreach(y => y._2.foreach(z => result.addTriple(z.getDataField(z.DEFINITION), y._1.getDataField(y._1.DEFINITION), "Voraussetzung für", true)))
+    logger.debug("triples are:" + result.triples)
+    return result
   }
 
 }

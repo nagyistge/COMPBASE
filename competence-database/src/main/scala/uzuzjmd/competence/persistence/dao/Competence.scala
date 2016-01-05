@@ -10,7 +10,7 @@ import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntology
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.exceptions.{NoRecursiveSubClassException, DataFieldNotInitializedException}
 
-class Competence(compManager: CompOntologyManager, identifierlocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierlocal) {
+class Competence(compManager: CompOntologyManager, identifierLocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierLocal) {
 
 
   def COMPULSORY = "compulsory"
@@ -24,9 +24,8 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
     ontClass.addSuperClass(competenceRoot.persistManualCascades(true).getOntclass())
     if (definition != null) {
       addDataField(DEFINITION, definition)
-      //      compManager.getUtil().createOntClassForString(definition, definition)
     } else {
-      addDataField(DEFINITION, identifierlocal)
+      addDataField(DEFINITION, identifierLocal)
     }
     if (compulsory == null) {
       addDataField(COMPULSORY, new java.lang.Boolean(false))
@@ -43,12 +42,13 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   @Override
   def getFullDao(): Competence = {
     val definition2 = getDefinition
+    try {
+      getDataFieldBoolean(COMPULSORY)
+    } catch {
+      case e:DataFieldNotInitializedException => new Competence(compManager, identifier, definition2, false);
+    }
     return new Competence(compManager, identifier, definition2, getDataFieldBoolean(COMPULSORY))
   }
-
-  //  def getIdentifier(): String = {
-  //    return identifier
-  //  }
 
   def addSuggestedCompetenceRequirement(competence: Competence) {
     createEdgeWith(competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf)
@@ -70,7 +70,6 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
 
   def getCatchwords(): List[Catchword] = {
     val result = getAssociatedSingletonDaosAsDomain(CompObjectProperties.CatchwordOf, classOf[Catchword])
-    //val result = getAssociatedSingletonDaosAsRange(CompObjectProperties.CatchwordOfInverse, classOf[Catchword])
     return result
   }
 
@@ -87,11 +86,11 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   }
 
   def isAllowed(user: User): Boolean = {
-    val prerequesites = getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
-    if (prerequesites.isEmpty) {
+    val prerequisites = getAssociatedSingletonDaosAsDomain(CompObjectProperties.PrerequisiteOf, classOf[Competence])
+    if (prerequisites.isEmpty) {
       return true
     } else {
-      return prerequesites.forall(x => x.hasEdge(user, CompObjectProperties.UserHasPerformed) && x.isAllowed(user))
+      return prerequisites.forall(x => x.hasEdge(user, CompObjectProperties.UserHasPerformed) && x.isAllowed(user))
     }
   }
 
@@ -155,14 +154,6 @@ class Competence(compManager: CompOntologyManager, identifierlocal: String, val 
   }
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Competence]
-
-  override def equals(other: Any): Boolean = other match {
-    case that: Competence =>
-      (that canEqual this) &&
-        this.getDefinition() == that.getDefinition() &&
-        this.getCompulsory() == that.getCompulsory()
-    case _ => false
-  }
 
   override def hashCode(): Int = {
     val state = Seq(getDefinition(), getCompulsory())
