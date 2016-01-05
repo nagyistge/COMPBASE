@@ -8,8 +8,8 @@ class Operator(compManager: CompOntologyManager, identifer: String, val definiti
   @Override
   protected def persistMore() {
     val operatorRoot = new OperatorInstance(comp)
-    val ontClass = persist(false).getOntclass()
-    ontClass.addSuperClass(operatorRoot.persist(false).getOntclass())
+    val ontClass = persistManualCascades(false).getOntclass()
+    ontClass.addSuperClass(operatorRoot.persistManualCascades(false).getOntclass())
     if (definition != null) {
       //addDataField(DEFINITION, definition) legacy problem
       compManager.getUtil().createOntClassForString(definition, false, definition)

@@ -18,7 +18,7 @@ object Ont2SuggestedCompetencyGridMapper extends Logging {
     val pairsTMP = pairs.map(x => (x.head, x.last))
     val filteredResult = pairsTMP.map(reorderPairs).filter(Ont2SuggestedCompetencyGridFilter.filterIsSuggestedCompetency).toBuffer
     logger.trace("combinations after filtering:")
-    logger.trace(Ont2SuggestedCompetenceGrid.compairListToString(filteredResult))
+    logger.trace(Ont2SuggestedCompetenceGrid.compareListToString(filteredResult))
     return filteredResult
   }
 

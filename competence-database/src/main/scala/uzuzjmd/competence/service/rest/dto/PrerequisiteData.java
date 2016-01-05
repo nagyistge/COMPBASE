@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class PrerequisiteData {
 	private String course;
-	private String linkedCompetence;
-	private List<String> selectedCompetences;
+	private String postCompetence;
+	private List<String> prerequisiteCompetences;
 	
-	public PrerequisiteData(String course, String linkedCompetence, List<String> selectedCompetences) {
+	public PrerequisiteData(String course, String linkedCompetence, List<String> prerequisiteCompetences) {
 		this.setCourse(course);
-		this.setLinkedCompetence(linkedCompetence);
-		this.setSelectedCompetences(selectedCompetences);
+		this.setPostCompetence(linkedCompetence);
+		this.setPrerequisiteCompetences(prerequisiteCompetences);
 	}
 
 	public String getCourse() {
@@ -24,24 +24,24 @@ public class PrerequisiteData {
 		this.course = course;
 	}
 
-	public String getLinkedCompetence() {
-		return linkedCompetence;
+	public String getPostCompetence() {
+		return postCompetence;
 	}
 
-	public void setLinkedCompetence(String linkedCompetence) {
-		this.linkedCompetence = linkedCompetence;
+	public void setPostCompetence(String postCompetence) {
+		this.postCompetence = postCompetence;
 	}
 
-	public List<String> getSelectedCompetences() {
-		return selectedCompetences;
+	public List<String> getPrerequisiteCompetences() {
+		return prerequisiteCompetences;
 	}
 
-	public void setSelectedCompetences(List<String> selectedCompetences) {
-		this.selectedCompetences = selectedCompetences;
+	public void setPrerequisiteCompetences(List<String> prerequisiteCompetences) {
+		this.prerequisiteCompetences = prerequisiteCompetences;
 	}
 	
 	public void addElementSelectedCompetences(String element) {
-		this.selectedCompetences.add(element);
+		this.prerequisiteCompetences.add(element);
 	}
 
 }

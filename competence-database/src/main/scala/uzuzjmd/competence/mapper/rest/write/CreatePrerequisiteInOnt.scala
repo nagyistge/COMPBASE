@@ -19,7 +19,7 @@ object CreatePrerequisiteInOnt extends WriteTransactional[PrerequisiteData] {
 
   def convertCreatePrerequisiteInOnt(comp: CompOntologyManager, changes: PrerequisiteData) {
     comp.startReasoning(MagicStrings.WRITEDEBUGRDF);
-    val competence = new Competence(comp, changes.getLinkedCompetence, null, null);
-    changes.getSelectedCompetences.foreach { x => competence.addRequiredCompetence(new Competence(comp, x, null, null)) }
+    val competence = new Competence(comp, changes.getPostCompetence, null, null);
+    changes.getPrerequisiteCompetences.foreach { x => competence.addRequiredCompetence(new Competence(comp, x, null, null)) }
   }
 }

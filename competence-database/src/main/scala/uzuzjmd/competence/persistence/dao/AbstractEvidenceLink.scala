@@ -1,12 +1,8 @@
 package uzuzjmd.competence.persistence.dao
 
-import com.hp.hpl.jena.ontology.Individual
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
-
-//import com.google.gwt.thirdparty.guava.common.collect.Collections2.PermutationCollection
+import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
+import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala
 
 case class AbstractEvidenceLink(
 
@@ -28,17 +24,6 @@ case class AbstractEvidenceLink(
 
   def this(comp: CompOntologyManager, identifier2: String, competence2: Competence, evidenceActivity2: EvidenceActivity, comments: List[Comment]) = this(comp, CompOntologyAccessScala.computeEncodedStringForLink(identifier2, competence2, evidenceActivity2), null, null, null, null, null, null, competence2, comments)
 
-  //  def computeEncodedString: String = {
-  //    if (identifier2 != null) {
-  //      return identifier2
-  //    } else {
-  //      if (competence == null || evidenceActivity == null) {
-  //        throw new Exception("evidenceActivity and competence need to be defined")
-  //      }
-  //      return competence.getId + evidenceActivity.getId
-  //    }
-  //  }
-
   @Override
   protected def deleteMore() {
     if (comments != null) {
@@ -59,7 +44,7 @@ case class AbstractEvidenceLink(
     createEdgeWith(CompObjectProperties.LinkOfCourseContext, courseContexts)
     evidenceActivity.persist
     createEdgeWith(evidenceActivity, CompObjectProperties.ActivityOf)
-    competence.persist(false)
+    competence.persistManualCascades(false)
     createEdgeWith(CompObjectProperties.linksCompetence, competence)
     addDataField(CREATED, dateCreated)
     addDataField(ISVALIDATED, isValidated)

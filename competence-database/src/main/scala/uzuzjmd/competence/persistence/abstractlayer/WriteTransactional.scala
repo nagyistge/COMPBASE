@@ -19,7 +19,7 @@ trait WriteTransactional[A] {
 
 
   def execute(f: TRANSACTIONAL, g: A) {
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       f(comp, g)
@@ -36,7 +36,7 @@ trait WriteTransactional[A] {
   }
 
   def executeWithReasoning(f: TRANSACTIONAL, g: A) {
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     comp.startReasoning(debugOn);
     try {
@@ -52,7 +52,7 @@ trait WriteTransactional[A] {
 
   def executeNoParam(f: TRANSACTIONAL2) {
     ()
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       f(comp)
@@ -71,7 +71,7 @@ trait WriteTransactional[A] {
 
 
   def executeNoParamWithReturn(f: TRANSACTIONAL3) : Any ={
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       val result = f(comp)
@@ -90,7 +90,7 @@ trait WriteTransactional[A] {
 
   def executeNoParamWithReasoning(f: TRANSACTIONAL2) {
     ()
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     comp.startReasoning(debugOn);
 
@@ -112,7 +112,7 @@ trait WriteTransactional[A] {
   def execute[T](f: (CompOntologyManager, A) => T, g: A): T = {
     ()
     var result: Any = null
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       result = f(comp, g)
@@ -134,7 +134,7 @@ trait WriteTransactional[A] {
     */
   def executeX[X](f: (CompOntologyManager, X) => Unit, g: X) {
     ()
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       f(comp, g)
@@ -156,7 +156,7 @@ trait WriteTransactional[A] {
   }
 
   def executeAllinOneTransaction(l: Array[TRANSACTIONAL], g: A) {
-    comp.begin
+    comp.beginWrite
     comp.getM.enterCriticalSection(false)
     try {
       l.foreach { x => x(comp, g) }

@@ -8,8 +8,8 @@ class Catchword(compManager: CompOntologyManager, identifer: String, val definit
   @Override
   protected def persistMore() {
     val catchwordRoot = new CatchwordInstance(comp)
-    val ontClass = persist(false).getOntclass()
-    ontClass.addSuperClass(catchwordRoot.persist(false).getOntclass())
+    val ontClass = persistManualCascades(false).getOntclass()
+    ontClass.addSuperClass(catchwordRoot.persistManualCascades(false).getOntclass())
     if (definition != null) {
       //addDataField(DEFINITION, definition) legacy problem
       compManager.getUtil().createOntClassForString(definition, false, definition)
