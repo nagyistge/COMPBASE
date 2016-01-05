@@ -9,7 +9,7 @@ abstract class Role(comp: CompOntologyManager, compOntClass: CompOntClass) exten
    */
   def setRole() {
     val role = new RoleInstance(comp)
-    role.persist(false)
+    role.persistManualCascades(false)
     addSuperClass(role)
   }
 }

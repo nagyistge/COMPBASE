@@ -4,6 +4,7 @@ import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
 
 import com.hp.hpl.jena.rdf.listeners.ChangedListener;
 import com.hp.hpl.jena.rdf.model.Statement;
+import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
 
 public class ModelChangeListener extends ChangedListener {
 

@@ -11,12 +11,12 @@ import uzuzjmd.competence.persistence.owl.CompFileUtil;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
-
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by dehne on 09.12.2015.
+ *
+ *
  */
 public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 

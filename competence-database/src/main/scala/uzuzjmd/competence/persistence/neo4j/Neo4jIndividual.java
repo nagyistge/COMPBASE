@@ -888,7 +888,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Neo4jIndividual update() throws Exception {
-        return null;
+        // TODO implement
+        return this;
     }
 
     @Override

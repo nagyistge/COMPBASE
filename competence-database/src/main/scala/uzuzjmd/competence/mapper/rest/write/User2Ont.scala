@@ -17,7 +17,7 @@ object User2Ont extends RoleConverter with WriteTransactional[UserData] {
 
   def createUser(comp: CompOntologyManager, data: UserData) {
     val creatorRole = convertRole(data.getRole, comp);
-    creatorRole.persist(false);
+    creatorRole.persistManualCascades(false);
     val coursecontext = new CourseContext(comp, data.getCourseContext);
     coursecontext.persist();
     val creator = new User(comp, data.getUser, creatorRole, coursecontext, data.getUser);

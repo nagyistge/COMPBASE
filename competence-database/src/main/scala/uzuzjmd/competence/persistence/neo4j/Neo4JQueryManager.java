@@ -8,17 +8,14 @@ import com.hp.hpl.jena.ontology.OntClass;
 import org.apache.commons.lang.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.config.MagicStrings;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -66,6 +63,10 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
     private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<String>>>>>> issueAbstractRequest(String payload) {
+    public void executeReasoning(String... queries) throws Exception {
+        issueMultipleStatementRequest(queries);
+    }
+
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
         return target2.request(
