@@ -1,13 +1,11 @@
 package uzuzjmd.competence.tests
 
-import com.hp.hpl.jena.ontology.OntClass
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.persistence.neo4j.{Neo4jOntClass, Model2Neo4j, Neo4jIndividual, Neo4jModelFactory}
-import uzuzjmd.competence.persistence.ontology.CompOntClass
+import uzuzjmd.competence.persistence.neo4j.{Model2Neo4j, Neo4jIndividual, Neo4jModelFactory, Neo4jOntClass}
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 

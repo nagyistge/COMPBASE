@@ -182,9 +182,9 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param rangeId
      * @param compObjectProperties
      */
-    public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
-        // TODO implement
-        throw new NotImplementedException();
+    public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
+        String query = "MATCH (a{id:\""+domainId+"\"})-[r:"+compObjectProperties.toString()+"]->(b{id:\""+rangeId+"\"}) DELETE r";
+        issueSingleStatementRequest(query);
     }
 
 
@@ -195,9 +195,14 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param compObjectProperties
      * @return
      */
-    public Boolean existsRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) {
-        //TODO implement
-        throw new NotImplementedException();
+    public Boolean existsRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
+        String query = "MATCH (a{id:\""+domainId+"\"})-[r:"+compObjectProperties.toString()+"]->(b{id:\""+rangeId+"\"}) return r";
+        return existMatches(query);
+    }
+
+    private Boolean existMatches(String query) throws Exception {
+        ArrayList<String> result = issueSingleStatementRequest(query);
+        return !result.isEmpty();
     }
 
 
@@ -207,9 +212,9 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param rangeId
      * @param compObjectProperties
      */
-    public void existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, CompObjectProperties compObjectProperties) {
-        // TODO implement
-        throw new NotImplementedException();
+    public Boolean existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
+        String query = "MATCH (a)-[r:individualOf]->(b{id:\""+domainClassNodeId+"\"}), (a)-[r2:"+compObjectProperties.toString()+"]->(c{id:\""+rangeId+"\"}) return a";
+        return existMatches(query);
     }
 
     /**
@@ -217,6 +222,10 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @return
      */
     public List<ObjectProperty> getAllObjectProperties() {
+
+
+        String query = "MATCH (a)-[r]->(b) RETURN a,r,b";
+
         // TODO implement
         throw new NotImplementedException();
     }
@@ -340,8 +349,8 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param id
      * @return
      */
-    public String getDefinitionForClassForNode(String id) {
-        // TODO implement
-        throw new NotImplementedException();
+    public String getDefinitionForClassForNode(String id) throws Exception {
+        String query = "MATCH (a {id:\""+id+"\"}) return a.definition";
+        return issueSingleStatementRequest(query).iterator().next();
     }
 }
