@@ -33,40 +33,46 @@ public class Neo4JQueryManager implements CompetenceQueries{
 
     public ArrayList<String> getLabelForNode(String id) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) return labels(e)";
-        ArrayList<String> resultString = issueSingleStatementRequest(query);
+        ArrayList<String> resultString = issueNeo4JRequestStrings(query);
         return resultString;
     }
 
-    private ArrayList<String> issueSingleStatementRequest(String query) throws Exception {
+    private <T> T issueSingleStatementRequest( Requestable<T> req, String query) throws Exception {
         logger.info(query);
         String payload = "{\"statements\" : [ {\"statement\" : \"" + query + "\"} ]}";
-        return issueNeo4JRequest(payload);
+        return req.doRequest(payload);
     }
 
-    private ArrayList<String> issueMultipleStatementRequest(String... queries) throws Exception {
+    private <T> T issueMultipleStatementRequest(Requestable<T> req, String... queries) throws Exception {
         String statements = "";
         for (int i = 0; i < queries.length; i++) {
             statements += "{\"statement\": \"" + queries[i] + "\"}";
         }
         String payload = "{\"statements\" : [" + statements + "]}";
-        return issueNeo4JRequest(payload);
+        return req.doRequest(payload);
     }
 
-    private ArrayList<String> issueNeo4JRequest(String payload) throws Exception {
+    private ArrayList<String> issueNeo4JRequestStrings(final String payload) throws Exception {
+        return issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>() , payload);
+    }
+
+
+    private ArrayList<HashMap<String, String>> issueNeo4JRequestHashMap(final String payload) throws Exception {
+        return issueSingleStatementRequest(new RequestableImpl<ArrayList<HashMap<String, String>>>() , payload);
+    }
+
+    private ArrayList<String> issueNeo4JRequestStrings(final String... queries) throws Exception {
+        return issueMultipleStatementRequest(new RequestableImpl<ArrayList<String>>() , queries);
+    }
+
+    private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<String>>>>>> issueAbstractRequest(String payload) {
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
-        LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<String>>>>>> result = target2.request(
+        return target2.request(
                 MediaType.APPLICATION_JSON).post(
                 Entity.entity(payload,
                         MediaType.APPLICATION_JSON), LinkedHashMap.class);
-
-        if (!result.get("errors").isEmpty()) {
-            throw new Exception(result.get("errors").get(0).toString());
-        }
-        return result.get("results").get(0).get("data").get(0).get("row");
     }
-
-
     /**
      * This is used for standard daos who have normal label
      * @param id
@@ -75,32 +81,42 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     public void setLabelForNode(String id, String labelName) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) set e:" + labelName + " return e";
-        ArrayList<String> resultString = issueSingleStatementRequest(query);
+        ArrayList<String> resultString = issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>()
+                , query);
     }
 
-    public ArrayList<String> createUniqueNode(HashMap<String, String> props) throws Exception {
+    public ArrayList<HashMap<String, String>> createUniqueNode(HashMap<String, String> props) throws Exception {
         logger.debug("Entering createUniqueNode with props:" + implode(props));
-        String queryMerge = "MERGE (n:";
+        List<Neo4jQueryStatement> states = new ArrayList<>();
+        states.add(new Neo4jQueryStatement());
+        states.get(states.size() - 1).setQueryType(Neo4jQuery.queryType.MERGE);
+        states.get(states.size() - 1).setVar("n");
         if (props.containsKey("clazz")) {
-            queryMerge +=  props.get("clazz");
+            states.get(states.size() - 1).setGroup(props.get("clazz"));
         }  else {
-            queryMerge += "unknown";
+            states.get(states.size() - 1).setGroup("unknown");
         }
         if (props.containsKey("id")){
-            queryMerge += " {id: '" + props.get("id") + "'}";
+            states.get(states.size() - 1).addArgument("id", props.get("id"));
         }
-        queryMerge +=")";
-        //res.add(queryMerge);
         for (Map.Entry<String, String> kvp :
                 props.entrySet()) {
             if (kvp.getKey().contains("clazz") || kvp.getKey().contains("id")) {
                 continue;
             } else {
-                //res.add(" Set n." + kvp.getKey() + "='" + kvp.getValue() + "'");
-                queryMerge += " Set n." + kvp.getKey() + "='" + kvp.getValue() + "'";
+                states.add(new Neo4jQueryStatement());
+                states.get(states.size() - 1).setQueryType(Neo4jQuery.queryType.SET);
+                states.get(states.size() - 1).setVar("n");
+                states.get(states.size() - 1).addArgument(kvp.getKey(), kvp.getValue());
             }
         }
-        return issueSingleStatementRequest(queryMerge + "return n");
+        states.add(new Neo4jQueryStatement());
+        states.get(states.size() - 1).setQueryType(Neo4jQuery.queryType.RETURN);
+        states.get(states.size() - 1).setVar("n");
+
+        logger.debug("Leaving createUniqueNode");
+        return issueSingleStatementRequest(new RequestableImpl<ArrayList<HashMap<String, String>>>()
+                , Neo4jQuery.statesToQuery(states));
     }
 
     /**
@@ -112,15 +128,49 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     public void setClassForNode(String id, String localName, CompOntClass superClassClass) throws Exception {
         Boolean isClass = true;
-        String createSuperNodeQuery = createUniqueNodeQuery(id, localName, isClass, superClassClass);
+        HashMap<String, String> hm = new HashMap<>();
+        hm.put("id", id);
+        hm.put("clazz", superClassClass.toString());
+        hm.put("definition", localName);
+        hm.put("isClass", String.valueOf(isClass));
+        createUniqueNode(hm);
         String createIndividualOfRelationQuery = createIndividualOfRelation(id);
-        issueMultipleStatementRequest(createSuperNodeQuery, createIndividualOfRelationQuery);
+        issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>() , createIndividualOfRelationQuery);
     }
 
-    private String createIndividualOfRelation(String id) {
-        String createIndividualOfRelation =
-                "Match (n {id:\"" + id + "\", class:true}),(n2 {id:\"" + id + "\", class:false}) CREATE (n2)-[r:individualOf]->(n) return n, n2, r";
-        return createIndividualOfRelation;
+    //TODO set back to private
+    public String createIndividualOfRelation(String id) {
+        List<Neo4jQueryStatement> states = new ArrayList<Neo4jQueryStatement>();
+        states.add(new Neo4jQueryStatement());
+        states.get(states.size() - 1).setQueryType(Neo4jQuery.queryType.MATCHMULTI);
+
+        Neo4jQueryStatement tempState = new Neo4jQueryStatement();
+        tempState.setQueryType(Neo4jQuery.queryType.MATCHNOGROUP);
+        tempState.setVar("n");
+        tempState.addArgument("id", id);
+        tempState.addArgument("class", "false");
+
+        states.get(states.size() - 1).addMultiState(tempState);
+
+        tempState = new Neo4jQueryStatement();
+        tempState.setQueryType(Neo4jQuery.queryType.MATCHNOGROUP);
+        tempState.setVar("n2");
+        tempState.addArgument("id", id);
+        tempState.addArgument("class", "true");
+
+        states.get(states.size() - 1).addMultiState(tempState);
+
+        tempState = new Neo4jQueryStatement();
+        tempState.setQueryType(Neo4jQuery.queryType.CREATEREL);
+        tempState.setVar("r");
+        tempState.setRelEntry("n2", "n");
+        tempState.setGroup("individualOf");
+
+        states.add(tempState);
+
+        //String createIndividualOfRelation =
+        //        "Match (n {id:\"" + id + "\", class:true}),(n2 {id:\"" + id + "\", class:false}) CREATE (n2)-[r:individualOf]->(n) return n, n2, r";
+        return Neo4jQuery.statesToQuery(states) + "return n, n2, r";
     }
 
     private String createUniqueNodeQuery(String id, String localName, Boolean isClass, CompOntClass ontClass) {
@@ -157,7 +207,7 @@ public class Neo4JQueryManager implements CompetenceQueries{
 
     private void createRelationShip(String domainId, CompObjectProperties edge, String rangeId, Boolean classRelationShip) throws Exception {
         String query = "MATCH (n {id:\"" + domainId + "\", isClass="+classRelationShip+"}), (n2{id:\"" + rangeId + "\", isClass="+classRelationShip+"}) CREATE (n)-[r:" + edge.toString() + "]->(n2) return n,r,n2";
-        issueSingleStatementRequest(query);
+        issueNeo4JRequestStrings(query);
     }
 
     /**
@@ -167,13 +217,14 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     public String getClassForNode(String id) throws Exception {
         String query = "MATCH (n {id=\""+id+"\"}), (n)-[r:individualOf]->(n2) return n2";
-        ArrayList<String> result = issueSingleStatementRequest(query);
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
         return result.get(0);
     }
 
     public void deleteNode(String id) throws Exception {
+
         String query = "MATCH (n {id:\""+id+"\"}) DETACH DELETE n";
-        issueSingleStatementRequest(query);
+        issueNeo4JRequestStrings(query);
     }
     /**
      * delete Relationship between domainID and RangeID

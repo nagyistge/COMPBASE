@@ -12,6 +12,7 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -228,7 +229,6 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     public void deleteDataField(String key, Individual individual) {
 
     }
-
 
     private OntClass getOrCreateSingleTonIndividual(String id, String definition, Boolean isRead) {
         Neo4jIndividual neo4jIndividual = getOrCreateNeo4jSingletonIndividual(id, definition, isRead);
