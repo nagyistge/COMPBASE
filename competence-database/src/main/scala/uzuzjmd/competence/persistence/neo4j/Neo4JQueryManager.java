@@ -1,21 +1,21 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
-import org.apache.commons.lang.NotImplementedException;
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
+import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.persistence.ontology.CompOntClass;
-import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -58,15 +58,15 @@ public class Neo4JQueryManager implements CompetenceQueries{
         return issueSingleStatementRequest(new RequestableImpl<ArrayList<HashMap<String, String>>>() , payload);
     }
 
+    private ArrayList<ArrayList<String>> issueNeo4JRequestArrayListArrayList(final String payload) throws Exception {
+        return issueSingleStatementRequest(new RequestableImpl<ArrayList<ArrayList<String>>>() , payload);
+    }
+
     private ArrayList<String> issueNeo4JRequestStrings(final String... queries) throws Exception {
         return issueMultipleStatementRequest(new RequestableImpl<ArrayList<String>>() , queries);
     }
 
     private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<String>>>>>> issueAbstractRequest(String payload) {
-    public void executeReasoning(String... queries) throws Exception {
-        issueMultipleStatementRequest(queries);
-    }
-
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
         return target2.request(
@@ -74,6 +74,11 @@ public class Neo4JQueryManager implements CompetenceQueries{
                 Entity.entity(payload,
                         MediaType.APPLICATION_JSON), LinkedHashMap.class);
     }
+
+    public void executeReasoning(String... queries) throws Exception {
+        issueNeo4JRequestStrings(queries);
+    }
+
     /**
      * This is used for standard daos who have normal label
      * @param id
@@ -223,10 +228,10 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
     public void deleteNode(String id) throws Exception {
-
         String query = "MATCH (n {id:\""+id+"\"}) DETACH DELETE n";
         issueNeo4JRequestStrings(query);
     }
+
     /**
      * delete Relationship between domainID and RangeID
      * @param domainId
@@ -235,7 +240,7 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
         String query = "MATCH (a{id:\""+domainId+"\"})-[r:"+compObjectProperties.toString()+"]->(b{id:\""+rangeId+"\"}) DELETE r";
-        issueSingleStatementRequest(query);
+        issueNeo4JRequestStrings(query);
     }
 
 
@@ -252,7 +257,7 @@ public class Neo4JQueryManager implements CompetenceQueries{
     }
 
     private Boolean existMatches(String query) throws Exception {
-        ArrayList<String> result = issueSingleStatementRequest(query);
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
         return !result.isEmpty();
     }
 
@@ -272,42 +277,72 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * Get All edges in graph EXCEPT the subClass and individualOf relations
      * @return
      */
-    public List<ObjectProperty> getAllObjectProperties() {
-
-
+    public List<ObjectProperty> getAllObjectProperties() throws Exception {
         String query = "MATCH (a)-[r]->(b) RETURN a,r,b";
+        ArrayList<ArrayList<String>> lists = issueNeo4JRequestArrayListArrayList(query);
+        ArrayList<ObjectProperty> result = new ArrayList<ObjectProperty>();
 
-        // TODO implement
-        throw new NotImplementedException();
+        for (ArrayList<String> list : lists) {
+            Neo4jIndividual domainIndividual = new Neo4jIndividual(list.get(0), list.get(0), null);
+            Neo4jIndividual rangeIndividual = new Neo4jIndividual(list.get(2), list.get(2), null);
+            CompObjectProperties edge = CompObjectProperties.valueOf(list.get(1));
+            Neo4JObjectProperty prop = new Neo4JObjectProperty(domainIndividual,edge, rangeIndividual);
+            result.add(prop);
+        }
+        return result;
     }
 
     /**
      * GET ALL Individuals in graph EXCEPT the SingletonIndividuals
      * @return
      */
-    public List<Individual> getAllIndividuals() {
+    public List<Individual> getAllIndividuals() throws Exception {
+
+        String query = "MATCH (a) WHERE ALL (x IN labels(a) WHERE NOT (x = \"Competence\") AND NOT (x=\"Operator\") AND NOT (x=\"Catchword\")) return a.id, labels(a)";
+        ArrayList<HashMap<String, String>> results = issueNeo4JRequestHashMap(query);
         // TODO implement
-        throw new NotImplementedException();
+        List<Individual> result = new LinkedList<Individual>();
+        for (HashMap<String, String> stringStringHashMap : results) {
+            Neo4jOntClass ontClass = new Neo4jOntClass(stringStringHashMap.values().iterator().next());
+            Individual individual = new Neo4jIndividual(stringStringHashMap.keySet().iterator().next(), stringStringHashMap.keySet().iterator().next(), ontClass);
+            result.add(individual);
+        }
+        return result;
     }
 
     /**
      * GET a map of all singletonClassIds and their definition attribute
      * @return
      */
-    public HashMap<OntClass,String> getAllSingletonDefinitions() {
+    public HashMap<OntClass,String> getAllSingletonDefinitions() throws Exception {
+        String query = "MATCH (a)-[r:individualOf]->(b) return b.definition";
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
 
-        // TODO implement
-        throw new NotImplementedException();
+        HashMap<OntClass,String> resultFinal = new HashMap<OntClass, String>();
+
+        for (String s : result) {
+            OntClass correspondingClass = new Neo4jIndividual(s,s,null, true).getOntClass();
+            resultFinal.put(correspondingClass, s);
+        }
+
+        return resultFinal;
     }
 
     /**
      * GET a list of all subClassRelations between the classNodes for a given label
      * @return
      */
-    public List<SubClassRelation> getAllSingletonRelations(CompOntClass compOntClass) {
-
-        // TODO implement
-        throw new NotImplementedException();
+    public List<SubClassRelation> getAllSingletonRelations() throws Exception {
+        ArrayList<SubClassRelation> resultFinal = new ArrayList<SubClassRelation>();
+        String query = "MATCH (a)-[r:subClassOf]->(b) return a,r,b";
+        ArrayList<ArrayList<String>> result = issueNeo4JRequestArrayListArrayList(query);
+        for (ArrayList<String> strings : result) {
+            Neo4jIndividual domainIndividual = new Neo4jIndividual(strings.get(0), strings.get(0), null);
+            Neo4jIndividual rangeIndividual = new Neo4jIndividual(strings.get(2), strings.get(2), null);
+            SubClassRelation rel = new SubClassRelation(domainIndividual, rangeIndividual, CompOntClass.valueOf(domainIndividual.getOntClass().getLocalName()));
+            resultFinal.add(rel);
+        }
+        return resultFinal;
     }
 
     /**
@@ -315,8 +350,32 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @return
      */
     public List<OntClass> getAllOntClasses() {
-        // TODO implement
-        throw new NotImplementedException();
+        List<OntClass> result = new ArrayList<OntClass>();
+        for (CompOntClass compOntClass: CompOntClass.values()) {
+            if (!compOntClass.equals(CompOntClass.Competence) || compOntClass.equals(CompOntClass.Catchword) || compOntClass.equals(CompOntClass.Operator)) {
+                result.add(new Neo4jOntClass(compOntClass.name()));
+            }
+        }
+        String competenceQuery = "MATCH (a:Competence) return a";
+        String operatorQuery = "Match (b:Operator) return b";
+        String catchwordQuery = "Match (c:Operator) return c";
+        try {
+            ArrayList<String> operatorClasses = issueNeo4JRequestStrings(operatorQuery);
+            for (String operator : operatorClasses) {
+                result.add(new Neo4jOntClass(operator, CompOntClass.Operator));
+            }
+            ArrayList<String> catchwordClasses = issueNeo4JRequestStrings(catchwordQuery);
+            for (String catchword : catchwordClasses) {
+                result.add(new Neo4jOntClass(catchword, CompOntClass.Catchword));
+            }
+            ArrayList<String> competenceClasses = issueNeo4JRequestStrings(competenceQuery);
+            for (String competence : competenceClasses) {
+                result.add(new Neo4jOntClass(competence, CompOntClass.Competence));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**
@@ -327,8 +386,8 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     @Override
     public ConcurrentLinkedQueue<OntClass> getRelatedClassesForOntClass(String domainClass, CompObjectProperties compObjectProperties) {
-        // TODO implement
-        throw new NotImplementedException();
+        String query = "MATCH (a)-[r:individualOf]->(b{id:\""+domainClass+"\"})-[r2:"+compObjectProperties.toString()+"]->(c) RETURN c";
+        return createOntclassQueue(query);
     }
 
 
@@ -340,9 +399,8 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     @Override
     public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualId) {
-        // TODO implement
-        throw new NotImplementedException();
-
+        String query = "MATCH (b)-[r:"+compObjectProperties.toString()+"]->(a {id:\""+rangeIndividualId+"\"}) RETURN b";
+        return createIndividualQueue(query);
     }
 
     /**
@@ -353,9 +411,43 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     @Override
     public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, CompObjectProperties compObjectProperties) {
-        // TODO implement
-        throw new NotImplementedException();
+        String query = "MATCH (a {id:\""+domainIndividual+"\"})-[r:"+compObjectProperties.toString()+"]->(b) RETURN b";
+        return createIndividualQueue(query);
+    }
 
+    private ConcurrentLinkedQueue<Individual> createIndividualQueue(String query) {
+        try {
+            ArrayList<String> result = issueNeo4JRequestStrings(query);
+            List<Individual> individuals = new LinkedList<Individual>();
+            for (String resultString:result
+                    ) {
+                individuals.add(new Neo4jIndividual(resultString, resultString, null).fetchIfExists());
+            }
+            ConcurrentLinkedQueue<Individual> resultQueue = new ConcurrentLinkedQueue<Individual>();
+            resultQueue.addAll(individuals);
+            return resultQueue;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private ConcurrentLinkedQueue<OntClass> createOntclassQueue(String query) {
+        try {
+            ArrayList<String> result = issueNeo4JRequestStrings(query);
+            List<OntClass> ontClasses = new LinkedList<OntClass>();
+            for (String resultString:result
+                    ) {
+                ontClasses.add(new Neo4jOntClass(resultString).fetchIfExists());
+            }
+            ConcurrentLinkedQueue<OntClass> resultQueue = new ConcurrentLinkedQueue<OntClass>();
+            resultQueue.addAll(ontClasses);
+            return resultQueue;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -365,9 +457,10 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param clazz
      * @return
      */
-    public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
-        // TODO implement
-        throw new NotImplementedException();
+    public List<String> getAllInstanceDefinitions(CompOntClass clazz) throws Exception {
+        String query = "MATCH (a:"+clazz.name()+") return a.name";
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
+        return result;
     }
 
     /**
@@ -376,9 +469,9 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param start
      * @param end
      */
-    public List<String>  getShortestSubClassPath(OntClass start, OntClass end) {
-        // TODO implement
-        throw new NotImplementedException();
+    public List<String>  getShortestSubClassPath(OntClass start, OntClass end) throws Exception {
+        String query = "MATCH p=(a{id:\""+start.getLocalName()+"\"})-[r:subClassOf*]->(b{id:\""+end.getLocalName()+"\"}) return EXTRACT (n IN nodes(p)|n.definition) AS ids";
+        return issueNeo4JRequestStrings(query);
     }
 
 
@@ -390,9 +483,16 @@ public class Neo4JQueryManager implements CompetenceQueries{
      * @param objectId
      * @param objectDefinition
      */
-    public void createRelationShip(String subjectId, String subjectDefinition, String edge, String objectId, String objectDefinition) {
-        // TODO implement
-        throw new NotImplementedException();
+    public void createRelationShip(String subjectId, String subjectDefinition, String edge, String objectId, String objectDefinition) throws Exception {
+        String subjectQuery = "MERGE (a{id:\""+subjectId+"\",subjectDefinition:\""+subjectDefinition+"\"}) return a";
+        String objectQuery = "MERGE (b{id:\""+objectId+"\",subjectDefinition:\""+objectDefinition+"\"}) return b";
+
+        String relQuery = "MATCH (a{id:\""+subjectId+"\",subjectDefinition:\""+subjectDefinition+"\"})," +
+                          "MATCH (b{id:\""+objectId+"\",subjectDefinition:\""+objectDefinition+"\"})" +
+                            "CREATE UNIQUE (a)-[r:"+edge+"]->(b) " +
+                            "RETURN r";
+
+        issueNeo4JRequestStrings(subjectQuery, objectQuery, relQuery);
     }
 
     /**
@@ -402,6 +502,26 @@ public class Neo4JQueryManager implements CompetenceQueries{
      */
     public String getDefinitionForClassForNode(String id) throws Exception {
         String query = "MATCH (a {id:\""+id+"\"}) return a.definition";
-        return issueSingleStatementRequest(query).iterator().next();
+        return issueNeo4JRequestStrings(query).iterator().next();
+    }
+
+    /**
+     * return the singletonSuperClass
+     * @param neo4jOntClass
+     * @return
+     */
+    public OntClass getSuperClass(Neo4jOntClass neo4jOntClass) {
+        String query = "MATCH (a {id:\""+neo4jOntClass.getLocalName()+"\"})-[r:subClassOf]->(b) return b";
+        try {
+            ArrayList<String> results = issueNeo4JRequestStrings(query);
+            if (!results.isEmpty()) {
+                return new Neo4jOntClass(results.iterator().next());
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

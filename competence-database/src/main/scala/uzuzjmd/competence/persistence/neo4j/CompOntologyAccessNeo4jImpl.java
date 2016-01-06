@@ -56,12 +56,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public ObjectProperty createObjectProperty(CompOntClass domain, CompOntClass range, CompObjectProperties propertyName) {
-        Neo4JObjectProperty neo4JObjectProperty = new Neo4JObjectProperty(domain,propertyName,range);
-        try {
-            return neo4JObjectProperty.create();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // TODO fix
         return null;
     }
 
@@ -69,27 +64,39 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     public ObjectProperty createObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
         Neo4jIndividual neo4jIndividual = new Neo4jIndividual(domainIndividual.getLocalName(), null, domainIndividual.getOntClass());
         neo4jIndividual.createEdge(compObjectProperties, rangeIndividual);
-        return new Neo4JObjectProperty(CompOntClass.valueOf(domainIndividual.getOntClass().getLocalName()), compObjectProperties, CompOntClass.valueOf(rangeIndividual.getOntClass().getLocalName()));
+        return new Neo4JObjectProperty(neo4jIndividual, compObjectProperties, rangeIndividual);
     }
 
     @Override
     public ObjectProperty deleteObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
         Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
-        neo4JQueryManager.deleteRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
-        return new Neo4JObjectProperty(CompOntClass.valueOf(domainIndividual.getOntClass().getLocalName()), compObjectProperties, CompOntClass.valueOf(rangeIndividual.getOntClass().getLocalName()));
+        try {
+            neo4JQueryManager.deleteRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Neo4JObjectProperty(domainIndividual, compObjectProperties, rangeIndividual);
     }
 
     @Override
     public Boolean existsObjectPropertyWithIndividual(Individual domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
         Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
-        return neo4JQueryManager.existsRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
-
+        try {
+            return neo4JQueryManager.existsRelationShip(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public Boolean existsObjectPropertyWithOntClass(OntClass domainIndividual, Individual rangeIndividual, CompObjectProperties compObjectProperties) {
         Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
-        neo4JQueryManager.existsRelationShipWithSuperClassGiven(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+        try {
+            neo4JQueryManager.existsRelationShipWithSuperClassGiven(domainIndividual.getLocalName(), rangeIndividual.getLocalName(), compObjectProperties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -166,13 +173,23 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     @Override
     public List<String> getAllInstanceDefinitions(CompOntClass clazz) {
         Neo4JQueryManager manager = new Neo4JQueryManager();
-        return manager.getAllInstanceDefinitions(clazz);
+        try {
+            return manager.getAllInstanceDefinitions(clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public List<String> getShortestSubClassPath(OntClass start, OntClass end) {
         Neo4JQueryManager manager = new Neo4JQueryManager();
-        return manager.getShortestSubClassPath(start,end);
+        try {
+            return manager.getShortestSubClassPath(start,end);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

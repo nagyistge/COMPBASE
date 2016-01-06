@@ -8,6 +8,7 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
 /**
  * Created by dehne on 04.12.2015.
@@ -17,6 +18,8 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
     private final String id;
     private final String definition;
     static Logger logger = LogManager.getLogger(Neo4jOntClass.class.getName());
+    private OntClass superClass;
+    private Neo4JQueryManager manager = new Neo4JQueryManager();
 
     public Neo4jOntClass(String id, String definition) {
         logger.debug("Entering Neo4jOntClass Constructor with id:" + id + "definition" + definition);
@@ -32,11 +35,19 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
         logger.debug("Leaving Neo4jOntClass Constructor");
     }
 
+    public Neo4jOntClass(String id, CompOntClass clazz) {
+        logger.debug("Entering Neo4jOntClass Constructor with id:" + id );
+        this.id = id;
+        this.definition = id;
+        logger.debug("Leaving Neo4jOntClass Constructor");
+        this.superClass = new Neo4jOntClass(clazz.name());
+    }
+
     @Override
     public void setSuperClass(Resource cls) {
-        Neo4JQueryManager manager = new Neo4JQueryManager();
         try {
             manager.createSuperClassRelationShip(id, CompObjectProperties.subClassOf,cls.getLocalName());
+            this.superClass = new Neo4jOntClass(cls.getLocalName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +60,11 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public OntClass getSuperClass() {
-        return null;
+        if (this.superClass == null) {
+            return manager.getSuperClass(this);
+        } else {
+            return new Neo4jOntClass(superClass.getLocalName());
+        }
     }
 
     @Override
