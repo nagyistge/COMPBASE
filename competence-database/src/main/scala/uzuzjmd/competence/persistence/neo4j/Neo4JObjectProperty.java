@@ -20,10 +20,8 @@ public class Neo4JObjectProperty implements ObjectProperty, Fetchable<Neo4JObjec
      * @param propertyName
      * @param range
      */
-    public Neo4JObjectProperty(CompOntClass domain, CompObjectProperties propertyName, CompOntClass range) {
+    public Neo4JObjectProperty(Individual domain, CompObjectProperties propertyName, Individual range) {
     }
-
-
 
     @Override
     public void setSuperProperty(Property prop) {

@@ -1,12 +1,14 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import org.apache.commons.collections.KeyValue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.util.Helper;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by carl on 17.12.15.

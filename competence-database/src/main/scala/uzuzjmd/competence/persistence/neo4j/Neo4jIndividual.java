@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.HashMap;
 public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private String id;
-    private Boolean isSingleTonClass;
+    private Boolean isSingletonClass;
     private String definition;
     private Neo4JQueryManager qmanager;
     private CompOntClass clazz;
@@ -35,8 +36,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     public Neo4jIndividual(String id, String definition, OntClass ontClass) {
         logger.debug("Entering Neo4jIndividual Constructor with id:"
                 + id + " definition:" + definition + " ontClass:" + ontClass.getLocalName());
-        this.id = id;
-        this.isSingleTonClass = false;
+        this.id = CompOntologyAccessScala.encode(id);
+        this.isSingletonClass = false;
         this.definition = definition;
         qmanager = new Neo4JQueryManager();
         this.ontClass = ontClass;
@@ -47,12 +48,11 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
         logger.debug("Entering Neo4jIndividual Constructor with id:"
                 + id + " definition:" + definition + " ontClass:" + ontClass.getLocalName()
-                + "isSinletonClass" + String.valueOf(isSingletonClass));
-        this.id = id;
-        this.isSingleTonClass = isSingletonClass;
+                + "isSingletonClass" + String.valueOf(isSingletonClass));
+        this.id = CompOntologyAccessScala.encode(id);
+        this.isSingletonClass = isSingletonClass;
         this.definition = definition;
         this.ontClass = ontClass;
-        String str = ontClass.getLocalName();
         this.clazz = CompOntClass.valueOf(ontClass.getLocalName());
         qmanager = new Neo4JQueryManager();
         logger.debug("Leaving Neo4jIndividual Constructor");
@@ -70,8 +70,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         Neo4jIndividual that = (Neo4jIndividual) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (isSingleTonClass != null ?
-                !isSingleTonClass.equals(that.isSingleTonClass) : that.isSingleTonClass != null) {
+        if (isSingletonClass != null ?
+                !isSingletonClass.equals(that.isSingletonClass) : that.isSingletonClass != null) {
             logger.debug("Leaving equals with " + String.valueOf(false));
             return false;
         }
@@ -86,7 +86,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     public int hashCode() {
         logger.debug("Entering hashcode");
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (isSingleTonClass != null ? isSingleTonClass.hashCode() : 0);
+        result = 31 * result + (isSingletonClass != null ? isSingletonClass.hashCode() : 0);
         result = 31 * result + (definition != null ? definition.hashCode() : 0);
         logger.debug("Leaving hashCode with " + result);
         return result;
@@ -107,7 +107,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private void createClass(String str) {
         try {
-            if (!isSingleTonClass) {
+            if (!isSingletonClass) {
                 qmanager.setLabelForNode(id, str);
             } else {
                 qmanager.setClassForNode(id, definition, CompOntClass.valueOf(str));
@@ -131,7 +131,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         HashMap<String, String> idDefinition = new HashMap<String, String>();
         Neo4jOntClass myont;
         try {
-            if (!isSingleTonClass) {
+            if (!isSingletonClass) {
                 myont = new Neo4jOntClass(neo4JQueryManager.getLabelForNode(id).get(0));
                 logger.debug("Leaving getOntClass with Neo4jOntClass:" + myont.getLocalName());
                 return myont;
@@ -894,7 +894,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public void delete() throws Exception {
-
+        // TODO implement
     }
 
     private HashMap<String,String> toHashmap() {
