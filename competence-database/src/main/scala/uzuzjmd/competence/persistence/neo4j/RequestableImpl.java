@@ -33,7 +33,11 @@ public class RequestableImpl<T> implements Requestable<T>{
             throw new Exception(result.get("errors").get(0).toString());
         }
         logger.debug("Leaving doRequest");
-        return result.get("results").get(0).get("data").get(0).get("row");
+        if (result.get("results").get(0).get("data").isEmpty()) {
+            return null;
+        } else {
+            return result.get("results").get(0).get("data").get(0).get("row");
+        }
     }
 
     private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> getLinkedHashMapFromRest(String payload) {

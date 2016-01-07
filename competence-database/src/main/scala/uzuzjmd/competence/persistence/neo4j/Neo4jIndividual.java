@@ -4,16 +4,17 @@ import com.hp.hpl.jena.datatypes.RDFDatatype;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.ontology.*;
 import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.tdb.store.Hash;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
+
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
-import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -22,39 +23,44 @@ import java.util.HashMap;
 /**
  * Created by dehne on 07.12.2015.
  */
-public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
+public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private String id;
-    private Boolean isSingletonClass;
+    private Boolean isClass;
     private String definition;
-    private Neo4JQueryManager qmanager;
-    private CompOntClass clazz;
-    private OntClass ontClass;
+    private Neo4JQueryManagerImpl qmanager;
     static Logger logger = LogManager.getLogger(Neo4jIndividual.class.getName());
 
 
     public Neo4jIndividual(String id, String definition, OntClass ontClass) {
         logger.debug("Entering Neo4jIndividual Constructor with id:"
-                + id + " definition:" + definition + " ontClass:" + ontClass.getLocalName());
-        this.id = CompOntologyAccessScala.encode(id);
-        this.isSingletonClass = false;
+                + id + " definition:" + definition + " ontClass:" + ontClass);
+        this.id = id;
+        this.isClass = false;
         this.definition = definition;
-        qmanager = new Neo4JQueryManager();
+        qmanager = new Neo4JQueryManagerImpl();
         this.ontClass = ontClass;
-        this.clazz = CompOntClass.valueOf(ontClass.getLocalName());
         logger.debug("Leaving Neo4jIndividual Constructor");
     }
 
     public Neo4jIndividual(String id, String definition, OntClass ontClass, Boolean isSingletonClass) {
         logger.debug("Entering Neo4jIndividual Constructor with id:"
-                + id + " definition:" + definition + " ontClass:" + ontClass.getLocalName()
-                + "isSingletonClass" + String.valueOf(isSingletonClass));
-        this.id = CompOntologyAccessScala.encode(id);
-        this.isSingletonClass = isSingletonClass;
+                + id + " definition:" + definition + " ontClass:" + ontClass
+                + "isClass" + String.valueOf(isSingletonClass));
+        if (isSingletonClass) {
+            this.id = MagicStrings.SINGLETONPREFIX + id;
+            this.clazzId = id;
+        } else {
+            this.id = id;
+        }
+
+        this.isClass = isSingletonClass;
+        if (isSingletonClass == null) {
+            isClass = false;
+        }
         this.definition = definition;
         this.ontClass = ontClass;
-        this.clazz = CompOntClass.valueOf(ontClass.getLocalName());
-        qmanager = new Neo4JQueryManager();
+        qmanager = new Neo4JQueryManagerImpl();
         logger.debug("Leaving Neo4jIndividual Constructor");
     }
 
@@ -70,8 +76,8 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         Neo4jIndividual that = (Neo4jIndividual) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (isSingletonClass != null ?
-                !isSingletonClass.equals(that.isSingletonClass) : that.isSingletonClass != null) {
+        if (isClass != null ?
+                !isClass.equals(that.isClass) : that.isClass != null) {
             logger.debug("Leaving equals with " + String.valueOf(false));
             return false;
         }
@@ -86,7 +92,7 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     public int hashCode() {
         logger.debug("Entering hashcode");
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (isSingletonClass != null ? isSingletonClass.hashCode() : 0);
+        result = 31 * result + (isClass != null ? isClass.hashCode() : 0);
         result = 31 * result + (definition != null ? definition.hashCode() : 0);
         logger.debug("Leaving hashCode with " + result);
         return result;
@@ -107,10 +113,10 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     private void createClass(String str) {
         try {
-            if (!isSingletonClass) {
+            if (!isClass) {
                 qmanager.setLabelForNode(id, str);
             } else {
-                qmanager.setClassForNode(id, definition, CompOntClass.valueOf(str));
+                qmanager.setClassForNode(id, definition, clazzId);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -127,24 +133,30 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public OntClass getOntClass() {
         logger.debug("Entering getOntClass");
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        if (ontClass != null) {
+            return ontClass;
+        }
+        Neo4JQueryManagerImpl neo4JQueryManager = new Neo4JQueryManagerImpl();
         HashMap<String, String> idDefinition = new HashMap<String, String>();
-        Neo4jOntClass myont;
+        Neo4jOntClass myOntClass;
         try {
-            if (!isSingletonClass) {
-                myont = new Neo4jOntClass(neo4JQueryManager.getLabelForNode(id).get(0));
-                logger.debug("Leaving getOntClass with Neo4jOntClass:" + myont.getLocalName());
-                return myont;
+            if (!isClass) {
+                myOntClass = new Neo4jOntClass(neo4JQueryManager.getLabelForNode(id).get(0));
+                logger.debug("Leaving getOntClass with Neo4jOntClass:" + myOntClass.getLocalName());
+                return myOntClass;
             } else {
+                if (neo4JQueryManager.getClassForNode(id) == null) {
+                    return null;
+                }
                 idDefinition.put(neo4JQueryManager.getClassForNode(id), neo4JQueryManager.getDefinitionForClassForNode(id));
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
         }
-        myont = new Neo4jOntClass(idDefinition.keySet().iterator().next(), idDefinition.values().iterator().next());
-        logger.debug("Leaving getOntClass with Neo4jOntClass:" + myont.getLocalName());
-        return  myont;
+        myOntClass = new Neo4jOntClass(idDefinition.keySet().iterator().next(), idDefinition.values().iterator().next());
+        logger.debug("Leaving getOntClass with Neo4jOntClass:" + myOntClass.getLocalName());
+        return myOntClass;
     }
 
     @Override
@@ -746,7 +758,12 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Resource addLiteral(Property p, Object o) {
-        throw new NotImplementedException();
+        try {
+            qmanager.setPropertyInNode(this.id, p.getLocalName(), o);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -831,8 +848,14 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
 
     @Override
     public Resource removeAll(Property p) {
-        throw new NotImplementedException();
+        try {
+            qmanager.removePropertyInNode(this.id, p.getLocalName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 
     @Override
     public Resource begin() {
@@ -868,7 +891,12 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public Neo4jIndividual create() throws Exception {
         logger.debug("Entering create");
-        ArrayList<HashMap<String, String>> returnStrings = qmanager.createUniqueNode(this.toHashmap());
+        if (isClass) {
+            qmanager.setClassForNode(id, definition, clazzId);
+        } else {
+            qmanager.setLabelForNode(id, this.ontClass.getLocalName());
+        }
+        ArrayList<HashMap<String, String>> returnStrings = qmanager.createOrUpdateUniqueNode(this.toHashmap());
         if (returnStrings.size() > 0) {
             if (returnStrings.size() > 1) {
                 logger.warn("Getting more Individuals than expected. Count:"
@@ -883,7 +911,6 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
             logger.debug("Leaving create with null");
             return null;
         }
-
     }
 
     @Override
@@ -895,9 +922,10 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
     @Override
     public void delete() throws Exception {
         // TODO implement
+        throw new NotImplementedException();
     }
 
-    private HashMap<String,String> toHashmap() {
+    private HashMap<String, String> toHashmap() {
         logger.debug("Entering toHashmap");
         HashMap<String, String> result = new HashMap<String, String>();
         String logMes = "{";
@@ -905,9 +933,11 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
                 Neo4jIndividual.class.getDeclaredFields()) {
             logMes += prop.getName() + ":";
             try {
-                if (! ((prop.get(this).getClass().getName().contains("Neo4J")) || (prop.get(this).getClass().getName().contains("Logger")))) {
-                    result.put(prop.getName(), prop.get(this).toString());
-                    logMes += prop.get(this).toString() + ";";
+                if (!(prop.get(this) == null)) {
+                    if (!((prop.get(this).getClass().getName().contains("Neo4J")) || (prop.get(this).getClass().getName().contains("Logger")))) {
+                        result.put(prop.getName(), prop.get(this).toString());
+                        logMes += prop.get(this).toString() + ";";
+                    }
                 }
             } catch (IllegalAccessException e) {
                 logger.error(e.getMessage());
@@ -917,26 +947,30 @@ public class Neo4jIndividual implements Individual, Fetchable<Neo4jIndividual> {
         logger.debug("Leaving toHasmap with Hasmap:" + logMes + "}");
         return result;
     }
+
     public void createEdge(CompObjectProperties edgeName, Individual individual) {
 
     }
+
     private void hashMapToIndividual(HashMap<String, String> properties) throws IllegalAccessException, NoSuchFieldException {
         logger.debug("Entering hashMapToIndivudual with properties");
         String logMessage = "Created/Updated Individual {";
         for (String key :
                 properties.keySet()) {
-           logMessage += key + ":" + properties.get(key) + "; ";
-            Field f = Neo4jIndividual.class.getDeclaredField(key);
-            if (f.get(this).getClass().getName().equals(String.class.getName())) {
-                f.set(this, properties.get(f.getName()));
-            } else {
-                try {
-                    f.set(this, convert(f.get(this).getClass(), properties.get(key)));
-                } catch (IllegalAccessException e) {
-                    logger.warn("Can't convert a field from database to Individual");
-                    logger.warn("fieldClass: " + f.get(this).getClass().getName() + " Property:" + properties.get(key));
+            logMessage += key + ":" + properties.get(key) + "; ";
+            try {
+                Field f = Neo4jIndividual.class.getDeclaredField(key);
+                if (f.get(this).getClass().getName().equals(String.class.getName())) {
+                    f.set(this, properties.get(f.getName()));
+                } else {
+                    try {
+                        f.set(this, convert(f.get(this).getClass(), properties.get(key)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn("Can't convert a field from database to Individual");
+                        logger.warn("fieldClass: " + f.get(this).getClass().getName() + " Property:" + properties.get(key));
+                    }
                 }
-            }
+            } catch (NoSuchFieldException e) {}
         }
         logger.info(logMessage + "}");
         logger.debug("Leaving hashMapToIndividual");
