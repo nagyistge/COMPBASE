@@ -12,7 +12,6 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
   override def getOntClass: OntClass = {
     return comp.getUtil.getClass(compOntClass, true)
-
   }
 
 
@@ -39,8 +38,9 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
 
   def exists(): Boolean = {
     val result = util.getIndividualForString(identifier)
+    //return result != null
     if (result != null) {
-      return util.getClass(compOntClass, true).equals(result.getOntClass())
+      return compOntClass.equals(result.getOntClass())
     } else {
       return false
     }

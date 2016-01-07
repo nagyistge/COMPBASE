@@ -131,14 +131,14 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
   private def getAssociatedIndividuals(edgeType: CompObjectProperties, range: Dao): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    val queries = new CompetenceQueriesJenaImpl(comp.getM())
+    val queries = comp.getQueries;
     return queries.getRelatedIndividuals(edgeType, range.getId).toArray(individualDummy).toList
   }
 
   private def getAssociatedIndividuals(domain: Dao, edgeType: CompObjectProperties): List[Individual] = {
     val hacks = new ScalaHacks;
     val individualDummy = hacks.getIndividualArray()
-    val queries = new CompetenceQueriesJenaImpl(comp.getM())
+    val queries = comp.getQueries;
     return queries.getRelatedIndividualsDomainGiven(domain.getId, edgeType).toArray(individualDummy).toList
   }
 

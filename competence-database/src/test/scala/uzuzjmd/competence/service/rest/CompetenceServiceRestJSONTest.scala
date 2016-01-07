@@ -7,11 +7,12 @@ import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceGraph
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.{Operator, AbstractEvidenceLink, Competence, CourseContext}
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Competence, CourseContext, Operator}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.service.rest.dto.{CompetenceData, GraphFilterData, LinkValidationData, PrerequisiteData}
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
-import uzuzjmd.competence.tests.{CoreTests, TestCommons}
+import uzuzjmd.competence.tests.CoreTests
+
 import scala.collection.JavaConverters._
 
 /**

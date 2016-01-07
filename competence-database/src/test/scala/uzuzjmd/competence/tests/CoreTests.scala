@@ -287,7 +287,6 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
    */
   def testCompetenceLinksMapsCreation: Unit = {
     executeNoParamWithReturn(createAbstractLink _)
-    OntologyWriter.convert()
     val tmp0 = Ont2CompetenceLinkMap.convert("student meäää 10AA")
     val tmp1 = tmp0.getMapUserCompetenceLinks()
     tmp1.entrySet() should not be ('empty)
@@ -490,35 +489,30 @@ class CoreTests extends JuliansUnit with ShouldMatchers with LoggingWriteTransac
   //
   //  }
 
-  def createAbstractLink(compOntManag: CompOntologyManager): AbstractEvidenceLink = {
+  def createAbstractLink(comp: CompOntologyManager): AbstractEvidenceLink = {
 
-    val studentRole = new StudentRole(compOntManag)
-    val courseContext = new CourseContext(compOntManag, "2")
-    val userStudent = new User(compOntManag, "student meäää 10AA", studentRole, courseContext, "student meäää 10AA")
-
-    val teacherRole = new TeacherRole(compOntManag)
-    val user = new User(compOntManag, "me", teacherRole, courseContext, "me")
+    val studentRole = new StudentRole(comp)
+    val courseContext = new CourseContext(comp, "2")
+    val userStudent = new User(comp, "student meäää 10AA", studentRole, courseContext, "student meäää 10AA")
+    userStudent.persist
+    val teacherRole = new TeacherRole(comp)
+    val user = new User(comp, "me", teacherRole, courseContext, "me")
     user.persist
-    val user2 = new User(compOntManag, "me")
-    val fullUser = user2.getFullDao
-    fullUser.role.equals(teacherRole) should not be false
     // and now a more complicated example
     val testComment = "mein testkommentar"
-    val comment = new Comment(compOntManag, testComment, userStudent, System.currentTimeMillis())
+    val comment = new Comment(comp, testComment, userStudent, System.currentTimeMillis())
+    comment.persist
     val testComment2 = "mein testkommentar2"
-    val comment2 = new Comment(compOntManag, testComment2, userStudent, System.currentTimeMillis())
-    val evidenceActivity = new EvidenceActivity(compOntManag, "http://testest", "meine testaktivitat")
-    val competence = new Competence(compOntManag, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
+    val comment2 = new Comment(comp, testComment2, userStudent, System.currentTimeMillis())
+    comment2.persist
+    val evidenceActivity = new EvidenceActivity(comp, "http://testest", "meine testaktivitat")
+    val competence = new Competence(comp, "Die Lehramtsanwärter kooperieren mit Kolleginnen und Kollegen bei der  Erarbeitung von Beratung/Empfehlung")
     competence.persistManualCascades(true)
     competence.createEdgeWith(courseContext, CompObjectProperties.CourseContextOf)
-    val link = new AbstractEvidenceLink(compOntManag, null, user, userStudent, courseContext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
+    val link = new AbstractEvidenceLink(comp, null, user, userStudent, courseContext, evidenceActivity, System.currentTimeMillis(), false, competence, (comment :: comment2 :: Nil))
     link.persist
-
-    //    competencex should not be null
     comment.hasEdge(userStudent, CompObjectProperties.UserOfComment) should not be false
     comment2.hasEdge(userStudent, CompObjectProperties.UserOfComment) should not be false
-
-    //println("linkId ist: " + link.getId)
     return link
   }
 
