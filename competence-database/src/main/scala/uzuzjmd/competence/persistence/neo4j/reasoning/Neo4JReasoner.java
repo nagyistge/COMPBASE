@@ -2,6 +2,7 @@ package uzuzjmd.competence.persistence.neo4j.reasoning;
 
 import uzuzjmd.competence.persistence.abstractlayer.SimpleRulesReasoner;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManager;
+import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,7 +29,7 @@ public class Neo4JReasoner implements SimpleRulesReasoner {
                 e.printStackTrace();
             }
         }
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManagerImpl();
         try {
             neo4JQueryManager.executeReasoning(rules.toArray(new String[0]));
         } catch (Exception e) {

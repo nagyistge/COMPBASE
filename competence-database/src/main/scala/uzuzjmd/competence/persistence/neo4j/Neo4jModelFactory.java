@@ -21,7 +21,7 @@ public class Neo4jModelFactory {
      */
     public static Model createModelFromNeo4j() {
 
-        Neo4JQueryManager manager = new Neo4JQueryManager();
+        Neo4JQueryManagerImpl manager = new Neo4JQueryManagerImpl();
         CompOntologyAccessJenaImpl util = ((CompOntologyAccessJenaImpl) CompOntologyAccessFactory.createJenaInMemoryAccessPoint());
         CompOntologyManagerJenaImpl jenaManager = util.getManager();
         jenaManager.createBaseOntology();
