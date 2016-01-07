@@ -955,7 +955,7 @@
   <rdf:Description rdf:about="http://comp#meintestkommentar2">
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar2</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1451988916997</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1452090060928</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannraschdenInhaltunddieWichtigkeitvonNachrichtenArtikelnundBerichtenüberThemendiemitmeinenInteressenodermeinemBerufzusammenhängenerfassenundentscheidenobsicheingenaueresLesenlohnt">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -2111,6 +2111,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#II">
     <rdf:type rdf:resource="http://comp#I"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IIknowhowtoprogram"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanndieBedeutungeinzelnerunbekannterWörterausdemKontexterschließenundsodenSinnvonÄußerungenableitenwennmirdieThematikvertrautist">
     <rdf:type rdf:resource="http://comp#IchkanndieBedeutungeinzelnerunbekannterWörterausdemKontexterschließenundsodenSinnvonÄußerungenableitenwennmirdieThematikvertrautist"/>
@@ -2373,7 +2374,7 @@
   <rdf:Description rdf:about="http://comp#meintestkommentar">
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testkommentar</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1451988916660</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1452090037416</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken">
     <rdf:type rdf:resource="http://comp#IchkannmichinBriefenoderEMailsbewusstironischmehrdeutigoderhumorvollausdrücken"/>
@@ -3319,7 +3320,9 @@
     <j.0:CourseContextOf rdf:resource="http://comp#ISchreiben"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IZusammenhängendsprechen"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIknowhowtoprogramhierarchies"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#IIknowhowtoprogram"/>
     <j.0:CourseContextOf rdf:resource="http://comp#IIknowlittle"/>
+    <j.0:CourseContextOf rdf:resource="http://comp#Iknow"/>
     <j.0:CourseContextOf rdf:resource="http://comp#Ihow"/>
     <j.0:CourseContextOf rdf:resource="http://comp#II"/>
     <j.0:CourseContextOf rdf:resource="http://comp#Ito"/>
@@ -3388,7 +3391,7 @@
   <rdf:Description rdf:about="http://comp#meintestComment">
     <rdf:type rdf:resource="http://comp#Comment"/>
     <j.0:text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mein testComment</j.0:text>
-    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1451988916997</j.0:datecreated>
+    <j.0:datecreated rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1452090060928</j.0:datecreated>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkanninZeitungsartikelnAngabenzuPersonenWohnortAlteruswverstehen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3503,6 +3506,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ito">
     <rdf:type rdf:resource="http://comp#to"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IIknowhowtoprogram"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#ZusammenhängendsprechenB2">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3534,6 +3538,12 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenC1"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann in Diskussionen meine Gedanken und Meinungen präzise und klar formuliert ausdrücken, überzeugend argumentieren und wirksam auf komplexe Argumentation anderer reagieren.</j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#know">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Operator"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Catchword"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">know</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanninmeinemFachgebietdenVerlaufeineswissenschaftlichenExperimentsinStichwortenfesthalten">
     <rdf:type rdf:resource="http://comp#IchkanninmeinemFachgebietdenVerlaufeineswissenschaftlichenExperimentsinStichwortenfesthalten"/>
@@ -3766,6 +3776,11 @@
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ZusammenhängendsprechenA2</j.0:definition>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zusammenhängend sprechenA2</j.0:definition>
   </rdf:Description>
+  <rdf:Description rdf:about="http://comp#IIknowhowtoprogram">
+    <rdf:type rdf:resource="http://comp#Iknowhowtoprogram"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I know how to program</j.0:definition>
+    <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
+  </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkanngutstrukturierteundgutlesbareBerichteundArtikelüberkomplexeThemenschreiben">
     <rdf:type rdf:resource="http://comp#IchkanngutstrukturierteundgutlesbareBerichteundArtikelüberkomplexeThemenschreiben"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann gut strukturierte und gut lesbare Berichte und Artikel über komplexe Themen schreiben. </j.0:definition>
@@ -3878,6 +3893,7 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#Ihow">
     <rdf:type rdf:resource="http://comp#how"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IIknowhowtoprogram"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IIchkannKorrespondenzzuThemeninnerhalbmeinesFachStudienoderInteressengebieteslesenunddiewesentlichenPunkteerfassen">
     <rdf:type rdf:resource="http://comp#IchkannKorrespondenzzuThemeninnerhalbmeinesFachStudienoderInteressengebieteslesenunddiewesentlichenPunkteerfassen"/>
@@ -3888,6 +3904,11 @@
     <rdf:type rdf:resource="http://comp#IchkannkurzeeinfacheMitteilungenaufPostkartenverstehenzBFeriengrüße"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann kurze, einfache Mitteilungen auf Postkarten verstehen, z. B. Feriengrüße. </j.0:definition>
     <j.0:compulsory rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</j.0:compulsory>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Iknowhowtoprogram">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
+    <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">I know how to program</j.0:definition>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannmichmühelosanallenGesprächenundDiskussionenmitMuttersprachlerinnenMuttersprachlernbeteiligen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -3991,6 +4012,11 @@
     <rdfs:subClassOf rdf:resource="http://comp#Competence"/>
     <rdfs:subClassOf rdf:resource="http://comp#MiteinandersprechenA2"/>
     <j.0:definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ich kann öffentliche Verkehrsmittel wie Bus, Zug, Taxi benutzen, um einfache Auskünfte bitten und Billette kaufen. </j.0:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://comp#Iknow">
+    <rdf:type rdf:resource="http://comp#know"/>
+    <j.0:CatchwordOf rdf:resource="http://comp#IIknowhowtoprogram"/>
+    <j.0:OperatorOf rdf:resource="http://comp#IIknowhowtoprogram"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://comp#IchkannlängereTexteausmeinemFachgebietnachgewünschtenInformationendurchsuchenundInformationenausverschiedenenTextenoderTextteilenzusammentragenumeinebestimmteAufgabezulösen">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

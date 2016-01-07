@@ -14,7 +14,13 @@ import uzuzjmd.competence.persistence.ontology.CompOntClass;
  */
 public class Neo4JObjectProperty implements ObjectProperty, Fetchable<Neo4JObjectProperty> {
 
-    public Neo4JObjectProperty(CompOntClass domain, CompObjectProperties propertyName, CompOntClass range) {
+    /**
+     * Singleton case
+     * @param domain
+     * @param propertyName
+     * @param range
+     */
+    public Neo4JObjectProperty(Individual domain, CompObjectProperties propertyName, Individual range) {
     }
 
     @Override

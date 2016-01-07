@@ -2,11 +2,9 @@ package uzuzjmd.competence.persistence.neo4j;
 
 import com.google.common.collect.Lists;
 import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Statement;
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala;
@@ -31,7 +29,7 @@ public class Model2Neo4j {
         List<Individual> individuals = model.listIndividuals().toList();
         List<OntClass> ontClasses = model.listClasses().toList();
         List<Statement> statements = model.listStatements().toList();
-        Neo4JQueryManager neo4JQueryManager = new Neo4JQueryManager();
+        Neo4JQueryManagerImpl neo4JQueryManager = new Neo4JQueryManagerImpl();
 
 
         for (Individual individual : individuals) {
@@ -94,7 +92,7 @@ public class Model2Neo4j {
                     neo4JQueryManager.createRelationShip(subject, subjectDefinition, edge, object, objectDefinition);
                 }
                 if (edge.equals("rdfs:subClassOf")) {
-                    neo4JQueryManager.createSuperClassRelationShip(subject, CompObjectProperties.subClassOf, object);
+                    neo4JQueryManager.createRelationShip(subject, CompObjectProperties.subClassOf, object);
                 }
             }
         }
