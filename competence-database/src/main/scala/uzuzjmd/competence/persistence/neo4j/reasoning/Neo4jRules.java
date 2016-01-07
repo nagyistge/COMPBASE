@@ -28,7 +28,7 @@ public class Neo4jRules {
         return "MATCH (a)-[r1:SuggestedPrerequisiteOf]->(b)-[r2:SuggestedPrerequisiteOf]->(c) WHERE NOT(a=c) CREATE UNIQUE (a)-[r3:SuggestedPrerequisiteOf]->(c)";
     }
 
-    public static final String getCompulsoryToSuggestedRequisiste() {
+    public static final String getCompulsoryToSuggestedRequisite() {
         return "MATCH (a)-[r1:PrerequisiteOf]->(b) WHERE NOT(a=b) CREATE UNIQUE (a)-[r3:SuggestedPrerequisiteOf]->(c)";
     }
 
@@ -75,5 +75,41 @@ public class Neo4jRules {
 
     public static String recommendCourse() {
         return  "MATCH (user:User)-[r1:UserHasPerformed]->()-[r2:SuggestedCompetencePrerequisiteOf]->(competence2), (course:Course)-[r3:SuggestedCourseForCompetence]->(competence2) CREATE UNIQUE (course)-[r4:CommendedCourseForUser]->(user)";
+    }
+
+    public static String setCompetenceLabels() {
+        return "MATCH (n)-[r:subClassOf*]->(p{id:'Competence'}) REMOVE n:unknown SET n :Competence return n";
+    }
+
+    public static String setCompetenceInstanceLabel() {
+        return "MATCH (p{id:'Competence'}) REMOVE p:unknown SET p :Competence return p";
+    }
+
+    public static String setCatchwordInstanceLabel() {
+        return "MATCH (p{id:'Catchword'}) REMOVE p:unknown SET p :Catchword return p";
+    }
+
+    public static String setOperatorInstanceLabel() {
+        return "MATCH (p{id:'Operator'}) REMOVE p:unknown SET p :Operator return p";
+    }
+
+    public static String setOperatorLabels() {
+        return "MATCH (n)-[r:subClassOf*]->(p{id:'Operator'}) REMOVE n:unknown SET n :Operator return n";
+    }
+
+    public static String setCatchwordLabels() {
+        return "MATCH (n)-[r:subClassOf*]->(p{id:'Catchword'}) REMOVE n:unknown SET n :Catchword return n";
+    }
+
+    public static String setCompetenceIndividuals() {
+        return "MATCH (n)-[r2:individualOf]->(a)-[r:subClassOf*]->(p{id:'Competence'}) REMOVE n:unknown SET n :CompetenceIndividual return n";
+    }
+
+    public static String setCatchwordIndividuals() {
+        return "MATCH (n)-[r2:individualOf]->(a)-[r:subClassOf*]->(p{id:'Catchword'}) REMOVE n:unknown SET n :CatchwordIndividual return n";
+    }
+
+    public static String setOperatorIndividuals() {
+        return "MATCH (n)-[r2:individualOf]->(a)-[r:subClassOf*]->(p{id:'Operator'}) REMOVE n:unknown SET n :OperatorIndividual return n";
     }
 }

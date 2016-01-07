@@ -4,7 +4,6 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.logging.LogConfigurator
 import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid
 import uzuzjmd.competence.mapper.rest.write.{ReflectiveAssessmentHolder2Ont, LearningTemplateToOnt, Competence2Ont}
 import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
@@ -32,8 +31,6 @@ class GridTests extends FunSuite with ShouldMatchers with WriteTransactional[Any
   val testUser = "test@liferay.com"
 
   test("SETUP create template and select it for user before usage") {
-    LogConfigurator.initLogger()
-
     // change this, if you want to really reset the database
     CompFileUtil.deleteTDB()
     executeNoParam(createBasicDB)

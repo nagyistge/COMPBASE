@@ -127,10 +127,12 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
       case e: DefinitionNotInitalizedException => return compOntClass.toString()
       case e: DataFieldNotInitializedException => return compOntClass.toString()
     }
+    return null;
   }
 
   def isSubClass(parent: Competence): Boolean = {
-    if (toOntClass == null) {
+    val ontClass = toOntClass;
+    if (ontClass == null) {
       return false
     }
     return toOntClass.hasSuperClass(parent.toOntClass, false)

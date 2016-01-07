@@ -9,7 +9,6 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
-import uzuzjmd.competence.logging.LogConfigurator;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestXML;
 
@@ -35,7 +34,6 @@ public class RestServer {
 
     public static void startServer() throws IOException,
             ProcessingException, URISyntaxException {
-        LogConfigurator.initLogger();
         logger.debug("Entering startServer");
         System.out
                 .println("usage is java - jar *.version.jar");

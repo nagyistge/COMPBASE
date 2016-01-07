@@ -8,9 +8,8 @@ import uzuzjmd.competence.exceptions._
 import uzuzjmd.competence.persistence.dao.{Competence, EvidenceActivity, User}
 
 object CompOntologyAccessScala {
-  def encode( string: String): String = {
+  def encode(string: String): String = {
     var strungX = string
-
     if (strungX.startsWith(MagicStrings.PREFIX) || (strungX == "")) {
       throw new Error("OntClass should not start with Prefix or empty string")
     }

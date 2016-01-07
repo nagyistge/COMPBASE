@@ -11,12 +11,11 @@ import uzuzjmd.competence.persistence.owl.CompFileUtil;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+
 import java.util.List;
 
 /**
  * Created by dehne on 09.12.2015.
- *
- *
  */
 public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
@@ -106,6 +105,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     /**
      * Creates SingleTonClass with root
+     *
      * @param ontClass
      * @param isRead
      * @return
@@ -116,14 +116,13 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     }
 
 
-
     @Override
     public OntClass createOntClassForString(String id, Boolean isRead, String... definitions) {
-           if (definitions.length > 0 ) {
-               return getOrCreateSingleTonIndividual(id, definitions[0], isRead);
-           } else {
-               return getOrCreateSingleTonIndividual(id, id, isRead);
-           }
+        if (definitions.length > 0) {
+            return getOrCreateSingleTonIndividual(id, definitions[0], isRead);
+        } else {
+            return getOrCreateSingleTonIndividual(id, id, isRead);
+        }
     }
 
     @Override
@@ -133,13 +132,12 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public OntClass createSingleTonIndividualWithClass(String classname, Boolean isRead, String... definitions) {
-        if (definitions.length > 0 ) {
+        if (definitions.length > 0) {
             return getOrCreateSingleTonIndividual(classname, definitions[0], isRead);
         } else {
             return getOrCreateSingleTonIndividual(classname, classname, isRead);
         }
     }
-
 
 
     @Override
@@ -163,6 +161,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     public OntClass getOntClassForString(String className) {
         try {
             OntClass result = new Neo4jOntClass(className).fetchIfExists();
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,7 +188,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     public List<String> getShortestSubClassPath(OntClass start, OntClass end) {
         Neo4JQueryManagerImpl manager = new Neo4JQueryManagerImpl();
         try {
-            return manager.getShortestSubClassPath(start,end);
+            return manager.getShortestSubClassPath(start, end);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -255,9 +254,13 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     }
 
+
+
     private OntClass getOrCreateSingleTonIndividual(String id, String definition, Boolean isRead) {
         Neo4jIndividual neo4jIndividual = getOrCreateNeo4jSingletonIndividual(id, definition, isRead);
-        if (neo4jIndividual == null) return null;
+        if (neo4jIndividual == null) {
+            return null;
+        }
         return neo4jIndividual.getOntClass();
     }
 
@@ -265,7 +268,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
         Neo4jIndividual neo4jIndividual = new Neo4jIndividual(id, definition, new Neo4jOntClass(definition), true);
         try {
             if (!isRead) {
-                neo4jIndividual.create();
+                return neo4jIndividual.create();
             } else {
                 if (neo4jIndividual.fetchIfExists() == null) {
                     return null;

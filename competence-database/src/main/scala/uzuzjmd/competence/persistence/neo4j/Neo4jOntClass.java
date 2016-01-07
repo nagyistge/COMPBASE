@@ -97,7 +97,7 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public boolean hasSuperClass(Resource cls, boolean direct) {
-        return false;
+        return manager.getSuperClass(this).getLocalName().equals(cls.getLocalName());
     }
 
     @Override
@@ -1003,7 +1003,11 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public Neo4jOntClass fetchIfExists() throws Exception {
-        return null;
+        if (manager.exists(this.id)) {
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override

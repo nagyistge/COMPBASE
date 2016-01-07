@@ -42,8 +42,8 @@ case class User(comp: CompOntologyManager, val name: String, val role: Role = nu
   @Override
   def getFullDao(): User = {
     val teacherRole = new TeacherRole(comp)
-    val queries = new CompetenceQueriesJenaImpl(comp.getM())
-    val courseContext2 = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext]).head;
+    val courses = getAssociatedStandardDaosAsRange(CompObjectProperties.belongsToCourseContext, classOf[CourseContext])
+    val courseContext2 = courses.map(x => x.getFullDao.asInstanceOf[CourseContext]).head;
     val readableName = getDataField(NAME)
     if (hasEdge(teacherRole, CompObjectProperties.RoleOf)) {
       return new User(comp, name, teacherRole, courseContext2, readableName)

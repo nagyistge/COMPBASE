@@ -9,7 +9,6 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import uzuzjmd.competence.logging.LogConfigurator
 import uzuzjmd.competence.persistence.neo4j._
 import uzuzjmd.competence.persistence.ontology.CompOntClass
 import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
