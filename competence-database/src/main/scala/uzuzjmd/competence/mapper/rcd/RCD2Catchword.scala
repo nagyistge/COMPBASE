@@ -1,15 +1,16 @@
 package uzuzjmd.competence.mapper.rcd
 
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess
+
 import scala.collection.mutable.Buffer
 import com.hp.hpl.jena.ontology.Individual
 import com.hp.hpl.jena.ontology.OntClass
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.rcd.RCDFilter
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.rcd.RCDMaps
+import uzuzjmd.competence.datasource.rcd.RCDFilter
+import uzuzjmd.competence.datasource.rcd.generated.Rdceo
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.CompOntClass
+import uzuzjmd.competence.datasource.rcd.RCDMaps
 
 /**
  * Diese Klasse mappt Schlagwörter im RDCEO-Format auf die Ontologie

@@ -1,16 +1,21 @@
 package uzuzjmd.competence.datasource.epos.mapper
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
+import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.datasource.epos.filter.LevelFilter
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.Catchword
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.shared.DESCRIPTORType
 import uzuzjmd.competence.shared.DESCRIPTORSETType
 
+/**
+  * Generates learning paths implied by levels in the epos xml format
+  */
 object EposXMLToSuggestedLearningPath {
 
   def convertLevelsToOWLRelations(comp: CompOntologyManager, descriptorSetType: java.util.List[DESCRIPTORSETType]) {
@@ -46,9 +51,9 @@ object EposXMLToSuggestedLearningPath {
       val domainId = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(domain);
       val rangeID = EposXML2FilteredCSVCompetence.descriptorSetPair2Id(range);
       val domainCompetence = new Competence(comp, domainId, domainId, false)
-      domainCompetence.persist(true)
+      domainCompetence.persistManualCascades(true)
       val rangeCompetence = new Competence(comp, rangeID, rangeID, false)
-      rangeCompetence.persist(true)
+      rangeCompetence.persistManualCascades(true)
       rangeCompetence.addSuggestedCompetenceRequirement(domainCompetence)
     }
   }

@@ -1,16 +1,15 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.service.rest.model.dto.RoleConverter
-import uzuzjmd.competence.service.rest.model.dto.UserData
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.User
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.UserData
 
 /**
  * @author dehne
  */
-object User2Ont extends RoleConverter with TDBWriteTransactional[UserData] {
+object User2Ont extends RoleConverter with WriteTransactional[UserData] {
 
   def convert(data: UserData) {
     execute(createUser _, data)
@@ -18,7 +17,7 @@ object User2Ont extends RoleConverter with TDBWriteTransactional[UserData] {
 
   def createUser(comp: CompOntologyManager, data: UserData) {
     val creatorRole = convertRole(data.getRole, comp);
-    creatorRole.persist(false);
+    creatorRole.persistManualCascades(false);
     val coursecontext = new CourseContext(comp, data.getCourseContext);
     coursecontext.persist();
     val creator = new User(comp, data.getUser, creatorRole, coursecontext, data.getUser);

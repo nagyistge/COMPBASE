@@ -4,7 +4,7 @@ import org.apache.log4j.Logger
 import org.scalatest.BeforeAndAfterEachTestData
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfterEach
-import uzuzjmd.competence.owl.access.Logging
+import uzuzjmd.competence.config.Logging
 
 /**
  * @author dehne
