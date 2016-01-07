@@ -1,4 +1,4 @@
-package uzuzjmd.competence.crawler.Datatype;
+package uzuzjmd.competence.crawler.datatype;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

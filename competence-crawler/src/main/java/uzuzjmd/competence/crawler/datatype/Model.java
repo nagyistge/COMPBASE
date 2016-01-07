@@ -1,5 +1,6 @@
-package uzuzjmd.competence.crawler.Datatype;
+package uzuzjmd.competence.crawler.datatype;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -28,6 +29,24 @@ public class Model {
             varMeta.addElement(variable, metas[i]);
         }
         logger.debug("Leaving addDate");
+    }
+
+    public String[] toNeo4JQuery() {
+        logger.debug("Entering toNeo4JQuery");
+        String[] result = (String[]) ArrayUtils.addAll(stichwortVar.toNeo4JQuery(), varMeta.toNeo4JQuery());
+        logger.debug("Leaving toNeo4JQuery");
+        return result;
+    }
+
+    public String[] toNeo4JQueryStichVar() {
+        return stichwortVar.toNeo4JQuery();
+    }
+    public String[] toNeo4JQueryVarMeta() {
+        return varMeta.toNeo4JQuery();
+    }
+
+    public String deleteModelInNeo4J() {
+        return "MATCH (n:Stichwort),(m:Meta),(o:Variable) DETACH DELETE m,n,o";
     }
 
     public int stichwortVarSize() {
