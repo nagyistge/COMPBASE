@@ -2,7 +2,7 @@ package uzuzjmd.competence.evidence.service.moodle;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.owl.access.MagicStrings;
+import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
 import javax.ws.rs.WebApplicationException;
@@ -10,13 +10,14 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import java.io.CharConversionException;
 import java.net.URLDecoder;
 
 /**
  * DTOs für den Moodle REST-Service
  *
- * @author julian
+ * DTOs for the moodle rest service
+ *
+ * @author Julian Dehne
  */
 public class SimpleMoodleService {
 
@@ -27,14 +28,14 @@ public class SimpleMoodleService {
     private Token competenceInterfaceToken;
 
     public SimpleMoodleService(String username,
-                               String userpassword) {
-        userpassword = URLDecoder.decode(userpassword).replaceAll(" ", "+");
+                               String password) {
+        password = URLDecoder.decode(password).replaceAll(" ", "+");
         username = URLDecoder.decode(username).replaceAll(" ", "+");
 
         mooodleStandardInterfaceToken = initToken(username,
-                userpassword, "moodle_mobile_app");
+                password, "moodle_mobile_app");
         competenceInterfaceToken = initToken(username,
-                userpassword, "upcompetence");
+                password, "upcompetence");
 
     }
 

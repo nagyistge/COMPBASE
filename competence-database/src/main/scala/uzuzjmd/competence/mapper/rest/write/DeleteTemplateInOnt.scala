@@ -1,18 +1,18 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.CourseContext
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.SelectedLearningProjectTemplate
-import uzuzjmd.competence.owl.dao.TeacherRole
-import uzuzjmd.competence.owl.dao.User
-import uzuzjmd.competence.service.rest.model.dto.LearningTemplateData
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.CourseContext
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.SelectedLearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.TeacherRole
+import uzuzjmd.competence.persistence.dao.User
+import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 
 /**
  * @author dehne
  */
-object DeleteTemplateInOnt extends TDBWriteTransactional[LearningTemplateData] {
+object DeleteTemplateInOnt extends WriteTransactional[LearningTemplateData] {
 
   def convert(changes: LearningTemplateData) {
     execute(convertHelper _, changes)

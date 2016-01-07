@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * DTOs für den Moodle REST-Service
  * 
- * @author julian
+ * @author Julian Dehne
  * 
  */
 public class Token extends HashMap<String, String> {

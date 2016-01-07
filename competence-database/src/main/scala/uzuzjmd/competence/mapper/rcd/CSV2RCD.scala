@@ -1,23 +1,10 @@
 package uzuzjmd.competence.mapper.rcd
 
-import scala.collection.mutable.Buffer
+import uzuzjmd.competence.datasource.csv.FilteredCSVCompetence
+import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
+import uzuzjmd.competence.datasource.rcd.generated.{Definition, Description, Langstring, Model, Rdceo, Rdceoschema, Rdceoschemaversion, Statement, Statementtext, Title}
+
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.rcd.generated.Rdceoschema
-import uzuzjmd.competence.rcd.generated.Rdceoschemaversion
-import uzuzjmd.competence.csv.FilteredCSVCompetence
-import uzuzjmd.competence.rcd.generated.Langstring
-import uzuzjmd.competence.rcd.generated.Rdceo
-import uzuzjmd.competence.rcd.generated.Title
-import uzuzjmd.competence.rcd.generated.Statementtext
-import uzuzjmd.competence.rcd.generated.Description
-import uzuzjmd.competence.rcd.generated.Model
-import uzuzjmd.competence.rcd.generated.Definition
-import uzuzjmd.competence.rcd.generated.Statement
-import uzuzjmd.competence.rcd.generated.Identifier
-import uzuzjmd.competence.owl.ontology.CompOntClass
-import uzuzjmd.competence.owl.access.MagicStrings
-import uzuzjmd.competence.owl.access.CompOntologyAccess
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
 
 /**
  * Diese Klasse mappt das Excel-Zwischenformat auf das RDCEO-Format

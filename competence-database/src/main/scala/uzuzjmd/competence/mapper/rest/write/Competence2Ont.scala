@@ -2,24 +2,28 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util.LinkedList
 
-import scala.collection.JavaConverters.asScalaBufferConverter
+import uzuzjmd.competence.exceptions.{OperatorNotGivenException, CatchwordNotGivenException}
+import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.validation.CompetenceGraphValidator
+import uzuzjmd.competence.service.rest.dto.CompetenceData
 
-import uzuzjmd.competence.owl.access.CompOntologyManager
-import uzuzjmd.competence.owl.access.TDBWriteTransactional
-import uzuzjmd.competence.owl.dao.Catchword
-import uzuzjmd.competence.owl.dao.Competence
-import uzuzjmd.competence.owl.dao.LearningProjectTemplate
-import uzuzjmd.competence.owl.dao.Operator
-import uzuzjmd.competence.owl.ontology.CompObjectProperties
-import uzuzjmd.competence.owl.validation.CompetenceGraphValidator
-import uzuzjmd.competence.service.rest.model.dto.CompetenceData
+import scala.collection.JavaConverters.asScalaBufferConverter
 
 /**
  * @author dehne
  */
-object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
+object Competence2Ont extends WriteTransactional[CompetenceData] {
 
   def convert(data: CompetenceData): String = {
+    if (data.getCatchwords == null ||data.getCatchwords.isEmpty) {
+        throw new CatchwordNotGivenException
+    }
+
+    if (data.getOperator == null) {
+      throw new OperatorNotGivenException
+    }
     execute[String](addCompetence _, data)
   }
 
@@ -42,10 +46,10 @@ object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
     val competenceGraphValidator = new CompetenceGraphValidator(comp, addedCompetence, superCompetencesTyped, subCompetencesTyped);
 
     if (competenceGraphValidator.isValid()) {
-      addedCompetence.persist(true);
+      addedCompetence.persistManualCascades(true);
       for (catchwordItem <- data.getCatchwords.asScala) {
         val catchword = new Catchword(comp, catchwordItem, catchwordItem);
-        catchword.persist(true);
+        catchword.persistManualCascades(true);
         catchword.createEdgeWith(CompObjectProperties.CatchwordOf, addedCompetence);
 
       }
@@ -60,7 +64,7 @@ object Competence2Ont extends TDBWriteTransactional[CompetenceData] {
 
       if (data.getOperator != null) {
         val operatorDAO = new Operator(comp, data.getOperator, data.getOperator)
-        operatorDAO.persist(true)
+        operatorDAO.persistManualCascades(true)
         addedCompetence.createEdgeWith(operatorDAO, CompObjectProperties.OperatorOf)
       }
 
