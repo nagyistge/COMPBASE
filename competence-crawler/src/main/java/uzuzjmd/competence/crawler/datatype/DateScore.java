@@ -1,4 +1,4 @@
-package uzuzjmd.competence.crawler.Datatype;
+package uzuzjmd.competence.crawler.datatype;
 
 /**
  * Created by carl on 06.01.16.

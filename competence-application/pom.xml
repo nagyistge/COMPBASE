@@ -20,6 +20,7 @@
 <!-- 	<module>../competence-portlet/liferay</module>  	 -->
   	<module>../competence-database</module>
 	<module>../competence-database-servlet/competence-servlet</module>
+    <module>../competence-crawler</module>
   </modules>
 
   <dependencies>

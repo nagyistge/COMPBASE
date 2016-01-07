@@ -1,8 +1,8 @@
-package uzuzjmd.competence.crawler.IO;
+package uzuzjmd.competence.crawler.io;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.crawler.Datatype.Model;
+import uzuzjmd.competence.crawler.datatype.Model;
 
 import java.io.*;
 
@@ -40,7 +40,9 @@ public class ReadCsv {
             }
             String[] args = line.split(",");
             if (args.length >= 3) {
-                m.addDate(args[0], args[1], args[2].split("##"));
+                m.addDate(args[0].replace("\"", ""),
+                        args[1].replace("\"", ""),
+                        args[2].replace("\"", "").split("##"));
             } else {
                 logger.error("Something went wrong with the csv File. Only " + Integer.toString(args.length)
                     + " arguments. CSV Line " + br);
