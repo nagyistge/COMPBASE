@@ -8,6 +8,9 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+
+import java.util.LinkedList;
 
 /**
  * Created by dehne on 04.12.2015.
@@ -17,6 +20,8 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
     private final String id;
     private final String definition;
     static Logger logger = LogManager.getLogger(Neo4jOntClass.class.getName());
+    private OntClass superClass;
+    private Neo4JQueryManagerImpl manager = new Neo4JQueryManagerImpl();
 
     public Neo4jOntClass(String id, String definition) {
         logger.debug("Entering Neo4jOntClass Constructor with id:" + id + "definition" + definition);
@@ -32,11 +37,19 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
         logger.debug("Leaving Neo4jOntClass Constructor");
     }
 
+    public Neo4jOntClass(String id, CompOntClass clazz) {
+        logger.debug("Entering Neo4jOntClass Constructor with id:" + id );
+        this.id = id;
+        this.definition = id;
+        logger.debug("Leaving Neo4jOntClass Constructor");
+        this.superClass = new Neo4jOntClass(clazz.name());
+    }
+
     @Override
     public void setSuperClass(Resource cls) {
-        Neo4JQueryManager manager = new Neo4JQueryManager();
         try {
-            manager.createSuperClassRelationShip(id, CompObjectProperties.subClassOf,cls.getLocalName());
+            manager.createRelationShip(id, CompObjectProperties.subClassOf,cls.getLocalName());
+            this.superClass = new Neo4jOntClass(cls.getLocalName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,17 +62,27 @@ public class Neo4jOntClass implements OntClass, Fetchable<Neo4jOntClass> {
 
     @Override
     public OntClass getSuperClass() {
-        return null;
+        if (this.superClass == null) {
+            return manager.getSuperClass(this);
+        } else {
+            return new Neo4jOntClass(superClass.getLocalName());
+        }
     }
 
     @Override
     public ExtendedIterator<OntClass> listSuperClasses() {
-        return null;
+        OntClass result = manager.getSuperClass(this);
+        if (result != null) {
+            LinkedList<OntClass> resultList = new LinkedList<OntClass>();
+            resultList.add(result);
+            return new Neo4JIterator<OntClass>(resultList.iterator());
+        }
+        return new Neo4JIterator<OntClass>(new LinkedList<OntClass>().iterator());
     }
 
     @Override
     public ExtendedIterator<OntClass> listSuperClasses(boolean direct) {
-        return null;
+        return listSuperClasses();
     }
 
     @Override

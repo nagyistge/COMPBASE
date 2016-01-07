@@ -23,7 +23,7 @@ import scala.collection.immutable.HashMap
 @RunWith(classOf[JUnitRunner])
 class Neo4jTests  extends FunSuite with ShouldMatchers {
 
-  val qm = new Neo4JQueryManager()
+  val qm = new Neo4JQueryManagerImpl()
 
   test("just persisting individual and deleting") {
     DOMConfigurator.configure("/development/scala_workspace/Wissensmodellierung/competence-database/log4j.xml")
