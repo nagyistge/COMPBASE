@@ -174,7 +174,7 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
     */
   protected def getAssociatedSingletonDaosAsRange[T <: CompetenceOntologySingletonDao](edgeType: CompObjectProperties, clazz: java.lang.Class[T]): List[T] = {
     val ontClasses = getAssociatedIndividuals(this, edgeType)
-    val result = ontClasses.map(x => DAOFactory.instantiateDao(clazz)(comp, x.getOntClass().getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
+    val result = ontClasses.map(x => DAOFactory.instantiateDao(clazz)(comp, x.getLocalName()).asInstanceOf[T]).map(x => x.getFullDao)
     return result.asInstanceOf[List[T]]
   }
 

@@ -7,7 +7,6 @@ import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -19,7 +18,14 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     public ArrayList<String> getLabelsForNode(String id) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) return labels(e)";
         ArrayList<ArrayList<String>> resultString = issueNeo4JRequestArrayListArrayList(query);
-        return resultString.iterator().next();
+        if (resultString == null) {
+            return new ArrayList<String>();
+        }
+        try {
+            return resultString.iterator().next();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     /**
@@ -31,8 +37,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      */
     public void setLabelForNode(String id, String labelName) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) set e:" + labelName + " return e";
-        ArrayList<String> resultString = issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>()
-                , query);
+        ArrayList<String> resultString = issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>(), query);
     }
 
     public ArrayList<HashMap<String, String>> createOrUpdateUniqueNode(HashMap<String, String> props) throws Exception {
@@ -41,11 +46,12 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         states.add(new Neo4jQueryStatement());
         states.get(states.size() - 1).setQueryType(Neo4jQuery.queryType.MERGE);
         states.get(states.size() - 1).setVar("n");
-        if (props.containsKey("clazz")) {
+        if (props.containsKey("clazz") && props.get("clazz") != null) {
             states.get(states.size() - 1).setGroup(props.get("clazz"));
-        } else {
-            states.get(states.size() - 1).setGroup("unknown");
         }
+        /*else {
+            states.get(states.size() - 1).setGroup("unknown");
+        }*/
         if (props.containsKey("id")) {
             states.get(states.size() - 1).addArgument("id", props.get("id"));
         }
@@ -146,12 +152,17 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      * @return
      */
     public String getClassForNode(String id) throws Exception {
-        String query = "MATCH (n {id:'" + id + "'}), (n)-[r:individualOf]->(n2) return n2";
+        String query = "MATCH (n {id:'" + id + "'}), (n)-[r:individualOf]->(n2) return n2.id";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
         if (result == null || result.isEmpty()) {
             return null;
         }
-        return result.get(0);
+        try {
+            return result.get(0);
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            return null;
+        }
     }
 
     public void deleteNode(String id) throws Exception {
@@ -337,8 +348,9 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      */
     @Override
     public ConcurrentLinkedQueue<Individual> getRelatedIndividuals(CompObjectProperties compObjectProperties, String rangeIndividualId) {
-        String query = "MATCH (b)-[r:" + compObjectProperties.toString() + "]->(a {id:'" + rangeIndividualId + "'}) RETURN b.id";
-        return createIndividualQueue(query);
+        String query1 = "MATCH (b)-[r:" + compObjectProperties.toString() + "]->(a {id:'" + rangeIndividualId + "'}) MATCH (b)-[r2:individualOf]->(c) RETURN c.id";
+        String query2 = "MATCH (b)-[r:" + compObjectProperties.toString() + "]->(a {id:'" + rangeIndividualId + "'}) RETURN b.id";
+        return createIndividualQueue(query1,query2);
     }
 
     /**
@@ -350,16 +362,28 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      */
     @Override
     public ConcurrentLinkedQueue<Individual> getRelatedIndividualsDomainGiven(String domainIndividual, CompObjectProperties compObjectProperties) {
-        String query = "MATCH (a {id:'" + domainIndividual + "'})-[r:" + compObjectProperties.toString() + "]->(b) RETURN b.id";
-        return createIndividualQueue(query);
+        String query = "MATCH (a {id:'" + domainIndividual + "'})-[r:" + compObjectProperties.toString() + "]->(b)-[r2:individualOf]->(c) RETURN c.id";
+        String query2 = "MATCH (a {id:'" + domainIndividual + "'})-[r:" + compObjectProperties.toString() + "]->(b) RETURN b.id";
+        return createIndividualQueue(query, query2);
     }
 
-    private ConcurrentLinkedQueue<Individual> createIndividualQueue(String query) {
+    private ConcurrentLinkedQueue<Individual> createIndividualQueue(String query1, String query2) {
         try {
-            ArrayList<String> result = issueNeo4JRequestStrings(query);
+            ArrayList<String> result = issueNeo4JRequestStrings(query1); // only the singletons
+            ArrayList<String> result2 = issueNeo4JRequestStrings(query2); // all
+            if (result != null && result2 != null){
+                result2.removeAll(result); // now only the other
+            }
             List<Individual> individuals = new LinkedList<Individual>();
-            for (String resultString : result) {
-                individuals.add(new Neo4jIndividual(resultString, resultString, null).fetchIfExists());
+            if (result != null) {
+                for (String resultString : result) {
+                    individuals.add(new Neo4jIndividual(resultString, resultString, new Neo4jOntClass(getClassForNode(resultString)), true));
+                }
+            }
+            if (result2 != null) {
+                for (String resultString : result2) {
+                    individuals.add(new Neo4jIndividual(resultString, resultString, new Neo4jOntClass(getLabelsForNode(resultString).iterator().next()), false));
+                }
             }
             ConcurrentLinkedQueue<Individual> resultQueue = new ConcurrentLinkedQueue<Individual>();
             resultQueue.addAll(individuals);
@@ -457,7 +481,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         String query = "MATCH (a {id:'" + neo4jOntClass.getLocalName() + "'})-[r:subClassOf]->(b) return b.id";
         try {
             ArrayList<String> results = issueNeo4JRequestStrings(query);
-            if (!results.isEmpty()) {
+            if (results != null && !results.isEmpty()) {
                 return new Neo4jOntClass(results.iterator().next());
             } else {
                 return null;
@@ -503,6 +527,6 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
 
     public Boolean exists(String id) throws Exception {
         String query = "MATCH (n{id:'" + id + "'}) return n";
-        return !issueNeo4JRequestStrings(query).isEmpty();
+        return !(issueNeo4JRequestStrings(query) == null || issueNeo4JRequestStrings(query).isEmpty());
     }
 }

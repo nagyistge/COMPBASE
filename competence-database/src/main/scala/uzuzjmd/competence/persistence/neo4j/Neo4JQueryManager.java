@@ -30,8 +30,9 @@ public abstract class Neo4JQueryManager implements CompetenceQueries {
     private <T> T issueMultipleStatementRequest(Requestable<T> req, String... queries) throws Exception {
         String statements = "";
         for (int i = 0; i < queries.length; i++) {
-            statements += "{\"statement\": \"" + queries[i] + "\"}";
+            statements += "{\"statement\": \"" + queries[i] + "\"},";
         }
+        statements = statements.substring(0, statements.length()-1);
         String payload = "{\"statements\" : [" + statements + "]}";
         return req.doRequest(payload);
     }

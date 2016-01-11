@@ -12,6 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.lang.reflect.Field;
 
 import uzuzjmd.competence.config.MagicStrings;
+import uzuzjmd.competence.persistence.neo4j.reasoning.Neo4jRules;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.lang.reflect.InvocationTargetException;
@@ -43,7 +44,10 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
         } else {
             this.ontClass = getOntClass();
         }
-        this.clazz = this.ontClass.toString();
+        if (this.ontClass != null) {
+            this.clazz = this.ontClass.toString();
+        }
+
         logger.debug("Leaving Neo4jIndividual Constructor");
     }
 
@@ -117,20 +121,6 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
         throw new NotImplementedException();
     }
 
-    /*private void createClass(String str) {
-        try {
-            if (!isClass) {
-                qmanager.setLabelForNode(id, str);
-                qmanager.setClassForNode(id, clazzId, clazzId);
-            } else {
-                qmanager.setClassForNode(id, definition, clazzId);
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
-
 
     @Override
     public void addOntClass(Resource cls) {
@@ -143,28 +133,31 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
         if (ontClass != null) {
             return ontClass;
         }
-        Neo4JQueryManagerImpl neo4JQueryManager = new Neo4JQueryManagerImpl();
-        HashMap<String, String> idDefinition = new HashMap<String, String>();
-        Neo4jOntClass myOntClass;
+
         try {
             if (!isClass) {
-                ArrayList<String> list = neo4JQueryManager.getLabelsForNode(id);
-                String label = list.iterator().next();
-                myOntClass = new Neo4jOntClass(label);
-                logger.debug("Leaving getOntClass with Neo4jOntClass:" + myOntClass.getLocalName());
-                return myOntClass;
+                ArrayList<String> list = qmanager.getLabelsForNode(id);
+                if (!list.isEmpty()) {
+                    String label = list.iterator().next();
+                    this.ontClass = new Neo4jOntClass(label);
+                    logger.debug("Leaving getOntClass with Neo4jOntClass:" + this.ontClass.getLocalName());
+                }
             } else {
-                if (neo4JQueryManager.getClassForNode(id) == null) {
+                if (qmanager.getClassForNode(id) == null) {
                     return null;
                 }
-                idDefinition.put(neo4JQueryManager.getClassForNode(id), neo4JQueryManager.getDefinitionForClassForNode(id));
+                HashMap<String, String> idDefinition = new HashMap<String, String>();
+                idDefinition.put(qmanager.getClassForNode(id), qmanager.getDefinitionForClassForNode(id));
+                if (!idDefinition.isEmpty()) {
+                    this.ontClass = new Neo4jOntClass(idDefinition.keySet().iterator().next(), idDefinition.values().iterator().next());
+                    logger.debug("Leaving getOntClass with Neo4jOntClass:" + this.ontClass.getLocalName());
+                }
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
         }
-        this.ontClass = new Neo4jOntClass(idDefinition.keySet().iterator().next(), idDefinition.values().iterator().next());
-        logger.debug("Leaving getOntClass with Neo4jOntClass:" + this.ontClass.getLocalName());
+
         return this.ontClass;
     }
 
@@ -717,7 +710,13 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
 
     @Override
     public String getLocalName() {
-        return this.id;
+
+        if (isClass) {
+            return this.id;
+        } else {
+
+            return this.clazzId;
+        }
     }
 
     @Override
@@ -907,7 +906,6 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
         logger.debug("Entering create");
         if (isClass) {
             qmanager.setClassForNode(id, definition, clazzId);
-            qmanager.setClassForNode(id, clazzId, clazzId);
         } else {
             qmanager.setLabelForNode(id, this.ontClass.getLocalName());
         }
@@ -920,12 +918,23 @@ public class Neo4jIndividual extends Neo4jAbstractIndividual implements Individu
             for (HashMap<String, String> hm : returnStrings) {
                 hashMapToIndividual(hm);
             }
+            qmanager.issueNeo4JRequestStrings(Neo4jRules.setCompetenceLabels(),
+                    Neo4jRules.setCatchwordLabels(),
+                    Neo4jRules.setOperatorLabels(),
+                    Neo4jRules.setCatchwordInstanceLabel(),
+                    Neo4jRules.setCompetenceInstanceLabel(),
+                    Neo4jRules.setOperatorInstanceLabel(),
+                    Neo4jRules.setCatchwordIndividuals(),
+                    Neo4jRules.setCompetenceIndividuals(),
+                    Neo4jRules.setOperatorIndividuals(),
+                    Neo4jRules.setCompetenceInstanceLabelIndividualLabel());
             logger.debug("Leaving create with Neo4jIndividual:" + this.getLocalName());
             return this;
         } else {
             logger.debug("Leaving create with null");
             return null;
         }
+
     }
 
     @Override

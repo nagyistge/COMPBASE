@@ -1,5 +1,6 @@
 package uzuzjmd.competence.persistence.dao
 
+import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.abstractlayer.{OntResult, CompOntologyManager, CompOntologyAccess}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.ontology.CompOntClass
@@ -8,9 +9,9 @@ import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.ontology.OntClass
 import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.exceptions.{NoRecursiveSubClassException, DataFieldNotInitializedException}
+import uzuzjmd.competence.exceptions.{IndividualNotFoundException, NoRecursiveSubClassException, DataFieldNotInitializedException}
 
-class Competence(compManager: CompOntologyManager, identifierLocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierLocal) {
+class Competence(compManager: CompOntologyManager, identifierLocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierLocal) with Logging {
 
 
   def COMPULSORY = "compulsory"
@@ -20,8 +21,12 @@ class Competence(compManager: CompOntologyManager, identifierLocal: String, val 
   @Override
   protected def persistMore() {
     val competenceRoot = new CompetenceInstance(comp)
-    val ontClass = persistManualCascades(false).getOntclass()
-    ontClass.addSuperClass(competenceRoot.persistManualCascades(true).getOntclass())
+    val ontClass = getOntClass;
+    var rootOntClass = competenceRoot.getOntClass;
+    if (rootOntClass == null) {
+      rootOntClass = competenceRoot.persist.getOntclass
+    }
+    ontClass.addSuperClass(rootOntClass)
     if (definition != null) {
       addDataField(DEFINITION, definition)
     } else {
@@ -41,6 +46,15 @@ class Competence(compManager: CompOntologyManager, identifierLocal: String, val 
 
   @Override
   def getFullDao(): Competence = {
+   /* if (this.identifierTop.equals("ComptenceIndividual")) {
+      return this;
+    }*/
+
+    val individual = getIndividual
+    if (individual == null) {
+      logger.error("Individual not found for id: "+ identifierLocal)
+      throw new IndividualNotFoundException();
+    }
     val definition2 = getDefinition
     try {
       getDataFieldBoolean(COMPULSORY)

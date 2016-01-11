@@ -7,6 +7,7 @@ import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import uzuzjmd.competence.persistence.neo4j.reasoning.Neo4jRules;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 

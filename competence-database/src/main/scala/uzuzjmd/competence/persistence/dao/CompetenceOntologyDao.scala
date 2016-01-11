@@ -40,7 +40,7 @@ abstract class CompetenceOntologyDao(comp: CompOntologyManager, compOntClass: Co
     val result = util.getIndividualForString(identifier)
     //return result != null
     if (result != null) {
-      return compOntClass.equals(result.getOntClass())
+      return compOntClass.toString.equals(result.getOntClass().getLocalName)
     } else {
       return false
     }

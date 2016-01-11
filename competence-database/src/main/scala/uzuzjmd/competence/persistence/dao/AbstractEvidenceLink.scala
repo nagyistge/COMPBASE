@@ -63,25 +63,25 @@ case class AbstractEvidenceLink(
   def getFullDao(): AbstractEvidenceLink = {
     val comments = getAssociatedStandardDaosAsDomain(CompObjectProperties.CommentOf, classOf[Comment])
     val creator = getAssociatedStandardDaosAsRange(CompObjectProperties.createdBy, classOf[User]).head
-    val courseContext = getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext])
-    val evidenceActivity = getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity])
-    return new AbstractEvidenceLink(comp, identifier, creator.getFullDao, null, null, null, getDataFieldLong(CREATED), getDataFieldBoolean(ISVALIDATED), null, comments)
+    val courseContext = getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext]).head
+    val evidenceActivity = getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity]).head
+    return new AbstractEvidenceLink(comp, identifier, creator, null, courseContext, evidenceActivity, getDataFieldLong(CREATED), getDataFieldBoolean(ISVALIDATED), null, comments)
   }
 
   def getAllLinkedUsers(): List[User] = {
-    return getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfLink, classOf[User]).map(x => x.getFullDao.asInstanceOf[User])
+    return getAssociatedStandardDaosAsDomain(CompObjectProperties.UserOfLink, classOf[User])
   }
 
   def getAllActivities(): List[EvidenceActivity] = {
-    return getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity]).map(x => x.getFullDao.asInstanceOf[EvidenceActivity])
+    return getAssociatedStandardDaosAsDomain(CompObjectProperties.ActivityOf, classOf[EvidenceActivity])
   }
 
   def getAllCourseContexts(): List[CourseContext] = {
-    return getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext]).map(x => x.getFullDao.asInstanceOf[CourseContext])
+    return getAssociatedStandardDaosAsRange(CompObjectProperties.LinkOfCourseContext, classOf[CourseContext])
   }
 
   def getAllLinkedCompetences(): List[Competence] = {
-    return getAssociatedSingletonDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence]).map(x => x.getFullDao.asInstanceOf[Competence])
+    val linkedCompetences = getAssociatedSingletonDaosAsRange(CompObjectProperties.linksCompetence, classOf[Competence])
+    return linkedCompetences
   }
-
 }
