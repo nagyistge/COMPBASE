@@ -74,7 +74,7 @@ public class Neo4jRules {
     }
 
     public static String recommendCourse() {
-        return  "MATCH (user:User)-[r1:UserHasPerformed]->()-[r2:SuggestedCompetencePrerequisiteOf]->(competence2), (course:Course)-[r3:SuggestedCourseForCompetence]->(competence2) CREATE UNIQUE (course)-[r4:CommendedCourseForUser]->(user)";
+        return "MATCH (user:User)-[r1:UserHasPerformed]->()-[r2:SuggestedCompetencePrerequisiteOf]->(competence2), (course:Course)-[r3:SuggestedCourseForCompetence]->(competence2) CREATE UNIQUE (course)-[r4:CommendedCourseForUser]->(user)";
     }
 
     public static String setCompetenceLabels() {
@@ -84,6 +84,11 @@ public class Neo4jRules {
     public static String setCompetenceInstanceLabel() {
         return "MATCH (p{id:'Competence'}) REMOVE p:unknown SET p :Competence return p";
     }
+
+    public static String setCompetenceInstanceLabelIndividualLabel() {
+        return "MATCH (n)-[r2:individualOf]->(p{id:'Competence'}) REMOVE n:unknown SET n :CompetenceIndividual return n";
+    }
+
 
     public static String setCatchwordInstanceLabel() {
         return "MATCH (p{id:'Catchword'}) REMOVE p:unknown SET p :Catchword return p";
@@ -113,3 +118,5 @@ public class Neo4jRules {
         return "MATCH (n)-[r2:individualOf]->(a)-[r:subClassOf*]->(p{id:'Operator'}) REMOVE n:unknown SET n :OperatorIndividual return n";
     }
 }
+
+

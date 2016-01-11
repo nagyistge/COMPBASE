@@ -16,7 +16,7 @@ import java.util.List;
 public class Neo4jQueryStatement {
     private Neo4jQuery.queryType queryType;
     private String var;
-    private String group;
+    private String group = "";
     private List<Neo4jQueryStatement> multiStates;
     private HashMap<String, String> arguments = new HashMap<>();
     private AbstractMap.SimpleEntry<String, String> relEntry;
@@ -120,7 +120,7 @@ public class Neo4jQueryStatement {
     }
 
     public void setGroup(String group) {
-        this.group = group;
+        this.group =  ":" + group;
     }
 
     public void addMultiState(Neo4jQueryStatement state) {

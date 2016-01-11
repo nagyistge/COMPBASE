@@ -168,8 +168,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   }
 
   def listSuperClasses[T <: CompetenceOntologySingletonDao](clazz: java.lang.Class[T]): List[T] = {
-    val definition = getDefinition()
-    val ontClass = comp.getUtil().accessSingletonResource(definition, true).getOntclass()
+    val ontClass = getOntClass
     val classList = ontClass.listSuperClasses(false).toList().asScala.filter(!_.toString().equals("http://www.w3.org/2002/07/owl#Nothing")).filterNot { x => x.getLocalName.equals("IThing") || x.getLocalName.equals("Thing") }
     val identifierList = classList.map(x => x.getLocalName()).toList
     return identifierList.map(x => DAOFactory.instantiateDao(clazz)(comp, x).asInstanceOf[T]).toList
@@ -178,6 +177,7 @@ abstract case class CompetenceOntologySingletonDao(comp: CompOntologyManager, va
   def hasSuperClass: Boolean = {
     return !listSuperClasses(classOf[Competence]).isEmpty
   }
+
 
 
 

@@ -35,8 +35,8 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
     if (!userDap.exists) {
       return new CompetenceLinksMap
     }
-    val links = userDap.getAssociatedLinks.view.map(x => x.getFullDao)
-    val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getFullDao().getDefinition()))).toMap
+    val links = userDap.getAssociatedLinks
+    val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getDefinition()))).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
     val resultScalaTmp1: scala.collection.immutable.Map[String, List[CompetenceLinksView]] = competencesLinked.map(x => (x._1, x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten))
     val resultScalaTmp2 = resultScalaTmp1.filterKeys(p => p != null)

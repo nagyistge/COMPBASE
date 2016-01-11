@@ -58,6 +58,11 @@ abstract public class CompOntologyAccessGenericImpl  implements CompOntologyAcce
     public OntResult accessSingletonResource(
             String classname, Boolean isRead,
             String... definitions) {
+
+        if (classname == null) {
+            throw new Error("42");
+        }
+
         if (classname.startsWith("I")) {
             logger.trace("trying to get SingletonRessource but Id given (including prefix I) instead of definition");
         }

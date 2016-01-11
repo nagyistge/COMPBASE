@@ -12,4 +12,8 @@ class CatchwordInstance(comp: CompOntologyManager) extends CompetenceOntologySin
   def getFullDao(): Dao = {
     return this
   }
+
+  override def hasSuperClass : Boolean = {
+    return false;
+  }
 }

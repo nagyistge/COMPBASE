@@ -7,10 +7,10 @@ import com.hp.hpl.jena.rdf.model.Model;
 import org.apache.commons.lang.NotImplementedException;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccessGenericImpl;
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager;
-import uzuzjmd.competence.persistence.owl.CompFileUtil;
+import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
-import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
+import uzuzjmd.competence.persistence.owl.CompFileUtil;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public Individual createIndividualForString(OntClass ontClass, String individualName, Boolean isRead) {
-        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, individualName, ontClass, false);
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, individualName, ontClass);
         try {
             if (isRead) {
                 return neo4jIndividual.fetchIfExists();
@@ -44,7 +44,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public Individual createIndividualForStringWithDefinition(OntClass ontClass, String individualName, String definition) {
-        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, definition, ontClass, false);
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(individualName, definition, ontClass);
         try {
             return neo4jIndividual.create();
         } catch (Exception e) {
@@ -197,23 +197,17 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
 
     @Override
     public Boolean getDataFieldBoolean(String key, Individual individual) {
-        // TODO Implement
-        throw new NotImplementedException();
-
-
+        return Boolean.parseBoolean(getDataField(key, individual));
     }
 
     @Override
     public Long getDataFieldLong(String key, Individual individual) {
-        // TODO Implement
-        throw new NotImplementedException();
-
+        return Long.parseLong(getDataField(key, individual));
     }
 
     @Override
     public Integer getDataFieldInt(String key, Individual individual) {
-        // TODO Implement
-        throw new NotImplementedException();
+        return Integer.parseInt(getDataField(key, individual));
 
     }
 
@@ -223,9 +217,8 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
         try {
             return neo4JQueryManager.getPropertyInNode(individual.getLocalName(), key);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -265,7 +258,7 @@ public class CompOntologyAccessNeo4jImpl extends CompOntologyAccessGenericImpl {
     }
 
     private Neo4jIndividual getOrCreateNeo4jSingletonIndividual(String id, String definition, Boolean isRead) {
-        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(id, definition, new Neo4jOntClass(definition), true);
+        Neo4jIndividual neo4jIndividual = new Neo4jIndividual(id, definition, new Neo4jOntClass(definition),true);
         try {
             if (!isRead) {
                 return neo4jIndividual.create();

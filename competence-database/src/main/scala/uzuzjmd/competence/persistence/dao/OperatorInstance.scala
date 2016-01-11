@@ -12,4 +12,8 @@ class OperatorInstance(comp: CompOntologyManager) extends CompetenceOntologySing
   def getFullDao(): Dao = {
     return this
   }
+
+  override def hasSuperClass : Boolean = {
+    return false;
+  }
 }
