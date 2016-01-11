@@ -11,7 +11,10 @@ import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntology
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.exceptions.{IndividualNotFoundException, NoRecursiveSubClassException, DataFieldNotInitializedException}
 
-class Competence(compManager: CompOntologyManager, identifierLocal: String, val definition: String = null, val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierLocal) with Logging {
+class Competence(compManager: CompOntologyManager,
+                 identifierLocal: String,
+                 val definition: String = null,
+                 val compulsory: java.lang.Boolean = null) extends CompetenceOntologySingletonDao(compManager, CompOntClass.Competence, identifierLocal) with Logging {
 
 
   def COMPULSORY = "compulsory"
