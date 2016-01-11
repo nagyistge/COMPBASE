@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by dehne on 07.01.2016.
  */
-public abstract class Neo4JQueryManager implements CompetenceQueries {
+public abstract class Neo4JQueryManager  {
     static Logger logger = LogManager.getLogger(Neo4JQueryManager.class.getName());
     final String txUri = MagicStrings.NEO4JURL + "/db/data/transaction/commit";
 
@@ -51,6 +51,10 @@ public abstract class Neo4JQueryManager implements CompetenceQueries {
 
     protected ArrayList<String> issueNeo4JRequestStrings(final String... queries) throws Exception {
         return issueMultipleStatementRequest(new RequestableImpl<ArrayList<String>>() , queries);
+    }
+
+    protected ArrayList<HashMap<String, String>> issueNeo4JRequestArrayOfHashMap(final String... queries) throws Exception {
+        return issueMultipleStatementRequest(new RequestableImpl<ArrayList<HashMap<String, String>>>() , queries);
     }
 
     private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<String>>>>>> issueAbstractRequest(String payload) {

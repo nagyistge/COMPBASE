@@ -1,0 +1,30 @@
+package uzuzjmd.competence.monopersistence;
+
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.CompOntClass;
+
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Created by dehne on 11.01.2016.
+ */
+public interface Dao {
+    /**
+     * should be updated if already exists
+     * @throws Exception
+     */
+    void persist() throws Exception;
+    void delete() throws Exception;
+    void createEdgeWith(CompObjectProperties edge, Dao range) throws Exception;
+    void createEdgeWith(Dao domain, CompObjectProperties edge) throws Exception;
+    Boolean hasEdge(CompObjectProperties edge, Dao range) throws Exception;
+    Boolean hasEdge(Dao domain, CompObjectProperties edge) throws Exception;
+    void deleteEdgeWith(Dao domain, CompObjectProperties edge) throws Exception;
+    String getId();
+    CompOntClass getLabel();
+    void setFullDao(HashMap<String, String> props);
+    <T extends Dao> T getFullDao(HashMap<String, String> props);
+    <P extends Dao> List<P> getAssociatedDaosAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;
+    <T extends Dao> List<T> getAssociatedDaosAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception;
+}
