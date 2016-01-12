@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,22 +19,37 @@ public abstract class DaoAbstractImpl implements Dao {
     private final String id;
     protected final Neo4JQueryManagerImpl queryManager = new Neo4JQueryManagerImpl();
     static Logger logger = LogManager.getLogger(DaoAbstractImpl.class.getName());
+
     public DaoAbstractImpl(String id) {
         this.id = id;
     }
 
     @Override
     public void setFullDao(HashMap<String, String> props) {
-        for (String s : props.keySet()) {
+        logger.debug("Entering hashMapToIndividual with properties");
+        String logMessage = "Created/Updated Individual {";
+        for (String key :
+                props.keySet()) {
+            logMessage += key + ":" + props.get(key) + "; ";
             try {
-                Field field = this.getClass().getField(s);
-                field.set(this, props.get(s));
+                Field f = getClass().getDeclaredField(key);
+                if (f.get(this).getClass().getName().equals(String.class.getName())) {
+                    f.set(this, props.get(f.getName()));
+                } else {
+                    try {
+                        f.set(this, convert(f.get(this).getClass(), props.get(key)));
+                    } catch (IllegalAccessException e) {
+                        logger.warn("Can't convert a field from database to Individual");
+                        logger.warn("fieldClass: " + f.get(this).getClass().getName() + " Property:" + props.get(key));
+                    }
+                }
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
+        logger.info(logMessage + "}");
+        logger.debug("Leaving hashMapToIndividual");
     }
 
     @Override
@@ -138,30 +152,6 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
 
-    protected void hashMapToIndividual(HashMap<String, String> properties) throws IllegalAccessException, NoSuchFieldException {
-        logger.debug("Entering hashMapToIndividual with properties");
-        String logMessage = "Created/Updated Individual {";
-        for (String key :
-                properties.keySet()) {
-            logMessage += key + ":" + properties.get(key) + "; ";
-            try {
-                Field f = getClass().getDeclaredField(key);
-                if (f.get(this).getClass().getName().equals(String.class.getName())) {
-                    f.set(this, properties.get(f.getName()));
-                } else {
-                    try {
-                        f.set(this, convert(f.get(this).getClass(), properties.get(key)));
-                    } catch (IllegalAccessException e) {
-                        logger.warn("Can't convert a field from database to Individual");
-                        logger.warn("fieldClass: " + f.get(this).getClass().getName() + " Property:" + properties.get(key));
-                    }
-                }
-            } catch (NoSuchFieldException e) {}
-        }
-        logger.info(logMessage + "}");
-        logger.debug("Leaving hashMapToIndividual");
-    }
-
     static <T> T convert(Class<T> klazz, String arg) {
         logger.debug("Entering static convert with klazz:" + klazz.getName() + " arg:" + arg);
         Exception cause = null;
@@ -184,5 +174,17 @@ public abstract class DaoAbstractImpl implements Dao {
             logger.error(cause.getMessage());
             throw new IllegalArgumentException(cause);
         }
+    }
+
+    public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass) throws Exception {
+        return queryManager.listSuperClasses(competenceClass, this.getId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Dao) {
+            ((Dao) o).getId().equals(this.getId());
+        }
+        return false;
     }
 }

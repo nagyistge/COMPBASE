@@ -292,4 +292,15 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
            return new SelfAssessment(result2.get("id")).getFullDao(result2);
         }
     }
+
+    public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass, String id) throws Exception {
+        String query = "MATCH z = (n:Competence{id:'"+id+"'})-[r:subClassOf*]->(p:Competence) return filter(x IN nodes(z) WHERE NOT(x.id = n.id)) ";
+        return getDaoList(competenceClass, id, query);
+    }
+
+    public <T extends Dao> List<T> listSubClasses(Class<T> competenceClass, String id) throws Exception {
+        String query = "MATCH z = (n:Competence)-[r:subClassOf*]->(p:Competence{id:'"+id+"'}) return filter(x IN nodes(z) WHERE NOT(x.id = p.id)) ";
+        return getDaoList(competenceClass, id, query);
+    }
+
 }

@@ -1,7 +1,12 @@
 package uzuzjmd.competence.monopersistence.daos;
 
+import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
+
 /**
  * Created by dehne on 11.01.2016.
  */
-public class Operator {
+public class Operator extends DaoAbstractImpl {
+    public Operator(String id) {
+        super(id);
+    }
 }
