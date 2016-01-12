@@ -1,11 +1,11 @@
 package uzuzjmd.competence.persistence.dao
 
 import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.ontology.CompOntClass
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
-import scala.collection.JavaConverters._
+import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
+import uzuzjmd.competence.persistence.owl.CompOntologyAccessScala
 import uzuzjmd.competence.shared.StringList
+
+import scala.collection.JavaConverters._
 
 /**
  * This class is the entry point for a template
