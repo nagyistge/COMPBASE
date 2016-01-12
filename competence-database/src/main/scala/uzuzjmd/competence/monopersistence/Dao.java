@@ -27,4 +27,6 @@ public interface Dao {
     <T extends Dao> T getFullDao(HashMap<String, String> props);
     <P extends Dao> List<P> getAssociatedDaosAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;
     <T extends Dao> List<T> getAssociatedDaosAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception;
+    <P extends Dao> P getAssociatedDaoAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;
+    <T extends Dao> T getAssociatedDaoAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception;
 }

@@ -187,4 +187,22 @@ public abstract class DaoAbstractImpl implements Dao {
         }
         return false;
     }
+
+    @Override
+    public <P extends Dao> P getAssociatedDaoAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception {
+        List<P> result = getAssociatedDaosAsDomain(edge, clazz);
+        if (result.isEmpty()) {
+            throw new Exception("Did not find any associated node for: " + edge.name() + " and id: "+this.getId());
+        }
+        return result.iterator().next();
+    }
+
+    @Override
+    public <T extends Dao> T getAssociatedDaoAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception {
+        List<T> result = getAssociatedDaosAsRange(edge, clazz);
+        if (result.isEmpty()) {
+            throw new Exception("Did not find any associated node for: " + edge.name() + " and id: "+this.getId());
+        }
+        return result.iterator().next();
+    }
 }

@@ -1,6 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.util.List;
@@ -8,9 +7,9 @@ import java.util.List;
 /**
  * Created by dehne on 11.01.2016.
  */
-public class User extends DaoAbstractImpl {
-    private List<CourseContext> courseContexts;
+public class User extends AbstractUser {
     private Role role;
+    
 
     public User(String id) {
         super(id);
@@ -38,7 +37,4 @@ public class User extends DaoAbstractImpl {
         return hasEdge(CompObjectProperties.belongsToCourseContext, courseContext);
     }
 
-    public List<AbstractEvidenceLink> getAssociatedLinks() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.UserOfLink, AbstractEvidenceLink.class);
-    }
 }
