@@ -3,6 +3,7 @@ package uzuzjmd.competence.persistence.neo4j;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
+import uzuzjmd.competence.monopersistence.Dao;
 import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 
 import javax.ws.rs.client.Client;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by dehne on 07.01.2016.
@@ -68,5 +70,19 @@ public abstract class Neo4JQueryManager  {
 
     public void executeReasoning(String... queries) throws Exception {
         issueNeo4JRequestStrings(queries);
+    }
+
+
+    protected <T extends Dao> List<T> getDaoList(Class<T> competenceClass, String id, String query) throws Exception {
+        ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
+        ArrayList<T> resultDaos = new ArrayList<T>();
+        for (HashMap<String, String> stringStringHashMap : result) {
+            HashMap<String, String> result2 = stringStringHashMap;
+            if (result2 != null) {
+                T tClass = competenceClass.getConstructor(String.class).newInstance(id);
+                resultDaos.add((T) tClass.getFullDao(stringStringHashMap));
+            }
+        }
+        return resultDaos;
     }
 }

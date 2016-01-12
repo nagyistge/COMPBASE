@@ -96,50 +96,32 @@ public class Competence extends DaoAbstractImpl implements HasDefinition {
         return queryManager.getShortestSubClassPath(subCompetence.getId(), this.getId(), Competence.class);
     }
 
-
-    public getCatchwordsAsJava()
-
-    :java.util.List[Catchword]
-
-    {
-        return getCatchwords.asJava
+    public List<Catchword> getCatchwordsAsJava() throws Exception {
+        return getCatchwords();
     }
 
-    public void addCatchword(dao:Catchword) {
-        dao.persistManualCascades(true)
-        dao.createEdgeWith(CompObjectProperties.CatchwordOf, this)
+    public void addCatchword(Catchword dao) throws Exception {
+        dao.persist();
+        dao.createEdgeWith(CompObjectProperties.CatchwordOf, this);
     }
 
-    public void addLearningTemplate(learningTemplate:LearningProjectTemplate) {
-        createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf)
+    public void addLearningTemplate(LearningProjectTemplate learningTemplate) throws Exception {
+        createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf);
     }
 
-    public getOperators()
-
-    :List[Operator]
-
-    {
+    public List<Operator> getOperators() throws Exception {
         return getAssociatedDaosAsDomain(CompObjectProperties.OperatorOf, Operator.class);
     }
 
-    public void addCourseContext(CourseContext course) {
-        createEdgeWith(course, CompObjectProperties.CourseContextOf)
-        addSuperCompetencesToCourse(this, course)
+    public void addCourseContext(CourseContext course) throws Exception {
+        createEdgeWith(course, CompObjectProperties.CourseContextOf);
+        addSuperCompetencesToCourse(this, course);
     }
 
-    public void addSuperCompetencesToCourse(Competence competence, CourseContext course) {
-        if (competence.hasSuperClass) {
-            superCompetences = competence.listSuperClasses(Competence.class).filterNot {
-                x =>x.identifier.equals("Competence")
-            }.filterNot {
-                x =>x.identifier.equals("Resource")
-            }
-            superCompetences.foreach {
-                x =>x.createEdgeWith(course, CompObjectProperties.CourseContextOf)
-            }
-            superCompetences.foreach {
-                x =>addSuperCompetencesToCourse(x, course)
-            }
+    public void addSuperCompetencesToCourse(Competence competence, CourseContext course) throws Exception {
+        List<Competence>  superCompetences = competence.listSuperClasses(Competence.class);
+        for (Competence superCompetence : superCompetences) {
+            superCompetence.createEdgeWith(course, CompObjectProperties.CourseContextOf);
         }
     }
 }

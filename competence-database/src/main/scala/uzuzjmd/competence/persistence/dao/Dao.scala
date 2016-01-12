@@ -178,4 +178,5 @@ abstract class Dao(comp: CompOntologyManager, val compOntClassTop: CompOntClass,
     return result.asInstanceOf[List[T]]
   }
 
+
 }
