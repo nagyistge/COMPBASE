@@ -18,6 +18,8 @@ public class SolrApp {
     static private final String solrUrl = "http://localhost:8983/solr/basic";
     static private final String stichWortPath = "/development/scala_workspace/Wissensmodellierung/"
                 + "competence-crawler/stichwortUrl.csv";
+    static private final String stichWortVarPath = "/development/scala_workspace/Wissensmodellierung/"
+            + "competence-crawler/stichwortVar.csv";
     static private final String varMetaPath = "/development/scala_workspace/Wissensmodellierung/"
             + "competence-crawler/varMeta.csv";
     static private final String dataPath =
@@ -41,6 +43,7 @@ public class SolrApp {
         model.scoreVariable(connector);
         logger.info("Get Score from Crawling");
         logger.info("Transform Scoring into results");
+        model.stichwortVarToCsv(stichWortVarPath);
         model.stichwortResultToCsv(stichWortPath);
         model.varMetaResultToCsv(varMetaPath);
         logger.debug("Leaving main");

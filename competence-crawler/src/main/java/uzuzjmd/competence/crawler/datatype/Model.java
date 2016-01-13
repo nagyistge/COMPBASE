@@ -91,6 +91,19 @@ public class Model {
     }
 
 
+    public void stichwortVarToCsv(String filepath) throws IOException {
+        logger.debug("Entering stichwortVarToCsv with filepath:" + filepath);
+        List<String> lines = new ArrayList<String>();
+        lines.add("Stichwort, Variable");
+        for (String key: stichwortVar.getElements().keySet()) {
+            lines.add(key + "," + stichwortVar.getElements().get(key));
+        }
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8"));
+
+        logger.debug("Leaving stichwortVarToCsv");
+    }
+
     public void stichwortResultToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<String>();
