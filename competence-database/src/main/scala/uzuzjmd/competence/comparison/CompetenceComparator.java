@@ -1,6 +1,7 @@
 package uzuzjmd.competence.comparison;
 
-import uzuzjmd.competence.persistence.dao.Competence;
+
+import uzuzjmd.competence.monopersistence.daos.Competence;
 
 /**
  * this wraps different implementations of competence comparators that

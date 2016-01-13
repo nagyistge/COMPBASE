@@ -21,7 +21,7 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
         this.learningGoal = learningGoal;
     }
 
-    public SelfAssessment(Integer assessmentIndex, Boolean learningGoal, User user, Competence competence) {
+    public SelfAssessment(Competence competence, User user, Integer assessmentIndex, Boolean learningGoal) {
         super(user.getId() + competence.getId());
         this.assessmentIndex = assessmentIndex;
         this.learningGoal = learningGoal;

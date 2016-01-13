@@ -3,16 +3,13 @@ package uzuzjmd.competence.service.rest
 import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
-import uzuzjmd.competence.datasource.rcd.generated.Rdceo
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceGraph
 import uzuzjmd.competence.mapper.rest.write._
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Competence, CourseContext, Operator}
+import uzuzjmd.competence.monopersistence.daos._
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.service.rest.dto.{CompetenceData, GraphFilterData, LinkValidationData, PrerequisiteData}
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
-import uzuzjmd.competence.tests.CoreTests
-
 import scala.collection.JavaConverters._
 
 /**
@@ -43,12 +40,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   def tearDown {
   }
 
-  @Test
-  @throws(classOf[Exception])
-  def testGetRdceo {
-    val testInstance: java.util.List[Rdceo] = this.jsonService.getRdceo
-    assertFalse(testInstance.isEmpty)
-  }
+ 
 
   @Test
   @throws(classOf[Exception])
@@ -62,26 +54,26 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     this.jsonService.updateHierarchie2(changes)
 
     // validate
-    executeNoParam(updateHierarchyAssertions(_,changes))
+    updateHierarchyAssertions(changes)
 
     // clean
-    executeNoParam(cleanUpdateHierarchyAssertions(_,changes))
+    cleanUpdateHierarchyAssertions(changes)
   }
 
-  def updateHierarchyAssertions(comp : CompOntologyManager, changes: HierarchyChangeSet): Unit = {
+  def updateHierarchyAssertions( changes: HierarchyChangeSet): Unit = {
     val hierarchyChange = changes.getElements.get(0)
-    val competenceADAO = new Competence(comp,hierarchyChange.getNodeSelected)
-    val competenceBDAO = new Competence(comp,hierarchyChange.getNewClass)
-    val competenceCDAO = new Competence(comp,hierarchyChange.getOldClass)
+    val competenceADAO = new Competence(hierarchyChange.getNodeSelected)
+    val competenceBDAO = new Competence(hierarchyChange.getNewClass)
+    val competenceCDAO = new Competence(hierarchyChange.getOldClass)
     assertTrue(competenceADAO.isSubClass(competenceBDAO))
     assertFalse(competenceADAO.isSubClass(competenceCDAO))
   }
 
-  def cleanUpdateHierarchyAssertions(comp: CompOntologyManager, changes: HierarchyChangeSet): Unit = {
+  def cleanUpdateHierarchyAssertions( changes: HierarchyChangeSet): Unit = {
     val hierarchyChange = changes.getElements.get(0)
-    val competenceADAO = new Competence(comp,hierarchyChange.getNodeSelected)
-    val competenceBDAO = new Competence(comp,hierarchyChange.getNewClass)
-    val competenceCDAO = new Competence(comp,hierarchyChange.getOldClass)
+    val competenceADAO = new Competence(hierarchyChange.getNodeSelected)
+    val competenceBDAO = new Competence(hierarchyChange.getNewClass)
+    val competenceCDAO = new Competence(hierarchyChange.getOldClass)
     competenceADAO.delete()
     competenceBDAO.delete()
     competenceCDAO.delete()
@@ -90,17 +82,13 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testLinkCompetencesToCourseContext: Unit = {
-    val coreTests = new CoreTests()
-    executeNoParam(coreTests.createLinkTestContexts _)
-    executeNoParam(coreTests.doEvidenceLinkTest _)
-    executeNoParam(coreTests.doDeleteEvidenceLink _)
+    // TODO write
   }
 
   @Test
   @throws(classOf[Exception])
   def testCreateUser: Unit = {
-    val coreTests = new CoreTests()
-    executeNoParam(coreTests.regularDaoTest _)
+    // TODO write
   }
 
   @Test
@@ -124,20 +112,20 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testGetSelected2: Unit = {
-    executeNoParam(testGetSelectedCreateContexts _)
+    testGetSelectedCreateContexts
     val course = "university"
     val result = CompetenceServiceWrapper.getSelected(course);
     assertFalse(result.isEmpty)
-    executeNoParam(testGetSelectedDeleteContexts _)
+    testGetSelectedDeleteContexts
   }
 
-  def testGetSelectedCreateContexts(comp : CompOntologyManager): Unit = {
-    val competence = new Competence(comp, "TestKompetenz")
-    competence.persistManualCascades(false)
+  def testGetSelectedCreateContexts(): Unit = {
+    val competence = new Competence( "TestKompetenz")
+    competence.persist
   }
 
-  def testGetSelectedDeleteContexts(comp : CompOntologyManager): Unit = {
-    val competence = new Competence(comp, "TestKompetenz")
+  def testGetSelectedDeleteContexts(): Unit = {
+    val competence = new Competence( "TestKompetenz")
     competence.delete()
   }
 
@@ -150,8 +138,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testCommentCompetence: Unit = {
-    val coreTests = new CoreTests
-    coreTests.commentTest
+    // TODO write
   }
 
   @Test
@@ -161,7 +148,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val isValid = true
     HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isValid))
     validateValidation
-    executeNoParam(deleteValidationContext _)
+    deleteValidationContext
   }
 
 
@@ -172,33 +159,25 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val isValid = false
     HandleLinkValidationInOnt.convert(new LinkValidationData(linkId, isValid))
     validateInValidation
-    executeNoParam(deleteValidationContext _)
+    deleteValidationContext
   }
 
 
   def validateValidation = {
-    val coreTests = new CoreTests
-    val link = executeNoParamWithReturn(coreTests.createAbstractLink _)
-    val link2 = link.asInstanceOf[AbstractEvidenceLink].getFullDao()
-    assertTrue(link2.isValidated)
+    // TODO write
   }
 
   def validateInValidation = {
-    val coreTests = new CoreTests
-    val link = executeNoParamWithReturn(coreTests.createAbstractLink _).asInstanceOf[AbstractEvidenceLink]
-    assertFalse(link.isValidated)
+    // TODO write
   }
 
   def setupValidationContext: String = {
-    val coreTests = new CoreTests
-    val link = executeNoParamWithReturn(coreTests.createAbstractLink _).asInstanceOf[AbstractEvidenceLink]
-    return link.getId
+    // TODO write
+    return "false"
   }
 
-  def deleteValidationContext(comp : CompOntologyManager): Unit = {
-    val coreTests = new CoreTests
-    val link = coreTests.createAbstractLink(comp)
-    link.delete
+  def deleteValidationContext(): Unit = {
+    // TODO write
   }
 
 
@@ -211,9 +190,9 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testDeleteCompetence: Unit = {
-    executeNoParam(testDeleteCompetenceSetup _)
+    testDeleteCompetenceSetup
     testDeleteCompetenceDo
-    executeNoParam(testDeleteCompetenceAssertions _)
+    testDeleteCompetenceAssertions
   }
 
   def testDeleteCompetenceDo: Unit = {
@@ -224,63 +203,63 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     DeleteCompetenceInOnt.convert(competences.asJava);
   }
 
-  def testDeleteCompetenceSetup(comp: CompOntologyManager): Unit = {
+  def testDeleteCompetenceSetup(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
-    competenceADao.persistManualCascades(false)
-    val competenceBDao = new Competence(comp, competenceB);
-    competenceBDao.persistManualCascades(false)
-    val competenceCDao = new Competence(comp, competenceC);
-    competenceCDao.persistManualCascades(false)
+    val competenceADao = new Competence( competenceA);
+    competenceADao.persist
+    val competenceBDao = new Competence( competenceB);
+    competenceBDao.persist
+    val competenceCDao = new Competence( competenceC);
+    competenceCDao.persist
   }
 
-  def testDeleteCompetenceAssertions(comp : CompOntologyManager): Unit = {
+  def testDeleteCompetenceAssertions(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
+    val competenceADao = new Competence( competenceA);
     assertFalse(competenceADao.exists())
-    val competenceBDao = new Competence(comp, competenceB);
+    val competenceBDao = new Competence( competenceB);
     assertFalse(competenceBDao.exists())
-    val competenceCDao = new Competence(comp, competenceC);
+    val competenceCDao = new Competence( competenceC);
     assertFalse(competenceCDao.exists())
   }
 
   @Test
   @throws(classOf[Exception])
   def testDeleteCompetenceTree: Unit = {
-    executeNoParam(testDeleteCompetenceSetup _)
+    testDeleteCompetenceSetup
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
     val competences = competenceA :: competenceB :: competenceC :: Nil
     DeleteCompetenceTreeInOnt.convert(competences.asJava)
-    executeNoParam(testDeleteCompetenceTreeValidation _)
+    testDeleteCompetenceTreeValidation
   }
 
-  def testDeleteCompetenceTreeSetup(comp: CompOntologyManager): Unit = {
+  def testDeleteCompetenceTreeSetup(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
-    competenceADao.persistManualCascades(false)
-    val competenceBDao = new Competence(comp, competenceB);
-    competenceBDao.persistManualCascades(false)
-    val competenceCDao = new Competence(comp, competenceC);
-    competenceCDao.persistManualCascades(false)
+    val competenceADao = new Competence( competenceA);
+    competenceADao.persist
+    val competenceBDao = new Competence( competenceB);
+    competenceBDao.persist
+    val competenceCDao = new Competence( competenceC);
+    competenceCDao.persist
     competenceADao.addSuperCompetence(competenceBDao)
     competenceBDao.addSuperCompetence(competenceCDao)
   }
 
-  def testDeleteCompetenceTreeValidation(comp: CompOntologyManager): Unit = {
+  def testDeleteCompetenceTreeValidation(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
-    val competenceBDao = new Competence(comp, competenceB);
-    val competenceCDao = new Competence(comp, competenceC);
+    val competenceADao = new Competence( competenceA);
+    val competenceBDao = new Competence( competenceB);
+    val competenceCDao = new Competence( competenceC);
     assertFalse(competenceADao.exists())
     assertFalse(competenceBDao.exists())
     assertFalse(competenceCDao.exists())
@@ -290,15 +269,13 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testGetCompetenceLinksMap: Unit = {
-    val coreTests = new CoreTests
-    coreTests.testCompetenceLinksMapsCreation
+    // TODO write
   }
 
   @Test
   @throws(classOf[Exception])
   def testGetProgressM: Unit = {
-    val coreTests = new CoreTests
-    coreTests.testProgressMapCreation
+    // TODO write
   }
 
 
@@ -310,22 +287,22 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
     val competences = (competenceB :: competenceC :: Nil).asJava
-    val course = new CourseContext(comp, "university")
-    executeNoParam(testCreatePrerequisiteTestSetup _)
+    val course = new CourseContext( "university")
+    testCreatePrerequisiteTestSetup
     CreatePrerequisiteInOnt.convert(new PrerequisiteData(course.getId, competenceA, competences))
-    executeNoParam(testCreatePrerequisiteAssertions _)
-    executeNoParam(testDeleteCompetencePrerequisiteCleanup _)
+    testCreatePrerequisiteAssertions
+    testDeleteCompetencePrerequisiteCleanup
   }
 
-  def testDeleteCompetencePrerequisiteCleanup(comp : CompOntologyManager): Unit = {
+  def testDeleteCompetencePrerequisiteCleanup(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
+    val competenceADao = new Competence( competenceA);
     competenceADao.delete()
-    val competenceBDao = new Competence(comp, competenceB);
+    val competenceBDao = new Competence( competenceB);
     competenceBDao.delete()
-    val competenceCDao = new Competence(comp, competenceC);
+    val competenceCDao = new Competence( competenceC);
     competenceCDao.delete()
 
     assertFalse(competenceADao.exists())
@@ -333,30 +310,30 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     assertFalse(competenceCDao.exists())
   }
 
-  def testCreatePrerequisiteAssertions(comp : CompOntologyManager): Unit = {
+  def testCreatePrerequisiteAssertions(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence(comp, competenceA);
+    val competenceADao = new Competence( competenceA);
 
-    val tmpResult1 = competenceADao.getRequiredCompetences().map(x=>x.toStrinz())
+    val tmpResult1 = competenceADao.getRequiredCompetences().asScala.map(x=>x.getDefinition())
     assertTrue(tmpResult1.contains(competenceB))
-    val tmpResult2 = competenceADao.getRequiredCompetences().map(x=>x.toStrinz())
+    val tmpResult2 = competenceADao.getRequiredCompetences().asScala.map(x=>x.getDefinition())
     assertTrue(tmpResult2.contains(competenceC))
   }
 
-  def testCreatePrerequisiteTestSetup(comp : CompOntologyManager): Unit = {
-    val course = new CourseContext(comp, "university")
+  def testCreatePrerequisiteTestSetup(): Unit = {
+    val course = new CourseContext( "university")
     course.persist()
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
 
-    val competenceADao = new Competence(comp, competenceA, competenceA);
+    val competenceADao = new Competence( competenceA);
     competenceADao.persist
-    val competenceBDao = new Competence(comp, competenceB, competenceB);
+    val competenceBDao = new Competence( competenceB);
     competenceBDao.persist
-    val competenceCDao = new Competence(comp, competenceC, competenceC);
+    val competenceCDao = new Competence( competenceC);
     competenceCDao.persist
 
   }
@@ -364,24 +341,24 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testDeletePrerequisite: Unit = {
-    executeNoParam(testCreatePrerequisiteTestSetup _)
+    testCreatePrerequisiteTestSetup
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
     val competences = (competenceB :: competenceC :: Nil).asJava
-    val course = new CourseContext(comp, "university")
-    DeletePrerequisiteInOnt.convert(new PrerequisiteData(course.identifier, competenceA , competences))
-    executeNoParam(testDeletePrerequisiteAssertions _) //assertions
+    val course = new CourseContext( "university")
+    DeletePrerequisiteInOnt.convert(new PrerequisiteData(course.getId(), competenceA , competences))
+    testDeletePrerequisiteAssertions  //assertions
   }
 
-  def testDeletePrerequisiteAssertions(comp:CompOntologyManager): Unit = {
+  def testDeletePrerequisiteAssertions(): Unit = {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
 
-    val competenceADao = new Competence(comp, competenceA);
-    val competenceBDao = new Competence(comp, competenceB);
-    val competenceCDao = new Competence(comp, competenceC);
+    val competenceADao = new Competence( competenceA);
+    val competenceBDao = new Competence( competenceB);
+    val competenceCDao = new Competence( competenceC);
     assertFalse(competenceADao.getRequiredCompetences().contains(competenceBDao))
     assertFalse(competenceADao.getRequiredCompetences().contains(competenceCDao))
     competenceADao.delete()
@@ -399,13 +376,13 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @Test
   @throws(classOf[Exception])
   def testGetPrerequisiteGraph: Unit = {
-    executeNoParam(testCreatePrerequisiteTestSetup _)
+    testCreatePrerequisiteTestSetup
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
     val competences = (competenceB :: competenceC :: Nil).asJava
-    val course = new CourseContext(comp, "university")
-    executeNoParam(testCreatePrerequisiteTestSetup _)
+    val course = new CourseContext( "university")
+    testCreatePrerequisiteTestSetup
     CreatePrerequisiteInOnt.convert(new PrerequisiteData(course.getId, competenceA, competences))
     val changes: GraphFilterData = new GraphFilterData("university", competenceA);
     val result = Ont2CompetenceGraph.convert(changes)
@@ -423,8 +400,8 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @throws(classOf[Exception])
   def testGetOperatorForCompetence: Unit = {
     testCreateOperatorPrerequisites
-    executeNoParam(testCreateOperatorValidations _)
-    executeNoParam(testCreateOperatorCleanUp _)
+    testCreateOperatorValidations
+    testCreateOperatorCleanUp
   }
 
 
@@ -437,19 +414,19 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     Competence2Ont.convert(data)
   }
 
-  def testCreateOperatorValidations(comp: CompOntologyManager) : Unit = {
+  def testCreateOperatorValidations() : Unit = {
     val competenceA : String = "I know how to program"
     val operator = "know"
-    val competenceDAO = new Competence(comp, competenceA)
-    val operatorDAO = new Operator(comp, operator)
+    val competenceDAO = new Competence( competenceA)
+    val operatorDAO = new Operator( operator)
     assertTrue(competenceDAO.hasEdge(operatorDAO, CompObjectProperties.OperatorOf))
   }
 
-  def testCreateOperatorCleanUp(comp: CompOntologyManager) : Unit = {
+  def testCreateOperatorCleanUp() : Unit = {
     val competenceA : String = "I know how to program"
     val operator = "know"
-    val competenceDAO = new Competence(comp, competenceA)
-    val operatorDAO = new Operator(comp, operator)
+    val competenceDAO = new Competence( competenceA)
+    val operatorDAO = new Operator( operator)
     competenceDAO.delete()
     operatorDAO.delete()
   }
@@ -458,20 +435,20 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @throws(classOf[Exception])
   def testGetCatchwordsForCompetence: Unit = {
     testCreateOperatorPrerequisites
-    executeNoParam(testGetCatchwordsValidation _)
-    executeNoParam(testDeleteCatchwords _)
+    testGetCatchwordsValidation
+    testDeleteCatchwords
   }
 
-  def testGetCatchwordsValidation(comp: CompOntologyManager): Unit = {
+  def testGetCatchwordsValidation(): Unit = {
     val competenceA : String = "I know how to program"
-    val competenceDAO = new Competence(comp, competenceA)
+    val competenceDAO = new Competence( competenceA)
     assertNotNull(competenceDAO.getCatchwords())
   }
 
-  def testDeleteCatchwords(comp : CompOntologyManager): Unit = {
+  def testDeleteCatchwords(): Unit = {
     val competenceA : String = "I know how to program"
-    val competenceDAO = new Competence(comp, competenceA)
-    competenceDAO.getCatchwords().foreach(_.delete())
+    val competenceDAO = new Competence( competenceA)
+    competenceDAO.getCatchwords().asScala.foreach(_.delete())
     competenceDAO.delete()
   }
 

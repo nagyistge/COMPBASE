@@ -1,10 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
-import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
 import uzuzjmd.competence.service.rest.dto.*;
-import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
@@ -13,8 +11,6 @@ import uzuzjmd.competence.shared.dto.ProgressMap;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,22 +21,7 @@ import java.util.List;
 @Path("/competences/json")
 public class CompetenceServiceRestJSON {
 
-    /**
-     * Lists all competences in the RDCEO Standard Format
-     *
-     * @return List of competences in RDCEO
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/all")
-    public List<Rdceo> getRdceo() {
-        System.out.println("Competences queried (rest)");
-        // return "Got it!";
-        CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-        return new ArrayList<Rdceo>(
-                Arrays.asList(competenceServiceImpl
-                        .getCompetences()));
-    }
+
 
     /**
      * use /updateHierarchie2 instead

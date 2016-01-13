@@ -1,8 +1,5 @@
 package uzuzjmd.competence.persistence.abstractlayer
 
-import uzuzjmd.competence.monopersistence.Dao
-import scala.collection.JavaConverters._
-
 /**
  * @author dehne
  */
@@ -24,8 +21,6 @@ trait ReadTransactional[A, T] {
     return f
   }
 
-  implicit def convertDaos (javaDaos : java.util.List[Dao]) : Seq[Dao] = {
-    return javaDaos.asScala
-  }
+
 
 }

@@ -9,6 +9,7 @@ import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared._
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 import scala.collection.mutable.Buffer
 
 /**
@@ -97,13 +98,13 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
 
   private def calculateAssessmentIndex(competence: Competence, user: User): java.lang.Integer = {
 
-    val listSubclases = competence.listSubClasses(classOf[Competence])
-    if (listSubclases.isEmpty) {
+    val listSubclasses = competence.listSubClasses(classOf[Competence])
+    if (listSubclasses.isEmpty) {
       val number = Math.round(competence.getAssessment(user).getAssessmentIndex * 33.33333)
       return Integer.parseInt(number + "")
     }
-    val sum: Int = listSubclases.asScala.map(x => x.getAssessment(user)).map(x => x.getAssessmentIndex).map(x => x.toInt).sum
-    val average = (sum) / listSubclases.size
+    val sum: Int = listSubclasses.asScala.map(x => x.getAssessment(user)).map(x => x.getAssessmentIndex).map(x => x.toInt).sum
+    val average = (sum) / listSubclasses.size
     val result = Math.round(average * 33.33333)
     return Integer.parseInt(result + "")
   }
@@ -113,10 +114,10 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     val includedCompetences: util.List[Competence] = learningProjectTemplate.getAssociatedCompetences
 
     // identify most used catchwords
-    val allCatchwords: List[(Catchword, Int)] = includedCompetences.asScala.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
-
+    val allCatchwords1 = includedCompetences.asScala.map(x => x.getCatchwords.asScala)
+    val allCatchwords2 = allCatchwords1.flatten.groupBy(identity)
+    val allCatchwords = allCatchwords2.mapValues(_.size).toList
     val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
-
 
     // group by catchwords
     val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.asScala.filter(_.getCatchwords.contains(x._1)))).toMap

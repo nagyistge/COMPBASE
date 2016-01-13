@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
+import uzuzjmd.competence.monopersistence.daos.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.abstractlayer.ObjectPropertyCED
-import uzuzjmd.competence.persistence.dao.{EvidenceActivity, Competence, CourseContext}
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 /**

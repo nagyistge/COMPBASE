@@ -1,10 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.datasource.csv.CompetenceBean;
-import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
-import uzuzjmd.competence.main.CompetenceImporter;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplateResultSet;
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
@@ -15,14 +14,12 @@ import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
 import uzuzjmd.competence.mapper.rest.write.ReflectiveAssessmentHolder2Ont;
 import uzuzjmd.competence.service.rest.dto.*;
-import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -38,32 +35,6 @@ public class CompetenceServiceRestXML {
     private Logger logger = LogManager
             .getLogger(getClass());
 
-    /**
-     * new competences can be added via this function. They must be encoded as
-     * Rdceo see somewhere...
-     *
-     * @param input
-     */
-    @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    @Path("/add")
-    public void addRcdeo(Rdceo input) {
-        CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-        competenceServiceImpl.insertCompetence(input);
-        logger.debug("Competences inserted in rcdeo format");
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    @Path("/addCompetenceBean")
-    public Response addCompetenceBean(
-            CompetenceBean[] competenceBean) {
-        logger.trace("Now inserting in xml bean format");
-        CompetenceImporter
-                .competenceBeanToDatabase(competenceBean);
-        logger.trace("Competences inserted in xml bean format");
-        return Response.ok("competences updated").build();
-    }
 
     /**
      * Get the GUI Competence TREE
