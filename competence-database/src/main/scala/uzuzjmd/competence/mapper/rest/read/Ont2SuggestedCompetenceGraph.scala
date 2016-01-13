@@ -3,10 +3,10 @@ package uzuzjmd.competence.mapper.rest.read
 import java.util.HashMap
 
 import uzuzjmd.competence.config.Logging
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.monopersistence.daos.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.{Graph, GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.java.collections.MapsMagic
+
 import scala.collection.JavaConverters._
 
 /**
@@ -18,12 +18,10 @@ object Ont2SuggestedCompetenceGraph extends Logging {
     return input.reduce((a, b) => "[" + a + " , " + b + "]")
   }
 
-  def getLearningTemplateResultSet(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): LearningTemplateResultSet = {
-
-    val name = learningProjectTemplate.name
+  def getLearningTemplateResultSet(learningProjectTemplate: LearningProjectTemplate): LearningTemplateResultSet = {
     val graph = getGraph(learningProjectTemplate)
-    val hashMap = getHashMap(comp, learningProjectTemplate, graph)
-    val result = new LearningTemplateResultSet(graph, hashMap, name);
+    val hashMap = getHashMap(learningProjectTemplate, graph)
+    val result = new LearningTemplateResultSet(graph, hashMap, learningProjectTemplate.getDefinition);
     return result
   }
 
@@ -31,20 +29,20 @@ object Ont2SuggestedCompetenceGraph extends Logging {
 
     val result = new Graph
 
-    val competences = learningProjectTemplate.getAssociatedCompetences()
+    val competences = learningProjectTemplate.getAssociatedCompetences().asScala
 
     // convert relations in 2-tuples
-    val result1 = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.map { z => (z, y._2) }).flatten
+    val result1 = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.asScala.map { z => (z, y._2) }).flatten
 
     // convert to triples
-    result1.foreach(x => result.addTriple(x._1.getDefinition(), x._2.getDefinition(), learningProjectTemplate.name, true))
+    result1.foreach(x => result.addTriple(x._1.getDefinition(), x._2.getDefinition(), learningProjectTemplate.getDefinition, true))
     return result
   }
 
   /** UNIT TEST expects triple : "using tags" , "using JSP tags") as one of the result keys; mit programming und catchwords**/
-  def getHashMap(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, graph: Graph): HashMap[GraphTriple, Array[String]] = {
+  def getHashMap(learningProjectTemplate: LearningProjectTemplate, graph: Graph): HashMap[GraphTriple, Array[String]] = {
 
-    val result1 = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(comp, learningProjectTemplate).mapValues { x => x.flatten }
+    val result1 = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(learningProjectTemplate).mapValues { x => x.flatten }
 
     logger.trace("BEFORE INVERT")
     result1.foreach(x => logger.trace(" key: " + x._1 + ", values:" + x._2))

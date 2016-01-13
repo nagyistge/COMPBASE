@@ -4,7 +4,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.monopersistence.Dao;
-import uzuzjmd.competence.persistence.abstractlayer.CompetenceQueries;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -84,5 +83,19 @@ public abstract class Neo4JQueryManager  {
             }
         }
         return resultDaos;
+    }
+
+    public <T extends Dao> T getDao(String id, Class<T> clazz) throws Exception {
+        String query = "MATCH (a{id:'"+id+"'}) return a";
+        ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
+        ArrayList<T> resultDaos = new ArrayList<T>();
+        for (HashMap<String, String> stringStringHashMap : result) {
+            HashMap<String, String> result2 = stringStringHashMap;
+            if (result2 != null) {
+                T tClass = clazz.getConstructor(String.class).newInstance(id);
+                resultDaos.add((T) tClass.getFullDao(stringStringHashMap));
+            }
+        }
+        return resultDaos.iterator().next();
     }
 }

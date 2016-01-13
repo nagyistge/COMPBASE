@@ -2,12 +2,14 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util.{SortedSet, TreeSet}
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
+import uzuzjmd.competence.monopersistence.daos.{Comment, AbstractEvidenceLink, User}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
 import uzuzjmd.competence.shared.dto.{CommentEntry, CompetenceLinksMap, CompetenceLinksView}
 import uzuzjmd.java.collections.MapsMagic
+
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 
 
 /**
@@ -30,13 +32,13 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
     return execute(getCompetenceLinkMap, user)
   }
 
-  private def getCompetenceLinkMap(comp: CompOntologyManager, user: String): CompetenceLinksMap = {
-    val userDap = new User(comp, user)
+  private def getCompetenceLinkMap(user: String): CompetenceLinksMap = {
+    val userDap = new User(user)
     if (!userDap.exists) {
       return new CompetenceLinksMap
     }
-    val links = userDap.getAssociatedLinks
-    val maps = links.map(link => (link -> link.getAllLinkedCompetences.map(x => x.getDefinition()))).toMap
+    val links = userDap.getAssociatedLinks.asScala
+    val maps = links.map(link => (link -> link.getAllLinkedCompetences.asScala.map(x => x.getDefinition()).toList)).toMap
     val competencesLinked = MapsMagic.invertAssociation(maps)
     val resultScalaTmp1: scala.collection.immutable.Map[String, List[CompetenceLinksView]] = competencesLinked.map(x => (x._1, x._2.map(mapAbstractEvidenceLinkToCompetenceLinksView).flatten))
     val resultScalaTmp2 = resultScalaTmp1.filterKeys(p => p != null)
@@ -46,17 +48,17 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
     return result
   }
 
-  private def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): List[CompetenceLinksView] = {
-    val linkedEvidence = input.getAllActivities.map(x => x.getFullDao())
-    val linkedComments = input.comments.map(mapCommentToCommentEntry)
-    val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.identifier, x.printableName, x.url, linkedComments.asJava, input.isValidated))
+  private def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): mutable.Buffer[CompetenceLinksView] = {
+    val linkedEvidence = input.getAllActivities.asScala
+    val linkedComments = input.getComments.asScala.map(mapCommentToCommentEntry)
+    val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.getId, x.getPrintableName, x.getUrl, linkedComments.asJava, input.getValidated))
     return competenceLinksView
   }
 
   private def mapCommentToCommentEntry(input: Comment): CommentEntry = {
-    val fullComment = input.getFullDao
-    val creatorName = fullComment.creator.getFullDao.readableName
-    val result = new CommentEntry(creatorName, fullComment.textReadable, fullComment.created)
+    val fullComment = input.getFullDao().asInstanceOf[Comment];
+    val creatorName = fullComment.getCreator().getName
+    val result = new CommentEntry(creatorName, fullComment.getText, fullComment.getDateCreated)
     return result
   }
 

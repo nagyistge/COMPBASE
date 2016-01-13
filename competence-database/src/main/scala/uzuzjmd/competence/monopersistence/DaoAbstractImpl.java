@@ -59,8 +59,18 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
+    public <T extends Dao> T getFullDao() throws Exception {
+        return (T) queryManager.getDao(id, this.getClass());
+    }
+
+    @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public Boolean exists() throws Exception {
+        return queryManager.exists(id);
     }
 
     @Override
@@ -178,6 +188,10 @@ public abstract class DaoAbstractImpl implements Dao {
 
     public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass) throws Exception {
         return queryManager.listSuperClasses(competenceClass, this.getId());
+    }
+
+    public <T extends Dao> List<T> listSubClasses(Class<T> competenceClass) throws Exception {
+        return queryManager.listSubClasses(competenceClass, this.getId());
     }
 
     @Override

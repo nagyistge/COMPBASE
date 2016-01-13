@@ -1,10 +1,10 @@
 package uzuzjmd.competence.persistence.validation
 
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.monopersistence.daos.Competence
+
 import scala.collection.JavaConverters._
 
-case class CompetenceGraphValidator(comp: CompOntologyManager, addedCompetence: Competence, superCompetences: java.util.List[Competence], subCompetences: java.util.List[Competence]) {
+case class CompetenceGraphValidator(addedCompetence: Competence, superCompetences: java.util.List[Competence], subCompetences: java.util.List[Competence]) {
   var explanationText = "ok!"
 
   def isValid(): Boolean = {

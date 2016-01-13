@@ -1,16 +1,15 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.tdb.store.Hash;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
 import uzuzjmd.competence.monopersistence.Dao;
 import uzuzjmd.competence.monopersistence.daos.Competence;
+import uzuzjmd.competence.monopersistence.daos.CourseContext;
 import uzuzjmd.competence.monopersistence.daos.SelfAssessment;
 import uzuzjmd.competence.monopersistence.daos.User;
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyAccess;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.shared.StringList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,13 +167,12 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         return issueNeo4JRequestStrings(query2);
     }
 
+
     /**
-     * GET all nodes for a label identified by clazz
-     * ASSERT that clazz is not a singletonClass
      *
      * @param clazz
      * @return
-     * @see CompOntologyAccess
+     * @throws Exception
      */
     public List<String> getAllInstanceDefinitions(CompOntClass clazz) throws Exception {
         String query = "MATCH (a:" + clazz.name() + ") return a.name";
@@ -183,11 +181,11 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
     /**
-     * Should return the shortestSubClassPath between the 2 singletonClasses given
      *
      * @param start
      * @param end
-     * @see CompOntologyAccess
+     * @return
+     * @throws Exception
      */
     public List<String> getShortestSubClassPath(String start, String end) throws Exception {
         String query = "MATCH p=(a{id:'" + start + "'})-[r:subClassOf*]->(b{id:'" + end + "'}) return EXTRACT (n IN nodes(p)|n.definition) AS ids";
@@ -195,11 +193,13 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
     /**
-     * Should return the shortestSubClassPath between the 2 Classes given
      *
      * @param start
      * @param end
-     * @see CompOntologyAccess
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws Exception
      */
     public <T extends Dao>  List<T> getShortestSubClassPath(String start, String end, Class<T> clazz) throws Exception {
         String query = "MATCH p=(a{id:'" + start + "'})-[r:subClassOf*]->(b{id:'" + end + "'}) return EXTRACT n IN nodes(p)";
@@ -303,4 +303,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         return getDaoList(competenceClass, id, query);
     }
 
+    public StringList getAllSelectedLearningProjectTemplates(CourseContext courseContext, User user) {
+        throw new NotImplementedException();
+    }
 }
