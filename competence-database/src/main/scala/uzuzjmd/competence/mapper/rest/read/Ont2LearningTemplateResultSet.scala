@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.monopersistence.daos.LearningProjectTemplate
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}
 
 /**
@@ -12,9 +12,9 @@ object Ont2LearningTemplateResultSet extends ReadTransactional[String, LearningT
     return execute(convertHelper _, changes)
   }
 
-  private def convertHelper(comp: CompOntologyManager, changes: String): LearningTemplateResultSet = {
-    val learningProjectTemplate = new LearningProjectTemplate(comp, changes, null, null);
-    val associatedCompetences = learningProjectTemplate.getAssociatedCompetencesAsJava();
+  private def convertHelper(changes: String): LearningTemplateResultSet = {
+    val learningProjectTemplate = new LearningProjectTemplate(changes);
+    val associatedCompetences = learningProjectTemplate.getAssociatedCompetences();
 
     if (associatedCompetences.isEmpty()) {
       val result = new LearningTemplateResultSet
@@ -25,7 +25,7 @@ object Ont2LearningTemplateResultSet extends ReadTransactional[String, LearningT
       result.setNameOfTheLearningTemplate(changes);
       return result
     } else {
-      return Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(comp, learningProjectTemplate);
+      return Ont2SuggestedCompetenceGraph.getLearningTemplateResultSet(learningProjectTemplate);
     }
   }
 }

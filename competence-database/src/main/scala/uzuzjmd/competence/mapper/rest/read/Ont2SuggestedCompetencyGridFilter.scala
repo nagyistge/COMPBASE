@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.dao.Competence
+import uzuzjmd.competence.monopersistence.daos.Competence
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 
 /**

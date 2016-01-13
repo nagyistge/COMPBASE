@@ -1,8 +1,10 @@
 package uzuzjmd.competence.monopersistence.daos;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.monopersistence.Dao;
 import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
 import uzuzjmd.competence.monopersistence.HasDefinition;
+import uzuzjmd.competence.monopersistence.TreeLike;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.util.List;
@@ -10,12 +12,18 @@ import java.util.List;
 /**
  * Created by dehne on 11.01.2016.
  */
-public class Competence extends DaoAbstractImpl implements HasDefinition {
+public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLike {
 
     private Boolean compulsory;
 
     public Competence(String id) {
         super(id);
+        compulsory = false;
+    }
+
+    public Competence(String id, Boolean compulsory) {
+        super(id);
+        this.compulsory = compulsory;
     }
 
     @Override
@@ -123,5 +131,28 @@ public class Competence extends DaoAbstractImpl implements HasDefinition {
         for (Competence superCompetence : superCompetences) {
             superCompetence.createEdgeWith(course, CompObjectProperties.CourseContextOf);
         }
+    }
+
+    public Boolean isSuperClass(Competence superCompetence) {
+        try {
+            return listSuperClasses(this.getClass()).contains(superCompetence);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean isSubClass(Competence subCompetence) {
+        try {
+            return listSubClasses(this.getClass()).contains(subCompetence);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteTree() {
+        throw new NotImplementedException();
     }
 }

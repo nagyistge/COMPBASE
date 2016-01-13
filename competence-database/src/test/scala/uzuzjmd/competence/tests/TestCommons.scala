@@ -1,6 +1,5 @@
 package uzuzjmd.competence.tests
 
-import uzuzjmd.competence.main.CompetenceImporter
 import uzuzjmd.competence.main.EposImporter
 import uzuzjmd.competence.persistence.owl.{CompFileUtil, CompOntologyManagerJenaImpl}
 

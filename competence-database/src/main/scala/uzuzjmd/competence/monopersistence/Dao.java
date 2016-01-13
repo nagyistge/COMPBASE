@@ -22,9 +22,11 @@ public interface Dao {
     Boolean hasEdge(Dao domain, CompObjectProperties edge) throws Exception;
     void deleteEdgeWith(Dao domain, CompObjectProperties edge) throws Exception;
     String getId();
+    Boolean exists() throws Exception;
     CompOntClass getLabel();
     void setFullDao(HashMap<String, String> props);
     <T extends Dao> T getFullDao(HashMap<String, String> props);
+    <T extends Dao> T getFullDao() throws Exception;
     <P extends Dao> List<P> getAssociatedDaosAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;
     <T extends Dao> List<T> getAssociatedDaosAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception;
     <P extends Dao> P getAssociatedDaoAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;

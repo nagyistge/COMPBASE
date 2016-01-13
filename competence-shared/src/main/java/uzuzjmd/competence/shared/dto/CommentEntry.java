@@ -8,7 +8,7 @@ public class CommentEntry {
 	public CommentEntry() {
 	}
 
-	public CommentEntry(String userName, String commentName, long created) {
+	public CommentEntry(String userName, String commentName, Long created) {
 		this.userName = userName;
 		this.commentName = commentName;
 		this.created = created;

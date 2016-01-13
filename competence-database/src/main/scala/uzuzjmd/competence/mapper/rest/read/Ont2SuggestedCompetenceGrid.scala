@@ -1,12 +1,14 @@
 package uzuzjmd.competence.mapper.rest.read
 
+import java.util
+
 import org.apache.log4j.LogManager
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.dao._
+import uzuzjmd.competence.monopersistence.daos._
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared._
-import scala.collection.JavaConverters._
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer
 
 /**
@@ -24,21 +26,21 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     return execute(convertHelper _, changes)
   }
 
-  private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData): SuggestedCompetenceGrid = {
-    val context = new CourseContext(comp, changes.getGroupId);
-    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
-    val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, null);
+  private def convertHelper(changes: LearningTemplateData): SuggestedCompetenceGrid = {
+    val context = new CourseContext(changes.getGroupId);
+    val user = new User(changes.getUserName, Role.teacher , context);
+    val learningTemplate = new LearningProjectTemplate(changes.getSelectedTemplate);
     if (!learningTemplate.exists()) {
       return null;
     }
-    val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(comp, learningTemplate, user);
+    val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(learningTemplate, user);
     return result
   }
 
-  def convertToTwoDimensionalGrid(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
+  def convertToTwoDimensionalGrid(learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
-    val scalaGrid = convertToTwoDimensionalGrid1(comp, learningProjectTemplate)
-    val scalaGridDeNormalized: Buffer[(uzuzjmd.competence.persistence.dao.Catchword, List[uzuzjmd.competence.persistence.dao.Competence])] = Buffer.empty
+    val scalaGrid = convertToTwoDimensionalGrid1(learningProjectTemplate)
+    val scalaGridDeNormalized: Buffer[(Catchword, List[Competence])] = Buffer.empty
     scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
 
     val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
@@ -49,14 +51,14 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
 
   private def mapScalaGridToSuggestedCompetenceRow(catchword: Catchword, competences: List[Competence], user: User): SuggestedCompetenceRow = {
     val result = new SuggestedCompetenceRow
-    result.setSuggestedCompetenceRowHeader(catchword.getDataField(catchword.DEFINITION))
+    result.setSuggestedCompetenceRowHeader(catchword.getDefinition)
     result.setSuggestedCompetenceColumns(competences.map(convertCompetenceToColumn(_)(user)).asJava)
     return result
   }
 
   private def convertCompetenceToColumn(competence: Competence)(user: User): SuggestedCompetenceColumn = {
     val result = new SuggestedCompetenceColumn
-    result.setTestOutput(competence.getDataField(competence.DEFINITION))
+    result.setTestOutput(competence.getDefinition)
     result.setProgressInPercent(calculateAssessmentIndex(competence, user))
 
     // if there are no subclasses the competence itself should be used for assessment
@@ -79,13 +81,13 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     val assessment = new Assessment
     holder.setAssessment(assessment)
     holder.setSuggestedMetaCompetence(competence.getDefinition)
-    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
+    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).asScala.map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
     return holder
   }
 
   private def competenceToReflectiveAssessment(competence: Competence)(user: User): ReflectiveAssessment = {
     val result = new ReflectiveAssessment
-    val index = competence.getAssessment(user).getAssmentIndex
+    val index = competence.getAssessment(user).getAssessmentIndex
     val assessment = new Assessment
     result.setAssessment(assessment.getItems().get(index))
     result.setCompetenceDescription(competence.getDefinition)
@@ -97,33 +99,30 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
 
     val listSubclases = competence.listSubClasses(classOf[Competence])
     if (listSubclases.isEmpty) {
-      val number = Math.round(competence.getAssessment(user).getAssmentIndex() * 33.33333)
+      val number = Math.round(competence.getAssessment(user).getAssessmentIndex * 33.33333)
       return Integer.parseInt(number + "")
     }
-    val size = competence.listSubClasses(classOf[Competence]).size
-    val sum: Int = listSubclases.map(x => x.getAssessment(user)).map(x => x.getAssmentIndex).map(x => x.toInt).sum
+    val sum: Int = listSubclases.asScala.map(x => x.getAssessment(user)).map(x => x.getAssessmentIndex).map(x => x.toInt).sum
     val average = (sum) / listSubclases.size
     val result = Math.round(average * 33.33333)
     return Integer.parseInt(result + "")
   }
 
-  def convertToTwoDimensionalGrid1(comp: CompOntologyManager, learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
+  def convertToTwoDimensionalGrid1(learningProjectTemplate: LearningProjectTemplate): Map[Catchword, List[List[Competence]]] = {
 
-    val includedCompetences = learningProjectTemplate.getAssociatedCompetences
+    val includedCompetences: util.List[Competence] = learningProjectTemplate.getAssociatedCompetences
 
     // identify most used catchwords
-    val allCatchwords = includedCompetences.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
+    val allCatchwords: List[(Catchword, Int)] = includedCompetences.asScala.map(x => x.getCatchwords).flatten.groupBy(identity).mapValues(_.size).toList
 
     val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
-    logger.trace("catchwords isolated: " + catchwordsStoString(sortedCatchwords.toBuffer))
+
 
     // group by catchwords
-    val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.filter(_.getCatchwords.contains(x._1)))).toMap
+    val groupedCompetences = sortedCatchwords.map(catchword => (catchword, includedCompetences)).map(x => (x._1, x._2.asScala.filter(_.getCatchwords.contains(x._1)))).toMap
 
     // convert to datagrid structure for visualization
     val grid = groupedCompetences.mapValues(x => x.toList).mapValues(sortListOfSuggestedCompetences)
-
-    // TODO: Fix Problem here with junit test from Anh
 
     return grid
   }
@@ -134,7 +133,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
   private def sortListOfSuggestedCompetences(rawList: List[Competence]): List[List[Competence]] = {
 
     logger.trace("list of competences to be sorted: ")
-    logger.trace(rawList.map(x => x.toStrinz).reduce((a, b) => a + " , " + b))
+    logger.trace(rawList.map(x => x.getDefinition).reduce((a, b) => a + " , " + b))
 
     if (rawList.isEmpty) {
       return List.empty
@@ -219,14 +218,14 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     if (input.isEmpty) {
       return "[]";
     }
-    return input.map(x => (x._1.getDataField(x._1.DEFINITION), x._2.getDataField(x._2.DEFINITION))).map(x => "(" + x._1 + "," + x._2 + ")").reduce((a, b) => a + " , " + b)
+    return input.map(x => (x._1.getDefinition, x._2.getDefinition)).map(x => "(" + x._1 + "," + x._2 + ")").reduce((a, b) => a + " , " + b)
   }
 
   private def catchwordsStoString(input: Buffer[Catchword]): String = {
     if (input.isEmpty) {
       return ""
     }
-    return input.map(x => x.getDataField(x.DEFINITION)).reduce((a, b) => a + ", " + b)
+    return input.map(x => x.getDefinition).reduce((a, b) => a + ", " + b)
   }
 
 }
