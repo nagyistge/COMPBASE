@@ -1,6 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.util.List;

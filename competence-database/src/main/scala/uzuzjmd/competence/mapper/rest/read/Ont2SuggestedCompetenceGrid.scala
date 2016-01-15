@@ -202,7 +202,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
   }
 
   /**
-   * returns Pair Of (Hlist1, and HList2)
+   * returns TreePair Of (Hlist1, and HList2)
    */
   private def addHlist0ElementToCorrectList(hList0Element: (Competence, Competence))(hList1: ComPairList, hList2: ComPairList) = {
 

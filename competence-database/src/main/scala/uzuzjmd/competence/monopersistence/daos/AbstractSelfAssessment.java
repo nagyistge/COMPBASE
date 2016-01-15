@@ -1,7 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
-
 /**
  * Created by dehne on 12.01.2016.
  */

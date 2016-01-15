@@ -2,7 +2,7 @@ package uzuzjmd.competence.persistence.neo4j;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
-import uzuzjmd.competence.monopersistence.Dao;
+import uzuzjmd.competence.monopersistence.daos.Dao;
 import uzuzjmd.competence.monopersistence.daos.Competence;
 import uzuzjmd.competence.monopersistence.daos.CourseContext;
 import uzuzjmd.competence.monopersistence.daos.SelfAssessment;
@@ -20,6 +20,9 @@ import java.util.Map;
  * Created by dehne on 04.12.2015.
  */
 public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
+
+    public Neo4JQueryManagerImpl() {
+    }
 
     public ArrayList<String> getLabelsForNode(String id) throws Exception {
         String query = "MATCH (e{id:'" + id + "'}) return labels(e)";
@@ -293,17 +296,24 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         }
     }
 
-    public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass, String id) throws Exception {
-        String query = "MATCH z = (n:Competence{id:'"+id+"'})-[r:subClassOf*]->(p:Competence) return filter(x IN nodes(z) WHERE NOT(x.id = n.id)) ";
-        return getDaoList(competenceClass, id, query);
-    }
-
-    public <T extends Dao> List<T> listSubClasses(Class<T> competenceClass, String id) throws Exception {
-        String query = "MATCH z = (n:Competence)-[r:subClassOf*]->(p:Competence{id:'"+id+"'}) return filter(x IN nodes(z) WHERE NOT(x.id = p.id)) ";
-        return getDaoList(competenceClass, id, query);
-    }
-
     public StringList getAllSelectedLearningProjectTemplates(CourseContext courseContext, User user) {
         throw new NotImplementedException();
+    }
+
+
+    /**
+     * returns a list in the form
+     * 1 -> 2
+     * 1 -> 3
+     * 3 -> 4
+     * 1 -> 3
+     * []
+     * []
+     * @param label
+     * @return
+     */
+    public List<ArrayList<String>> getSubClassTriples(String label) throws Exception {
+        String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+") return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree)";
+        return issueNeo4JRequestArrayListArrayList(query);
     }
 }

@@ -3,12 +3,12 @@ package uzuzjmd.competence.service.rest
 import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
-import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceGraph
+import uzuzjmd.competence.mapper.rest.read.{Ont2CompetenceTree, Ont2CompetenceGraph}
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
-import uzuzjmd.competence.service.rest.dto.{CompetenceData, GraphFilterData, LinkValidationData, PrerequisiteData}
+import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
 import scala.collection.JavaConverters._
 
@@ -114,7 +114,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   def testGetSelected2: Unit = {
     testGetSelectedCreateContexts
     val course = "university"
-    val result = CompetenceServiceWrapper.getSelected(course);
+    val result = Ont2CompetenceTree.getCompetenceTree(new CompetenceTreeFilterData(course))
     assertFalse(result.isEmpty)
     testGetSelectedDeleteContexts
   }

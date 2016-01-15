@@ -1,6 +1,6 @@
 package uzuzjmd.competence.persistence.abstractlayer
 
-import uzuzjmd.competence.monopersistence.Dao
+import uzuzjmd.competence.monopersistence.daos.Dao
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 

@@ -1,4 +1,4 @@
-package uzuzjmd.competence.monopersistence;
+package uzuzjmd.competence.monopersistence.daos;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public abstract class DaoAbstractImpl implements Dao {
     private final String id;
     protected final Neo4JQueryManagerImpl queryManager = new Neo4JQueryManagerImpl();
     static Logger logger = LogManager.getLogger(DaoAbstractImpl.class.getName());
+
 
     public DaoAbstractImpl(String id) {
         this.id = id;
@@ -75,17 +77,21 @@ public abstract class DaoAbstractImpl implements Dao {
 
     @Override
     public CompOntClass getLabel() {
-        return CompOntClass.valueOf(this.getClass().getName());
+        return CompOntClass.valueOf(this.getClass().getSimpleName());
     }
 
     @Override
     public void createEdgeWith(CompObjectProperties edge, Dao range) throws Exception {
-        queryManager.createRelationShip(this.getId(), edge, range.getId());
+        if(!this.getId().equals(range.getId())) {
+            queryManager.createRelationShip(this.getId(), edge, range.getId());
+        }
     }
 
     @Override
     public void createEdgeWith(Dao domain, CompObjectProperties edge) throws Exception {
-        queryManager.createRelationShip(domain.getId(), edge, this.getId());
+        if(!this.getId().equals(domain.getId())) {
+            queryManager.createRelationShip(domain.getId(), edge, this.getId());
+        }
     }
 
     @Override
@@ -130,12 +136,26 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     private <T extends Dao> List<T> instantiateDaos(Class<T> clazz, List<String> nodeIds) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        if (nodeIds == null || nodeIds.isEmpty()) {
+            return new LinkedList<>();
+        }
+
         List<T> resultList = new ArrayList<T>();
         for (String nodeId : nodeIds) {
             T result = clazz.getDeclaredConstructor(String.class).newInstance(nodeId);
             resultList.add(result);
         }
         return resultList;
+    }
+
+    @Override
+    public List<String> getAssociatedDaoIdsAsDomain(CompObjectProperties edge) throws Exception {
+        return  queryManager.getAssociatedNodeIdsAsDomain(getId(), edge);
+    }
+
+    @Override
+    public List<String> getAssociatedDaoIdsAsRange(CompObjectProperties edge) throws Exception {
+        return queryManager.getAssociatedNodeIdsAsRange(edge, getId());
     }
 
     protected HashMap<String, String> toHashMap() {
@@ -219,4 +239,6 @@ public abstract class DaoAbstractImpl implements Dao {
         }
         return result.iterator().next();
     }
+
+
 }

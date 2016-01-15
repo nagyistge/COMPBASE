@@ -1,9 +1,6 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.Cascadable;
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.persistence.ontology.CompOntClass;
 
 import java.util.List;
 
@@ -12,14 +9,14 @@ import java.util.List;
  */
 public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable {
 
-    private User creator;
-    private User linkedUser;
-    private CourseContext courseContext;
-    private EvidenceActivity evidenceActivity;
-    private Long dateCreated;
-    private Boolean isValidated;
-    private Competence competence;
-    private List<Comment> comments;
+    public User creator;
+    public User linkedUser;
+    public CourseContext courseContext;
+    public EvidenceActivity evidenceActivity;
+    public Long dateCreated;
+    public Boolean isValidated;
+    public Competence competence;
+    public List<Comment> comments;
 
     public AbstractEvidenceLink(String id) {
         super(id);

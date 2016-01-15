@@ -3,7 +3,7 @@ package uzuzjmd.competence.persistence.neo4j;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
-import uzuzjmd.competence.monopersistence.Dao;
+import uzuzjmd.competence.monopersistence.daos.Dao;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -72,16 +72,13 @@ public abstract class Neo4JQueryManager  {
     }
 
 
-    protected <T extends Dao> List<T> getDaoList(Class<T> competenceClass, String id, String query) throws Exception {
+    protected <T extends Dao> List<T> getDaoList(Class<T> clazz, String id, String query) throws Exception {
         ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
-        ArrayList<T> resultDaos = new ArrayList<T>();
-        for (HashMap<String, String> stringStringHashMap : result) {
-            HashMap<String, String> result2 = stringStringHashMap;
-            if (result2 != null) {
-                T tClass = competenceClass.getConstructor(String.class).newInstance(id);
-                resultDaos.add((T) tClass.getFullDao(stringStringHashMap));
-            }
+        if (result == null || result.isEmpty()) {
+            return new ArrayList<>();
         }
+        ArrayList<T> resultDaos = new ArrayList<T>();
+        getHashMap(id, clazz, result, resultDaos);
         return resultDaos;
     }
 
@@ -89,6 +86,11 @@ public abstract class Neo4JQueryManager  {
         String query = "MATCH (a{id:'"+id+"'}) return a";
         ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
         ArrayList<T> resultDaos = new ArrayList<T>();
+        getHashMap(id, clazz, result, resultDaos);
+        return resultDaos.iterator().next();
+    }
+
+    private <T extends Dao> void getHashMap(String id, Class<T> clazz, ArrayList<HashMap<String, String>> result, ArrayList<T> resultDaos) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
         for (HashMap<String, String> stringStringHashMap : result) {
             HashMap<String, String> result2 = stringStringHashMap;
             if (result2 != null) {
@@ -96,6 +98,17 @@ public abstract class Neo4JQueryManager  {
                 resultDaos.add((T) tClass.getFullDao(stringStringHashMap));
             }
         }
-        return resultDaos.iterator().next();
+    }
+
+    public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass, String id) throws Exception {
+        String className = competenceClass.getSimpleName();
+        String query = "MATCH z = (n:"+className+"{id:'"+id+"'})-[r:subClassOf*]->(p:"+className+") return filter(x IN nodes(z) WHERE NOT(x.id = n.id)) ";
+        return getDaoList(competenceClass, id, query);
+    }
+
+    public <T extends Dao> List<T> listSubClasses(Class<T> competenceClass, String id) throws Exception {
+        String className = competenceClass.getSimpleName();
+        String query = "MATCH z = (n:"+className+")-[r:subClassOf*]->(p:"+className+"{id:'"+id+"'}) return filter(x IN nodes(z) WHERE NOT(x.id = p.id)) ";
+        return getDaoList(competenceClass, id, query);
     }
 }

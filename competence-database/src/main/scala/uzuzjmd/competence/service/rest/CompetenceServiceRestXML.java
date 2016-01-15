@@ -1,14 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.datasource.csv.CompetenceBean;
 import uzuzjmd.competence.main.EposImporter;
-import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplateResultSet;
-import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
-import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
-import uzuzjmd.competence.mapper.rest.read.Ont2SuggestedCompetenceGrid;
+import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.DeleteLearningTemplateinOnt;
 import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
@@ -20,6 +15,7 @@ import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -59,21 +55,8 @@ public class CompetenceServiceRestXML {
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
             @QueryParam("textFilter") String textFilter) {
 
-        CompetenceXMLTree[] result = null;
-        if (compulsory.equals("all")) {
-            result = CompetenceServiceWrapper
-                    .getCompetenceTree(selectedCatchwords,
-                            selectedOperators, course,
-                            null, textFilter);
-        } else {
-            Boolean compulsoryBoolean = RestUtil
-                    .convertCompulsory(compulsory);
-            result = CompetenceServiceWrapper
-                    .getCompetenceTree(selectedCatchwords,
-                            selectedOperators, course,
-                            compulsoryBoolean, textFilter);
-        }
-
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter);
+        List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         Response response = RestUtil.buildCachedResponse(
                 result, cache.equals("cached"));
         return response;
@@ -128,23 +111,8 @@ public class CompetenceServiceRestXML {
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
             @QueryParam("textFilter") String textFilter) {
 
-        CompetenceXMLTree[] result = null;
-        if (compulsory.equals("all")) {
-            result = CompetenceServiceWrapper
-                    .getCompetenceTreeForCourse(
-                            selectedCatchwords,
-                            selectedOperators, course,
-                            null, textFilter);
-        } else {
-            Boolean compulsoryBoolean = RestUtil
-                    .convertCompulsory(compulsory);
-            result = CompetenceServiceWrapper
-                    .getCompetenceTreeForCourse(
-                            selectedCatchwords,
-                            selectedOperators, course,
-                            compulsoryBoolean, textFilter);
-        }
-
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter);
+        List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         Response response = RestUtil.buildCachedResponse(
                 result, cache.equals("cached"));
         return response;
@@ -171,10 +139,8 @@ public class CompetenceServiceRestXML {
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-        OperatorXMLTree[] result = CompetenceServiceWrapper
-                .getOperatorTree(selectedCatchwords,
-                        selectedOperators, course);
-
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
         Response response = RestUtil.buildCachedResponse(
                 result, cache.equals("cached"));
         return response;
@@ -200,9 +166,8 @@ public class CompetenceServiceRestXML {
             @PathParam("cache") String cache,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-        CatchwordXMLTree[] result = CompetenceServiceWrapper
-                .getCatchwordTree(selectedCatchwords,
-                        selectedOperators, course);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
         Response response = RestUtil.buildCachedResponse(
                 result, cache.equals("cached"));
         return response;

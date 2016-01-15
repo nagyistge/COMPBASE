@@ -9,7 +9,7 @@ import java.util.List;
  * Created by dehne on 11.01.2016.
  */
 public class User extends AbstractUser {
-    private Role role;
+    public Role role;
     public User(String id) {
         super(id);
     }

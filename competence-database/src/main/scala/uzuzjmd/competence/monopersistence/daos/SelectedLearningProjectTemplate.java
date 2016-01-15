@@ -1,6 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.Cascadable;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.shared.StringList;

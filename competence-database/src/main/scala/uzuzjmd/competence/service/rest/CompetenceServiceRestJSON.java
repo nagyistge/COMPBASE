@@ -1,7 +1,12 @@
 package uzuzjmd.competence.service.rest;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
+import uzuzjmd.competence.monopersistence.daos.Competence;
+import uzuzjmd.competence.monopersistence.daos.CourseContext;
+import uzuzjmd.competence.monopersistence.daos.DBInitializer;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.service.rest.dto.*;
 import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
 import uzuzjmd.competence.shared.dto.Graph;
@@ -11,8 +16,8 @@ import uzuzjmd.competence.shared.dto.ProgressMap;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.LinkedList;
 import java.util.List;
+
 
 
 /**
@@ -21,7 +26,9 @@ import java.util.List;
 @Path("/competences/json")
 public class CompetenceServiceRestJSON {
 
-
+    public CompetenceServiceRestJSON() {
+        DBInitializer.init();
+    }
 
     /**
      * use /updateHierarchie2 instead
@@ -97,13 +104,18 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @PathParam("compulsory") String compulsory,
             @QueryParam(value = "competences") final List<String> competences,
-            @QueryParam(value = "requirements") String requirements) {
+            @QueryParam(value = "requirements") String requirements) throws Exception {
 
-        Boolean compulsoryBoolean = RestUtil
+        /* Boolean compulsoryBoolean = RestUtil
                 .convertCompulsory(compulsory);
-        CompetenceServiceWrapper.linkCompetencesToCourse(
-                course, competences, compulsoryBoolean,
-                requirements);
+        implement that competences are compulsory */
+
+        CourseContext courseContext = new CourseContext(course,requirements);
+        courseContext.persist();
+        for (String competence : competences) {
+            Competence competenceDAO = new Competence(competence);
+            competenceDAO.addCourseContext(courseContext);
+        }
         return Response.ok("competences linked to course")
                 .build();
     }
@@ -120,16 +132,12 @@ public class CompetenceServiceRestJSON {
     public Response createUser(
             @PathParam("user") String user,
             @PathParam("role") String role,
-            @QueryParam("groupId") String courseContext) {
+            @QueryParam("groupId") String courseContext) throws Exception {
+        CourseContext courseContextDao = new CourseContext(courseContext);
+        courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
                 role);
         User2Ont.convert(data);
-        if (courseContext != null) {
-            CompetenceServiceWrapper
-                    .linkCompetencesToCourse(courseContext,
-                            new LinkedList(), false, "");
-        }
-        // TODO finish
         return Response.ok("user created").build();
     }
 
@@ -147,8 +155,9 @@ public class CompetenceServiceRestJSON {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/coursecontext/delete/{course}")
     public Response deleteCourseContext(
-            @PathParam("course") String course) {
-        // TODO implement
+            @PathParam("course") String course) throws Exception {
+        CourseContext courseContext = new CourseContext(course);
+        courseContext.delete();
         return Response
                 .ok("competences deleted from course:"
                         + course).build();
@@ -167,27 +176,11 @@ public class CompetenceServiceRestJSON {
     @GET
     @Path("/coursecontext/requirements/{course}")
     public String getRequirements(
-            @PathParam("course") String course) {
-        String result = CompetenceServiceWrapper
-                .getRequirements(course);
-        return result;
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+        return context.getFullDao().getRequirement();
     }
 
-    /**
-     * Returns all the competences linked to a course context. It is deprecated
-     * /coursecontext/selected should be used.
-     *
-     * @param course
-     * @return
-     */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/selected/{course}")
-    @Deprecated
-    public String[] getSelected(
-            @PathParam("course") String course) {
-        return CompetenceServiceWrapper.getSelected(course);
-    }
 
     /**
      * Get competences linked to (course) context.
@@ -201,8 +194,9 @@ public class CompetenceServiceRestJSON {
     @GET
     @Path("/coursecontext/selected/{course}")
     public String[] getSelectedCompetencesForCourse(
-            @PathParam("course") String course) {
-        return CompetenceServiceWrapper.getSelected(course);
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+        return context.getAssociatedDaoIdsAsDomain(CompObjectProperties.belongsToCourseContext).toArray(new String[0]);
     }
 
     /**
@@ -290,8 +284,8 @@ public class CompetenceServiceRestJSON {
     @Path("/link/validate/{linkId}")
     public Response validateLink(
             @PathParam("linkId") String linkId) {
-        Boolean isvalid = true;
-        return handleLinkValidation(linkId, isvalid);
+        Boolean isValid = true;
+        return handleLinkValidation(linkId, isValid);
     }
 
     /**
@@ -308,13 +302,12 @@ public class CompetenceServiceRestJSON {
     @Path("/link/invalidate/{linkId}")
     public Response invalidateLink(
             @PathParam("linkId") String linkId) {
-        Boolean isvalid = false;
-        return handleLinkValidation(linkId, isvalid);
+        Boolean isValid = false;
+        return handleLinkValidation(linkId, isValid);
     }
 
     /**
      * Delete an evidence link
-     *
      * @param linkId the id of the link to be deleted
      * @return
      */
@@ -330,7 +323,6 @@ public class CompetenceServiceRestJSON {
 
     /**
      * Deletes one or more competences
-     *
      * @param competences
      * @return
      */
@@ -346,7 +338,6 @@ public class CompetenceServiceRestJSON {
 
     /**
      * Deletes competences and all their subcompetences
-     *
      * @param competences the competences to be deleted
      * @return
      */
@@ -459,8 +450,7 @@ public class CompetenceServiceRestJSON {
         /*GraphFilterData graphFilterData = new GraphFilterData(selectedCompetences, course);*/
         /*Graph result= Ont2CompetenceGraph.convert(graphFilterData);*/
         //return result;
-        return null;
-
+        throw new NotImplementedException();
     }
 
     /**
