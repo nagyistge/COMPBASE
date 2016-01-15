@@ -52,7 +52,7 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
     public List<Competence> getRequiredCompetences() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.PrerequisiteOf, Competence.class);
+        return getAssociatedDaosAsRange(CompObjectProperties.PrerequisiteOf, Competence.class);
     }
 
     public String[] getRequiredCompetencesAsArray() throws Exception {

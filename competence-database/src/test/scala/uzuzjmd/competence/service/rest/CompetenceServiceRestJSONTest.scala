@@ -318,8 +318,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
 
     val tmpResult1 = competenceADao.getRequiredCompetences().asScala.map(x=>x.getDefinition())
     assertTrue(tmpResult1.contains(competenceB))
-    val tmpResult2 = competenceADao.getRequiredCompetences().asScala.map(x=>x.getDefinition())
-    assertTrue(tmpResult2.contains(competenceC))
+    assertTrue(tmpResult1.contains(competenceC))
   }
 
   def testCreatePrerequisiteTestSetup(): Unit = {
@@ -356,9 +355,9 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
 
-    val competenceADao = new Competence( competenceA);
-    val competenceBDao = new Competence( competenceB);
-    val competenceCDao = new Competence( competenceC);
+    val competenceADao = new Competence(competenceA);
+    val competenceBDao = new Competence(competenceB);
+    val competenceCDao = new Competence(competenceC);
     assertFalse(competenceADao.getRequiredCompetences().contains(competenceBDao))
     assertFalse(competenceADao.getRequiredCompetences().contains(competenceCDao))
     competenceADao.delete()
