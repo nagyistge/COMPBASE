@@ -1,7 +1,6 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
-import uzuzjmd.competence.monopersistence.HasDefinition;
+import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -14,5 +13,11 @@ public class Operator extends DaoAbstractImpl implements HasDefinition {
     @Override
     public String getDefinition() {
         return this.getId();
+    }
+
+    @Override
+    public void persist() throws Exception {
+        super.persist();
+        createEdgeWith(CompObjectProperties.subClassOf, new Operator(DBInitializer.OPERATORROOT));
     }
 }

@@ -1,10 +1,6 @@
 package uzuzjmd.competence.monopersistence.daos;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import uzuzjmd.competence.monopersistence.Dao;
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
-import uzuzjmd.competence.monopersistence.HasDefinition;
-import uzuzjmd.competence.monopersistence.TreeLike;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.util.List;
@@ -14,7 +10,7 @@ import java.util.List;
  */
 public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLike {
 
-    private Boolean compulsory;
+    public Boolean compulsory;
 
     public Competence(String id) {
         super(id);
@@ -127,7 +123,7 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
     public void addSuperCompetencesToCourse(Competence competence, CourseContext course) throws Exception {
-        List<Competence>  superCompetences = competence.listSuperClasses(Competence.class);
+        List<Competence> superCompetences = competence.listSuperClasses(Competence.class);
         for (Competence superCompetence : superCompetences) {
             superCompetence.createEdgeWith(course, CompObjectProperties.CourseContextOf);
         }
@@ -152,7 +148,22 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
     @Override
-    public void deleteTree() {
-        throw new NotImplementedException();
+    public void deleteTree() throws Exception {
+        List<Competence> subClasses = listSubClasses();
+        for (Competence subClass : subClasses) {
+            deleteTree();
+        }
+        this.delete();
+    }
+
+    @Override
+    public void persist() throws Exception {
+        super.persist();
+        createEdgeWith(CompObjectProperties.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
+    }
+
+
+    public List<Competence> listSubClasses() throws Exception {
+        return (List<Competence>) super.listSubClasses(getClass());
     }
 }

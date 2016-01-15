@@ -1,4 +1,4 @@
-package uzuzjmd.competence.monopersistence;
+package uzuzjmd.competence.monopersistence.daos;
 
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
@@ -27,6 +27,8 @@ public interface Dao {
     void setFullDao(HashMap<String, String> props);
     <T extends Dao> T getFullDao(HashMap<String, String> props);
     <T extends Dao> T getFullDao() throws Exception;
+    List<String> getAssociatedDaoIdsAsDomain(CompObjectProperties edge) throws Exception;
+    List<String> getAssociatedDaoIdsAsRange(CompObjectProperties edge) throws Exception;
     <P extends Dao> List<P> getAssociatedDaosAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;
     <T extends Dao> List<T> getAssociatedDaosAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception;
     <P extends Dao> P getAssociatedDaoAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception;

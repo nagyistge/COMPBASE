@@ -1,6 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.Cascadable;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 /**
@@ -8,8 +7,8 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
  */
 public class SelfAssessment extends AbstractSelfAssessment implements Cascadable{
 
-    private Integer assessmentIndex = 0;
-    private Boolean learningGoal = false;
+    public Integer assessmentIndex = 0;
+    public Boolean learningGoal = false;
 
     public SelfAssessment(String id) {
         super(id);

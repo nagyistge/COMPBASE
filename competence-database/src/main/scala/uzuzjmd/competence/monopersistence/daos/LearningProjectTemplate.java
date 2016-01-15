@@ -1,7 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import uzuzjmd.competence.monopersistence.Cascadable;
-import uzuzjmd.competence.monopersistence.HasDefinition;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 import java.util.List;

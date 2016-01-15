@@ -1,8 +1,6 @@
 package uzuzjmd.competence.monopersistence.daos;
 
 import uzuzjmd.competence.exceptions.NoUserGivenException;
-import uzuzjmd.competence.monopersistence.Cascadable;
-import uzuzjmd.competence.monopersistence.DaoAbstractImpl;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
 /**
@@ -10,8 +8,8 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
  */
 public class Comment extends AbstractComment implements Cascadable {
 
-    private Long dateCreated;
-    private String text;
+    public Long dateCreated;
+    public String text;
 
     public Comment(String id) {
         super(id);

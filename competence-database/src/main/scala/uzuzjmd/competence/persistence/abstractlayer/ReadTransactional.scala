@@ -5,7 +5,7 @@ package uzuzjmd.competence.persistence.abstractlayer
  */
 trait ReadTransactional[A, T] {
   type TRANSACTIONAL = A => T
-  type TRANSACTIONAL2 = A => Unit
+  type TRANSACTIONAL2 = () => Unit
 
   def execute(f: TRANSACTIONAL, g: A): T = {
     try {
