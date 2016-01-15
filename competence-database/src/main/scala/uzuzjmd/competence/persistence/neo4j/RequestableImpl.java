@@ -36,11 +36,15 @@ public class RequestableImpl<T> implements Requestable<T>{
         if (result.get("results").get(0).get("data").isEmpty()) {
             return null;
         } else {
-            return result.get("results").get(0).get("data").get(0).get("row");
+            return extractValues(result);
         }
     }
 
-    private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> getLinkedHashMapFromRest(String payload) {
+    protected T extractValues(LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> result) {
+        return result.get("results").get(0).get("data").get(0).get("row");
+    }
+
+    protected LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> getLinkedHashMapFromRest(String payload) {
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
         return target2.request(

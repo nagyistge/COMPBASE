@@ -3,7 +3,9 @@ package uzuzjmd.competence.monopersistence.daos;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -79,7 +81,7 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
 
 
     public void addSuperCompetence(Competence superCompetence) throws Exception {
-        createEdgeWith(this, CompObjectProperties.subClassOf);
+        createEdgeWith(CompObjectProperties.subClassOf, superCompetence);
     }
 
     public void removeSuperCompetence(Competence superCompetence) throws Exception {
@@ -123,22 +125,13 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
     public void addSuperCompetencesToCourse(Competence competence, CourseContext course) throws Exception {
-        List<Competence> superCompetences = competence.listSuperClasses(Competence.class);
+        Set<Competence> superCompetences = competence.listSuperClasses(Competence.class);
         for (Competence superCompetence : superCompetences) {
             superCompetence.createEdgeWith(course, CompObjectProperties.CourseContextOf);
         }
     }
 
-    public Boolean isSuperClass(Competence superCompetence) {
-        try {
-            return listSuperClasses(this.getClass()).contains(superCompetence);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public Boolean isSubClass(Competence subCompetence) {
+    public Boolean isSuperClassOf(Competence subCompetence) {
         try {
             return listSubClasses(this.getClass()).contains(subCompetence);
         } catch (Exception e) {
@@ -147,9 +140,19 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
         return false;
     }
 
+    public Boolean isSubClassOf(Competence superCompetence) throws Exception {
+        Set<? extends Competence> result = listSuperClasses(this.getClass());
+        try {
+            return result.contains(superCompetence);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public void deleteTree() throws Exception {
-        List<Competence> subClasses = listSubClasses();
+        Set<Competence> subClasses = listSubClasses();
         for (Competence subClass : subClasses) {
             deleteTree();
         }
@@ -163,7 +166,7 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
 
-    public List<Competence> listSubClasses() throws Exception {
-        return (List<Competence>) super.listSubClasses(getClass());
+    public Set<Competence> listSubClasses() throws Exception {
+        return (HashSet<Competence>) super.listSubClasses(getClass());
     }
 }

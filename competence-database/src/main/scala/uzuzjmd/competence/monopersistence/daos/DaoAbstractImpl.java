@@ -7,10 +7,7 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.CompOntClass;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -206,20 +203,22 @@ public abstract class DaoAbstractImpl implements Dao {
         }
     }
 
-    public <T extends Dao> List<T> listSuperClasses(Class<T> competenceClass) throws Exception {
+    public <T extends Dao> Set<T> listSuperClasses(Class<T> competenceClass) throws Exception {
         return queryManager.listSuperClasses(competenceClass, this.getId());
     }
 
-    public <T extends Dao> List<T> listSubClasses(Class<T> competenceClass) throws Exception {
+    public <T extends Dao> Set<T> listSubClasses(Class<T> competenceClass) throws Exception {
         return queryManager.listSubClasses(competenceClass, this.getId());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Dao) {
-            ((Dao) o).getId().equals(this.getId());
-        }
-        return false;
+        return ((Dao) o).getId().equals(this.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode()+this.getClass().hashCode();
     }
 
     @Override

@@ -65,8 +65,8 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceADAO = new Competence(hierarchyChange.getNodeSelected)
     val competenceBDAO = new Competence(hierarchyChange.getNewClass)
     val competenceCDAO = new Competence(hierarchyChange.getOldClass)
-    assertTrue(competenceADAO.isSubClass(competenceBDAO))
-    assertFalse(competenceADAO.isSubClass(competenceCDAO))
+    assertTrue(competenceADAO.isSubClassOf(competenceBDAO))
+    assertFalse(competenceADAO.isSubClassOf(competenceCDAO))
   }
 
   def cleanUpdateHierarchyAssertions( changes: HierarchyChangeSet): Unit = {

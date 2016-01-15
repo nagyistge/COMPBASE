@@ -2,6 +2,7 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util
 
+import com.google.common.collect.Lists
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
@@ -82,7 +83,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     val assessment = new Assessment
     holder.setAssessment(assessment)
     holder.setSuggestedMetaCompetence(competence.getDefinition)
-    holder.setReflectiveAssessmentList(competence.listSubClasses(classOf[Competence]).asScala.map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
+    holder.setReflectiveAssessmentList(Lists.newArrayList(competence.listSubClasses(classOf[Competence])).asScala.map(competenceToReflectiveAssessment(_)(user)).filter(_.getCompetenceDescription() != null).asJava)
     return holder
   }
 
