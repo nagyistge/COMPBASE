@@ -20,9 +20,9 @@ object HierarchieChangesToOnt extends WriteTransactional[HierarchyChangeSet] {
     val selectedCompetence = new Competence(change.getNodeSelected())
     val oldSuperClass = new Competence(change.getOldClass())
     val newSuperClass = new Competence(change.getNewClass())
-    /*selectedCompetence.persist()
+    selectedCompetence.persist()
     oldSuperClass.persist()
-    newSuperClass.persist()*/
+    newSuperClass.persist()
     selectedCompetence.addSuperCompetence(newSuperClass)
     selectedCompetence.removeSuperCompetence(oldSuperClass)
   }
