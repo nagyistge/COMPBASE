@@ -85,9 +85,23 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
+    public void createEdgeWithAll(List<Dao> domain, CompObjectProperties edge) throws Exception {
+        for (Dao dao : domain) {
+            createEdgeWith(dao,edge);
+        }
+    }
+
+    @Override
     public void createEdgeWith(Dao domain, CompObjectProperties edge) throws Exception {
         if(!this.getId().equals(domain.getId())) {
             queryManager.createRelationShip(domain.getId(), edge, this.getId());
+        }
+    }
+
+    @Override
+    public void createEdgeWithAll(CompObjectProperties edge, List<Dao> range) throws Exception {
+        for (Dao dao : range) {
+            createEdgeWith(edge,dao);
         }
     }
 
@@ -108,11 +122,12 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public void persist() throws Exception {
+    public Dao persist() throws Exception {
         HashMap<String, String> propHashMap = this.toHashMap();
         propHashMap.put("id", getId());
         propHashMap.put("clazz", getLabel().toString());
         queryManager.createOrUpdateUniqueNode(propHashMap);
+        return this;
     }
 
     @Override

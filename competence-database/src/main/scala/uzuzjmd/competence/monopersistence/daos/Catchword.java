@@ -17,8 +17,9 @@ public class Catchword extends DaoAbstractImpl implements HasDefinition {
     }
 
     @Override
-    public void persist() throws Exception {
+    public Dao persist() throws Exception {
         super.persist();
         createEdgeWith(CompObjectProperties.subClassOf, new Catchword(DBInitializer.CATCHWORDROOT));
+        return this;
     }
 }

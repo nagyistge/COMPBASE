@@ -16,7 +16,6 @@
   
   <modules>
 	<module>../competence-shared</module>
-	<module>../competence-webapp/uzuzjmd.competence.gui</module>
   	<module>../competence-database</module>
     <module>../competence-reflexion-learner</module>
     <module>../competence-reflexion-teacher</module>

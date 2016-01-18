@@ -14,10 +14,12 @@ public interface Dao {
      * should be updated if already exists
      * @throws Exception
      */
-    void persist() throws Exception;
+    Dao persist() throws Exception;
     void delete() throws Exception;
     void createEdgeWith(CompObjectProperties edge, Dao range) throws Exception;
     void createEdgeWith(Dao domain, CompObjectProperties edge) throws Exception;
+    void createEdgeWithAll(CompObjectProperties edge, List<Dao> range) throws Exception;
+    void createEdgeWithAll(List<Dao> domain, CompObjectProperties edge) throws Exception;
     Boolean hasEdge(CompObjectProperties edge, Dao range) throws Exception;
     Boolean hasEdge(Dao domain, CompObjectProperties edge) throws Exception;
     void deleteEdgeWith(Dao domain, CompObjectProperties edge) throws Exception;
