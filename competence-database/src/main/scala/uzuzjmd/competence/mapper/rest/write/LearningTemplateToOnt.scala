@@ -42,7 +42,11 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     selected.persist();
   }
 
+  @throws[ContainsCircleException]
   def convertLearningTemplateResultSet(changes : LearningTemplateResultSet): Unit = {
-     throw new NotImplementedException();
+
+    // TODO implement
+    // TODO use validator
+    throw new NotImplementedException();
   }
 }

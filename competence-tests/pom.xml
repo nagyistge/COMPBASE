@@ -17,14 +17,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-reflexion-learner</artifactId>
+			<artifactId>reflexion-learner</artifactId>
 			<version>1.0</version>
 			<type>war</type>
 		</dependency>
 		
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-reflexion-teacher</artifactId>
+			<artifactId>reflexion-teacher</artifactId>
 			<version>1.0</version>
 			<type>war</type>
 		</dependency>
@@ -44,6 +44,12 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.18.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>reflexion-teacher</artifactId>
+			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
 

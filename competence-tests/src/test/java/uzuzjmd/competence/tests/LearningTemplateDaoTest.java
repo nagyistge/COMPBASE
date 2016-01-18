@@ -1,5 +1,6 @@
 package uzuzjmd.competence.tests;
 
+import de.unipotsdam.anh.dao.LearningTemplateDao;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

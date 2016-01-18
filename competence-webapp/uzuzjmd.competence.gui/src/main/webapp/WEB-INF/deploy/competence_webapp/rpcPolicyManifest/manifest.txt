@@ -1,2 +1,0 @@
-# Module competence_webapp
-# RPC service class, partial path of RPC policy file
