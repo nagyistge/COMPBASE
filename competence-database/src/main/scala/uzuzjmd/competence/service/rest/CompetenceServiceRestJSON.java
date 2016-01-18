@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Root resource (exposed at "competences" path)
  */
@@ -138,7 +137,7 @@ public class CompetenceServiceRestJSON {
                 .convertCompulsory(compulsory);
         implement that competences are compulsory */
 
-        CourseContext courseContext = new CourseContext(course,requirements);
+        CourseContext courseContext = new CourseContext(course, requirements);
         courseContext.persist();
         for (String competence : competences) {
             Competence competenceDAO = new Competence(competence);
@@ -336,6 +335,7 @@ public class CompetenceServiceRestJSON {
 
     /**
      * Delete an evidence link
+     *
      * @param linkId the id of the link to be deleted
      * @return
      */
@@ -351,6 +351,7 @@ public class CompetenceServiceRestJSON {
 
     /**
      * Deletes one or more competences
+     *
      * @param competences
      * @return
      */
@@ -366,6 +367,7 @@ public class CompetenceServiceRestJSON {
 
     /**
      * Deletes competences and all their subcompetences
+     *
      * @param competences the competences to be deleted
      * @return
      */
@@ -641,7 +643,6 @@ public class CompetenceServiceRestJSON {
      *
      * @param course             the (course) context of the competences ("university") for no
      *                           filter
-
      * @param selectedCatchwords
      * @param selectedOperators
      * @return
@@ -649,7 +650,7 @@ public class CompetenceServiceRestJSON {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/operatortree/{course}")
-    public List<OperatorXMLTree>  getOperatorTree(
+    public List<OperatorXMLTree> getOperatorTree(
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
@@ -673,7 +674,7 @@ public class CompetenceServiceRestJSON {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/catchwordtree/{course}/{cache}")
-    public List<CatchwordXMLTree>  getCatchwordTree(
+    public List<CatchwordXMLTree> getCatchwordTree(
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
@@ -697,22 +698,6 @@ public class CompetenceServiceRestJSON {
         return learningTemplates;
     }
 
-    /**
-     * Get all the learningTemplates without cache. Learning Templates are
-     * groups of competences selected to be learned together.
-     *
-     * @return
-     */
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @GET
-    @Path("/learningtemplates/cache")
-    public Response getAllLearningTemplates2() {
-        StringList learningTemplates = Ont2LearningTemplates
-                .convert();
-        Response response = RestUtil.buildCachedResponse(
-                learningTemplates, true);
-        return response;
-    }
 
     /**
      * A user selects a learning template as his project in portfolio
@@ -725,7 +710,7 @@ public class CompetenceServiceRestJSON {
      */
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/learningtemplates/add")
+    @Path("/learningtemplates/selected/add")
     public Response addLearningTemplateSelection(
             @QueryParam(value = "userId") String userName,
             @QueryParam(value = "groupId") String groupId,
@@ -733,6 +718,22 @@ public class CompetenceServiceRestJSON {
         LearningTemplateData data = new LearningTemplateData(
                 userName, groupId, selectedTemplate);
         LearningTemplateToOnt.convert(data);
+        return Response.ok("templateSelection updated")
+                .build();
+    }
+
+
+    /**
+     * @param learningTemplateResultSet
+     * @return
+     * @throws ContainsCircleException
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/learningtemplate/add")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response addLearningTemplateSelection(LearningTemplateResultSet learningTemplateResultSet) throws ContainsCircleException {
+        LearningTemplateToOnt.convertLearningTemplateResultSet(learningTemplateResultSet);
         return Response.ok("templateSelection updated")
                 .build();
     }
@@ -757,25 +758,6 @@ public class CompetenceServiceRestJSON {
         return RestUtil.buildCachedResponse(result, false);
     }
 
-    /**
-     * get the selected learning templates for a given user
-     *
-     * @param userName
-     * @param groupId
-     * @return
-     */
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @GET
-    @Path("/learningtemplates/selected/cache")
-    public Response getSelectedLearningTemplates2(
-            @QueryParam(value = "userId") String userName,
-            @QueryParam(value = "groupId") String groupId) {
-        LearningTemplateData data = new LearningTemplateData(
-                userName, groupId, null);
-        StringList result = Ont2SelectedLearningTemplate
-                .convert(data);
-        return RestUtil.buildCachedResponse(result, false);
-    }
 
     /**
      * Delete the selection of a learning template of a user.
@@ -787,7 +769,7 @@ public class CompetenceServiceRestJSON {
      */
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/learningtemplates/delete")
+    @Path("/learningtemplates/selected/delete")
     public Response deleteSelectedLearningTemplate(
             @QueryParam(value = "userId") String userName,
             @QueryParam(value = "groupId") String groupId,
@@ -825,28 +807,6 @@ public class CompetenceServiceRestJSON {
         return result;
     }
 
-    /**
-     * Returns a gridview of learning templates (mainly used in epos port).
-     * Users and their selfevaluation are presented.
-     *
-     * @param userName
-     * @param groupId          (or course context)
-     * @param selectedTemplate
-     * @return
-     */
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @GET
-    @Path("learningtemplates/gridview/cache")
-    public Response getGridView2(
-            @QueryParam(value = "userId") String userName,
-            @QueryParam(value = "groupId") String groupId,
-            @QueryParam(value = "selectedTemplate") String selectedTemplate) {
-        LearningTemplateData data = new LearningTemplateData(
-                userName, groupId, selectedTemplate);
-        SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
-                .convert(data);
-        return RestUtil.buildCachedResponse(result, false);
-    }
 
     /**
      * Allows to persist the users self evaluation (persisting the complete grid
@@ -875,7 +835,6 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     *
      * @param wrapper
      * @return
      */
@@ -892,50 +851,6 @@ public class CompetenceServiceRestJSON {
                 .build();
     }
 
-
-    /**
-     * This allows to add competences for reflection in the epos ui-format
-     *
-     * The graph                   the triples describe the suggested prerequisite relationships
-     *                             between the competences. The directed and the label properties
-     *                             may be ignored in this case
-     *                             <p/>
-     *                             public class Graph { public Set<GraphTriple> triples; public
-     *                             Set<GraphNode> nodes; }
-     * @param learningTemplateResultSet         This map is necessary to ensure that all competences in a
-     *                             prerequisite relationship share a common catchword to order
-     *                             them vertically All the triples contained in the graph must be
-     *                             present in the catchword map
-     *                             <p/>
-     *                             MapWrapper<GraphTriple, List<String>> catchwordMap
-     *                             <p/>
-     *                             public class MapWrapper<KEY, VALUE> { private HashMap<KEY,
-     *                             VALUE> map; }
-     * @param learningTemplateName the name of the learning template as String
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_XML)
-    @POST
-    @Path("/learningtemplate/add/{learningTemplateName}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addLearningTemplate(
-            @PathParam("learningTemplateName") String learningTemplateName,
-            LearningTemplateResultSet learningTemplateResultSet) throws WebApplicationException {
-        if (learningTemplateResultSet == null) {
-            learningTemplateResultSet = new LearningTemplateResultSet();
-        }
-        learningTemplateResultSet
-                .setNameOfTheLearningTemplate(learningTemplateName);
-        try {
-            LearningTemplateToOnt
-                    .convertLearningTemplateResultSet(learningTemplateResultSet);
-        } catch (ContainsCircleException e) {
-            throw new WebApplicationException("Contains Circle in graph!");
-        }
-        return Response.ok("learningTemplate added")
-                .build();
-
-    }
 
     /**
      * The LearningTemplate

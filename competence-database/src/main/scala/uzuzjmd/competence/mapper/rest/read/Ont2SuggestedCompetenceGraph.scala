@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import java.util.HashMap
+import java.util.{NoSuchElementException, HashMap}
 
 import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.monopersistence.daos.LearningProjectTemplate
@@ -10,8 +10,8 @@ import uzuzjmd.java.collections.MapsMagic
 import scala.collection.JavaConverters._
 
 /**
- * @author dehne
- */
+  * @author dehne
+  */
 object Ont2SuggestedCompetenceGraph extends Logging {
 
   implicit def listToString(input: List[String]): String = {
@@ -39,7 +39,7 @@ object Ont2SuggestedCompetenceGraph extends Logging {
     return result
   }
 
-  /** UNIT TEST expects triple : "using tags" , "using JSP tags") as one of the result keys; mit programming und catchwords**/
+  /** UNIT TEST expects triple : "using tags" , "using JSP tags") as one of the result keys; mit programming und catchwords **/
   def getHashMap(learningProjectTemplate: LearningProjectTemplate, graph: Graph): HashMap[GraphTriple, Array[String]] = {
 
     val result1 = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid1(learningProjectTemplate).mapValues { x => x.flatten }
@@ -70,12 +70,19 @@ object Ont2SuggestedCompetenceGraph extends Logging {
   }
 
   def mapTripleToCommonCatchwords(triple: GraphTriple)(checkMap: Map[String, List[String]]): (GraphTriple, Set[String]) = {
-    val fromNodeCatchwords = checkMap.get(triple.fromNode).get.toSet
-    val toNodeCatchwords = checkMap.get(triple.toNode).get.toSet
+    try {
+      val fromNodeCatchwords = checkMap.get(triple.fromNode).get.toSet
+      val toNodeCatchwords = checkMap.get(triple.toNode).get.toSet
 
-    val result = (triple, fromNodeCatchwords.intersect(toNodeCatchwords))
-    val result2 = (result._1, result._2)
-    return result2
+      val result = (triple, fromNodeCatchwords.intersect(toNodeCatchwords))
+      val result2 = (result._1, result._2)
+      return result2
+    } catch {
+      case ioe: NoSuchElementException => print("nono") // more specific cases first !
+      case e: Exception => print("hjoho")
+    }
+    return null
+
   }
 
 }

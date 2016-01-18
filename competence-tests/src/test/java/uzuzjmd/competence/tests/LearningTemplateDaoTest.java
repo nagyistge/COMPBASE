@@ -69,7 +69,6 @@ public class LearningTemplateDaoTest {
 	public void testCreateTemplate() {
 		System.out.println("##### Test CreateTemplate #####");
 		Assert.assertEquals(200, LearningTemplateDao.createTemplate(learningTemplateResultSet));
-		
 		Assert.assertEquals(200, LearningTemplateDao.createTemplate("testOnlyTemplateCreate"));
 		final LearningTemplateResultSet result = LearningTemplateDao
 				.getLearningProjectTemplate("testOnlyTemplateCreate");
@@ -80,6 +79,7 @@ public class LearningTemplateDaoTest {
 
 	@Test
 	public void testGetLearningProjectTemplate() {
+		testCreateTemplate();
 		System.out.println("##### Test getLearningProjectTemplate #####");
 		final LearningTemplateResultSet result = LearningTemplateDao
 				.getLearningProjectTemplate(learningTemplateName);

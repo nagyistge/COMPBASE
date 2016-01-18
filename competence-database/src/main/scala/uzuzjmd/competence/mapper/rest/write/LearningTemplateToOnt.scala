@@ -2,7 +2,6 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
 import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
 import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
@@ -13,13 +12,12 @@ import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.dto.{GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 import scala.collection.JavaConverters._
-import scala.collection.mutable
 
 /**
- * @author dehne
- *
- * This object saves a learning template in the database
- */
+  * @author dehne
+  *
+  *         This object saves a learning template in the database
+  */
 object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
 
   def convert(changes: LearningTemplateData) {
@@ -49,25 +47,28 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
   }
 
   def toNode: (GraphTriple) => String = _.toNode
+
   def fromNode: (GraphTriple) => String = _.fromNode
 
   @throws[ContainsCircleException]
-  def convertLearningTemplateResultSet(changes : LearningTemplateResultSet): Unit = {
-
+  def convertLearningTemplateResultSet(changes: LearningTemplateResultSet): Unit = {
     val validator = new LearningTemplateValidation(changes)
-    if (!validator.isValid) {
-      throw new ContainsCircleException
-    }
-    // case full set is given
-    val triples: util.Set[GraphTriple] = changes.getResultGraph.triples
-    if (triples != null && !triples.isEmpty) {
+    if (changes.getResultGraph != null && changes.getResultGraph.triples != null && !changes.getResultGraph.triples.isEmpty) {
+
+      if (!validator.isValid) {
+        throw new ContainsCircleException
+      }
+
+      // case full set is given
+      val triples: util.Set[GraphTriple] = changes.getResultGraph.triples
+
       val competences: util.List[Competence] = triples.asScala.map(x => x.fromNode :: x.toNode :: Nil).flatten.toList.distinct.map(x => new Competence(x)).asJava
       val template = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate, competences);
-      template.persist()
+      template.persistMore()
 
       // create the relations maybe use batch update if it is too slow
       val manager = new Neo4JQueryManagerImpl;
-      triples.asScala.view.foreach(x=>manager.createRelationShip(x.fromNode, CompObjectProperties.SuggestedCompetencePrerequisiteOf, x.toNode))
+      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, CompObjectProperties.SuggestedCompetencePrerequisiteOf, x.toNode))
 
       // create Catchword relations
       val map: util.HashMap[GraphTriple, Array[String]] = changes.getCatchwordMap
@@ -76,21 +77,25 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     }
 
     // case only root was given
-    val root: String = changes.getRoot.getLabel;
-    if (root != null) {
+    if (changes.getRoot != null) {
+      val root: String = changes.getRoot.getLabel;
       val template2 = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate);
+      template2.persist()
       val rootDao = new Competence(root, template2);
       rootDao.persist()
+      template2.addCompetenceToProject(rootDao)
+    } else {
+      val template2 = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate);
+      template2.persist()
     }
   }
 
 
-
-  def createCatchwordRelations(map: util.HashMap[GraphTriple, Array[String]], f : (GraphTriple => String)): Unit = {
+  def createCatchwordRelations(map: util.HashMap[GraphTriple, Array[String]], f: (GraphTriple => String)): Unit = {
     val competenceCatchwords = map.keySet().asScala.foreach(x => new Competence(f(x)).persist().createEdgeWithAll(getCatchwordsFromMap(map, x), CompObjectProperties.CatchwordOf))
   }
 
-  private def getCatchwordsFromMap(map : util.HashMap[GraphTriple, Array[String]], triple: GraphTriple) : util.List[Dao] ={
-     return map.get(triple).map(y=>new Catchword(y).persist()).toList.asJava
+  private def getCatchwordsFromMap(map: util.HashMap[GraphTriple, Array[String]], triple: GraphTriple): util.List[Dao] = {
+    return map.get(triple).map(y => new Catchword(y).persist()).toList.asJava
   }
 }

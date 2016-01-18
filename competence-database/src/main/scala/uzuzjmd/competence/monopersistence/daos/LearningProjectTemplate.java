@@ -44,7 +44,7 @@ public class LearningProjectTemplate extends AbstractLearningProjectTemplate imp
 
 
     public List<Competence> getAssociatedCompetences() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.LearningProjectTemplateOf, Competence.class);
+        return getAssociatedDaosAsDomain(CompObjectProperties.LearningProjectTemplateOf, Competence.class);
     }
 
 
