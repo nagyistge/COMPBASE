@@ -3,7 +3,6 @@ package uzuzjmd.competence.persistence.neo4j;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -11,6 +10,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
+
 
 /**
  * Created by carl on 16.12.15.
