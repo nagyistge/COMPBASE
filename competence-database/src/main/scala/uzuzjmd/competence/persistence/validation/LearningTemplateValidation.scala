@@ -3,7 +3,6 @@ package uzuzjmd.scompetence.owl.validation
 import java.util.HashMap
 import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
-
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Stack
 
@@ -12,7 +11,7 @@ import scala.collection.mutable.Stack
  * implements Tarjans strongly connected components algorithm in order to identify cycles in graph
  * https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
  */
-case class LearningTemplateValidation(learningTemplate: LearningTemplateResultSet) extends Logging{
+class LearningTemplateValidation(learningTemplate: LearningTemplateResultSet) extends Logging{
 
   val graph = learningTemplate.getResultGraph
   val vertices = graph.nodes.asScala.map { x => x.getLabel }
