@@ -11,6 +11,7 @@ import uzuzjmd.competence.persistence.ontology.CompObjectProperties
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.dto.{GraphTriple, LearningTemplateResultSet}
+import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
@@ -52,6 +53,11 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
 
   @throws[ContainsCircleException]
   def convertLearningTemplateResultSet(changes : LearningTemplateResultSet): Unit = {
+
+    val validator = new LearningTemplateValidation(changes)
+    if (!validator.isValid) {
+      throw new ContainsCircleException
+    }
     // case full set is given
     val triples: util.Set[GraphTriple] = changes.getResultGraph.triples
     if (triples != null && !triples.isEmpty) {
