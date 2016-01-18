@@ -68,7 +68,7 @@ public class RestServer {
             System.out
                     .println("Test this with: "
                             + MagicStrings.RESTURLCompetence
-                            + "/competences/xml/competencetree/university/all/nocache");
+                            + "/competences/competencetree/university");
             logger.info("Press CTRL^C to exit..");
             Thread.currentThread().join();
         } catch (Exception e) {

@@ -54,7 +54,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public List<Catchword> getCatchwords() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.CatchwordOf, Catchword.class);
+        return getAssociatedDaosAsRange(CompObjectProperties.CatchwordOf, Catchword.class);
     }
 
     public List<Competence> getRequiredCompetences() throws Exception {
