@@ -1,6 +1,7 @@
 package uzuzjmd.competence.monopersistence.daos;
 
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Contexts;
 
 import java.util.List;
 
@@ -21,8 +22,12 @@ public class CourseContext extends DaoAbstractImpl {
         this.requirement = requirement;
     }
 
+    public CourseContext(Contexts context) {
+        super(context.name());
+    }
+
     public List<Competence> getLinkedCompetences() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.CourseContextOf, Competence.class);
+        return getAssociatedDaosAsDomain(CompObjectProperties.CourseContextOf, Competence.class);
     }
 
 

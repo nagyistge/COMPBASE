@@ -2,6 +2,7 @@ package uzuzjmd.competence.monopersistence.daos;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Contexts;
 
 import java.util.HashSet;
 import java.util.List;
@@ -163,6 +164,8 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     public void persist() throws Exception {
         super.persist();
         createEdgeWith(CompObjectProperties.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
+        CourseContext universityContext = new CourseContext(Contexts.university);
+        createEdgeWith(universityContext, CompObjectProperties.CourseContextOf);
     }
 
 
