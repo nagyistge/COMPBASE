@@ -16,7 +16,7 @@ public class Operator extends DaoAbstractImpl implements HasDefinition {
     }
 
     @Override
-    public void persist() throws Exception {
+    public Dao persist() throws Exception {
         super.persist();
         createEdgeWith(CompObjectProperties.subClassOf, new Operator(DBInitializer.OPERATORROOT));
     }

@@ -1,6 +1,7 @@
 package uzuzjmd.competence.monopersistence.daos;
 
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class LearningProjectTemplate extends AbstractLearningProjectTemplate imp
         super(id);
         this.associatedCompetences = associatedCompetences;
     }
+
+
 
 
 

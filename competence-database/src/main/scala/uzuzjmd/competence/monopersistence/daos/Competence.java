@@ -1,6 +1,5 @@
 package uzuzjmd.competence.monopersistence.daos;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 
@@ -11,7 +10,7 @@ import java.util.Set;
 /**
  * Created by dehne on 11.01.2016.
  */
-public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLike {
+public class Competence extends AbstractCompetence implements HasDefinition, TreeLike {
 
     public Boolean compulsory;
 
@@ -23,6 +22,12 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     public Competence(String id, Boolean compulsory) {
         super(id);
         this.compulsory = compulsory;
+    }
+
+    public Competence(String id, LearningProjectTemplate learningProject) {
+        super(id);
+        this.compulsory = false;
+        this.learningProject = learningProject;
     }
 
     @Override
@@ -161,11 +166,15 @@ public class Competence extends DaoAbstractImpl implements HasDefinition, TreeLi
     }
 
     @Override
-    public void persist() throws Exception {
+    public Dao persist() throws Exception {
         super.persist();
         createEdgeWith(CompObjectProperties.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
         createEdgeWith(universityContext, CompObjectProperties.CourseContextOf);
+        if (learningProject != null) {
+            createEdgeWith(learningProject, CompObjectProperties.LearningProjectTemplateOf);
+        }
+        return this;
     }
 
 
