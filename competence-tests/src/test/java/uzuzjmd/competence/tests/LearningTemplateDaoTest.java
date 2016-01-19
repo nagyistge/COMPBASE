@@ -5,6 +5,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import uzuzjmd.competence.main.RestServer;
 import uzuzjmd.competence.shared.DESCRIPTORType;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.Graph;
@@ -12,6 +13,8 @@ import uzuzjmd.competence.shared.dto.GraphNode;
 import uzuzjmd.competence.shared.dto.GraphTriple;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,9 +33,23 @@ public class LearningTemplateDaoTest {
 	private static GraphTriple fourth;
 	private static GraphTriple fifth;
 
+	public static Thread t = new Thread(new Runnable() {
+		public void run() {
+			try {
+				RestServer.startServer();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		}
+	});
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		t.start();
 
+		Thread.sleep(200l);
 		first = new GraphTriple("using tags", "using JSP tags", LABELNAME, true);
 		second = new GraphTriple("using JSP tags", "using primfaces tags",
 				LABELNAME, true);
@@ -63,6 +80,7 @@ public class LearningTemplateDaoTest {
 	public static void tearDown() {
 		graph = null;
 		learningTemplateResultSet = null;
+
 	}
 
 	@Test
