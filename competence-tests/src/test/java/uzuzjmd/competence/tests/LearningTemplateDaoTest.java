@@ -183,6 +183,7 @@ public class LearningTemplateDaoTest {
 
 	@Test
 	public void testFindAll() {
+		testCreateTemplateWithGraph();
 		System.out.println("##### Test findAll LearningTemplate #####");
 		final StringList result = LearningTemplateDao.findAll();
 
@@ -202,10 +203,11 @@ public class LearningTemplateDaoTest {
 
 	private GraphTriple getGraphTriple(Graph resultGraph, String fromNode,
 			String toNode) {
+
 		GraphTriple tmp = null;
 		for (GraphTriple triple : resultGraph.triples) {
-			if (fromNode.equals(triple.fromNode)
-					&& toNode.equals(triple.toNode)) {
+			if (fromNode.trim().equals(triple.fromNode.trim())
+					&& toNode.trim().equals(triple.toNode.trim())) {
 				tmp = triple;
 			}
 		}
@@ -213,11 +215,6 @@ public class LearningTemplateDaoTest {
 	}
 
 	private void showLearningTemplateResultSet(LearningTemplateResultSet result) {
-		System.out.println("Result LearningTemplateName: "
-				+ result.getNameOfTheLearningTemplate());
-		System.out.println("Root graph: " + result.getRoot());
-		System.out.println("Result graph: " + result.getResultGraph());
-		System.out.println("Catchword Map: ");
 		for (Entry<GraphTriple, String[]> e : result.getCatchwordMap()
 				.entrySet()) {
 			System.out.println("\t Catchword"
