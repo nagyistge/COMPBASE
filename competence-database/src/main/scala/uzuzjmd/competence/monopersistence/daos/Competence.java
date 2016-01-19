@@ -40,7 +40,8 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public List<Competence> getSuggestedCompetenceRequirements() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, Competence.class);
+        List<Competence> result =  getAssociatedDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, Competence.class);
+        return result;
     }
 
     public void addRequiredCompetence(Competence competence) throws Exception {
@@ -61,6 +62,10 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         return getAssociatedDaosAsRange(CompObjectProperties.PrerequisiteOf, Competence.class);
     }
 
+    public List<Competence> getSuggestedRequiredCompetences() throws Exception {
+        return getAssociatedDaosAsRange(CompObjectProperties.SuggestedCompetencePrerequisiteOf, Competence.class);
+    }
+
     public String[] getRequiredCompetencesAsArray() throws Exception {
         List<Competence> requiredCompetences = getRequiredCompetences();
         String[] result = new String[requiredCompetences.size()];
@@ -73,7 +78,11 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public Boolean isLinkedAsRequired() throws Exception {
-        return !(getRequiredCompetences().isEmpty() && getAssociatedDaosAsRange(CompObjectProperties.PrerequisiteOf, Competence.class).isEmpty());
+        return !(getRequiredCompetences().isEmpty());
+    }
+
+    public Boolean isLinkedAsSuggestedRequired() throws Exception {
+        return !(getSuggestedCompetenceRequirements().isEmpty());
     }
 
     public Boolean isAllowed(User user) throws Exception {

@@ -195,6 +195,7 @@ public class LearningTemplateDaoTest {
 
 	@Test
 	public void testGetGraphFromCourse() {
+		testCreateTemplateWithGraph();
 		System.out.println("##### Test GetGraphFromCourse #####");
 		Assert.assertNotNull(LearningTemplateDao.getGraphFromCourse(course));
 	}
