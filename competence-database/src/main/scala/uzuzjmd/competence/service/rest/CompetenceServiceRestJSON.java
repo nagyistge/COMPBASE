@@ -17,6 +17,7 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -477,10 +478,15 @@ public class CompetenceServiceRestJSON {
     public Graph getPrerequisiteGraph(
             @QueryParam("selectedCompetences") List<String> selectedCompetences,
             @PathParam("course") String course) {
-        /*GraphFilterData graphFilterData = new GraphFilterData(selectedCompetences, course);*/
-        /*Graph result= Ont2CompetenceGraph.convert(graphFilterData);*/
-        //return result;
-        throw new NotImplementedException();
+        GraphFilterData graphFilterData = null;
+        if (selectedCompetences != null) {
+            String[] selectedCompetencesArray = selectedCompetences.toArray(new String[0]);
+            graphFilterData = new GraphFilterData(course, selectedCompetencesArray);
+        } else {
+            graphFilterData = new GraphFilterData(course, new String[0]);
+        }
+        Graph result= Ont2CompetenceGraph.convert(graphFilterData);
+        return result;
     }
 
     /**

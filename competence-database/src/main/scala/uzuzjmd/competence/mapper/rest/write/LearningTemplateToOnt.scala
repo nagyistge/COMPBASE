@@ -62,8 +62,9 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
       // case full set is given
       val triples: util.Set[GraphTriple] = changes.getResultGraph.triples
 
-      val competences: util.List[Competence] = triples.asScala.map(x => x.fromNode :: x.toNode :: Nil).flatten.toList.distinct.map(x => new Competence(x)).asJava
-      val template = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate, competences);
+      val competences = triples.asScala.map(x => x.fromNode :: x.toNode :: Nil).flatten.toList.distinct.map(x => new Competence(x)).view
+      competences.foreach(_.persist())
+      val template = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate, competences.asJava);
       template.persistMore()
 
       // create the relations maybe use batch update if it is too slow
