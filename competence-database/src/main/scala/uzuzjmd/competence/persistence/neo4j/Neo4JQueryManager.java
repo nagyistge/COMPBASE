@@ -65,8 +65,8 @@ public abstract class Neo4JQueryManager  {
     protected ArrayList<String> issueNeo4JRequestStrings(final String payload) throws Exception {
         statsHolder.requestHashMap.put(2, statsHolder.requestHashMap.get(2)+1);
         logger.debug(statsHolder.toString());
-        //return issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>() , payload);
-        return cacheImpl.get(payload);
+        return issueSingleStatementRequest(new RequestableImpl<ArrayList<String>>() , payload);
+        //return cacheImpl.get(payload);
     }
 
     protected ArrayList<HashMap<String, String>> issueNeo4JRequestHashMap(final String payload) throws Exception {
