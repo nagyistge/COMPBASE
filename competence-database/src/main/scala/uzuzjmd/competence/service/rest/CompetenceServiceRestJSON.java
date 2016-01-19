@@ -1,6 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
@@ -17,7 +16,6 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

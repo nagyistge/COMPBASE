@@ -26,16 +26,12 @@ object Ont2SuggestedCompetenceGraph extends Logging {
   }
 
   def getGraph(learningProjectTemplate: LearningProjectTemplate): Graph = {
-
     val result = new Graph
-
     val competences = learningProjectTemplate.getAssociatedCompetences().asScala
-
     // convert relations in 2-tuples
-    val result1 = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.asScala.map { z => (z, y._2) }).flatten
-
+    val result1 = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.asScala.map {z=>(z, y._2)}).flatten
     // convert to triples
-    result1.foreach(x => result.addTriple(x._1.getDefinition(), x._2.getDefinition(), learningProjectTemplate.getDefinition, true))
+    result1.foreach(x => result.addTriple(x._2.getDefinition(), x._1.getDefinition(), learningProjectTemplate.getDefinition, true))
     return result
   }
 
