@@ -44,5 +44,13 @@ public class User extends AbstractUser {
         return getAssociatedDaoIdsAsDomain(Edge.UserOfLearningProjectTemplate);
     }
 
+    @Override
+    public String toString() {
+        return this.getId();
+    }
 
+    @Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
 }

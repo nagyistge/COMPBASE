@@ -1,14 +1,12 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
-
 import com.google.common.collect.Lists
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared._
-
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer
 
@@ -20,8 +18,6 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
   protected type ComPairList = Buffer[(Competence, Competence)]
 
   private val logger = LogManager.getLogger(Ont2SuggestedCompetenceGrid.getClass().getName());
-  //  log.setLevel(Level.WARN)
-  //  private val logStream = new LogStream(log, Level.WARN);
 
   def convert(changes: LearningTemplateData): SuggestedCompetenceGrid = {
     return execute(convertHelper _, changes)
@@ -72,12 +68,12 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
       holder.setReflectiveAssessmentList((reflectiveAssessment :: Nil).asJava)
       result.setReflectiveAssessmentListHolder(holder)
     } else {
-      result.setReflectiveAssessmentListHolder(competenceToReflextiveAssessmentsListHolder(competence, user))
+      result.setReflectiveAssessmentListHolder(competenceToReflexiveAssessmentsListHolder(competence, user))
     }
     return result
   }
 
-  private def competenceToReflextiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
+  private def competenceToReflexiveAssessmentsListHolder(competence: Competence, user: User): ReflectiveAssessmentsListHolder = {
     val holder = new ReflectiveAssessmentsListHolder
     val assessment = new Assessment
     holder.setAssessment(assessment)

@@ -13,6 +13,7 @@ import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
 
 import javax.ws.rs.ProcessingException;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -32,7 +33,7 @@ public class RestServer {
     }
 
     public static void startServer() throws IOException,
-            ProcessingException, URISyntaxException {
+            ProcessingException, URISyntaxException, BindException {
         logger.debug("Entering startServer");
         System.out
                 .println("usage is java - jar *.version.jar");

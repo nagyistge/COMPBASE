@@ -23,20 +23,14 @@ public class SelectedLearningTemplateDAOTest {
 			try {
 				RestServer.startServer();
 			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (URISyntaxException e) {
-				e.printStackTrace();
 			}
 		}
 	});
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		/*if (!t.isAlive()) {
-			t.start();
-			Thread.sleep(200l);
-		}*/
-
+		t.start();
 	}
 	private void createTestUser() {
 		Client client = Client.create();
@@ -54,11 +48,12 @@ public class SelectedLearningTemplateDAOTest {
 
 	@AfterClass
 	public static void tearDown() {
-
+		t.stop();
 	}
 
 	@Test
 	public void testSelectTemplate() throws InterruptedException {
+		Thread.sleep(400l);
 		createTestUser();
 		Client client = com.sun.jersey.api.client.Client.create();
 		client.addFilter(new LoggingFilter(System.out));
@@ -144,10 +139,10 @@ public class SelectedLearningTemplateDAOTest {
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource webResource = client.resource("http://localhost:8084/competences/learningtemplates/gridview/update");
 		try {
-			webResource
-					.queryParam("userId",user)
-					.queryParam("groupId","user")
-					.post(ReflectiveAssessmentsListHolder.class, holder);
+			 webResource
+					.queryParam("userId", user)
+					.queryParam("groupId", "user")
+					.post(holder);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
