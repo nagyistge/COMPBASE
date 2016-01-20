@@ -58,4 +58,16 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
     public void addUserToAssessment(User user) throws Exception {
         createEdgeWith(Edge.AssessmentOfUser, user);
     }
+
+    @Override
+    public Dao persist() throws Exception {
+        super.persist();
+        if (this.user != null) {
+            addUserToAssessment(this.user);
+        }
+        if (this.competence != null) {
+            addCompetenceToAssessment(competence);
+        }
+        return this;
+    }
 }

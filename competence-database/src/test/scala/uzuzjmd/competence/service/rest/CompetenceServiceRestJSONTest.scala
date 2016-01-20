@@ -323,7 +323,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val competenceA: String = "I know how to program hierarchies"
     val competenceB: String = "I know how to program"
     val competenceC: String = "I know little"
-    val competenceADao = new Competence( competenceA);
+    val competenceADao = new Competence(competenceA);
 
     val tmpResult1 = competenceADao.getRequiredCompetences().asScala.map(x=>x.getDefinition())
     assertTrue(tmpResult1.contains(competenceB))
