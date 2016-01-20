@@ -49,7 +49,6 @@ object Ont2CompetenceGraph extends ReadTransactional[GraphFilterData, Graph] wit
 
 
   def convertCompetencesToTriples(competences: SeqView[Competence, mutable.Buffer[Competence]], f1: (Competence) => util.List[Competence], relation: Edge, result:Graph): Unit = {
-
     competences.map(x => (x, f1.apply(x))).foreach(y => y._2.asScala.foreach(z => result.addTriple(z.getDefinition, y._1.getDefinition, relation.name(), true)))
   }
 }

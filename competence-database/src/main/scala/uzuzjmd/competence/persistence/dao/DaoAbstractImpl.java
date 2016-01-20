@@ -2,6 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.solr.common.util.Hash;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
@@ -17,6 +18,8 @@ public abstract class DaoAbstractImpl implements Dao {
     private final String id;
     protected final Neo4JQueryManagerImpl queryManager = new Neo4JQueryManagerImpl();
     static Logger logger = LogManager.getLogger(DaoAbstractImpl.class.getName());
+    protected HashSet<Dao> superClasses = new HashSet<>();
+    protected HashSet<Dao> subClasses = new HashSet<>();
 
 
     public DaoAbstractImpl(String id) {
@@ -219,11 +222,17 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     public <T extends Dao> Set<T> listSuperClasses(Class<T> competenceClass) throws Exception {
-        return queryManager.listSuperClasses(competenceClass, this.getId());
+        if (this.superClasses.isEmpty()) {
+            this.superClasses = (HashSet<Dao>) queryManager.listSuperClasses(competenceClass, this.getId());
+        }
+        return (Set<T>) this.superClasses;
     }
 
     public <T extends Dao> Set<T> listSubClasses(Class<T> competenceClass) throws Exception {
-        return queryManager.listSubClasses(competenceClass, this.getId());
+        if (this.subClasses.isEmpty()) {
+            this.subClasses = (HashSet<Dao>) queryManager.listSuperClasses(competenceClass, this.getId());
+        }
+        return (Set<T>) this.subClasses;
     }
 
     @Override

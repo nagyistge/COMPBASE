@@ -14,11 +14,11 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
         super(id);
     }
 
-    public SelfAssessment(String id, Integer assessmentIndex, Boolean learningGoal) {
+ /*   public SelfAssessment(String id, Integer assessmentIndex, Boolean learningGoal) {
         super(id);
         this.assessmentIndex = assessmentIndex;
         this.learningGoal = learningGoal;
-    }
+    }*/
 
     public SelfAssessment(Competence competence, User user, Integer assessmentIndex, Boolean learningGoal) {
         super(user.getId() + competence.getId());

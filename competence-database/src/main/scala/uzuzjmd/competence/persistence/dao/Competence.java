@@ -62,9 +62,6 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         return getAssociatedDaosAsRange(Edge.PrerequisiteOf, Competence.class);
     }
 
-    public List<Competence> getSuggestedRequiredCompetences() throws Exception {
-        return getAssociatedDaosAsRange(Edge.SuggestedCompetencePrerequisiteOf, Competence.class);
-    }
 
     public String[] getRequiredCompetencesAsArray() throws Exception {
         List<Competence> requiredCompetences = getRequiredCompetences();
@@ -110,15 +107,17 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public SelfAssessment getAssessment(User user) throws Exception {
-        return queryManager.getSelfAssessment(this, user);
+        if (user == null) {
+            throw new NullPointerException();
+        }
+        if (!super.userAssessmentMap.containsKey(user)) {
+            super.userAssessmentMap.put(user,queryManager.getSelfAssessment(this, user));
+        }
+        return super.userAssessmentMap.get(user);
     }
 
     public List<Competence> getShortestPathToSubCompetence(Competence subCompetence) throws Exception {
         return queryManager.getShortestSubClassPath(subCompetence.getId(), this.getId(), Competence.class);
-    }
-
-    public List<Catchword> getCatchwordsAsJava() throws Exception {
-        return getCatchwords();
     }
 
     public void addCatchword(Catchword dao) throws Exception {
