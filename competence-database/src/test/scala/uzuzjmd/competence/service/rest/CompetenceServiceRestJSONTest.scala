@@ -3,13 +3,14 @@ package uzuzjmd.competence.service.rest
 import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
-import uzuzjmd.competence.mapper.rest.read.{Ont2CompetenceTree, Ont2CompetenceGraph}
+import uzuzjmd.competence.mapper.rest.read.{Ont2CompetenceGraph, Ont2CompetenceTree}
 import uzuzjmd.competence.mapper.rest.write._
-import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext, Operator}
+import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
+
 import scala.collection.JavaConverters._
 
 /**
@@ -428,7 +429,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
     val operator = "know"
     val competenceDAO = new Competence( competenceA)
     val operatorDAO = new Operator( operator)
-    assertTrue(competenceDAO.hasEdge(operatorDAO, CompObjectProperties.OperatorOf))
+    assertTrue(competenceDAO.hasEdge(operatorDAO, Edge.OperatorOf))
   }
 
   def testCreateOperatorCleanUp() : Unit = {

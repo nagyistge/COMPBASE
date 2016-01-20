@@ -1,6 +1,6 @@
 package uzuzjmd.competence.persistence.validation
 
-import uzuzjmd.competence.monopersistence.daos.Competence
+import uzuzjmd.competence.persistence.dao.Competence
 
 import scala.collection.JavaConverters._
 

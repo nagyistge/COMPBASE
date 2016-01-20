@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 
 import java.util.List;
@@ -27,12 +27,12 @@ public class CourseContext extends DaoAbstractImpl {
     }
 
     public List<Competence> getLinkedCompetences() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.CourseContextOf, Competence.class);
+        return getAssociatedDaosAsDomain(Edge.CourseContextOf, Competence.class);
     }
 
 
     public List<User> getLinkedUser() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.belongsToCourseContext, User.class);
+        return getAssociatedDaosAsDomain(Edge.belongsToCourseContext, User.class);
     }
 
     public String getRequirement() {

@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -19,7 +19,7 @@ public class Catchword extends DaoAbstractImpl implements HasDefinition {
     @Override
     public Dao persist() throws Exception {
         super.persist();
-        createEdgeWith(CompObjectProperties.subClassOf, new Catchword(DBInitializer.CATCHWORDROOT));
+        createEdgeWith(Edge.subClassOf, new Catchword(DBInitializer.CATCHWORDROOT));
         return this;
     }
 }

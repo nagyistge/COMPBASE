@@ -3,11 +3,12 @@ package uzuzjmd.competence.mapper.rest.read
 import java.util
 
 import uzuzjmd.competence.config.MagicStrings
-import uzuzjmd.competence.monopersistence.daos._
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, Operator}
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.persistence.validation.TextValidator
 import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.java.collections.{TreePair, _}
+
 import scala.collection.JavaConverters._
 
 object Ont2CompetenceTree {
@@ -21,6 +22,7 @@ object Ont2CompetenceTree {
 
   /**
     * returns all the operators in the database as a tree
+ *
     * @param filterData
     * @return
     */
@@ -33,6 +35,7 @@ object Ont2CompetenceTree {
 
   /**
     * returns all the catchwords in the database as a tree
+ *
     * @param filterData
     * @return
     */
@@ -51,6 +54,7 @@ object Ont2CompetenceTree {
 
   /**
     * filters the result from the database and converts it into pairs of the subclass triples
+ *
     * @param competenceLabel
     * @param f
     * @tparam T
@@ -69,6 +73,7 @@ object Ont2CompetenceTree {
 
   /**
     * converts a Node to a xml tree
+ *
     * @param iconPath
     * @param node
     * @tparam T

@@ -1,7 +1,7 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.exceptions.NoUserGivenException;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -42,7 +42,7 @@ public class Comment extends AbstractComment implements Cascadable {
         if (creator == null) {
             throw new NoUserGivenException();
         }
-        createEdgeWith(creator, CompObjectProperties.UserOfComment);
+        createEdgeWith(creator, Edge.UserOfComment);
     }
 
 

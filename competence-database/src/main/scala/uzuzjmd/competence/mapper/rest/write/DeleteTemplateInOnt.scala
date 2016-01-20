@@ -1,7 +1,8 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.{LearningProjectTemplate, Role, User}
+import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 
 /**
@@ -16,10 +17,9 @@ object DeleteTemplateInOnt extends WriteTransactional[LearningTemplateData] {
   }
 
   def convertHelper(changes: LearningTemplateData): Unit = {
-    val context = new CourseContext(changes.getGroupId);
+    //val context = new CourseContext(changes.getGroupId);
     val user = new User(changes.getUserName, Role.teacher);
     val learningTemplate = new LearningProjectTemplate(changes.getSelectedTemplate)
-    val selected = new SelectedLearningProjectTemplate(user, context, learningTemplate);
-    selected.delete()
+    learningTemplate.deleteEdgeWith(user, Edge.UserOfLearningProjectTemplate)
   }
 }

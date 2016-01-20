@@ -1,15 +1,12 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
-import uzuzjmd.competence.monopersistence.daos.Dao;
-import uzuzjmd.competence.monopersistence.daos.Competence;
-import uzuzjmd.competence.monopersistence.daos.CourseContext;
-import uzuzjmd.competence.monopersistence.daos.SelfAssessment;
-import uzuzjmd.competence.monopersistence.daos.User;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.persistence.ontology.CompOntClass;
-import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.persistence.dao.Dao;
+import uzuzjmd.competence.persistence.dao.Competence;
+import uzuzjmd.competence.persistence.dao.SelfAssessment;
+import uzuzjmd.competence.persistence.dao.User;
+import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.persistence.ontology.Label;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +97,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
 
-    public void createRelationShip(String domainId, CompObjectProperties edge, String rangeId) throws Exception {
+    public void createRelationShip(String domainId, Edge edge, String rangeId) throws Exception {
         String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "]->(n2) return n,r,n2";
         issueNeo4JRequestStrings(query);
     }
@@ -117,10 +114,10 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      *
      * @param domainId
      * @param rangeId
-     * @param compObjectProperties
+     * @param edge
      */
-    public void deleteRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
-        String query = "MATCH (a{id:'" + domainId + "'})-[r:" + compObjectProperties.toString() + "]->(b{id:'" + rangeId + "'}) DELETE r";
+    public void deleteRelationShip(String domainId, String rangeId, Edge edge) throws Exception {
+        String query = "MATCH (a{id:'" + domainId + "'})-[r:" + edge.toString() + "]->(b{id:'" + rangeId + "'}) DELETE r";
         issueNeo4JRequestStrings(query);
     }
 
@@ -128,11 +125,11 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     /**
      * @param domainId
      * @param rangeId
-     * @param compObjectProperties
+     * @param edge
      * @return
      */
-    public Boolean existsRelationShip(String domainId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
-        String query = "MATCH (a{id:'" + domainId + "'})-[r:" + compObjectProperties.toString() + "]->(b{id:'" + rangeId + "'}) return r";
+    public Boolean existsRelationShip(String domainId, String rangeId, Edge edge) throws Exception {
+        String query = "MATCH (a{id:'" + domainId + "'})-[r:" + edge.toString() + "]->(b{id:'" + rangeId + "'}) return r";
         return existMatches(query);
     }
 
@@ -150,23 +147,23 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      *
      * @param domainClassNodeId
      * @param rangeId
-     * @param compObjectProperties
+     * @param edge
      */
-    public Boolean existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, CompObjectProperties compObjectProperties) throws Exception {
-        String query = "MATCH (a)-[r:individualOf]->(b{id:'" + domainClassNodeId + "'}), (a)-[r2:" + compObjectProperties.toString() + "]->(c{id:'" + rangeId + "'}) return a";
+    public Boolean existsRelationShipWithSuperClassGiven(String domainClassNodeId, String rangeId, Edge edge) throws Exception {
+        String query = "MATCH (a)-[r:individualOf]->(b{id:'" + domainClassNodeId + "'}), (a)-[r2:" + edge.toString() + "]->(c{id:'" + rangeId + "'}) return a";
         return existMatches(query);
     }
 
 
 
-    public List<String> getAssociatedNodeIdsAsRange(CompObjectProperties compObjectProperties, String rangeIndividualId) throws Exception {
-        String query2 = "MATCH (b)-[r:" + compObjectProperties.toString() + "]->(a {id:'" + rangeIndividualId + "'}) RETURN b.id";
+    public List<String> getAssociatedNodeIdsAsRange(Edge edge, String rangeIndividualId) throws Exception {
+        String query2 = "MATCH (b)-[r:" + edge.toString() + "]->(a {id:'" + rangeIndividualId + "'}) RETURN b.id";
         return issueNeo4JRequestStrings(query2);
     }
 
 
-    public List<String> getAssociatedNodeIdsAsDomain(String domainIndividual, CompObjectProperties compObjectProperties) throws Exception {
-        String query2 = "MATCH (a {id:'" + domainIndividual + "'})-[r:" + compObjectProperties.toString() + "]->(b) RETURN b.id";
+    public List<String> getAssociatedNodeIdsAsDomain(String domainIndividual, Edge edge) throws Exception {
+        String query2 = "MATCH (a {id:'" + domainIndividual + "'})-[r:" + edge.toString() + "]->(b) RETURN b.id";
         return issueNeo4JRequestStrings(query2);
     }
 
@@ -177,7 +174,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      * @return
      * @throws Exception
      */
-    public List<String> getAllInstanceDefinitions(CompOntClass clazz) throws Exception {
+    public List<String> getAllInstanceDefinitions(Label clazz) throws Exception {
         String query = "MATCH (a:" + clazz.name() + ") return a.name";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
         return result;
@@ -215,39 +212,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
 
-    /**
-     * @param subjectId
-     * @param subjectDefinition
-     * @param edge
-     * @param objectId
-     * @param objectDefinition
-     */
-    public void createRelationShip(String subjectId, String subjectDefinition, String edge, String objectId, String objectDefinition) throws Exception {
-        String subjectQuery = "MERGE (a{id:'" + subjectId + "',subjectDefinition:'" + subjectDefinition + "'}) return a";
-        String objectQuery = "MERGE (b{id:'" + objectId + "',subjectDefinition:'" + objectDefinition + "'}) return b";
-
-        String relQuery = "MATCH (a{id:'" + subjectId + "',subjectDefinition:'" + subjectDefinition + "'})," +
-                "MATCH (b{id:'" + objectId + "',subjectDefinition:'" + objectDefinition + "'})" +
-                "CREATE UNIQUE (a)-[r:" + edge + "]->(b) " +
-                "RETURN r";
-
-        issueNeo4JRequestStrings(subjectQuery, objectQuery, relQuery);
-    }
-
-    /**
-     * return the definition of a node if id is given
-     *
-     * @param id
-     * @return
-     */
-    public String getDefinitionForClassForNode(String id) throws Exception {
-        String query = "MATCH (a {id:'" + id + "'}) return a.definition";
-        return issueNeo4JRequestStrings(query).iterator().next();
-    }
-
-
-
-    /**
+      /**
      * removes a propety in a node
      *
      * @param id
@@ -294,10 +259,6 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         } else {
            return new SelfAssessment(result2.get("id")).getFullDao(result2);
         }
-    }
-
-    public StringList getAllSelectedLearningProjectTemplates(CourseContext courseContext, User user) {
-        throw new NotImplementedException();
     }
 
 

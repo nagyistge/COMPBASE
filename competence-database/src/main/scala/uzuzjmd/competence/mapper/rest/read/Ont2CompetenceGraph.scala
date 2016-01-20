@@ -3,9 +3,9 @@ package uzuzjmd.competence.mapper.rest.read
 import java.util
 
 import uzuzjmd.competence.config.Logging
-import uzuzjmd.competence.monopersistence.daos.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
+import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.service.rest.dto.GraphFilterData
 import uzuzjmd.competence.shared.dto.Graph
 
@@ -33,10 +33,10 @@ object Ont2CompetenceGraph extends ReadTransactional[GraphFilterData, Graph] wit
     logger.debug("Filtered Competences are: " + competences.toList)
 
 
-    val relation1 = CompObjectProperties.SuggestedCompetencePrerequisiteOf;
+    val relation1 = Edge.SuggestedCompetencePrerequisiteOf;
     val f1 : (Competence => util.List[Competence] ) = _.getSuggestedCompetenceRequirements
 
-    val relation2 = CompObjectProperties.PrerequisiteOf
+    val relation2 = Edge.PrerequisiteOf
     val f2 : (Competence => util.List[Competence] ) = _.getRequiredCompetences
 
     val result = new Graph()
@@ -48,7 +48,7 @@ object Ont2CompetenceGraph extends ReadTransactional[GraphFilterData, Graph] wit
   }
 
 
-  def convertCompetencesToTriples(competences: SeqView[Competence, mutable.Buffer[Competence]], f1: (Competence) => util.List[Competence], relation: CompObjectProperties, result:Graph): Unit = {
+  def convertCompetencesToTriples(competences: SeqView[Competence, mutable.Buffer[Competence]], f1: (Competence) => util.List[Competence], relation: Edge, result:Graph): Unit = {
 
     competences.map(x => (x, f1.apply(x))).foreach(y => y._2.asScala.foreach(z => result.addTriple(z.getDefinition, y._1.getDefinition, relation.name(), true)))
   }

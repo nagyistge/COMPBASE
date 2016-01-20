@@ -1,8 +1,10 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.{lang, util}
-import uzuzjmd.competence.monopersistence.daos._
+
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext, Role}
 import uzuzjmd.competence.shared.dto.ProgressMap
+
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 

@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.monopersistence.daos.Competence
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.service.rest.dto.PrerequisiteData
 import scala.collection.JavaConversions._
 

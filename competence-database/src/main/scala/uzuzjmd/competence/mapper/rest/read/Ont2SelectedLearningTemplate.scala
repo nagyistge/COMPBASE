@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.dao.{CourseContext, Role, User}
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.StringList
 
@@ -20,6 +20,7 @@ object Ont2SelectedLearningTemplate extends ReadTransactional[LearningTemplateDa
     }
     val context = new CourseContext(changes.getGroupId);
     val user = new User(changes.getUserName, Role.teacher, context);
-    return SelectedLearningProjectTemplate.getAllSelectedLearningProjectTemplates(user, context);
+    val learningTemplate = user.getAssociatedLearningProjectTemplateIds()
+    return new StringList(learningTemplate)
   }
 }

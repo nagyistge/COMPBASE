@@ -1,9 +1,8 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.monopersistence.daos.CourseContext
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.{User, CourseContext}
 import uzuzjmd.competence.service.rest.dto.UserData
-import uzuzjmd.competence.monopersistence.daos.User
 
 /**
  * @author dehne

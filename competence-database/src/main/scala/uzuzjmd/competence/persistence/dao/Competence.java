@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 
 import java.util.HashSet;
@@ -36,34 +36,34 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public void addSuggestedCompetenceRequirement(Competence competence) throws Exception {
-        createEdgeWith(competence, CompObjectProperties.SuggestedCompetencePrerequisiteOf);
+        createEdgeWith(competence, Edge.SuggestedCompetencePrerequisiteOf);
     }
 
     public List<Competence> getSuggestedCompetenceRequirements() throws Exception {
-        List<Competence> result =  getAssociatedDaosAsDomain(CompObjectProperties.SuggestedCompetencePrerequisiteOf, Competence.class);
+        List<Competence> result =  getAssociatedDaosAsDomain(Edge.SuggestedCompetencePrerequisiteOf, Competence.class);
         return result;
     }
 
     public void addRequiredCompetence(Competence competence) throws Exception {
-        deleteEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf);
-        createEdgeWith(competence, CompObjectProperties.PrerequisiteOf);
+        deleteEdgeWith(competence, Edge.NotPrerequisiteOf);
+        createEdgeWith(competence, Edge.PrerequisiteOf);
     }
 
     public void addNotRequiredCompetence(Competence competence) throws Exception {
-        deleteEdgeWith(competence, CompObjectProperties.PrerequisiteOf);
-        createEdgeWith(competence, CompObjectProperties.NotPrerequisiteOf);
+        deleteEdgeWith(competence, Edge.PrerequisiteOf);
+        createEdgeWith(competence, Edge.NotPrerequisiteOf);
     }
 
     public List<Catchword> getCatchwords() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.CatchwordOf, Catchword.class);
+        return getAssociatedDaosAsRange(Edge.CatchwordOf, Catchword.class);
     }
 
     public List<Competence> getRequiredCompetences() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.PrerequisiteOf, Competence.class);
+        return getAssociatedDaosAsRange(Edge.PrerequisiteOf, Competence.class);
     }
 
     public List<Competence> getSuggestedRequiredCompetences() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.SuggestedCompetencePrerequisiteOf, Competence.class);
+        return getAssociatedDaosAsRange(Edge.SuggestedCompetencePrerequisiteOf, Competence.class);
     }
 
     public String[] getRequiredCompetencesAsArray() throws Exception {
@@ -86,21 +86,21 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public Boolean isAllowed(User user) throws Exception {
-        List<Competence> prerequisites = getAssociatedDaosAsDomain(CompObjectProperties.PrerequisiteOf, Competence.class);
+        List<Competence> prerequisites = getAssociatedDaosAsDomain(Edge.PrerequisiteOf, Competence.class);
         Boolean result = true;
         for (Competence prerequisite : prerequisites) {
-            result = result && prerequisite.hasEdge(user, CompObjectProperties.UserHasPerformed);
+            result = result && prerequisite.hasEdge(user, Edge.UserHasPerformed);
         }
         return result;
     }
 
 
     public void addSuperCompetence(Competence superCompetence) throws Exception {
-        createEdgeWith(CompObjectProperties.subClassOf, superCompetence);
+        createEdgeWith(Edge.subClassOf, superCompetence);
     }
 
     public void removeSuperCompetence(Competence superCompetence) throws Exception {
-        deleteEdgeWith(superCompetence, CompObjectProperties.subClassOf);
+        deleteEdgeWith(superCompetence, Edge.subClassOf);
     }
 
 
@@ -123,26 +123,26 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
 
     public void addCatchword(Catchword dao) throws Exception {
         dao.persist();
-        dao.createEdgeWith(CompObjectProperties.CatchwordOf, this);
+        dao.createEdgeWith(Edge.CatchwordOf, this);
     }
 
     public void addLearningTemplate(LearningProjectTemplate learningTemplate) throws Exception {
-        createEdgeWith(learningTemplate, CompObjectProperties.LearningProjectTemplateOf);
+        createEdgeWith(learningTemplate, Edge.LearningProjectTemplateOf);
     }
 
     public List<Operator> getOperators() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.OperatorOf, Operator.class);
+        return getAssociatedDaosAsDomain(Edge.OperatorOf, Operator.class);
     }
 
     public void addCourseContext(CourseContext course) throws Exception {
-        createEdgeWith(course, CompObjectProperties.CourseContextOf);
+        createEdgeWith(course, Edge.CourseContextOf);
         addSuperCompetencesToCourse(this, course);
     }
 
     public void addSuperCompetencesToCourse(Competence competence, CourseContext course) throws Exception {
         Set<Competence> superCompetences = competence.listSuperClasses(Competence.class);
         for (Competence superCompetence : superCompetences) {
-            superCompetence.createEdgeWith(course, CompObjectProperties.CourseContextOf);
+            superCompetence.createEdgeWith(course, Edge.CourseContextOf);
         }
     }
 
@@ -177,11 +177,11 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     @Override
     public Dao persist() throws Exception {
         super.persist();
-        createEdgeWith(CompObjectProperties.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
+        createEdgeWith(Edge.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
-        createEdgeWith(universityContext, CompObjectProperties.CourseContextOf);
+        createEdgeWith(universityContext, Edge.CourseContextOf);
         if (learningProject != null) {
-            createEdgeWith(learningProject, CompObjectProperties.LearningProjectTemplateOf);
+            createEdgeWith(learningProject, Edge.LearningProjectTemplateOf);
         }
         return this;
     }

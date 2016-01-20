@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 import java.util.List;
 
@@ -15,6 +15,6 @@ public class AbstractUser extends DaoAbstractImpl {
     }
 
     public List<AbstractEvidenceLink> getAssociatedLinks() throws Exception {
-        return getAssociatedDaosAsRange(CompObjectProperties.UserOfLink, AbstractEvidenceLink.class);
+        return getAssociatedDaosAsRange(Edge.UserOfLink, AbstractEvidenceLink.class);
     }
 }

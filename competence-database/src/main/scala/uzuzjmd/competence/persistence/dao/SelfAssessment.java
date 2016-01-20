@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -31,8 +31,8 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
     @Override
     public void persistMore() throws Exception {
         this.persist();
-        createEdgeWith(CompObjectProperties.AssessmentOfCompetence, competence);
-        createEdgeWith(CompObjectProperties.AssessmentOfUser, user);
+        createEdgeWith(Edge.AssessmentOfCompetence, competence);
+        createEdgeWith(Edge.AssessmentOfUser, user);
     }
 
     public Integer getAssessmentIndex() {
@@ -52,10 +52,10 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
     }
 
     public void addCompetenceToAssessment(Competence competence) throws Exception {
-        createEdgeWith(CompObjectProperties.AssessmentOfCompetence, competence);
+        createEdgeWith(Edge.AssessmentOfCompetence, competence);
     }
 
     public void addUserToAssessment(User user) throws Exception {
-        createEdgeWith(CompObjectProperties.AssessmentOfUser, user);
+        createEdgeWith(Edge.AssessmentOfUser, user);
     }
 }

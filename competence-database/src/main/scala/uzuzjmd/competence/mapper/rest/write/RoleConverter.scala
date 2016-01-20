@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.monopersistence.daos.Role
+import uzuzjmd.competence.persistence.dao.Role
 
 /**
  * @author dehne

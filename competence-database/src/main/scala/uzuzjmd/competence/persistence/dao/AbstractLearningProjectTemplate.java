@@ -1,4 +1,4 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 import java.util.List;
 
