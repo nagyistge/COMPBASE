@@ -8,10 +8,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import uzuzjmd.competence.main.RestServer;
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate;
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.*;
 
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -21,7 +18,7 @@ public class SelectedLearningTemplateDAOTest {
 
 	private final static String user = "xunguyen";
 
-	/*public static Thread t = new Thread(new Runnable() {
+	public static Thread t = new Thread(new Runnable() {
 		public void run() {
 			try {
 				RestServer.startServer();
@@ -31,14 +28,18 @@ public class SelectedLearningTemplateDAOTest {
 				e.printStackTrace();
 			}
 		}
-	});*/
+	});
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		/*t.start();
-		Thread.sleep(600l);
-*/
-		Client client = com.sun.jersey.api.client.Client.create();
+		/*if (!t.isAlive()) {
+			t.start();
+			Thread.sleep(200l);
+		}*/
+
+	}
+	private void createTestUser() {
+		Client client = Client.create();
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource webResource = client.resource("http://localhost:8084"
 				+ "/competences/user/create/" + user + "/teacher");
@@ -49,7 +50,6 @@ public class SelectedLearningTemplateDAOTest {
 		} finally {
 			client.destroy();
 		}
-
 	}
 
 	@AfterClass
@@ -58,7 +58,8 @@ public class SelectedLearningTemplateDAOTest {
 	}
 
 	@Test
-	public void testSelectTemplate() {
+	public void testSelectTemplate() throws InterruptedException {
+		createTestUser();
 		Client client = com.sun.jersey.api.client.Client.create();
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource webResource = client.resource("http://localhost:8084"
@@ -81,16 +82,14 @@ public class SelectedLearningTemplateDAOTest {
 	 * user has not previously selected learning templates for himself to learn
 	 */
 	@Test
-	public void testSelectedTemplates() {
+	public void testSelectedTemplates() throws InterruptedException {
+		testSelectTemplate();
 		Client client = com.sun.jersey.api.client.Client.create();
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource webResource = client.resource("http://localhost:8084"
 				+ "/competences/learningtemplates/selected");
-
 		System.out.println("FETCHING FROM_: " + webResource.getURI());
-
 		StringList result = null;
-
 		try {
 
 			result = webResource.queryParam("userId", user)
@@ -99,17 +98,23 @@ public class SelectedLearningTemplateDAOTest {
 		} finally {
 			client.destroy();
 		}
-
 		Assert.assertNotNull(result);
 	}
 	
 	@Test
-	public void testUpdateReflexion() {
+	public void testUpdateReflexion() throws InterruptedException {
+		// setup data
+		testSelectedTemplates();
 		LearningTemplateDaoTest learningTemplateDaoTest = new LearningTemplateDaoTest();
 		learningTemplateDaoTest.initTestGraph();
 		learningTemplateDaoTest.testCreateTemplateWithGraph();
+		SuggestedCompetenceGrid result = testFetchingGrid();
+		Assert.assertNotNull(result);
+		testSendingNewGrid(result);
+	}
 
-		Client client1 = com.sun.jersey.api.client.Client.create();
+	private SuggestedCompetenceGrid testFetchingGrid() {
+		Client client1 = Client.create();
 		WebResource webResource2 = client1.resource("http://localhost:8084/competences/learningtemplates/gridview");
 		SuggestedCompetenceGrid result = null;
 		try {
@@ -124,22 +129,25 @@ public class SelectedLearningTemplateDAOTest {
 		} finally {
 			client1.destroy();
 		}
-		
+		return result;
+	}
+
+	private void testSendingNewGrid(SuggestedCompetenceGrid result) {
 		System.out.println(result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceRowHeader());
-		
+
 		ReflectiveAssessmentsListHolder holder = result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceColumns().get(0).getReflectiveAssessmentListHolder();
+		holder.getReflectiveAssessmentList().get(0).setIsLearningGoal(true);
+		holder.getReflectiveAssessmentList().get(0).setAssessment(new Assessment().getItems().get(1));
 		System.out.println("updating: " + holder.getSuggestedMetaCompetence());
 
-		Client client = com.sun.jersey.api.client.Client.create();
+		Client client = Client.create();
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource webResource = client.resource("http://localhost:8084/competences/learningtemplates/gridview/update");
 		try {
 			webResource
 					.queryParam("userId",user)
 					.queryParam("groupId","user")
-					.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML)
 					.post(ReflectiveAssessmentsListHolder.class, holder);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

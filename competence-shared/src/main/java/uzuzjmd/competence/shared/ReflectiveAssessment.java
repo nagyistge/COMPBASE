@@ -56,12 +56,6 @@ public class ReflectiveAssessment implements Serializable {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		// return "learning goal: " + getIsLearningGoal()
-		// + " assessment: " + getAssessment()
-		// + " competenceDescription: "
-		// + getCompetenceDescription();
-
 		return "a: " + getAssessment();
 	}
 
