@@ -1,10 +1,10 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.persistence.ontology.CompOntClass;
+import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.persistence.ontology.Label;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -73,51 +73,51 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public CompOntClass getLabel() {
-        return CompOntClass.valueOf(this.getClass().getSimpleName());
+    public Label getLabel() {
+        return Label.valueOf(this.getClass().getSimpleName());
     }
 
     @Override
-    public void createEdgeWith(CompObjectProperties edge, Dao range) throws Exception {
+    public void createEdgeWith(Edge edge, Dao range) throws Exception {
         if(!this.getId().equals(range.getId())) {
             queryManager.createRelationShip(this.getId(), edge, range.getId());
         }
     }
 
     @Override
-    public void createEdgeWithAll(List<Dao> domain, CompObjectProperties edge) throws Exception {
+    public void createEdgeWithAll(List<Dao> domain, Edge edge) throws Exception {
         for (Dao dao : domain) {
             createEdgeWith(dao,edge);
         }
     }
 
     @Override
-    public void createEdgeWith(Dao domain, CompObjectProperties edge) throws Exception {
+    public void createEdgeWith(Dao domain, Edge edge) throws Exception {
         if(!this.getId().equals(domain.getId())) {
             queryManager.createRelationShip(domain.getId(), edge, this.getId());
         }
     }
 
     @Override
-    public void createEdgeWithAll(CompObjectProperties edge, List<Dao> range) throws Exception {
+    public void createEdgeWithAll(Edge edge, List<Dao> range) throws Exception {
         for (Dao dao : range) {
             createEdgeWith(edge,dao);
         }
     }
 
     @Override
-    public void deleteEdgeWith(Dao otherNode, CompObjectProperties edge) throws Exception {
+    public void deleteEdgeWith(Dao otherNode, Edge edge) throws Exception {
         queryManager.deleteRelationShip(otherNode.getId(), this.getId(), edge);
         queryManager.deleteRelationShip(this.getId(), otherNode.getId(), edge);
     }
 
     @Override
-    public Boolean hasEdge(Dao domain, CompObjectProperties edge) throws Exception {
+    public Boolean hasEdge(Dao domain, Edge edge) throws Exception {
         return queryManager.existsRelationShip(domain.getId(), this.getId(), edge);
     }
 
     @Override
-    public Boolean hasEdge(CompObjectProperties edge, Dao range) throws Exception {
+    public Boolean hasEdge(Edge edge, Dao range) throws Exception {
         return queryManager.existsRelationShip(this.getId(), range.getId(), edge);
     }
 
@@ -136,13 +136,13 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public <T extends Dao> List<T> getAssociatedDaosAsDomain(CompObjectProperties edge, Class<T> clazz) throws Exception {
+    public <T extends Dao> List<T> getAssociatedDaosAsDomain(Edge edge, Class<T> clazz) throws Exception {
         List<String> nodeIds = queryManager.getAssociatedNodeIdsAsDomain(getId(), edge);
         return instantiateDaos(clazz, nodeIds);
     }
 
     @Override
-    public <T extends Dao> List<T> getAssociatedDaosAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception {
+    public <T extends Dao> List<T> getAssociatedDaosAsRange(Edge edge, Class<T> clazz) throws Exception {
         List<String> nodeIds = queryManager.getAssociatedNodeIdsAsRange(edge, getId());
         return instantiateDaos(clazz, nodeIds);
     }
@@ -161,12 +161,12 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public List<String> getAssociatedDaoIdsAsDomain(CompObjectProperties edge) throws Exception {
+    public List<String> getAssociatedDaoIdsAsDomain(Edge edge) throws Exception {
         return  queryManager.getAssociatedNodeIdsAsDomain(getId(), edge);
     }
 
     @Override
-    public List<String> getAssociatedDaoIdsAsRange(CompObjectProperties edge) throws Exception {
+    public List<String> getAssociatedDaoIdsAsRange(Edge edge) throws Exception {
         return queryManager.getAssociatedNodeIdsAsRange(edge, getId());
     }
 
@@ -237,7 +237,7 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public <P extends Dao> P getAssociatedDaoAsDomain(CompObjectProperties edge, Class<P> clazz) throws Exception {
+    public <P extends Dao> P getAssociatedDaoAsDomain(Edge edge, Class<P> clazz) throws Exception {
         List<P> result = getAssociatedDaosAsDomain(edge, clazz);
         if (result.isEmpty()) {
             throw new Exception("Did not find any associated node for: " + edge.name() + " and id: "+this.getId());
@@ -246,7 +246,7 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     @Override
-    public <T extends Dao> T getAssociatedDaoAsRange(CompObjectProperties edge, Class<T> clazz) throws Exception {
+    public <T extends Dao> T getAssociatedDaoAsRange(Edge edge, Class<T> clazz) throws Exception {
         List<T> result = getAssociatedDaosAsRange(edge, clazz);
         if (result.isEmpty()) {
             throw new Exception("Did not find any associated node for: " + edge.name() + " and id: "+this.getId());

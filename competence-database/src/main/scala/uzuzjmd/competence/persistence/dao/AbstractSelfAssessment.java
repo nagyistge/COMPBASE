@@ -1,4 +1,4 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 /**
  * Created by dehne on 12.01.2016.

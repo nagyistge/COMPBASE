@@ -37,7 +37,7 @@ package uzuzjmd.competence.persistence.ontology;
  *
  *
  */
-public enum CompOntClass {
+public enum Label {
     MetaCatchword,
     Competence,
     Evidence,

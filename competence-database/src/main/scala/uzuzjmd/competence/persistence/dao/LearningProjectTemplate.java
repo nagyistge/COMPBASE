@@ -1,7 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 import java.util.List;
 
@@ -44,11 +43,11 @@ public class LearningProjectTemplate extends AbstractLearningProjectTemplate imp
 
 
     public List<Competence> getAssociatedCompetences() throws Exception {
-        return getAssociatedDaosAsDomain(CompObjectProperties.LearningProjectTemplateOf, Competence.class);
+        return getAssociatedDaosAsDomain(Edge.LearningProjectTemplateOf, Competence.class);
     }
 
 
     public void addCompetenceToProject(Competence competence) throws Exception {
-        createEdgeWith(CompObjectProperties.LearningProjectTemplateOf, competence);
+        createEdgeWith(Edge.LearningProjectTemplateOf, competence);
     }
 }

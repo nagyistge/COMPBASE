@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.monopersistence.daos.LearningProjectTemplate
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
 import uzuzjmd.competence.shared.dto.{GraphNode, LearningTemplateResultSet}
 
 /**

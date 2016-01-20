@@ -3,14 +3,15 @@ package uzuzjmd.competence.mapper.rest.write
 import java.util
 
 import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
-import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.dto.{GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
+
 import scala.collection.JavaConverters._
 
 /**
@@ -30,7 +31,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     context.persist()
     val user = new User(changes.getUserName, Role.teacher, context);
     user.persist()
-    context.createEdgeWith(CompObjectProperties.CourseContextOf, user)
+    context.createEdgeWith(Edge.CourseContextOf, user)
   }
 
   private def convertHelper(changes: LearningTemplateData) {
@@ -42,8 +43,8 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     if (!context.exists()) {
       throw new ContextNotExistsException
     }
-    val selected = new SelectedLearningProjectTemplate(user, context, changes.getSelectedTemplate);
-    selected.persist();
+    val template = new LearningProjectTemplate(changes.getSelectedTemplate);
+    template.createEdgeWith(user, Edge.UserOfLearningProjectTemplate);
   }
 
   def toNode: (GraphTriple) => String = _.toNode
@@ -69,7 +70,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
 
       // create the relations maybe use batch update if it is too slow
       val manager = new Neo4JQueryManagerImpl;
-      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, CompObjectProperties.SuggestedCompetencePrerequisiteOf, x.toNode))
+      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, Edge.SuggestedCompetencePrerequisiteOf, x.toNode))
 
       // create Catchword relations
       val map: util.HashMap[GraphTriple, Array[String]] = changes.getCatchwordMap
@@ -93,7 +94,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
 
 
   def createCatchwordRelations(map: util.HashMap[GraphTriple, Array[String]], f: (GraphTriple => String)): Unit = {
-    val competenceCatchwords = map.keySet().asScala.foreach(x => new Competence(f(x)).persist().createEdgeWithAll(getCatchwordsFromMap(map, x), CompObjectProperties.CatchwordOf))
+    val competenceCatchwords = map.keySet().asScala.foreach(x => new Competence(f(x)).persist().createEdgeWithAll(getCatchwordsFromMap(map, x), Edge.CatchwordOf))
   }
 
   private def getCatchwordsFromMap(map: util.HashMap[GraphTriple, Array[String]], triple: GraphTriple): util.List[Dao] = {

@@ -3,10 +3,10 @@ package uzuzjmd.competence.service.rest;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
-import uzuzjmd.competence.monopersistence.daos.Competence;
-import uzuzjmd.competence.monopersistence.daos.CourseContext;
-import uzuzjmd.competence.monopersistence.daos.DBInitializer;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.dao.Competence;
+import uzuzjmd.competence.persistence.dao.CourseContext;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.*;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
 import uzuzjmd.competence.shared.StringList;
@@ -159,6 +159,12 @@ public class CompetenceServiceRestJSON {
             @PathParam("user") String user,
             @PathParam("role") String role,
             @QueryParam("groupId") String courseContext) throws Exception {
+        if (role == null ) {
+            throw new WebApplicationException("Role not given");
+        }
+        if (user == null) {
+            throw new WebApplicationException("userId not given");
+        }
         CourseContext courseContextDao = new CourseContext(courseContext);
         courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
@@ -222,7 +228,7 @@ public class CompetenceServiceRestJSON {
     public String[] getSelectedCompetencesForCourse(
             @PathParam("course") String course) throws Exception {
         CourseContext context = new CourseContext(course);
-        return context.getAssociatedDaoIdsAsDomain(CompObjectProperties.belongsToCourseContext).toArray(new String[0]);
+        return context.getAssociatedDaoIdsAsDomain(Edge.belongsToCourseContext).toArray(new String[0]);
     }
 
     /**

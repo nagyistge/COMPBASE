@@ -24,7 +24,7 @@ public class LearningTemplateDaoTest {
 
 	public static final String LABELNAME = "SuggestedCompetencePrerequisite";
 	private static final String course = "university";
-	private static String learningTemplateName = "TestLernprojekt";
+	public static String learningTemplateName = "TestLernprojekt";
 	private static LearningTemplateResultSet learningTemplateResultSet;
 	private static Graph graph;
 	private static GraphTriple first;
@@ -48,8 +48,12 @@ public class LearningTemplateDaoTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		t.start();
-
 		Thread.sleep(200l);
+		initTestGraph();
+
+	}
+
+	public static void initTestGraph() {
 		first = new GraphTriple("using tags", "using JSP tags", LABELNAME, true);
 		second = new GraphTriple("using JSP tags", "using primfaces tags",
 				LABELNAME, true);
@@ -73,7 +77,6 @@ public class LearningTemplateDaoTest {
 				"programming", "jsp" });
 		learningTemplateResultSet.addTriple(fifth, new String[] {
 				"programming", "api", "universality" });
-
 	}
 
 	@AfterClass

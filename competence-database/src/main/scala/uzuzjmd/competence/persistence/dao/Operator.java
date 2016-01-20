@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -18,7 +18,7 @@ public class Operator extends DaoAbstractImpl implements HasDefinition {
     @Override
     public Dao persist() throws Exception {
         super.persist();
-        createEdgeWith(CompObjectProperties.subClassOf, new Operator(DBInitializer.OPERATORROOT));
+        createEdgeWith(Edge.subClassOf, new Operator(DBInitializer.OPERATORROOT));
         return this;
     }
 }

@@ -1,6 +1,5 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 
 /**

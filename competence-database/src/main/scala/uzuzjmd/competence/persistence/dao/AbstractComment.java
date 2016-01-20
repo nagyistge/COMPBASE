@@ -1,4 +1,4 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 /**
  * Created by fides-WHK on 13.01.2016.

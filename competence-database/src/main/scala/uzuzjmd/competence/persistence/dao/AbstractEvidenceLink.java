@@ -1,6 +1,6 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 import java.util.List;
 
@@ -110,15 +110,15 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
     @Override
     public void persistMore() throws Exception{
         linkedUser.persist();
-        createEdgeWith(linkedUser, CompObjectProperties.UserOfLink);
+        createEdgeWith(linkedUser, Edge.UserOfLink);
         creator.persist();
-        createEdgeWith(CompObjectProperties.createdBy, creator);
+        createEdgeWith(Edge.createdBy, creator);
         courseContext.persist();
-        createEdgeWith(CompObjectProperties.LinkOfCourseContext, courseContext);
+        createEdgeWith(Edge.LinkOfCourseContext, courseContext);
         evidenceActivity.persist();
-        createEdgeWith(evidenceActivity, CompObjectProperties.ActivityOf);
+        createEdgeWith(evidenceActivity, Edge.ActivityOf);
         competence.persist();
-        createEdgeWith(CompObjectProperties.linksCompetence, competence);
+        createEdgeWith(Edge.linksCompetence, competence);
         this.persist();
     }
 
@@ -131,23 +131,23 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
 
     public void linkComment(Comment comment) throws Exception {
             comment.persist();
-            createEdgeWith(comment, CompObjectProperties.CommentOf);
+            createEdgeWith(comment, Edge.CommentOf);
     }
 
     public List<User> getAllLinkedUsers() throws Exception {
-            return getAssociatedDaosAsDomain(CompObjectProperties.UserOfLink, User.class);
+            return getAssociatedDaosAsDomain(Edge.UserOfLink, User.class);
     }
 
     public List<EvidenceActivity> getAllActivities() throws Exception {
-            return getAssociatedDaosAsDomain(CompObjectProperties.ActivityOf, EvidenceActivity.class);
+            return getAssociatedDaosAsDomain(Edge.ActivityOf, EvidenceActivity.class);
     }
 
     public List<CourseContext> getAllCourseContexts() throws Exception {
-            return getAssociatedDaosAsRange(CompObjectProperties.LinkOfCourseContext, CourseContext.class);
+            return getAssociatedDaosAsRange(Edge.LinkOfCourseContext, CourseContext.class);
     }
 
     public List<Competence> getAllLinkedCompetences() throws Exception {
-        return  getAssociatedDaosAsRange(CompObjectProperties.linksCompetence, Competence.class);
+        return  getAssociatedDaosAsRange(Edge.linksCompetence, Competence.class);
     }
 
 

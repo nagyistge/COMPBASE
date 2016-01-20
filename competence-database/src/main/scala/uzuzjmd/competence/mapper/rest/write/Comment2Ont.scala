@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.monopersistence.daos._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
 import uzuzjmd.competence.service.rest.dto.CommentData
 
 /**

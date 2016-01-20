@@ -2,8 +2,8 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util.{SortedSet, TreeSet}
 
-import uzuzjmd.competence.monopersistence.daos.{Comment, AbstractEvidenceLink, User}
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
 import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
 import uzuzjmd.competence.shared.dto.{CommentEntry, CompetenceLinksMap, CompetenceLinksView}
 import uzuzjmd.java.collections.MapsMagic

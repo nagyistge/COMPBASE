@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.monopersistence.daos.CourseContext
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.dao.CourseContext
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 

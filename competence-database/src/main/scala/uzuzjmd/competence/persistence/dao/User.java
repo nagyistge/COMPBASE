@@ -1,7 +1,7 @@
-package uzuzjmd.competence.monopersistence.daos;
+package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Lists;
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
 import java.util.List;
 
@@ -33,7 +33,15 @@ public class User extends AbstractUser {
     }
 
     public Boolean hasCourseContext(CourseContext courseContext) throws Exception {
-        return hasEdge(CompObjectProperties.belongsToCourseContext, courseContext);
+        return hasEdge(Edge.belongsToCourseContext, courseContext);
+    }
+
+    public List<LearningProjectTemplate> getAssociatedLearningProjectTemplates() throws Exception {
+        return getAssociatedDaosAsDomain(Edge.UserOfLearningProjectTemplate, LearningProjectTemplate.class);
+    }
+
+    public List<String> getAssociatedLearningProjectTemplateIds() throws Exception {
+        return getAssociatedDaoIdsAsDomain(Edge.UserOfLearningProjectTemplate);
     }
 
 

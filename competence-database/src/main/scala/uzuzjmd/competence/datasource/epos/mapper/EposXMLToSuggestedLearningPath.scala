@@ -1,8 +1,9 @@
 package uzuzjmd.competence.datasource.epos.mapper
 
 import uzuzjmd.competence.datasource.epos.filter.LevelFilter
-import uzuzjmd.competence.monopersistence.daos.{Catchword, Competence, LearningProjectTemplate}
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate}
 import uzuzjmd.competence.shared.{DESCRIPTORSETType, DESCRIPTORType}
+
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 

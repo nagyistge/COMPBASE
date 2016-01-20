@@ -1,8 +1,8 @@
 package uzuzjmd.competence.persistence.abstractlayer
 
-import uzuzjmd.competence.monopersistence.daos.Dao
+import uzuzjmd.competence.persistence.dao.Dao
 import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.Edge
 
 /**
   * Created by dehne on 03.12.2015.
@@ -16,7 +16,7 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends WriteTransactional[( 
   val edgeType = setEdge;
 
 
-  protected def setEdge() : CompObjectProperties
+  protected def setEdge() : Edge
   protected def setDomain() :  java.lang.Class[Domain]
   protected def setRange() : java.lang.Class[Range]
 

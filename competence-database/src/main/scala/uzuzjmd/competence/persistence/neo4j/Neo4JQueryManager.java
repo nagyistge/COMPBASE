@@ -5,16 +5,9 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.config.MagicStrings;
-import uzuzjmd.competence.monopersistence.daos.Dao;
+import uzuzjmd.competence.persistence.dao.Dao;
 import uzuzjmd.competence.persistence.neo4j.reasoning.RequestableImpl2;
-import uzuzjmd.competence.shared.dto.UserTree;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
