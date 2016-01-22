@@ -289,7 +289,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
             futherMatches +="MATCH (c:Operator{id:'"+operator+"'})-[r44:OperatorOf]->(p)";
         }
 
-        String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+")"+futherMatches+"MATCH (x:CourseContext{id:'"+courseId+"'})-[r33:CourseContextOf]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) LIMIT 25";
+        String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+")"+futherMatches+"MATCH (x:CourseContext{id:'"+courseId+"'})-[r33:CourseContextOf]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
         return issueNeo4JRequestArrayListArrayList(query);
     }
 }
