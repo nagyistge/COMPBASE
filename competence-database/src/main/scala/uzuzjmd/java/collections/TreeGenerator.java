@@ -12,13 +12,13 @@ import java.util.Map;
  * Has a 2*n runtime
  */
 public class TreeGenerator {
-    public static Node getTree(List<TreePair> inputList) {
+    public static  Node getTree(List<TreePair> inputList) {
         HashMap<String, Node> tempMap = treeIfy(inputList);
         return rootify(tempMap);
     }
 
     private static HashMap treeIfy(List<TreePair> inputList) {
-        HashMap <String, Node> temp = new HashMap<>();
+        HashMap <String, Node> temp = new HashMap<>(1000000);
         for (TreePair pair: inputList) {
             if (pair.child != null && pair.parent != null) {
                 Node parent = getOrDefaultParent(temp, pair);
