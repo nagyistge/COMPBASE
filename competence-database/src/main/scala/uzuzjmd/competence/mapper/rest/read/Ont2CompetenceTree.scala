@@ -10,8 +10,9 @@ import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.java.collections.{TreePair, _}
 
 import scala.collection.JavaConverters._
+import uzuzjmd.competence.config.Logging
 
-object Ont2CompetenceTree {
+object Ont2CompetenceTree extends Logging{
 
   val neo4jqueryManager = new Neo4JQueryManagerImpl
   val iconRootPath = MagicStrings.webapplicationPath
@@ -62,12 +63,11 @@ object Ont2CompetenceTree {
     */
   def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, f: (Node) => T) : java.util.List[T] = {
     val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel)
-    val nodesArray2 = nodesArray.asScala
-      .filterNot(x => x.size() > 2)
-      .filterNot(x => x.iterator().next() == null)
-      .map(x => new TreePair(x.get(1), x.get(0)))
+    val nodesArray2 = nodesArray.asScala.filterNot(_.isEmpty)
+    val nodesArray3 = nodesArray2.map(x => new TreePair(x.get(1), x.get(0)))
       .asJava
-    val rootNode = TreeGenerator.getTree(nodesArray2);
+    val rootNode = TreeGenerator.getTree(nodesArray3);
+    logger.debug(rootNode.toString);
     return (f(rootNode) :: Nil).asJava
   }
 

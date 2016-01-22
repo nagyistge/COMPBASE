@@ -63,7 +63,6 @@ public class CompetenceServiceRestJSON {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/competencetree/{context}")
-    @Deprecated
     public List<CompetenceXMLTree> getCompetenceTree(
             @PathParam("context") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,

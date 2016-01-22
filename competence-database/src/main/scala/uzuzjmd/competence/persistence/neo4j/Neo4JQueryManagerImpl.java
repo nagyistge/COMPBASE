@@ -175,7 +175,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      * @throws Exception
      */
     public List<String> getAllInstanceDefinitions(Label clazz) throws Exception {
-        String query = "MATCH (a:" + clazz.name() + ") return a.name";
+        String query = "MATCH (a:" + clazz.name() + ") return a.id";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
         return result;
     }
@@ -251,7 +251,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
     public SelfAssessment getSelfAssessment(Competence competence, User user) throws Exception {
-        String query = "MATCH (c:User{id:'"+user.getId()+"'}) MATCH (b:SelfCompetence)-[r1:AssessmentOfCompetence]->(a:Competence{id:'"+competence.getId()+"'}) MATCH (b)-[r2:AssessmentOfUser]->(c:User) return b";
+        String query = "MATCH (c:User{id:'"+user.getId()+"'}) MATCH (b:SelfCompetence)-[r1:AssessmentOfCompetence]->(a:Competence{id:'"+competence.getId()+"'}) MATCH (b)-[r2:AssessmentOfUser]->(c:User) return b LIMIT 50";
         ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
         if (result == null) {
             return new SelfAssessment(competence, user, 0, false);

@@ -15,4 +15,18 @@ public class Node {
         this.id = id;
         children = new LinkedList<>();
     }
+
+    @Override
+    public String toString() {
+        return stringify(this,"", "");
+    }
+
+    private String stringify(Node node, String result, String spacer) {
+        spacer += "   ";
+        for (Node child : children) {
+            result += spacer + child.id + "\n";
+            result += stringify(child, result, spacer);
+        }
+        return result;
+    }
 }

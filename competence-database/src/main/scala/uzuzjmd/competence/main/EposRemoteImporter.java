@@ -25,10 +25,8 @@ public class EposRemoteImporter {
 
 		List<DESCRIPTORSETType> eposCompetences = EposImporter
 				.parseEPOSXML();
-		// List<DESCRIPTORSETType> eposCompetences = null;
 		Client client = ClientBuilder.newClient();
-		// client.setConnectTimeout(300);
-		// client.setReadTimeout(300);
+		// TODO implement for new server
 		WebTarget webResource = client
 				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-servlet/competence/competences/xml/learningtemplates/addEpos");
 		System.out.println(webResource.getUri());

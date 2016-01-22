@@ -208,7 +208,9 @@ public class LearningTemplateDaoTest {
 		System.out.println("##### Test findAll LearningTemplate #####");
 		final StringList result = LearningTemplateDao.findAll();
 
+
 		Assert.assertNotNull(result);
+		Assert.assertNotNull(result.getData().iterator().next());
 
 		for (String s : result.getData()) {
 			System.out.println("\t" + s);
