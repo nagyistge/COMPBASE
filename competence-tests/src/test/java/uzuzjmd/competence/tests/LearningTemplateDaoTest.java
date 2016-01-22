@@ -1,10 +1,12 @@
 package uzuzjmd.competence.tests;
 
 import de.unipotsdam.anh.dao.LearningTemplateDao;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import uzuzjmd.competence.main.RestServer;
 import uzuzjmd.competence.shared.DESCRIPTORType;
 import uzuzjmd.competence.shared.StringList;
@@ -266,5 +268,36 @@ public class LearningTemplateDaoTest {
 
 		descriptorTypes.add(desType1);
 		descriptorTypes.add(desType2);
+	}
+	
+	@Test
+	public void testTemplatenWithSameCompetence() {
+		 System.out.println("##### Test Learning Template with same Competence #####");
+		 final GraphTriple triple = new GraphTriple("cp1", "cp2", LABELNAME, true);
+		 final GraphTriple triple2 = new GraphTriple("cp2", "cp3", LABELNAME, true);
+		 final GraphTriple triple3 = new GraphTriple("cp3", "cp4", LABELNAME, true);
+		 
+		 final LearningTemplateResultSet tmp1 = new LearningTemplateResultSet();
+		 final LearningTemplateResultSet tmp2 = new LearningTemplateResultSet();
+		 
+		 tmp1.setNameOfTheLearningTemplate("template 1");
+		 tmp2.setNameOfTheLearningTemplate("template 2");
+		 
+		 tmp1.addTriple(triple, (String[]) Arrays.asList("cw").toArray());
+		 tmp1.addTriple(triple2, (String[]) Arrays.asList("cw").toArray());
+		 tmp1.addTriple(triple3, (String[]) Arrays.asList("cw").toArray());
+		 
+		 tmp2.addTriple(triple, (String[]) Arrays.asList("cw").toArray());
+		 
+		 System.out.println("template 1 with : cp1 - cp2 - cp3 - cp4");
+		 System.out.println("template 2 with : cp1 - cp2");
+		 Assert.assertEquals(200, LearningTemplateDao.createTemplate(tmp1));
+		 Assert.assertEquals(200, LearningTemplateDao.createTemplate(tmp2));
+		 
+		 final LearningTemplateResultSet result1 = LearningTemplateDao.getLearningProjectTemplate("template 1");
+		 final LearningTemplateResultSet result2 = LearningTemplateDao.getLearningProjectTemplate("template 2");
+
+		 Assert.assertNotNull(result1);
+		 Assert.assertNotNull(result2);
 	}
 }
