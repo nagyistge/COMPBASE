@@ -12,7 +12,7 @@ import java.util.Map;
  * Has a 2*n runtime
  */
 public class TreeGenerator {
-    public static  Node getTree(List<TreePair> inputList) {
+    public static Node getTree(List<TreePair> inputList) {
         HashMap<String, Node> tempMap = treeIfy(inputList);
         return rootify(tempMap);
     }

@@ -242,7 +242,7 @@ public abstract class DaoAbstractImpl implements Dao {
 
     @Override
     public int hashCode() {
-        return this.id.hashCode()+this.getClass().hashCode();
+        return this.id.hashCode();
     }
 
     @Override
@@ -262,6 +262,8 @@ public abstract class DaoAbstractImpl implements Dao {
         }
         return result.iterator().next();
     }
+
+
 
 
 }
