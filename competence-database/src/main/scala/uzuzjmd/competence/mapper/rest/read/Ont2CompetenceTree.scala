@@ -8,7 +8,6 @@ import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.persistence.validation.TextValidator
 import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.java.collections.{TreePair, _}
-
 import scala.collection.JavaConverters._
 import uzuzjmd.competence.config.Logging
 
@@ -31,7 +30,7 @@ object Ont2CompetenceTree extends Logging{
     val competenceLabel = classOf[Operator].getSimpleName;
     val f = convertNodeXMLTree (classOf[OperatorXMLTree]) _
     // TODO implement filter
-    return convertTree (competenceLabel, f(x=>true)(iconPathOperator))
+    return convertTree (competenceLabel, "Verb", filterData, f(x=>true)(iconPathOperator))
   }
 
   /**
@@ -44,13 +43,13 @@ object Ont2CompetenceTree extends Logging{
     val competenceLabel = classOf[Catchword].getSimpleName;
     val f = convertNodeXMLTree (classOf[CatchwordXMLTree]) _
     // TODO implement filter
-    return convertTree(competenceLabel, f(x=>true)(iconPathCatchword))
+    return convertTree(competenceLabel, "Stichwort", filterData, f(x=>true)(iconPathCatchword))
   }
 
   def getCompetenceTree(filterData: CompetenceTreeFilterData): java.util.List[CompetenceXMLTree] = {
     val competenceLabel = classOf[Competence].getSimpleName;
     val f = convertNodeXMLTree (classOf[CompetenceXMLTree]) _
-    return convertTree(competenceLabel, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
+    return convertTree(competenceLabel, "Kompetenz", filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
   }
 
   /**
@@ -61,13 +60,13 @@ object Ont2CompetenceTree extends Logging{
     * @tparam T
     * @return
     */
-  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, f: (Node) => T) : java.util.List[T] = {
-    val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel)
+  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, rootLabel:String, filterData: CompetenceTreeFilterData, f: (Node) => T) : java.util.List[T] = {
+    val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel, filterData)
     val nodesArray2 = nodesArray.asScala.filterNot(_.isEmpty)
     val nodesArray3 = nodesArray2.map(x => new TreePair(x.get(1), x.get(0)))
       .asJava
-    val rootNode = TreeGenerator.getTree(nodesArray3);
-    logger.debug(rootNode.toString);
+    val rootNode = uzuzjmd.java.collections.TreeGenerator.getTree(nodesArray3);
+    //logger.debug(rootNode.toStrinz);
     return (f(rootNode) :: Nil).asJava
   }
 
@@ -91,17 +90,8 @@ object Ont2CompetenceTree extends Logging{
   }
 
   def competenceNodeFilter (competenceFilterData : CompetenceTreeFilterData) (input : String) :  java.lang.Boolean = {
-     val competence = new Competence(input).getFullDao.asInstanceOf[Competence]
-     val catchwords = competenceFilterData.getSelectedCatchwordArray.asScala.map(x=> new Catchword(x));
-     val operators = competenceFilterData.getSelectedOperatorsArray.asScala.map(x=> new Operator(x))
-     val course = new CourseContext(competenceFilterData.getCourse)
-
      val textCorrect = TextValidator.isValidText(input,competenceFilterData.getTextFilter)
-     val catchwordsCorrect = competence.getCatchwords().containsAll(catchwords.asJava)
-     val operatorsCorrect = competence.getOperators.containsAll(operators.asJava)
-     val courseCorrect = course.getLinkedCompetences.contains(course)
-
-     return textCorrect && catchwordsCorrect && operatorsCorrect && courseCorrect
+     return textCorrect
   }
 
 

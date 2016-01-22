@@ -7,6 +7,7 @@ import uzuzjmd.competence.persistence.dao.SelfAssessment;
 import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
+import uzuzjmd.competence.service.rest.dto.CompetenceTreeFilterData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -251,7 +252,7 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
     }
 
     public SelfAssessment getSelfAssessment(Competence competence, User user) throws Exception {
-        String query = "MATCH (c:User{id:'"+user.getId()+"'}) MATCH (b:SelfCompetence)-[r1:AssessmentOfCompetence]->(a:Competence{id:'"+competence.getId()+"'}) MATCH (b)-[r2:AssessmentOfUser]->(c:User) return b LIMIT 50";
+        String query = "MATCH (c:User{id:'"+user.getId()+"'}) MATCH (b:SelfCompetence)-[r1:AssessmentOfCompetence]->(a:Competence{id:'"+competence.getId()+"'}) MATCH (b)-[r2:AssessmentOfUser]->(c:User) return b";
         ArrayList<HashMap<String, String>> result = issueNeo4JRequestHashMap(query);
         if (result == null) {
             return new SelfAssessment(competence, user, 0, false);
@@ -276,8 +277,19 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
      * @param label
      * @return
      */
-    public List<ArrayList<String>> getSubClassTriples(String label) throws Exception {
-        String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+") return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree)";
+    public List<ArrayList<String>> getSubClassTriples(String label, CompetenceTreeFilterData filterData) throws Exception {
+        String courseId = filterData.getCourse();
+        List<String> operators = filterData.getSelectedOperatorsArray();
+        List<String> catchwords = filterData.getSelectedCatchwordArray();
+        String futherMatches = "";
+        for (String catchword : catchwords) {
+            futherMatches +="MATCH (c:Catchword{id:'"+catchword+"'})-[r33:CatchwordOf]->(p)";
+        }
+        for (String operator : operators) {
+            futherMatches +="MATCH (c:Operator{id:'"+operator+"'})-[r44:OperatorOf]->(p)";
+        }
+
+        String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+")"+futherMatches+"MATCH (x:CourseContext{id:'"+courseId+"'})-[r33:CourseContextOf]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) LIMIT 25";
         return issueNeo4JRequestArrayListArrayList(query);
     }
 }
