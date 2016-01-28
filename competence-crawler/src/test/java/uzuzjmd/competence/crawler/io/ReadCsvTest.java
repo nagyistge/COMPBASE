@@ -9,6 +9,9 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.junit.Before;
+import scala.Array;
+import scala.collection.immutable.List;
+import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator;
 import uzuzjmd.competence.crawler.datatype.Model;
 import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
@@ -62,6 +65,15 @@ public class ReadCsvTest extends TestCase {
         model.scoreVariable(conn);
         model.varMetaResultToCsv("/development/scala_workspace/Wissensmodellierung/"
                 + "competence-crawler/varMeta.csv");
+
+    }
+
+    public void testTherasaurus() {
+        java.util.List<String> synonyms = OpenThesaurusSynonymCreator.getSysnonymsAsJava("Test");
+
+        for (String syn : synonyms) {
+            System.out.println(syn);
+        }
 
     }
 }

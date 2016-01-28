@@ -3,6 +3,7 @@ package uzuzjmd.competence.crawler.main;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.crawler.datatype.Model;
 import uzuzjmd.competence.crawler.io.ReadCsv;
 import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
@@ -15,7 +16,7 @@ import java.io.IOException;
  */
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
-    static private final String solrUrl = "http://localhost:8983/solr/basic";
+    static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test2";
     static private final String stichWortPath = "/development/scala_workspace/Wissensmodellierung/"
                 + "competence-crawler/stichwortUrl.csv";
     static private final String stichWortVarPath = "/development/scala_workspace/Wissensmodellierung/"
@@ -26,6 +27,7 @@ public class SolrApp {
             "/development/scala_workspace/Wissensmodellierung/competence-crawler/data.csv";
     public static void main(String[] args) throws Exception {
         DOMConfigurator.configure("/development/scala_workspace/Wissensmodellierung/competence-crawler/log4j.xml");
+        logger.debug(MagicStrings.ROOTPATH);
         logger.debug("Entering main");
 
         logger.info("Read out csv");
@@ -35,7 +37,9 @@ public class SolrApp {
         Model model = csv.convertToModel();
         logger.info("New Model instance. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
                 + model.varMetaSize());
-        model.deleteModelInNeo4J();
+        model.insertSynonyms();
+        logger.info("Model instance with Synonyms. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
+                + model.varMetaSize());
         nj.queryMyStatements(model.toNeo4JQuery());
         logger.info("The model has been put into Neo4J");
         logger.info("Create Query");

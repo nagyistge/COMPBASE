@@ -37,7 +37,7 @@ public class SolrConnector {
         SolrQuery solrQuery = new SolrQuery(query);
         solrQuery.set("indent", "true");
         solrQuery.set("rows", 10000);
-        solrQuery.setFields("id", "content", "title", "score", "url");
+        solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
 
         QueryResponse response = client.query(solrQuery);
