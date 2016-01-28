@@ -1,10 +1,11 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CompetenceTreeFilterData {
-	private List<String> selectedCatchwordArray;
-	private List<String> selectedOperatorsArray;
+	private List<String> selectedCatchwordArray = new LinkedList<>();
+	private List<String> selectedOperatorsArray = new LinkedList<>();
 	private String course;
 	private Boolean compulsory;
 	private String textFilter;
@@ -20,6 +21,10 @@ public class CompetenceTreeFilterData {
 		this.course = course;
 		this.compulsory = compulsory;
 		this.textFilter = textFilter;
+	}
+
+	public CompetenceTreeFilterData(String course) {
+		this.course = course;
 	}
 
 	public List<String> getSelectedCatchwordArray() {

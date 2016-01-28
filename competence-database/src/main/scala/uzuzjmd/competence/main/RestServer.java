@@ -9,12 +9,12 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
-import uzuzjmd.competence.logging.LogConfigurator;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
-import uzuzjmd.competence.service.rest.CompetenceServiceRestXML;
+import uzuzjmd.competence.util.CrossOriginResourceSharingFilter;
 
 import javax.ws.rs.ProcessingException;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -34,8 +34,7 @@ public class RestServer {
     }
 
     public static void startServer() throws IOException,
-            ProcessingException, URISyntaxException {
-        LogConfigurator.initLogger();
+            ProcessingException, URISyntaxException, BindException {
         logger.debug("Entering startServer");
         System.out
                 .println("usage is java - jar *.version.jar");
@@ -43,10 +42,13 @@ public class RestServer {
                 .println("plz configure evidenceserver.properties");
 
         ResourceConfig resourceConfig = new ResourceConfig(
-                CompetenceServiceRestXML.class,
                 CompetenceServiceRestJSON.class,
                 EvidenceServiceRestServerImpl.class);
         resourceConfig.register(JacksonFeature.class);
+
+        // add CORS header filter
+        resourceConfig.register(CrossOriginResourceSharingFilter.class);
+
 
 
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(new URI(
@@ -72,7 +74,7 @@ public class RestServer {
             System.out
                     .println("Test this with: "
                             + MagicStrings.RESTURLCompetence
-                            + "/competences/xml/competencetree/university/all/nocache");
+                            + "/competences/competencetree/university");
             logger.info("Press CTRL^C to exit..");
             Thread.currentThread().join();
         } catch (Exception e) {

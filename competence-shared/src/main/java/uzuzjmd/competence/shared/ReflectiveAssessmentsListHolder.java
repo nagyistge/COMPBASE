@@ -3,7 +3,6 @@ package uzuzjmd.competence.shared;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -62,7 +61,6 @@ public class ReflectiveAssessmentsListHolder implements
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getReflectiveAssessmentList().toString();
 	}
 }

@@ -1,250 +1,101 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import java.util.LinkedList
+import java.util
 
-import com.hp.hpl.jena.ontology.OntClass
-import uzuzjmd.competence.config.{Logging, MagicStrings}
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
-import uzuzjmd.competence.persistence.ontology.{CompObjectProperties, CompOntClass}
-import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
+import uzuzjmd.competence.config.MagicStrings
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, Operator}
+import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.persistence.validation.TextValidator
-import uzuzjmd.competence.service.rest.dto.{AbstractXMLTree, CatchwordXMLTree, CompetenceXMLTree, OperatorXMLTree}
+import uzuzjmd.competence.service.rest.dto._
+import uzuzjmd.java.collections.{TreePair, _}
+import scala.collection.JavaConverters._
+import uzuzjmd.competence.config.Logging
 
+object Ont2CompetenceTree extends Logging{
 
-import scala.collection.JavaConverters.{asScalaBufferConverter, asScalaIteratorConverter, seqAsJavaListConverter}
+  val neo4jqueryManager = new Neo4JQueryManagerImpl
+  val iconRootPath = MagicStrings.webapplicationPath
+  val iconPathCompetence = iconRootPath + "/icons/competence.png"
+  val iconPathOperator = iconRootPath + "/icons/filter.png"
+  val iconPathCatchword = iconRootPath + "/icons/filter.png"
 
-/**
- * Diese Klasse mappt die Kompetenzen auf einen Baum, der in GWT-anzeigbar ist
- */
-class Ont2CompetenceTree(selectedCatchwordArray: java.util.List[String], selectedOperatorsArray: java.util.List[String], course: String, compulsory: java.lang.Boolean, textFilter: String) extends ReadTransactional[Any, Any] with Logging {
-
-  val selectedOperatorIndividualstmp = selectedOperatorsArray.asScala.filterNot(_ == null).filterNot(_.trim().equals(""))
 
   /**
-   * Hilfsfunktion, um eine generisch spezifizierte Klasse zu instantiieren
-   */
-  private def instantiate[A](clazz: java.lang.Class[A])(args: AnyRef*): Any = {
-
-    val constructor = clazz.getDeclaredConstructors().toList.filter(x => x.getGenericParameterTypes().length == args.length).head
-
-    if (constructor.getGenericParameterTypes().length != 4) {
-      throw new Error("falschen Konstruktor rausgesucht")
-    }
-
-    if (args.length != 4) {
-      throw new Error("falsche Anzahl an Parametern übergeben")
-    }
-    constructor.setAccessible(true);
-
-    //    val constructor = clazz.getConstructors()(1)
-    //    val objects = ScalaHacks.getObjectArray(args)
-    //    val arg0 = objects(0);
-
-    try {
-      val instance = constructor.newInstance(args: _*)
-      return instance
-    } catch {
-      case e: Exception =>
-        println("hello my friend")
-    }
-
-    throw new Error("immer in hello fried-exception gelaufen")
+    * returns all the operators in the database as a tree
+ *
+    * @param filterData
+    * @return
+    */
+  def getOperatorXMLTree(filterData: CompetenceTreeFilterData): java.util.List[OperatorXMLTree] = {
+    val competenceLabel = classOf[Operator].getSimpleName;
+    val f = convertNodeXMLTree (classOf[OperatorXMLTree]) _
+    // TODO implement filter
+    return convertTree (competenceLabel, "Verb", filterData, f(x=>true)(iconPathOperator))
   }
 
   /**
-   * [A] the SubClass of AbstractXMLTree to be returned; can be CatchwordXMLTree, CompetenceXMLTree or OperatorXMLTree
-   * needs a Ontclass to start recursively collection subclasses
-   * needs label and iconpath in order to create the view
-   */
-  private def convertClassToAbstractXMLEntries[A <: AbstractXMLTree[A]](comp: CompOntologyManager, subclass: OntClass, label: String, iconPath: String, clazz: java.lang.Class[A], allow: (OntClass => Boolean), realTree: Boolean = true): A = {
-
-    val definitionString = CompOntologyAccessScala.getDefinitionString(subclass, comp) match {
-      case "" => label
-      case x  => x
-    }
-
-    val adaptedIconPath = MagicStrings.webapplicationPath + "/" + iconPath;
-
-    var result: A = instantiate[A](clazz)(definitionString, label, adaptedIconPath, new LinkedList).asInstanceOf[A]
-    if (subclass.hasSubClass() && !subclass.listSubClasses().asScala.toList.isEmpty) {
-      val subberclasses = subclass.listSubClasses(realTree).toList().asScala.filter(allow).filterNot(x => x.getURI().contains("Nothing")).map(x => convertClassToAbstractXMLEntries[A](comp, x, label, iconPath, clazz, allow)).toList
-      result = instantiate[A](clazz)(definitionString, label, adaptedIconPath, subberclasses.asJava).asInstanceOf[A]
-    }
-    if (clazz.equals(classOf[CompetenceXMLTree])) {
-      result.asInstanceOf[CompetenceXMLTree].setIsCompulsory(getCompulsory(comp, subclass))
-    }
-    return result
-
+    * returns all the catchwords in the database as a tree
+ *
+    * @param filterData
+    * @return
+    */
+  def getCatchwordXMLTree(filterData: CompetenceTreeFilterData): java.util.List[CatchwordXMLTree] = {
+    val competenceLabel = classOf[Catchword].getSimpleName;
+    val f = convertNodeXMLTree (classOf[CatchwordXMLTree]) _
+    // TODO implement filter
+    return convertTree(competenceLabel, "Stichwort", filterData, f(x=>true)(iconPathCatchword))
   }
 
-  def hasLinks(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
-    val util = comp.getUtil()
-
-    if (!(ontClass.listSubClasses().toList().asScala.filterNot { x => x.toString().equals("http://www.w3.org/2002/07/owl#Nothing") }.isEmpty)) {
-      val subClasses = ontClass.listSubClasses().toList()
-      logger.trace(subClasses)
-      return subClasses.asScala.exists { x => hasLinks(comp, x) }
-      //return true
-    }
-
-    logger.trace("HASLINKS called");
-
-    logger.trace("checking: " + ontClass.getLocalName);
-    logger.trace("selectedOperatorIndividualTMP is empty: " + selectedOperatorIndividualstmp.isEmpty)
-
-    val selectedOperatorIndividuals = selectedOperatorIndividualstmp.map(comp.getUtil().createSingleTonIndividualWithClass(_, true))
-    val selectedCatchwordIndividuals = selectedCatchwordArray.asScala.filterNot(_ == null).filterNot(_.trim().equals("")).map(comp.getUtil().createSingleTonIndividualWithClass(_, true))
-
-    logger.trace("selectedOperatorIndividualTs is empty: " + selectedOperatorIndividuals.isEmpty)
-
-    val catchwordResult = selectedCatchwordIndividuals.forall(util.existsObjectPropertyWithOntClass(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CatchwordOf))
-    logger.trace("catchwordFilter evaluates to: " + catchwordResult)
-
-    val operatorResult = selectedOperatorIndividuals.forall(util.existsObjectPropertyWithOntClass(_, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.OperatorOf))
-    logger.trace("operatorResult evaluates to: " + operatorResult)
-
-    val result = catchwordResult && operatorResult
-
-    logger.trace("HAS LINKS evaluates to: " + result)
-    return result
-  }
-
-  def allowedAndCourse(comp: CompOntologyManager, ontClass: OntClass): Boolean = {
-    logger.trace("ALLOWEDANDCOURSE called");
-    val util = comp.getUtil()
-    val competence = new Competence(comp, ontClass.getLocalName())
-    val courseIndividual = new CourseContext(comp, course).getIndividual
-
-    // TODO && competence.isAllowed() https://github.com/uzuzjmd/Wissensmodellierung/issues/21
-
-    return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf)
-  }
-
-  def hasLinksAndCourse(comp: CompOntologyManagerJenaImpl, ontClass: OntClass): Boolean = {
-    logger.trace("HASLINKSANDCOURSE called");
-    val util = comp.getUtil()
-    val courseIndividual = new CourseContext(comp, course).getIndividual
-    return hasLinks(comp, ontClass) && util.existsObjectPropertyWithIndividual(courseIndividual, util.createSingleTonIndividual(ontClass, true), CompObjectProperties.CourseContextOf)
-  }
-
-  def containsCatchword(ontClass: OntClass): Boolean = {
-    return true;
-  }
-
-  def containsOperator(ontClass: OntClass): Boolean = {
-    return true;
+  def getCompetenceTree(filterData: CompetenceTreeFilterData): java.util.List[CompetenceXMLTree] = {
+    val competenceLabel = classOf[Competence].getSimpleName;
+    val f = convertNodeXMLTree (classOf[CompetenceXMLTree]) _
+    return convertTree(competenceLabel, "Kompetenz", filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
   }
 
   /**
-   * returns the operatortree
-   */
-  def getOperatorXMLTree(): java.util.List[OperatorXMLTree] = {
-    return executeNoParamX[java.util.List[OperatorXMLTree]](getOperatorXMLTree)
+    * filters the result from the database and converts it into pairs of the subclass triples
+ *
+    * @param competenceLabel
+    * @param f
+    * @tparam T
+    * @return
+    */
+  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, rootLabel:String, filterData: CompetenceTreeFilterData, f: (Node) => T) : java.util.List[T] = {
+    val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel, filterData)
+    val nodesArray2 = nodesArray.asScala.filterNot(_.isEmpty)
+    val nodesArray3 = nodesArray2.map(x => new TreePair(x.get(1), x.get(0)))
+      .asJava
+    val rootNode = uzuzjmd.java.collections.TreeGenerator.getTree(nodesArray3);
+    //logger.debug(rootNode.toStrinz);
+    return (f(rootNode) :: Nil).asJava
   }
 
   /**
-   * returns the operatortree
-   */
-  def getOperatorXMLTree(comp: CompOntologyManager): java.util.List[OperatorXMLTree] = {
-    val operatorClass = comp.getUtil().getClass(CompOntClass.Operator, true);
-    val result = convertClassToAbstractXMLEntries[OperatorXMLTree](comp: CompOntologyManager, operatorClass, "Operator", "icons/filter.png", classOf[OperatorXMLTree], containsOperator)
-    val filteredResult = filterResults(result)
-    return filteredResult.asJava
-  }
-
-  /**
-   * returns the catchwordtree
-   */
-  def getCatchwordXMLTree(): java.util.List[CatchwordXMLTree] = {
-    return executeNoParamX[java.util.List[CatchwordXMLTree]](getCatchwordXMLTree)
-  }
-
-  def getCatchwordXMLTree(comp: CompOntologyManager): java.util.List[CatchwordXMLTree] = {
-    val catchwordClass = comp.getUtil().getClass(CompOntClass.Catchword, true);
-    val result = convertClassToAbstractXMLEntries[CatchwordXMLTree](comp, catchwordClass, "Catchwords", "icons/filter.png", classOf[CatchwordXMLTree], containsCatchword)
-    val filteredResult = filterResults(result)
-    return filteredResult.asJava
-  }
-
-  //  /**
-  //   * returns the competencetree
-  //   */
-  //  def getComptenceTree(): java.util.List[CompetenceXMLTree] = {
-  //    if (selectedCatchwordArray.isEmpty() && selectedOperatorsArray.isEmpty()) {
-  //      getCompetenceTreeHelper(hasLinks)
-  //    } else {
-  //      getCompetenceTreeHelperNoTree(hasLinks)
-  //    }
-  //  }
-
-  def filterCompetenceTree(input: List[CompetenceXMLTree]): List[CompetenceXMLTree] = {
-    logger.trace("FilterCompetenceTree called");
-
-    if (input.isEmpty || compulsory == null) {
-      return input;
+    * converts a Node to a xml tree
+ *
+    * @param iconPath
+    * @param node
+    * @tparam T
+    * @return
+    */
+  def convertNodeXMLTree[T <: AbstractXMLTree[T]] (clazz: Class[T])(nodeFilter : (String) => Boolean )(iconPath: String)(node : Node)  : T = {
+    val result =  clazz.getConstructor(classOf[String], classOf[String], classOf[String], classOf[java.util.List[T]]).newInstance(node.id, "", iconPath, new util.LinkedList[T]());
+    if (node.children != null && !node.children.isEmpty && nodeFilter(node.id)) {
+      val children: java.util.List[T] = node.children.asScala.map(x => convertNodeXMLTree (clazz)(nodeFilter)(iconPath)(x)).map(x=>x.asInstanceOf[T]).asJava
+      result.asInstanceOf[T].setChildren(children)
     } else {
-      val result = input.filter(x => x.getIsCompulsory().toString().equals(compulsory.toString))
-      result.foreach(x => x.setChildren(filterCompetenceTree(x.getChildren().asScala.toList).asJava))
-      return result
+      result.asInstanceOf[T].setChildren(new util.ArrayList[T]());
     }
-
+    return result
   }
 
-  /**
-   * Hilfsfunktion um Ergebnis zu säubern
-   */
-  private def filterResults[A <: AbstractXMLTree[A]](result: A): List[A] = {
-    val filteredResult = (result :: List.empty).filterNot(_ == null).map(TextValidator.purifyText(_, textFilter)).flatten
-    //.map(x => filterText(x))
-    filteredResult
+  def competenceNodeFilter (competenceFilterData : CompetenceTreeFilterData) (input : String) :  java.lang.Boolean = {
+     val textCorrect = TextValidator.isValidText(input,competenceFilterData.getTextFilter)
+     return textCorrect
   }
 
-  //  private filterCourseContext[A <: AbstractXMLTree[A]](result: A) : Boolean = {
-  //    result.getComptenceTree.
-  //    return false
-  //  }
 
-  private def getCompulsory(comp: CompOntologyManager, subclass: com.hp.hpl.jena.ontology.OntClass): Boolean = {
-    val util = comp.getUtil
-    return util.existsObjectPropertyWithIndividual(util.getIndividualForString(course), util.createSingleTonIndividual(subclass, true), CompObjectProperties.CompulsoryOf);
 
-  }
-
-  def getComptenceTreeForCourse(): java.util.List[CompetenceXMLTree] = {
-    executeNoParamX[java.util.List[CompetenceXMLTree]](getCompetenceTree)
-  }
-
-  def getCompetenceTree(comp: CompOntologyManager): java.util.List[CompetenceXMLTree] = {
-
-    //    val noTree = getCompetenceTreeHelperNoTree(comp, allowedAndCourse(comp, _))
-    val tree = getCompetenceTreeHelper(comp, allowedAndCourse(comp, _))
-    //    if (noTree.isEmpty() && tree.isEmpty()) {
-    //      return tree
-    //    } else {
-    //      tree.get(0).getChildren.addAll(noTree.get(0).getChildren)
-    //      return tree
-    //    }
-    return tree
-  }
-
-  private def getCompetenceTreeHelper(comp: CompOntologyManager, allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = comp.getUtil().getClass(CompOntClass.Competence, true);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](comp, catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow)
-    result.setIsCompulsory(compulsory);
-    val filteredResult = filterCompetenceTree(filterResults(result))
-    return filteredResult.asJava
-  }
-
-  private def getCompetenceTreeHelperNoTree(comp: CompOntologyManager, allow: (OntClass => Boolean)): java.util.List[CompetenceXMLTree] = {
-    // Klasse, in die rekursiv abgestiegen werden soll
-    val catchwordClass = comp.getUtil().getClass(CompOntClass.Competence, true);
-    val result = convertClassToAbstractXMLEntries[CompetenceXMLTree](comp, catchwordClass, "Kompetenz", "icons/competence.png", classOf[CompetenceXMLTree], allow, false)
-    result.setIsCompulsory(compulsory);
-    val filteredResult = filterCompetenceTree(filterResults(result))
-    return filteredResult.asJava
-  }
 
 }
 

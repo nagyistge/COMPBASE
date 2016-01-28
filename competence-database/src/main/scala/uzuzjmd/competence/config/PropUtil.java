@@ -4,12 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class PropUtil {
+
+	public static HashMap<String,String> defaults;
 
 	private static Logger logger = LogManager
 			.getLogger(PropUtil.class);
@@ -82,12 +85,7 @@ public class PropUtil {
 						.replaceAll("\"", "");
 	}
 
-	/**
-	 * adds the rootPath as prefix
-	 * 
-	 * @param key
-	 * @return
-	 */
+
 	public static String getRelativeOrAbsoluteFileProp(
 			String relativeKey, String absoluteKey) {
 		if (getProperties().getProperty(relativeKey) != null) {
@@ -101,27 +99,5 @@ public class PropUtil {
 		}
 	}
 
-	@Deprecated
-	public void configureLogger() {
-		/*
-		 * ConsoleAppender console = new ConsoleAppender(); // create appender
-		 * // configure the appender String PATTERN = "%d [%p|%c|%C{1}] %m%n";
-		 * console.setLayout(new PatternLayout(PATTERN));
-		 * console.setThreshold(Level.WARN); console.activateOptions(); // add
-		 * appender to any Logger (here is root)
-		 * Logger.getRootLogger().addAppender(console);
-		 * 
-		 * 
-		 * FileAppender fa = new FileAppender(); fa.setName("FileLogger");
-		 * fa.setFile("mylog.log"); fa.setLayout(new
-		 * PatternLayout("%d %-5p [%c{1}] %m%n")); fa.setThreshold(Level.WARN);
-		 * fa.setAppend(true); fa.activateOptions();
-		 * 
-		 * 
-		 * // add appender to any Logger (here is root)
-		 * Logger.getRootLogger().addAppender(fa); // repeat with all other
-		 * desired appenders
-		 */
 
-	}
 }

@@ -1,17 +1,11 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.owl.{CompOntologyAccessScala, CompOntologyManagerJenaImpl}
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.service.rest.dto.ReflectiveAssessmentChangeData
+import uzuzjmd.competence.shared.{ReflectiveAssessment, ReflectiveAssessmentsListHolder}
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.persistence.dao.SelfAssessment
-import uzuzjmd.competence.persistence.dao.TeacherRole
-import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.shared.ReflectiveAssessment
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder
 
 object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAssessmentChangeData] {
 
@@ -19,14 +13,14 @@ object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAsses
     execute(convertHelper _, reflectiveAssement)
   }
 
-  def convertHelper(comp: CompOntologyManager, reflectiveAssessment: ReflectiveAssessmentChangeData) {
-    val context = new CourseContext(comp, reflectiveAssessment.getGroupId);
-    val user = new User(comp, reflectiveAssessment.getUserName, new TeacherRole(comp), context, reflectiveAssessment.getUserName);
-    ReflectiveAssessmentHolder2Ont.convertAssessment(comp, user, context, reflectiveAssessment.getReflectiveAssessmentHolder);
+  def convertHelper(reflectiveAssessment: ReflectiveAssessmentChangeData) {
+    val context = new CourseContext(reflectiveAssessment.getGroupId);
+    val user = new User(reflectiveAssessment.getUserName, Role.teacher, context);
+    ReflectiveAssessmentHolder2Ont.convertAssessment(user, context, reflectiveAssessment.getReflectiveAssessmentHolder);
   }
 
-  def convertAssessment(comp: CompOntologyManager, user: User, courseContext: CourseContext, reflectiveAssessmentHolder: ReflectiveAssessmentsListHolder) {
-    reflectiveAssessmentHolder.getReflectiveAssessmentList().asScala.foreach(updateSingleAssessment(_, comp, user, courseContext))
+  def convertAssessment(user: User, courseContext: CourseContext, reflectiveAssessmentHolder: ReflectiveAssessmentsListHolder) {
+    reflectiveAssessmentHolder.getReflectiveAssessmentList().asScala.foreach(updateSingleAssessment(_, user, courseContext))
   }
 
   def convertAssessmentStringToIndex(assessment: String): java.lang.Integer = {
@@ -35,10 +29,10 @@ object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAsses
     return map
   }
 
-  def updateSingleAssessment(reflectiveAsssessment: ReflectiveAssessment, comp: CompOntologyManager, user: User, courseContext: CourseContext) = {
-    val competence = new Competence(comp, reflectiveAsssessment.getCompetenceDescription())
-    val selfAssnew = new SelfAssessment(comp, CompOntologyAccessScala.createIdentifierForAssessment(user, competence), competence, user, convertAssessmentStringToIndex(reflectiveAsssessment.getAssessment()), reflectiveAsssessment.getIsLearningGoal())
-    selfAssnew.persist
+  def updateSingleAssessment(reflectiveAssessment: ReflectiveAssessment, user: User, courseContext: CourseContext) = {
+    val competence = new Competence(reflectiveAssessment.getCompetenceDescription())
+    val selfAssessment = new SelfAssessment(competence, user, convertAssessmentStringToIndex(reflectiveAssessment.getAssessment()), reflectiveAssessment.getIsLearningGoal())
+    selfAssessment.persist
 
   }
 }

@@ -59,3 +59,4 @@ competence-database-servlet/competence-servlet/.cache-main
 competence-database-servlet/competence-servlet/.settings/org.eclipse.wst.common.component
 mymodelrdf.owl
 competence-webapp/uzuzjmd.competence.gui/src/main/webapp/competence_webapp/competence_webapp.nocache.js
+.idea*

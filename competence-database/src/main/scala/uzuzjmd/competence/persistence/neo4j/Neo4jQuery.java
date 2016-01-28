@@ -29,10 +29,10 @@ public class Neo4jQuery {
 
     //Please if you update queries insert the size of needed arguments in sizeOfArguments
     static private final String[] queries = new String[]{
-            "MERGE ({0}:{1} {2})",
+            "MERGE ({0}{1} {2})",
             "SET {0}.{1}={2}",
             "RETURN {0}",
-            "MATCH ({0}:{1} {2})",
+            "MATCH ({0}{1} {2})",
             "MATCH ",
             "MATCH ({0} {1})",
             "CREATE ({0})-[{1}:{2}]->({3})",

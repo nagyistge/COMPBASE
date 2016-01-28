@@ -1,10 +1,10 @@
 package uzuzjmd.competence.persistence.validation
 
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
 import uzuzjmd.competence.persistence.dao.Competence
+
 import scala.collection.JavaConverters._
 
-case class CompetenceGraphValidator(comp: CompOntologyManager, addedCompetence: Competence, superCompetences: java.util.List[Competence], subCompetences: java.util.List[Competence]) {
+case class CompetenceGraphValidator(addedCompetence: Competence, superCompetences: java.util.List[Competence], subCompetences: java.util.List[Competence]) {
   var explanationText = "ok!"
 
   def isValid(): Boolean = {
@@ -33,7 +33,7 @@ case class CompetenceGraphValidator(comp: CompOntologyManager, addedCompetence: 
   }
 
   def checkAddedIsNotSuperCompetenceOfSuperCompetencesHelper(superCompetences: Competence)(addedCompetence: Competence): Boolean = {
-    if (addedCompetence.isSuperClass(superCompetences)) {
+    if (addedCompetence.isSuperClassOf(superCompetences)) {
       val errorIntroText = "Die Kompetenz" + addedCompetence.getDefinition + "ist eine Oberkompetenz der ausgewählten Oberkompetenzen. Folgender Pfad stellt das Problem dar:        "
       val badPath = addedCompetence.getShortestPathToSubCompetence(superCompetences).asScala.map(_.getDefinition).reduce((a, b) => "#" + a + "#" + " ist Unterkompetenz von " + "#" + b + "#" + "       ")
       explanationText = errorIntroText + badPath
@@ -52,7 +52,7 @@ case class CompetenceGraphValidator(comp: CompOntologyManager, addedCompetence: 
 
   def checkAddedIsNotSubCompetenceOfSubCompetencesHelper(subCompetence: Competence)(addedCompetence: Competence): Boolean = {
 
-    if (addedCompetence.isSubClass(subCompetence)) {
+    if (addedCompetence.isSubClassOf(subCompetence)) {
       val errorIntroText = "Die Kompetenz #" + addedCompetence.getDefinition + "# ist eine Unterkompetenz der ausgewählten Unterkompetenzen. Folgender Pfad stellt das Problem dar:        "
       val badPath = subCompetence.getShortestPathToSubCompetence(addedCompetence).asScala.map(_.getDefinition).reduce((a, b) => "#" + a + "#" + " ist Unterkompetenz von " + "#" + b + "#" + "       ")
       explanationText = errorIntroText + badPath
@@ -66,7 +66,7 @@ case class CompetenceGraphValidator(comp: CompOntologyManager, addedCompetence: 
   }
 
   def checkSuperCompetenceAreNotSubCompetencesOfSubCompetencesHelper(superCompetence: Competence, subCompetence: Competence): Boolean = {
-    if (superCompetence.isSubClass(subCompetence)) {
+    if (superCompetence.isSubClassOf(subCompetence)) {
       val errorIntroText = "Die Kompetenz: #" + superCompetence.getDefinition + "# ist eine Unterkompetenz der ausgewählten Unterkompetenzen. Folgender Pfad stellt das Problem dar:        "
       val badPath = subCompetence.getShortestPathToSubCompetence(superCompetence).asScala.map(_.getDefinition).reduce((a, b) => "#" + a + "#" + " ist Unterkompetenz von " + "#" + b + "#" + "       ")
       explanationText = errorIntroText + badPath

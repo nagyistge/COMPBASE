@@ -25,5 +25,6 @@ public class MyRESTAPIApp extends ResourceConfig {
 
 		logger.info("Initiated Logger");
 		logger.info("Initiated Server");
+		logger.info("Initiated Server");
 	}
 }

@@ -1,3 +1,0 @@
-- Gruppenmitglieder: Tony Stolzenburg, Thomas Wendt, Peter Mahns
-- Diese Version der App ist von Tony Stolzenburg und beinhaltet die zusätzlichen Funktionen, um für das Modul 7 LP zu bekommen.
-- Die Dokumentation wurde von Thomas bzw. Peter hochgeladen.

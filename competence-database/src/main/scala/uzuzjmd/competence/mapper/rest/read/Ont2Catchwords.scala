@@ -1,7 +1,9 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.Competence
+
+import scala.collection.JavaConverters._
 
 /**
  * @author dehne
@@ -12,9 +14,10 @@ object Ont2Catchwords extends ReadTransactional[String, String] {
     return execute(getCatchwords, forCompetence)
   }
 
-  def getCatchwords(comp: CompOntologyManager, forCompetence: String): String = {
-    val competence = new Competence(comp, forCompetence, forCompetence, null);
-    val catchwords = competence.getCatchwords();
+
+  def getCatchwords(forCompetence: String): String = {
+    val competence = new Competence(forCompetence);
+    val catchwords = competence.getCatchwords().asScala;
 
     var result: String = "";
     if (!catchwords.isEmpty) {
@@ -23,7 +26,6 @@ object Ont2Catchwords extends ReadTransactional[String, String] {
       }
       result = result.substring(0, result.length() - 1);
     }
-
     return result;
   }
 }

@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
 
 /**
  * @author dehne
@@ -13,8 +12,8 @@ object DeleteLearningTemplateinOnt extends WriteTransactional[String] {
     execute(convertHelper _, changes)
   }
 
-  def convertHelper(comp: CompOntologyManager, changes: String) {
-    val learningProjectTemplate = new LearningProjectTemplate(comp, changes, null, null)
+  def convertHelper(changes: String) {
+    val learningProjectTemplate = new LearningProjectTemplate(changes)
     learningProjectTemplate.delete
   }
 }
