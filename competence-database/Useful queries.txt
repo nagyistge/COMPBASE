@@ -1,0 +1,3 @@
+USEFUL QUERIES
+
+MATCH ()-[r:SuggestedCompetencePrerequisiteOf]->(a), (b)-[r2:CatchwordOf]->(a) RETURN r,r2 LIMIT 25

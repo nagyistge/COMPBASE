@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.dao.{CourseContext, SelectedLearningProjectTemplate, TeacherRole, User}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.dao.{CourseContext, Role, User}
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared.StringList
 
@@ -14,17 +14,13 @@ object Ont2SelectedLearningTemplate extends ReadTransactional[LearningTemplateDa
     return execute(convertHelper _, changes)
   }
 
-  def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData): StringList = {
+  def convertHelper(changes: LearningTemplateData): StringList = {
     if (changes.getGroupId == null) {
       changes.setGroupId("university")
     }
-    val context = new CourseContext(comp, changes.getGroupId);
-    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
-    val selected = new SelectedLearningProjectTemplate(comp, user, context, null, null);
-    if (!selected.exists()) {
-      return new StringList
-    }
-    val result = selected.getAssociatedTemplatesAsStringList();
-    return result;
+    val context = new CourseContext(changes.getGroupId);
+    val user = new User(changes.getUserName, Role.teacher, context);
+    val learningTemplate = user.getAssociatedLearningProjectTemplateIds()
+    return new StringList(learningTemplate)
   }
 }

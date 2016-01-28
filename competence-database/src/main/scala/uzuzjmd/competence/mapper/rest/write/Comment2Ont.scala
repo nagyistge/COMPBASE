@@ -1,11 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.Comment
-import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.persistence.dao.DaoFactory
-import uzuzjmd.competence.persistence.dao.User
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
 import uzuzjmd.competence.service.rest.dto.CommentData
 
 /**
@@ -17,12 +13,10 @@ object Comment2Ont extends RoleConverter with WriteTransactional[CommentData] {
     execute(createComment _, data)
   }
 
-  def createComment(comp: CompOntologyManager, data: CommentData) {
-    val creatorRole2 = convertRole(data.getRole, comp);
-    val coursecontext2 = new CourseContext(comp, data.getCourseContext);
-    val creator2 = new User(comp, data.getUser, creatorRole2, coursecontext2, data.getUser);
-    val abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(comp, data.getLinkId);
-    val comment = new Comment(comp, data.getText, creator2, System.currentTimeMillis(), data.getText);
+  def createComment(data: CommentData) {
+    val creator2 = new User(data.getUser);
+    val abstractEvidenceLink = new AbstractEvidenceLink(data.getLinkId)
+    val comment = new Comment(data.getText, creator2, System.currentTimeMillis());
     comment.persist();
     abstractEvidenceLink.linkComment(comment);
   }

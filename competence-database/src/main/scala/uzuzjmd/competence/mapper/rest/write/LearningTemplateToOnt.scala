@@ -1,22 +1,24 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import javax.ws.rs.WebApplicationException
+import java.util
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, LearningProjectTemplate, SelectedLearningProjectTemplate, TeacherRole, User}
 import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao._
+import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
+import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
-import uzuzjmd.competence.shared.dto.{Graph, GraphTriple, LearningTemplateResultSet}
+import uzuzjmd.competence.shared.dto.{GraphTriple, LearningTemplateResultSet}
+import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 
 import scala.collection.JavaConverters._
 
 /**
- * @author dehne
- *
- * Dieses Objekt konvertiert
- */
+  * @author dehne
+  *
+  *         This object saves a learning template in the database
+  */
 object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] with PerformanceTimer[LearningTemplateData, Unit] {
 
   def convert(changes: LearningTemplateData) {
@@ -24,71 +26,78 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     execute(convertHelper _, changes)
   }
 
-  private def convertHelper1(comp: CompOntologyManager, changes: LearningTemplateData) {
-    val context = new CourseContext(comp, changes.getGroupId);
+  private def convertHelper1(changes: LearningTemplateData) {
+    val context = new CourseContext(changes.getGroupId);
     context.persist()
-    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+    val user = new User(changes.getUserName, Role.teacher, context);
     user.persist()
-    context.createEdgeWith(CompObjectProperties.CourseContextOf, user)
+    context.createEdgeWith(Edge.CourseContextOf, user)
   }
 
-  def convertLearningTemplateResultSet(learningTemplateResultSet: LearningTemplateResultSet) {
-    executeX[LearningTemplateResultSet](convertLearningTemplateResultSet, learningTemplateResultSet)
-  }
-
-  private def convertHelper(comp: CompOntologyManager, changes: LearningTemplateData) {
-
-    val context = new CourseContext(comp, changes.getGroupId);
-    val user = new User(comp, changes.getUserName, new TeacherRole(comp), context, changes.getUserName);
+  private def convertHelper(changes: LearningTemplateData) {
+    val context = new CourseContext(changes.getGroupId);
+    val user = new User(changes.getUserName, Role.teacher, context);
     if (!user.exists()) {
       throw new UserNotExistsException
     }
-
     if (!context.exists()) {
       throw new ContextNotExistsException
     }
-    val selected = new SelectedLearningProjectTemplate(comp, user, context, null, null);
-    selected.persist();
-    val learningTemplate = new LearningProjectTemplate(comp, changes.getSelectedTemplate, null, changes.getSelectedTemplate);
-    selected.addAssociatedTemplate(learningTemplate);
+    val template = new LearningProjectTemplate(changes.getSelectedTemplate);
+    template.createEdgeWith(user, Edge.UserOfLearningProjectTemplate);
   }
 
-  private def convertLearningTemplateResultSet(comp: CompOntologyManager, learningTemplateResultSet: LearningTemplateResultSet) {
-    convertLearningTemplate(comp, learningTemplateResultSet.getResultGraph, learningTemplateResultSet.getCatchwordMap, learningTemplateResultSet.getNameOfTheLearningTemplate)
-  }
+  def toNode: (GraphTriple) => String = _.toNode
 
-  private def convertLearningTemplate(comp: CompOntologyManager, graph: Graph, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]], learningTemplateName: String) {
-    if (graph != null) {
-      if (graph.triples != null) {
-        if (!graph.triples.asScala.forall { x => tripleCatchwordMap.keySet().asScala.contains(x) }) {
-          logger.error("The triples are: " + graph.triples)
-          val theProblemTriple = graph.triples.asScala.filter(x => tripleCatchwordMap.keySet().asScala.contains(x) )
-          logger.error("the problem triple is:" + theProblemTriple)
-          throw new WebApplicationException(new Exception("All the triples must be contained in the catchwordMap"))
-        }
+  def fromNode: (GraphTriple) => String = _.fromNode
 
-        graph.triples.asScala.foreach { x => convertTriple(x, comp, tripleCatchwordMap) }
-        val template = new LearningProjectTemplate(comp, learningTemplateName, graph.nodes.asScala.map(x => new Competence(comp, x.getLabel, x.getLabel, null)).toList, learningTemplateName)
-        template.persist()
+  @throws[ContainsCircleException]
+  def convertLearningTemplateResultSet(changes: LearningTemplateResultSet): Unit = {
+    val validator = new LearningTemplateValidation(changes)
+    if (changes.getResultGraph != null && changes.getResultGraph.triples != null && !changes.getResultGraph.triples.isEmpty) {
+
+      if (!validator.isValid) {
+        throw new ContainsCircleException
       }
+
+      // case full set is given
+      val triples: util.Set[GraphTriple] = changes.getResultGraph.triples
+
+      val competences = triples.asScala.map(x => x.fromNode :: x.toNode :: Nil).flatten.toList.distinct.map(x => new Competence(x)).view
+      competences.foreach(_.persist())
+      val template = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate, competences.asJava);
+      template.persistMore()
+
+      // create the relations maybe use batch update if it is too slow
+      val manager = new Neo4JQueryManagerImpl;
+      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, Edge.SuggestedCompetencePrerequisiteOf, x.toNode))
+
+      // create Catchword relations
+      val map: util.HashMap[GraphTriple, Array[String]] = changes.getCatchwordMap
+      createCatchwordRelations(map, toNode)
+      createCatchwordRelations(map, fromNode)
     }
-    
-    else {
-        val learningProjectTemplate = new LearningProjectTemplate(comp, learningTemplateName, null, null);      
-        learningProjectTemplate.persist()
+
+    // case only root was given
+    if (changes.getRoot != null) {
+      val root: String = changes.getRoot.getLabel;
+      val template2 = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate);
+      template2.persist()
+      val rootDao = new Competence(root, template2);
+      rootDao.persist()
+      template2.addCompetenceToProject(rootDao)
+    } else {
+      val template2 = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate);
+      template2.persist()
     }
   }
 
-  private def convertTriple(triple: GraphTriple, comp: CompOntologyManager, tripleCatchwordMap: java.util.HashMap[GraphTriple, Array[String]]) {
-    val competenceFrom = new Competence(comp, triple.fromNode, triple.fromNode, null)
-    val competenceTo = new Competence(comp, triple.toNode, triple.toNode, null)
-    competenceTo.addSuggestedCompetenceRequirement(competenceFrom)
-    val catchwords = tripleCatchwordMap.get(triple)
 
-    catchwords.foreach { x => competenceFrom.addCatchword(new Catchword(comp, x, x)) }
-    catchwords.foreach { x => competenceTo.addCatchword(new Catchword(comp, x, x)) }
-    competenceTo.persistManualCascades(true)
-    competenceFrom.persistManualCascades(true)
+  def createCatchwordRelations(map: util.HashMap[GraphTriple, Array[String]], f: (GraphTriple => String)): Unit = {
+    val competenceCatchwords = map.keySet().asScala.foreach(x => new Competence(f(x)).persist().createEdgeWithAll(getCatchwordsFromMap(map, x), Edge.CatchwordOf))
   }
 
+  private def getCatchwordsFromMap(map: util.HashMap[GraphTriple, Array[String]], triple: GraphTriple): util.List[Dao] = {
+    return map.get(triple).map(y => new Catchword(y).persist()).toList.asJava
+  }
 }

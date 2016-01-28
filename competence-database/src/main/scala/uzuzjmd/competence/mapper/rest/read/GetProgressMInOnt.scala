@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.service.rest.dto.CourseData
 import uzuzjmd.competence.shared.dto.ProgressMap
 
@@ -13,8 +13,8 @@ object GetProgressMInOnt extends ReadTransactional[CourseData, ProgressMap] {
     return execute(convertGetProgressMInOnt _, changes)
   }
 
-  def convertGetProgressMInOnt(comp: CompOntologyManager, changes: CourseData): ProgressMap = {
-    val map = new Ont2ProgressMap(comp, changes.getCourse, changes.getCompetences);
+  def convertGetProgressMInOnt(changes: CourseData): ProgressMap = {
+    val map = new Ont2ProgressMap(changes.getCourse, changes.getCompetences);
     val result = map.getProgressMap();
     return result
   }

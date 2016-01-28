@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, WriteTransactional}
-import uzuzjmd.competence.persistence.owl.CompOntologyManagerJenaImpl
-import uzuzjmd.competence.persistence.dao.DaoFactory
+import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
+import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
 import uzuzjmd.competence.service.rest.dto.LinkValidationData
 
 /**
@@ -14,9 +13,9 @@ object HandleLinkValidationInOnt extends WriteTransactional[LinkValidationData]{
     execute(convertHandleLinkValidationInOnt _, change)
   }
   
-  def convertHandleLinkValidationInOnt(comp: CompOntologyManager, changes: LinkValidationData) {
-    val abstractEvidenceLink = DaoFactory.getAbstractEvidenceDao(comp, changes.getLinkId);
-		abstractEvidenceLink.addDataField(abstractEvidenceLink.ISVALIDATED, changes.getIsValid);
-
+  def convertHandleLinkValidationInOnt(changes: LinkValidationData) {
+    val abstractEvidenceLink = new AbstractEvidenceLink(changes.getLinkId)
+    abstractEvidenceLink.setValidated(changes.getIsValid)
+    abstractEvidenceLink.persist()
   }
 }

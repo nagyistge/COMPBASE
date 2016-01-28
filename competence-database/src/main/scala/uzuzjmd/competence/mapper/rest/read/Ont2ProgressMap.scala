@@ -1,50 +1,46 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.CompOntologyManager
-import uzuzjmd.competence.persistence.dao.{CourseContext, StudentRole, User}
+import java.{lang, util}
+
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext, Role}
 import uzuzjmd.competence.shared.dto.ProgressMap
 
-import scala.collection.JavaConverters.{mapAsJavaMapConverter, seqAsJavaListConverter}
+import scala.collection.JavaConverters._
+import scala.collection.mutable
 
-
-class Ont2ProgressMap(comp: CompOntologyManager, val course: String, val selectedCompetences: java.util.List[String]) {
-  val courseDao = new CourseContext(comp, course)
-  val linkedCompetences = courseDao.getLinkedCompetences
-  val userOfCourseContext = courseDao.getLinkedUser.filter(x => x.role.equals(new StudentRole(comp)))
+class Ont2ProgressMap(val course: String, val selectedCompetences: java.util.List[String]) {
+  val courseDao = new CourseContext(course)
+  val linkedCompetences: mutable.Buffer[Competence] = courseDao.getLinkedCompetences.asScala
+  val userOfCourseContext = courseDao.getLinkedUser.asScala.filter(x => x.getRole.equals(Role.student))
 
   def getProgressMap(): ProgressMap = {
     val numberOfLinks = getNumberOfCompetencesLinkedToCourse
     if (numberOfLinks == 0) {
       return new ProgressMap();
     }
-
-    val resultScala: Map[User, java.lang.Double] = getUserNumberOfLinksMap.mapValues(x => Math.round(((x.toFloat / getNumberOfCompetencesLinkedToCourse.toFloat) * 100)))
-    val resultScala2 = resultScala.map(x => (x._1.getDataField(x._1.NAME), x._2))
-    val resultJava = new ProgressMap();
-    resultJava.putAll(resultScala2.asJava)
-    return resultJava
+    val resultScala: util.Map[String, lang.Double] = getUserNumberOfLinksMap.mapValues(x => new java.lang.Double(Math.round((x.toFloat / getNumberOfCompetencesLinkedToCourse().toFloat) * 100))).asJava
+    val result = new ProgressMap
+    result.putAll(resultScala)
+    return result
   }
 
-  def getNumberOfCompetencesLinkedToCourse(): Integer = {
+  def getNumberOfCompetencesLinkedToCourse(): Int = {
     if (selectedCompetences.isEmpty() || selectedCompetences == null) {
       return linkedCompetences.length
     }
-    return linkedCompetences.filter(x => selectedCompetences.contains(x.getDataField(x.DEFINITION))).length
+    return linkedCompetences.filter(x => selectedCompetences.contains(x.getDefinition)).length
   }
 
-  def getUserNumberOfLinksMap(): Map[User, Int] = {
-
+  def getUserNumberOfLinksMap(): Map[String, Int] = {
     if (selectedCompetences.isEmpty() || selectedCompetences == null) {
       val result = userOfCourseContext.
-        map(x => x.getFullDao).
-        map(x => (x -> x.getAssociatedLinks.filter(link => link.getAllCourseContexts.contains(courseDao)).length)).toMap
-      return result
+        map(x => (x.getName -> x.getAssociatedLinks.asScala.filter(link => link.getAllCourseContexts.contains(courseDao)).length))
+      return result.toMap
     }
 
     val result = userOfCourseContext.
-      map(x => x.getFullDao).
-      map(x => (x -> x.getAssociatedLinks.
-        filter(y => selectedCompetences.containsAll(y.getAllLinkedCompetences.map(competence => competence.getDataField(competence.DEFINITION)).asJava)).
+      map(x => (x.getName -> x.getAssociatedLinks.asScala.
+        filter(y => selectedCompetences.containsAll(y.getAllLinkedCompetences.asScala.map(competence => competence.getDefinition).asJava)).
         filter(link => link.getAllCourseContexts.contains(courseDao)).length)).toMap
     return result
   }

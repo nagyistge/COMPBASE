@@ -1,7 +1,10 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
-import uzuzjmd.competence.persistence.ontology.CompOntClass
+import java.util
+
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
+import uzuzjmd.competence.persistence.neo4j.{Neo4JQueryManagerImpl}
+import uzuzjmd.competence.persistence.ontology.Label
 import uzuzjmd.competence.shared.StringList
 
 /**
@@ -9,12 +12,13 @@ import uzuzjmd.competence.shared.StringList
  */
 object Ont2LearningTemplates extends ReadTransactional[Any, StringList] {
   def convert(): StringList = {
-    return executeNoParam(getLearningTemplates _)
+    return getLearningTemplates()
   }
 
-  private def getLearningTemplates(comp: CompOntologyManager): StringList = {
-    val result = comp.getUtil().getAllInstanceDefinitions(CompOntClass.LearningProjectTemplate);
-    val learningTemplates = new StringList(result);
+  private def getLearningTemplates(): StringList = {
+    val manager = new Neo4JQueryManagerImpl()
+    val tmp: util.List[String] = manager.getAllInstanceDefinitions(Label.LearningProjectTemplate)
+    val learningTemplates = new StringList(tmp);
     return learningTemplates
   }
 }

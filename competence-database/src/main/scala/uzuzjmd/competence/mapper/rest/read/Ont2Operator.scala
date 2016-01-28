@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.Competence
 
 /**
@@ -12,12 +12,12 @@ object Ont2Operator extends ReadTransactional[String, String] {
     return execute(getOperator, forCompetence)
   }
 
-  def getOperator(comp: CompOntologyManager, forCompetence: String): String = {
-    val competence = new Competence(comp, forCompetence, forCompetence, null);
+  def getOperator(forCompetence: String): String = {
+    val competence = new Competence(forCompetence);
     val operators = competence.getOperators()
     var result: String = "";
     if (!operators.isEmpty) {
-      result = operators.head.getDefinition();
+      result = operators.iterator().next().getDefinition();
     }
     return result;
   }

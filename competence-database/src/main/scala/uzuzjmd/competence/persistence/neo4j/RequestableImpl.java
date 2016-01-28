@@ -3,17 +3,15 @@ package uzuzjmd.competence.persistence.neo4j;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.config.MagicStrings;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.xml.transform.Result;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+
 
 /**
  * Created by carl on 16.12.15.
@@ -36,11 +34,25 @@ public class RequestableImpl<T> implements Requestable<T>{
         if (result.get("results").get(0).get("data").isEmpty()) {
             return null;
         } else {
-            return result.get("results").get(0).get("data").get(0).get("row");
+            return extractValues(result);
         }
     }
 
-    private LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> getLinkedHashMapFromRest(String payload) {
+    protected T extractValues(LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> result) {
+        ArrayList rows =  result.get("results").get(0).get("data");
+        if (rows.size() == 1) {
+            return (T) ((LinkedHashMap)rows.get(0)).get("row");
+        }
+        ArrayList<LinkedHashMap<String, T>> temp1 = result.get("results").get(0).get("data");
+        ArrayList<T> myResult = new ArrayList<T>();
+        for (LinkedHashMap<String, T> stringTLinkedHashMap : temp1) {
+            LinkedHashMap<String, ArrayList<T>> temp2 = (LinkedHashMap<String, ArrayList<T>>)  stringTLinkedHashMap;
+            myResult.add(temp2.get("row").get(0));
+        }
+        return (T) myResult;
+    }
+
+    protected LinkedHashMap<String, ArrayList<LinkedHashMap<String, ArrayList<LinkedHashMap<String, T>>>>> getLinkedHashMapFromRest(String payload) {
         Client client2 = ClientBuilder.newClient();
         WebTarget target2 = client2.target(txUri);
         return target2.request(

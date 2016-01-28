@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uzuzjmd.competence</groupId>
     <artifactId>competence-database</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>${project.artifactId}</name>
     <description>A RDf based competence database</description>
     <inceptionYear>2014</inceptionYear>

@@ -1,5 +1,6 @@
 package uzuzjmd.competence.comparison;
 
+
 import uzuzjmd.competence.persistence.dao.Competence;
 
 /**

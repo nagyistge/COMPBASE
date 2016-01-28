@@ -16,9 +16,10 @@
   
   <modules>
 	<module>../competence-shared</module>
-	<module>../competence-webapp/uzuzjmd.competence.gui</module>
-<!-- 	<module>../competence-portlet/liferay</module>  	 -->
   	<module>../competence-database</module>
+    <module>../competence-reflexion-learner</module>
+    <module>../competence-reflexion-teacher</module>
+    <module>../competence-tests</module>
 	<module>../competence-database-servlet/competence-servlet</module>
     <module>../competence-crawler</module>
   </modules>

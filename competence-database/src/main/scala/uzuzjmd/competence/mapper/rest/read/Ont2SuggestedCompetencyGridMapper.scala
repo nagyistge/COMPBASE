@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.read
 
 import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.Edge
 
 import scala.collection.mutable.Buffer
 
@@ -23,7 +23,7 @@ object Ont2SuggestedCompetencyGridMapper extends Logging {
   }
 
   def reorderPairs(pair: (Competence, Competence)): (Competence, Competence) = {
-    if (pair._2.hasEdge(CompObjectProperties.SuggestedCompetencePrerequisiteOf, pair._1)) {
+    if (pair._2.hasEdge(Edge.SuggestedCompetencePrerequisiteOf, pair._1)) {
       return (pair._2, pair._1)
     } else {
       return pair

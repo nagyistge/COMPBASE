@@ -1,45 +1,33 @@
 package uzuzjmd.competence.service.rest;
 
-import uzuzjmd.competence.datasource.rcd.generated.Rdceo;
+import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
+import uzuzjmd.competence.persistence.dao.Competence;
+import uzuzjmd.competence.persistence.dao.CourseContext;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.*;
-import uzuzjmd.competence.service.soap.CompetenceServiceImpl;
-import uzuzjmd.competence.shared.dto.CompetenceLinksMap;
-import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
-import uzuzjmd.competence.shared.dto.ProgressMap;
+import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
+import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.dto.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 
 /**
  * Root resource (exposed at "competences" path)
  */
-@Path("/competences/json")
+@Path("/competences")
 public class CompetenceServiceRestJSON {
 
-    /**
-     * Lists all competences in the RDCEO Standard Format
-     *
-     * @return List of competences in RDCEO
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/all")
-    public List<Rdceo> getRdceo() {
-        System.out.println("Competences queried (rest)");
-        // return "Got it!";
-        CompetenceServiceImpl competenceServiceImpl = new CompetenceServiceImpl();
-        return new ArrayList<Rdceo>(
-                Arrays.asList(competenceServiceImpl
-                        .getCompetences()));
+    public CompetenceServiceRestJSON() {
+        DBInitializer.init();
     }
 
     /**
@@ -61,6 +49,31 @@ public class CompetenceServiceRestJSON {
         HierarchieChangesToOnt.convert(changeSet);
         return Response.ok("updated taxonomy").build();
     }
+
+
+    /**
+     * Get the GUI Competence TREE
+     *
+     * @param course             the (course) context of the competences ("university") for no
+     *                           filter
+     * @param selectedCatchwords
+     * @param selectedOperators
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/competencetree/{context}")
+    public List<CompetenceXMLTree> getCompetenceTree(
+            @PathParam("context") String course,
+            @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+            @QueryParam(value = "selectedOperators") List<String> selectedOperators,
+            @QueryParam("textFilter") String textFilter) {
+
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter);
+        List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
+        return result;
+    }
+
 
     /**
      * updates the competence hierarchy
@@ -116,13 +129,18 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @PathParam("compulsory") String compulsory,
             @QueryParam(value = "competences") final List<String> competences,
-            @QueryParam(value = "requirements") String requirements) {
+            @QueryParam(value = "requirements") String requirements) throws Exception {
 
-        Boolean compulsoryBoolean = RestUtil
+        /* Boolean compulsoryBoolean = RestUtil
                 .convertCompulsory(compulsory);
-        CompetenceServiceWrapper.linkCompetencesToCourse(
-                course, competences, compulsoryBoolean,
-                requirements);
+        implement that competences are compulsory */
+
+        CourseContext courseContext = new CourseContext(course, requirements);
+        courseContext.persist();
+        for (String competence : competences) {
+            Competence competenceDAO = new Competence(competence);
+            competenceDAO.addCourseContext(courseContext);
+        }
         return Response.ok("competences linked to course")
                 .build();
     }
@@ -139,16 +157,18 @@ public class CompetenceServiceRestJSON {
     public Response createUser(
             @PathParam("user") String user,
             @PathParam("role") String role,
-            @QueryParam("groupId") String courseContext) {
+            @QueryParam("groupId") String courseContext) throws Exception {
+        if (role == null ) {
+            throw new WebApplicationException("Role not given");
+        }
+        if (user == null) {
+            throw new WebApplicationException("userId not given");
+        }
+        CourseContext courseContextDao = new CourseContext(courseContext);
+        courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
                 role);
         User2Ont.convert(data);
-        if (courseContext != null) {
-            CompetenceServiceWrapper
-                    .linkCompetencesToCourse(courseContext,
-                            new LinkedList(), false, "");
-        }
-        // TODO finish
         return Response.ok("user created").build();
     }
 
@@ -166,8 +186,9 @@ public class CompetenceServiceRestJSON {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/coursecontext/delete/{course}")
     public Response deleteCourseContext(
-            @PathParam("course") String course) {
-        // TODO implement
+            @PathParam("course") String course) throws Exception {
+        CourseContext courseContext = new CourseContext(course);
+        courseContext.delete();
         return Response
                 .ok("competences deleted from course:"
                         + course).build();
@@ -186,27 +207,11 @@ public class CompetenceServiceRestJSON {
     @GET
     @Path("/coursecontext/requirements/{course}")
     public String getRequirements(
-            @PathParam("course") String course) {
-        String result = CompetenceServiceWrapper
-                .getRequirements(course);
-        return result;
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+        return context.getFullDao().getRequirement();
     }
 
-    /**
-     * Returns all the competences linked to a course context. It is deprecated
-     * /coursecontext/selected should be used.
-     *
-     * @param course
-     * @return
-     */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/selected/{course}")
-    @Deprecated
-    public String[] getSelected(
-            @PathParam("course") String course) {
-        return CompetenceServiceWrapper.getSelected(course);
-    }
 
     /**
      * Get competences linked to (course) context.
@@ -220,8 +225,9 @@ public class CompetenceServiceRestJSON {
     @GET
     @Path("/coursecontext/selected/{course}")
     public String[] getSelectedCompetencesForCourse(
-            @PathParam("course") String course) {
-        return CompetenceServiceWrapper.getSelected(course);
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+        return context.getAssociatedDaoIdsAsDomain(Edge.belongsToCourseContext).toArray(new String[0]);
     }
 
     /**
@@ -309,8 +315,8 @@ public class CompetenceServiceRestJSON {
     @Path("/link/validate/{linkId}")
     public Response validateLink(
             @PathParam("linkId") String linkId) {
-        Boolean isvalid = true;
-        return handleLinkValidation(linkId, isvalid);
+        Boolean isValid = true;
+        return handleLinkValidation(linkId, isValid);
     }
 
     /**
@@ -327,8 +333,8 @@ public class CompetenceServiceRestJSON {
     @Path("/link/invalidate/{linkId}")
     public Response invalidateLink(
             @PathParam("linkId") String linkId) {
-        Boolean isvalid = false;
-        return handleLinkValidation(linkId, isvalid);
+        Boolean isValid = false;
+        return handleLinkValidation(linkId, isValid);
     }
 
     /**
@@ -475,11 +481,15 @@ public class CompetenceServiceRestJSON {
     public Graph getPrerequisiteGraph(
             @QueryParam("selectedCompetences") List<String> selectedCompetences,
             @PathParam("course") String course) {
-        /*GraphFilterData graphFilterData = new GraphFilterData(selectedCompetences, course);*/
-        /*Graph result= Ont2CompetenceGraph.convert(graphFilterData);*/
-        //return result;
-        return null;
-
+        GraphFilterData graphFilterData = null;
+        if (selectedCompetences != null) {
+            String[] selectedCompetencesArray = selectedCompetences.toArray(new String[0]);
+            graphFilterData = new GraphFilterData(course, selectedCompetencesArray);
+        } else {
+            graphFilterData = new GraphFilterData(course, new String[0]);
+        }
+        Graph result= Ont2CompetenceGraph.convert(graphFilterData);
+        return result;
     }
 
     /**
@@ -619,7 +629,7 @@ public class CompetenceServiceRestJSON {
         return Response.ok("edge created").build();
     }
 
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/SuggestedActivityForCompetence/delete")
     public Response deleteSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityURL") String activityURL) {
@@ -634,5 +644,259 @@ public class CompetenceServiceRestJSON {
                         isValid));
         return Response.ok("link updated").build();
     }
+
+    /**
+     * Get the GUI operator tree
+     * <p/>
+     * It has the same format as the competence tree
+     *
+     * @param course             the (course) context of the competences ("university") for no
+     *                           filter
+     * @param selectedCatchwords
+     * @param selectedOperators
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/operatortree/{course}")
+    public List<OperatorXMLTree> getOperatorTree(
+            @PathParam("course") String course,
+            @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+            @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
+
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
+        return result;
+    }
+
+    /**
+     * Get the GUI Catchword Tree
+     * <p/>
+     * It has the same format as the competence tree
+     *
+     * @param course             the (course) context of the competences ("university") for no
+     *                           filter
+     * @param selectedCatchwords
+     * @param selectedOperators
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/catchwordtree/{course}/{cache}")
+    public List<CatchwordXMLTree> getCatchwordTree(
+            @PathParam("course") String course,
+            @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
+            @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
+        return result;
+
+    }
+
+    /**
+     * Get all the learning templates
+     *
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/learningtemplates")
+    public StringList getAllLearningTemplates() {
+        StringList learningTemplates = Ont2LearningTemplates
+                .convert();
+        return learningTemplates;
+    }
+
+
+    /**
+     * A user selects a learning template as his project in portfolio
+     *
+     * @param userName         the use selecting the template
+     * @param groupId          (or course context) is the context the learning template is
+     *                         selected
+     * @param selectedTemplate the learning template selected
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/learningtemplates/selected/add")
+    public Response addLearningTemplateSelection(
+            @QueryParam(value = "userId") String userName,
+            @QueryParam(value = "groupId") String groupId,
+            @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+        LearningTemplateData data = new LearningTemplateData(
+                userName, groupId, selectedTemplate);
+        LearningTemplateToOnt.convert(data);
+        return Response.ok("templateSelection updated")
+                .build();
+    }
+
+
+    /**
+     * @param learningTemplateResultSet
+     * @return
+     * @throws ContainsCircleException
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/learningtemplate/add")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response addLearningTemplateSelection(LearningTemplateResultSet learningTemplateResultSet) throws ContainsCircleException {
+        LearningTemplateToOnt.convertLearningTemplateResultSet(learningTemplateResultSet);
+        return Response.ok("templateSelection updated")
+                .build();
+    }
+
+    /**
+     * get the selected learning templates for a given user
+     *
+     * @param userName
+     * @param groupId
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/learningtemplates/selected")
+    public Response getSelectedLearningTemplates(
+            @QueryParam(value = "userId") String userName,
+            @QueryParam(value = "groupId") String groupId) {
+        LearningTemplateData data = new LearningTemplateData(
+                userName, groupId, null);
+        StringList result = Ont2SelectedLearningTemplate
+                .convert(data);
+        return RestUtil.buildCachedResponse(result, false);
+    }
+
+
+    /**
+     * Delete the selection of a learning template of a user.
+     *
+     * @param userName
+     * @param groupId
+     * @param selectedTemplate
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/learningtemplates/selected/delete")
+    public Response deleteSelectedLearningTemplate(
+            @QueryParam(value = "userId") String userName,
+            @QueryParam(value = "groupId") String groupId,
+            @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+
+        LearningTemplateData data = new LearningTemplateData(
+                userName, groupId, selectedTemplate);
+        DeleteTemplateInOnt.convert(data);
+        return Response.ok(
+                "templateSelection updated after delete")
+                .build();
+    }
+
+    /**
+     * Returns a gridview of learning templates (mainly used in epos port).
+     * Users and their selfevaluation are presented.
+     *
+     * @param userName
+     * @param groupId          (or course context)
+     * @param selectedTemplate
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("learningtemplates/gridview")
+    public SuggestedCompetenceGrid getGridView(
+            @QueryParam(value = "userId") String userName,
+            @QueryParam(value = "groupId") String groupId,
+            @QueryParam(value = "selectedTemplate") String selectedTemplate) {
+
+        LearningTemplateData data = new LearningTemplateData(
+                userName, groupId, selectedTemplate);
+        SuggestedCompetenceGrid result = Ont2SuggestedCompetenceGrid
+                .convert(data);
+        return result;
+    }
+
+
+    /**
+     * Allows to persist the users self evaluation (persisting the complete grid
+     * view that was changed in the ui)
+     *
+     * @param userName                   the user who self-evaluated
+     * @param groupId                    or course context (depending on the evidence source)
+     * @param reflectiveAssessmentHolder
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("learningtemplates/gridview/update")
+    public Response updateGridView(
+            @QueryParam(value = "userId") String userName,
+            @QueryParam(value = "groupId") String groupId,
+            ReflectiveAssessmentsListHolder reflectiveAssessmentHolder) {
+
+        ReflectiveAssessmentChangeData assessmentChangeData = new ReflectiveAssessmentChangeData(
+                userName, groupId,
+                reflectiveAssessmentHolder);
+        ReflectiveAssessmentHolder2Ont
+                .convert(assessmentChangeData);
+        return Response.ok("reflexion updated").build();
+    }
+
+    /**
+     * @param wrapper
+     * @return
+     */
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/learningtemplates/addEpos")
+    public Response importEpos(
+            @BeanParam EPOSTypeWrapper wrapper) {
+
+        EposImporter.importEposCompetences(Arrays
+                .asList(wrapper.getEposCompetences()));
+        return Response.ok("epos templates updated")
+                .build();
+    }
+
+
+    /**
+     * The LearningTemplate
+     *
+     * @param learningTemplateName String learningTemplateName
+     * @return public class LearningTemplateResultSet { private GraphNode root;
+     * // root is set if graph consists of one node private Graph
+     * resultGraph; private HashMap<GraphTriple, List<String>>
+     * catchwordMap; private String nameOfTheLearningTemplate;
+     * <p/>
+     * also look at: /learningtemplate/add
+     */
+    @Consumes(MediaType.APPLICATION_XML)
+    @GET
+    @Path("/learningtemplate/get/{learningTemplateName}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public LearningTemplateResultSet getLearningTemplate(
+            @PathParam("learningTemplateName") String learningTemplateName) {
+        // OntologyWriter.convert();
+        LearningTemplateResultSet result = Ont2LearningTemplateResultSet
+                .convert(learningTemplateName);
+        return result;
+    }
+
+    @Consumes(MediaType.APPLICATION_XML)
+    @POST
+    @Path("/learningtemplate/delete/{learningTemplateName}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response deleteLearningTemplate(
+            @PathParam("learningTemplateName") String learningTemplateName) {
+        DeleteLearningTemplateinOnt
+                .convert(learningTemplateName);
+
+        // change for testcommit to gitup
+        return Response.ok("learningTemplate deleted")
+                .build();
+    }
+
 
 }

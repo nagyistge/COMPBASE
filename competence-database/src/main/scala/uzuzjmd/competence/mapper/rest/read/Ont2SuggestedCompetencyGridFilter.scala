@@ -1,14 +1,14 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.Edge
 
 /**
   * Filter class for converting model to grid layout based on the suggested competence relationship
   */
 object Ont2SuggestedCompetencyGridFilter {
   def filterIsSuggestedCompetency(pair: (Competence, Competence)): Boolean = {
-    return pair._1.hasEdge(CompObjectProperties.SuggestedCompetencePrerequisiteOf, pair._2)
+    return pair._1.hasEdge(Edge.SuggestedCompetencePrerequisiteOf, pair._2)
   }
 
   def sortCompetencePairs(a: (Competence, Competence), b: (Competence, Competence)): Boolean = {

@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.abstractlayer.{CompOntologyManager, ReadTransactional}
+import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.Competence
 
 /**
@@ -12,10 +12,8 @@ object GetRequiredCompetencesInOnt extends ReadTransactional[String, Array[Strin
     return execute(convertGetRequiredCompetencesInOnt _, changes)
   }
 
-  def convertGetRequiredCompetencesInOnt(comp: CompOntologyManager, changes: String): Array[String] = {
-    comp.startReasoning(false);
-    val competence = new Competence(comp, changes, null, null);
+  def convertGetRequiredCompetencesInOnt( changes: String): Array[String] = {
+    val competence = new Competence(changes);
     return competence.getRequiredCompetencesAsArray();
-
   }
 }

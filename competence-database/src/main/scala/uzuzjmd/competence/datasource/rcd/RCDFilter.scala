@@ -1,6 +1,6 @@
 package uzuzjmd.competence.datasource.rcd
 
-import uzuzjmd.competence.persistence.ontology.CompObjectProperties
+import uzuzjmd.competence.persistence.ontology.Edge
 
 object RCDFilter {
   /**
@@ -21,23 +21,23 @@ object RCDFilter {
   type CompetenceFilter = CompetenceTriple => Boolean
 
   def isObjectPropertyTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.values.map(x => x.name()).contains(triple._2)
+    Edge.values.map(x => x.name()).contains(triple._2)
   }
 
   def isSubClassTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.SubCompetenceOf.equals(CompObjectProperties.valueOf(triple._2))
+    Edge.SubCompetenceOf.equals(Edge.valueOf(triple._2))
   }
 
   def isSubOperatorTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.SubOperatorOf.equals(CompObjectProperties.valueOf(triple._2))
+    Edge.SubOperatorOf.equals(Edge.valueOf(triple._2))
   }
 
   def isMetaCatchwordOfTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.MetaCatchwordOf.equals(CompObjectProperties.valueOf(triple._2)) || CompObjectProperties.MetaOperatorOf.equals(CompObjectProperties.valueOf(triple._2)) 
+    Edge.MetaCatchwordOf.equals(Edge.valueOf(triple._2)) || Edge.MetaOperatorOf.equals(Edge.valueOf(triple._2))
   }
 
   def isDescriptionElementOfTriple(triple: CompetenceTriple): Boolean = {
-    CompObjectProperties.DescriptionElementOf.equals(CompObjectProperties.valueOf(triple._2))
+    Edge.DescriptionElementOf.equals(Edge.valueOf(triple._2))
   }
 
   def isTripleWithBlanc(triple: CompetenceTriple): Boolean = {
