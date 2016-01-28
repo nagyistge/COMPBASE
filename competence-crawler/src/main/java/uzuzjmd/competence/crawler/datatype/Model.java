@@ -28,6 +28,7 @@ public class Model {
     private StichwortVar stichwortVar;
     private VarMeta varMeta;
     private HashMap<String, SolrDocumentList> stichwortResult;
+    private String delimiter = ",";
 
    public Model() {
        stichwortVar = new StichwortVar();
@@ -101,9 +102,9 @@ public class Model {
     public void stichwortVarToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortVarToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<String>();
-        lines.add("Stichwort,Variable");
+        lines.add("Stichwort" + delimiter + "Variable");
         for (String key: stichwortVar.getElements().keySet()) {
-            lines.add(key + "," + stichwortVar.getElements().get(key));
+            lines.add(key + delimiter + stichwortVar.getElements().get(key));
         }
         Path file = Paths.get(filepath);
         Files.write(file, lines, Charset.forName("UTF-8"));
@@ -114,12 +115,12 @@ public class Model {
     public void stichwortResultToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<String>();
-        lines.add("Stichwort,URL,SolrScore");
+        lines.add("Stichwort" + delimiter + "URL" + delimiter + "SolrScore");
         for (String key: stichwortResult.keySet()) {
             int sizeOfStichwortResult = (int) stichwortResult.get(key).getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
                 SolrDocument doc = stichwortResult.get(key).get(i);
-                lines.add(key + "," + doc.getFieldValue("id") + "," + doc.getFieldValue("score"));
+                lines.add(key + delimiter + doc.getFieldValue("id") + delimiter + doc.getFieldValue("score"));
             }
         }
         Path file = Paths.get(filepath);
@@ -136,12 +137,12 @@ public class Model {
             int sizeOfStichwortResult = (int) varMeta.getElements().get(key).documentList.getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
                 SolrDocument doc = varMeta.getElements().get(key).documentList.get(i);
-                lines.add(key + ","
-                        + StringUtils.join(varMeta.getElements().get(key).metaVar, ";") + ","
-                        + varStich.get(key) + ","
-                        + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + ","
-                        + doc.getFieldValue("score") + ","
-                        + doc.getFieldValue("url") + ","
+                lines.add(key + delimiter
+                        + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";")+ "\"" + delimiter
+                        + varStich.get(key) + delimiter
+                        + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
+                        + doc.getFieldValue("score") + delimiter
+                        + doc.getFieldValue("url") + delimiter
                         + doc.getFieldValue("pageDepth")
                 );
             }
