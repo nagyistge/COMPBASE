@@ -40,7 +40,7 @@ public class ReadCsv {
             }
             String[] args = line.split(",");
             if (args.length >= 3) {
-                m.addDate(args[0].replace("\"", ""),
+                m.addDate(args[0].replace("\"", "").replace("/", "\\/"),
                         args[1].replace("\"", ""),
                         args[2].replace("\"", "").split("##"));
             } else {

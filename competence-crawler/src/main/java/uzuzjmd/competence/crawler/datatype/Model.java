@@ -49,7 +49,8 @@ public class Model {
 
     public String[] toNeo4JQuery() {
         logger.debug("Entering toNeo4JQuery");
-        String[] result = (String[]) ArrayUtils.addAll(stichwortVar.toNeo4JQuery(), varMeta.toNeo4JQuery());
+
+        String[] result = (String[]) ArrayUtils.addAll( ArrayUtils.addAll(new String[]{deleteModelInNeo4J()},  stichwortVar.toNeo4JQuery()), varMeta.toNeo4JQuery());
         logger.debug("Leaving toNeo4JQuery");
         return result;
     }
@@ -63,6 +64,12 @@ public class Model {
 
     public String deleteModelInNeo4J() {
         return "MATCH (n:Stichwort),(m:Meta),(o:Variable) DETACH DELETE m,n,o";
+    }
+
+    public void insertSynonyms() {
+        logger.debug("Entering insertSynonyms");
+        stichwortVar.insertSynonym();
+        logger.debug("Leaving insertSynonyms");
     }
 
 
@@ -94,7 +101,7 @@ public class Model {
     public void stichwortVarToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortVarToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<String>();
-        lines.add("Stichwort, Variable");
+        lines.add("Stichwort,Variable");
         for (String key: stichwortVar.getElements().keySet()) {
             lines.add(key + "," + stichwortVar.getElements().get(key));
         }
@@ -107,7 +114,7 @@ public class Model {
     public void stichwortResultToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<String>();
-        lines.add("Stichwort,URL, SolrScore");
+        lines.add("Stichwort,URL,SolrScore");
         for (String key: stichwortResult.keySet()) {
             int sizeOfStichwortResult = (int) stichwortResult.get(key).getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
@@ -123,16 +130,19 @@ public class Model {
     public void varMetaResultToCsv(String filepath) throws IOException {
         logger.debug("Entering varMetaResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<>();
-        lines.add("Variable, Metavariable, content, SolrScore, URL");
+        HashMap<String, String> varStich = stichwortVar.toVarStichwort();
+        lines.add("Variable,Metavariable,Stichworte,Content,SolrScore,URL,Depth");
         for (String key: varMeta.getElements().keySet()) {
             int sizeOfStichwortResult = (int) varMeta.getElements().get(key).documentList.getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
                 SolrDocument doc = varMeta.getElements().get(key).documentList.get(i);
                 lines.add(key + ","
                         + StringUtils.join(varMeta.getElements().get(key).metaVar, ";") + ","
-                        + doc.getFieldValue("content") + ","
+                        + varStich.get(key) + ","
+                        + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + ","
                         + doc.getFieldValue("score") + ","
-                        + doc.getFieldValue("url")
+                        + doc.getFieldValue("url") + ","
+                        + doc.getFieldValue("pageDepth")
                 );
             }
         }
