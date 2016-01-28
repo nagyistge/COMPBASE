@@ -3,11 +3,12 @@ package uzuzjmd.competence.mapper.rest.read
 import java.util.{NoSuchElementException, HashMap}
 
 import uzuzjmd.competence.config.Logging
-import uzuzjmd.competence.persistence.dao.LearningProjectTemplate
+import uzuzjmd.competence.persistence.dao.{Competence, LearningProjectTemplate}
 import uzuzjmd.competence.shared.dto.{Graph, GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.java.collections.MapsMagic
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 
 /**
   * @author dehne
@@ -27,11 +28,11 @@ object Ont2SuggestedCompetenceGraph extends Logging {
 
   def getGraph(learningProjectTemplate: LearningProjectTemplate): Graph = {
     val result = new Graph
-    val competences = learningProjectTemplate.getAssociatedCompetences().asScala
+    val competences: mutable.Buffer[Competence] = learningProjectTemplate.getAssociatedCompetences().asScala
     // convert relations in 2-tuples
-    val result1 = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.asScala.map {z=>(z, y._2)}).flatten
+    val result1: mutable.Buffer[(Competence, Competence)] = competences.map { x => (x.getSuggestedCompetenceRequirements(), x) }.map(y => y._1.asScala.map { z=>(z, y._2)}).flatten
     // convert to triples
-    result1.foreach(x => result.addTriple(x._2.getDefinition(), x._1.getDefinition(), learningProjectTemplate.getDefinition, true))
+    result1.foreach(x => result.addTriple(x._1.getDefinition(), x._2.getDefinition(), learningProjectTemplate.getDefinition, true))
     return result
   }
 

@@ -286,7 +286,6 @@ public class LearningTemplateDaoTest {
 		 tmp1.addTriple(triple, (String[]) Arrays.asList("cw").toArray());
 		 tmp1.addTriple(triple2, (String[]) Arrays.asList("cw").toArray());
 		 tmp1.addTriple(triple3, (String[]) Arrays.asList("cw").toArray());
-		 
 		 tmp2.addTriple(triple, (String[]) Arrays.asList("cw").toArray());
 		 
 		 System.out.println("template 1 with : cp1 - cp2 - cp3 - cp4");

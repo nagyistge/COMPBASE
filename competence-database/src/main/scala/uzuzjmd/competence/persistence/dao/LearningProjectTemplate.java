@@ -43,11 +43,20 @@ public class LearningProjectTemplate extends AbstractLearningProjectTemplate imp
 
 
     public List<Competence> getAssociatedCompetences() throws Exception {
-        return getAssociatedDaosAsDomain(Edge.LearningProjectTemplateOf, Competence.class);
+        List<Competence> competences = getAssociatedDaosAsDomain(Edge.LearningProjectTemplateOf, Competence.class);
+        for (Competence competence : competences) {
+            competence.learningProject = this;
+        }
+        return competences;
     }
 
 
     public void addCompetenceToProject(Competence competence) throws Exception {
         createEdgeWith(Edge.LearningProjectTemplateOf, competence);
+    }
+
+    @Override
+    public String toString() {
+        return this.getId();
     }
 }
