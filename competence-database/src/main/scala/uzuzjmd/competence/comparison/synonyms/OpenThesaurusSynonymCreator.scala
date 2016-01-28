@@ -2,6 +2,7 @@ package uzuzjmd.competence.comparison.synonyms
 
 import uzuzjmd.competence.config.MagicStrings
 import uzuzjmd.database.mysql.MysqlConnect
+import scala.collection.JavaConverters._
 
 /**
  * @author dehne
@@ -31,6 +32,10 @@ object OpenThesaurusSynonymCreator {
 
     connector.close()
     return result
+  }
+
+  def getSysnonymsAsJava(input: String) : java.util.List[String] = {
+    getSynonyms(input).asJava
   }
 
   def getSimilarWords(input: String): List[String] = {
