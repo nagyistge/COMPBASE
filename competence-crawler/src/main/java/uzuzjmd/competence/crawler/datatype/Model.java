@@ -28,7 +28,7 @@ public class Model {
     private StichwortVar stichwortVar;
     private VarMeta varMeta;
     private HashMap<String, SolrDocumentList> stichwortResult;
-    private String delimiter = ",";
+    private String delimiter = ";";
 
    public Model() {
        stichwortVar = new StichwortVar();
