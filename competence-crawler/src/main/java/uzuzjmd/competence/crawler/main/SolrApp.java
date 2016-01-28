@@ -9,29 +9,18 @@ import uzuzjmd.competence.crawler.io.ReadCsv;
 import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
 
-import java.io.IOException;
-
 /**
  * Created by carl on 06.01.16.
  */
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
     static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test2";
-    static private final String stichWortPath = "/development/scala_workspace/Wissensmodellierung/"
-                + "competence-crawler/stichwortUrl.csv";
-    static private final String stichWortVarPath = "/development/scala_workspace/Wissensmodellierung/"
-            + "competence-crawler/stichwortVar.csv";
-    static private final String varMetaPath = "/development/scala_workspace/Wissensmodellierung/"
-            + "competence-crawler/varMeta.csv";
-    static private final String dataPath =
-            "/development/scala_workspace/Wissensmodellierung/competence-crawler/data.csv";
+
     public static void main(String[] args) throws Exception {
-        DOMConfigurator.configure("/development/scala_workspace/Wissensmodellierung/competence-crawler/log4j.xml");
         logger.debug(MagicStrings.ROOTPATH);
         logger.debug("Entering main");
-
         logger.info("Read out csv");
-        ReadCsv csv = new ReadCsv(dataPath);
+        ReadCsv csv = new ReadCsv(MagicStrings.dataPath);
         Neo4JConnector nj = new Neo4JConnector();
         SolrConnector connector = new SolrConnector(solrUrl);
         Model model = csv.convertToModel();
@@ -47,9 +36,9 @@ public class SolrApp {
         model.scoreVariable(connector);
         logger.info("Get Score from Crawling");
         logger.info("Transform Scoring into results");
-        model.stichwortVarToCsv(stichWortVarPath);
-        model.stichwortResultToCsv(stichWortPath);
-        model.varMetaResultToCsv(varMetaPath);
+        model.stichwortVarToCsv(MagicStrings.stichWortVarPath);
+        model.stichwortResultToCsv(MagicStrings.stichWortPath);
+        model.varMetaResultToCsv(MagicStrings.varMetaPath);
         logger.debug("Leaving main");
     }
 }
