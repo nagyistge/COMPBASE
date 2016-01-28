@@ -6,6 +6,7 @@ import uzuzjmd.competence.mapper.rest.write.*;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
+import uzuzjmd.competence.persistence.dao.Dao;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.*;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
@@ -16,6 +17,7 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -872,7 +874,7 @@ public class CompetenceServiceRestJSON {
      * <p/>
      * also look at: /learningtemplate/add
      */
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/learningtemplate/get/{learningTemplateName}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -884,7 +886,7 @@ public class CompetenceServiceRestJSON {
         return result;
     }
 
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplate/delete/{learningTemplateName}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -895,6 +897,18 @@ public class CompetenceServiceRestJSON {
 
         // change for testcommit to gitup
         return Response.ok("learningTemplate deleted")
+                .build();
+    }
+
+
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @POST
+    @Path("/update/{clazz}/{oldId}/{newId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response updateCatchword(@PathParam("clazz") String clazz, @PathParam("oldId") String oldId, @PathParam("newId") String newId) throws Exception {
+        Dao o = (Dao) Class.forName("uzuzjmd.competence.persistence.dao." + clazz).getConstructor(String.class).newInstance(oldId);
+        o.updateId(newId);
+        return Response.ok("updated")
                 .build();
     }
 
