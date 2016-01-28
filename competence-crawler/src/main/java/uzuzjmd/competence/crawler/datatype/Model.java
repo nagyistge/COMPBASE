@@ -132,14 +132,16 @@ public class Model {
         logger.debug("Entering varMetaResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<>();
         HashMap<String, String> varStich = stichwortVar.toVarStichwort();
-        lines.add("Variable,Metavariable,Stichworte,Content,SolrScore,URL,Depth");
+        lines.add("Variable" + delimiter + "Metavariable" + delimiter + "Stichworte" + delimiter
+                + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
+                "Depth");
         for (String key: varMeta.getElements().keySet()) {
             int sizeOfStichwortResult = (int) varMeta.getElements().get(key).documentList.getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
                 SolrDocument doc = varMeta.getElements().get(key).documentList.get(i);
                 lines.add(key + delimiter
                         + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";")+ "\"" + delimiter
-                        + varStich.get(key) + delimiter
+                        + "\"" + varStich.get(key) + "\"" + delimiter
                         + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
                         + doc.getFieldValue("score") + delimiter
                         + doc.getFieldValue("url") + delimiter
