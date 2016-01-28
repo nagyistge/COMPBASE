@@ -1,18 +1,13 @@
 package uzuzjmd.competence.persistence.neo4j;
 
+import com.google.common.collect.Sets;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
-import uzuzjmd.competence.persistence.dao.Dao;
-import uzuzjmd.competence.persistence.dao.Competence;
-import uzuzjmd.competence.persistence.dao.SelfAssessment;
-import uzuzjmd.competence.persistence.dao.User;
+import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
 import uzuzjmd.competence.service.rest.dto.CompetenceTreeFilterData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dehne on 04.12.2015.
@@ -291,5 +286,18 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
 
         String query = "MATCH tree = (p:"+label+")-[:subClassOf*1..5]->(c:"+label+")"+futherMatches+"MATCH (x:CourseContext{id:'"+courseId+"'})-[r33:CourseContextOf]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
         return issueNeo4JRequestArrayListArrayList(query);
+    }
+
+    public HashSet<Competence> getSuggestedCompetenceRequirements(String competenceId, Class<Competence> competenceClass, LearningProjectTemplate learningProject) throws Exception {
+        String query = "MATCH (b:LearningProjectTemplate{id:'"+learningProject.getId()+"'})-[r1:LearningProjectTemplateOf]->(c) MATCH (c:Competence)-[r2:SuggestedCompetencePrerequisiteOf]->(a:Competence{id:'"+competenceId+"'}) return c.id";
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
+        if (result == null || result.isEmpty()) {
+            return new HashSet<>();
+        }
+        HashSet<Competence> result2 = new HashSet<>();
+        for (String s : result) {
+            result2.add(new Competence(s, learningProject));
+        }
+         return result2;
     }
 }

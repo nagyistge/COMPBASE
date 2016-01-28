@@ -1,5 +1,6 @@
 package uzuzjmd.competence.persistence.dao;
 
+import com.google.common.collect.Sets;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 
@@ -39,9 +40,13 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         createEdgeWith(competence, Edge.SuggestedCompetencePrerequisiteOf);
     }
 
-    public List<Competence> getSuggestedCompetenceRequirements() throws Exception {
-        List<Competence> result =  getAssociatedDaosAsDomain(Edge.SuggestedCompetencePrerequisiteOf, Competence.class);
-        return result;
+    public HashSet<Competence> getSuggestedCompetenceRequirements() throws Exception {
+        if (learningProject != null) {
+            HashSet<Competence> result = queryManager.getSuggestedCompetenceRequirements(this.getId(), Competence.class, learningProject);
+            return result;
+        } else {
+            return Sets.newHashSet(getAssociatedDaosAsRange(Edge.SuggestedCompetencePrerequisiteOf, Competence.class));
+        }
     }
 
     public void addRequiredCompetence(Competence competence) throws Exception {
