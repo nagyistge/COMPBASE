@@ -1,29 +1,13 @@
 package uzuzjmd.competence.crawler.io;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
-import org.apache.log4j.xml.DOMConfigurator;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocumentList;
-import org.junit.Before;
-import scala.Array;
-import scala.collection.immutable.List;
-import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator;
-import uzuzjmd.competence.crawler.datatype.Model;
-import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
-import uzuzjmd.competence.crawler.solr.SolrConnector;
-
-import java.io.IOException;
 
 /**
  * Created by carl on 06.01.16.
  */
 public class ReadCsvTest extends TestCase {
 
-    ReadCsv csv;
+  /*  ReadCsv csv;
     Model model;
     Neo4JConnector nj;
     SolrConnector conn;
@@ -75,5 +59,5 @@ public class ReadCsvTest extends TestCase {
             System.out.println(syn);
         }
 
-    }
+    }*/
 }
