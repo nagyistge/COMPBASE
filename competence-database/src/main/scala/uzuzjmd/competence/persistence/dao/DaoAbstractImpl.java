@@ -263,7 +263,8 @@ public abstract class DaoAbstractImpl implements Dao {
         return result.iterator().next();
     }
 
-
-
-
+    @Override
+    public void updateId(String newId) throws Exception {
+        queryManager.setPropertyInNode(getId(), "id", newId);
+    }
 }
