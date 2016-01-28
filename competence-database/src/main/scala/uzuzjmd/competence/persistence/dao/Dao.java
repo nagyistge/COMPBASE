@@ -29,6 +29,7 @@ public interface Dao {
     void setFullDao(HashMap<String, String> props);
     <T extends Dao> T getFullDao(HashMap<String, String> props);
     <T extends Dao> T getFullDao() throws Exception;
+    void updateId(String newId) throws Exception;
 
     /**
      * THIS is the domain
