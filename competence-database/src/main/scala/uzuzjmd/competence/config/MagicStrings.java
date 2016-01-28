@@ -1,5 +1,7 @@
 package uzuzjmd.competence.config;
 
+import org.specs2.internal.scalaz.Alpha;
+
 /**
  * contains the main configuration for the project which are defined in
  * evidenceserver.properties
@@ -28,4 +30,9 @@ public class MagicStrings {
 	public static final String NEO4JURL = PropUtil
 			.getProp("neo4jURL");
 
+	public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
+	public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
+	public static final String varMetaPath = crawlerOutputDirPath + "/varMeta.csv";
+	public static final String dataPath = crawlerOutputDirPath + "/moodle_data.csv";
+	public static final String stichWortPath = crawlerOutputDirPath + "/stichVar.csv";
 }

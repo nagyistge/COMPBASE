@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>competence-database</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
