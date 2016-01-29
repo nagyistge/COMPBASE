@@ -4,7 +4,7 @@
 	<groupId>uzuzjmd.competence</groupId>
 	<artifactId>competence-servlet</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>competence-servlet Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>competence-database</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.mortbay.jetty</groupId>
