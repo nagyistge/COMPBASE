@@ -11,10 +11,6 @@ public class MyRESTAPIApp extends ResourceConfig {
 	private Logger logger = org.apache.log4j.LogManager
 			.getLogger(MyRESTAPIApp.class);
 
-	{
-		System.out.println("called logConfig init");
-	}
-
 	public MyRESTAPIApp() {
 		// LogConfigurator.init();
 		packages("uzuzjmd.competence");
@@ -25,6 +21,6 @@ public class MyRESTAPIApp extends ResourceConfig {
 
 		logger.info("Initiated Logger");
 		logger.info("Initiated Server");
-		logger.info("Initiated Server");
+
 	}
 }
