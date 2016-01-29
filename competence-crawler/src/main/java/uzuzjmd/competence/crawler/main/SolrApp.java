@@ -26,7 +26,7 @@ public class SolrApp {
         Model model = csv.convertToModel();
         logger.info("New Model instance. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
                 + model.varMetaSize());
-        model.insertSynonyms();
+        //model.insertSynonyms();
         logger.info("Model instance with Synonyms. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
                 + model.varMetaSize());
         nj.queryMyStatements(model.toNeo4JQuery());
