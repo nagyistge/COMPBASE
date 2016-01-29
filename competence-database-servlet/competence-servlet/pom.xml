@@ -223,7 +223,6 @@
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<warName>competence-database</warName>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
 							<outputDirectory>/opt/up/tomcat/7.0/webapps</outputDirectory>
