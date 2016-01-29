@@ -1,3 +1,3 @@
 Test this with:
 
-http://localhost:8080/competence-servlet/competence/competences/xml/competencetree/university/all/nocache
+http://localhost:8080/competence-database/competence/competences/competencetree/university
