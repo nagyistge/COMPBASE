@@ -26,13 +26,14 @@ public class EposRemoteImporter {
 		List<DESCRIPTORSETType> eposCompetences = EposImporter
 				.parseEPOSXML();
 		Client client = ClientBuilder.newClient();
-		// TODO implement for new server
+		/*WebTarget webResource = client
+				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-database/competence/competences/learningtemplates/addEpos");*/
 		WebTarget webResource = client
-				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-servlet/competence/competences/xml/learningtemplates/addEpos");
+				.target("http://localhost:8084/competences/learningtemplates/addEpos");
 		System.out.println(webResource.getUri());
+		List<DESCRIPTORSETType> eposse = EposImporter.parseEPOSXML();
 		EPOSTypeWrapper typeWrapper = new EPOSTypeWrapper();
-		typeWrapper.setEposCompetences(eposCompetences
-				.toArray(new DESCRIPTORSETType[0]));
+		typeWrapper.setEposCompetences(eposse.toArray(new DESCRIPTORSETType[0]));
 		Response result = webResource.request(
 				MediaType.APPLICATION_XML).post(
 				Entity.entity(typeWrapper,
