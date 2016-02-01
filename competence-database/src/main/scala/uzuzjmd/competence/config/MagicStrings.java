@@ -1,12 +1,16 @@
 package uzuzjmd.competence.config;
 
-import org.specs2.internal.scalaz.Alpha;
+
+import org.apache.log4j.Logger;
 
 /**
  * contains the main configuration for the project which are defined in
  * evidenceserver.properties
  */
 public class MagicStrings {
+
+	private static Logger logger = Logger.getLogger(MagicStrings.class.getName());
+
 	public static final String ROOTPATH = PropUtil
 			.getProp("rootPath");
 

@@ -3,12 +3,14 @@ package uzuzjmd.competence.service.rest
 import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
-import uzuzjmd.competence.mapper.rest.read.{Ont2CompetenceGraph, Ont2CompetenceTree}
+import uzuzjmd.competence.config.{MagicStrings, Logging}
+import uzuzjmd.competence.mapper.rest.read.{Ont2SuggestedCompetenceGrid, Ont2CompetenceGraph, Ont2CompetenceTree}
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
-import uzuzjmd.competence.persistence.dao.{Competence, CourseContext, Operator}
+import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.service.rest.dto._
+import uzuzjmd.competence.shared.{SuggestedCompetenceGrid, ReflectiveAssessment, Assessment, ReflectiveAssessmentsListHolder}
 import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
 
 import scala.collection.JavaConverters._
@@ -27,10 +29,12 @@ object CompetenceServiceRestJSONTest {
 /**
   * TEST CLASS for the JSON interface
   */
-class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
+class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging {
   private var jsonService: CompetenceServiceRestJSON = null
 
-  val assertEmptyDatabse = false;
+  val assertEmptyDatabse = true;
+
+  logger.info("using databaseendpoint:" + MagicStrings.NEO4JURL + "\n")
 
   @Before
   @throws(classOf[Exception])
@@ -136,6 +140,54 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] {
   @throws(classOf[Exception])
   def testLinkCompetencesToUser: Unit ={
     assertTrue(true)
+  }
+
+
+  @Test
+  def testUpdateGridView : Unit = {
+    val competence1 = new Competence("java1", null, (new Catchword("java") :: Nil).asJava);
+    competence1.persist()
+
+    val competence2 = new Competence("java2", null, (new Catchword("java") :: Nil).asJava);
+    competence2.persist()
+
+    val user = new uzuzjmd.competence.persistence.dao.User("Julian")
+    user.persist()
+
+    val courseContext = new CourseContext("university")
+    courseContext.persist()
+
+    val myTestLearningProject= new LearningProjectTemplate("TestLernprojekt")
+    myTestLearningProject.persist()
+    myTestLearningProject.addCompetenceToProject(competence1)
+    myTestLearningProject.addCompetenceToProject(competence2)
+
+    val holder = new ReflectiveAssessmentsListHolder
+    holder.setSuggestedMetaCompetence("java")
+    holder.setAssessment(new Assessment)
+    val reflectiveAssessment1 = new ReflectiveAssessment
+    reflectiveAssessment1.setIsLearningGoal(false)
+    reflectiveAssessment1.setAssessment("gut")
+    reflectiveAssessment1.setCompetenceDescription("java2")
+
+    val reflectiveAssessment2 = new ReflectiveAssessment
+    reflectiveAssessment2.setIsLearningGoal(false)
+    reflectiveAssessment2.setAssessment("schlecht")
+    reflectiveAssessment2.setCompetenceDescription("java1")
+
+    val assessmentList = reflectiveAssessment1 :: reflectiveAssessment2 :: Nil
+    holder.setReflectiveAssessmentList(assessmentList.asJava)
+
+    val assessmentChangeData = new ReflectiveAssessmentChangeData("Julian", "university", holder)
+    ReflectiveAssessmentHolder2Ont.convert(assessmentChangeData)
+
+    val data: LearningTemplateData = new LearningTemplateData(user.getId, courseContext.getId, "TestLernprojekt")
+    val result: SuggestedCompetenceGrid = Ont2SuggestedCompetenceGrid.convert(data)
+
+    val index = result.getSuggestedCompetenceRows.get(0).getSuggestedCompetenceColumns.get(0).getProgressInPercent;
+    printf("index is" + index)
+    assertNotNull(result)
+    assertTrue(index > 0)
   }
 
   @Test

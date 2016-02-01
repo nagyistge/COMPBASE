@@ -83,7 +83,8 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
       val root: String = changes.getRoot.getLabel;
       val template2 = new LearningProjectTemplate(changes.getNameOfTheLearningTemplate);
       template2.persist()
-      val rootDao = new Competence(root, template2);
+      val catchwords: Iterable[Catchword] = changes.getCatchwordMap.values().asScala.flatten.map(x=>new Catchword(x))
+      val rootDao = new Competence(root, template2, catchwords.toList.asJava);
       rootDao.persist()
       template2.addCompetenceToProject(rootDao)
     } else {

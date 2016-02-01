@@ -230,7 +230,7 @@ public abstract class DaoAbstractImpl implements Dao {
 
     public <T extends Dao> Set<T> listSubClasses(Class<T> competenceClass) throws Exception {
         if (this.subClasses.isEmpty()) {
-            this.subClasses = (HashSet<Dao>) queryManager.listSuperClasses(competenceClass, this.getId());
+            this.subClasses = (HashSet<Dao>) queryManager.listSubClasses(competenceClass, this.getId());
         }
         return (Set<T>) this.subClasses;
     }
