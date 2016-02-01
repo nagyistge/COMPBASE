@@ -23,13 +23,11 @@ public class EposRemoteImporter {
 	public static void main(String[] args)
 			throws JAXBException, IOException {
 
-		List<DESCRIPTORSETType> eposCompetences = EposImporter
-				.parseEPOSXML();
 		Client client = ClientBuilder.newClient();
-		/*WebTarget webResource = client
-				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-database/competence/competences/learningtemplates/addEpos");*/
 		WebTarget webResource = client
-				.target("http://localhost:8084/competences/learningtemplates/addEpos");
+				.target("http://fleckenroller.cs.uni-potsdam.de/app/competence-database/competence/competences/learningtemplates/addEpos");
+		/*WebTarget webResource = client
+				.target("http://localhost:8084/competences/learningtemplates/addEpos");*/
 		System.out.println(webResource.getUri());
 		List<DESCRIPTORSETType> eposse = EposImporter.parseEPOSXML();
 		EPOSTypeWrapper typeWrapper = new EPOSTypeWrapper();

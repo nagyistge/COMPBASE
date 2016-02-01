@@ -52,7 +52,7 @@ public class SuggestedCompetenceColumn implements
 		this.reflectiveAssessmentListHolder = reflectiveAssessmentListHolder;
 	}
 
-	@Override
+/*	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "(percent: "
@@ -60,5 +60,5 @@ public class SuggestedCompetenceColumn implements
 				+ "Assessment: "
 				+ this.getReflectiveAssessmentListHolder()
 						.toString() + ")";
-	}
+	}*/
 }
