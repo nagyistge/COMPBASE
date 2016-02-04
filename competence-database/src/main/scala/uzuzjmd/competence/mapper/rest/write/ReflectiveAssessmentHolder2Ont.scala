@@ -1,5 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
+import javax.ws.rs.WebApplicationException
+
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.service.rest.dto.ReflectiveAssessmentChangeData
@@ -16,6 +18,13 @@ object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAsses
   def convertHelper(reflectiveAssessment: ReflectiveAssessmentChangeData) {
     val context = new CourseContext(reflectiveAssessment.getGroupId);
     val user = new User(reflectiveAssessment.getUserName, Role.teacher, context);
+    if (!user.exists()) {
+      throw new WebApplicationException(new Exception("User not known in database"));
+    }
+    if (!context.exists()) {
+      throw new WebApplicationException(new Exception("Course or group not known in database"));
+    }
+
     ReflectiveAssessmentHolder2Ont.convertAssessment(user, context, reflectiveAssessment.getReflectiveAssessmentHolder);
   }
 
@@ -33,6 +42,5 @@ object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAsses
     val competence = new Competence(reflectiveAssessment.getCompetenceDescription())
     val selfAssessment = new SelfAssessment(competence, user, convertAssessmentStringToIndex(reflectiveAssessment.getAssessment()), reflectiveAssessment.getIsLearningGoal())
     selfAssessment.persist
-
   }
 }

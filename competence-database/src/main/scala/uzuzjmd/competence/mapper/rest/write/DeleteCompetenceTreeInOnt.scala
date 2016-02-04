@@ -6,10 +6,10 @@ import scala.collection.JavaConverters.asScalaBufferConverter
 
 object DeleteCompetenceTreeInOnt extends WriteTransactional[java.util.List[String]] {
   def convert(changes: java.util.List[String]) {
-    execute(convertDelteCompetenceTreeInOnt _, changes)
+    execute(convertDeltaCompetenceTreeInOnt _, changes)
   }
 
-  def convertDelteCompetenceTreeInOnt( changes: java.util.List[String]) {
+  def convertDeltaCompetenceTreeInOnt(changes: java.util.List[String]) {
     System.out.println("deleting competences" + changes);
     changes.asScala.foreach { x => new Competence(x).deleteTree() }
   }

@@ -1,6 +1,8 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
+import javax.ws.rs.WebApplicationException
+
 import com.google.common.collect.Lists
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
@@ -27,8 +29,8 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     val context = new CourseContext(changes.getGroupId);
     val user = new User(changes.getUserName, Role.teacher , context);
     val learningTemplate = new LearningProjectTemplate(changes.getSelectedTemplate);
-    if (!learningTemplate.exists()) {
-      return null;
+    if (learningTemplate == null || !learningTemplate.exists()) {
+      throw new WebApplicationException("learningtemplate null or does not exist");
     }
     val result = Ont2SuggestedCompetenceGrid.convertToTwoDimensionalGrid(learningTemplate, user);
     return result
@@ -37,9 +39,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
   def convertToTwoDimensionalGrid(learningProjectTemplate: LearningProjectTemplate, user: User): SuggestedCompetenceGrid = {
     val result = new SuggestedCompetenceGrid
     val scalaGrid = convertToTwoDimensionalGrid1(learningProjectTemplate)
-    val scalaGridDeNormalized: Buffer[(Catchword, List[Competence])] = Buffer.empty
-    scalaGrid.foreach(x => x._2.foreach(oneList => scalaGridDeNormalized.append((x._1, oneList))))
-
+    val scalaGridDeNormalized: List[(Catchword, List[Competence])] = scalaGrid.map(x => x._2.map(oneList => ((x._1, oneList)))).toList.flatten
     val unsortedRows = scalaGridDeNormalized.map(x => mapScalaGridToSuggestedCompetenceRow(x._1, x._2, user))
     val rows = unsortedRows.sortBy(_.getSuggestedCompetenceRowHeader()).asJava
     result.setSuggestedCompetenceRows(rows)
@@ -112,6 +112,10 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
     // identify most used catchwords
     val allCatchwords1 = includedCompetences.asScala.map(x => x.getCatchwords.asScala)
     val allCatchwords2 = allCatchwords1.flatten.groupBy(identity)
+
+    if (allCatchwords2.isEmpty) {
+      throw new WebApplicationException(new Exception("No catchwords for competences found"));
+    }
     val allCatchwords = allCatchwords2.mapValues(_.size).toList
     val sortedCatchwords = allCatchwords.sortBy(_._2).toMap.map(x => x._1)
 

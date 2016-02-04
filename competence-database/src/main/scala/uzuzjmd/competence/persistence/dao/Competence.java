@@ -1,9 +1,11 @@
 package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Sets;
-import uzuzjmd.competence.persistence.ontology.Edge;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.ontology.Contexts;
+import uzuzjmd.competence.persistence.ontology.Edge;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +31,19 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         super(id);
         this.compulsory = false;
         this.learningProject = learningProject;
+    }
+
+    public Competence(String id, LearningProjectTemplate learningProject, List<Catchword> catchwords) {
+        super(id);
+        this.compulsory = false;
+        this.learningProject = learningProject;
+        this.catchwordList = catchwords;
+    }
+
+    public Competence(String id, List<Catchword> catchwords) {
+        super(id);
+        this.compulsory = false;
+        this.catchwordList = catchwords;
     }
 
     @Override
@@ -60,6 +75,9 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public List<Catchword> getCatchwords() throws Exception {
+        if (!this.catchwordList.isEmpty()) {
+            return this.catchwordList;
+        }
         return getAssociatedDaosAsRange(Edge.CatchwordOf, Catchword.class);
     }
 
@@ -176,6 +194,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             deleteTree();
         }
         this.delete();
+        //throw new NotImplementedException();
     }
 
     @Override
@@ -186,6 +205,11 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         createEdgeWith(universityContext, Edge.CourseContextOf);
         if (learningProject != null) {
             createEdgeWith(learningProject, Edge.LearningProjectTemplateOf);
+        }
+        if (!catchwordList.isEmpty()) {
+            for (Catchword catchword : catchwordList) {
+                addCatchword(catchword);
+            }
         }
         return this;
     }
