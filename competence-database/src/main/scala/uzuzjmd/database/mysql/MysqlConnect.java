@@ -19,6 +19,7 @@ public class MysqlConnect {
 	static final Logger logger = LogManager.getLogger(MysqlConnect.class.getName());
 	public Connection conn = null;
 
+
 	/**
 	 * Mit dieser Methode stellt man die Verbindung zu der Datenbank her.
 	 */
