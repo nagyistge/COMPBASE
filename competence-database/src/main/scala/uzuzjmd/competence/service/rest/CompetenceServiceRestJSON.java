@@ -853,9 +853,7 @@ public class CompetenceServiceRestJSON {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplates/addEpos")
-    public Response importEpos(
-            @BeanParam EPOSTypeWrapper wrapper) {
-
+    public Response importEpos(EPOSTypeWrapper wrapper) {
         EposImporter.importEposCompetences(Arrays
                 .asList(wrapper.getEposCompetences()));
         return Response.ok("epos templates updated")

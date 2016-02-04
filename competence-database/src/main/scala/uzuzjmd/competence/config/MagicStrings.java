@@ -1,12 +1,16 @@
 package uzuzjmd.competence.config;
 
-import org.specs2.internal.scalaz.Alpha;
+
+import org.apache.log4j.Logger;
 
 /**
  * contains the main configuration for the project which are defined in
  * evidenceserver.properties
  */
 public class MagicStrings {
+
+	private static Logger logger = Logger.getLogger(MagicStrings.class.getName());
+
 	public static final String ROOTPATH = PropUtil
 			.getProp("rootPath");
 
@@ -29,6 +33,8 @@ public class MagicStrings {
 			.getProp("thesaurusDatabaseUrl");
 	public static final String NEO4JURL = PropUtil
 			.getProp("neo4jURL");
+
+	public static final String UNIVERSITIESDBNAME = PropUtil.getProp("universitiesDatabaseName");
 
 	public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
 	public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
