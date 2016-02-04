@@ -8,9 +8,13 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import uzuzjmd.competence.crawler.exception.NoDomainFoundException;
+import uzuzjmd.competence.crawler.exception.NoHochschuleException;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,11 +33,13 @@ public class Model {
     private VarMeta varMeta;
     private HashMap<String, SolrDocumentList> stichwortResult;
     private String delimiter = ";";
+    private Urls urls;
 
    public Model() {
        stichwortVar = new StichwortVar();
        varMeta = new VarMeta();
        stichwortResult = new HashMap<>();
+       urls = new Urls();
    }
 
     public void addDate(String stichwort, String variable, String[] metas){
@@ -128,27 +134,67 @@ public class Model {
         logger.debug("Leaving stichwortResultToCsv");
     }
 
-    public void varMetaResultToCsv(String filepath) throws IOException {
+    public void varMetaResultToCsv(String filepath) throws IOException, URISyntaxException {
         logger.debug("Entering varMetaResultToCsv with filepath:" + filepath);
         List<String> lines = new ArrayList<>();
         HashMap<String, String> varStich = stichwortVar.toVarStichwort();
-        lines.add("Variable" + delimiter + "Metavariable" + delimiter + "Stichworte" + delimiter
+        lines.add("Variable" + delimiter + "Metavariable" + delimiter + "Stichworte"
+                + delimiter + "Hochschule" + delimiter
                 + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
-                "Depth");
+                "Depth" + delimiter + "Lat" + delimiter + "Lon");
         for (String key: varMeta.getElements().keySet()) {
             int sizeOfStichwortResult = (int) varMeta.getElements().get(key).documentList.getNumFound();
             for (int i = 0; i < sizeOfStichwortResult; i++) {
                 SolrDocument doc = varMeta.getElements().get(key).documentList.get(i);
-                lines.add(key + delimiter
-                        + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";")+ "\"" + delimiter
-                        + "\"" + varStich.get(key) + "\"" + delimiter
-                        + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
-                        + doc.getFieldValue("score") + delimiter
-                        + doc.getFieldValue("url") + delimiter
-                        + doc.getFieldValue("pageDepth")
-                );
+
+                //Get Domain
+                URI uri = new URI((String) doc.getFieldValue("url"));
+                String domain = uri.getHost();
+                String[] tempStrings = domain.split("\\.");
+                if (tempStrings.length >= 0) {
+                    domain = tempStrings[tempStrings.length - 2];
+                } else {
+                    logger.debug(uri.getHost() + " Has no dot");
+                }
+
+                urls.addDomain(domain, uri.getHost());
+
+                //concatenate result
+                try {
+                    if (
+                           // (domain.contains("qualitaetspakt-lehre")) ||
+                            urls.isHochschule(domain) ||
+                            Integer.parseInt((String) doc.getFieldValue("pageDepth")) <= 3) {
+                        String hochschulname;
+                        String latLon = "";
+                        try {
+                            UrlHochschule urlh = urls.getHochschule(domain);
+                            hochschulname = urlh.Hochschulname;
+                            latLon = urlh.lat + delimiter + urlh.lon;
+                        } catch (NoDomainFoundException e) {
+                            hochschulname = "";
+                        } catch (NoHochschuleException e) {
+                            hochschulname = domain;
+                        }
+                        lines.add(key + delimiter
+                                + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";") + "\"" + delimiter
+                                + "\"" + varStich.get(key) + "\"" + delimiter
+                                + "\"" + hochschulname + "\"" + delimiter
+                                + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
+                                + doc.getFieldValue("score") + delimiter
+                                + doc.getFieldValue("url") + delimiter
+                                + doc.getFieldValue("pageDepth") + delimiter
+                                + latLon
+                        );
+                    }
+                } catch (Exception e) {
+                    logger.warn("Something went wrong " + domain + " pageDepth " + doc.getFieldValue("pageDepth") + " so far" );
+                    logger.warn(e.getMessage());
+                }
             }
         }
+
+        //urls.validateDomains();
 
         Path file = Paths.get(filepath);
         Files.write(file, lines, Charset.forName("UTF-8"));
