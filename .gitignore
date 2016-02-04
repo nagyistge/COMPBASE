@@ -25,3 +25,8 @@ competence-crawler/target/classes/uzuzjmd/competence/crawler/neo4j/Neo4JConnecto
 competence-crawler/target/classes/uzuzjmd/competence/crawler/solr/SolrConnector.class
 competence-crawler/target/test-classes/uzuzjmd/competence/competence_crawler/AppTest.class
 competence-crawler/target/test-classes/uzuzjmd/competence/crawler/io/ReadCsvTest.class
+competence-crawler/target/classes/uzuzjmd/competence/crawler/geomapper/Address.class
+competence-crawler/target/classes/uzuzjmd/competence/crawler/geomapper/Geocoordinator.class
+competence-crawler/target/classes/uzuzjmd/competence/crawler/geomapper/HochschulResultSet.class
+competence-crawler/target/classes/uzuzjmd/competence/crawler/main/GeometaUpdater.class
+competence-crawler/target/classes/
