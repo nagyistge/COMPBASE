@@ -77,7 +77,7 @@ public class VarMeta {
         }
         for (String key : varStich.keySet()) {
             q += key + ", ";
-            resultMap.put(key, StringUtils.join(varStich.get(key), " OR "));
+            resultMap.put(key, StringUtils.join(varStich.get(key), "\" OR \""));
         }
         q = q.substring(0, q.length()-2);
         logger.debug("Leaving toSolrQuery with keys:" + q);
