@@ -34,6 +34,8 @@ public class MagicStrings {
 	public static final String NEO4JURL = PropUtil
 			.getProp("neo4jURL");
 
+	public static final String UNIVERSITIESDBNAME = PropUtil.getProp("universitiesDatabaseName");
+
 	public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
 	public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
 	public static final String varMetaPath = crawlerOutputDirPath + "/varMeta.csv";
