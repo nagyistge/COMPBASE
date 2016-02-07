@@ -7,6 +7,7 @@ import uzuzjmd.competence.crawler.exception.NoDomainFoundException;
 import uzuzjmd.competence.crawler.exception.NoHochschuleException;
 import uzuzjmd.competence.crawler.exception.NoResultsException;
 import uzuzjmd.competence.crawler.mysql.MysqlConnector;
+import uzuzjmd.competence.crawler.mysql.MysqlResult;
 import uzuzjmd.database.mysql.VereinfachtesResultSet;
 
 import java.util.ArrayList;
@@ -25,12 +26,12 @@ public class Urls {
     }
 
     public void addDomain(String domain, String host) {
-        logger.debug("Entering addDomain with domain:" + domain + " from " + host);
+        //logger.debug("Entering addDomain with domain:" + domain + " from " + host);
         for (UrlHochschule urlh :
                 urls) {
             if (urlh.domain.equals(domain)) {
                 urlh.count++;
-                logger.debug("Leaving addDomain with added + 1");
+                //logger.debug("Leaving addDomain with added + 1");
                 return;
             }
         }
@@ -38,18 +39,18 @@ public class Urls {
         urlh.domain = domain;
         try {
 
-            VereinfachtesResultSet vrs = mysqlConn.queryDomain(urlh.domain);
+            MysqlResult msr = mysqlConn.searchDomain(urlh.domain);
             urlh.hochschule = true;
-            vrs.next();
-            urlh.Hochschulname = vrs.getString("Hochschulname");
-            urlh.lat = vrs.getDouble("lat");
-            urlh.lon = vrs.getDouble("lon");
+            //vrs.next();
+            urlh.Hochschulname = msr.hochschulname;
+            urlh.lat = msr.lat;
+            urlh.lon = msr.lon;
         } catch (NoResultsException e) {
-            logger.debug(urlh.domain + " is no Hochschule");
+            //logger.debug(urlh.domain + " is no Hochschule");
         }
         urlh.count = 1;
         urls.add(urlh);
-        logger.debug("Leaving addDomain");
+        //logger.debug("Leaving addDomain");
     }
 
     public void validateDomains() {

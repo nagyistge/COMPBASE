@@ -14,7 +14,7 @@ import uzuzjmd.competence.crawler.solr.SolrConnector;
  */
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
-    static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test2";
+    static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test1";
 
     public static void main(String[] args) throws Exception {
         logger.debug(MagicStrings.ROOTPATH);
@@ -32,13 +32,17 @@ public class SolrApp {
         nj.queryMyStatements(model.toNeo4JQuery());
         logger.info("The model has been put into Neo4J");
         logger.info("Create Query");
-        model.scoreStichwort(connector);
-        model.scoreVariable(connector);
+        //model.scoreStichwort(connector);
+        model.initStichFile(MagicStrings.stichWortPath);
+        model.initVarMetaFile(MagicStrings.varMetaPath);
+        model.scoreStichwort(connector, MagicStrings.stichWortPath);
+        //model.scoreVariable(connector);
+        model.scoreVariable(connector, MagicStrings.varMetaPath);
         logger.info("Get Score from Crawling");
         logger.info("Transform Scoring into results");
         model.stichwortVarToCsv(MagicStrings.stichWortVarPath);
-        model.stichwortResultToCsv(MagicStrings.stichWortPath);
-        model.varMetaResultToCsv(MagicStrings.varMetaPath);
+        //model.stichwortResultToCsv(MagicStrings.stichWortPath);
+        //model.varMetaResultToCsv(MagicStrings.varMetaPath);
         logger.debug("Leaving main");
     }
 }

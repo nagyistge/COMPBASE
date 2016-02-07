@@ -19,6 +19,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -92,6 +93,57 @@ public class Model {
         logger.debug("Leaving scoreStichwort");
     }
 
+    public void scoreStichwort(SolrConnector connector, String filepath) throws IOException, SolrServerException {
+        logger.debug("Entering scoreStichwort with SolrConnector:" + connector.getServerUrl() + ", filepath: " + filepath);
+        for (String key :
+                stichwortVar.getElements().keySet()) {
+            QueryResponse response = connector.connectToSolr(key);
+            SolrDocumentList solrList = response.getResults();
+            logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
+            //stichwortResult.put(key, solrList);
+            solrListToFile(key, solrList, filepath);
+
+        }
+        logger.debug("Leaving scoreStichwort");
+    }
+
+    public void initStichFile(String filepath) throws IOException {
+        logger.debug("Entering initStichFile");
+        List<String> lines = new ArrayList<String>();
+        lines.add("Stichwort" + delimiter + "URL" + delimiter + "SolrScore");
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8"));
+
+        logger.debug("Leaving initStichFile");
+    }
+    public void initVarMetaFile(String filepath) throws IOException {
+        logger.debug("Entering initVarMetaFile");
+        List<String> lines = new ArrayList<>();
+        lines.add("Variable" + delimiter + "Metavariable" + delimiter + "Stichworte"
+                + delimiter + "Hochschule" + delimiter
+                + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
+                "Depth" + delimiter + "Lat" + delimiter + "Lon");
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8") );
+
+        logger.debug("Leaving initVarMetaFile");
+    }
+
+
+    public void solrListToFile(String key, SolrDocumentList solrList, String filepath) throws IOException {
+        logger.debug("Entering solrListToFile");
+        List<String> lines = new ArrayList<String>();
+        int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
+        for (int i = 0; i < sizeOfStichwortResult; i++) {
+            SolrDocument doc = solrList.get(i);
+            lines.add(key + delimiter + doc.getFieldValue("id") + delimiter + doc.getFieldValue("score"));
+        }
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+
+        logger.debug("Leaving solrListToFile");
+    }
+
     public void scoreVariable(SolrConnector connector) throws IOException, SolrServerException {
         logger.debug("Entering scoreVariable with SolrConnector:" + connector.getServerUrl());
         HashMap<String, String> varStich = varMeta.toSolrQuery(stichwortVar);
@@ -104,6 +156,18 @@ public class Model {
         logger.debug("Leaving scoreVariable");
     }
 
+    public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException {
+        logger.debug("Entering scoreVariable with SolrConnector:" + connector.getServerUrl());
+        HashMap<String, String> varStich = varMeta.toSolrQuery(stichwortVar);
+        for (String key: varStich.keySet()) {
+            QueryResponse response = connector.connectToSolr(varStich.get(key));
+            SolrDocumentList solrList = response.getResults();
+            logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
+            //varMeta.setSolrResult(solrList, key);
+            varMetaToCsv(key, solrList, filepath);
+        }
+        logger.debug("Leaving scoreVariable");
+    }
 
     public void stichwortVarToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortVarToCsv with filepath:" + filepath);
@@ -117,6 +181,68 @@ public class Model {
 
         logger.debug("Leaving stichwortVarToCsv");
     }
+
+    public void varMetaToCsv(String key, SolrDocumentList solrList, String filepath) throws IOException, URISyntaxException {
+        logger.debug("Entering varMetaToCsv");
+        List<String> lines = new ArrayList<>();
+        int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
+        for (int i = 0; i < sizeOfStichwortResult; i++) {
+            SolrDocument doc = solrList.get(i);
+
+            //Get Domain
+            URI uri = new URI(((String) doc.getFieldValue("url")).replace(" ", "").replace("[", "").replace("]", "").split("\\?")[0]);
+            String domain = uri.getHost();
+            String[] tempStrings = domain.split("\\.");
+            if (tempStrings.length >= 0) {
+                domain = tempStrings[tempStrings.length - 2];
+            } else {
+                logger.debug(uri.getHost() + " Has no dot");
+            }
+
+            urls.addDomain(domain, uri.getHost());
+
+            //concatenate result
+            try {
+                if (
+                    // (domain.contains("qualitaetspakt-lehre")) ||
+                        urls.isHochschule(domain) ||
+                                Integer.parseInt((String) doc.getFieldValue("pageDepth")) <= 3) {
+                    String hochschulname;
+                    String latLon = "";
+                    try {
+                        UrlHochschule urlh = urls.getHochschule(domain);
+                        hochschulname = urlh.Hochschulname;
+                        latLon = urlh.lat + delimiter + urlh.lon;
+                    } catch (NoDomainFoundException e) {
+                        hochschulname = "";
+                    } catch (NoHochschuleException e) {
+                        hochschulname = domain;
+                    }
+                    lines.add(key + delimiter
+                            + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";") + "\"" + delimiter
+                            + "\"" + key + "\"" + delimiter
+                            + "\"" + hochschulname + "\"" + delimiter
+                            + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
+                            + doc.getFieldValue("score") + delimiter
+                            + doc.getFieldValue("url") + delimiter
+                            + doc.getFieldValue("pageDepth") + delimiter
+                            + latLon
+                    );
+                }
+            } catch (Exception e) {
+                logger.warn("Something went wrong " + domain + " pageDepth " + doc.getFieldValue("pageDepth") + " so far");
+                logger.warn(e.getMessage());
+            }
+        }
+        //urls.validateDomains();
+
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+
+
+        logger.debug("Leaving varMetaToCsv");
+    }
+
 
     public void stichwortResultToCsv(String filepath) throws IOException {
         logger.debug("Entering stichwortResultToCsv with filepath:" + filepath);

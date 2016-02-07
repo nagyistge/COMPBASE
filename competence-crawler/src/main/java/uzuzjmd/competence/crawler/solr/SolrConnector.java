@@ -22,6 +22,7 @@ public class SolrConnector {
     static private final Logger logger = LogManager.getLogger(SolrConnector.class.getName());
     private SolrClient client ;
     private final String serverUrl;
+    private static final int LIMIT=1000000;
 
     public SolrConnector(String serverUrl) {
         logger.debug("Entering SolrConnector Constructor with serverUrl:" + serverUrl);
@@ -29,18 +30,25 @@ public class SolrConnector {
         client = new HttpSolrClient(serverUrl);
         logger.debug("Leaving SolrConnector Constructor");
     }
+
+    static public int getLimit() {
+        return LIMIT;
+    }
     public QueryResponse connectToSolr(String query) throws IOException, SolrServerException {
         //query = "content\"" + StringUtils.join(query.split(" "), "\" AND \"") + "\"";
         logger.debug("Entering connectToSolr with query:" + query);
         SolrQuery solrQuery = new SolrQuery("content:\"" + query + "\"");
         solrQuery.set("indent", "true");
-        solrQuery.set("rows", 10000);
+        solrQuery.set("rows", LIMIT);
         solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
 
         QueryResponse response = client.query(solrQuery);
         SolrDocumentList docs = response.getResults();
         logger.info("Quantitiv Result:" + String.valueOf(docs.getNumFound()));
+        if (docs.getNumFound() > LIMIT) {
+            logger.warn("Limit Exceeded. Found more Docs in solr than queried. Increase the LIMIT if you want to get more Docs");
+        }
         logger.debug("Leaving connectToSolr");
         return response;
 
