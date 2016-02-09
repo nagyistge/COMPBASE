@@ -42,10 +42,14 @@ public class SolrConnector {
         solrQuery.set("rows", LIMIT);
         solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
+        if (query.toLowerCase().contains("forschendes lernen")) {
+            solrQuery.set("defType", "edismax");
+            solrQuery.set("qs", "10");
+        }
 
         QueryResponse response = client.query(solrQuery);
         SolrDocumentList docs = response.getResults();
-        logger.info("Quantitiv Result:" + String.valueOf(docs.getNumFound()));
+        logger.info("Quantitiv Result from \"" + query + "\":" + String.valueOf(docs.getNumFound()));
         if (docs.getNumFound() > LIMIT) {
             logger.warn("Limit Exceeded. Found more Docs in solr than queried. Increase the LIMIT if you want to get more Docs");
         }
