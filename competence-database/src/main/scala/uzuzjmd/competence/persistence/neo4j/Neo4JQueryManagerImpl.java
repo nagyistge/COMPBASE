@@ -300,4 +300,18 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         }
          return result2;
     }
+
+    /**
+     * a->b and all catchwords c where c->a and c->b
+     * @param learningTemplate
+     * @return
+     * @throws Exception
+     */
+    public List<ArrayList<String>> getPrerequisiteTriples(LearningProjectTemplate learningTemplate) throws Exception {
+        String query = "MATCH (l:LearningProjectTemplate{id:'"+learningTemplate.getDefinition()+"'})-[r4:LearningProjectTemplateOf]->(a) MATCH (l)-[r5:LearningProjectTemplateOf]->(b) MATCH (a:Competence)-[r1:SuggestedCompetencePrerequisiteOf]->(b:Competence) MATCH (c)-[x22:CatchwordOf]->(a) MATCH (c)-[x33:CatchwordOf]->(b) return a.id, b.id, c.id";
+        return issueNeo4JRequestArrayListArrayList(query);
+    }
+
+
+
 }

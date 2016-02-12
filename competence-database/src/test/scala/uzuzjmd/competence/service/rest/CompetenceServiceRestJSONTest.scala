@@ -4,7 +4,8 @@ import com.google.common.collect.Lists
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
 import uzuzjmd.competence.config.{MagicStrings, Logging}
-import uzuzjmd.competence.mapper.rest.read.{Ont2SuggestedCompetenceGrid, Ont2CompetenceGraph, Ont2CompetenceTree}
+import uzuzjmd.competence.main.EposImporter
+import uzuzjmd.competence.mapper.rest.read.{Ont2LearningTemplateResultSet, Ont2SuggestedCompetenceGrid, Ont2CompetenceGraph, Ont2CompetenceTree}
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
@@ -545,4 +546,26 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
   @throws(classOf[Exception])
   def testDeleteSuggestedActivityForCompetence {
   }
-}
+
+  @Test
+  @throws(classOf[Exception])
+  def testEposImportTest: Unit ={
+    val  timeBeforeConvert = System.currentTimeMillis()
+    EposImporter.convert();
+    val timeAfterConvert = System.currentTimeMillis();
+
+    val templateName = "11 Sprachkompetenz, Univ. (ELC, DE)"
+    val changes = new LearningTemplateData("Julian", "university", templateName)
+
+    val timeBeforeConvert2 = System.currentTimeMillis()
+    val result = Ont2SuggestedCompetenceGrid.convert(changes)
+    val timeAfterConvert2 = System.currentTimeMillis()
+
+    val timeBeforeConvert3 = System.currentTimeMillis()
+    val learningTemplateResultSet = Ont2LearningTemplateResultSet.convert(templateName)
+    val timeAfterConvert3 = System.currentTimeMillis();
+
+    logger.info("converting epos competences took:"  + (timeAfterConvert - timeBeforeConvert))
+    logger.info("Ont2SuggestedCompetenceGrid took:"  + (timeAfterConvert2 - timeBeforeConvert2))
+    logger.info("Ont2LearningTemplateResultSet took:"  + (timeAfterConvert3 - timeBeforeConvert3))
+  }}

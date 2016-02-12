@@ -12,6 +12,7 @@ import scala.collection.mutable
 
 /**
   * @author dehne
+  *         TODO rewrite
   */
 object Ont2SuggestedCompetenceGraph extends Logging {
 
@@ -75,7 +76,9 @@ object Ont2SuggestedCompetenceGraph extends Logging {
       val result2 = (result._1, result._2)
       return result2
     } catch {
-      case ioe: NoSuchElementException => print("nono") // more specific cases first !
+      case ioe: NoSuchElementException =>
+        print("nono") // more specific cases first !
+        logger.error("triple: "+triple +"\n checkMap: "+ checkMap.toList.toString())
       case e: Exception => print("hjoho")
     }
     return null

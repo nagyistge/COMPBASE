@@ -4,7 +4,7 @@ import java.util
 
 import uzuzjmd.competence.datasource.csv.FilteredCSVCompetence
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
-import uzuzjmd.competence.persistence.dao.{Operator, Dao, Catchword, Competence}
+import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.shared.DESCRIPTORSETType
 import collection.JavaConverters._
@@ -20,10 +20,11 @@ object EposXML2Ont extends WriteTransactional[java.util.List[DESCRIPTORSETType]]
   }
 
   def convertHelper(changes: java.util.List[DESCRIPTORSETType]) {
+
     val filteredCSVCompetence: util.List[FilteredCSVCompetence] = EposXML2FilteredCSVCompetence.mapEposXML(changes)
     mapFilteredCSVCompetence2ont(filteredCSVCompetence)
     EposXMLToSuggestedLearningPath.convertLevelsToOWLRelations(changes)
-    EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(changes)
+    //EposXMLToSuggestedLearningPath.convertLevelsAndLearningGoalToTemplate(changes)
   }
 
   def mapFilteredCSVCompetence2ont(input : util.List[FilteredCSVCompetence]): Unit = {
@@ -42,5 +43,6 @@ object EposXML2Ont extends WriteTransactional[java.util.List[DESCRIPTORSETType]]
       competence.createEdgeWith(operator, Edge.OperatorOf)
       val superCompetence =  new Competence(input.supercompetence)
       competence.addSuperCompetence(superCompetence)
+      competence.addLearningTemplate(new LearningProjectTemplate(input.learningtemplate).persist().asInstanceOf[LearningProjectTemplate])
   }
 }

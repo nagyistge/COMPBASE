@@ -2,7 +2,6 @@ package uzuzjmd.competence.mapper.rest.read
 
 import java.util
 import javax.ws.rs.WebApplicationException
-
 import com.google.common.collect.Lists
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
