@@ -17,7 +17,7 @@ object EposXML2FilteredCSVCompetence {
 
   def mapDescriptorSetToFilteredCSVCompetence(descriptorSetType: DESCRIPTORSETType): Buffer[FilteredCSVCompetence] = {
     //descriptorSetType.getNAME()
-    return descriptorSetType.getDESCRIPTOR().asScala.map(x => new FilteredCSVCompetence(x.getNAME(), List(x.getCOMPETENCE(), x.getLEVEL()), x.getCOMPETENCE(), "", "", List.empty, "Language learner", descriptorSetType2Id(x)))
+    return descriptorSetType.getDESCRIPTOR().asScala.map(x => new FilteredCSVCompetence(x.getNAME(), List(x.getCOMPETENCE(), x.getLEVEL()), x.getCOMPETENCE(), "", "", List.empty, "Language learner", descriptorSetType2Id(x),descriptorSetType.getNAME))
   }
 
   def descriptorSetType2Id(des: DESCRIPTORType): String = {
@@ -28,11 +28,6 @@ object EposXML2FilteredCSVCompetence {
     return a._1 + a._2;
   }
 
-  def identifier2Definition(input: String): String = {
-    if (input == null) {
-      return null
-    }
-    return input.substring(0, input.length() - 2);
-  }
+
 
 }
