@@ -7,7 +7,7 @@
         <param name="Threshold" value="DEBUG"/>
         <param name="File"
                value="/opt/up/logs/competence.log"></param>
-        <!--		<param name="File" value="C:/Users/dehne/Desktop/logs/competence.log" 	/> -->
+        <!--		<param name="File" value="C:/Users/dehne/Desktop/logs/competecd nce.log" 	/> -->
         <param name="maxFileSize" value="1MB"/>
         <param name="maxBackupIndex" value="5"/>
         <layout class="org.apache.log4j.PatternLayout">

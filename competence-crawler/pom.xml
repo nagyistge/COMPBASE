@@ -4,8 +4,8 @@
 
 	<groupId>uzuzjmd.competence</groupId>
 	<artifactId>competence-crawler</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0</version>
+	<packaging>pom</packaging>
 
 	<name>competence-crawler</name>
 	<url>http://maven.apache.org</url>
@@ -28,15 +28,28 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
-		<dependency>
+
+		<!--<dependency>
+			<groupId>uzuzjmd.java</groupId>
+			<artifactId>util</artifactId>
+			<version>1.0</version>
+		</dependency>-->
+		<!--<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>competence-database</artifactId>
             <version>1.0</version>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-solrj</artifactId>
 			<version>5.4.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.4</version>
 		</dependency>
 
 		<dependency>
@@ -44,7 +57,22 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
 
+		<dependency>
+			<groupId>uzuzjmd.competence</groupId>
+			<artifactId>competence-comparison</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>uzuzjmd.java</groupId>
+			<artifactId>util</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 	</dependencies>
 	<build>

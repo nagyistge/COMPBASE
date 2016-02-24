@@ -2,8 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.solr.common.util.Hash;
-import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl;
+import uzuzjmd.competence.persistence.neo4j.CompetenceNeo4jQueryManagerImpl;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
 import java.lang.reflect.Field;
@@ -16,7 +15,7 @@ import java.util.*;
 public abstract class DaoAbstractImpl implements Dao {
 
     private final String id;
-    protected final Neo4JQueryManagerImpl queryManager = new Neo4JQueryManagerImpl();
+    protected final CompetenceNeo4jQueryManagerImpl queryManager = new CompetenceNeo4jQueryManagerImpl();
     static Logger logger = LogManager.getLogger(DaoAbstractImpl.class.getName());
     protected HashSet<Dao> superClasses = new HashSet<>();
     protected HashSet<Dao> subClasses = new HashSet<>();
@@ -26,9 +25,10 @@ public abstract class DaoAbstractImpl implements Dao {
         this.id = id;
     }
 
+
     @Override
     public void setFullDao(HashMap<String, String> props) {
-        logger.debug("Entering hashMapToIndividual with properties");
+        logger.trace("Entering hashMapToIndividual with properties");
         String logMessage = "Created/Updated Individual {";
         for (String key :
                 props.keySet()) {
@@ -50,8 +50,8 @@ public abstract class DaoAbstractImpl implements Dao {
                 e.printStackTrace();
             }
         }
-        logger.info(logMessage + "}");
-        logger.debug("Leaving hashMapToIndividual");
+        logger.trace(logMessage + "}");
+        logger.trace("Leaving hashMapToIndividual");
     }
 
     @Override
@@ -174,7 +174,7 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     protected HashMap<String, String> toHashMap() {
-        logger.debug("Entering toHashMap");
+        logger.trace("Entering toHashMap");
         HashMap<String, String> result = new HashMap<String, String>();
         String logMes = "{";
         for (Field prop :
@@ -192,7 +192,7 @@ public abstract class DaoAbstractImpl implements Dao {
                 e.printStackTrace();
             }
         }
-        logger.debug("Leaving toHashMap with HashMap:" + logMes + "}");
+        logger.trace("Leaving toHashMap with HashMap:" + logMes + "}");
         return result;
     }
 

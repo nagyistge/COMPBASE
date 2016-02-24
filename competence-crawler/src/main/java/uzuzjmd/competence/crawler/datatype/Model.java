@@ -95,8 +95,12 @@ public class Model {
 
     public void scoreStichwort(SolrConnector connector, String filepath) throws IOException, SolrServerException {
         logger.debug("Entering scoreStichwort with SolrConnector:" + connector.getServerUrl() + ", filepath: " + filepath);
+        int i = 1;
+        int size = stichwortVar.getElements().keySet().size();
         for (String key :
                 stichwortVar.getElements().keySet()) {
+            logger.debug("scoreStich Object " + i + " from " + size);
+            i++;
             QueryResponse response = connector.connectToSolr(key);
             SolrDocumentList solrList = response.getResults();
             logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
@@ -159,7 +163,11 @@ public class Model {
     public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException {
         logger.debug("Entering scoreVariable with SolrConnector:" + connector.getServerUrl());
         HashMap<String, String> varStich = varMeta.toSolrQuery(stichwortVar);
+        int i = 1;
+        int size = varStich.keySet().size();
         for (String key: varStich.keySet()) {
+            logger.debug("scoreVar Object " + i + " from " + size);
+            i++;
             QueryResponse response = connector.connectToSolr(varStich.get(key));
             SolrDocumentList solrList = response.getResults();
             logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
@@ -218,12 +226,18 @@ public class Model {
                     } catch (NoHochschuleException e) {
                         hochschulname = domain;
                     }
+
+                    Double score = Double.valueOf(doc.getFieldValue("score").toString())*1000;
+                    if (score < 0.0000001) {
+                        score = 0.0;
+                    }
+
                     lines.add(key + delimiter
                             + "\"" + StringUtils.join(varMeta.getElements().get(key).metaVar, ";") + "\"" + delimiter
                             + "\"" + key + "\"" + delimiter
                             + "\"" + hochschulname + "\"" + delimiter
                             + "\"" + doc.getFieldValue("content").toString().replace("\"", "'") + "\"" + delimiter
-                            + doc.getFieldValue("score") + delimiter
+                            + score  + delimiter
                             + doc.getFieldValue("url") + delimiter
                             + doc.getFieldValue("pageDepth") + delimiter
                             + latLon
