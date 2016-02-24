@@ -1,10 +1,7 @@
 package uzuzjmd.competence.crawler.solr;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.PhraseQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -13,7 +10,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Created by carl on 07.01.16.
@@ -42,7 +38,7 @@ public class SolrConnector {
         solrQuery.set("rows", LIMIT);
         solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
-        if (query.toLowerCase().contains("forschendes lernen")) {
+        if (query.toLowerCase().matches("forsch[a-z]* lern[a-z]*") || query.toLowerCase().matches("entdeckend[a-z]* lern[a-z]*")) {
             solrQuery.set("defType", "edismax");
             solrQuery.set("qs", "10");
         }

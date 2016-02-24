@@ -22,6 +22,8 @@
     <module>../competence-tests</module>
 	<module>../competence-database-servlet/competence-servlet</module>
     <module>../competence-crawler</module>
+    <module>../util</module>
+    <module>../competence-comparison</module>
   </modules>
 
   <dependencies>

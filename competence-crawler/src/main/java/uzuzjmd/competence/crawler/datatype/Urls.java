@@ -1,14 +1,13 @@
 package uzuzjmd.competence.crawler.datatype;
 
+import mysql.VereinfachtesResultSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.specs2.internal.scalaz.Alpha;
 import uzuzjmd.competence.crawler.exception.NoDomainFoundException;
 import uzuzjmd.competence.crawler.exception.NoHochschuleException;
 import uzuzjmd.competence.crawler.exception.NoResultsException;
 import uzuzjmd.competence.crawler.mysql.MysqlConnector;
 import uzuzjmd.competence.crawler.mysql.MysqlResult;
-import uzuzjmd.database.mysql.VereinfachtesResultSet;
 
 import java.util.ArrayList;
 import java.util.List;

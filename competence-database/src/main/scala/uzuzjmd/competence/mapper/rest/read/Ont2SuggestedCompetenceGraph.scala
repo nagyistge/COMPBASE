@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util.{NoSuchElementException, HashMap}
-
-import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.dao.{Competence, LearningProjectTemplate}
 import uzuzjmd.competence.shared.dto.{Graph, GraphTriple, LearningTemplateResultSet}
 import uzuzjmd.java.collections.MapsMagic

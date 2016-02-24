@@ -1,7 +1,8 @@
 package uzuzjmd.competence.persistence.abstractlayer
 
+import neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.persistence.dao.Dao
-import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
+import uzuzjmd.competence.persistence.neo4j.DBFactory
 import uzuzjmd.competence.persistence.ontology.Edge
 
 /**
@@ -25,7 +26,7 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends WriteTransactional[( 
   }
 
   def writeHelper(tuple: ( String, String)): Unit = {
-    val manager = new Neo4JQueryManagerImpl();
+    val manager = DBFactory.getDB;
     manager.createRelationShip(tuple._1, edgeType, tuple._2)
   }
 
@@ -34,7 +35,7 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends WriteTransactional[( 
   }
 
   def deleteHelper(tuple: ( String, String)): Unit = {
-    val manager = new Neo4JQueryManagerImpl();
+    val manager = DBFactory.getDB;
     manager.deleteRelationShip(tuple._1, tuple._2, edgeType)
   }
 

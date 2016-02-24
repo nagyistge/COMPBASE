@@ -11,6 +11,7 @@ import java.io.*;
  */
 public class ReadCsv {
     static private final Logger logger = LogManager.getLogger(ReadCsv.class.getName());
+    private static final java.lang.String LINEDELIMITER = ";";
 
     private String fileName;
     public ReadCsv(String fileName) {
@@ -38,7 +39,7 @@ public class ReadCsv {
                 header = false;
                 continue;
             }
-            String[] args = line.split(",");
+            String[] args = line.split(LINEDELIMITER);
             if (args.length >= 3) {
                 m.addDate(args[0].replace("\"", "").replace("/", "\\/"),
                         args[1].replace("\"", ""),

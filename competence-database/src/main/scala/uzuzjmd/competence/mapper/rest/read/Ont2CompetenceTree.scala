@@ -1,19 +1,19 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
-
-import uzuzjmd.competence.config.MagicStrings
+import config.MagicStrings
+import neo4j.Neo4JQueryManagerImpl
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, Operator}
-import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
+import uzuzjmd.competence.persistence.neo4j.DBFactory
 import uzuzjmd.competence.persistence.validation.TextValidator
 import uzuzjmd.competence.service.rest.dto._
 import uzuzjmd.java.collections.{TreePair, _}
 import scala.collection.JavaConverters._
-import uzuzjmd.competence.config.Logging
 
 object Ont2CompetenceTree extends Logging{
 
-  val neo4jqueryManager = new Neo4JQueryManagerImpl
+  val neo4jqueryManager = DBFactory.getDB;
   val iconRootPath = MagicStrings.webapplicationPath
   val iconPathCompetence = iconRootPath + "/icons/competence.png"
   val iconPathOperator = iconRootPath + "/icons/filter.png"

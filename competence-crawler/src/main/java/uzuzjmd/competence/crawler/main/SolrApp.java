@@ -1,12 +1,11 @@
 package uzuzjmd.competence.crawler.main;
 
+import config.MagicStrings;
+import neo4j.Neo4JConnector;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
-import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.crawler.datatype.Model;
 import uzuzjmd.competence.crawler.io.ReadCsv;
-import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
 
 /**
@@ -14,9 +13,10 @@ import uzuzjmd.competence.crawler.solr.SolrConnector;
  */
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
-    static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test1";
+    static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/test2";
 
     public static void main(String[] args) throws Exception {
+        System.out.print("starting csv creation");
         logger.debug(MagicStrings.ROOTPATH);
         logger.debug("Entering main");
         logger.info("Read out csv");
@@ -44,5 +44,6 @@ public class SolrApp {
         //model.stichwortResultToCsv(MagicStrings.stichWortPath);
         //model.varMetaResultToCsv(MagicStrings.varMetaPath);
         logger.debug("Leaving main");
+        System.out.print("finishing csv creation");
     }
 }

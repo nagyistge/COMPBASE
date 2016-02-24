@@ -1,6 +1,5 @@
 package uzuzjmd.competence.logging
 
-import uzuzjmd.competence.config.Logging
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 
 /**

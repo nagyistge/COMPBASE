@@ -1,12 +1,11 @@
 package uzuzjmd.competence.crawler.mysql;
 
+import config.MagicStrings;
+import mysql.MysqlConnect;
+import mysql.VereinfachtesResultSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import uzuzjmd.competence.config.MagicStrings;
 import uzuzjmd.competence.crawler.exception.NoResultsException;
-import uzuzjmd.database.mysql.MysqlConnect;
-import uzuzjmd.database.mysql.VereinfachtesResultSet;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class MysqlConnector {
     public MysqlConnector() {
         MysqlConnect connector = new MysqlConnect();
         connector.connect(connectionString);
-        hochschulen = connector.issueSelectStatement("Select * from Hochschulen");
+        hochschulen = connector.issueSelectStatement("Select * from hochschulen_copy");
         mysqlResults = new ArrayList<>();
         while (hochschulen.next() ) {
             MysqlResult msr = new MysqlResult();

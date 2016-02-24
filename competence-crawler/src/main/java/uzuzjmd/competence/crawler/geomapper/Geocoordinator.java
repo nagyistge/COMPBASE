@@ -1,17 +1,19 @@
 package uzuzjmd.competence.crawler.geomapper;
 
-import uzuzjmd.competence.config.MagicStrings;
-import uzuzjmd.database.mysql.MysqlConnect;
-import uzuzjmd.database.mysql.VereinfachtesResultSet;
+
+import config.MagicStrings;
+import mysql.MysqlConnect;
+import mysql.VereinfachtesResultSet;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by dehne on 03.02.2016.
@@ -72,8 +74,8 @@ public class Geocoordinator {
         Client client2 = ClientBuilder.newClient();
         input.setCity(input.getCity().replaceAll(" ", "+"));
         input.setStreet(input.getStreet().replaceAll(" ", "+"));
-        WebTarget target2 = client2.target("http://nominatim.openstreetmap.org/search?q="+input.getStreet()+","+input.getCity()+"&format=json&polygon=1&addressdetails=1");
-        Response response =  target2.request(
+        WebTarget target2 = client2.target("http://nominatim.openstreetmap.org/search?q=" + input.getStreet() + "," + input.getCity() + "&format=json&polygon=1&addressdetails=1");
+        Response response = target2.request(
                 MediaType.APPLICATION_JSON).get();
 
         ArrayList<HashMap<String, String>> result = response.readEntity(ArrayList.class);
@@ -85,7 +87,7 @@ public class Geocoordinator {
             Double lon = Double.valueOf(result.get(0).get("lon"));
             input.setLat(lat);
             input.setLon(lon);
-        } catch( NumberFormatException e) {
+        } catch (NumberFormatException e) {
             Class<Geocoordinator> geocoordinatorClass2 = Geocoordinator.class;
             System.exit(-1);
         }

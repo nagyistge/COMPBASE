@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
-
-import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.java.collections.TreePair
 import uzuzjmd.java.collections._
 import collection.JavaConverters._
