@@ -35,7 +35,7 @@ public class SolrApp {
         //model.scoreStichwort(connector);
         model.initStichFile(MagicStrings.stichWortPath);
         model.initVarMetaFile(MagicStrings.varMetaPath);
-        model.scoreStichwort(connector, MagicStrings.stichWortPath);
+        //model.scoreStichwort(connector, MagicStrings.stichWortPath);
         //model.scoreVariable(connector);
         model.scoreVariable(connector, MagicStrings.varMetaPath);
         logger.info("Get Score from Crawling");
