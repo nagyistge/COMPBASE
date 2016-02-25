@@ -206,7 +206,8 @@ public class Model implements PersistenceModel {
             QueryResponse response = connector.connectToSolr(varStich.get(key));
             SolrDocumentList solrList = response.getResults();
             logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
-            varMetaToCsv(key, solrList, filepath, varStich.get(key));
+            varMetaToCsv(key, solrList, filepath,
+                    StringUtils.join(varStich.get(key).split("\" OR \""), ", "));
         }
         logger.debug("Leaving scoreVariable");
     }
