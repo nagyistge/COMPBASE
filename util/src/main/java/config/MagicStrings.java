@@ -33,12 +33,15 @@ public class MagicStrings {
 			.getProp("thesaurusDatabaseUrl");
 	public static final String NEO4JURL = PropUtil
 			.getProp("neo4jURL");
+	public static final String LOG4JLOCATION = PropUtil.getProp("log4jlocation");
 
 	public static final String UNIVERSITIESDBNAME = PropUtil.getProp("universitiesDatabaseName");
+	public static final String UNIVERITIESINITTABLE= PropUtil.getProp("universitiesInitTable");
 
 	public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
 	public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
 	public static final String varMetaPath = crawlerOutputDirPath + "/varMeta.csv";
 	public static final String dataPath = crawlerOutputDirPath + "/moodle_data.csv";
 	public static final String stichWortPath = crawlerOutputDirPath + "/stichVar.csv";
+
 }
