@@ -12,6 +12,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import uzuzjmd.competence.crawler.exception.NoDomainFoundException;
 import uzuzjmd.competence.crawler.exception.NoHochschuleException;
+import uzuzjmd.competence.crawler.exception.NoResultsException;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
 
 import java.io.IOException;
@@ -38,20 +39,30 @@ public class Model implements PersistenceModel {
     private String delimiter = ";";
     private Urls urls;
     private Boolean fileBased = false;
+    private String database;
 
     private static final String connextionString = "jdbc:mysql://" + MagicStrings.thesaurusDatabaseUrl +
             "/" + MagicStrings.UNIVERSITIESDBNAME +
             "?user=" + MagicStrings.thesaurusLogin +
             "&password=" + MagicStrings.thesaurusPassword;
 
-   public Model() {
+    public Model() throws NoResultsException {
+        stichwortVar = new StichwortVar();
+        varMeta = new VarMeta();
+        stichwortResult = new HashMap<>();
+        urls = new Urls();
+        this.database = "";
+    }
+
+   public Model(String database) throws NoResultsException {
        stichwortVar = new StichwortVar();
        varMeta = new VarMeta();
        stichwortResult = new HashMap<>();
        urls = new Urls();
+       this.database = database;
    }
 
-    public void addDate(String stichwort, String variable, String[] metas){
+    public void addDate(String stichwort, String variable, String... metas){
         logger.debug("Entering addDate with stichwort " + stichwort + " variable " + variable
             + " metas " + Arrays.toString(metas));
         if (stichwort.length() > 0) {
@@ -102,23 +113,30 @@ public class Model implements PersistenceModel {
             SolrDocumentList solrList = response.getResults();
             logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
 
-            solrListToFile(key, solrList, filepath);
+            if (fileBased) {
+                solrListToFile(key, solrList, filepath);
+            } else {
+                solrListToDB(key, solrList);
+            }
         }
         logger.debug("Leaving scoreStichwort");
     }
 
-    /**
-     * initialize the keyword-url file or table
-     * @param filepath
-     * @throws IOException
-     */
-    @Override
-    public void initStichFile(String filepath) throws IOException {
-        if (fileBased) {
-            writeFirstLineOfKeyUrlFile(filepath, "Entering initStichFile", "Stichwort" + delimiter + "URL" + delimiter + "SolrScore", "Leaving initStichFile");
-        } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS stichScore (Stichworte TEXT, SolrScore TEXT);");
+
+    public void solrListToDB(String key, SolrDocumentList solrList) {
+        logger.debug("Entering solrListToDB");
+        int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
+        MysqlConnect connect = new MysqlConnect();
+        connect.connect(connextionString);
+        connect.issueInsertOrDeleteStatement("set global max_connections = 20000000000;");
+        connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
+        for (int i = 0; i < sizeOfStichwortResult; i++) {
+            SolrDocument doc = solrList.get(i);
+            connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_Score_Stich (`Variable`, `id`, `SolrScore`) VALUES (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
         }
+        connect.close();
+
+        logger.debug("Leaving solrListToDB");
     }
 
     /**
@@ -139,23 +157,6 @@ public class Model implements PersistenceModel {
     }
 
 
-    /**
-     * create first line or table of varMetaFile
-     * @param filepath
-     * @throws IOException
-     */
-    @Override
-    public void initVarMetaFile(String filepath) throws IOException {
-        if (fileBased) {
-            writeFirstLineOfKeyUrlFile(filepath, "Entering initVarMetaFile", "Variable" + delimiter + "Metavariable" + delimiter + "Stichworte"
-                    + delimiter + "Hochschule" + delimiter
-                    + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
-                    "Depth" + delimiter + "Lat" + delimiter + "Lon", "Leaving initVarMetaFile");
-        } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS varMeta (Variable TEXT, Metavariable TEXT, Stichworte TEXT, Hochschule TEXT, Content TEXT, SolrScore TEXT, URL TEXT, Depth TEXT, Lat DOUBLE, Lon Double);");
-        }
-    }
-
     private void issueStatement(String connextionString, String statement2) {
         MysqlConnect connect = new MysqlConnect();
         connect.connect(connextionString);
@@ -168,31 +169,16 @@ public class Model implements PersistenceModel {
 
     public void solrListToFile(String key, SolrDocumentList solrList, String filepath) throws IOException {
         int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
-        if (fileBased) {
-            logger.debug("Entering solrListToFile");
-            List<String> lines = new ArrayList<String>();
-            for (int i = 0; i < sizeOfStichwortResult; i++) {
-                SolrDocument doc = solrList.get(i);
-                lines.add(key + delimiter + doc.getFieldValue("id") + delimiter + doc.getFieldValue("score"));
-            }
-            Path file = Paths.get(filepath);
-            Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-
-            logger.debug("Leaving solrListToFile");
-        } else {
-            MysqlConnect connect = new MysqlConnect();
-            connect.connect(connextionString);
-            connect.issueInsertOrDeleteStatement("set global max_connections = 20000000000;");
-            connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
-            connect.issueInsertOrDeleteStatement("CREATE TABLE IF NOT EXISTS keywordScore (Variable TEXT, id TEXT, score DOUBLE);");
-            for (int i = 0; i < sizeOfStichwortResult; i++) {
-                SolrDocument doc = solrList.get(i);
-                connect.issueInsertOrDeleteStatement("set global max_connections = 20000000000;");
-                connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
-                connect.issueInsertOrDeleteStatement("INSERT INTO keywordScore values (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
-            }
-            connect.close();
+        logger.debug("Entering solrListToFile");
+        List<String> lines = new ArrayList<String>();
+        for (int i = 0; i < sizeOfStichwortResult; i++) {
+            SolrDocument doc = solrList.get(i);
+            lines.add(key + delimiter + doc.getFieldValue("id") + delimiter + doc.getFieldValue("score"));
         }
+        Path file = Paths.get(filepath);
+        Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+
+        logger.debug("Leaving solrListToFile");
     }
 
     public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException {
@@ -210,6 +196,22 @@ public class Model implements PersistenceModel {
                     StringUtils.join(varStich.get(key).split("\" OR \""), ", "));
         }
         logger.debug("Leaving scoreVariable");
+    }
+
+
+    /******************************* StichVar *************************************/
+    /**
+     * initialize the keyword-url file or table
+     * @param filepath
+     * @throws IOException
+     */
+    @Override
+    public void initStichFile(String filepath) throws IOException {
+        if (fileBased) {
+            writeFirstLineOfKeyUrlFile(filepath, "Entering initStichFile", "Stichwort" + delimiter + "URL" + delimiter + "SolrScore", "Leaving initStichFile");
+        } else {
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_Score_Stich (Variable TEXT, id TEXT, SolrScore DOUBLE);");
+        }
     }
 
     @Override
@@ -230,12 +232,35 @@ public class Model implements PersistenceModel {
                 MysqlConnect connect = new MysqlConnect();
                 connect.connect(connextionString);
                 connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME+ ";");
-                connect.issueInsertOrDeleteStatement("INSERT INTO varMeta values (?,?);", key.replaceAll("'", "" ), stichwortVar.getElements().get(key).replaceAll("'", "" ));
+                //TODO change table name to dynamic topic
+                connect.issueInsertOrDeleteStatement("CREATE TABLE IF NOT EXISTS stichVariable (Stichworte TEXT, Variable TEXT);");
+                connect.issueInsertOrDeleteStatement("INSERT INTO stichVariable (Stichworte, Variable) VALUES (?,?);", key.replaceAll("'", "" ), stichwortVar.getElements().get(key).replaceAll("'", "" ));
                 connect.close();
             }
         }
     }
 
+    public int stichwortVarSize() {
+        return stichwortVar.getElements().size();
+    }
+
+    /************************** VarMeta *****************************************/
+    /**
+     * create first line or table of varMetaFile
+     * @param filepath
+     * @throws IOException
+     */
+    @Override
+    public void initVarMetaFile(String filepath) throws IOException {
+        if (fileBased) {
+            writeFirstLineOfKeyUrlFile(filepath, "Entering initVarMetaFile", "Variable" + delimiter + "Metavariable" + delimiter + "Stichworte"
+                    + delimiter + "Hochschule" + delimiter
+                    + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
+                    "Depth" + delimiter + "Lat" + delimiter + "Lon", "Leaving initVarMetaFile");
+        } else {
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_varMeta (Variable TEXT, Metavariable TEXT, Stichworte TEXT, Hochschule TEXT, Content TEXT, SolrScore TEXT, URL TEXT, Depth TEXT, Lat DOUBLE, Lon Double);");
+        }
+    }
 
 
     @Override
@@ -243,11 +268,16 @@ public class Model implements PersistenceModel {
         List<String> lines = new ArrayList<>();
         int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
         for (int i = 0; i < sizeOfStichwortResult; i++) {
-            writeLine(key, solrList, filepath, stich, lines, i);
+            try {
+                writeLine(key, solrList, filepath, stich, lines, i);
+            } catch (NoResultsException e) {
+                logger.error("No Results");
+                e.printStackTrace();
+            }
         }
     }
 
-    private void writeLine(String key, SolrDocumentList solrList, String filepath, String stich, List<String> lines, int i) throws URISyntaxException {
+    private void writeLine(String key, SolrDocumentList solrList, String filepath, String stich, List<String> lines, int i) throws URISyntaxException, NoResultsException {
         SolrDocument doc = solrList.get(i);
 
         //Get Domain
@@ -309,7 +339,7 @@ public class Model implements PersistenceModel {
         MysqlConnect connect = new MysqlConnect();
         connect.connect(connextionString);
         connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
-        connect.issueInsertOrDeleteStatement("INSERT INTO varMeta (?,?,?,?,?,?,?,?,?,?)", col1, col2, col3, col4, col5, col6, col7, col8, latLon.split(delimiter)[0] , latLon.split(delimiter)[1]);
+        connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_varMeta (`Variable`, `Metavariable`, `Stichworte`, `Hochschule`, `Content`, `SolrScore`, `URL`, `Depth`, `Lat`, `Lon`) VALUES (?,?,?,?,?,?,?,?,?,?)", col1, col2, col3, col4, col5, col6, col7, col8, latLon.split(delimiter)[0] , latLon.split(delimiter)[1]);
         connect.close();
     }
 
@@ -330,9 +360,6 @@ public class Model implements PersistenceModel {
         logger.debug("Leaving varMetaToCsv");
     }
 
-    public int stichwortVarSize() {
-        return stichwortVar.getElements().size();
-    }
 
     public int varMetaSize() {
         return varMeta.getElements().size();

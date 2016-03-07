@@ -3,6 +3,7 @@ package uzuzjmd.competence.crawler.io;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.crawler.datatype.Model;
+import uzuzjmd.competence.crawler.exception.NoResultsException;
 
 import java.io.*;
 
@@ -27,7 +28,7 @@ public class ReadCsv {
         logger.debug("Leaving ReadCsv Constructor");
     }
 
-    public Model convertToModel() throws IOException {
+    public Model convertToModel() throws IOException, NoResultsException {
         logger.debug("Entering convertToModel");
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line = "";
