@@ -14,18 +14,28 @@ import java.util.List;
  */
 public class MysqlConnector {
     String connectionString = "jdbc:mysql://" + MagicStrings.thesaurusDatabaseUrl +
-      "/Hochschulen" +
+      "/%s" +
       "?user=" + MagicStrings.thesaurusLogin +
       "&password=" + MagicStrings.thesaurusPassword;
     private VereinfachtesResultSet hochschulen;
     private List<MysqlResult> mysqlResults;
+    MysqlConnect connector;
 
     static private final Logger logger = LogManager.getLogger(MysqlConnector.class.getName());
 
-    public MysqlConnector() {
-        MysqlConnect connector = new MysqlConnect();
-        connector.connect(connectionString);
-        hochschulen = connector.issueSelectStatement("Select * from hochschulen_copy");
+    public MysqlConnector(String database) {
+        connector = new MysqlConnect();
+        String connection = String.format(connectionString, database);
+        connector.connect(connection);
+    }
+
+    public void initHochschulen() throws NoResultsException {
+        //logger.debug("Entering initHochschulen");
+        hochschulen = connector.issueSelectStatement("Select * from " + MagicStrings.UNIVERITIESINITTABLE);
+        if ((hochschulen == null) || (! hochschulen.isBeforeFirst()) ) {
+            logger.debug("Leaving queryDomain with 0 fetches");
+            throw new NoResultsException("No Results where fetched");
+        }
         mysqlResults = new ArrayList<>();
         while (hochschulen.next() ) {
             MysqlResult msr = new MysqlResult();
@@ -37,6 +47,8 @@ public class MysqlConnector {
             msr.lon = hochschulen.getDouble("lon");
             mysqlResults.add(msr);
         }
+
+        //logger.debug("Leaving initHochschulen");
     }
 
     public MysqlResult searchDomain(String domain) throws NoResultsException {
@@ -44,6 +56,7 @@ public class MysqlConnector {
         for (MysqlResult msr :
                 mysqlResults) {
             if (msr.homepage.contains(domain)) {
+                logger.debug("Leaving queryDomain with fetches");
                 return msr;
             }
         }
@@ -62,5 +75,18 @@ public class MysqlConnector {
         }
         logger.debug("Leaving queryDomain with >0 fetches");
         return result;
+    }
+
+    public VereinfachtesResultSet queryStichwortTable(String table) throws NoResultsException {
+        logger.debug("Entering queryDomain with domain:" + table);
+        String query = "Select * from " + table + "_Stichwort";
+        VereinfachtesResultSet result = connector.issueSelectStatement(query );
+        if ((result == null) || (! result.isBeforeFirst()) ) {
+            logger.debug("Leaving queryDomain with 0 fetches");
+            throw new NoResultsException("No Results where fetched");
+        }
+        logger.debug("Leaving queryDomain with >0 fetches");
+        return result;
+
     }
 }

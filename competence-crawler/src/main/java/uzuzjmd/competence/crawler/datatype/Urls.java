@@ -16,11 +16,13 @@ import java.util.List;
  */
 public class Urls {
     private List<UrlHochschule> urls;
-    private MysqlConnector mysqlConn = new MysqlConnector();
-    public Urls() {
+    private MysqlConnector mysqlConn = new MysqlConnector("Hochschulen");
+    public Urls() throws NoResultsException {
         urls = new ArrayList<>();
+        mysqlConn.initHochschulen();
+
     }
-    public void addDomain(String domain, String host) {
+    public void addDomain(String domain, String host) throws NoResultsException {
         for (UrlHochschule urlh :
                 urls) {
             if (urlh.domain.equals(domain)) {
