@@ -25,10 +25,12 @@ function convertDataToLayer(obj, layer) {
     dataElements[0].coordinates.forEach(function (coordinate) {
         addPointToLayer(coordinate.latlon[1], coordinate.latlon[0], "", "", "icons/category1.png", layer)
     });
+    $("#category1Label").text(dataElements[0].variableName);
 
     dataElements[1].coordinates.forEach(function (coordinate) {
         addPointToLayer(coordinate.latlon[1], coordinate.latlon[0], "", "", "icons/category2.png", layer)
     });
+    $("#category2Label").text(dataElements[1].variableName);
 
 }
 
