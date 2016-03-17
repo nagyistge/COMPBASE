@@ -32,10 +32,6 @@ public class User extends AbstractUser {
         return getId();
     }
 
-    public Boolean hasCourseContext(CourseContext courseContext) throws Exception {
-        return hasEdge(Edge.belongsToCourseContext, courseContext);
-    }
-
     public List<LearningProjectTemplate> getAssociatedLearningProjectTemplates() throws Exception {
         return getAssociatedDaosAsDomain(Edge.UserOfLearningProjectTemplate, LearningProjectTemplate.class);
     }

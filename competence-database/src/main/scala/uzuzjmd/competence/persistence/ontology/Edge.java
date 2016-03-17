@@ -17,7 +17,7 @@ public enum Edge {
     SpecifiedBy,
     LearnerOf,
     MetaOperatorOf,
-    CourseContextOf,
+    CourseContextOfCompetence,
     CompulsoryOf,
     CommentOf,
     LinkOfCourseContext,
@@ -26,7 +26,6 @@ public enum Edge {
     createdBy,
     UserOfComment,
     linksCompetence,
-    belongsToCourseContext,
     PrerequisiteOf,
     NotPrerequisiteOf,
     NotAllowedToView,
@@ -38,7 +37,7 @@ public enum Edge {
     AssessmentOfCompetence,
     UserHasPerformed,
     SuggestedActivityForCompetence,
-    SuggestedCourseForCompetence,
     RecommendedCourseForUser,
     subClassOf,
+    CourseContextOfUser
 }
