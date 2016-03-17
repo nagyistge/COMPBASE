@@ -17,7 +17,6 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -96,6 +95,8 @@ public class CompetenceServiceRestJSON {
     /**
      * This is an example for the format needed for updating the hierarchie
      *
+     * DON'T use this as a productive interface
+     *
      * @param changes
      * @return
      */
@@ -106,45 +107,6 @@ public class CompetenceServiceRestJSON {
     public HierarchyChangeSet updateHierarchieExample(
             @QueryParam("changes") HierarchyChangeSet changes) {
         return changes;
-    }
-
-    /**
-     * Link the competences to a course context.
-     * <p/>
-     * This allows for selecting competences for a given context so that the
-     * application can deal with a subset of the competence database.
-     *
-     * @param course       (the id of the course) or any name. Prefered id format is
-     *                     number.
-     * @param compulsory   (optional) indicates whether the competence is compulsory for
-     *                     the context in terms of passing the course.
-     * @param competences  the competences linked to the course
-     * @param requirements a plain text string explaining why this competences are
-     *                     necessary for the course
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/coursecontext/create/{course}/{compulsory}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response linkCompetencesToCourseContextJson(
-            @PathParam("course") String course,
-            @PathParam("compulsory") String compulsory,
-            @QueryParam(value = "competences") final List<String> competences,
-            @QueryParam(value = "requirements") String requirements) throws Exception {
-
-        /* Boolean compulsoryBoolean = RestUtil
-                .convertCompulsory(compulsory);
-        implement that competences are compulsory */
-
-        CourseContext courseContext = new CourseContext(course, requirements);
-        courseContext.persist();
-        for (String competence : competences) {
-            Competence competenceDAO = new Competence(competence);
-            competenceDAO.addCourseContext(courseContext);
-        }
-        return Response.ok("competences linked to course")
-                .build();
     }
 
     /**
@@ -229,7 +191,7 @@ public class CompetenceServiceRestJSON {
     public String[] getSelectedCompetencesForCourse(
             @PathParam("course") String course) throws Exception {
         CourseContext context = new CourseContext(course);
-        return context.getAssociatedDaoIdsAsDomain(Edge.belongsToCourseContext).toArray(new String[0]);
+        return context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence).toArray(new String[0]);
     }
 
     /**
@@ -610,8 +572,10 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
-    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) {
-        SuggestedCourseForCompetence2Ont.write(course, competence);
+    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) throws Exception {
+        //SuggestedCourseForCompetence2Ont.write(course, competence);
+        Competence competenceDAO = new Competence(competence);
+        competenceDAO.addCourseContext(new CourseContext(course));
         return Response.ok("edge created").build();
     }
 

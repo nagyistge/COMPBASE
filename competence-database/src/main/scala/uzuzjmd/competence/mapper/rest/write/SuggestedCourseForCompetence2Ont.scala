@@ -10,7 +10,7 @@ import uzuzjmd.competence.persistence.ontology.Edge
 object SuggestedCourseForCompetence2Ont extends ObjectPropertyCED[CourseContext,Competence] {
 
   override def setEdge : Edge = {
-    return Edge.SuggestedCourseForCompetence
+    return Edge.CourseContextOfCompetence
   }
 
   override def setDomain(): java.lang.Class[CourseContext] = {
