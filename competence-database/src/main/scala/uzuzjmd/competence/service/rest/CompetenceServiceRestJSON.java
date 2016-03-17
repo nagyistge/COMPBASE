@@ -177,22 +177,6 @@ public class CompetenceServiceRestJSON {
     }
 
 
-    /**
-     * Get competences linked to (course) context.
-     * <p/>
-     * Returns all the competences linked to a course context.
-     *
-     * @param course
-     * @return
-     */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/coursecontext/selected/{course}")
-    public String[] getSelectedCompetencesForCourse(
-            @PathParam("course") String course) throws Exception {
-        CourseContext context = new CourseContext(course);
-        return context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence).toArray(new String[0]);
-    }
 
     /**
      * Creates an evidence as a proof that competences have been acquired by the
@@ -577,6 +561,24 @@ public class CompetenceServiceRestJSON {
         Competence competenceDAO = new Competence(competence);
         competenceDAO.addCourseContext(new CourseContext(course));
         return Response.ok("edge created").build();
+    }
+
+
+    /**
+     * Get competences linked to (course) context.
+     * <p/>
+     * Returns all the competences linked to a course context.
+     *
+     * @param course
+     * @return
+     */
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/SuggestedCompetencesForCourse/{course}")
+    public String[] getSuggestedCompetencesForCourse(
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+        return context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence).toArray(new String[0]);
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
