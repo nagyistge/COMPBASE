@@ -1,32 +1,31 @@
 package comparison.verification
 
 import edu.stanford.nlp.trees.GrammaticalRelation
+import edu.stanford.nlp.trees.GrammaticalRelation.Language
 import uzuzjmd.competence.comparison.analysis.{SentenceToNoun, SentenceToOperator}
 
 /**
   * Created by dehne on 14.03.2016.
   */
-class SimpleCompetenceVerifier extends CompetenceVerifier {
+class SimpleCompetenceVerifier {
+  private var language: Language = null
   private var sentence: String = null
-  private var language: GrammaticalRelation.Language = null
 
-  def this(sentence: String, language: GrammaticalRelation.Language) {
+  def this(sentence: String, language: Language) {
     this()
     this.sentence = sentence
     this.language = language
   }
 
-  def isCompetence(sentence: String, language: GrammaticalRelation.Language): Boolean = {
+   def isCompetence(sentence: String, language: GrammaticalRelation.Language): Boolean = {
     this.sentence = sentence
     this.language = language
-    return isCompetence
+    return isCompetence2
   }
 
-  def isCompetence: Boolean = {
+  def isCompetence2: Boolean = {
     return satisfiesCorrectSubjectResctriction && satisfiesCorrectVerbRestrction
   }
-
-
 
   /**
     * checks for valid operators

@@ -1,5 +1,6 @@
 package uzuzjmd.competence.comparison.analysis
 
+import comparison.analysis.ParserFactory
 import config.MagicStrings
 import edu.stanford.nlp.ling.Sentence
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser
@@ -22,13 +23,13 @@ trait SentenceAnalyser {
    * 
    */
   def convertSentenceToFilteredElement(input: String): List[String] = {    
-    val lp = LexicalizedParser.loadModel(MagicStrings.GERMANMODELLOCATION, "-maxLength", "80");
+
     val tlp = new PennTreebankLanguagePack();
     // Uncomment the following line to obtain original Stanford Dependencies
     // tlp.setGenerateOriginalDependencies(true);
     //    val gsf = tlp.grammaticalStructureFactory();
     val sent = input.split(" ").toList
-    val parse = lp.apply(Sentence.toWordList(sent.asJava));
+    val parse = ParserFactory.lp.apply(Sentence.toWordList(sent.asJava));
     //    val gs = gsf.newGrammaticalStructure(parse);
     //    val tdl = gs.typedDependenciesCCprocessed();
     //    println(tdl.toString())
