@@ -1,6 +1,10 @@
 package uzuzjmd.competence.util
 
 
+import java.util
+
+import scala.collection.JavaConverters._
+
 
 
 /**
@@ -8,4 +12,8 @@ package uzuzjmd.competence.util
   */
 trait LanguageConverter {
 
+  def stuff(): Unit = {
+    new util.LinkedList().asScala.asJava
+
+  }
 }

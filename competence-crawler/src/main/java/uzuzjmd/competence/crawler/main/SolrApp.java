@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import uzuzjmd.competence.crawler.datatype.Model;
 import uzuzjmd.competence.crawler.io.ReadCsv;
-import uzuzjmd.competence.crawler.io.ReadMysql;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
 
 /**
@@ -19,13 +18,13 @@ public class SolrApp {
     static private final String database = "UnitTest";
 
     public static void main(String[] args) throws Exception {
-        DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
+        /*DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
         System.out.print("starting csv creation");
         logger.debug(MagicStrings.ROOTPATH);
         logger.debug("Entering main");
         logger.info("Read out csv or mysql");
 
-        //ReadCsv csv = new ReadCsv(MagicStrings.dataPath);
+        ReadCsv csv = new ReadCsv(MagicStrings.dataPath);
         ReadMysql mysql = new ReadMysql();
         Neo4JConnector nj = new Neo4JConnector();
         SolrConnector connector = new SolrConnector(solrUrl);
@@ -50,6 +49,6 @@ public class SolrApp {
         //model.stichwortResultToCsv(MagicStrings.stichWortPath);
         //model.varMetaResultToCsv(MagicStrings.varMetaPath);
         logger.debug("Leaving main");
-        System.out.print("finishing csv creation");
+        System.out.print("finishing csv creation");*/
     }
 }

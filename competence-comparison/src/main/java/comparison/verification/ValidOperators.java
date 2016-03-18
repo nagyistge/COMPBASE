@@ -35,7 +35,8 @@ public enum ValidOperators {
     notieren,
     nennen,
     unterstreichen,
-    zuordnen
+    zuordnen,
+    auseinandersetzen
 
 
 }
