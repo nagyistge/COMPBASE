@@ -91,7 +91,7 @@ public class CompetenceServiceRestJSON {
 
     /**
      * This is an example for the format needed for updating the hierarchie
-     *
+     * <p/>
      * DON'T use this as a productive interface
      *
      * @param changes
@@ -119,7 +119,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("user") String user,
             @PathParam("role") String role,
             @QueryParam("groupId") String courseContext) throws Exception {
-        if (role == null ) {
+        if (role == null) {
             throw new WebApplicationException("Role not given");
         }
         if (user == null) {
@@ -172,7 +172,6 @@ public class CompetenceServiceRestJSON {
         CourseContext context = new CourseContext(course);
         return context.getFullDao().getRequirement();
     }
-
 
 
     /**
@@ -235,11 +234,9 @@ public class CompetenceServiceRestJSON {
         UserData userData = new UserData(user,
                 courseContext, role);
         User2Ont.convert(userData);
-
         CommentData commentData = new CommentData(linkId,
                 user, text, courseContext, role);
         Comment2Ont.convert(commentData);
-
         return Response.ok("link commented").build();
     }
 
@@ -433,7 +430,7 @@ public class CompetenceServiceRestJSON {
         } else {
             graphFilterData = new GraphFilterData(course, new String[0]);
         }
-        Graph result= Ont2CompetenceGraph.convert(graphFilterData);
+        Graph result = Ont2CompetenceGraph.convert(graphFilterData);
         return result;
     }
 
@@ -549,7 +546,14 @@ public class CompetenceServiceRestJSON {
         return Response.ok(resultMessage).build();
     }
 
-
+    /**
+     * The semantic of this interface is that a course is linked to a competence as template.
+     * This way the learner can navigate to the course if he/she wants to learn a specific set of competencies
+     * @param competence
+     * @param course
+     * @return
+     * @throws Exception
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
@@ -589,7 +593,7 @@ public class CompetenceServiceRestJSON {
     /**
      * Get competences linked to (course) context.
      * <p/>
-     * Returns all the competences linked to a course context.
+     * Returns all the courses linked to a certain competence as a suggestions
      *
      * @param competence
      * @return
@@ -609,12 +613,19 @@ public class CompetenceServiceRestJSON {
     }
 
 
-
+    /**
+     * The semantic of this interface is that an activity is linked to a competence as template.
+     * This way the learner can navigate to the navigate if he/she wants to learn a specific set of competencies
+     * @param competence
+     * @param activityUrl
+     * @return
+     * @throws Exception
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedActivityForCompetence/create")
     public Response createSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityUrl") String activityUrl) throws Exception {
-        EvidenceActivity activity= new EvidenceActivity(activityUrl);
+        EvidenceActivity activity = new EvidenceActivity(activityUrl);
         activity.persist();
         Competence competence1 = new Competence(competence);
         competence1.persist();
@@ -622,6 +633,12 @@ public class CompetenceServiceRestJSON {
         return Response.ok("edge created").build();
     }
 
+    /**
+     * This returns a list of competencies linked to certain activity
+     * @param activityURL
+     * @return
+     * @throws Exception
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/CompetencesForSuggestedActivity/get")
@@ -638,6 +655,12 @@ public class CompetenceServiceRestJSON {
 
     }
 
+    /**
+     * Deletes the link between the course and the given competence
+     * @param competence
+     * @param course
+     * @return
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/delete")
@@ -646,6 +669,12 @@ public class CompetenceServiceRestJSON {
         return Response.ok("edge deleted").build();
     }
 
+    /**
+     * Deletes the link between the activity and the given competence
+     * @param competence
+     * @param activityURL
+     * @return
+     */
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/SuggestedActivityForCompetence/delete")
@@ -877,15 +906,9 @@ public class CompetenceServiceRestJSON {
 
 
     /**
-     * The LearningTemplate
      *
-     * @param learningTemplateName String learningTemplateName
-     * @return public class LearningTemplateResultSet { private GraphNode root;
-     * // root is set if graph consists of one node private Graph
-     * resultGraph; private HashMap<GraphTriple, List<String>>
-     * catchwordMap; private String nameOfTheLearningTemplate;
-     * <p/>
-     * also look at: /learningtemplate/add
+     * @param learningTemplateName
+     * @return
      */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
@@ -899,6 +922,11 @@ public class CompetenceServiceRestJSON {
         return result;
     }
 
+    /**
+     *
+     * @param learningTemplateName
+     * @return
+     */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplate/delete/{learningTemplateName}")
@@ -914,6 +942,14 @@ public class CompetenceServiceRestJSON {
     }
 
 
+    /**
+     * This is a generic interface to update a concept by it's id
+     * @param clazz
+     * @param oldId
+     * @param newId
+     * @return
+     * @throws Exception
+     */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/update/{clazz}/{oldId}/{newId}")
@@ -924,9 +960,6 @@ public class CompetenceServiceRestJSON {
         return Response.ok("updated")
                 .build();
     }
-
-
-
 
 
 }
