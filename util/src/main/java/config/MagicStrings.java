@@ -22,7 +22,7 @@ public class MagicStrings {
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String EPOSLocation = PropUtil
 			.getRelativeFileProp("eposfile");
-	public static final String GERMANMODELLOCATION = "germanPCFG.ser.gz";
+	public static final String GERMANMODELLOCATION = "C:/Users/dehne/Desktop/Computerlinguistic/stanford-parser-full-2015-04-20/germanPCFG.ser.gz";
 	public static final String thesaurusLogin = PropUtil
 			.getProp("thesaurusLogin");
 	public static final String thesaurusPassword = PropUtil

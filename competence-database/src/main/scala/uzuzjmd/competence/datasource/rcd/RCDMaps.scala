@@ -31,7 +31,7 @@ object RCDMaps {
       case Label.Operator => return Edge.OperatorOf
       case Label.SubOperator => return Edge.SubOperatorOf
       case Label.MetaOperator => return Edge.MetaOperatorOf
-      case Label.CourseContext => return Edge.CourseContextOf
+      case Label.CourseContext => return Edge.CourseContextOfCompetence
       case default => return null
     }
   }

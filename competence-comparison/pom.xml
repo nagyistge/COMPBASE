@@ -10,6 +10,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
     <groupId>uzuzjmd.competence</groupId>
     <artifactId>competence-comparison</artifactId>
     <version>1.0</version>
@@ -25,6 +31,12 @@
             <artifactId>stanford-parser</artifactId>
             <version>2.0.2</version>
         </dependency>
+
+<!--        <dependency>
+            <groupId>uzuzjmd.competence</groupId>
+            <artifactId>competence-database</artifactId>
+            <version>1.0</version>
+        </dependency>-->
 
         <dependency>
             <groupId>com.github.rholder</groupId>
