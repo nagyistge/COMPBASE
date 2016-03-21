@@ -27,12 +27,12 @@ public class CourseContext extends DaoAbstractImpl {
     }
 
     public List<Competence> getLinkedCompetences() throws Exception {
-        return getAssociatedDaosAsDomain(Edge.CourseContextOf, Competence.class);
+        return getAssociatedDaosAsDomain(Edge.CourseContextOfCompetence, Competence.class);
     }
 
 
     public List<User> getLinkedUser() throws Exception {
-        return getAssociatedDaosAsDomain(Edge.belongsToCourseContext, User.class);
+        return getAssociatedDaosAsDomain(Edge.CourseContextOfUser, User.class);
     }
 
     public String getRequirement() {

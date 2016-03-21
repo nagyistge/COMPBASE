@@ -1,11 +1,9 @@
 package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Sets;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,14 +155,14 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public void addCourseContext(CourseContext course) throws Exception {
-        createEdgeWith(course, Edge.CourseContextOf);
+        createEdgeWith(course, Edge.CourseContextOfCompetence);
         addSuperCompetencesToCourse(this, course);
     }
 
     public void addSuperCompetencesToCourse(Competence competence, CourseContext course) throws Exception {
         Set<Competence> superCompetences = competence.listSuperClasses(Competence.class);
         for (Competence superCompetence : superCompetences) {
-            superCompetence.createEdgeWith(course, Edge.CourseContextOf);
+            superCompetence.createEdgeWith(course, Edge.CourseContextOfCompetence);
         }
     }
 
@@ -202,7 +200,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         super.persist();
         createEdgeWith(Edge.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
-        createEdgeWith(universityContext, Edge.CourseContextOf);
+        createEdgeWith(universityContext, Edge.CourseContextOfCompetence);
         if (learningProject != null) {
             createEdgeWith(learningProject, Edge.LearningProjectTemplateOf);
         }
