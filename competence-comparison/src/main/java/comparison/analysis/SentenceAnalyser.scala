@@ -22,9 +22,13 @@ trait SentenceAnalyser {
   /**
    * 
    */
-  def convertSentenceToFilteredElement(input: String): List[String] = {    
+  def convertSentenceToFilteredElement(input: String): List[String] = {
 
-    val tlp = new PennTreebankLanguagePack();
+    if (input == null || input.size < 20 || !input.contains(" ")) {
+      return List.empty
+    }
+
+    //val tlp = new PennTreebankLanguagePack();
     // Uncomment the following line to obtain original Stanford Dependencies
     // tlp.setGenerateOriginalDependencies(true);
     //    val gsf = tlp.grammaticalStructureFactory();
@@ -57,6 +61,9 @@ trait SentenceAnalyser {
     if (hitList.forall(x => !input.nodeString().contains(x))) {
       return startList ::: input.children().map(x => treeWalker_Helper(x, startList)).flatten.toList
     } else {
+      if (input.size() == 0) {
+        return List.empty
+      }
       val newList = input.getChild(0).toString() :: startList
       return startList ::: input.children().map(x => treeWalker_Helper(x, newList)).flatten.toList
     }

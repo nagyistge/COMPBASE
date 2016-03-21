@@ -29,8 +29,8 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     val simpleCompetenceVerifier: SimpleCompetenceVerifier = new SimpleCompetenceVerifier
     val solrConnector: SolrConnector = new SolrConnector(solrUrl, 20000000)
     // ++ ValidSubjects.values().map(x=>x.toString)
-    val inputList: Array[String] = ValidOperators.values().map(x=>x.toString)
-    val inputListFolded = inputList.reduce((a,b) => a + "\" OR \"" + b )
+    val inputList: Array[String] = ValidOperators.values().map(x => x.toString)
+    val inputListFolded = inputList.reduce((a, b) => a + "\" OR \"" + b)
     val result: QueryResponse = solrConnector.connectToSolr(inputListFolded)
     val documents: SolrDocumentList = result.getResults
 
@@ -38,29 +38,35 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     while (documentIterator.hasNext) {
       val document = documentIterator.next()
       val content: String = document.getFieldValue("content").asInstanceOf[String]
-      val sentences: mutable.Buffer[String] = Arrays.asList(content.split(".")).asScala.flatten
+      val sentences: mutable.Buffer[String] = Arrays.asList(content.split("\\.")).asScala.flatten
       sentences.foreach(x => blockingQueue.add(x))
     }
-    for (strings <- blockingQueue) {
-      val verbs = SentenceToOperator.convertSentenceToFilteredElement(strings)
-      if (!verbs.isEmpty) {
-        val operator: String = verbs.head
-        logger.info("verb is: " + operator)
-      }
+    blockingQueue.foreach(verifySentence(simpleCompetenceVerifier,_))
+    logger.info("found " + counter + " competencies!")
+  }
 
-      val nouns = SentenceToOperator.convertSentenceToFilteredElement(strings)
-      if (!nouns.isEmpty) {
-        val noun: String = nouns.head
-        logger.info("noun is: " + noun)
-      }
+  @throws[IndexOutOfBoundsException]
+  def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): Unit = {
+    if(strings == null || strings.equals("") || strings.size < 20) {
+      return;
+    }
+    val verbs = SentenceToOperator.convertSentenceToFilteredElement(strings)
+    if (!verbs.isEmpty) {
+      val operator: String = verbs.head
+      logger.info("verb is: " + operator)
+    }
 
-      if (!verbs.isEmpty && !nouns.isEmpty) {
-        if (simpleCompetenceVerifier.isCompetence(strings, edu.stanford.nlp.trees.GrammaticalRelation.Language.Any)) {
-          counter += 1
-          logger.info(strings)
-        }
+    val nouns = SentenceToOperator.convertSentenceToFilteredElement(strings)
+    if (!nouns.isEmpty) {
+      val noun: String = nouns.head
+      logger.info("noun is: " + noun)
+    }
+
+    if (!verbs.isEmpty && !nouns.isEmpty) {
+      if (simpleCompetenceVerifier.isCompetence(strings, edu.stanford.nlp.trees.GrammaticalRelation.Language.Any)) {
+        counter += 1
+        logger.info(strings)
       }
     }
-    logger.info("found " + counter + " competencies!")
   }
 }
