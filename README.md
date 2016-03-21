@@ -1,5 +1,7 @@
 # COMPBASE 
 
+The goal of COMBASE is the creation of a generic competence database that allows for comparison and consistent persistence of competencies. PLugins for current elearning system are being developed as well as mobile applications and badge systems.
+
 ## Competence Server Project in Ubuntu/Debian
 ### Install
 This project provides a .deb file which could be easily installed via package manager. Simply use the file in the path [competence-installer/Linux/Ubuntu_Debian](https://github.com/uzuzjmd/Wissensmodellierung/tree/master/competence-installer/Linux/Ubuntu_Debian)
