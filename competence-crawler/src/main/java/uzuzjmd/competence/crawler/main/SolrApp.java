@@ -72,7 +72,7 @@ public class SolrApp {
 
     }
     public static void main(String[] args) throws Exception {
-        SolrApp sapp = new SolrApp("UnitTest");
+        SolrApp sapp = new SolrApp("ForschendesLernen");
         sapp.excecute();
     }
 }

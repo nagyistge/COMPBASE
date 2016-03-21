@@ -318,7 +318,9 @@ public class Model implements PersistenceModel {
                 String col2 = StringUtils.join(varMeta.getElements().get(key).metaVar, ";").replaceAll(delimiter, ":" ).replaceAll(delimiter, ":" ).replaceAll("'", "" )  ;
                 String col3 = stich.replaceAll(delimiter, ":" ).replaceAll("'", "") ;
                 String col4 = hochschulname.replaceAll(delimiter, ":" ).replaceAll("'", "") ;
-                String col5 = doc.getFieldValue("content").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
+                //TODO Wieder den Content einfügen
+                //String col5 = doc.getFieldValue("content").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
+                String col5 = "";
                 String col6 = score.toString().replaceAll(delimiter, ":" ).replaceAll("'", "" ) ;
                 String col7 = doc.getFieldValue("url").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
                 String col8 = doc.getFieldValue("pageDepth").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
