@@ -132,7 +132,7 @@ public class Model implements PersistenceModel {
         connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
         for (int i = 0; i < sizeOfStichwortResult; i++) {
             SolrDocument doc = solrList.get(i);
-            connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_Score_Stich (`Variable`, `id`, `SolrScore`) VALUES (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
+            connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_ScoreStich (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
         }
         connect.close();
 
@@ -210,7 +210,7 @@ public class Model implements PersistenceModel {
         if (fileBased) {
             writeFirstLineOfKeyUrlFile(filepath, "Entering initStichFile", "Stichwort" + delimiter + "URL" + delimiter + "SolrScore", "Leaving initStichFile");
         } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_Score_Stich (Variable TEXT, id TEXT, SolrScore DOUBLE);");
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_ScoreStich (Stichwort TEXT, id TEXT, SolrScore DOUBLE);");
         }
     }
 

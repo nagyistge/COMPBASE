@@ -18,6 +18,7 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,9 +29,11 @@ import java.util.List;
 @Path("/crawler")
 public class CrawlerServiceRest {
 
+    static private List<Thread> threads = new ArrayList<Thread>();
+    static private final int MAXTHREAD = 4;
     /**
      *
-     * @param variables
+     * @param campaign
      * @return
      * @throws Exception
      */
@@ -39,11 +42,31 @@ public class CrawlerServiceRest {
     @Path("/start")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response start(
-            @QueryParam("changes") List<String> variables) throws Exception {
+            @QueryParam("campaign") String campaign)
+            throws Exception {
+        final String campaignOs = campaign;
+        if (threads.size() <=  MAXTHREAD) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SolrApp solrApp = new SolrApp(campaignOs);
+                    try {
+                        solrApp.excecute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        CrawlerServiceRest.threads.remove(this);
+                    }
+                }
+            });
+            threads.add(t);
+            t.start();
 
-        SolrApp solrApp = new SolrApp();
-        solrApp.main(null);
-        return Response.ok("start").build();
+            return Response.ok("thread started").build();
+        } else {
+            return Response.ok("too many threads. Plz come back later").build();
+
+        }
     }
 
 

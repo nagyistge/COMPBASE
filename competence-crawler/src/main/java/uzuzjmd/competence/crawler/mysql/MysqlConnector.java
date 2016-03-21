@@ -52,28 +52,28 @@ public class MysqlConnector {
     }
 
     public MysqlResult searchDomain(String domain) throws NoResultsException {
-        logger.debug("Entering searchDomain with domain:" + domain);
+        //logger.debug("Entering searchDomain with domain:" + domain);
         for (MysqlResult msr :
                 mysqlResults) {
             if (msr.homepage.contains(domain)) {
-                logger.debug("Leaving queryDomain with fetches");
+                //logger.debug("Leaving queryDomain with fetches");
                 return msr;
             }
         }
-        logger.debug("Leaving queryDomain with 0 fetches");
+        //logger.debug("Leaving queryDomain with 0 fetches");
         throw new NoResultsException("No Domain found");
     }
     public VereinfachtesResultSet queryDomain(String domain) throws NoResultsException {
-        logger.debug("Entering queryDomain with domain:" + domain);
+        //logger.debug("Entering queryDomain with domain:" + domain);
         MysqlConnect connector = new MysqlConnect();
         connector.connect(connectionString);
         String query = "Select * from Hochschulen where Homepage like ?";
         VereinfachtesResultSet result = connector.issueSelectStatement(query, "%" + domain + "%");
         if ((result == null) || (! result.isBeforeFirst()) ) {
-            logger.debug("Leaving queryDomain with 0 fetches");
+            //logger.debug("Leaving queryDomain with 0 fetches");
             throw new NoResultsException("No Results where fetched");
         }
-        logger.debug("Leaving queryDomain with >0 fetches");
+        //logger.debug("Leaving queryDomain with >0 fetches");
         return result;
     }
 
@@ -88,5 +88,30 @@ public class MysqlConnector {
         logger.debug("Leaving queryDomain with >0 fetches");
         return result;
 
+    }
+
+    //Status: 0 = nothing done, 1 = work in progress, 2 = work done successfully, 3 = work aborted, because of reasons
+    public void setCampaignStatus(String camp, int status) {
+        logger.debug("Entering setCampaignStatus with camp:" + camp + ", status:" + String.valueOf(status));
+        String query = "UPDATE `Overview` SET Status=" + String.valueOf(status) + " WHERE Name=\""
+                + camp +"\"";
+        connector.issueUpdateStatement(query);
+        logger.debug("Leaving setCampaignStatus");
+
+    }
+
+    public boolean checkCampaignStatus (String camp) throws NoResultsException {
+        logger.debug("Entering checkCampaignStatus with camp:" + camp);
+        boolean res;
+        String query = "SELECT Status from Overview where Name=\"" + camp + "\"";
+        VereinfachtesResultSet result = connector.issueSelectStatement(query);
+        if ((result == null) || (! result.isBeforeFirst()) ) {
+            logger.debug("Leaving queryDomain with 0 fetches");
+            throw new NoResultsException("No Results where fetched");
+        }
+        result.next();
+        res = result.getInt("Status") == 1;
+        logger.debug("Leaving checkCampaignStatus with " + String.valueOf(res));
+        return res;
     }
 }
