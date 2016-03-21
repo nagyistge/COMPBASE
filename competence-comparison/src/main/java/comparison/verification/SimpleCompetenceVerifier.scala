@@ -49,7 +49,7 @@ class SimpleCompetenceVerifier {
 
   def checkIfMatchesSet(f: (String) => List[String], set: Array[String]): Boolean = {
     val noun: List[String] = f(sentence);
-    if (noun.size > 1) return false;
+    if (noun.isEmpty) return false;
     return set.contains(noun.head)
   }
 }
