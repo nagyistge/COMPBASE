@@ -2,10 +2,11 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util
 
+import neo4j.Neo4JQueryManagerImpl
 import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.persistence.neo4j.Neo4JQueryManagerImpl
+import uzuzjmd.competence.persistence.neo4j.DBFactory
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData
@@ -31,7 +32,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     context.persist()
     val user = new User(changes.getUserName, Role.teacher, context);
     user.persist()
-    context.createEdgeWith(Edge.CourseContextOf, user)
+    context.createEdgeWith(Edge.CourseContextOfCompetence, user)
   }
 
   private def convertHelper(changes: LearningTemplateData) {
@@ -69,7 +70,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
       template.persistMore()
 
       // create the relations maybe use batch update if it is too slow
-      val manager = new Neo4JQueryManagerImpl;
+      val manager = DBFactory.getDB;
       triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, Edge.SuggestedCompetencePrerequisiteOf, x.toNode))
 
       // create Catchword relations

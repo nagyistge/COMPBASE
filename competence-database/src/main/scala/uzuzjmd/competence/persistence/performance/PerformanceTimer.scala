@@ -1,6 +1,6 @@
 package uzuzjmd.competence.persistence.performance
 
-import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.logging.Logging
 
 /**
  * @author dehne

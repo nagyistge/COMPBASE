@@ -22,6 +22,8 @@
     <module>../competence-tests</module>
 	<module>../competence-database-servlet/competence-servlet</module>
     <module>../competence-crawler</module>
+    <module>../util</module>
+    <module>../competence-comparison</module>
   </modules>
 
   <dependencies>
@@ -30,6 +32,16 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>uzuzjmd.competence</groupId>
+      <artifactId>competence-comparison</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>uzuzjmd.competence</groupId>
+      <artifactId>competence-crawler</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 </project>

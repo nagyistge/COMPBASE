@@ -1,11 +1,10 @@
 package uzuzjmd.competence.crawler.datatype;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.util.TextUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.solr.common.SolrDocumentList;
-import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
+import neo4j.Neo4JConnector;
 
 import java.util.*;
 
@@ -79,7 +78,7 @@ public class VarMeta {
             q += key + ", ";
             resultMap.put(key, StringUtils.join(varStich.get(key), "\" OR \""));
         }
-        q = q.substring(0, q.length()-2);
+        q = q.substring(0, Math.max(0, q.length()-2));
         logger.debug("Leaving toSolrQuery with keys:" + q);
         return resultMap;
     }

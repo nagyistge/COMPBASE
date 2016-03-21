@@ -1,6 +1,6 @@
 package uzuzjmd.competence.evidence.service.rest.mapper
 
-import uzuzjmd.competence.config.MagicStrings
+import config.MagicStrings
 import uzuzjmd.competence.evidence.service.moodle.{Module, MoodleContentResponseList, MoodleEvidence}
 import uzuzjmd.competence.shared.dto.{ActivityEntry, ActivityTyp, UserTree}
 

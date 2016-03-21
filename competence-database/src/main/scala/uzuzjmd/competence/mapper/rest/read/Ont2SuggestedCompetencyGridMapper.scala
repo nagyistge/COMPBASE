@@ -1,6 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.ontology.Edge
 

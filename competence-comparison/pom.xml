@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>competence-application</artifactId>
+        <groupId>uzuzjmd.competence</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../competence-application/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
+    <groupId>uzuzjmd.competence</groupId>
+    <artifactId>competence-comparison</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>uzuzjmd.java</groupId>
+            <artifactId>util</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-parser</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>uzuzjmd.competence</groupId>
+            <artifactId>competence-database</artifactId>
+            <version>1.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>snowball-stemmer</artifactId>
+            <version>1.3.0.581.1</version>
+        </dependency>
+
+        <!-- Scala -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.10.3</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

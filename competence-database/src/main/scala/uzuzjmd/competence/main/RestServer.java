@@ -7,11 +7,11 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import uzuzjmd.competence.config.MagicStrings;
+import config.MagicStrings;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
+import uzuzjmd.competence.service.rest.CrawlerServiceRest;
 import uzuzjmd.competence.util.CrossOriginResourceSharingFilter;
-
 import javax.ws.rs.ProcessingException;
 import java.io.IOException;
 import java.net.BindException;
@@ -43,13 +43,11 @@ public class RestServer {
 
         ResourceConfig resourceConfig = new ResourceConfig(
                 CompetenceServiceRestJSON.class,
-                EvidenceServiceRestServerImpl.class);
+                EvidenceServiceRestServerImpl.class, CrawlerServiceRest.class);
         resourceConfig.register(JacksonFeature.class);
 
         // add CORS header filter
         resourceConfig.register(CrossOriginResourceSharingFilter.class);
-
-
 
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(new URI(
                         MagicStrings.RESTURLCompetence),

@@ -1,9 +1,10 @@
 package uzuzjmd.competence.service.rest
 
 import com.google.common.collect.Lists
+import config.MagicStrings
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
-import uzuzjmd.competence.config.{MagicStrings, Logging}
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.main.EposImporter
 import uzuzjmd.competence.mapper.rest.read.{Ont2LearningTemplateResultSet, Ont2SuggestedCompetenceGrid, Ont2CompetenceGraph, Ont2CompetenceTree}
 import uzuzjmd.competence.mapper.rest.write._
@@ -547,7 +548,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
   def testDeleteSuggestedActivityForCompetence {
   }
 
-  @Test
+  //@Test
   @throws(classOf[Exception])
   def testEposImportTest: Unit ={
     val  timeBeforeConvert = System.currentTimeMillis()

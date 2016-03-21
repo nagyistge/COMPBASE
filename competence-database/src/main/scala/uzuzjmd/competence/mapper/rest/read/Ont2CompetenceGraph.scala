@@ -1,8 +1,7 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
-
-import uzuzjmd.competence.config.Logging
+import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.ontology.Edge

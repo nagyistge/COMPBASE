@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
-import uzuzjmd.competence.config.PropUtil;
+import config.PropUtil;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 

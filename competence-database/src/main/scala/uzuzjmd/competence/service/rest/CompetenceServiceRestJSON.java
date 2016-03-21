@@ -3,10 +3,7 @@ package uzuzjmd.competence.service.rest;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
-import uzuzjmd.competence.persistence.dao.Competence;
-import uzuzjmd.competence.persistence.dao.CourseContext;
-import uzuzjmd.competence.persistence.dao.DBInitializer;
-import uzuzjmd.competence.persistence.dao.Dao;
+import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.*;
 import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
@@ -17,7 +14,6 @@ import uzuzjmd.competence.shared.dto.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -95,6 +91,8 @@ public class CompetenceServiceRestJSON {
 
     /**
      * This is an example for the format needed for updating the hierarchie
+     * <p/>
+     * DON'T use this as a productive interface
      *
      * @param changes
      * @return
@@ -106,45 +104,6 @@ public class CompetenceServiceRestJSON {
     public HierarchyChangeSet updateHierarchieExample(
             @QueryParam("changes") HierarchyChangeSet changes) {
         return changes;
-    }
-
-    /**
-     * Link the competences to a course context.
-     * <p/>
-     * This allows for selecting competences for a given context so that the
-     * application can deal with a subset of the competence database.
-     *
-     * @param course       (the id of the course) or any name. Prefered id format is
-     *                     number.
-     * @param compulsory   (optional) indicates whether the competence is compulsory for
-     *                     the context in terms of passing the course.
-     * @param competences  the competences linked to the course
-     * @param requirements a plain text string explaining why this competences are
-     *                     necessary for the course
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/coursecontext/create/{course}/{compulsory}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response linkCompetencesToCourseContextJson(
-            @PathParam("course") String course,
-            @PathParam("compulsory") String compulsory,
-            @QueryParam(value = "competences") final List<String> competences,
-            @QueryParam(value = "requirements") String requirements) throws Exception {
-
-        /* Boolean compulsoryBoolean = RestUtil
-                .convertCompulsory(compulsory);
-        implement that competences are compulsory */
-
-        CourseContext courseContext = new CourseContext(course, requirements);
-        courseContext.persist();
-        for (String competence : competences) {
-            Competence competenceDAO = new Competence(competence);
-            competenceDAO.addCourseContext(courseContext);
-        }
-        return Response.ok("competences linked to course")
-                .build();
     }
 
     /**
@@ -160,7 +119,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("user") String user,
             @PathParam("role") String role,
             @QueryParam("groupId") String courseContext) throws Exception {
-        if (role == null ) {
+        if (role == null) {
             throw new WebApplicationException("Role not given");
         }
         if (user == null) {
@@ -214,23 +173,6 @@ public class CompetenceServiceRestJSON {
         return context.getFullDao().getRequirement();
     }
 
-
-    /**
-     * Get competences linked to (course) context.
-     * <p/>
-     * Returns all the competences linked to a course context.
-     *
-     * @param course
-     * @return
-     */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/coursecontext/selected/{course}")
-    public String[] getSelectedCompetencesForCourse(
-            @PathParam("course") String course) throws Exception {
-        CourseContext context = new CourseContext(course);
-        return context.getAssociatedDaoIdsAsDomain(Edge.belongsToCourseContext).toArray(new String[0]);
-    }
 
     /**
      * Creates an evidence as a proof that competences have been acquired by the
@@ -292,11 +234,9 @@ public class CompetenceServiceRestJSON {
         UserData userData = new UserData(user,
                 courseContext, role);
         User2Ont.convert(userData);
-
         CommentData commentData = new CommentData(linkId,
                 user, text, courseContext, role);
         Comment2Ont.convert(commentData);
-
         return Response.ok("link commented").build();
     }
 
@@ -490,7 +430,7 @@ public class CompetenceServiceRestJSON {
         } else {
             graphFilterData = new GraphFilterData(course, new String[0]);
         }
-        Graph result= Ont2CompetenceGraph.convert(graphFilterData);
+        Graph result = Ont2CompetenceGraph.convert(graphFilterData);
         return result;
     }
 
@@ -606,31 +546,135 @@ public class CompetenceServiceRestJSON {
         return Response.ok(resultMessage).build();
     }
 
-
+    /**
+     * The semantic of this interface is that a course is linked to a competence as template.
+     * This way the learner can navigate to the course if he/she wants to learn a specific set of competencies
+     * @param competence
+     * @param course
+     * @return
+     * @throws Exception
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
-    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) {
-        SuggestedCourseForCompetence2Ont.write(course, competence);
+    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) throws Exception {
+        //SuggestedCourseForCompetence2Ont.write(course, competence);
+        Competence competenceDAO = new Competence(competence);
+        competenceDAO.persist();
+        competenceDAO.addCourseContext((CourseContext) new CourseContext(course).persist());
         return Response.ok("edge created").build();
     }
 
+
+    /**
+     * Get competences linked to (course) context.
+     * <p/>
+     * Returns all the competences linked to a course context.
+     *
+     * @param course
+     * @return
+     */
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/SuggestedCompetencesForCourse/{course}")
+    public String[] getSuggestedCompetencesForCourse(
+            @PathParam("course") String course) throws Exception {
+        CourseContext context = new CourseContext(course);
+
+        if (context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence) == null) {
+            return new String[0];
+        }
+        List<String> result = context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence);
+        result.remove("Kompetenz");
+        return result.toArray(new String[0]);
+    }
+
+
+    /**
+     * Get competences linked to (course) context.
+     * <p/>
+     * Returns all the courses linked to a certain competence as a suggestions
+     *
+     * @param competence
+     * @return
+     */
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/SuggestedCourseForCompetence")
+    public String[] getSuggestedCoursesForCompetence(
+            @QueryParam("competence") String competence) throws Exception {
+        Competence context = new Competence(competence);
+
+        if (context.getAssociatedDaoIdsAsRange(Edge.CourseContextOfCompetence) == null) {
+            return new String[0];
+        }
+        List<String> result = context.getAssociatedDaoIdsAsRange(Edge.CourseContextOfCompetence);
+        return result.toArray(new String[0]);
+    }
+
+
+    /**
+     * The semantic of this interface is that an activity is linked to a competence as template.
+     * This way the learner can navigate to the navigate if he/she wants to learn a specific set of competencies
+     * @param competence
+     * @param activityUrl
+     * @return
+     * @throws Exception
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedActivityForCompetence/create")
-    public Response createSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityURL") String activityUrl) {
+    public Response createSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityUrl") String activityUrl) throws Exception {
+        EvidenceActivity activity = new EvidenceActivity(activityUrl);
+        activity.persist();
+        Competence competence1 = new Competence(competence);
+        competence1.persist();
         SuggestedActivityForCompetence2Ont.write(activityUrl, competence);
         return Response.ok("edge created").build();
     }
 
+    /**
+     * This returns a list of competencies linked to certain activity
+     * @param activityURL
+     * @return
+     * @throws Exception
+     */
+    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/CompetencesForSuggestedActivity/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String[] getCompetencesForSuggestedActivity(@QueryParam("activityURL") String activityURL) throws Exception {
+
+        EvidenceActivity activity = new EvidenceActivity(activityURL);
+
+        if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
+            return new String[0];
+        }
+        List<String> result = activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence);
+        return result.toArray(new String[0]);
+
+    }
+
+    /**
+     * Deletes the link between the course and the given competence
+     * @param competence
+     * @param course
+     * @return
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/delete")
     public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) {
         SuggestedCourseForCompetence2Ont.delete(course, competence);
-        return Response.ok("edge created").build();
+        return Response.ok("edge deleted").build();
     }
 
+    /**
+     * Deletes the link between the activity and the given competence
+     * @param competence
+     * @param activityURL
+     * @return
+     */
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/SuggestedActivityForCompetence/delete")
@@ -862,15 +906,9 @@ public class CompetenceServiceRestJSON {
 
 
     /**
-     * The LearningTemplate
      *
-     * @param learningTemplateName String learningTemplateName
-     * @return public class LearningTemplateResultSet { private GraphNode root;
-     * // root is set if graph consists of one node private Graph
-     * resultGraph; private HashMap<GraphTriple, List<String>>
-     * catchwordMap; private String nameOfTheLearningTemplate;
-     * <p/>
-     * also look at: /learningtemplate/add
+     * @param learningTemplateName
+     * @return
      */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
@@ -884,6 +922,11 @@ public class CompetenceServiceRestJSON {
         return result;
     }
 
+    /**
+     *
+     * @param learningTemplateName
+     * @return
+     */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplate/delete/{learningTemplateName}")
@@ -899,6 +942,14 @@ public class CompetenceServiceRestJSON {
     }
 
 
+    /**
+     * This is a generic interface to update a concept by it's id
+     * @param clazz
+     * @param oldId
+     * @param newId
+     * @return
+     * @throws Exception
+     */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/update/{clazz}/{oldId}/{newId}")
@@ -909,9 +960,6 @@ public class CompetenceServiceRestJSON {
         return Response.ok("updated")
                 .build();
     }
-
-
-
 
 
 }

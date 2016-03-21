@@ -3,8 +3,7 @@ package uzuzjmd.competence.crawler.datatype;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator;
-import uzuzjmd.competence.crawler.neo4j.Neo4JConnector;
-
+import neo4j.Neo4JConnector;
 import java.util.*;
 
 /**
