@@ -1,6 +1,6 @@
 # COMPBASE 
 
-The goal of COMBASE is the creation of a generic competence database that allows for comparison and consistent persistence of competencies. PLugins for current elearning system are being developed as well as mobile applications and badge systems.
+The goal of COMBASE is the creation of a generic competence database that allows for comparison and consistent persistence of competencies. Plugins for current elearning system are being developed as well as mobile applications and badge systems.
 
 ## Competence Server Project in Ubuntu/Debian
 ### Install
