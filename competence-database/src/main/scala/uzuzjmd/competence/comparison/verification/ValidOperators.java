@@ -38,5 +38,4 @@ public enum ValidOperators {
     zuordnen,
     auseinandersetzen
 
-
 }
