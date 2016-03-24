@@ -3,11 +3,12 @@ package uzuzjmd.competence.main
 import java.io.IOException
 import java.util
 import java.util.Arrays
-import comparison.verification.{SimpleCompetenceVerifier, ValidOperators}
+import comparison.verification.SimpleCompetenceVerifier
 import org.apache.solr.client.solrj.SolrServerException
 import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.{SolrDocument, SolrDocumentList}
 import uzuzjmd.competence.comparison.analysis.SentenceToOperator
+import uzuzjmd.competence.comparison.verification.ValidOperators
 import uzuzjmd.competence.crawler.solr.SolrConnector
 import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.util.LanguageConverter
@@ -47,8 +48,12 @@ object CompetenceCrawler extends LanguageConverter with Logging {
 
   @throws[IndexOutOfBoundsException]
   def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): Unit = {
+
     if(strings == null || strings.equals("") || strings.size < 20) {
       return;
+    }
+    if (strings.split(" ").size > 124) {
+        return;
     }
     val verbs = SentenceToOperator.convertSentenceToFilteredElement(strings)
     if (!verbs.isEmpty) {

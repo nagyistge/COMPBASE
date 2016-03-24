@@ -94,29 +94,18 @@
         </dependency>
 
         <dependency>
-            <groupId>uzuzjmd.competence</groupId>
-            <artifactId>competence-comparison</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>uzuzjmd.java</groupId>
             <artifactId>util</artifactId>
             <version>1.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>uzuzjmd.competence</groupId>
-            <artifactId>competence-crawler</artifactId>
-            <version>1.0</version>
-            <!--exclusions>
-                <exclusion>
-                    <groupId>uzuzjmd.competence</groupId>
-                    <artifactId>competence-database</artifactId>
-                </exclusion>
-            </exclusions>-->
-        </dependency>
 
+        <!-- dependencies for crawler -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>5.4.0</version>
+        </dependency>
 
         <!-- neo4j -->
 

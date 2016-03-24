@@ -1,32 +1,18 @@
 package uzuzjmd.competence.service.rest;
 
 import uzuzjmd.competence.crawler.main.SolrApp;
-import uzuzjmd.competence.main.EposImporter;
-import uzuzjmd.competence.mapper.rest.read.*;
-import uzuzjmd.competence.mapper.rest.write.*;
-import uzuzjmd.competence.persistence.dao.Competence;
-import uzuzjmd.competence.persistence.dao.CourseContext;
-import uzuzjmd.competence.persistence.dao.DBInitializer;
-import uzuzjmd.competence.persistence.dao.Dao;
-import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.*;
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
-import uzuzjmd.competence.shared.dto.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 /**
  * Root resource (exposed at "competences" path)
  */
-@Path("/crawler")
+@Path("/uzuzjmd/competence/crawler")
 public class CrawlerServiceRest {
 
     static private List<Thread> threads = new ArrayList<Thread>();
