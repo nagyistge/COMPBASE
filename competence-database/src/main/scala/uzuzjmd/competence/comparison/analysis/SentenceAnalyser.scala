@@ -32,13 +32,16 @@ trait SentenceAnalyser {
     // Uncomment the following line to obtain original Stanford Dependencies
     // tlp.setGenerateOriginalDependencies(true);
     //    val gsf = tlp.grammaticalStructureFactory();
-    val sent = input.split(" ").toList
+    val sent = input.split(" ").toList.filterNot(_.length < 1).filterNot(_.length > 20)
+    if (sent.size < 2) {
+      return List.empty
+    }
+
     val parse = ParserFactory.lp.apply(Sentence.toWordList(sent.asJava));
     //    val gs = gsf.newGrammaticalStructure(parse);
     //    val tdl = gs.typedDependenciesCCprocessed();
     //    println(tdl.toString())
     val result = treeWalker(parse)
-
     return result
   }
   

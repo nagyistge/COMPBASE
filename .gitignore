@@ -31,3 +31,4 @@ competence-crawler/target/classes/uzuzjmd/competence/crawler/geomapper/Hochschul
 competence-crawler/target/classes/uzuzjmd/competence/crawler/main/GeometaUpdater.class
 competence-crawler/target/classes/
 *.class
+util/target/

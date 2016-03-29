@@ -2,7 +2,8 @@ package comparison.verification
 
 import edu.stanford.nlp.trees.GrammaticalRelation
 import edu.stanford.nlp.trees.GrammaticalRelation.Language
-import uzuzjmd.competence.comparison.analysis.{SentenceToNoun, SentenceToOperator}
+import uzuzjmd.competence.comparison.analysis.{WordToStem, SentenceToNoun, SentenceToOperator}
+import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator
 import uzuzjmd.competence.comparison.verification.{ValidSubjects, ValidOperators}
 
 /**
@@ -33,6 +34,7 @@ class SimpleCompetenceVerifier {
     */
   def satisfiesCorrectVerbRestriction: Boolean = {
     val g = SentenceToOperator.convertSentenceToFilteredElement _
+
     val set: Array[String] = ValidOperators.values().map(x => x.toString);
     return checkIfMatchesSet(g, set)
   }
@@ -49,8 +51,16 @@ class SimpleCompetenceVerifier {
   }
 
   def checkIfMatchesSet(f: (String) => List[String], set: Array[String]): Boolean = {
-    val noun: List[String] = f(sentence);
-    if (noun.isEmpty) return false;
-    return set.contains(noun.head)
+    val words: List[String] = f(sentence);
+    if (words.isEmpty) {
+      return false;
+    }
+    val stemmedWords = words.map(x=>WordToStem.stemWord(x))
+    val stemmedValidWords = set.map(x=>WordToStem.stemWord(x))
+
+    val synonyms: List[String] = words.map(x=>OpenThesaurusSynonymCreator.getSynonyms(x)).flatten
+    val stemmedSynonyms = synonyms.map(x=>WordToStem.stemWord(x))
+
+    return !stemmedValidWords.intersect(stemmedWords).isEmpty || !stemmedValidWords.intersect(stemmedSynonyms).isEmpty
   }
 }
