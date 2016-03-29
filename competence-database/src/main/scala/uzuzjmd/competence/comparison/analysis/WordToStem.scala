@@ -1,6 +1,5 @@
 package uzuzjmd.competence.comparison.analysis
 
-import org.tartarus.snowball.SnowballProgram;
 import org.tartarus.snowball.SnowballStemmer;
 
 /**

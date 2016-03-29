@@ -19,12 +19,18 @@ class SimpleVerbTest extends FunSuite with ShouldMatchers {
   test("given a sentence, the verb should be returned") {
     val input = "Die Lehramtsstudenten der alten Schule sind in der Lage komplexe Texte zu verstehen und gehen gerne baden ."
     SentenceToOperator.convertSentenceToFilteredElement(input) should not be ('empty)
+
+    val input2 = "Es dient der Verstärkung und dem Ausbau der Betreuung und Beratung von Studierenden der Filmregie im Hauptstudium.";
+    SentenceToOperator.convertSentenceToFilteredElement(input2) should not be ('empty)
     //print(SentenceToVerb.convertSentenceToVerbs(input))
   }
 
   test("given a sentence, the subject should be returned") {
     val input = "Die Lehramtsstudenten der alten Schule sind in der Lage komplexe Texte zu verstehen und gehen gerne baden ."
     SentenceToNoun.convertSentenceToFilteredElement(input) should not be ('empty)
+
+
+
   }
 
   test("given a word, the stemmed version should be returned") {
