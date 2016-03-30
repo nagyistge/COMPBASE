@@ -157,7 +157,7 @@ public class EvidenceServiceRestServerImpl implements
 
 	@Path("/user/exists")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON})
 	@Override
 	public Boolean exists(
 			@QueryParam(value = "user") String user,
