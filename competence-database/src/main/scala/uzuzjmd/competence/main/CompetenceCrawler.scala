@@ -45,7 +45,10 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     while (documentIterator.hasNext) {
       val document = documentIterator.next()
       val content: String = document.getFieldValue("content").asInstanceOf[String]
-      val sentences: List[String] = Arrays.asList(content.split("\\.")).asScala.flatten.toList.map(x => x.split("\n")).flatten.map(x => x + ".")
+      val sentences: List[String] = Arrays.asList(content.split("\\.")).asScala.flatten.
+        toList.map(x => x.split("\n")).flatten
+        .map(x => x.split(":")).flatten
+        .map(x => x + ".")
       sentences.foreach(x => blockingQueue.add(x))
     }
     logger.info("############")
@@ -111,6 +114,21 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     if (strings.contains("„") || strings.contains("\"")) {
       return false;
     }
+
+    if (strings.contains("?")) {
+      return false;
+    }
+
+    if (strings.contains("|")) {
+      return false;
+    }
+
+    if (strings.contains("•")) {
+      return false;
+    }
+
+
+
     return true;
   }
 
