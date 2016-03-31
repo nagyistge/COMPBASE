@@ -1,6 +1,7 @@
 package config;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -42,6 +43,8 @@ public class PropUtil {
 					.getResourceAsStream(propfFileName);
 		} else {
 			try {
+				//To know where the file is searched, uncomment the text below
+				//System.out.println(Paths.get(".").toAbsolutePath().toString());
 				inputStream = new FileInputStream(
 						propfFileName);
 			} catch (FileNotFoundException e) {
