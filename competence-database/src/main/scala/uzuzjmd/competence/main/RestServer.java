@@ -11,6 +11,7 @@ import config.MagicStrings;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
 import uzuzjmd.competence.service.rest.CrawlerServiceRest;
+import uzuzjmd.competence.service.rest.RecommenderServiceRest;
 import uzuzjmd.competence.util.CrossOriginResourceSharingFilter;
 import javax.ws.rs.ProcessingException;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class RestServer {
                 .println("plz configure evidenceserver.properties");
 
         ResourceConfig resourceConfig = new ResourceConfig(
-                CompetenceServiceRestJSON.class,
+                CompetenceServiceRestJSON.class, RecommenderServiceRest.class,
                 EvidenceServiceRestServerImpl.class, CrawlerServiceRest.class);
         resourceConfig.register(JacksonFeature.class);
 
