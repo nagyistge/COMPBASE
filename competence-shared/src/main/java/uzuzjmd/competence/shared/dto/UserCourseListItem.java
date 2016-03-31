@@ -4,6 +4,14 @@ public class UserCourseListItem {
 	private Long courseid;
 	private String name;
 
+	public UserCourseListItem() {
+	}
+
+	public UserCourseListItem(Long courseid, String name) {
+		this.courseid = courseid;
+		this.name = name;
+	}
+
 	public Long getCourseid() {
 		return courseid;
 	}

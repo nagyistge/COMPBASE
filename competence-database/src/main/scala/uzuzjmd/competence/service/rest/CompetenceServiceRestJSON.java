@@ -494,6 +494,7 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/addOne")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addCompetenceToModel(
             @QueryParam("competence") String forCompetence,
             @QueryParam("operator") String operator,
@@ -567,19 +568,19 @@ public class CompetenceServiceRestJSON {
 
 
     /**
-     * Get competences linked to (course) context.
+     * Get competences linked to (courseId) context. (the moodle course Id)
      * <p/>
      * Returns all the competences linked to a course context.
      *
-     * @param course
+     * @param courseId
      * @return
      */
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/SuggestedCompetencesForCourse/{course}")
+    @Path("/SuggestedCompetencesForCourse/{courseId}")
     public String[] getSuggestedCompetencesForCourse(
-            @PathParam("course") String course) throws Exception {
-        CourseContext context = new CourseContext(course);
+            @PathParam("courseId") String courseId) throws Exception {
+        CourseContext context = new CourseContext(courseId);
 
         if (context.getAssociatedDaoIdsAsDomain(Edge.CourseContextOfCompetence) == null) {
             return new String[0];
@@ -960,6 +961,8 @@ public class CompetenceServiceRestJSON {
         return Response.ok("updated")
                 .build();
     }
+
+
 
 
 }
