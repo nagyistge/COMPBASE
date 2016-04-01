@@ -51,4 +51,8 @@ public class User extends AbstractUser {
     public int hashCode() {
         return this.getId().hashCode();
     }
+
+    public void addCompetencePerformed(Competence a) throws Exception {
+        createEdgeWith(Edge.UserHasPerformed, a);
+    }
 }

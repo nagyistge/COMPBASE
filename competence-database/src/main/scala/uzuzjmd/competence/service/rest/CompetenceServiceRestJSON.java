@@ -512,42 +512,6 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     * Edit competence metadata
-     * <p/>
-     * (competence text may not be changed without changes in the hierarchy
-     * following)
-     *
-     * @param forCompetence
-     * @param operator
-     * @param catchwords
-     * @param superCompetences
-     * @param subCompetences
-     * @param originalCompetence
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/editOne")
-    public Response editCompetenceToModel(
-            @QueryParam("competence") String forCompetence,
-            @QueryParam("operator") String operator,
-            @QueryParam("catchwords") List<String> catchwords,
-            @QueryParam("superCompetences") List<String> superCompetences,
-            @QueryParam("subCompetences") List<String> subCompetences,
-            @QueryParam("originalCompetence") String originalCompetence) {
-
-        /**
-         * TODO: Competence should be updated and not deleted
-         */
-        CompetenceData competenceData = new CompetenceData(
-                operator, catchwords, superCompetences,
-                subCompetences, null, forCompetence);
-        String resultMessage = Competence2Ont
-                .convert(competenceData);
-        return Response.ok(resultMessage).build();
-    }
-
-    /**
      * The semantic of this interface is that a course is linked to a competence as template.
      * This way the learner can navigate to the course if he/she wants to learn a specific set of competencies
      * @param competence

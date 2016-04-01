@@ -23,7 +23,7 @@ public class AbstractUser extends DaoAbstractImpl {
 
     public List<Competence> getCompetencesLearned() throws Exception {
         if (competencesLearned == null) {
-            competencesLearned =  getAssociatedDaosAsRange(Edge.UserHasPerformed, Competence.class);
+            competencesLearned =  getAssociatedDaosAsDomain(Edge.UserHasPerformed, Competence.class);
         }
         return competencesLearned;
     }

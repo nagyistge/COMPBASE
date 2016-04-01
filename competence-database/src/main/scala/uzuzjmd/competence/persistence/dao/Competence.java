@@ -1,5 +1,6 @@
 package uzuzjmd.competence.persistence.dao;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
@@ -65,6 +66,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     public void addRequiredCompetence(Competence competence) throws Exception {
         deleteEdgeWith(competence, Edge.NotPrerequisiteOf);
         createEdgeWith(competence, Edge.PrerequisiteOf);
+        createEdgeWith(competence, Edge.SuggestedCompetencePrerequisiteOf);
     }
 
     public void addNotRequiredCompetence(Competence competence) throws Exception {
@@ -183,6 +185,17 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Competence> getFollowingCompetences() throws Exception {
+        return getAssociatedDaosAsRange(Edge.SuggestedCompetencePrerequisiteOf, Competence.class);
+    }
+
+    public List<Competence> getShortestSuggestedLearningPath(Competence competenceToReach) throws Exception {
+        if (this.getId().equals(competenceToReach.getId())) {
+            throw new Exception("cannot find path to itself");
+        }
+        return Lists.newArrayList(queryManager.getShortestPath(this.getId(), competenceToReach.getId(), Edge.SuggestedCompetencePrerequisiteOf, this.getClass()));
     }
 
     @Override

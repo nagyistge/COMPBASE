@@ -236,4 +236,19 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
     }
 
 
+    /**
+     * TODO: check if order is preserved
+     *
+     * @param fromNode
+     * @param toNode
+     * @param suggestedCompetencePrerequisiteOf
+     * @param returnType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T extends Dao> HashSet<T> getShortestPath(String fromNode, String toNode, Edge suggestedCompetencePrerequisiteOf, Class<T> returnType) throws Exception {
+        String query =  "MATCH p = shortestPath((a:"+returnType.getSimpleName()+"{id:'"+fromNode+"'})-[:"+suggestedCompetencePrerequisiteOf+"*]->(b:"+returnType.getSimpleName()+"{id:'"+toNode+"'})) return nodes(p)";
+        return getDaoList(returnType, query);
+    }
 }

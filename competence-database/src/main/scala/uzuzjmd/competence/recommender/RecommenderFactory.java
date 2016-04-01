@@ -5,7 +5,7 @@ package uzuzjmd.competence.recommender;
  */
 public class RecommenderFactory {
     public static CompetenceRecommender createCompetenceRecommender() {
-        return new DummyCompetenceRecommender();
+        return new CompetenceRecommenderImpl();
     }
 
     public static CourseRecommender createCourseRecommender() {
