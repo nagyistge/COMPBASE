@@ -65,9 +65,9 @@ public class CompetenceServiceRestJSON {
             @PathParam("context") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
-            @QueryParam("textFilter") String textFilter) {
+            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, rootCompetence);
         List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         return result;
     }
@@ -711,7 +711,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
         List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
         return result;
     }
@@ -734,7 +734,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
         List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
         return result;
 

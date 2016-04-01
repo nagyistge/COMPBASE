@@ -120,7 +120,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
 
   @Test
   @throws(classOf[Exception])
-  def testGetSelected2: Unit = {
+  def testGetCompetenceTree: Unit = {
     testGetSelectedCreateContexts
     val course = "university"
     val result = Ont2CompetenceTree.getCompetenceTree(new CompetenceTreeFilterData(course))
@@ -569,4 +569,45 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
     logger.info("converting epos competences took:"  + (timeAfterConvert - timeBeforeConvert))
     logger.info("Ont2SuggestedCompetenceGrid took:"  + (timeAfterConvert2 - timeBeforeConvert2))
     logger.info("Ont2LearningTemplateResultSet took:"  + (timeAfterConvert3 - timeBeforeConvert3))
-  }}
+  }
+
+  @Test
+  @throws(classOf[Exception])
+  def testQueriedCompetenceTreeReturnsTreeTest: Unit = {
+    testGetSelectedCreateContexts
+    val course = "university"
+    val courseContext = new CourseContext(course)
+    courseContext.persist()
+    val r1 = new Competence("r1")
+    r1.persist()
+    r1.addCourseContext(courseContext)
+
+    val r2 = new Competence("r2")
+    r2.persist()
+    r2.addCourseContext(courseContext)
+
+    val r3 = new Competence("r3")
+    r3.persist()
+    r3.addCourseContext(courseContext)
+
+    val r4 = new Competence("r4")
+    r4.persist()
+    r4.addCourseContext(courseContext)
+
+    r2.addSuperCompetence(r1)
+    r3.addSuperCompetence(r2)
+    r4.addSuperCompetence(r3)
+
+    val competenceTreeFilter = new CompetenceTreeFilterData(course)
+    competenceTreeFilter.setRootCompetence("r2")
+    val result = Ont2CompetenceTree.getCompetenceTree(competenceTreeFilter)
+    assertFalse(result.isEmpty)
+    testGetSelectedDeleteContexts
+
+  /*  r1.deleteTree()
+    assertFalse(r3.exists())*/
+  }
+
+
+}
+

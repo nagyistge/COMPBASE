@@ -30,7 +30,7 @@ object Ont2CompetenceTree extends Logging{
     val competenceLabel = classOf[Operator].getSimpleName;
     val f = convertNodeXMLTree (classOf[OperatorXMLTree]) _
     // TODO implement filter
-    return convertTree (competenceLabel, "Verb", filterData, f(x=>true)(iconPathOperator))
+    return convertTree (competenceLabel, filterData, f(x=>true)(iconPathOperator))
   }
 
   /**
@@ -43,13 +43,13 @@ object Ont2CompetenceTree extends Logging{
     val competenceLabel = classOf[Catchword].getSimpleName;
     val f = convertNodeXMLTree (classOf[CatchwordXMLTree]) _
     // TODO implement filter
-    return convertTree(competenceLabel, "Stichwort", filterData, f(x=>true)(iconPathCatchword))
+    return convertTree(competenceLabel, filterData, f(x=>true)(iconPathCatchword))
   }
 
   def getCompetenceTree(filterData: CompetenceTreeFilterData): java.util.List[CompetenceXMLTree] = {
     val competenceLabel = classOf[Competence].getSimpleName;
     val f = convertNodeXMLTree (classOf[CompetenceXMLTree]) _
-    return convertTree(competenceLabel, "Kompetenz", filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
+    return convertTree(competenceLabel, filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
   }
 
   /**
@@ -60,11 +60,14 @@ object Ont2CompetenceTree extends Logging{
     * @tparam T
     * @return
     */
-  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, rootLabel:String, filterData: CompetenceTreeFilterData, f: (Node) => T) : java.util.List[T] = {
+  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, filterData: CompetenceTreeFilterData, f: (Node) => T) : java.util.List[T] = {
     val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel, filterData)
     val nodesArray2 = nodesArray.asScala.filterNot(_.isEmpty)
     val nodesArray3 = nodesArray2.map(x => new TreePair(x.get(1), x.get(0)))
       .asJava
+    if (nodesArray3.isEmpty) {
+      return new util.LinkedList[T]()
+    }
     val rootNode = uzuzjmd.java.collections.TreeGenerator.getTree(nodesArray3);
     //logger.debug(rootNode.toStrinz);
     return (f(rootNode) :: Nil).asJava

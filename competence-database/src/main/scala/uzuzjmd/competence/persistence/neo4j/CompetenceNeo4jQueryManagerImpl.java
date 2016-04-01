@@ -203,7 +203,9 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         for (String operator : operators) {
             futherMatches += "MATCH (c:Operator{id:'" + operator + "'})-[r44:OperatorOf]->(p)";
         }
-
+        if (filterData.getRootCompetence() != null) {
+            futherMatches += "MATCH (p:" + label + ")-[:subClassOf*1..5]->(z:" + label + "{id:'" + filterData.getRootCompetence() + "'})";
+        }
         String query = "MATCH tree = (p:" + label + ")-[:subClassOf*1..5]->(c:" + label + ")" + futherMatches + "MATCH (x:CourseContext{id:'" + courseId + "'})-[r33:CourseContextOfCompetence]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
         return issueNeo4JRequestArrayListArrayList(query);
     }

@@ -18,6 +18,7 @@ public class MagicStrings {
 			.getProp("moodleURL");
 	public static final String webapplicationPath = PropUtil
 			.getProp("webapplicationPath");
+	//public static final String RESTURLCompetence = "http://172.20.10.10:8084";
 	public static final String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
 	public static final String EPOSLocation = PropUtil

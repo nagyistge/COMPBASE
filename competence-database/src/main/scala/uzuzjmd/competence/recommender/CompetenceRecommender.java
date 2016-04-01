@@ -16,7 +16,7 @@ public interface CompetenceRecommender {
      *
      * @param email
      * @param competenceToReach
-     *@param userEmail  @return
+     * @param courseId  @return
      */
-    public HashMap<String, Double> recommendCompetences(String email, String competenceToReach, String userEmail);
+    public HashMap<String, Double> recommendCompetences(String email, String competenceToReach, String courseId);
 }

@@ -189,7 +189,9 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     public void deleteTree() throws Exception {
         Set<Competence> subClasses = listSubClasses();
         for (Competence subClass : subClasses) {
-            deleteTree();
+            if (!subClass.equals(this)) {
+                subClass.deleteTree();
+            }
         }
         this.delete();
         //throw new NotImplementedException();
