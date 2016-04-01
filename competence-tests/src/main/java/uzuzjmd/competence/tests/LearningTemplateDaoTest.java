@@ -49,8 +49,8 @@ public class LearningTemplateDaoTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		t.start();
-		Thread.sleep(200l);
+		//t.start();
+		//Thread.sleep(200l);
 		initTestGraph();
 
 	}

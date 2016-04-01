@@ -5,7 +5,10 @@ import org.junit.matchers.StringContains;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import uzuzjmd.competence.datasource.epos.EposImporter;
+import uzuzjmd.competence.main.RestServer;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +18,9 @@ import java.util.List;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws IOException, URISyntaxException {
         System.out.println( "Hello World!" );
+        RestServer.singleStartServer();
         JUnitCore junit = new JUnitCore();
         List<String> strings = new ArrayList<String>();
         Result result;
@@ -31,6 +34,7 @@ public class App
                 strings) {
             System.out.println(str);
         }
+        RestServer.stopServer();
     }
 
     public static String resultToString(String workClass, Result result) {
