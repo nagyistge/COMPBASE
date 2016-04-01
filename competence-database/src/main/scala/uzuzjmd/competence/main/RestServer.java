@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
  * starts the rest server as grizzly standalone java program
  */
 public class RestServer {
+    private static HttpServer server;
 
     static Logger logger = LogManager
             .getLogger(RestServer.class.getName());
@@ -52,7 +53,7 @@ public class RestServer {
         // add CORS header filter
         resourceConfig.register(CrossOriginResourceSharingFilter.class);
 
-        final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(new URI(
+        server = GrizzlyHttpServerFactory.createHttpServer(new URI(
                         MagicStrings.RESTURLCompetence),
                 resourceConfig);
 
@@ -92,5 +93,48 @@ public class RestServer {
         logger.debug("Leaving startServer");
 
     }
+
+    public static void singleStartServer() throws URISyntaxException {
+        logger.debug("Entering singleStartServer");
+        System.out
+                .println("usage is java - jar *.version.jar");
+        System.out
+                .println("plz configure evidenceserver.properties");
+
+        ResourceConfig resourceConfig = new ResourceConfig(
+                CompetenceServiceRestJSON.class, RecommenderServiceRest.class,
+                EvidenceServiceRestServerImpl.class, CrawlerServiceRest.class);
+        resourceConfig.register(JacksonFeature.class);
+
+        // add CORS header filter
+        resourceConfig.register(CrossOriginResourceSharingFilter.class);
+
+        server = GrizzlyHttpServerFactory.createHttpServer(new URI(
+                        MagicStrings.RESTURLCompetence),
+                resourceConfig);
+
+        // run
+        try {
+            server.start();
+            //Thread.currentThread().join();
+        } catch (Exception e) {
+            logger.error(
+                    "There was an error while starting Grizzly HTTP server.", e);
+        }
+        logger.info("Published HTTP Server to "
+                + MagicStrings.RESTURLCompetence);
+        Logger logJena = Logger
+                .getLogger("com.hp.hpl.jena");
+        logJena.setLevel(Level.WARN);
+
+        logger.debug("Leaving singleStartServer");
+    }
+
+    public static void stopServer() {
+        server.shutdownNow();
+        logger.debug("Stopped Server.");
+    }
+
+
 
 }
