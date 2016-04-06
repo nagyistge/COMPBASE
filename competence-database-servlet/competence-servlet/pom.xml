@@ -231,5 +231,21 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>fleckenroller-dev</id>
+			<build>
+				<finalName>competence-database-dev</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<outputDirectory>/opt/up/tomcat/7.0/webapps</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>

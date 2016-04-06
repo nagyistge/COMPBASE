@@ -631,6 +631,11 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
     assertFalse(r3.exists())*/
   }
 
+  @Test
+  def recommendCoursesTest(): Unit = {
+
+  }
+
 
 }
 

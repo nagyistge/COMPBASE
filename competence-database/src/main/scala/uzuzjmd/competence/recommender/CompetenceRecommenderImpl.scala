@@ -2,7 +2,6 @@ package uzuzjmd.competence.recommender
 
 import java.lang.Double
 import java.util
-
 import uzuzjmd.competence.persistence.dao.{CourseContext, Competence, User}
 import uzuzjmd.competence.util.LanguageConverter
 import collection.JavaConverters._

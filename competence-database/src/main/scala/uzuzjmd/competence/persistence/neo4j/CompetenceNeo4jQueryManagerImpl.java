@@ -20,6 +20,7 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
     public void createRelationShip(String domainId, Edge edge, String rangeId) throws Exception {
         String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "]->(n2) return n,r,n2";
         issueNeo4JRequestStrings(query);
+
     }
 
 
