@@ -32,3 +32,8 @@ competence-crawler/target/classes/uzuzjmd/competence/crawler/main/GeometaUpdater
 competence-crawler/target/classes/
 *.class
 util/target/
+*/.project
+*/.settings
+*/.settings/**
+competence-database/evidenceserver.properties
+*/.classpath
