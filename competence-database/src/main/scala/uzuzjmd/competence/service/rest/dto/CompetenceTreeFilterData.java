@@ -10,17 +10,24 @@ public class CompetenceTreeFilterData {
 	private Boolean compulsory;
 	private String textFilter;
 
+	public void setRootCompetence(String rootCompetence) {
+		this.rootCompetence = rootCompetence;
+	}
+
+	private String rootCompetence;
+
 	public CompetenceTreeFilterData(
 			List<String> selectedCatchwordArray,
 			List<String> selectedOperatorsArray,
 			String course, Boolean compulsory,
-			String textFilter) {
+			String textFilter, String rootCompetence) {
 		super();
 		this.selectedCatchwordArray = selectedCatchwordArray;
 		this.selectedOperatorsArray = selectedOperatorsArray;
 		this.course = course;
 		this.compulsory = compulsory;
 		this.textFilter = textFilter;
+		this.rootCompetence = rootCompetence;
 	}
 
 	public CompetenceTreeFilterData(String course) {
@@ -69,4 +76,7 @@ public class CompetenceTreeFilterData {
 		this.textFilter = textFilter;
 	}
 
+	public String getRootCompetence() {
+		return rootCompetence;
+	}
 }

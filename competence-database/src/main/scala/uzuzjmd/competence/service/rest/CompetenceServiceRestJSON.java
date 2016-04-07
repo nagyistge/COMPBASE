@@ -65,9 +65,9 @@ public class CompetenceServiceRestJSON {
             @PathParam("context") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
-            @QueryParam("textFilter") String textFilter) {
+            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, rootCompetence);
         List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         return result;
     }
@@ -512,42 +512,6 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     * Edit competence metadata
-     * <p/>
-     * (competence text may not be changed without changes in the hierarchy
-     * following)
-     *
-     * @param forCompetence
-     * @param operator
-     * @param catchwords
-     * @param superCompetences
-     * @param subCompetences
-     * @param originalCompetence
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/editOne")
-    public Response editCompetenceToModel(
-            @QueryParam("competence") String forCompetence,
-            @QueryParam("operator") String operator,
-            @QueryParam("catchwords") List<String> catchwords,
-            @QueryParam("superCompetences") List<String> superCompetences,
-            @QueryParam("subCompetences") List<String> subCompetences,
-            @QueryParam("originalCompetence") String originalCompetence) {
-
-        /**
-         * TODO: Competence should be updated and not deleted
-         */
-        CompetenceData competenceData = new CompetenceData(
-                operator, catchwords, superCompetences,
-                subCompetences, null, forCompetence);
-        String resultMessage = Competence2Ont
-                .convert(competenceData);
-        return Response.ok(resultMessage).build();
-    }
-
-    /**
      * The semantic of this interface is that a course is linked to a competence as template.
      * This way the learner can navigate to the course if he/she wants to learn a specific set of competencies
      * @param competence
@@ -711,7 +675,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
         List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
         return result;
     }
@@ -734,7 +698,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null);
+        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
         List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
         return result;
 

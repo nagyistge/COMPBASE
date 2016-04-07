@@ -35,6 +35,8 @@ public class RestServer {
         startServer();
     }
 
+
+
     public static void startServer() throws IOException,
             ProcessingException, URISyntaxException, BindException {
         logger.debug("Entering startServer");
@@ -64,6 +66,8 @@ public class RestServer {
                 ;
             }
         }, "shutdownHook"));
+
+
 
         // run
         try {

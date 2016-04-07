@@ -40,6 +40,8 @@ public class User extends AbstractUser {
         return getAssociatedDaoIdsAsDomain(Edge.UserOfLearningProjectTemplate);
     }
 
+
+
     @Override
     public String toString() {
         return this.getId();
@@ -48,5 +50,9 @@ public class User extends AbstractUser {
     @Override
     public int hashCode() {
         return this.getId().hashCode();
+    }
+
+    public void addCompetencePerformed(Competence a) throws Exception {
+        createEdgeWith(Edge.UserHasPerformed, a);
     }
 }

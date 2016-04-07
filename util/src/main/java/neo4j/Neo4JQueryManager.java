@@ -67,9 +67,12 @@ public abstract class Neo4JQueryManager  {
     }
 
     protected ArrayList<ArrayList<String>> issueNeo4JRequestArrayListArrayList(final String payload) throws Exception {
-        statsHolder.requestHashMap.put(4, statsHolder.requestHashMap.get(4)+1);
-        logger.debug(statsHolder.toString());
-        return issueSingleStatementRequest(new RequestableImpl<ArrayList<ArrayList<String>>>() , payload);
+        //statsHolder.requestHashMap.put(4, statsHolder.requestHashMap.get(4)+1);
+        //logger.debug(statsHolder.toString());
+        ArrayList<ArrayList<String>> result = issueSingleStatementRequest(new RequestableImpl<ArrayList<ArrayList<String>>>(), payload);
+        if (result == null || result.isEmpty()) {
+            return new ArrayList<>();
+        } else return result;
     }
 
     protected ArrayList<String> issueNeo4JRequestStrings(final String... queries) throws Exception {
