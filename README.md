@@ -81,8 +81,8 @@ Important to change: moodleURL, neo4jURL
 ### Build with intellij
 - open project with intellij (scala plugin)
 - make project: voilá!
-- Edit evidenceserver.properties in competence-database/target/classes 
-- Run RestServer.main
+- copy competence-database/src/test/scala/evidenceserver.properties to competence-database/target/classes and change rootPath to the project location
+- Run competence-database/uzuzjmd/competence/main/RestServer.main
 
 ### Make Dokumentation
 
