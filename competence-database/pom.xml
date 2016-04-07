@@ -108,6 +108,14 @@
             <version>5.4.0</version>
         </dependency>
 
+        <!-- for the analysis of the crawler results -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+
         <!-- neo4j -->
 
         <!--	<dependency>
