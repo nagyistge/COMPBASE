@@ -76,7 +76,9 @@ Important to change: moodleURL, neo4jURL
 
 - git submodule update --init --recursive
 - cd competence-application
-- mvn clean install 
+- mvn clean install, takes a while and this might lead to an OutOfMemoryException which can be solved with:
+- mvn install (again)
+
 
 ### Build with intellij
 - open project with intellij (scala plugin)
