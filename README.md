@@ -86,6 +86,12 @@ Important to change: moodleURL, neo4jURL
 - copy competence-database/src/test/scala/evidenceserver.properties to competence-database/target/classes and change rootPath to the project location
 - Run competence-database/uzuzjmd/competence/main/RestServer.main
 
+
+### Build with eclipse
+- open project with scala ide (scala plugin for eclipse) as maven project
+- copy competence-database/src/test/scala/evidenceserver.properties to competence-database project root and change rootPath to the project location
+- Run competence-database/uzuzjmd/competence/main/RestServer.main
+
 ### Make Dokumentation
 
 - cd competence-database
