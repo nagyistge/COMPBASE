@@ -7,3 +7,6 @@
 [submodule "competence-installer"]
 	path = competence-installer
 	url = git@github.com:uzuzjmd/competence-installer.git
+[submodule "competence-mobile"]
+	path = competence-mobile
+	url = git@github.com:uzuzjmd/competence-mobile.git
