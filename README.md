@@ -57,10 +57,7 @@ Use the tray.exe. It deploys the server and let you start and stop it via a syst
 Just delete this folder. We didn't put something in your system..
 
 
-
 ## Deploy as war file
-
-===================
 
 - change evidenceserver.properties in competence-database-servlet\competence-servlet\src\main\webapp\WEB-INF\classes to your needed configuration
 
