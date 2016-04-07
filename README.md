@@ -70,9 +70,9 @@ Important to change: moodleURL, neo4jURL
 
 ### Build with maven
 
-Increase Maven Memory:
-- export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
-- (or on Windows:) set MAVEN_OPTS=-Xmx512m -XX:MaxPermSize=128m
+- Increase Maven Memory:
+	- export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+	- (or on Windows:) set MAVEN_OPTS=-Xmx512m -XX:MaxPermSize=128m
 
 - git submodule update --init --recursive
 - cd competence-application
