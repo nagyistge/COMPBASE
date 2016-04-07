@@ -28,6 +28,10 @@ Please use purge in case you want to install this deb file again.
 
 
 ## Competence Server Project in Windows
+### Requirements
+Before you install this project you have to download several programs:
+  -[Neo4J](http://neo4j.com/download/)
+    - to configure your Neo4J you have to turn off your authentication. For this purpose you can edit your Neo4J properties file which is usually located in C:\Users\{UserName}\Documents\Neo4j\default.graphdb\neo4j.properties . In this file you have to enter a new entry **dbms.security.auth_enabled=false** or just edit this property. 
 ### Install
 Download the zip file or clone this project and build yourself the installer. To install this server just use "install.exe" and follow the instructions. After that you can run tray.exe. The software will start a icon in your system tray and with this menu you can run or stop the server.
 
