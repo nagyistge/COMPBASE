@@ -1,11 +1,10 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
 import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
-import uzuzjmd.competence.service.rest.dto.CompetenceTreeFilterData;
+import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,7 +192,7 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
      * @param label
      * @return
      */
-    public List<ArrayList<String>> getSubClassTriples(String label, CompetenceTreeFilterData filterData) throws Exception {
+    public List<ArrayList<String>> getSubClassTriples(String label, CompetenceFilterData filterData) throws Exception {
         String courseId = filterData.getCourse();
         List<String> operators = filterData.getSelectedOperatorsArray();
         List<String> catchwords = filterData.getSelectedCatchwordArray();

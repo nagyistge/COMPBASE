@@ -15,8 +15,8 @@ import java.util.HashMap;
 /**
  * Root resource (exposed at "competences" path)
  */
-@Path("/recommend")
-public class RecommenderServiceRest {
+@Path("@Path(/api1/recommendations")
+public class RecommenderApiImpl {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

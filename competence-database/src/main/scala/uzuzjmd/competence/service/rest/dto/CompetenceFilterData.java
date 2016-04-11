@@ -3,12 +3,13 @@ package uzuzjmd.competence.service.rest.dto;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CompetenceTreeFilterData {
+public class CompetenceFilterData {
 	private List<String> selectedCatchwordArray = new LinkedList<>();
 	private List<String> selectedOperatorsArray = new LinkedList<>();
 	private String course;
 	private Boolean compulsory;
 	private String textFilter;
+	private Boolean resultAsTree;
 
 	public void setRootCompetence(String rootCompetence) {
 		this.rootCompetence = rootCompetence;
@@ -16,22 +17,24 @@ public class CompetenceTreeFilterData {
 
 	private String rootCompetence;
 
-	public CompetenceTreeFilterData(
+	public CompetenceFilterData(
 			List<String> selectedCatchwordArray,
 			List<String> selectedOperatorsArray,
 			String course, Boolean compulsory,
-			String textFilter, String rootCompetence) {
+			String textFilter, Boolean resultAsTree, String rootCompetence) {
 		super();
 		this.selectedCatchwordArray = selectedCatchwordArray;
 		this.selectedOperatorsArray = selectedOperatorsArray;
 		this.course = course;
 		this.compulsory = compulsory;
 		this.textFilter = textFilter;
+		this.resultAsTree = resultAsTree;
 		this.rootCompetence = rootCompetence;
 	}
 
-	public CompetenceTreeFilterData(String course) {
+	public CompetenceFilterData(String course, Boolean resultAsTree) {
 		this.course = course;
+		this.resultAsTree = resultAsTree;
 	}
 
 	public List<String> getSelectedCatchwordArray() {

@@ -67,7 +67,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
             @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, rootCompetence);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, true, rootCompetence);
         List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         return result;
     }
@@ -675,7 +675,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, null, true, null);
         List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
         return result;
     }
@@ -698,7 +698,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, null, true, null);
         List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
         return result;
 
