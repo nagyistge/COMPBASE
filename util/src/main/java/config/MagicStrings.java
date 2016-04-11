@@ -45,4 +45,10 @@ public class MagicStrings {
 	public static final String dataPath = crawlerOutputDirPath + "/moodle_data.csv";
 	public static final String stichWortPath = crawlerOutputDirPath + "/stichVar.csv";
 
+	public static final String stichWortSuffix = PropUtil.getProp("stichWortSuffix");
+	public static final String varMetaSuffix = PropUtil.getProp("varMetaSuffix");
+	public static final String minPercentile = PropUtil.getProp("minPercentile");
+	public static final String maxPercentile = PropUtil.getProp("maxPercentile");
+
+
 }

@@ -44,7 +44,7 @@ public class PropUtil {
 		} else {
 			try {
 				//To know where the file is searched, uncomment the text below
-				//System.out.println(Paths.get(".").toAbsolutePath().toString());
+				System.out.println(Paths.get(".").toAbsolutePath().toString());
 				inputStream = new FileInputStream(
 						propfFileName);
 			} catch (FileNotFoundException e) {
