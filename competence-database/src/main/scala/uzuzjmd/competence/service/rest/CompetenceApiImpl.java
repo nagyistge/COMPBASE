@@ -4,6 +4,8 @@ import scala.NotImplementedError;
 import scala.collection.immutable.List;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
+import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
+import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
@@ -20,14 +22,23 @@ import javax.ws.rs.core.Response;
 public class CompetenceApiImpl {
 
     /**
-     * returns either a list of string as the competences queried or a tree representation
-     * @param data
+     * returns either a list of string or a tree representation depending on the value of "asTree"
+     * @param selectedCatchwords
+     * @param selectedOperators
+     * @param textFilter
+     * @param rootCompetence
+     * @param course
+     * @param asTree
      * @return
      */
     @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getCompetences(CompetenceFilterData data){
+    public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
+                                   @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
+                                   @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree){
+
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, asTree, rootCompetence);
         if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
             java.util.List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
             return Response.status(200).entity(result).build();
@@ -41,13 +52,18 @@ public class CompetenceApiImpl {
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data) {
-        throw new NotImplementedError();
+        data.setForCompetence(competenceId);
+        String resultMessage = Competence2Ont
+                .convert(data);
+        return Response.ok(resultMessage).build();
     }
 
     @Path("/competences/{competenceId}")
     @DELETE
-    public Response deleteCompetence(@PathParam("competenceId") String competenceId) {
-        throw new NotImplementedError();
+    public Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception {
+        Competence competence = new Competence(competenceId);
+        competence.delete();
+        return Response.ok("competence deleted").build();
     }
 
     /**
@@ -57,8 +73,10 @@ public class CompetenceApiImpl {
      */
     @Path("/competences/{competenceId}/delete")
     @POST
-    public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) {
-        throw new NotImplementedError();
+    public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception {
+        Competence competence = new Competence(competenceId);
+        competence.delete();
+        return Response.ok("competence deleted").build();
     }
 
     /**
@@ -72,7 +90,10 @@ public class CompetenceApiImpl {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data) {
-        throw new NotImplementedError();
+        data.setForCompetence(competenceId);
+        String resultMessage = Competence2Ont
+                .convert(data);
+        return Response.ok(resultMessage).build();
     }
 
 
