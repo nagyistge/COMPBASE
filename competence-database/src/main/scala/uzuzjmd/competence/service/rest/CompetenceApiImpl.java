@@ -2,8 +2,11 @@ package uzuzjmd.competence.service.rest;
 
 import scala.NotImplementedError;
 import scala.collection.immutable.List;
+import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
+import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
+import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,11 +19,22 @@ import javax.ws.rs.core.Response;
 @Path("/api1")
 public class CompetenceApiImpl {
 
+    /**
+     * returns either a list of string as the competences queried or a tree representation
+     * @param data
+     * @return
+     */
     @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getCompetences(CompetenceFilterData data){
-        throw new NotImplementedError();
+    public Response getCompetences(CompetenceFilterData data){
+        if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
+            java.util.List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
+            return Response.status(200).entity(result).build();
+        } else {
+            java.util.List<String> result = Ont2Competences.convert(data);
+            return Response.status(200).entity(result).build();
+        }
     }
 
     @Path("/competences/{competenceId}")
