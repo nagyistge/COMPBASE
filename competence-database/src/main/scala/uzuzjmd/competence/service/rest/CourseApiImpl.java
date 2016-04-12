@@ -24,10 +24,10 @@ public class CourseApiImpl {
     @Path("/course")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getCourses(@QueryParam("competence") List<String> competences) {
-        List<String> result = new ArrayList<>();
+    public List<CourseData> getCourses(@QueryParam("competence") List<String> competences) {
+        List<CourseData> result = new ArrayList<>();
         for (String competence : competences) {
-            result.addAll(Lists.newArrayList(Ont2SelectedCompetencesForCourse.convert(competence)));
+            result.addAll(Lists.newArrayList(Ont2SelectedCompetencesForCourse.convertDao(competence)));
         }
         return result;
     }

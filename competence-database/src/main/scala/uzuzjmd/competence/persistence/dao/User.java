@@ -10,13 +10,15 @@ import java.util.List;
  */
 public class User extends AbstractUser {
     public Role role;
+    public String printableName;
     public User(String id) {
         super(id);
     }
 
-    public User(String id, Role role, CourseContext ... courseContexts) {
+    public User(String id, Role role, String printableName, CourseContext ... courseContexts) {
         super(id);
         this.role = role;
+        this.printableName = printableName;
         this.courseContexts = Lists.newArrayList(courseContexts);
     }
 
@@ -40,7 +42,9 @@ public class User extends AbstractUser {
         return getAssociatedDaoIdsAsDomain(Edge.UserOfLearningProjectTemplate);
     }
 
-
+    public String getPrintableName() {
+        return printableName;
+    }
 
     @Override
     public String toString() {

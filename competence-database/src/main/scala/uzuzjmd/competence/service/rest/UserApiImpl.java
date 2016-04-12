@@ -2,6 +2,10 @@ package uzuzjmd.competence.service.rest;
 
 import scala.NotImplementedError;
 import scala.collection.immutable.List;
+import uzuzjmd.competence.mapper.rest.write.User2Ont;
+import uzuzjmd.competence.persistence.dao.CourseContext;
+import uzuzjmd.competence.persistence.dao.Role;
+import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.service.rest.dto.UserData;
 
 import javax.ws.rs.*;
@@ -14,24 +18,58 @@ import javax.ws.rs.core.Response;
 @Path("/api1")
 public class UserApiImpl {
 
-    @Path("/user")
+    /**
+     * user is identified by email only.
+     * <p/>
+     * return all user resources is not possible at the time because of privacy reasons
+     *
+     * @param courseId
+     * @param role
+     * @return
+     */
+    @Path("/users")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getUsers(UserData data) {
+    public List<String> getUsers(
+            @QueryParam("courseId") String courseId,
+            @QueryParam("role") String role) {
+        // get all users enroled in a certain course or with a certain role
         throw new NotImplementedError();
     }
 
-    @Path("/user/{userId}")
+
+    @Path("/users/{userId}")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getUser(@PathParam("userId") String userId) throws Exception {
+        User user = new User(userId);
+        User result = user.getFullDao();
+        return Response.status(200).entity(result).build();
+    }
+
+    @Path("/users/{userId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addUser(@PathParam("userId") String userId, UserData data) {
-        throw new NotImplementedError();
+    public Response addUser(@PathParam("userId") String userId, UserData data) throws Exception {
+        return addUser(data);
     }
 
-    @Path("/user/{userId}")
+    private Response addUser(UserData data) throws Exception {
+        Role role = null;
+        if (data.getRole() != null) {
+            role = Role.valueOf(data.getRole());
+        }
+        User user = new User(data.getUser(), role , data.getPrintableName(), new CourseContext(data.getCourseContext()));
+        user.persist();
+        return Response.ok("user added").build();
+    }
+
+    @Path("/users/{userId}")
     @DELETE
-    public Response deleteUser(@PathParam("userId") String userId) {
-        throw new NotImplementedError();
+    public Response deleteUser(@PathParam("userId") String userId) throws Exception {
+        User user = new User(userId);
+        user.delete();
+        return Response.ok("user deleted").build();
     }
 
     /**
@@ -40,10 +78,12 @@ public class UserApiImpl {
      * @param userId
      * @return
      */
-    @Path("/user/{userId}/delete")
+    @Path("/users/{userId}/delete")
     @POST
-    public Response deleteUserLegacy(@PathParam("userId") String userId) {
-        throw new NotImplementedError();
+    public Response deleteUserLegacy(@PathParam("userId") String userId) throws Exception {
+        User user = new User(userId);
+        user.delete();
+        return Response.ok("user deleted").build();
     }
 
     /**
@@ -53,10 +93,10 @@ public class UserApiImpl {
      * @param data
      * @return
      */
-    @Path("/user/{userId}/create")
+    @Path("/users/{userId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addUserLegacy(@PathParam("userId") String userId, UserData data) {
-        throw new NotImplementedError();
+    public Response addUserLegacy(@PathParam("userId") String userId, UserData data) throws Exception {
+        return addUser(data);
     }
 }
