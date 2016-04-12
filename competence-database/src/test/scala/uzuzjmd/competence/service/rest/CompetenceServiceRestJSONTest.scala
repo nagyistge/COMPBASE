@@ -123,7 +123,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
   def testGetCompetenceTree: Unit = {
     testGetSelectedCreateContexts
     val course = "university"
-    val result = Ont2CompetenceTree.getCompetenceTree(new CompetenceFilterData(course, resultAsTree))
+    val result = Ont2CompetenceTree.getCompetenceTree(new CompetenceFilterData(course, true))
     assertFalse(result.isEmpty)
     testGetSelectedDeleteContexts
   }
@@ -621,7 +621,7 @@ class CompetenceServiceRestJSONTest extends WriteTransactional[Any] with Logging
     a3.addSuperCompetence(a2)
     a4.addSuperCompetence(a3)
 
-    val competenceTreeFilter = new CompetenceFilterData(course, resultAsTree)
+    val competenceTreeFilter = new CompetenceFilterData(course, true)
     competenceTreeFilter.setRootCompetence(r1.getDefinition)
     val result = Ont2CompetenceTree.getCompetenceTree(competenceTreeFilter)
     assertFalse(result.isEmpty)
