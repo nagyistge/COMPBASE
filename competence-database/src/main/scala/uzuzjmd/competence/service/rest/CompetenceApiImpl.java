@@ -3,10 +3,13 @@ package uzuzjmd.competence.service.rest;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
+import uzuzjmd.competence.mapper.rest.write.HierarchieChangesToOnt;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
+import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -91,6 +94,21 @@ public class CompetenceApiImpl {
         String resultMessage = Competence2Ont
                 .convert(data);
         return Response.ok(resultMessage).build();
+    }
+
+    /**
+     * updates the competence hierarchy
+     *
+     * @param changes of type HierarchieChangeObject @see updateHierarchie2
+     * @return
+     */
+    @POST
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/competences/hierarchy/update")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response updateHierarchy(HierarchyChangeSet changes) {
+        HierarchieChangesToOnt.convert(changes);
+        return Response.ok("updated taxonomy").build();
     }
 
 

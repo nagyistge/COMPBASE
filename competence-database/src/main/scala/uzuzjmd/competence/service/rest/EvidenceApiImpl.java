@@ -42,10 +42,10 @@ public class EvidenceApiImpl {
      */
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
-    @Path("/{evidenceURL}")
+    @Path("/{evidenceId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response linkCompetencesToUser2(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
-        return createEvidenceLink(evidenceURL, data);
+    public Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data) {
+        return createEvidenceLink(evidenceId, data);
     }
 
     private Response createEvidenceLink(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
@@ -95,7 +95,7 @@ public class EvidenceApiImpl {
     @POST
     @Path("/{evidenceId}/validate")
     public Response validateLink(
-            @PathParam("linkId") String evidenceId) {
+            @PathParam("evidenceId") String evidenceId) {
         Boolean isValid = true;
         return handleLinkValidation(evidenceId, isValid);
     }
@@ -116,7 +116,7 @@ public class EvidenceApiImpl {
     @POST
     @Path("/{evidenceId}/invalidate")
     public Response inValidateLink(
-            @PathParam("linkId") String evidenceId) {
+            @PathParam("evidenceId") String evidenceId) {
         Boolean isValid = false;
         return handleLinkValidation(evidenceId, isValid);
     }
