@@ -1,7 +1,5 @@
 package uzuzjmd.competence.service.rest;
 
-import scala.NotImplementedError;
-import scala.collection.immutable.List;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
@@ -9,7 +7,6 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

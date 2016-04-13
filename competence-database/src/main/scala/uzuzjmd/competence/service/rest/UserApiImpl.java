@@ -38,13 +38,24 @@ public class UserApiImpl {
     }
 
 
+    /**
+     * returns the full user with the id given.
+     *
+     * Be careful that users who have not been added via this interface might only be persisted by id (normally email),
+     * because they are a reference to another identity store such as a cms or a lms system.
+     *
+     * @param userId
+     * @return
+     * @throws Exception
+     */
     @Path("/users/{userId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getUser(@PathParam("userId") String userId) throws Exception {
         User user = new User(userId);
         User result = user.getFullDao();
-        return Response.status(200).entity(result).build();
+        UserData data = new UserData(result.getId(), result.getPrintableName(), null, null);
+        return Response.status(200).entity(data).build();
     }
 
     @Path("/users/{userId}")

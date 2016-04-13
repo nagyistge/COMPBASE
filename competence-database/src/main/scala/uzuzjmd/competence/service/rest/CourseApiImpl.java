@@ -1,18 +1,15 @@
 package uzuzjmd.competence.service.rest;
 
 import com.google.common.collect.Lists;
-import scala.NotImplementedError;
-import java.util.List;
 import uzuzjmd.competence.mapper.rest.read.Ont2SelectedCompetencesForCourse;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.service.rest.dto.CourseData;
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dehne on 11.04.2016.
