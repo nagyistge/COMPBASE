@@ -2,11 +2,14 @@ package uzuzjmd.competence.service.rest;
 
 import scala.NotImplementedError;
 import scala.collection.immutable.List;
-import uzuzjmd.competence.mapper.rest.write.User2Ont;
+import uzuzjmd.competence.evidence.model.LMSSystems;
+import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
 import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.service.rest.dto.UserData;
+import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -110,4 +113,42 @@ public class UserApiImpl {
     public Response addUserLegacy(@PathParam("userId") String userId, UserData data) throws Exception {
         return addUser(data);
     }
+
+    /**
+     * get the courses for a certain user
+     *
+     * it is necessary to query the password as well as we cannot assume the lms allows this to access without credentials
+     * @param userId
+     * @param password
+     * @return
+     */
+    @Path("/users/{userId}/courses")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public UserCourseListResponse getCoursesForUser(@PathParam("userId") String userId, String password) {
+        userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
+        MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
+        return moodleEvidenceRestService.getCourses(LMSSystems.moodle.toString(), "university", userId, password);
+    }
+
+    /**
+     * checks if user exists
+     *
+     * it is necessary to query the password as well as we cannot assume the lms allows this to access without credentials
+     * @param userId
+     * @param password
+     * @return
+     */
+    @Path("/users/{userId}/exists")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Boolean checksIfUserExists(@PathParam("userId") String userId, String password) {
+        userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
+        MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
+        return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);
+    }
+
+
 }

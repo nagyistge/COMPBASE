@@ -126,7 +126,7 @@ public class RecommenderApiImpl {
     @GET
     @Path("/activities/{activityId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] getCompetencesForSuggestedActivity(@QueryParam("activityId") String activityId) throws Exception {
+    public String[] getCompetencesForSuggestedActivity(@PathParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
         if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
             return new String[0];
@@ -164,13 +164,7 @@ public class RecommenderApiImpl {
         return Response.ok("edge created").build();
     }
 
-    private Response handleLinkValidation(String linkId,
-                                          Boolean isValid) {
-        HandleLinkValidationInOnt
-                .convert(new LinkValidationData(linkId,
-                        isValid));
-        return Response.ok("link updated").build();
-    }
+
 
 
 
