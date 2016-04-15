@@ -19,17 +19,9 @@ import javax.ws.rs.core.Response;
  * Created by dehne on 11.04.2016.
  */
 @Path("/api1")
-public class UserApiImpl {
+public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
 
-    /**
-     * user is identified by email only.
-     * <p/>
-     * return all user resources is not possible at the time because of privacy reasons
-     *
-     * @param courseId
-     * @param role
-     * @return
-     */
+    @Override
     @Path("/users")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -41,16 +33,7 @@ public class UserApiImpl {
     }
 
 
-    /**
-     * returns the full user with the id given.
-     *
-     * Be careful that users who have not been added via this interface might only be persisted by id (normally email),
-     * because they are a reference to another identity store such as a cms or a lms system.
-     *
-     * @param userId
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Path("/users/{userId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -61,6 +44,7 @@ public class UserApiImpl {
         return Response.status(200).entity(data).build();
     }
 
+    @Override
     @Path("/users/{userId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -78,6 +62,7 @@ public class UserApiImpl {
         return Response.ok("user added").build();
     }
 
+    @Override
     @Path("/users/{userId}")
     @DELETE
     public Response deleteUser(@PathParam("userId") String userId) throws Exception {
@@ -86,12 +71,7 @@ public class UserApiImpl {
         return Response.ok("user deleted").build();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     *
-     * @param userId
-     * @return
-     */
+    @Override
     @Path("/users/{userId}/delete")
     @POST
     public Response deleteUserLegacy(@PathParam("userId") String userId) throws Exception {
@@ -100,13 +80,7 @@ public class UserApiImpl {
         return Response.ok("user deleted").build();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @param userId
-     * @param data
-     * @return
-     */
+    @Override
     @Path("/users/{userId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -114,14 +88,7 @@ public class UserApiImpl {
         return addUser(data);
     }
 
-    /**
-     * get the courses for a certain user
-     *
-     * it is necessary to query the password as well as we cannot assume the lms allows this to access without credentials
-     * @param userId
-     * @param password
-     * @return
-     */
+    @Override
     @Path("/users/{userId}/courses")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -132,14 +99,7 @@ public class UserApiImpl {
         return moodleEvidenceRestService.getCourses(LMSSystems.moodle.toString(), "university", userId, password);
     }
 
-    /**
-     * checks if user exists
-     *
-     * it is necessary to query the password as well as we cannot assume the lms allows this to access without credentials
-     * @param userId
-     * @param password
-     * @return
-     */
+    @Override
     @Path("/users/{userId}/exists")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

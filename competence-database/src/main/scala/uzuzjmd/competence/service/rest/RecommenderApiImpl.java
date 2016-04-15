@@ -26,8 +26,9 @@ import java.util.List;
  * Root resource (exposed at "competences" path)
  */
 @Path("/api1/recommendations")
-public class RecommenderApiImpl {
+public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi {
 
+    @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/competences/{userEmail}")
@@ -35,6 +36,7 @@ public class RecommenderApiImpl {
         return RecommenderFactory.createCompetenceRecommender().recommendCompetences(userEmail, competenceToReach, courseId);
     }
 
+    @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/activities/{userEmail}")
@@ -42,6 +44,7 @@ public class RecommenderApiImpl {
         return RecommenderFactory.createActivityRecommender().recommendActivities(userEmail, competenceToReach, courseId);
     }
 
+    @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/courses/{userEmail}")
@@ -50,14 +53,7 @@ public class RecommenderApiImpl {
     }
 
 
-    /**
-     * Get competences linked to (courseId) context. (the moodle course Id)
-     * <p/>
-     * Returns all the competences recommended for a course context.
-     *
-     * @param courseId
-     * @return
-     */
+    @Override
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("/courses/{courseId}")
@@ -73,14 +69,7 @@ public class RecommenderApiImpl {
     }
 
 
-    /**
-     * Get competences linked to (course) context.
-     * <p/>
-     * Returns all the courses linked to a certain competence as a suggestions
-     *
-     * @param competenceId
-     * @return
-     */
+    @Override
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("/competences/{competenceId}")
@@ -96,14 +85,7 @@ public class RecommenderApiImpl {
     }
 
 
-    /**
-     * The semantic of this interface is that an activity is linked to a competence as template.
-     * This way the learner can navigate to the navigate if he/she wants to learn a specific set of competencies
-     * @param competenceId should be the plain text string of the competence
-     * @param activityId should be the url of the activity
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/competences/{competenceId}/activities/{activityId}")
@@ -116,12 +98,7 @@ public class RecommenderApiImpl {
         return Response.ok("edge created").build();
     }
 
-    /**
-     * This returns a list of competencies linked to certain activity
-     * @param activityId
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/activities/{activityId}")
@@ -136,12 +113,7 @@ public class RecommenderApiImpl {
 
     }
 
-    /**
-     * Deletes the link between the course and the given competence
-     * @param competence
-     * @param course
-     * @return
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @DELETE
     @Path("/competences/{competenceId}/courses/{courseId}")
@@ -150,12 +122,7 @@ public class RecommenderApiImpl {
         return Response.ok("edge deleted").build();
     }
 
-    /**
-     * Deletes the link between the activity and the given competence
-     * @param competenceId
-     * @param activityId
-     * @return
-     */
+    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @DELETE
     @Path("/competences/{competenceId}/activities/{activityId}")

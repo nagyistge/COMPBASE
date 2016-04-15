@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
  */
 
 @Path("/api1")
-public class CompetenceApiImpl {
+public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
@@ -31,6 +31,7 @@ public class CompetenceApiImpl {
      * @param asTree
      * @return
      */
+    @Override
     @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -48,6 +49,7 @@ public class CompetenceApiImpl {
         }
     }
 
+    @Override
     @Path("/competences/{competenceId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -58,6 +60,7 @@ public class CompetenceApiImpl {
         return Response.ok(resultMessage).build();
     }
 
+    @Override
     @Path("/competences/{competenceId}")
     @DELETE
     public Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception {
@@ -71,6 +74,7 @@ public class CompetenceApiImpl {
      * @param competenceId
      * @return
      */
+    @Override
     @Path("/competences/{competenceId}/delete")
     @POST
     public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception {
@@ -86,6 +90,7 @@ public class CompetenceApiImpl {
      * @param data
      * @return
      */
+    @Override
     @Path("/competences/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -102,6 +107,7 @@ public class CompetenceApiImpl {
      * @param changes of type HierarchieChangeObject @see updateHierarchie2
      * @return
      */
+    @Override
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/competences/hierarchy/update")

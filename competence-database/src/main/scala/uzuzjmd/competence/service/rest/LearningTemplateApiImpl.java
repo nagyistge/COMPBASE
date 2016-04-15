@@ -15,8 +15,9 @@ import javax.ws.rs.core.Response;
  */
 
 @Path("/api1")
-public class LearningTemplateApiImpl {
+public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningTemplateApi {
 
+    @Override
     @Path("/learningtemplate")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -24,6 +25,7 @@ public class LearningTemplateApiImpl {
         throw new NotImplementedError();
     }
 
+    @Override
     @Path("/learningtemplate/{learningtemplateId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -31,30 +33,21 @@ public class LearningTemplateApiImpl {
         throw new NotImplementedError();
     }
 
+    @Override
     @Path("/learningtemplate/{learningtemplateId}")
     @DELETE
     public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     * @param learningtemplateId
-     * @return
-     */
+    @Override
     @Path("/learningtemplate/{learningtemplateId}/delete")
     @POST
     public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @param learningtemplateId
-     * @param data
-     * @return
-     */
+    @Override
     @Path("/learningtemplate/{learningtemplateId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

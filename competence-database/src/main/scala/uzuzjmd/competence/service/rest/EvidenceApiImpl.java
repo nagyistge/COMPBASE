@@ -16,15 +16,8 @@ import javax.ws.rs.core.Response;
  * Created by dehne on 11.04.2016.
  */
 @Path("/api1/evidences")
-public class EvidenceApiImpl {
-    /**
-     * Legacy implementation for browsers that do not support put
-     * <p/>
-     * Creates an evidence as a proof that competences have been acquired by the
-     * user by certain activities
-     *
-     * @return
-     */
+public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{evidenceURL}/create")
@@ -34,12 +27,7 @@ public class EvidenceApiImpl {
     }
 
 
-    /**
-     * Creates an evidence as a proof that competences have been acquired by the
-     * user by certain activities
-     *
-     * @return
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
     @Path("/{evidenceId}")
@@ -59,38 +47,18 @@ public class EvidenceApiImpl {
                 "competences linked to evidences").build();
     }
 
-    /**
-     * Add a comment to an evidence link
-     * <p/>
-     * The comment is create to the evidence (not the competence)
-     * <p/>
-     * Have a look at @see linkCompetencesToUser in order to better
-     * understand the model of a evidence link.
-     *
-     * @return
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{evidenceId}/comments")
-    public Response commentCompetence(@PathParam("evidenceId")String evidenceId, CommentData commentData) {
+    public Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData) {
         commentData.setLinkId(evidenceId);
         Comment2Ont.convert(commentData);
         return Response.ok("link commented").build();
     }
 
-    /**
-     * Validate an evidence link.
-     * <p/>
-     * Have a look at for the nature of the
-     * evidence link.
-     * <p/>
-     * This should only be done by teacher role (which should be checked in the
-     * frontend)
-     *
-     * @param evidenceId
-     * @return
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{evidenceId}/validate")
@@ -100,18 +68,7 @@ public class EvidenceApiImpl {
         return handleLinkValidation(evidenceId, isValid);
     }
 
-    /**
-     * Validate an evidence link.
-     * <p/>
-     * Have a look at for the nature of the
-     * evidence link.
-     * <p/>
-     * This should only be done by teacher role (which should be checked in the
-     * frontend)
-     *
-     * @param evidenceId
-     * @return
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{evidenceId}/invalidate")

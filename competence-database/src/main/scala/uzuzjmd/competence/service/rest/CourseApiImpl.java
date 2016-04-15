@@ -21,8 +21,9 @@ import java.util.List;
  */
 
 @Path("/api1")
-public class CourseApiImpl {
+public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
 
+    @Override
     @Path("/courses")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -34,6 +35,7 @@ public class CourseApiImpl {
         return result;
     }
 
+    @Override
     @Path("/courses/{courseId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -54,6 +56,7 @@ public class CourseApiImpl {
         return Response.ok("course added").build();
     }
 
+    @Override
     @Path("/courses/{courseId}")
     @DELETE
     public Response deleteCourse(@PathParam("courseId") String courseId) throws Exception {
@@ -68,6 +71,7 @@ public class CourseApiImpl {
      * @param courseId
      * @return
      */
+    @Override
     @Path("/courses/{courseId}/delete")
     @POST
     public Response deleteCourseLegacy(@PathParam("courseId") String courseId) throws Exception {
@@ -83,6 +87,7 @@ public class CourseApiImpl {
      * @param data
      * @return
      */
+    @Override
     @Path("/courses/{courseId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -99,6 +104,7 @@ public class CourseApiImpl {
      * @param password
      * @return
      */
+    @Override
     @Path("/courses/{courseId}/activities")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
