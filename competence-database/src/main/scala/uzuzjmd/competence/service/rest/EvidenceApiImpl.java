@@ -1,6 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
 import com.google.common.collect.Lists;
+import scala.collection.immutable.List;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uzuzjmd.competence.mapper.rest.write.Comment2Ont;
 import uzuzjmd.competence.mapper.rest.write.Evidence2Ont;
 import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
@@ -59,6 +61,16 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     }
 
     @Override
+    public List<CommentData> getComments(String evidenceId) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public List<CommentData> deleteComments(String evidenceId) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{evidenceId}/validate")
@@ -76,6 +88,16 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
             @PathParam("evidenceId") String evidenceId) {
         Boolean isValid = false;
         return handleLinkValidation(evidenceId, isValid);
+    }
+
+    @Override
+    public Response getComment(String evidenceId, String commentId) {
+        throw new WebApplicationException("not implemented");
+    }
+
+    @Override
+    public Response deleteComment(String evidenceId, String commentId) {
+        throw new WebApplicationException("not implemented");
     }
 
     private Response handleLinkValidation(String linkId,

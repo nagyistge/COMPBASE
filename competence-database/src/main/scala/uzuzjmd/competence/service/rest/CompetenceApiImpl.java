@@ -5,6 +5,7 @@ import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
 import uzuzjmd.competence.mapper.rest.write.HierarchieChangesToOnt;
 import uzuzjmd.competence.persistence.dao.Competence;
+import uzuzjmd.competence.service.rest.dto.CommentData;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
@@ -18,7 +19,7 @@ import javax.ws.rs.core.Response;
  * Created by dehne on 11.04.2016.
  */
 
-@Path("/api1")
+@Path("/api1/competences")
 public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     /**
@@ -32,7 +33,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
      * @return
      */
     @Override
-    @Path("/competences")
+    @Path("/")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
@@ -50,7 +51,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
     @Override
-    @Path("/competences/{competenceId}")
+    @Path("/{competenceId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data) {
@@ -61,7 +62,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
     @Override
-    @Path("/competences/{competenceId}")
+    @Path("/{competenceId}")
     @DELETE
     public Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
@@ -75,7 +76,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
      * @return
      */
     @Override
-    @Path("/competences/{competenceId}/delete")
+    @Path("/{competenceId}/delete")
     @POST
     public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
@@ -91,7 +92,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
      * @return
      */
     @Override
-    @Path("/competences/{competenceId}/create")
+    @Path("/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data) {
@@ -110,15 +111,32 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/competences/hierarchy/update")
+    @Path("/hierarchy/update")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response updateHierarchy(HierarchyChangeSet changes) {
         HierarchieChangesToOnt.convert(changes);
         return Response.ok("updated taxonomy").build();
     }
 
+    @Override
+    public Response addComment(String competenceId, CommentData data) {
+        throw new WebApplicationException("not implemented");
+    }
 
+    @Override
+    public Response getComment(String competenceId, String commentId) {
+        throw new WebApplicationException("not implemented");
+    }
 
+    @Override
+    public Response deleteComment(String competenceId, String commentId) {
+        throw new WebApplicationException("not implemented");
+    }
+
+    @Override
+    public Response getComments(String competenceId) {
+        throw new WebApplicationException("not implemented");
+    }
 
 
 }

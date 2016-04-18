@@ -1,5 +1,6 @@
 package uzuzjmd.competence.api;
 
+import scala.collection.immutable.List;
 import uzuzjmd.competence.service.rest.dto.CommentData;
 import uzuzjmd.competence.service.rest.dto.EvidenceData;
 
@@ -10,6 +11,7 @@ import javax.ws.rs.core.Response;
 /**
  * Created by dehne on 15.04.2016.
  */
+@Path("/api1/evidences")
 public interface EvidenceApi {
     /**
      * Legacy implementation for browsers that do not support put
@@ -53,6 +55,19 @@ public interface EvidenceApi {
     @Path("/{evidenceId}/comments")
     Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData);
 
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/{evidenceId}/comments")
+    List<CommentData> getComments(@PathParam("evidenceId") String evidenceId);
+
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @DELETE
+    @Path("/{evidenceId}/comments")
+    List<CommentData> deleteComments(@PathParam("evidenceId") String evidenceId);
+
+
     /**
      * Validate an evidence link.
      * <p/>
@@ -88,4 +103,32 @@ public interface EvidenceApi {
     @Path("/{evidenceId}/invalidate")
     Response inValidateLink(
             @PathParam("evidenceId") String evidenceId);
+
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param evidenceId
+     * @param commentId
+     * @return
+     */
+    @Path("/{evidenceId}/comments/{commentId}")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response getComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param evidenceId
+     * @param commentId
+     * @return
+     */
+    @Path("/{evidenceId}/comments/{commentId}")
+    @DELETE
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response deleteComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
+
+
+
 }

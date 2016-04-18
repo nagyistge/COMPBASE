@@ -1,5 +1,6 @@
 package uzuzjmd.competence.api;
 
+import uzuzjmd.competence.service.rest.dto.CommentData;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
 
@@ -7,9 +8,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 /**
  * Created by dehne on 15.04.2016.
  */
+@Path("/api1/competences")
 public interface CompetenceApi {
     /**
      * GET all competences that match the filter params.
@@ -22,7 +25,7 @@ public interface CompetenceApi {
      * @param asTree
      * @return
      */
-    @Path("/competences")
+    @Path("/")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
@@ -36,7 +39,7 @@ public interface CompetenceApi {
      * @param data
      * @return
      */
-    @Path("/competences/{competenceId}")
+    @Path("/{competenceId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data);
@@ -47,7 +50,7 @@ public interface CompetenceApi {
      * @return
      * @throws Exception
      */
-    @Path("/competences/{competenceId}")
+    @Path("/{competenceId}")
     @DELETE
     Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception;
 
@@ -57,7 +60,7 @@ public interface CompetenceApi {
      * @return
      * @throws Exception
      */
-    @Path("/competences/{competenceId}/delete")
+    @Path("/{competenceId}/delete")
     @POST
     Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception;
 
@@ -67,7 +70,7 @@ public interface CompetenceApi {
      * @param data
      * @return
      */
-    @Path("/competences/{competenceId}/create")
+    @Path("/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data);
@@ -79,7 +82,54 @@ public interface CompetenceApi {
      */
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/competences/hierarchy/update")
+    @Path("/hierarchy/update")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response updateHierarchy(HierarchyChangeSet changes);
+
+
+    /**
+     * create a comment using POST
+     * @param competenceId
+     * @param data
+     * @return
+     */
+    @Path("/{competenceId}/comments")
+    @POST
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response addComment(@PathParam("competenceId") String competenceId, CommentData data);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param competenceId
+     * @param commentId
+     * @return
+     */
+    @Path("/{competenceId}/comments/{commentId}")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param competenceId
+     * @param commentId
+     * @return
+     */
+    @Path("/{competenceId}/comments/{commentId}")
+    @DELETE
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response deleteComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param competenceId
+     * @return
+     */
+    @Path("/{competenceId}/comments")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Response getComments(@PathParam("competenceId") String competenceId);
 }
