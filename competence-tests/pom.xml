@@ -89,22 +89,38 @@
 			<classifier>classes</classifier>
 		</dependency>
 
-		<dependency>
-			<groupId>uzuzjmd.competence</groupId>
-			<artifactId>competence-database</artifactId>
-			<version>1.0</version>
-		</dependency>
+<!--
+                <dependency>
+                    <groupId>uzuzjmd.competence</groupId>
+                    <artifactId>competence-database</artifactId>
+                    <version>1.0</version>
+                </dependency>
+        -->
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.18.1</version>
 		</dependency>
+-->
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-inmemory</artifactId>
+			<version>2.22.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
+			<artifactId>jersey-guava</artifactId>
+			<version>2.22.2</version>
+		</dependency>
+
+
 		<!--<dependency>
 			<groupId>uzuzjmd.competence</groupId>
 			<artifactId>reflexion-teacher</artifactId>
@@ -112,5 +128,11 @@
 			<scope>test</scope>
 		</dependency>-->
 
+
+		<dependency>
+			<groupId>org.jhades</groupId>
+			<artifactId>jhades</artifactId>
+			<version>1.0.4</version>
+		</dependency>
 	</dependencies>
 </project>

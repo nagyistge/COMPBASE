@@ -1,7 +1,7 @@
 package uzuzjmd.competence.api;
 
-import scala.collection.immutable.List;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
+import uzuzjmd.competence.shared.StringList;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,7 +14,7 @@ public interface LearningTemplateApi {
     @Path("/learningtemplate")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    List<String> getLearningTemplates(LearningTemplateData data);
+    StringList getLearningTemplates();
 
     @Path("/learningtemplate/{learningtemplateId}")
     @PUT

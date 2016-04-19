@@ -1,10 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
 import scala.NotImplementedError;
-import scala.collection.immutable.List;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
+import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
+import uzuzjmd.competence.shared.StringList;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,15 +17,17 @@ import javax.ws.rs.core.Response;
 public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningTemplateApi {
 
     @Override
-    @Path("/learningtemplate")
+    @Path("/learningtemplates")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getLearningTemplates(LearningTemplateData data){
-        throw new NotImplementedError();
+    public StringList getLearningTemplates(){
+        StringList learningTemplates = Ont2LearningTemplates
+                .convert();
+        return learningTemplates;
     }
 
     @Override
-    @Path("/learningtemplate/{learningtemplateId}")
+    @Path("/learningtemplates/{learningtemplateId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
@@ -34,21 +35,21 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     }
 
     @Override
-    @Path("/learningtemplate/{learningtemplateId}")
+    @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
     public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
     @Override
-    @Path("/learningtemplate/{learningtemplateId}/delete")
+    @Path("/learningtemplates/{learningtemplateId}/delete")
     @POST
     public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
     @Override
-    @Path("/learningtemplate/{learningtemplateId}/create")
+    @Path("/learningtemplates/{learningtemplateId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
