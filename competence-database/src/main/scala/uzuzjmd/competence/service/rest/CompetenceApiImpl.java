@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import scala.collection.immutable.List;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
@@ -120,23 +121,38 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     @Override
     public Response addComment(String competenceId, CommentData data) {
+        // TODO implement
         throw new WebApplicationException("not implemented");
     }
 
     @Override
-    public Response getComment(String competenceId, String commentId) {
+    public CommentData getComment(String competenceId, String commentId) {
+        // TODO implement
         throw new WebApplicationException("not implemented");
     }
 
     @Override
     public Response deleteComment(String competenceId, String commentId) {
+        // TODO implement
         throw new WebApplicationException("not implemented");
     }
 
     @Override
-    public Response getComments(String competenceId) {
+    public CommentData[] getComments(String competenceId) {
+        // TODO implement
         throw new WebApplicationException("not implemented");
     }
 
+    @Override
+    public Boolean verifyCompetence(String competenceId) {
+        // TODO implement
+        throw new WebApplicationException("not implemented");
+    }
+
+    @Override
+    public List<String> similarCompetences(String competenceId) {
+        // TODO implement
+        throw new WebApplicationException("not implemented");
+    }
 
 }

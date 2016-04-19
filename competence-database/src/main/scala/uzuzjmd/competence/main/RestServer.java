@@ -1,5 +1,6 @@
 package uzuzjmd.competence.main;
 
+import config.MagicStrings;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -7,12 +8,10 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import config.MagicStrings;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
-import uzuzjmd.competence.service.rest.CompetenceServiceRestJSON;
-import uzuzjmd.competence.service.rest.CrawlerServiceRest;
-import uzuzjmd.competence.service.rest.RecommenderApiImpl;
+import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.util.CrossOriginResourceSharingFilter;
+
 import javax.ws.rs.ProcessingException;
 import java.io.IOException;
 import java.net.BindException;
@@ -23,10 +22,9 @@ import java.net.URISyntaxException;
  * starts the rest server as grizzly standalone java program
  */
 public class RestServer {
-    private static HttpServer server;
-
     static Logger logger = LogManager
             .getLogger(RestServer.class.getName());
+    private static HttpServer server;
 
     public static void main(String[] args)
             throws IllegalArgumentException,
@@ -34,7 +32,6 @@ public class RestServer {
             ProcessingException, URISyntaxException {
         startServer();
     }
-
 
 
     public static void startServer() throws IOException,
@@ -47,7 +44,14 @@ public class RestServer {
 
         ResourceConfig resourceConfig = new ResourceConfig(
                 CompetenceServiceRestJSON.class, RecommenderApiImpl.class,
-                EvidenceServiceRestServerImpl.class, CrawlerServiceRest.class);
+                EvidenceServiceRestServerImpl.class,
+                CrawlerServiceRest.class,
+                CompetenceApiImpl.class,
+                CourseApiImpl.class,
+                EvidenceApiImpl.class,
+                LearningPathApiImpl.class,
+                LearningTemplateApiImpl.class,
+                RecommenderApiImpl.class, UserApiImpl.class);
         resourceConfig.register(JacksonFeature.class);
 
         // add CORS header filter
@@ -63,10 +67,8 @@ public class RestServer {
             public void run() {
                 logger.info("Stopping server..");
                 server.shutdownNow();
-                ;
             }
         }, "shutdownHook"));
-
 
 
         // run
@@ -134,7 +136,6 @@ public class RestServer {
         server.shutdownNow();
         logger.debug("Stopped Server.");
     }
-
 
 
 }

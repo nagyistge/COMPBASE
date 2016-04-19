@@ -1,5 +1,6 @@
 package uzuzjmd.competence.api;
 
+import scala.collection.immutable.List;
 import uzuzjmd.competence.service.rest.dto.CommentData;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
@@ -108,7 +109,7 @@ public interface CompetenceApi {
     @Path("/{competenceId}/comments/{commentId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
+    CommentData getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
 
 
     /**
@@ -131,5 +132,27 @@ public interface CompetenceApi {
     @Path("/{competenceId}/comments")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getComments(@PathParam("competenceId") String competenceId);
+    CommentData[] getComments(@PathParam("competenceId") String competenceId);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param competenceId
+     * @return
+     */
+    @Path("/{competenceId}/verify")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    Boolean verifyCompetence(@PathParam("competenceId") String competenceId);
+
+
+    /**
+     * get all the comment for the competence with the id given
+     * @param competenceId
+     * @return
+     */
+    @Path("/{competenceId}/similar")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    List<String> similarCompetences(@PathParam("competenceId") String competenceId);
 }
