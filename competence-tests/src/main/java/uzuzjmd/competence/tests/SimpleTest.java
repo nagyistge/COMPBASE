@@ -3,12 +3,11 @@ package uzuzjmd.competence.tests;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
-import uzuzjmd.competence.service.rest.CompetenceApiImpl;
 import uzuzjmd.competence.service.rest.LearningTemplateApiImpl;
 import uzuzjmd.competence.shared.StringList;
 
 import javax.ws.rs.core.Application;
-import java.util.List;
+
 import static org.junit.Assert.assertFalse;
 
 /**

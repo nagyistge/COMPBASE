@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 /**
  * Created by dehne on 15.04.2016.
  */
-@Path("/api1/competences")
+@Path("/api1")
 public interface CompetenceApi {
     /**
      * GET all competences that match the filter params.
@@ -26,7 +26,7 @@ public interface CompetenceApi {
      * @param asTree
      * @return
      */
-    @Path("/")
+    @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
@@ -40,7 +40,7 @@ public interface CompetenceApi {
      * @param data
      * @return
      */
-    @Path("/{competenceId}")
+    @Path("/competences/{competenceId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data);
@@ -51,7 +51,7 @@ public interface CompetenceApi {
      * @return
      * @throws Exception
      */
-    @Path("/{competenceId}")
+    @Path("/competences/{competenceId}")
     @DELETE
     Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception;
 
@@ -61,7 +61,7 @@ public interface CompetenceApi {
      * @return
      * @throws Exception
      */
-    @Path("/{competenceId}/delete")
+    @Path("/competences/{competenceId}/delete")
     @POST
     Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception;
 
@@ -71,7 +71,7 @@ public interface CompetenceApi {
      * @param data
      * @return
      */
-    @Path("/{competenceId}/create")
+    @Path("/competences/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data);
@@ -83,7 +83,7 @@ public interface CompetenceApi {
      */
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/hierarchy/update")
+    @Path("/competences/hierarchy/update")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response updateHierarchy(HierarchyChangeSet changes);
 
@@ -94,7 +94,7 @@ public interface CompetenceApi {
      * @param data
      * @return
      */
-    @Path("/{competenceId}/comments")
+    @Path("/competences/{competenceId}/comments")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addComment(@PathParam("competenceId") String competenceId, CommentData data);
@@ -106,7 +106,7 @@ public interface CompetenceApi {
      * @param commentId
      * @return
      */
-    @Path("/{competenceId}/comments/{commentId}")
+    @Path("/competences/{competenceId}/comments/{commentId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     CommentData getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
@@ -118,7 +118,7 @@ public interface CompetenceApi {
      * @param commentId
      * @return
      */
-    @Path("/{competenceId}/comments/{commentId}")
+    @Path("/competences/{competenceId}/comments/{commentId}")
     @DELETE
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response deleteComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
@@ -129,7 +129,7 @@ public interface CompetenceApi {
      * @param competenceId
      * @return
      */
-    @Path("/{competenceId}/comments")
+    @Path("/competences/{competenceId}/comments")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     CommentData[] getComments(@PathParam("competenceId") String competenceId);
@@ -140,7 +140,7 @@ public interface CompetenceApi {
      * @param competenceId
      * @return
      */
-    @Path("/{competenceId}/verify")
+    @Path("/competences/{competenceId}/verify")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Boolean verifyCompetence(@PathParam("competenceId") String competenceId);
@@ -151,7 +151,7 @@ public interface CompetenceApi {
      * @param competenceId
      * @return
      */
-    @Path("/{competenceId}/similar")
+    @Path("/competences/{competenceId}/similar")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     List<String> similarCompetences(@PathParam("competenceId") String competenceId);

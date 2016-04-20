@@ -49,7 +49,6 @@ public class RestServer {
                 CompetenceApiImpl.class,
                 CourseApiImpl.class,
                 EvidenceApiImpl.class,
-                LearningPathApiImpl.class,
                 LearningTemplateApiImpl.class,
                 RecommenderApiImpl.class, UserApiImpl.class);
         resourceConfig.register(JacksonFeature.class);

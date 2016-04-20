@@ -79,5 +79,5 @@ public interface CourseApi {
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    UserTree[] getCoursesForUser(@PathParam("courseId") String courseId, String userId, String password);
+    UserTree[] getCoursesForUser(@PathParam("courseId") String courseId, @QueryParam("userId") String userId, @QueryParam("password") String password);
 }

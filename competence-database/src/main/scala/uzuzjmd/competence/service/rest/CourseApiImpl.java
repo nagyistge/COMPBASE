@@ -109,7 +109,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public UserTree[] getCoursesForUser(@PathParam("courseId") String courseId, String userId, String password) {
+    public UserTree[] getCoursesForUser(@PathParam("courseId") String courseId, @QueryParam("userId") String userId, @QueryParam("password") String password) {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
         MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
         return moodleEvidenceRestService.getUserTree(courseId, LMSSystems.moodle.toString(), "university", userId, password);

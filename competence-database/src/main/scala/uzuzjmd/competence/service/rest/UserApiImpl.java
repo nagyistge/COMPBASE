@@ -93,7 +93,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public UserCourseListResponse getCoursesForUser(@PathParam("userId") String userId, String password) {
+    public UserCourseListResponse getCoursesForUser(@PathParam("userId") String userId, @QueryParam("password") String password) {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
         MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
         return moodleEvidenceRestService.getCourses(LMSSystems.moodle.toString(), "university", userId, password);
@@ -104,7 +104,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Boolean checksIfUserExists(@PathParam("userId") String userId, String password) {
+    public Boolean checksIfUserExists(@PathParam("userId") String userId, @QueryParam("password") String password) {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
         MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
         return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);
