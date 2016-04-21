@@ -4,5 +4,8 @@
 		"stichWort": "Stichwort",
 		"hochschuldb": "Hochschulen",
 		"scoreStich": "ScoreStich"
+	},
+	"endpoints": {
+		"crawler": "http://localhost:8084/"
 	}
 }

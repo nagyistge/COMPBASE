@@ -23,7 +23,11 @@ function loadJsonFile(filename) {
 	$.ajax(filename, {
 		type:"get",
 		success: function(res) {
-			props = JSON.parse(res);
+			if (typeof res == "object") {
+				props = res;
+			} else {
+				props = JSON.parse(res);
+			}
 			initialLoad(1);
 		},
 	});
@@ -261,7 +265,7 @@ function scoreStichToTab(scoreStich, group) {
 
 function fireInTheHole() {
 	$("#fireButton").hide();
-	$.ajax("http://localhost:8084/crawler/start?campaign=" + active, {
+	$.ajax(props["endpoints"]["crawler"] + "crawler/start?campaign=" + active, {
 		type:"post",
 		success: function (res) {
 			console.log(res);
