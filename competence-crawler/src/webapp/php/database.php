@@ -4,9 +4,12 @@ class database {
 	private $db;
 	private $con;
 	private $creds = array();
+	private $props;
 
 	//Constructor
 	function __construct($db_url, $db_username, $db_password, $db_scheme) {
+		global $props;
+		$this->props = $props;
 
 		$this -> creds = array("url" => $db_url, "username" => $db_username, "password" => $db_password, "scheme" => $db_scheme);
 	}
@@ -36,38 +39,56 @@ class database {
 	}
 
 	public function getOverview() {
-		$query = "SELECT * from Overview";
-		return $this->querySelect($query);
+		$query = "SELECT * from " . $this->props->overview;
+		return $this->querySelect($query, $this->props->overview);
+	}
+	public function getSumOfRows() {
+		$query = "SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'UniDisk'";
+		return $this->querySelect($query, $this->props->overview);
 	}
 
 	public function newCampaign($name) {
-		$query= "INSERT INTO Overview(Name, Count) VALUE ('" . $name . "', 0)";
+		$query= "INSERT INTO " . $this->props->overview . "(Name, Count) VALUE ('" . $name . "', 0)";
 		$this->query($query);
 	}
 
 	public function createTable($name) {
-		$query = "CREATE TABLE " . $name . "_Stichwort (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), Metavariable VARCHAR(50), PRIMARY KEY (Id))";
+		$query = "CREATE TABLE " . $name . "_" . $this->props->stichWort . " (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), Metavariable VARCHAR(50), PRIMARY KEY (Id))";
 		return $this->query($query);
 	}
 
-	public function getStichVarMeta($camp) {
-		$query = "SELECT * from " . $camp . "_Stichwort";
-		return $this->querySelect($query);
-	}
-
 	public function saveStichVarMeta($stich, $var, $meta, $camp) {
-		$query = "INSERT INTO " . $camp . "_Stichwort (Stichwort, Variable, Metavariable) VALUE ('" . $stich . "', '" . $var . "', '" . $meta . "')";
+		$query = "INSERT INTO " . $camp . "_" . $this->props->stichWort . " (Stichwort, Variable, Metavariable) VALUE ('" . $stich . "', '" . $var . "', '" . $meta . "')";
 		$this->query($query);
 	}
 	public function loadStichVarMeta($camp) {
-		$query = "SELECT * FROM " . $camp . "_Stichwort";
-		return $this->querySelect($query);
+		$query = "SELECT * FROM " . $camp . "_" . $this->props->stichWort;
+		return $this->querySelect($query, $camp . "_" . $this->props->stichWort);
 	}
 
-	private function querySelect($query) {
+	public function loadScoreStich($group, $camp) {
+		$query = "SELECT " . $group . ", SUM(SolrScore) as Score, Count(" . $group . ") as Count FROM `" . $camp . "_" . $this->props->scoreStich . "` GROUP BY " . $group;
+		return $this->querySelect($query, $camp . "_" . $this->props->scoreStich);
+	}
+
+	public function loadScoreVar($group, $camp) {
+		$query = "SELECT " . $group . ", SUM(SolrScore) as Score, Count(" . $group . ") as Count FROM `" . $camp . "_" . $this->props->varMeta . "` GROUP BY " . $group;
+		return $this->querySelect($query, $camp . "_" . $this->props->varMeta);
+	}
+
+	public function loadVarSolrSum($camp) {
+		$query = "SELECT SUM(SolrScore) as SolrSumme, Lat, Lon, Variable FROM `" . $camp . "_" . $this->props->varMeta . "` WHERE Lat != -1 AND Lon != -1 GROUP BY Lat, Lon, Stichworte";
+		return $this->querySelect($query, $camp . "_" . $this->props->varMeta);
+	}
+
+	private function querySelect($query, $table) {
 		$this->ensure_connection();
 		mysqli_query($this->con,"SET NAMES 'utf8'");
-		$result = mysqli_query($this->con, $query) or die ("Can't query: " + $query);
+		if(mysqli_num_rows(mysqli_query($this->con, "SHOW TABLES LIKE '".$table."'"))==1) {
+			$result = mysqli_query($this->con, $query) or die ("Can't query: " + $query);
+		} else {
+			return ;
+		}
 		return $this->resultToArray($result);
 	}
 
