@@ -1,5 +1,7 @@
 package uzuzjmd.competence.service.rest;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import uzuzjmd.competence.crawler.main.SolrApp;
 
 import javax.ws.rs.*;
@@ -20,6 +22,7 @@ public class CrawlerServiceRest {
     //static private List<Thread> threads = new ArrayList<Thread>();
     static private final int MAXTHREAD = 4;
     static private int CURRENTTHREADS = 0;
+    static private final Logger logger = LogManager.getLogger(CrawlerServiceRest.class.getName());
     /**
      *
      * @param campaign
@@ -39,16 +42,19 @@ public class CrawlerServiceRest {
             final Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    logger.debug("Thread is running");
                     SolrApp solrApp = new SolrApp(campaignOs);
                     try {
                         solrApp.excecute();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        logger.error(e.getMessage());
                     } finally {
                         //threads.remove(this);
                         //gc();
                         CURRENTTHREADS --;
                     }
+                    logger.debug("Thread is done");
                 }
             });
             //threads.add(t);
