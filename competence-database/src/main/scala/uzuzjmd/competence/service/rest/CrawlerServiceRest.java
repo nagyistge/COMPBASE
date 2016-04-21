@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.gc;
+
 
 /**
  * Root resource (exposed at "competences" path)
@@ -15,8 +17,9 @@ import java.util.List;
 @Path("/crawler")
 public class CrawlerServiceRest {
 
-    static private List<Thread> threads = new ArrayList<Thread>();
+    //static private List<Thread> threads = new ArrayList<Thread>();
     static private final int MAXTHREAD = 4;
+    static private int CURRENTTHREADS = 0;
     /**
      *
      * @param campaign
@@ -31,8 +34,9 @@ public class CrawlerServiceRest {
             @QueryParam("campaign") String campaign)
             throws Exception {
         final String campaignOs = campaign;
-        if (threads.size() <=  MAXTHREAD) {
-            Thread t = new Thread(new Runnable() {
+        CURRENTTHREADS ++;
+        if (CURRENTTHREADS <=  MAXTHREAD) {
+            final Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     SolrApp solrApp = new SolrApp(campaignOs);
@@ -41,11 +45,13 @@ public class CrawlerServiceRest {
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        CrawlerServiceRest.threads.remove(this);
+                        //threads.remove(this);
+                        //gc();
+                        CURRENTTHREADS --;
                     }
                 }
             });
-            threads.add(t);
+            //threads.add(t);
             t.start();
 
             return Response.ok("thread started").build();
