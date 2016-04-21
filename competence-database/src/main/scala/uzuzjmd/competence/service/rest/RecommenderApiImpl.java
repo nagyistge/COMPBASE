@@ -4,7 +4,6 @@ package uzuzjmd.competence.service.rest;
  * Created by dehne on 31.03.2016.
  */
 
-import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
 import uzuzjmd.competence.mapper.rest.write.SuggestedActivityForCompetence2Ont;
 import uzuzjmd.competence.mapper.rest.write.SuggestedCourseForCompetence2Ont;
 import uzuzjmd.competence.persistence.dao.Competence;
@@ -13,7 +12,7 @@ import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.recommender.Evidence;
 import uzuzjmd.competence.recommender.RecommenderFactory;
-import uzuzjmd.competence.service.rest.dto.LinkValidationData;
+import uzuzjmd.competence.shared.dto.MapWrapper;
 import uzuzjmd.competence.shared.dto.UserCourseListItem;
 
 import javax.ws.rs.*;
@@ -48,8 +47,8 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/courses/{userEmail}")
-    public HashMap<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail) {
-        return RecommenderFactory.createCourseRecommender().recommendCourse(userEmail);
+    public MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail) {
+        return new MapWrapper<>(RecommenderFactory.createCourseRecommender().recommendCourse(userEmail));
     }
 
 
