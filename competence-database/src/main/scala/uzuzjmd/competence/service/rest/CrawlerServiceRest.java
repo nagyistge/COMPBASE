@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Root resource (exposed at "competences" path)
  */
-@Path("/uzuzjmd/competence/crawler")
+@Path("/crawler")
 public class CrawlerServiceRest {
 
     static private List<Thread> threads = new ArrayList<Thread>();
