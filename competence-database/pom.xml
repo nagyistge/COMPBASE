@@ -371,6 +371,7 @@
             <artifactId>scalaz-core_2.10</artifactId>
             <version>7.0.0</version>
         </dependency>
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>

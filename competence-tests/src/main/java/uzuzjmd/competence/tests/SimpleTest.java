@@ -6,8 +6,6 @@ import org.junit.Test;
 import uzuzjmd.competence.service.rest.LearningTemplateApiImpl;
 import uzuzjmd.competence.shared.StringList;
 
-import javax.ws.rs.core.Application;
-
 import static org.junit.Assert.assertFalse;
 
 /**
@@ -15,22 +13,20 @@ import static org.junit.Assert.assertFalse;
  */
 public class SimpleTest extends JerseyTest {
 
- /*   @Path("/api1/competences/")
-    public static class HelloResource {
-        @GET
-        public String getHello() {
-            return "Hello World!";
-        }
-    }*/
 
     @Override
-    protected Application configure() {
+    protected javax.ws.rs.core.Application configure() {
         return new ResourceConfig(LearningTemplateApiImpl.class);
     }
 
     @Test
     public void test() {
-        final StringList hello = target("/learningtemplates").request().get(StringList.class);
-        assertFalse(hello.getData().isEmpty());
+        final StringList hello = target("/api1/learningtemplates").request().get(StringList.class);
+        assertFalse(hello == null);
     }
+
+   /* @Override
+    protected TestContainerFactory getTestContainerFactory() throws TestContainerException {
+        return new InMemoryTestContainerFactory();
+    }*/
 }

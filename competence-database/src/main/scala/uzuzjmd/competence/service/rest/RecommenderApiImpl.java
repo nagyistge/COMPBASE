@@ -30,7 +30,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/competences/{userEmail}")
+    @Path("/competences/{userEmail}/competences")
     public HashMap<String, Double> recommendCompetences(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId) {
         return RecommenderFactory.createCompetenceRecommender().recommendCompetences(userEmail, competenceToReach, courseId);
     }
@@ -46,7 +46,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/courses/{userEmail}")
+    @Path("/courses/{userEmail}/courses")
     public MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail) {
         return new MapWrapper<>(RecommenderFactory.createCourseRecommender().recommendCourse(userEmail));
     }
