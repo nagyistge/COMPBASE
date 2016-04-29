@@ -20,6 +20,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -30,6 +31,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
+     *
      * @param selectedCatchwords
      * @param selectedOperators
      * @param textFilter
@@ -44,7 +46,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                                    @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                                   @QueryParam("textFilter") String textFilter, @PathParam("competenceId") String competenceId, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree){
+                                   @QueryParam("textFilter") String textFilter, @PathParam("competenceId") String competenceId, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree) {
 
         CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, asTree, competenceId);
         if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
@@ -78,6 +80,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     /**
      * Use this legacy method for browsers who do not support http delete
+     *
      * @param competenceId
      * @return
      */
@@ -144,7 +147,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         if (!user.exists()) {
             throw new WebApplicationException(new Exception("user does not exist in database"));
         }
-        if (competence.exists())  {
+        if (competence.exists()) {
             Comment comment = new Comment(data.getText(), user, System.currentTimeMillis());
             comment.persist();
             comment.createEdgeWith(Edge.CommentOfCourse, courseContext);
@@ -157,14 +160,13 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     @Override
     public Response getComment(String competenceId, String commentId) throws Exception {
-        // TODO implement
         Competence competence = new Competence(competenceId);
-        if(!competence.exists()) {
+        if (!competence.exists()) {
             throw new WebApplicationException(new Exception("competence does not exist in database"));
         }
-        if(commentId.isEmpty()) {
+        if (commentId.isEmpty()) {
             java.util.List<Comment> commentDatas = competence.getAssociatedDaosAsRange(Edge.CommentOfCompetence, Comment.class);
-            ArrayList<CommentData> results = new ArrayList<CommentData>();
+            ArrayList<CommentData> results = new ArrayList<>();
             for (Comment comment : commentDatas) {
                 CommentData data = comment.getData();
                 data.setCompetenceId(competenceId);
@@ -173,13 +175,12 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             return Response.status(200).entity(commentDatas).build();
         } else {
             Comment comment = new Comment(commentId);
-            if(!comment.exists()){
+            if (!comment.exists()) {
                 throw new WebApplicationException(new Exception("comment does not exist in database"));
             }
             CommentData commentData = new CommentData(competenceId, comment.getText(), null, null, null, null);
             return Response.status(200).entity(commentData).build();
         }
-
     }
 
     @Override
@@ -201,9 +202,14 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
     @Override
-    public List<String> similarCompetences(String competenceId) {
-        // TODO implement
-        throw new WebApplicationException("not implemented");
+    public List<String> similarCompetences(String competenceId) throws Exception {
+        Competence competence = new Competence(competenceId);
+        List<String> result = new List<String>();
+        HashSet<? extends Competence> competences = competence.getSimilarCompetences();
+        for (Competence competence1 : competences) {
+            result.add(competence1);
+        }
+        return result;
     }
 
 }

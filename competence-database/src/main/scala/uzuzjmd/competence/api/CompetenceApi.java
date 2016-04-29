@@ -154,5 +154,5 @@ public interface CompetenceApi {
     @Path("/competences/{competenceId}/similar")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    List<String> similarCompetences(@PathParam("competenceId") String competenceId);
+    List<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception;
 }

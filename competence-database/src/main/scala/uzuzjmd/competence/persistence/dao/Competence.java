@@ -2,6 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
@@ -228,7 +229,20 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
                 addCatchword(catchword);
             }
         }
+
+        final Competence competence = this;
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SimilaritiesUpdater.updateSimilarCompetencies(competence);
+            }
+        });
+        t.start();
         return this;
+    }
+
+    public HashSet<? extends Competence> getSimilarCompetences() throws Exception {
+        return queryManager.getClosestEdges(this.getId(), Edge.SimilarTo, this.getClass());
     }
 
 

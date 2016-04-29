@@ -24,6 +24,11 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         issueNeo4JRequestStrings(query);
     }
 
+    public <T extends Dao> HashSet<T> getClosestEdges(String domainId, Edge edge, Class<T> clazz) throws Exception {
+        String query = "MATCH (n {id:'" + domainId + "'})-[r:" + edge.toString()+ "]->(n2)  return n,r,n2 ORDER BY (r.weight) LIMIT 10";
+        return  getDaoList(clazz, query);
+    }
+
 
 
 
