@@ -63,6 +63,10 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         }
     }
 
+    public void addSimilarCompetence(Competence competence, Double score) throws Exception {
+        queryManager.createRelationShipWithWeight(competence.getId(), Edge.SimilarTo, this.getId(), score);
+    }
+
     public void addRequiredCompetence(Competence competence) throws Exception {
         deleteEdgeWith(competence, Edge.NotPrerequisiteOf);
         createEdgeWith(competence, Edge.PrerequisiteOf);

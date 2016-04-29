@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MapWrapper<KEY, VALUE> {
 	private HashMap<KEY, VALUE> map;
 
+	public MapWrapper() {
+	}
+
 	public MapWrapper(HashMap<KEY, VALUE> userCourseListItemDoubleHashMap) {
 		this.map = userCourseListItemDoubleHashMap;
 	}

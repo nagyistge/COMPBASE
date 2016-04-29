@@ -97,7 +97,7 @@ public interface CompetenceApi {
     @Path("/competences/{competenceId}/comments")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response addComment(@PathParam("competenceId") String competenceId, CommentData data);
+    Response addComment(@PathParam("competenceId") String competenceId, CommentData data) throws Exception;
 
 
     /**
@@ -109,7 +109,7 @@ public interface CompetenceApi {
     @Path("/competences/{competenceId}/comments/{commentId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    CommentData getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId);
+    Response getComment(@PathParam("competenceId") String competenceId, @PathParam("commentId") String commentId) throws Exception;
 
 
     /**

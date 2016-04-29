@@ -131,7 +131,7 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
 
     public void linkComment(Comment comment) throws Exception {
             comment.persist();
-            createEdgeWith(comment, Edge.CommentOf);
+            createEdgeWith(comment, Edge.CommentOfEvidence);
     }
 
     public List<User> getAllLinkedUsers() throws Exception {

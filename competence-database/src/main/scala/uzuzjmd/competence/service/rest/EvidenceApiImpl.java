@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/api1/evidences")
 public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
+
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST

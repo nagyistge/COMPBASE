@@ -25,6 +25,18 @@ public abstract class DaoAbstractImpl implements Dao {
         this.id = id;
     }
 
+    /**
+     * TODO refactor make this easier to use
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public static <T extends Dao> Set<T> getAllInstances(Class<T> clazz) throws Exception {
+        CompetenceNeo4jQueryManagerImpl queryManager = new CompetenceNeo4jQueryManagerImpl();
+        return queryManager.getAllInstanceDaos(Label.valueOf(clazz.getSimpleName()),clazz);
+    }
+
 
     @Override
     public void setFullDao(HashMap<String, String> props) {

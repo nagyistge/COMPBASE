@@ -19,7 +19,9 @@ public enum Edge {
     MetaOperatorOf,
     CourseContextOfCompetence,
     CompulsoryOf,
-    CommentOf,
+    CommentOfEvidence,
+    CommentOfCompetence,
+    CommentOfCourse,
     LinkOfCourseContext,
     UserOfLink,
     ActivityOf,
@@ -39,5 +41,7 @@ public enum Edge {
     SuggestedActivityForCompetence,
     RecommendedCourseForUser,
     subClassOf,
-    CourseContextOfUser
+    CourseContextOfUser,
+    /* TODO comment edges */
+    SimilarTo
 }

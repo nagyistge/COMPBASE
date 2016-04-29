@@ -55,7 +55,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/courses/{courseId}")
+    @Path("/courses/{courseId}/competences")
     public String[] getSuggestedCompetencesForCourse(
             @PathParam("courseId") String courseId) throws Exception {
         CourseContext context = new CourseContext(courseId);

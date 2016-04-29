@@ -6,10 +6,7 @@ import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dehne on 24.02.2016.
@@ -21,6 +18,13 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         issueNeo4JRequestStrings(query);
 
     }
+
+    public void createRelationShipWithWeight(String domainId, Edge edge, String rangeId, Double weight) throws Exception {
+        String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "{weight:'"+weight+"'}]->(n2) return n,r,n2";
+        issueNeo4JRequestStrings(query);
+    }
+
+
 
 
     public void deleteNode(String id) throws Exception {
@@ -94,6 +98,17 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
     public List<String> getAllInstanceDefinitions(Label clazz) throws Exception {
         String query = "MATCH (a:" + clazz.name() + ") return a.id";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
+        return result;
+    }
+
+    /**
+     * @param clazz
+     * @return
+     * @throws Exception
+     */
+    public <T extends Dao> Set<T> getAllInstanceDaos(Label clazzLabel, Class<T> clazz) throws Exception {
+        String query = "MATCH (a:" + clazzLabel.name() + ") return a.id";
+        HashSet<T> result = getDaoList(clazz, query);
         return result;
     }
 
