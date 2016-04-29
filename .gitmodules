@@ -6,7 +6,7 @@
 	url = https://github.com/uzuzjmd/competence-reflexion-teacher.git
 [submodule "competence-installer"]
 	path = competence-installer
-	url = git@github.com:uzuzjmd/competence-installer.git
+	url = https://github.com/uzuzjmd/competence-installer.git
 [submodule "competence-mobile"]
 	path = competence-mobile
-	url = git@github.com:uzuzjmd/competence-mobile.git
+	url = https://github.com/uzuzjmd/competence-mobile.git
