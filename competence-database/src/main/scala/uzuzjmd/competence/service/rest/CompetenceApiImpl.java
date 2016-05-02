@@ -1,6 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
-import scala.collection.immutable.List;
+import edu.stanford.nlp.trees.GrammaticalRelation;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
@@ -15,6 +15,7 @@ import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
+import uzuzjmd.competence.comparison.verification.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -197,17 +198,16 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     @Override
     public Boolean verifyCompetence(String competenceId) {
-        // TODO implement
-        throw new WebApplicationException("not implemented");
+        return CompetenceVerifierFactory.getSimpleCompetenceVerifier(competenceId, GrammaticalRelation.Language.Any).isCompetence2();
     }
 
     @Override
-    public List<String> similarCompetences(String competenceId) throws Exception {
+    public ArrayList<String> similarCompetences(String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
-        List<String> result = new List<String>();
+        ArrayList<String> result = new ArrayList<String>();
         HashSet<? extends Competence> competences = competence.getSimilarCompetences();
         for (Competence competence1 : competences) {
-            result.add(competence1);
+            result.add(competence1.getDefinition());
         }
         return result;
     }

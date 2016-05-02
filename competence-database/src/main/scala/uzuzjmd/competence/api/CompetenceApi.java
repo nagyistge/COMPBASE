@@ -1,6 +1,5 @@
 package uzuzjmd.competence.api;
 
-import scala.collection.immutable.List;
 import uzuzjmd.competence.service.rest.dto.CommentData;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
@@ -8,6 +7,7 @@ import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 
 
 /**
@@ -154,5 +154,5 @@ public interface CompetenceApi {
     @Path("/competences/{competenceId}/similar")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    List<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception;
+    ArrayList<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception;
 }
