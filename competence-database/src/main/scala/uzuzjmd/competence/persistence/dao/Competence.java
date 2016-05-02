@@ -212,7 +212,6 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             }
         }
         this.delete();
-        //throw new NotImplementedException();
     }
 
     @Override
