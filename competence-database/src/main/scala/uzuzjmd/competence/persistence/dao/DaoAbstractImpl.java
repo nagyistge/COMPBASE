@@ -26,7 +26,7 @@ public abstract class DaoAbstractImpl implements Dao {
     }
 
     /**
-     * TODO refactor make this easier to use
+     * TODO refactor should be usable for other classes other then ocmpetences
      * @param clazz
      * @param <T>
      * @return
@@ -34,7 +34,7 @@ public abstract class DaoAbstractImpl implements Dao {
      */
     public static <T extends Dao> Set<T> getAllInstances(Class<T> clazz) throws Exception {
         CompetenceNeo4jQueryManagerImpl queryManager = new CompetenceNeo4jQueryManagerImpl();
-        return queryManager.getAllInstanceDaos(Label.valueOf(clazz.getSimpleName()),clazz);
+        return queryManager.getAllCompetenceDaos(Label.valueOf(clazz.getSimpleName()),clazz);
     }
 
 

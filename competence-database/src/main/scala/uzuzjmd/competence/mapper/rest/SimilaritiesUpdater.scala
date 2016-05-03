@@ -2,7 +2,10 @@ package uzuzjmd.competence.mapper.rest
 
 import java.util
 
+import comparison.verification.SimpleCompetenceVerifier
 import uzuzjmd.competence.comparison.simple.mapper.SimpleCompetenceComparatorMapper
+import uzuzjmd.competence.logging.Logging
+import uzuzjmd.competence.main.CompetenceCrawler
 import uzuzjmd.competence.persistence.dao.{DaoAbstractImpl, Competence}
 import uzuzjmd.competence.persistence.neo4j.CompetenceNeo4jQueryManagerImpl
 import uzuzjmd.competence.persistence.ontology.Edge
@@ -12,22 +15,36 @@ import scala.collection.JavaConverters._
 /**
   * Created by dehne on 29.04.2016.
   */
-object SimilaritiesUpdater extends LanguageConverter {
+object SimilaritiesUpdater extends LanguageConverter with Logging {
 
   def updateSimilarity(tuple: (Competence, Competence)) = {
-    val computer = new SimpleCompetenceComparatorMapper
-    val result = computer.computeSimilarityScore(tuple._1.getDefinition, tuple._2.getDefinition)
-    val queryManagerImpl = new CompetenceNeo4jQueryManagerImpl
-    queryManagerImpl.createRelationShipWithWeight(tuple._1.getDefinition, Edge.SimilarTo, tuple._2.getDefinition, result)
+    if (!tuple._1.getDefinition.equals(tuple._2.getDefinition)) {
+      logger.info("updating similarities 2")
+      try {
+        val computer = new SimpleCompetenceComparatorMapper
+        val verifier = new SimpleCompetenceVerifier
+        var result: Double = 0.0
+        if (CompetenceCrawler.verifySentence(verifier, tuple._1.getDefinition) && CompetenceCrawler.verifySentence(verifier, tuple._2.getDefinition)) {
+          logger.info("found similarity: updating")
+          result = computer.computeSimilarityScore(tuple._1.getDefinition, tuple._2.getDefinition)
+        }
+        logger.info("not found similarity: updating")
+        val queryManagerImpl = new CompetenceNeo4jQueryManagerImpl
+        queryManagerImpl.createRelationShipWithWeight(tuple._1.getDefinition, Edge.SimilarTo, tuple._2.getDefinition, result)
+        queryManagerImpl.createRelationShipWithWeight(tuple._2.getDefinition, Edge.SimilarTo, tuple._1.getDefinition, result)
+      } catch {
+        case e: Exception => List.empty
+      }
+    }
   }
 
   def update: Unit = {
     val competences: util.Set[Competence] = DaoAbstractImpl.getAllInstances(classOf[Competence]);
-    val pairs = competences.asScala.toList.combinations(2).map(x=>(x.head,x.tail.head)).foreach(updateSimilarity(_))
+    val pairs = competences.asScala.toList.combinations(2).map(x => (x.head, x.tail.head)).foreach(updateSimilarity(_))
   }
 
   def updateSimilarCompetencies(input: Competence): Unit = {
     val competences = DaoAbstractImpl.getAllInstances(classOf[Competence]);
-    competences.asScala.foreach(updateSimilarity(_, input))
+    competences.asScala.foreach(x => updateSimilarity(x, input))
   }
 }

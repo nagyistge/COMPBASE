@@ -1,8 +1,10 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 
+@XmlRootElement
 public class CompetenceData {
 
 	private String operator;
@@ -12,11 +14,14 @@ public class CompetenceData {
 	private String learningProjectName;
 	private String forCompetence;
 
+	public CompetenceData() {
+	}
+
 	public CompetenceData(String operator,
-			List<String> catchwords,
-			List<String> superCompetences,
-			List<String> subCompetences,
-			String learningProjectName, String forCompetence) {
+						  List<String> catchwords,
+						  List<String> superCompetences,
+						  List<String> subCompetences,
+						  String learningProjectName, String forCompetence) {
 		super();
 		this.operator = operator;
 		this.catchwords = catchwords;

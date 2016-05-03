@@ -1,27 +1,23 @@
 package uzuzjmd.competence.comparison.analysis
 
 import comparison.analysis.ParserFactory
-import config.MagicStrings
 import edu.stanford.nlp.ling.Sentence
-import edu.stanford.nlp.parser.lexparser.LexicalizedParser
-import edu.stanford.nlp.trees.{PennTreebankLanguagePack, Tree}
+import edu.stanford.nlp.trees.Tree
 
 import scala.collection.JavaConverters._
 
 /**
- * @author dehne
- * 
- * SubObjects of this trait are filter to get a specific word class out of a sentence.
- */
+  * @author dehne
+  * SubObjects of this trait are filter to get a specific word class out of a sentence.
+  */
 trait SentenceAnalyser {
-  
-  
-  
+
+
   def hitList = List("VVIZU", "VVINF", "VVFIN", "VVPP", "ADJD") // as an example all verbs
-  
+
   /**
-   * 
-   */
+    *
+    */
   def convertSentenceToFilteredElement(input: String): List[String] = {
 
     if (input == null || input.size < 20 || !input.contains(" ")) {
@@ -44,16 +40,15 @@ trait SentenceAnalyser {
     val result = treeWalker(parse)
     return result
   }
-  
-  def convertSentenceToFilteredElementStemmed(input : String) : List[String] = {
+
+  def convertSentenceToFilteredElementStemmed(input: String): List[String] = {
     return convertSentenceToFilteredElement(input).map { x => WordToStem.stemWord(x) }
   }
 
-  
-  
+
   /**
-   * recursively walks the dependency tree in order to find all the words given the specified filter
-   */
+    * recursively walks the dependency tree in order to find all the words given the specified filter
+    */
   def treeWalker(input: Tree): List[String] = {
     val startList = List(): List[String]
     return treeWalker_Helper(input, startList)

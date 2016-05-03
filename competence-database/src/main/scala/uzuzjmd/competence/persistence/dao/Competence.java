@@ -6,6 +6,7 @@ import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -217,6 +218,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     @Override
     public Dao persist() throws Exception {
         super.persist();
+        logger.info("saving competence");
         createEdgeWith(Edge.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
         createEdgeWith(universityContext, Edge.CourseContextOfCompetence);
@@ -233,6 +235,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                logger.info("updating similarities 1");
                 SimilaritiesUpdater.updateSimilarCompetencies(competence);
             }
         });
@@ -240,8 +243,8 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         return this;
     }
 
-    public HashSet<? extends Competence> getSimilarCompetences() throws Exception {
-        return queryManager.getClosestEdges(this.getId(), Edge.SimilarTo, this.getClass());
+    public ArrayList<String> getSimilarCompetences() throws Exception {
+        return queryManager.getClosestEdges(this.getId(), Edge.SimilarTo);
     }
 
 

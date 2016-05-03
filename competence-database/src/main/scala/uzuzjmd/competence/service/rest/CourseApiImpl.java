@@ -9,7 +9,6 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.service.rest.dto.CourseData;
 import uzuzjmd.competence.shared.dto.UserTree;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,7 +18,6 @@ import java.util.List;
 /**
  * Created by dehne on 11.04.2016.
  */
-
 @Path("/api1")
 public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
 
@@ -114,6 +112,4 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
         MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
         return moodleEvidenceRestService.getUserTree(courseId, LMSSystems.moodle.toString(), "university", userId, password);
     }
-
-
 }

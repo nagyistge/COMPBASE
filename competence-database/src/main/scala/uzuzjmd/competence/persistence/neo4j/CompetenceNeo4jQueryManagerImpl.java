@@ -20,13 +20,14 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
     }
 
     public void createRelationShipWithWeight(String domainId, Edge edge, String rangeId, Double weight) throws Exception {
+        logger.info("calling create relationship with" + domainId + " " + edge + " " + rangeId+ weight);
         String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "{weight:'"+weight+"'}]->(n2) return n,r,n2";
         issueNeo4JRequestStrings(query);
     }
 
-    public <T extends Dao> HashSet<T> getClosestEdges(String domainId, Edge edge, Class<T> clazz) throws Exception {
-        String query = "MATCH (n {id:'" + domainId + "'})-[r:" + edge.toString()+ "]->(n2)  return n,r,n2 ORDER BY (r.weight) LIMIT 10";
-        return  getDaoList(clazz, query);
+    public ArrayList<String> getClosestEdges(String domainId, Edge edge) throws Exception {
+        String query = "MATCH (n {id:'" + domainId + "'})-[r:" + edge.toString()+ "]->(n2)  return n2.id ORDER BY (r.weight) LIMIT 10";
+        return issueNeo4JRequestStrings(query);
     }
 
 
@@ -111,10 +112,16 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
      * @return
      * @throws Exception
      */
-    public <T extends Dao> Set<T> getAllInstanceDaos(Label clazzLabel, Class<T> clazz) throws Exception {
+    public <T extends Dao> Set<T> getAllCompetenceDaos(Label clazzLabel, Class<T> clazz) throws Exception {
         String query = "MATCH (a:" + clazzLabel.name() + ") return a.id";
-        HashSet<T> result = getDaoList(clazz, query);
-        return result;
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
+        Set<T> result2 = new HashSet<>();
+        for (String s : result) {
+            HashMap<String, String> props = new HashMap<String, String>();
+            props.put("id", s);
+            result2.add((T) new Competence(s));
+        }
+        return result2;
     }
 
     /**

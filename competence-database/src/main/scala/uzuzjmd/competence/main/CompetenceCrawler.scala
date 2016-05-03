@@ -62,7 +62,7 @@ object CompetenceCrawler extends LanguageConverter with Logging {
   }
 
   @throws[IndexOutOfBoundsException]
-  def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): Unit = {
+  def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): java.lang.Boolean = {
     //logger.info("checking: "+strings)
 
     analyzeCounter = analyzeCounter + 1;
@@ -72,7 +72,7 @@ object CompetenceCrawler extends LanguageConverter with Logging {
 
     try {
       if (!checkString(strings)) {
-        return
+        return false;
       }
       val cleanedString: java.lang.String = cleanString(strings)
       //println(strings)
@@ -96,11 +96,13 @@ object CompetenceCrawler extends LanguageConverter with Logging {
           counter += 1
           competencesFound = cleanedString :: competencesFound
           logger.trace(" found competence" + strings)
+          return true;
         }
       }
     } catch {
       case e: Exception => print("hello")
     }
+    return false;
   }
 
   def checkString(strings: String): Boolean = {

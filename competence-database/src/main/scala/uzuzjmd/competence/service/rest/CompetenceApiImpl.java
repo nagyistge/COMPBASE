@@ -94,19 +94,18 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         return Response.ok("competence deleted").build();
     }
 
+
     /**
      * Use this legacy method for browsers who do not support http put
      *
-     * @param competenceId
-     * @param data
      * @return
      */
-    @Override
+
     @Path("/competences/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data) {
-        data.setForCompetence(competenceId);
+        data.setForCompetence(data.getForCompetence());
         String resultMessage = Competence2Ont
                 .convert(data);
         return Response.ok(resultMessage).build();
@@ -201,15 +200,15 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         return CompetenceVerifierFactory.getSimpleCompetenceVerifier(competenceId, GrammaticalRelation.Language.Any).isCompetence2();
     }
 
+
+    @GET
+    @Path("/competences/semblances/{competenceId}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
-    public ArrayList<String> similarCompetences(String competenceId) throws Exception {
+    public ArrayList<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
-        ArrayList<String> result = new ArrayList<String>();
-        HashSet<? extends Competence> competences = competence.getSimilarCompetences();
-        for (Competence competence1 : competences) {
-            result.add(competence1.getDefinition());
-        }
-        return result;
+        return competence.getSimilarCompetences();
     }
 
 }
