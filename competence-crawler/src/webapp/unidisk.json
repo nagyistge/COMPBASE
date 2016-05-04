@@ -6,6 +6,5 @@
 		"scoreStich": "ScoreStich"
 	},
 	"endpoints": {
-		"crawler": "http://localhost:8084/"
-	}
+		"crawler": "http://fleckenroller.cs.uni-potsdam.de/app/competence-database-dev/"
 }
