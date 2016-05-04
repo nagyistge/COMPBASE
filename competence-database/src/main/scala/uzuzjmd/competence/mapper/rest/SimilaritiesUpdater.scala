@@ -17,6 +17,13 @@ import scala.collection.JavaConverters._
   */
 object SimilaritiesUpdater extends LanguageConverter with Logging {
 
+  /**
+    * verifies the competences
+    * compares them best on simple matrix
+    * writes the similarity score in the db
+    * @param tuple
+    * @return
+    */
   def updateSimilarity(tuple: (Competence, Competence)) = {
     if (!tuple._1.getDefinition.equals(tuple._2.getDefinition)) {
       logger.info("updating similarities 2")
@@ -24,9 +31,11 @@ object SimilaritiesUpdater extends LanguageConverter with Logging {
         val computer = new SimpleCompetenceComparatorMapper
         val verifier = new SimpleCompetenceVerifier
         var result: Double = 0.0
-        if (CompetenceCrawler.verifySentence(verifier, tuple._1.getDefinition) && CompetenceCrawler.verifySentence(verifier, tuple._2.getDefinition)) {
-          logger.info("found similarity: updating")
+        val sentenceCorrect = CompetenceCrawler.verifySentence(verifier, tuple._1.getDefinition)
+        val sentenceCorrect2 = CompetenceCrawler.verifySentence(verifier, tuple._2.getDefinition)
+        if (sentenceCorrect && sentenceCorrect2 ) {
           result = computer.computeSimilarityScore(tuple._1.getDefinition, tuple._2.getDefinition)
+          logger.info("found similarity: updating score result: " + result)
         }
         logger.info("not found similarity: updating")
         val queryManagerImpl = new CompetenceNeo4jQueryManagerImpl
@@ -38,11 +47,18 @@ object SimilaritiesUpdater extends LanguageConverter with Logging {
     }
   }
 
+  /**
+    * updates the similarity compared to all other competences in the database
+    */
   def update: Unit = {
     val competences: util.Set[Competence] = DaoAbstractImpl.getAllInstances(classOf[Competence]);
     val pairs = competences.asScala.toList.combinations(2).map(x => (x.head, x.tail.head)).foreach(updateSimilarity(_))
   }
 
+  /**
+    * helper function
+    * @param input
+    */
   def updateSimilarCompetencies(input: Competence): Unit = {
     val competences = DaoAbstractImpl.getAllInstances(classOf[Competence]);
     competences.asScala.foreach(x => updateSimilarity(x, input))

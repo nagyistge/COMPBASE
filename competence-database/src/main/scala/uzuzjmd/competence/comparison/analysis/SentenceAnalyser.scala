@@ -2,6 +2,7 @@ package uzuzjmd.competence.comparison.analysis
 
 import comparison.analysis.ParserFactory
 import edu.stanford.nlp.ling.Sentence
+import edu.stanford.nlp.parser.lexparser.LexicalizedParser
 import edu.stanford.nlp.trees.Tree
 
 import scala.collection.JavaConverters._
@@ -34,6 +35,7 @@ trait SentenceAnalyser {
     }
 
     val parse = ParserFactory.lp.apply(Sentence.toWordList(sent.asJava));
+    //val parse =  ParserFactory.getLP().apply(Sentence.toWordList(sent.asJava));
     //    val gs = gsf.newGrammaticalStructure(parse);
     //    val tdl = gs.typedDependenciesCCprocessed();
     //    println(tdl.toString())

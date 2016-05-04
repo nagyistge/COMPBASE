@@ -57,12 +57,16 @@ class SimpleCompetenceVerifier extends CompetenceVerifier{
     if (words.isEmpty) {
       return false;
     }
-    val stemmedWords = words.map(x=>WordToStem.stemWord(x))
-    val stemmedValidWords = set.map(x=>WordToStem.stemWord(x))
+    val stemmedWords = words.map(x => WordToStem.stemWord(x))
+    val stemmedValidWords = set.map(x => WordToStem.stemWord(x))
 
-    val synonyms: List[String] = words.map(x=>OpenThesaurusSynonymCreator.getSynonyms(x)).flatten
-    val stemmedSynonyms = synonyms.map(x=>WordToStem.stemWord(x))
+    val synonyms: List[String] = words.map(x => OpenThesaurusSynonymCreator.getSynonyms(x)).flatten
+    val stemmedSynonyms = synonyms.map(x => WordToStem.stemWord(x))
 
-    return !stemmedValidWords.intersect(stemmedWords).isEmpty || !stemmedValidWords.intersect(stemmedSynonyms).isEmpty
+    val casea = !stemmedValidWords.intersect(stemmedWords).isEmpty
+    val caseb = !stemmedValidWords.intersect(stemmedSynonyms).isEmpty
+    val casec = !set.toList.intersect(words).isEmpty
+    return  casea || caseb || casec
+
   }
 }
