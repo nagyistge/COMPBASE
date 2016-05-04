@@ -178,7 +178,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             if (!comment.exists()) {
                 throw new WebApplicationException(new Exception("comment does not exist in database"));
             }
-            CommentData commentData = new CommentData(competenceId, comment.getText(), null, null, null, null);
+            CommentData commentData = new CommentData(comment.getDateCreated(),competenceId, comment.getText(), null, null, null, null);
             return Response.status(200).entity(commentData).build();
         }
     }
