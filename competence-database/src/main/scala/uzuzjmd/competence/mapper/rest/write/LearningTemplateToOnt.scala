@@ -30,14 +30,14 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
   private def convertHelper1(changes: LearningTemplateData) {
     val context = new CourseContext(changes.getGroupId);
     context.persist()
-    val user = new User(changes.getUserName, Role.teacher, context);
+    val user = new User(changes.getUserName, Role.teacher, null, context);
     user.persist()
     context.createEdgeWith(Edge.CourseContextOfCompetence, user)
   }
 
   private def convertHelper(changes: LearningTemplateData) {
     val context = new CourseContext(changes.getGroupId);
-    val user = new User(changes.getUserName, Role.teacher, context);
+    val user = new User(changes.getUserName);
     if (!user.exists()) {
       throw new UserNotExistsException
     }

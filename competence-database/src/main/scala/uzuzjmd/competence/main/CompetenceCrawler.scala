@@ -6,7 +6,7 @@ import comparison.verification.SimpleCompetenceVerifier
 import org.apache.solr.client.solrj.SolrServerException
 import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.SolrDocumentList
-import uzuzjmd.competence.comparison.analysis.SentenceToOperator
+import uzuzjmd.competence.comparison.analysis.{SentenceToNoun, SentenceToOperator}
 import uzuzjmd.competence.comparison.verification.ValidOperators
 import uzuzjmd.competence.crawler.solr.SolrConnector
 import uzuzjmd.competence.logging.Logging
@@ -29,10 +29,11 @@ object CompetenceCrawler extends LanguageConverter with Logging {
   @throws(classOf[IOException])
   @throws(classOf[SolrServerException])
   def main(args: Array[String]) {
-    computeVerification
+    compute
   }
 
-  def computeVerification: Unit = {
+
+  def compute: Unit = {
     val simpleCompetenceVerifier: SimpleCompetenceVerifier = new SimpleCompetenceVerifier
     val solrConnector: SolrConnector = new SolrConnector(solrUrl, 200)
     // ++ ValidSubjects.values().map(x=>x.toString)
@@ -61,8 +62,15 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     competencesFound.foreach(x => logger.info(x))
   }
 
+  /**
+    * Verifies a sentence on a couple of simple points
+    * @param simpleCompetenceVerifier
+    * @param strings
+    *                TODO should be extracted in different class
+    * @return
+    */
   @throws[IndexOutOfBoundsException]
-  def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): Unit = {
+  def verifySentence(simpleCompetenceVerifier: SimpleCompetenceVerifier, strings: String): java.lang.Boolean = {
     //logger.info("checking: "+strings)
 
     analyzeCounter = analyzeCounter + 1;
@@ -72,7 +80,7 @@ object CompetenceCrawler extends LanguageConverter with Logging {
 
     try {
       if (!checkString(strings)) {
-        return
+        return false;
       }
       val cleanedString: java.lang.String = cleanString(strings)
       //println(strings)
@@ -85,7 +93,7 @@ object CompetenceCrawler extends LanguageConverter with Logging {
         logger.trace("verb is: " + operator)
       }
 
-      val nouns = SentenceToOperator.convertSentenceToFilteredElement(cleanedString)
+      val nouns = SentenceToNoun.convertSentenceToFilteredElement(cleanedString)
       if (!nouns.isEmpty) {
         val noun: String = nouns.head
         logger.trace("noun is: " + noun)
@@ -96,13 +104,20 @@ object CompetenceCrawler extends LanguageConverter with Logging {
           counter += 1
           competencesFound = cleanedString :: competencesFound
           logger.trace(" found competence" + strings)
+          return true;
         }
       }
     } catch {
       case e: Exception => print("hello")
     }
+    return false;
   }
 
+  /**
+    * checks the string if they are ok (simple problems)
+    * @param strings
+    * @return
+    */
   def checkString(strings: String): Boolean = {
     if (strings == null || strings.equals("") || strings.size < 20) {
       return false;

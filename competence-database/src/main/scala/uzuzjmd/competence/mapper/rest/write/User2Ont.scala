@@ -14,10 +14,13 @@ object User2Ont extends RoleConverter with WriteTransactional[UserData] {
   }
 
   def createUser(data: UserData) {
+    if (data.getRole() == null) {
+      data.setRole("student")
+    }
     val creatorRole = convertRole(data.getRole);
     val courseContext = new CourseContext(data.getCourseContext);
     courseContext.persist();
-    val creator = new User(data.getUser, creatorRole, courseContext);
+    val creator = new User(data.getUser, creatorRole, null, courseContext);
     creator.persist();
   }
 }

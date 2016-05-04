@@ -36,9 +36,7 @@ object RCDFilter {
     Edge.MetaCatchwordOf.equals(Edge.valueOf(triple._2)) || Edge.MetaOperatorOf.equals(Edge.valueOf(triple._2))
   }
 
-  def isDescriptionElementOfTriple(triple: CompetenceTriple): Boolean = {
-    Edge.DescriptionElementOf.equals(Edge.valueOf(triple._2))
-  }
+
 
   def isTripleWithBlanc(triple: CompetenceTriple): Boolean = {
     triple match {

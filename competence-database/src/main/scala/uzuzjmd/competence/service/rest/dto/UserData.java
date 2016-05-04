@@ -7,12 +7,14 @@ public class UserData {
 	private String user;
 	private String courseContext;
 	private String role;
+	private String printableName;
 
-	public UserData(String user, String courseContext, String role) {
+	public UserData(String user, String printableName, String courseContext, String role) {
 		super();
 		this.user = user;
 		this.courseContext = courseContext;
 		this.role = role;
+		this.printableName = printableName;
 	}
 
 	public String getUser() {
@@ -37,5 +39,9 @@ public class UserData {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getPrintableName() {
+		return printableName;
 	}
 }

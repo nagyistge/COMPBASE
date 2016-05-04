@@ -1,10 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
 import scala.NotImplementedError;
-import scala.collection.immutable.List;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
+import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
+import uzuzjmd.competence.shared.StringList;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,47 +14,42 @@ import javax.ws.rs.core.Response;
  */
 
 @Path("/api1")
-public class LearningTemplateApiImpl {
+public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningTemplateApi {
 
-    @Path("/learningtemplate")
+    @Override
+    @Path("/learningtemplates")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getLearningTemplates(LearningTemplateData data){
-        throw new NotImplementedError();
+    public StringList getLearningTemplates(){
+        StringList learningTemplates = Ont2LearningTemplates
+                .convert();
+        return learningTemplates;
     }
 
-    @Path("/learningtemplate/{learningtemplateId}")
+    @Override
+    @Path("/learningtemplates/{learningtemplateId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
         throw new NotImplementedError();
     }
 
-    @Path("/learningtemplate/{learningtemplateId}")
+    @Override
+    @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
     public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     * @param learningtemplateId
-     * @return
-     */
-    @Path("/learningtemplate/{learningtemplateId}/delete")
+    @Override
+    @Path("/learningtemplates/{learningtemplateId}/delete")
     @POST
     public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) {
         throw new NotImplementedError();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @param learningtemplateId
-     * @param data
-     * @return
-     */
-    @Path("/learningtemplate/{learningtemplateId}/create")
+    @Override
+    @Path("/learningtemplates/{learningtemplateId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
