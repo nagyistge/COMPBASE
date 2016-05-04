@@ -4,7 +4,7 @@
 	error_reporting(E_ALL);
 
 	$db_username ="root";
-	$db_password ="root";
+	$db_password ="voyager";
 	$db_scheme ="UniDisk";
-	$db_url ="127.0.0.1";
+	$db_url ="localhost";
 ?>
