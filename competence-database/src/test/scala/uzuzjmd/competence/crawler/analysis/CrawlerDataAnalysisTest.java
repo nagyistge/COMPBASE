@@ -33,7 +33,7 @@ public class CrawlerDataAnalysisTest {
 
 
         CrawlerDataAnalysis cda = new CrawlerDataAnalysis(min, max, "UnitTest");
-        cda.prepareHochschuleSolrAnalyse();
+        cda.prepareHochschuleSolrAnalyse("var6");
 
 
 
@@ -42,7 +42,7 @@ public class CrawlerDataAnalysisTest {
         logger.debug("There are " + values.length + " elements in the table");
         if (values.length > max) {
             Collection<String> result2 = cda.selectRelevantDataForPlotting();
-            cda.deleteInDatabase(result2);
+            cda.deleteInDatabase(result2, "var6");
             assertFalse(result2.isEmpty());
             logger.debug(StringUtils.join(result2.toArray(), ", "));
         } else {

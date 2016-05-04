@@ -48,7 +48,7 @@ class database {
 	}
 
 	public function newCampaign($name) {
-		$query= "INSERT INTO " . $this->props->overview . "(Name, Count) VALUE ('" . $name . "', 0)";
+		$query= "INSERT INTO " . $this->props->overview . "(Name) VALUE ('" . $name . "')";
 		$this->query($query);
 	}
 
