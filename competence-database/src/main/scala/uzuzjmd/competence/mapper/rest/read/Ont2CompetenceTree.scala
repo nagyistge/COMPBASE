@@ -52,6 +52,8 @@ object Ont2CompetenceTree extends Logging{
     return convertTree(competenceLabel, filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
   }
 
+
+
   /**
     * filters the result from the database and converts it into pairs of the subclass triples
  *

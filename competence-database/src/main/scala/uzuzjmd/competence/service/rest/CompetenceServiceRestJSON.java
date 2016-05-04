@@ -58,6 +58,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedOperators
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/competencetree/{context}")
@@ -79,6 +80,7 @@ public class CompetenceServiceRestJSON {
      * @param changes of type HierarchieChangeObject @see updateHierarchie2
      * @return
      */
+    @Deprecated
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/updateHierarchie2")
@@ -97,6 +99,7 @@ public class CompetenceServiceRestJSON {
      * @param changes
      * @return
      */
+    @Deprecated
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/updateHierarchie2/example")
@@ -111,6 +114,7 @@ public class CompetenceServiceRestJSON {
      * @param role can be "student or teacher"
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/user/create/{user}/{role}")
@@ -128,7 +132,7 @@ public class CompetenceServiceRestJSON {
         CourseContext courseContextDao = new CourseContext(courseContext);
         courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
-                role);
+                role, null);
         User2Ont.convert(data);
         return Response.ok("user created").build();
     }
@@ -142,6 +146,7 @@ public class CompetenceServiceRestJSON {
      * @param course
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -164,6 +169,7 @@ public class CompetenceServiceRestJSON {
      * @param course the context of the competences
      * @return the requirement string
      */
+    @Deprecated
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     @Path("/coursecontext/requirements/{course}")
@@ -200,10 +206,10 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "competences") List<String> competences,
             @QueryParam(value = "evidences") List<String> evidences) {
 
-        CompetenceLinkData data = new CompetenceLinkData(
+        EvidenceData data = new EvidenceData(
                 course, creator, role, linkedUser,
-                competences, evidences);
-        Link2Ont.writeLinkToDatabase(data);
+                competences, evidences, null);
+        Evidence2Ont.writeLinkToDatabase(data);
         return Response.ok(
                 "competences linked to evidences").build();
     }
@@ -232,7 +238,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("courseContext") String courseContext,
             @PathParam("role") String role) {
         UserData userData = new UserData(user,
-                courseContext, role);
+                courseContext, role, null);
         User2Ont.convert(userData);
         CommentData commentData = new CommentData(linkId,
                 user, text, courseContext, role);

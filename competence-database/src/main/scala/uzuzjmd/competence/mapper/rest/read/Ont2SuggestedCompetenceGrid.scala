@@ -26,7 +26,7 @@ object Ont2SuggestedCompetenceGrid extends ReadTransactional[LearningTemplateDat
 
   private def convertHelper(changes: LearningTemplateData): SuggestedCompetenceGrid = {
     val context = new CourseContext(changes.getGroupId);
-    val user = new User(changes.getUserName, Role.teacher , context);
+    val user = new User(changes.getUserName, Role.teacher , null, context);
     val learningTemplate = new LearningProjectTemplate(changes.getSelectedTemplate);
     if (learningTemplate == null || !learningTemplate.exists()) {
       throw new WebApplicationException("learningtemplate null or does not exist");

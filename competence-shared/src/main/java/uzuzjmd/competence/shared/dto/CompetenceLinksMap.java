@@ -1,5 +1,6 @@
 package uzuzjmd.competence.shared.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,6 +15,7 @@ public class CompetenceLinksMap {
 	private Map<String, CompetenceLinksView[]> mapUserCompetenceLinks = new TreeMap<String, CompetenceLinksView[]>();
 
 	public CompetenceLinksMap() {
+		this.mapUserCompetenceLinks = new HashMap<>();
 
 	}
 

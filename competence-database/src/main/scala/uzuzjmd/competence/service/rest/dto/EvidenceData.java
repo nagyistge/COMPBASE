@@ -1,13 +1,28 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import java.util.List;
+public class EvidenceData {
+	public String getPrintableUserName() {
+		return printableUserName;
+	}
 
-/**
- * This class provides a wrapper for the service
- * to exchange data necessary to like a competence to a user who has performed it.
- */
-public class CompetenceLinkData {
-	public CompetenceLinkData(String course, String creator, String role, String linkedUser, List<String> competences, List<String> evidences) {
+	private final String printableUserName;
+
+	/**
+	 * This class provides a wrapper for the service
+	 * to exchange data necessary to like a competence to a user who has performed it.
+	 *
+	 * @param course      (the context of the acquirement)
+	 * @param creator     the user who created the link
+	 * @param role        the role of the user who created the link (can be either
+	 *                    "teacher" or "student")
+	 * @param linkedUser  the user who has acquired the competences
+	 * @param competences the competences acquired
+	 * @param evidences   the activities that stand as evidences in the form [url,
+	 *                    speakingname]
+	 *
+	 */
+	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, List<String> evidences, String printableUserName) {
 		super();
 		this.course = course;
 		this.creator = creator;
@@ -15,9 +30,10 @@ public class CompetenceLinkData {
 		this.linkedUser = linkedUser;
 		this.competences = competences;
 		this.evidences = evidences;
+		this.printableUserName = printableUserName;
 	}
 
-	String course;
+	public String course;
 
 	public String getCourse() {
 		return course;

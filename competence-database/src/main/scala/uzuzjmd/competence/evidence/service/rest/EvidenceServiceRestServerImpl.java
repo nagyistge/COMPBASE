@@ -169,7 +169,7 @@ public class EvidenceServiceRestServerImpl implements
         return result;
     }
 
-    private String checkLoginisEmail(String username) {
+    public static String checkLoginisEmail(String username) {
         if (username.contains("@")) {
             username = username.split("@")[0];
         }

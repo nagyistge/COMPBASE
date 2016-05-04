@@ -12,4 +12,8 @@ object ParserFactory {
   def instance() : LexicalizedParser ={
     LexicalizedParser.loadModel(MagicStrings.GERMANMODELLOCATION, "-maxLength", "80");
   }
+
+  def getLP() : LexicalizedParser = {
+    return LexicalizedParser.loadModel(MagicStrings.GERMANMODELLOCATION, "-maxLength", "80");
+  }
 }

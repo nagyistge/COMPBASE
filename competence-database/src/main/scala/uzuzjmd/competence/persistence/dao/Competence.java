@@ -2,9 +2,11 @@ package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,6 +63,10 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         } else {
             return Sets.newHashSet(getAssociatedDaosAsRange(Edge.SuggestedCompetencePrerequisiteOf, Competence.class));
         }
+    }
+
+    public void addSimilarCompetence(Competence competence, Double score) throws Exception {
+        queryManager.createRelationShipWithWeight(competence.getId(), Edge.SimilarTo, this.getId(), score);
     }
 
     public void addRequiredCompetence(Competence competence) throws Exception {
@@ -207,12 +213,12 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             }
         }
         this.delete();
-        //throw new NotImplementedException();
     }
 
     @Override
     public Dao persist() throws Exception {
         super.persist();
+        logger.info("saving competence");
         createEdgeWith(Edge.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
         createEdgeWith(universityContext, Edge.CourseContextOfCompetence);
@@ -224,7 +230,21 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
                 addCatchword(catchword);
             }
         }
+
+        final Competence competence = this;
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("updating similarities 1");
+                SimilaritiesUpdater.updateSimilarCompetencies(competence);
+            }
+        });
+        t.start();
         return this;
+    }
+
+    public ArrayList<String> getSimilarCompetences() throws Exception {
+        return queryManager.getClosestEdges(this.getId(), Edge.SimilarTo);
     }
 
 

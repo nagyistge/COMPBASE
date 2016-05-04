@@ -2,28 +2,28 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.service.rest.dto.CompetenceLinkData
+import uzuzjmd.competence.service.rest.dto.EvidenceData
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 
 /**
   * @author dehne
   */
-object Link2Ont extends WriteTransactional[CompetenceLinkData] with RoleConverter {
+object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter {
 
-  def writeLinkToDatabase(data: CompetenceLinkData) {
+  def writeLinkToDatabase(data: EvidenceData) {
     execute(linkCompetencesToJson _, data)
   }
 
-  def linkCompetencesToJson(data: CompetenceLinkData) {
+  def linkCompetencesToJson(data: EvidenceData) {
     val creatorRole = convertRole(data.getRole);
     for (evidence <- data.getEvidences().asScala) {
       for (competence <- data.getCompetences.asScala) {
         val courseContext = new CourseContext(data.getCourse);
         courseContext.persist();
-        val creatorUser = new User(data.getCreator, creatorRole, courseContext);
+        val creatorUser = new User(data.getCreator, creatorRole, data.getPrintableUserName, courseContext);
         creatorUser.persist();
-        val linkedUserUser = new User(data.getLinkedUser, Role.student, courseContext);
+        val linkedUserUser = new User(data.getLinkedUser, Role.student, data.getPrintableUserName, courseContext);
         linkedUserUser.persist();
         val evidenceActivity = new EvidenceActivity(evidence.split(",")(1), evidence.split(",")(0));
         evidenceActivity.persist()

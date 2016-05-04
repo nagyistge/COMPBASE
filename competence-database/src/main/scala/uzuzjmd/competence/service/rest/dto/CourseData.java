@@ -7,11 +7,24 @@ import java.util.List;
  */
 public class CourseData {
 	private String course;
+	private String printableName;
+
+	public CourseData(String course, String printableName, List<String> competences) {
+		this.course = course;
+		this.printableName = printableName;
+		this.competences = competences;
+	}
+
 	private List<String> competences;
 	
 	public CourseData(String course, List<String> competences) {
 		this.course = course;
 		this.competences = competences;
+	}
+
+	public CourseData(String course, String printableName) {
+		this.course = course;
+		this.printableName = printableName;
 	}
 
 	public String getCourse() {
@@ -29,5 +42,12 @@ public class CourseData {
 	public void setCompetences(List<String> competences) {
 		this.competences = competences;
 	}
-	
+
+	public String getPrintableName() {
+		return printableName;
+	}
+
+	public void setPrintableName(String printableName) {
+		this.printableName = printableName;
+	}
 }

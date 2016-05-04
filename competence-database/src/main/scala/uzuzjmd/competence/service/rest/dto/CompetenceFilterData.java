@@ -9,6 +9,15 @@ public class CompetenceFilterData {
 	private String course;
 	private Boolean compulsory;
 	private String textFilter;
+
+	public Boolean getResultAsTree() {
+		return resultAsTree;
+	}
+
+	public void setResultAsTree(Boolean resultAsTree) {
+		this.resultAsTree = resultAsTree;
+	}
+
 	private Boolean resultAsTree;
 
 	public void setRootCompetence(String rootCompetence) {
