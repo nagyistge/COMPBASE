@@ -22,7 +22,6 @@ object RCDMaps {
       case Label.Catchword => return Edge.CatchwordOf
       case Label.Competence => return Edge.SubCompetenceOf
       case Label.CompetenceDescription => return Edge.CompetenceDescriptionOf
-
       case Label.Evidence => return Edge.EvidencOf
       case Label.Learner => return Edge.LearnerOf
       case Label.MetaCatchword => return Edge.MetaCatchwordOf

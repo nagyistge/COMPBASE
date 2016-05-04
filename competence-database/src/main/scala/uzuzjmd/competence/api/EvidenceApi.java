@@ -7,6 +7,7 @@ import uzuzjmd.competence.service.rest.dto.EvidenceData;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 
 /**
  * Created by dehne on 15.04.2016.
@@ -55,17 +56,30 @@ public interface EvidenceApi {
     @Path("/{evidenceId}/comments")
     Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData);
 
+    /**
+     * Get all the comments for a  given evidence
+     * @param evidenceId
+     * @return
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("/{evidenceId}/comments")
-    List<CommentData> getComments(@PathParam("evidenceId") String evidenceId);
+    ArrayList<CommentData> getComments(@PathParam("evidenceId") String evidenceId);
 
+
+    /**
+     * delete the comments to a given evidence
+     * @param evidenceId
+     * @return
+     */
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @DELETE
     @Path("/{evidenceId}/comments")
     List<CommentData> deleteComments(@PathParam("evidenceId") String evidenceId);
+
+
 
 
     /**
@@ -115,7 +129,7 @@ public interface EvidenceApi {
     @Path("/{evidenceId}/comments/{commentId}")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
+    CommentData getComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
 
 
     /**
