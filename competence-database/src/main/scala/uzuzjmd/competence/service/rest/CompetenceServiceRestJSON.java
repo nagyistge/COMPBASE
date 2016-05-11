@@ -240,7 +240,7 @@ public class CompetenceServiceRestJSON {
         UserData userData = new UserData(user,
                 courseContext, role, null);
         User2Ont.convert(userData);
-        CommentData commentData = new CommentData(linkId,
+        CommentData commentData = new CommentData(System.currentTimeMillis(), linkId,
                 user, text, courseContext, role);
         Comment2Ont.convert(commentData);
         return Response.ok("link commented").build();

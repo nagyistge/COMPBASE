@@ -1,6 +1,7 @@
 package uzuzjmd.competence.service.rest.dto;
 
 public class CommentData {
+	private String commentId;
 	private String commentedCommentId;
 	private String linkId;
 	private String user;
@@ -9,8 +10,9 @@ public class CommentData {
 	private String role;
 	private String competenceId;
 
-	public CommentData(String linkId, String user, String text, String courseContext, String role) {
+	public CommentData(Long datecreated, String linkId, String user, String text, String courseContext, String role) {
 		super();
+		this.commentId = datecreated + text;
 		this.linkId = linkId;
 		this.user = user;
 		this.text = text;
@@ -20,7 +22,8 @@ public class CommentData {
 
 
 
-	public CommentData(String competenceId, String text, String userId, String courseContext, String role, String commentedCommentId) {
+	public CommentData(Long datecreated, String competenceId, String text, String userId, String courseContext, String role, String commentedCommentId) {
+		this.commentId = datecreated + text;
 		this.competenceId = competenceId;
 		this.text = text;
 		this.user = userId;
@@ -79,5 +82,13 @@ public class CommentData {
 
 	public void setCompetenceId(String competenceId) {
 		this.competenceId = competenceId;
+	}
+
+	public String getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
 	}
 }
