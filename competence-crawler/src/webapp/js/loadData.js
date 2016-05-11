@@ -23,11 +23,7 @@ function loadJsonFile(filename) {
 	$.ajax(filename, {
 		type:"get",
 		success: function(res) {
-			if (typeof res == "object") {
-				props = res;
-			} else {
-				props = JSON.parse(res);
-			}
+			props = JSON.parse(res);
 			initialLoad(1);
 		},
 	});
@@ -186,6 +182,12 @@ function prepareAndLoadCamp(element) {
 			loadCampaign(element);
 }
 
+function loadAndLock(element) {
+		$("#pluswrap").show();
+		loadCampaign(element);
+		$("#pluswrap").hide();
+}
+
 function loadCampaign(element) {
 	var elemStatus = processIcons.indexOf($(element).find(".glyphicon").attr("class").split(" ")[1])
 		if (elemStatus == 1) {
@@ -214,7 +216,7 @@ function loadCampaign(element) {
 				if ((stichworte.length > 0) && (stichworte != "\n")) {
 					var loadedCamp = JSON.parse(stichworte); 
 					for (var i = 0; i < loadedCamp.length; i++) {
-						varMetaElements.push({Stich: loadedCamp[i].Stichwort, Var: loadedCamp[i].Variable, Meta: loadedCamp[i].Metavariable});
+						varMetaElements.push({Id: loadedCamp[i].Id, Stich: loadedCamp[i].Stichwort, Var: loadedCamp[i].Variable, Meta: loadedCamp[i].Metavariable});
 					}
 				}
 				scoreStichToTab(scoreStich, this.invokedata.groupStich);
@@ -265,7 +267,7 @@ function scoreStichToTab(scoreStich, group) {
 
 function fireInTheHole() {
 	$("#fireButton").hide();
-	$.ajax(props["endpoints"]["crawler"] + "crawler/start?campaign=" + active, {
+	$.ajax("http://localhost:8084/crawler/start?campaign=" + active, {
 		type:"post",
 		success: function (res) {
 			console.log(res);
@@ -273,5 +275,20 @@ function fireInTheHole() {
 		error: function (res) {
 			console.log(res);
 		},
+	});
+}
+function removeElement(element) {
+	$.ajax("php/handleDb.php", {
+			type:"post",
+			data: {
+				props: JSON.stringify(props["database"]),
+				loadPurpose: "deleteElement",
+				element: element.children()[0].innerHTML,
+				campaign: active
+			},
+			success:function (res) {
+				console.log(res);
+				loadAndLock("#" + active);
+			}
 	});
 }

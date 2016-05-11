@@ -49,6 +49,7 @@ function addStichVar(element) {
 			},
 			success: function (res) {
 				console.log(res);
+				loadAndLock("#" + active);
 				
 			},
 			error: function(e) {
@@ -102,8 +103,10 @@ function elementsToTab() {
 	$("#varMetaTable").find("tr:gt(1)").remove();
 	for (var i = 0; i < varMetaElements.length; i++) {
 		$("#varMetaTable").append(
-				"<tr><td>" + (i + 1) + "</td><td>" + varMetaElements[i].Stich + "</td><td>" + varMetaElements[i].Var + "</td>"
-				+ "<td>" + varMetaElements[i].Meta + "</td></tr>");
+				"<tr><td>" + varMetaElements[i].Id + "</td><td>" + varMetaElements[i].Stich + "</td><td>" + varMetaElements[i].Var + "</td>"
+				+ "<td>" + varMetaElements[i].Meta + "</td>"
+				+ "<td><button class=\"btn btn-danger\" onclick=\"removeElement($(this).parent().parent())\" >"
+				+ "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\" /> </button></td></tr>");
 	}
 	
 }
