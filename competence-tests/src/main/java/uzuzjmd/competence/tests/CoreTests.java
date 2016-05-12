@@ -10,6 +10,7 @@ import uzuzjmd.competence.service.rest.LearningTemplateApiImpl;
 import uzuzjmd.competence.service.rest.UserApiImpl;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CourseData;
+import uzuzjmd.competence.service.rest.dto.EvidenceData;
 import uzuzjmd.competence.service.rest.dto.UserData;
 import uzuzjmd.competence.shared.StringList;
 import javax.ws.rs.client.Entity;
@@ -81,7 +82,39 @@ public class CoreTests extends JerseyTest {
         assertTrue(get2.isEmpty());
     }
 
+
     @Test
+    public void testGetCompetencesUserHasAcquired() {
+
+        // TODO // FIXME: 12.05.2016 
+        String userEmail = "julian@stuff2.com";
+        String courseName = "TestkursA";
+        String url = "http://hasstschegut";
+
+        CourseData data = new CourseData("44", courseName);
+        Entity<CourseData> courseDataEntity = Entity.entity(data, MediaType.APPLICATION_JSON);
+        Response post0 = target("/api1/courses/" + data.getCourseId()).request().put(courseDataEntity);
+        assertTrue(post0.getStatus() == 200);
+
+        // creates user
+        UserData userData = new UserData(userEmail, "Julian Dehne", data.getCourseId(), "student", "mobile");
+        Entity<UserData>  userEntity = Entity.entity(userData, MediaType.APPLICATION_JSON);
+        Response post1 = target("/api1/users/" + userEmail).request().put(userEntity);
+        assertTrue(post1.getStatus() == 200);
+
+        // create evidence
+        EvidenceData evidenceData = new EvidenceData(courseName, userEmail, "student", userEmail, Arrays.asList( new String[] {"kann jetzt linken"}) ,Arrays.asList( new String[] {url}), userData.getPrintableName()  );
+        Entity<EvidenceData> evidenceDataEntity = Entity.entity(evidenceData, MediaType.APPLICATION_JSON);
+        Response post2 = target("/api1/courses/" + url).request().put(evidenceDataEntity);
+        assertTrue(post1.getStatus() == 200);
+
+        // assertions
+        List get = target("/api1/users/"+userEmail+"/competences").queryParam("courseId", "university").request().get(java.util.List.class);
+        assertFalse(get.isEmpty());
+
+    }
+
+    //@Test
     public void testGetAllUsersInCourse() {
         String userEmail = "julian@stuff2.com";
         String courseName = "TestkursA";

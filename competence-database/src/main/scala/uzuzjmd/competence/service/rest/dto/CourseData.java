@@ -1,13 +1,19 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
  * This wraps a pair of course and competences in order to exchange competences linked to a course
  */
+@XmlRootElement
 public class CourseData {
 	private String course;
 	private String printableName;
+	private List<String> competences;
+
+	public CourseData() {
+	}
 
 	public CourseData(String course, String printableName, List<String> competences) {
 		this.course = course;
@@ -15,7 +21,6 @@ public class CourseData {
 		this.competences = competences;
 	}
 
-	private List<String> competences;
 	
 	public CourseData(String course, List<String> competences) {
 		this.course = course;
