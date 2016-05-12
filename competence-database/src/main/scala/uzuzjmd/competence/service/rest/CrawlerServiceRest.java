@@ -23,6 +23,7 @@ public class CrawlerServiceRest {
     static private final int MAXTHREAD = 4;
     static private int CURRENTTHREADS = 0;
     static private final Logger logger = LogManager.getLogger(CrawlerServiceRest.class.getName());
+    static private ThreadGroup tg = new ThreadGroup("SolrApps");
     /**
      *
      * @param campaign
@@ -36,10 +37,11 @@ public class CrawlerServiceRest {
     public Response start(
             @QueryParam("campaign") String campaign)
             throws Exception {
+        //to have access to the variable in the Runnable
         final String campaignOs = campaign;
         CURRENTTHREADS ++;
         if (CURRENTTHREADS <=  MAXTHREAD) {
-            final Thread t = new Thread(new Runnable() {
+            final Thread t = new Thread(tg, new Runnable() {
                 @Override
                 public void run() {
                     logger.debug("Thread is running");
@@ -56,7 +58,7 @@ public class CrawlerServiceRest {
                     }
                     logger.debug("Thread is done");
                 }
-            });
+            }, campaignOs);
             //threads.add(t);
             t.start();
 
@@ -67,6 +69,26 @@ public class CrawlerServiceRest {
         }
     }
 
+    @POST
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/stop")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response stop(
+            @QueryParam("campaign") String campaign)
+            throws Exception {
+        //to have access to the variable in the Runnable
+        final String campaignOs = campaign;
+        logger.debug("Stop " + campaign);
+        Thread[] threads = new Thread[CURRENTTHREADS];
+        tg.enumerate(threads);
+        for (Thread t : threads) {
+            if (t.getName().equals(campaign)) {
+                t.interrupt();
+                return Response.ok("thread was closed").build();
+            }
+        }
+        return Response.ok("thread doesn't exists").build();
+    }
 
 
 
