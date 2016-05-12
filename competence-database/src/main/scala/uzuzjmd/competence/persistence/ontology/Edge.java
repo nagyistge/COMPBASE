@@ -72,5 +72,7 @@ public enum Edge {
     /* user may belong to a couse context*/
     CourseContextOfUser,
     /* 2 competences may be similar based on a weight */
-    SimilarTo
+    SimilarTo,
+    /* hide competence for User*/
+    HiddenFor
 }

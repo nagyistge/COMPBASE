@@ -1,6 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
 import edu.stanford.nlp.trees.GrammaticalRelation;
+import uzuzjmd.competence.comparison.verification.CompetenceVerifierFactory;
+import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
 import uzuzjmd.competence.mapper.rest.read.Ont2Competences;
 import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
@@ -15,13 +17,11 @@ import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
 import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
-import uzuzjmd.competence.comparison.verification.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -30,26 +30,30 @@ import java.util.HashSet;
 @Path("/api1")
 public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
+
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
      *
      * @param selectedCatchwords
      * @param selectedOperators
      * @param textFilter
-     * @param competenceId
+     * @param rootCompetence
      * @param course
      * @param asTree
      * @return
      */
-    @Override
-    @Path("/competences/{competenceId}")
+    @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                                    @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                                   @QueryParam("textFilter") String textFilter, @PathParam("competenceId") String competenceId, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree) {
+                                   @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId) {
 
-        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, asTree, competenceId);
+        if (course == null) {
+            throw new WebApplicationException("courseId  null should be at least 'university' as default");
+        }
+
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId, asTree, rootCompetence);
         if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
             java.util.List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
             return Response.status(200).entity(result).build();
@@ -77,6 +81,25 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         Competence competence = new Competence(competenceId);
         competence.delete();
         return Response.ok("competence deleted").build();
+    }
+
+
+    @Override
+    @Path("/competences/{competenceId}/users/{userId}")
+    @DELETE
+    public Response deleteCompetence(@PathParam("competenceId") String competenceId, @PathParam("userId") String userId) throws Exception {
+        Competence competence = new Competence(competenceId);
+        if (userId != null) {
+            User user = new User(userId);
+            if (user.exists()) {
+                competence.hideFor(user);
+                return Response.ok("competence hidden").build();
+            } else {
+                throw new WebApplicationException("user does not exist");
+            }
+        } else {
+            throw new WebApplicationException("userId is null");
+        }
     }
 
     /**
@@ -178,15 +201,21 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             if (!comment.exists()) {
                 throw new WebApplicationException(new Exception("comment does not exist in database"));
             }
-            CommentData commentData = new CommentData(comment.getDateCreated(),competenceId, comment.getText(), null, null, null, null);
+            CommentData commentData = new CommentData(comment.getDateCreated(), competenceId, comment.getText(), null, null, null, null);
             return Response.status(200).entity(commentData).build();
         }
     }
 
     @Override
     public Response deleteComment(String competenceId, String commentId) {
-        // TODO implement
-        throw new WebApplicationException("not implemented");
+        Comment comment = new Comment(commentId);
+        try {
+            comment.delete();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.ok("competence deleted").build();
     }
 
     @Override
@@ -208,6 +237,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     public ArrayList<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
+        SimilaritiesUpdater.updateSimilarCompetencies(competence);
         return competence.getSimilarCompetences();
     }
 

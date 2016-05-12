@@ -9,6 +9,7 @@ public class CompetenceFilterData {
 	private String course;
 	private Boolean compulsory;
 	private String textFilter;
+	private String userId;
 
 	public Boolean getResultAsTree() {
 		return resultAsTree;
@@ -30,20 +31,27 @@ public class CompetenceFilterData {
 			List<String> selectedCatchwordArray,
 			List<String> selectedOperatorsArray,
 			String course, Boolean compulsory,
-			String textFilter, Boolean resultAsTree, String rootCompetence) {
+			String textFilter, String userId, Boolean resultAsTree, String rootCompetence) {
 		super();
 		this.selectedCatchwordArray = selectedCatchwordArray;
 		this.selectedOperatorsArray = selectedOperatorsArray;
 		this.course = course;
 		this.compulsory = compulsory;
 		this.textFilter = textFilter;
+		this.userId = userId;
 		this.resultAsTree = resultAsTree;
 		this.rootCompetence = rootCompetence;
+		if (rootCompetence == null) {
+			setRootCompetence("Kompetenz");
+		}
 	}
 
 	public CompetenceFilterData(String course, Boolean resultAsTree) {
 		this.course = course;
 		this.resultAsTree = resultAsTree;
+		if (rootCompetence == null) {
+			setRootCompetence("Kompetenz");
+		}
 	}
 
 	public List<String> getSelectedCatchwordArray() {
@@ -90,5 +98,13 @@ public class CompetenceFilterData {
 
 	public String getRootCompetence() {
 		return rootCompetence;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

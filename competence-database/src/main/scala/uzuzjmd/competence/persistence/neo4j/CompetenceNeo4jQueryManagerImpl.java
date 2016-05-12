@@ -226,16 +226,22 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         List<String> operators = filterData.getSelectedOperatorsArray();
         List<String> catchwords = filterData.getSelectedCatchwordArray();
         String futherMatches = "";
+        String hiddenQuestion = "";
         for (String catchword : catchwords) {
             futherMatches += "MATCH (c:Catchword{id:'" + catchword + "'})-[r33:CatchwordOf]->(p)";
         }
         for (String operator : operators) {
             futherMatches += "MATCH (c:Operator{id:'" + operator + "'})-[r44:OperatorOf]->(p)";
         }
+        if (filterData.getUserId() != null && !filterData.getUserId().equals("")) {
+            futherMatches += "MATCH (p)-[r32:HiddenFor]->(u:User{id:'" + filterData.getUserId() + "'})";
+            hiddenQuestion += " WHERE r32 is null ";
+        }
+
         if (filterData.getRootCompetence() != null) {
             futherMatches += "MATCH (p:" + label + ")-[:subClassOf*1..5]->(z:" + label + "{id:'" + filterData.getRootCompetence() + "'})";
         }
-        String query = "MATCH tree = (p:" + label + ")-[:subClassOf*1..5]->(c:" + label + ")" + futherMatches + "MATCH (x:CourseContext{id:'" + courseId + "'})-[r33:CourseContextOfCompetence]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
+        String query = "MATCH tree = (p:" + label + ")-[:subClassOf*1..5]->(c:" + label + ")" + futherMatches + "MATCH (x:CourseContext{id:'" + courseId + "'})-[r33:CourseContextOfCompetence]->(p)" + hiddenQuestion +  "return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
         return issueNeo4JRequestArrayListArrayList(query);
     }
 

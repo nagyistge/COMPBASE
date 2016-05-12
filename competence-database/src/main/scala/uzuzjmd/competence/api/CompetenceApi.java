@@ -15,8 +15,9 @@ import java.util.ArrayList;
  */
 @Path("/api1")
 public interface CompetenceApi {
+
     /**
-     * GET all competences that match the filter params.
+     * returns either a list of string or a tree representation depending on the value of "asTree"
      *
      * @param selectedCatchwords
      * @param selectedOperators
@@ -31,7 +32,7 @@ public interface CompetenceApi {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                             @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree);
+                            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("course") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId);
 
     /**
      * Add a competence to the model with the id (the competence string) and competence meta data as payload.
@@ -45,15 +46,21 @@ public interface CompetenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data);
 
+    @Path("/competences/{competenceId}")
+    @DELETE
+    Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception;
+
     /**
      * Delete a competence with competenceId from the database using DELETE
+     *
+     * if the user is added, the competence will NOT be deleted but hidden for the given user
      * @param competenceId
      * @return
      * @throws Exception
      */
     @Path("/competences/{competenceId}")
     @DELETE
-    Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception;
+    Response deleteCompetence(@PathParam("competenceId") String competenceId,  String userId) throws Exception;
 
     /**
      * Delete a acompetence with competenceID from the database using POST

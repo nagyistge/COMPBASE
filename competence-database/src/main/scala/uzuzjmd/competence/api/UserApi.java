@@ -43,6 +43,7 @@ public interface UserApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response getUser(@PathParam("userId") String userId) throws Exception;
 
+
     @Path("/users/{userId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
