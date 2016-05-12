@@ -6,9 +6,11 @@ import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidenceList;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
+import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
 import uzuzjmd.competence.persistence.dao.User;
+import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.UserData;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
@@ -51,8 +53,8 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
             result.add(userData);
         }
         Set<User> allInstances = User.getAllInstances(User.class);
-        for (User allInstance : allInstances) {
-            UserData userData = new UserData(allInstance.getId(), allInstance.getPrintableName(), courseId, "student", "db");
+        for (User user : allInstances) {
+            UserData userData = new UserData(user.getId(), user.getPrintableName(), courseId, "student", "db");
             result.add(userData);
         }
         return result;
@@ -137,5 +139,17 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);
     }
 
-
+    @Path("/users/{userId}/competences")
+    @GET
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<String> getCompetencesForUser(@PathParam("userId") String userId) throws Exception {
+        List<String> result = new ArrayList<>();
+        User user = new User(userId);
+        List<Competence> competencesLearned = user.getCompetencesLearned();
+        for (Competence competence : competencesLearned) {
+            result.add(competence.getDefinition());
+        }
+        return result;
+    }
 }
