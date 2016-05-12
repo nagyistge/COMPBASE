@@ -27,7 +27,7 @@ public class CourseData {
 		this.printableName = printableName;
 	}
 
-	public String getCourse() {
+	public String getCourseId() {
 		return course;
 	}
 

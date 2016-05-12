@@ -14,7 +14,7 @@ object GetProgressMInOnt extends ReadTransactional[CourseData, ProgressMap] {
   }
 
   def convertGetProgressMInOnt(changes: CourseData): ProgressMap = {
-    val map = new Ont2ProgressMap(changes.getCourse, changes.getCompetences);
+    val map = new Ont2ProgressMap(changes.getCourseId, changes.getCompetences);
     val result = map.getProgressMap();
     return result
   }

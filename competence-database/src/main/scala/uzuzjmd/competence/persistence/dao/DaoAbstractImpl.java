@@ -34,7 +34,7 @@ public abstract class DaoAbstractImpl implements Dao {
      */
     public static <T extends Dao> Set<T> getAllInstances(Class<T> clazz) throws Exception {
         CompetenceNeo4jQueryManagerImpl queryManager = new CompetenceNeo4jQueryManagerImpl();
-        return queryManager.getAllCompetenceDaos(Label.valueOf(clazz.getSimpleName()),clazz);
+        return queryManager.getAllDaos(Label.valueOf(clazz.getSimpleName()),clazz);
     }
 
 

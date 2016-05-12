@@ -1,9 +1,10 @@
 package uzuzjmd.competence.service.rest;
 
-import scala.NotImplementedError;
-import scala.collection.immutable.List;
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
+import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
+import uzuzjmd.competence.evidence.service.moodle.MoodleEvidenceList;
+import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
@@ -14,6 +15,9 @@ import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -21,15 +25,37 @@ import javax.ws.rs.core.Response;
 @Path("/api1")
 public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
 
-    @Override
+    /**
+     * @param courseId the course the users are fetched for
+     * @param userName
+     * @param password
+     * @return
+     */
     @Path("/users")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getUsers(
+    public java.util.List<UserData> getUsers(
             @QueryParam("courseId") String courseId,
-            @QueryParam("role") String role) {
-        // get all users enroled in a certain course or with a certain role
-        throw new NotImplementedError();
+            @QueryParam("userName") String userName, @QueryParam("password") String password) throws Exception {
+        List<UserData> result = new ArrayList<>();
+        if (userName == null) {
+            throw new WebApplicationException("username must be set");
+        }
+        if (password == null) {
+            throw new WebApplicationException("password must be set");
+        }
+        SimpleMoodleService simpleMoodleService = new SimpleMoodleService(userName, password);
+        MoodleEvidenceList moodleEvidenceList = simpleMoodleService.getMoodleEvidenceList(courseId);
+        for (MoodleEvidence moodleEvidence : moodleEvidenceList) {
+            UserData userData = new UserData(moodleEvidence.getUserId(), moodleEvidence.getUsername(), courseId, "student", "moodle");
+            result.add(userData);
+        }
+        Set<User> allInstances = User.getAllInstances(User.class);
+        for (User allInstance : allInstances) {
+            UserData userData = new UserData(allInstance.getId(), allInstance.getPrintableName(), courseId, "student", "db");
+            result.add(userData);
+        }
+        return result;
     }
 
 
@@ -40,8 +66,9 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     public Response getUser(@PathParam("userId") String userId) throws Exception {
         User user = new User(userId);
         User result = user.getFullDao();
-        UserData data = new UserData(result.getId(), result.getPrintableName(), null, null);
+        UserData data = new UserData(result.getId(), result.getPrintableName(), null, null, null);
         return Response.status(200).entity(data).build();
+
     }
 
     @Override
@@ -57,7 +84,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         if (data.getRole() != null) {
             role = Role.valueOf(data.getRole());
         }
-        User user = new User(data.getUser(), role , data.getPrintableName(), new CourseContext(data.getCourseContext()));
+        User user = new User(data.getUser(), role, data.getPrintableName(), data.getLmsSystems(), new CourseContext(data.getCourseContext()));
         user.persist();
         return Response.ok("user added").build();
     }

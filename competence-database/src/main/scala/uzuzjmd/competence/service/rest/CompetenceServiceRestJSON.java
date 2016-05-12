@@ -132,7 +132,7 @@ public class CompetenceServiceRestJSON {
         CourseContext courseContextDao = new CourseContext(courseContext);
         courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
-                role, null);
+                role, null, null);
         User2Ont.convert(data);
         return Response.ok("user created").build();
     }
@@ -238,7 +238,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("courseContext") String courseContext,
             @PathParam("role") String role) {
         UserData userData = new UserData(user,
-                courseContext, role, null);
+                courseContext, role, null, null);
         User2Ont.convert(userData);
         CommentData commentData = new CommentData(System.currentTimeMillis(), linkId,
                 user, text, courseContext, role);

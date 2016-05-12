@@ -114,14 +114,17 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
      * @return
      * @throws Exception
      */
-    public <T extends Dao> Set<T> getAllCompetenceDaos(Label clazzLabel, Class<T> clazz) throws Exception {
+    public <T extends Dao> Set<T> getAllDaos(Label clazzLabel, Class<T> clazz) throws Exception {
         String query = "MATCH (a:" + clazzLabel.name() + ") return a.id";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
         Set<T> result2 = new HashSet<>();
         for (String s : result) {
             HashMap<String, String> props = new HashMap<String, String>();
             props.put("id", s);
-            result2.add((T) new Competence(s));
+            Dao r = clazz.newInstance();
+            r.setFullDao(props);
+            r = r.getFullDao();
+            result2.add((T) r);
         }
         return result2;
     }
