@@ -231,7 +231,8 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             }
         }
 
-        final Competence competence = this;
+        // TODO add if needed
+       /* final Competence competence = this;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -239,7 +240,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
                 SimilaritiesUpdater.updateSimilarCompetencies(competence);
             }
         });
-        t.start();
+        t.start();*/
         return this;
     }
 
@@ -250,5 +251,9 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
 
     public Set<Competence> listSubClasses() throws Exception {
         return (HashSet<Competence>) super.listSubClasses(getClass());
+    }
+
+    public void hideFor(User user) throws Exception {
+        createEdgeWith(Edge.HiddenFor, user);
     }
 }

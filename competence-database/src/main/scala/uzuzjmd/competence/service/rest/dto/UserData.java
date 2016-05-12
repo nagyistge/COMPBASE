@@ -1,13 +1,19 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A simple Wrapper class for a user, his courseContext and his role
  */
+@XmlRootElement
 public class UserData {
 	private String user;
 	private String courseContext;
 	private String role;
 	private String printableName;
+
+	public UserData() {
+	}
 
 	public UserData(String user, String printableName, String courseContext, String role) {
 		super();
