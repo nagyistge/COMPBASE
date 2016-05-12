@@ -48,7 +48,7 @@ class database {
 	}
 
 	public function newCampaign($name) {
-		$query= "INSERT INTO " . $this->props->overview . "(Name) VALUE ('" . $name . "')";
+		$query= "INSERT INTO " . $this->props->overview . "(Name, Count) VALUE ('" . $name . "', 0)";
 		$this->query($query);
 	}
 
@@ -79,6 +79,12 @@ class database {
 	public function loadVarSolrSum($camp) {
 		$query = "SELECT SUM(SolrScore) as SolrSumme, Lat, Lon, Variable FROM `" . $camp . "_" . $this->props->varMeta . "` WHERE Lat != -1 AND Lon != -1 GROUP BY Lat, Lon, Stichworte";
 		return $this->querySelect($query, $camp . "_" . $this->props->varMeta);
+	}
+	
+	public function deleteElement($elem, $camp) {
+		$query = "DELETE FROM " . $camp . "_" . $this->props->stichWort . " WHERE Id = \"" . $elem . "\"";
+		echo $query;
+		return $this->query($query);
 	}
 
 	private function querySelect($query, $table) {

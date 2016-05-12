@@ -45,6 +45,9 @@
 			$mysql_Result = $database->loadVarSolrSum($_POST['campaign']);
 			echo json_encode($mysql_Result);
 			break;
+		case "deleteElement":
+			$mysql_Result = $database->deleteElement($_POST['element'], $_POST['campaign']);
+			break;
 
 	}
 ?>

@@ -93,8 +93,20 @@ function displayData(isFile, path, camp) {
 					resObj = validateData(data);
 					convertDataToLayer(resObj, layer);
 					map.zoomToExtent(layer.getDataExtent());
+					fillMyLegend(resObj);
 				}
 		});
+	}
+}
+
+function fillMyLegend(data) {
+	if ($("#mapLegend").find("tr").length > 0 ) {
+		$("#mapLegend").find("tr").remove();
+	}
+	for (var i = 0; i < data.categoryList.length; i++) {
+		var td = "<tr><td><img src=\"icons/category" + (i + 1) + ".png\" /></td><td>" + data.categoryList[i].variable + "</td></tr>";
+		$("#mapLegend").append(td);
+
 	}
 }
 
