@@ -10,7 +10,6 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
 import uzuzjmd.competence.persistence.dao.User;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
 import uzuzjmd.competence.service.rest.dto.UserData;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
