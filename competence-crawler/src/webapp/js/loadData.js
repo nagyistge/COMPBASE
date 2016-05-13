@@ -10,13 +10,15 @@ var processIcons = [
 	"glyphicon-leaf",
 	"glyphicon-plane",
 	"glyphicon-ok",
-	"glyphicon-fire"
+	"glyphicon-fire",
+	"glyphicon-scissors",
 	];
 var colorPicker = [
 {back: "#0000FF", front: "#FFFFFF"},
 {back: "#FFFF00", front: "#000000"},
 {back: "#00FF40", front: "#000000"},
 {back: "#FF0000", front: "#FFFFFF"},
+{back: "#FFFF00", front: "#000000"},
 	];
 
 function loadJsonFile(filename) {
@@ -192,7 +194,12 @@ function loadCampaign(element) {
 	var elemStatus = processIcons.indexOf($(element).find(".glyphicon").attr("class").split(" ")[1])
 		if (elemStatus == 1) {
 			$("#fireButton").hide();
+			$("#cancelButton").show();
+		} else if (elemStatus == 4) {
+			$("#fireButton").hide();
+			$("#cancelButton").hide();
 		} else {
+			$("#cancelButton").hide();
 			$("#fireButton").show();
 		}
 		$.ajax("php/handleDb.php", {
@@ -267,7 +274,8 @@ function scoreStichToTab(scoreStich, group) {
 
 function fireInTheHole() {
 	$("#fireButton").hide();
-	$.ajax("http://localhost:8084/crawler/start?campaign=" + active, {
+	$("#cancelButton").show();
+	$.ajax(props["endpoints"]["crawler"] + "crawler/start?campaign=" + active, {
 		type:"post",
 		success: function (res) {
 			console.log(res);
@@ -290,5 +298,18 @@ function removeElement(element) {
 				console.log(res);
 				loadAndLock("#" + active);
 			}
+	});
+}
+
+function cancelTheThing() {
+	$("#cancelButton").hide();
+	$.ajax(props["endpoints"]["crawler"] + "crawler/stop?campaign=" + active, {
+		type:"post",
+		success: function (res) {
+			console.log(res);
+		},
+		error: function (res) {
+			console.log(res);
+		},
 	});
 }
