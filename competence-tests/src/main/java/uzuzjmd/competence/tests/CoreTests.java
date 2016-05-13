@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -89,12 +90,13 @@ public class CoreTests extends JerseyTest {
 
     @Test
     public void testGetCompetencesUserHasAcquired() {
-
-        // TODO // FIXME: 12.05.2016 
         String userEmail = "julian@stuff2.com";
         String courseName = "TestkursA";
         String courseId = "44";
+        HashMap<String, String> evidence = new HashMap<String, String>();
         String url = "http://hasstschegut, Gut gemacht"; // TODO refactor in two variables
+        evidence.put(url.split(",")[0], url.split(",")[1]);
+
 
         // create course context
         // creates a course for the test case which the competence is linked to
@@ -112,7 +114,7 @@ public class CoreTests extends JerseyTest {
 
         // create evidence
         // creates the evidence that the user rly has performed the competence
-        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, "student", userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), Arrays.asList(new String[]{url}), userData.getPrintableName());
+        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, "student", userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), evidence, userData.getPrintableName());
         Entity<EvidenceData> evidenceDataEntity = Entity.entity(evidenceData, APPLICATION_JSON);
 
 

@@ -41,6 +41,18 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     @Path("/evidences/{evidenceURL}/create")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
+        java.util.List<String> evidences = data.getEvidences();
+        if (evidences == null) {
+            throw new WebApplicationException("evidences are not provided");
+        }
+        if (evidences.isEmpty()) {
+            throw new WebApplicationException("evidences are not provided");
+        }
+        for (String evidence : evidences) {
+            if (!evidence.contains(",")) {
+                throw new WebApplicationException("evidences need to have the structure 'url,speakingname' or be provided as a hashmap" );
+            }
+        }
         return createEvidenceLink(evidenceURL, data);
     }
 
