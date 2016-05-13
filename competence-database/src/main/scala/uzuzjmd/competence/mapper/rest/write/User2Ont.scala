@@ -20,7 +20,7 @@ object User2Ont extends RoleConverter with WriteTransactional[UserData] {
     val creatorRole = convertRole(data.getRole);
     val courseContext = new CourseContext(data.getCourseContext);
     courseContext.persist();
-    val creator = new User(data.getUser, creatorRole, null, courseContext);
+    val creator = new User(data.getUser, creatorRole, null, null, courseContext);
     creator.persist();
   }
 }

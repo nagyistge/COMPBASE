@@ -1,6 +1,5 @@
 package uzuzjmd.competence.api;
 
-import scala.collection.immutable.List;
 import uzuzjmd.competence.service.rest.dto.UserData;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
@@ -12,21 +11,8 @@ import javax.ws.rs.core.Response;
  * Created by dehne on 15.04.2016.
  */
 public interface UserApi {
-    /**
-     * user is identified by email only.
-     * <p/>
-     * return all user resources is not possible at the time because of privacy reasons
-     *
-     * @param courseId
-     * @param role
-     * @return
-     */
-    @Path("/users")
-    @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    List<String> getUsers(
-            @QueryParam("courseId") String courseId,
-            @QueryParam("role") String role);
+
+
 
     /**
      * returns the full user with the id given.

@@ -11,16 +11,19 @@ public class UserData {
 	private String courseContext;
 	private String role;
 	private String printableName;
+	// the lms systems the user is enrolled in can be inclusive "moodle" < db < "mobile"
+	private String lmsSystems;
 
 	public UserData() {
 	}
 
-	public UserData(String user, String printableName, String courseContext, String role) {
+	public UserData(String user, String printableName, String courseContext, String role, String lmsSystems) {
 		super();
 		this.user = user;
 		this.courseContext = courseContext;
 		this.role = role;
 		this.printableName = printableName;
+		this.lmsSystems = lmsSystems;
 	}
 
 	public String getUser() {
@@ -49,5 +52,14 @@ public class UserData {
 
 	public String getPrintableName() {
 		return printableName;
+	}
+
+
+	public String getLmsSystems() {
+		return lmsSystems;
+	}
+
+	public void setLmsSystems(String lmsSystems) {
+		this.lmsSystems = lmsSystems;
 	}
 }

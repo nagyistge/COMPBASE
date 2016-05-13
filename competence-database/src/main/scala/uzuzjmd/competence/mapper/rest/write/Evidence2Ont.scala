@@ -21,9 +21,9 @@ object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter 
       for (competence <- data.getCompetences.asScala) {
         val courseContext = new CourseContext(data.getCourse);
         courseContext.persist();
-        val creatorUser = new User(data.getCreator, creatorRole, data.getPrintableUserName, courseContext);
+        val creatorUser = new User(data.getCreator, creatorRole, data.getPrintableUserName, null, courseContext);
         creatorUser.persist();
-        val linkedUserUser = new User(data.getLinkedUser, Role.student, data.getPrintableUserName, courseContext);
+        val linkedUserUser = new User(data.getLinkedUser, Role.student, data.getPrintableUserName, null, courseContext);
         linkedUserUser.persist();
         val evidenceActivity = new EvidenceActivity(evidence.split(",")(1), evidence.split(",")(0));
         evidenceActivity.persist()

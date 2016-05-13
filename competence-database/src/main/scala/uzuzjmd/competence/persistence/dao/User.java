@@ -11,15 +11,19 @@ import java.util.List;
 public class User extends AbstractUser {
     public Role role;
     public String printableName;
+    public String lmsSystem;
+
     public User(String id) {
         super(id);
     }
 
-    public User(String id, Role role, String printableName, CourseContext ... courseContexts) {
+
+    public User(String id, Role role, String printableName, String lmsSystem, CourseContext ... courseContexts) {
         super(id);
         this.role = role;
         this.printableName = printableName;
         this.courseContexts = Lists.newArrayList(courseContexts);
+        this.lmsSystem = lmsSystem;
     }
 
     public Role getRole() {
