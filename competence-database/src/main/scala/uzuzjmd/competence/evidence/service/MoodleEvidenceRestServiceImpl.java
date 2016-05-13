@@ -39,9 +39,9 @@ public class MoodleEvidenceRestServiceImpl extends
         initCache();
     }
 
-    /*public UserTree[] getCachedUserTree(String course) {
+    /*public UserTree[] getCachedUserTree(String courseId) {
         try {
-            return cacheImpl.get(course);
+            return cacheImpl.get(courseId);
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class MoodleEvidenceRestServiceImpl extends
                 .getMoodleEvidenceList(course).toArray(
                         new MoodleEvidence[0]);
         if (moodleEvidences.length == 0) {
-            logger.debug("could not load moodle evidences from upcompetence plugin for course: "
+            logger.debug("could not load moodle evidences from upcompetence plugin for courseId: "
                     + course);
         }
         MoodleContentResponseList listMoodleContent = this

@@ -1,7 +1,15 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
+
+@XmlRootElement
 public class EvidenceData {
+
+	public EvidenceData() {
+		printableUserName = null;
+	}
+
 	public String getPrintableUserName() {
 		return printableUserName;
 	}
@@ -24,7 +32,7 @@ public class EvidenceData {
 	 */
 	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, List<String> evidences, String printableUserName) {
 		super();
-		this.course = course;
+		this.courseId = course;
 		this.creator = creator;
 		this.role = role;
 		this.linkedUser = linkedUser;
@@ -33,14 +41,14 @@ public class EvidenceData {
 		this.printableUserName = printableUserName;
 	}
 
-	public String course;
+	private String courseId;
 
-	public String getCourse() {
-		return course;
+	public String getCourseId() {
+		return courseId;
 	}
 
-	public void setCourse(String course) {
-		this.course = course;
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public String getCreator() {

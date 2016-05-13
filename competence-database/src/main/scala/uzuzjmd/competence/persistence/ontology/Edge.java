@@ -22,17 +22,17 @@ public enum Edge {
     LearnerOf,
     /* groups a number of operators */
     MetaOperatorOf,
-    /*The course in the lms the competence belongs to (works with single lms so far)*/
+    /*The courseId in the lms the competence belongs to (works with single lms so far)*/
     CourseContextOfCompetence,
-    /*if the competence is compulsory to acquire in the course*/
+    /*if the competence is compulsory to acquire in the courseId*/
     CompulsoryOf,
     /*the comment of a evidence*/
     CommentOfEvidence,
     /* the comment of a competence*/
     CommentOfCompetence,
-    /* the comment of a course*/
+    /* the comment of a courseId*/
     CommentOfCourse,
-    /* the evidence link of the course context*/
+    /* the evidence link of the courseId context*/
     LinkOfCourseContext,
     /*The evidence relates to the user*/
     UserOfLink,
@@ -54,7 +54,7 @@ public enum Edge {
     SuggestedCompetencePrerequisiteOf,
     /*competences can be grouped by catchword and context to a learningproject*/
     LearningProjectTemplateOf,
-    /*Learning templates may be attached to a certain course*/
+    /*Learning templates may be attached to a certain courseId*/
     CourseContextOfSelectedLearningProjectTemplate,
     /*User may decide to adopt a learning project as his own (or be assigned)*/
     UserOfLearningProjectTemplate,
