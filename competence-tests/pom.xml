@@ -126,6 +126,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.jhades</groupId>
+            <artifactId>jhades-standalone-report</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
@@ -164,12 +170,7 @@
             <scope>test</scope>
         </dependency>-->
 
-        <dependency>
-            <groupId>org.jhades</groupId>
-            <artifactId>jhades</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-    </dependencies>
+        </dependencies>
 
 
 </project>

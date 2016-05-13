@@ -104,6 +104,12 @@ $(document).ready(function () {
 									<span class="">Im Prozess</span>
 								</li>
 								<li>
+									<span class="badge" style="background-color: #FFFF00">
+										<span class="glyphicon glyphicon-scissors" aria-hidden="true" style="color:#000000"></span>
+									</span> 
+									<span class="">Wird gestoppt</span>
+								</li>
+								<li>
 									<span class="badge" style="background-color: #00FF40">
 										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:#000000"></span>
 									</span> 
@@ -113,7 +119,7 @@ $(document).ready(function () {
 									<span class="badge" style="background-color: #FF0000">
 										<span class="glyphicon glyphicon-fire" aria-hidden="true" style="color:#FFFFFF"></span>
 									</span> 
-									<span class="">Fehler aufgetreten</span>
+									<span class="">Fehler aufgetreten / Prozess abgebrochen</span>
 								</li>
 								<li>
 									<span class="badge">
@@ -179,6 +185,9 @@ $(document).ready(function () {
 													</button>
 													<button id="fireButton" class="btn btn-success" onclick="fireInTheHole()">
 														<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+													</button>
+													<button id="cancelButton" class="btn btn-danger" onclick="cancelTheThing()">
+														<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
 													</button>
 												</td>
 											</tr>
