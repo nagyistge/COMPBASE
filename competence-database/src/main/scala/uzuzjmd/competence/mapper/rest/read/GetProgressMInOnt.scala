@@ -8,7 +8,7 @@ import uzuzjmd.competence.shared.dto.ProgressMap
  * @author jbe
  */
 
-object GetProgressMInOnt extends ReadTransactional[CourseData, ProgressMap] {
+object GetProgressMinOnt extends ReadTransactional[CourseData, ProgressMap] {
   def convert(changes: CourseData): ProgressMap = {
     return execute(convertGetProgressMInOnt _, changes)
   }

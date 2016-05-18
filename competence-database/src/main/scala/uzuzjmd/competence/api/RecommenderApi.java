@@ -47,9 +47,9 @@ public interface RecommenderApi {
     MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail);
 
     /**
-     * Get competences linked to (courseId) context. (the moodle course Id)
+     * Get competences linked to (courseId) context. (the moodle courseId Id)
      * <p/>
-     * Returns all the competences recommended for a course context.
+     * Returns all the competences recommended for a courseId context.
      *
      * @param courseId
      * @return
@@ -61,7 +61,7 @@ public interface RecommenderApi {
             @PathParam("courseId") String courseId) throws Exception;
 
     /**
-     * Get competences linked to (course) context.
+     * Get competences linked to (courseId) context.
      * <p/>
      * Returns all the courses linked to a certain competence as a suggestions
      *
@@ -97,7 +97,7 @@ public interface RecommenderApi {
     String[] getCompetencesForSuggestedActivity(@PathParam("activityId") String activityId) throws Exception;
 
     /**
-     * Deletes the link between the course and the given competence
+     * Deletes the link between the courseId and the given competence
      * @param competence
      * @param course
      * @return

@@ -1,7 +1,17 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+@XmlRootElement
 public class EvidenceData {
+
+	public EvidenceData() {
+		printableUserName = null;
+	}
+
 	public String getPrintableUserName() {
 		return printableUserName;
 	}
@@ -24,7 +34,7 @@ public class EvidenceData {
 	 */
 	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, List<String> evidences, String printableUserName) {
 		super();
-		this.course = course;
+		this.courseId = course;
 		this.creator = creator;
 		this.role = role;
 		this.linkedUser = linkedUser;
@@ -33,14 +43,43 @@ public class EvidenceData {
 		this.printableUserName = printableUserName;
 	}
 
-	public String course;
+	/**
+	 * This class provides a wrapper for the service
+	 * to exchange data necessary to like a competence to a user who has performed it.
+	 *
+	 * @param course      (the context of the acquirement)
+	 * @param creator     the user who created the link
+	 * @param role        the role of the user who created the link (can be either
+	 *                    "teacher" or "student")
+	 * @param linkedUser  the user who has acquired the competences
+	 * @param competences the competences acquired
+	 * @param evidences   the activities that stand as evidences in the form [url,
+	 *                    speakingname]
+	 *
+	 */
+	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, HashMap<String, String> evidences, String printableUserName) {
+		super();
+		this.courseId = course;
+		this.creator = creator;
+		this.role = role;
+		this.linkedUser = linkedUser;
+		this.competences = competences;
+		this.evidences = new ArrayList<>();
+		for (String s : evidences.keySet()) {
+			this.evidences.add(s + ","+ evidences.get(s));
+		}
 
-	public String getCourse() {
-		return course;
+		this.printableUserName = printableUserName;
 	}
 
-	public void setCourse(String course) {
-		this.course = course;
+	private String courseId;
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public String getCreator() {

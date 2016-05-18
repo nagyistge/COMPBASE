@@ -19,24 +19,49 @@ import java.util.ArrayList;
 /**
  * Created by dehne on 11.04.2016.
  */
-@Path("/api1/evidences")
+@Path("/api1")
 public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
+
+
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @GET
+    @Path("/evidences")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Boolean dummy() {
+        return true;
+    }
+
+
+
+
     @Override
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/{evidenceURL}/create")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/evidences/{evidenceURL}/create")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
+        java.util.List<String> evidences = data.getEvidences();
+        if (evidences == null) {
+            throw new WebApplicationException("evidences are not provided");
+        }
+        if (evidences.isEmpty()) {
+            throw new WebApplicationException("evidences are not provided");
+        }
+        for (String evidence : evidences) {
+            if (!evidence.contains(",")) {
+                throw new WebApplicationException("evidences need to have the structure 'url,speakingname' or be provided as a hashmap" );
+            }
+        }
         return createEvidenceLink(evidenceURL, data);
     }
 
 
     @Override
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
-    @Path("/{evidenceId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/evidences/{evidenceId}")
+    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data) {
         return createEvidenceLink(evidenceId, data);
     }
@@ -53,10 +78,10 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     }
 
     @Override
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/{evidenceId}/comments")
+    @Path("/evidences/{evidenceId}/comments")
     public Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData) {
         commentData.setLinkId(evidenceId);
         Comment2Ont.convert(commentData);
@@ -91,9 +116,10 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
 
     @Override
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/{evidenceId}/validate")
+    @Path("/evidences/{evidenceId}/validate")
     public Response validateLink(
             @PathParam("evidenceId") String evidenceId) {
         Boolean isValid = true;
@@ -101,9 +127,10 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     }
 
     @Override
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
-    @Path("/{evidenceId}/invalidate")
+    @Path("/evidences/{evidenceId}/invalidate")
     public Response inValidateLink(
             @PathParam("evidenceId") String evidenceId) {
         Boolean isValid = false;

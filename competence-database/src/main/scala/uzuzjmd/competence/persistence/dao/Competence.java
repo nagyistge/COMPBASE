@@ -2,7 +2,6 @@ package uzuzjmd.competence.persistence.dao;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
@@ -115,7 +114,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         List<Competence> prerequisites = getAssociatedDaosAsDomain(Edge.PrerequisiteOf, Competence.class);
         Boolean result = true;
         for (Competence prerequisite : prerequisites) {
-            result = result && prerequisite.hasEdge(user, Edge.UserHasPerformed);
+            result = result && prerequisite.hasEdge(user, Edge.UserHasEvidencedAllSubCompetences);
         }
         return result;
     }

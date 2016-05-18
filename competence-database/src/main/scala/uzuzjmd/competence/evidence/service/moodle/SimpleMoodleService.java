@@ -108,7 +108,7 @@ public class SimpleMoodleService {
             String courseId) {
         if (courseId == null
                 || courseId.equals("undefined")) {
-            String message = "courseId is null or undefined when getting Moodle evidences for course: "
+            String message = "courseId is null or undefined when getting Moodle evidences for courseId: "
                     + courseId;
             logger.error(message);
             throw new WebApplicationException(

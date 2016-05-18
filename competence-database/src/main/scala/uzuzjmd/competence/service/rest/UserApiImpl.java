@@ -27,7 +27,7 @@ import java.util.Set;
 public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
 
     /**
-     * @param courseId the course the users are fetched for
+     * @param courseId the courseId the users are fetched for
      * @param userName
      * @param password
      * @return

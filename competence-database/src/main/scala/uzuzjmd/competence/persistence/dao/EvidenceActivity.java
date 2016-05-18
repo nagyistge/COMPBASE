@@ -1,6 +1,5 @@
 package uzuzjmd.competence.persistence.dao;
 
-import scala.collection.immutable.List;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.CommentData;
 

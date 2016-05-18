@@ -12,7 +12,6 @@ import java.util.ArrayList;
 /**
  * Created by dehne on 15.04.2016.
  */
-@Path("/api1/evidences")
 public interface EvidenceApi {
     /**
      * Legacy implementation for browsers that do not support put
@@ -22,10 +21,7 @@ public interface EvidenceApi {
      *
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/{evidenceURL}/create")
-    @Produces(MediaType.APPLICATION_JSON)
+
     Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data);
 
     /**
@@ -34,10 +30,7 @@ public interface EvidenceApi {
      *
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @PUT
-    @Path("/{evidenceId}")
-    @Produces(MediaType.APPLICATION_JSON)
+
     Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data);
 
     /**
@@ -50,36 +43,27 @@ public interface EvidenceApi {
      *
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/{evidenceId}/comments")
+
     Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData);
 
     /**
      * Get all the comments for a  given evidence
+     *
      * @param evidenceId
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/{evidenceId}/comments")
+
     ArrayList<CommentData> getComments(@PathParam("evidenceId") String evidenceId);
 
 
     /**
      * delete the comments to a given evidence
+     *
      * @param evidenceId
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @DELETE
-    @Path("/{evidenceId}/comments")
+
     List<CommentData> deleteComments(@PathParam("evidenceId") String evidenceId);
-
-
 
 
     /**
@@ -94,9 +78,7 @@ public interface EvidenceApi {
      * @param evidenceId
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/{evidenceId}/validate")
+
     Response validateLink(
             @PathParam("evidenceId") String evidenceId);
 
@@ -112,37 +94,30 @@ public interface EvidenceApi {
      * @param evidenceId
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/{evidenceId}/invalidate")
+
     Response inValidateLink(
             @PathParam("evidenceId") String evidenceId);
 
 
-
     /**
      * get all the comment for the competence with the id given
+     *
      * @param evidenceId
      * @param commentId
      * @return
      */
-    @Path("/{evidenceId}/comments/{commentId}")
-    @GET
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
     CommentData getComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
 
 
     /**
      * get all the comment for the competence with the id given
+     *
      * @param evidenceId
      * @param commentId
      * @return
      */
-    @Path("/{evidenceId}/comments/{commentId}")
-    @DELETE
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response deleteComment(@PathParam("evidenceId") String evidenceId, @PathParam("commentId") String commentId);
-
 
 
 }

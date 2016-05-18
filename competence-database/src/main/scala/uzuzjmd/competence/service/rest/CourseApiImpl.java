@@ -51,7 +51,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
                 competence.addCourseContext(courseContext);
             }
         }
-        return Response.ok("course added").build();
+        return Response.ok("courseId added").build();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     public Response deleteCourse(@PathParam("courseId") String courseId) throws Exception {
         CourseContext courseContext = new CourseContext(courseId);
         courseContext.delete();
-        return Response.ok("course deleted").build();
+        return Response.ok("courseId deleted").build();
     }
 
     /**
@@ -75,7 +75,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     public Response deleteCourseLegacy(@PathParam("courseId") String courseId) throws Exception {
         CourseContext courseContext = new CourseContext(courseId);
         courseContext.delete();
-        return Response.ok("course deleted").build();
+        return Response.ok("courseId deleted").build();
     }
 
     /**
@@ -94,7 +94,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     }
 
     /**
-     * the method can only be accessed if the authentication of a user in that course is provided for reasons
+     * the method can only be accessed if the authentication of a user in that courseId is provided for reasons
      * of privacy.
      *
      * @param courseId
