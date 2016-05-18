@@ -62,7 +62,7 @@ public enum Edge {
     AssessmentOfUser,
     AssessmentOfCompetence,
     /* user has performed (fully) a competence*/
-    UserHasPerformed,
+    UserHasEvidencedAllSubCompetences,
     /*activities may be suggested for acompetence*/
     SuggestedActivityForCompetence,
     /*courses may be recommended for a user*/

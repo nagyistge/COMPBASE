@@ -362,7 +362,7 @@ public class CompetenceServiceRestJSON {
     public ProgressMap getProgressM(
             @PathParam("course") String course,
             @QueryParam("competences") List<String> selectedCompetences) {
-        return GetProgressMInOnt.convert(new CourseData(
+        return GetProgressMinOnt.convert(new CourseData(
                 course, selectedCompetences));
     }
 

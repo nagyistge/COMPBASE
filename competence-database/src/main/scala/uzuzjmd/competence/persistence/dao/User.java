@@ -61,6 +61,6 @@ public class User extends AbstractUser {
     }
 
     public void addCompetencePerformed(Competence a) throws Exception {
-        createEdgeWith(Edge.UserHasPerformed, a);
+        createEdgeWith(Edge.UserHasEvidencedAllSubCompetences, a);
     }
 }
