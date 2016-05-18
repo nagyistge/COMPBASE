@@ -19,7 +19,7 @@
 			$database->createTable($_POST['Name']);
 			break;
 		case "saveStichVarMeta":
-			$database->saveStichVarMeta($_POST['stich'], $_POST['vari'], $_POST['meta'], $_POST['campaign']);
+			$database->saveStichVarMeta($_POST['stich'], $_POST['vari'], $_POST['campaign']);
 			break;
 		case "loadStichVarMeta":
 			$mysql_Result = $database->loadStichVarMeta($_POST['campaign']);

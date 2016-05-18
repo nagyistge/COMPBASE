@@ -53,12 +53,12 @@ class database {
 	}
 
 	public function createTable($name) {
-		$query = "CREATE TABLE " . $name . "_" . $this->props->stichWort . " (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), Metavariable VARCHAR(50), PRIMARY KEY (Id))";
+		$query = "CREATE TABLE " . $name . "_" . $this->props->stichWort . " (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), PRIMARY KEY (Id))";
 		return $this->query($query);
 	}
 
-	public function saveStichVarMeta($stich, $var, $meta, $camp) {
-		$query = "INSERT INTO " . $camp . "_" . $this->props->stichWort . " (Stichwort, Variable, Metavariable) VALUE ('" . $stich . "', '" . $var . "', '" . $meta . "')";
+	public function saveStichVarMeta($stich, $var, $camp) {
+		$query = "INSERT INTO " . $camp . "_" . $this->props->stichWort . " (Stichwort, Variable) VALUE ('" . $stich . "', '" . $var . "')";
 		$this->query($query);
 	}
 	public function loadStichVarMeta($camp) {

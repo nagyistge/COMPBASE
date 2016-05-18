@@ -31,9 +31,8 @@ function addStichVar(element) {
 	if (element.id == "addr0") {
 		var stich = $("input[name='stich0']").val();
 		var vari = $("input[name='var0']").val();
-		var meta = $("input[name='meta0']").val();
 
-		varMetaElements.unshift({Stich: stich, Var: vari, Meta:meta});
+		varMetaElements.unshift({Stich: stich, Var: vari});
 		console.log(varMetaElements);
 
 		//save this element
@@ -44,7 +43,6 @@ function addStichVar(element) {
 				stich: stich,
 				props: JSON.stringify(props["database"]),
 				vari: vari,
-				meta: meta,
 				campaign: $("#addr0").attr("name")
 			},
 			success: function (res) {
@@ -62,8 +60,6 @@ function addStichVar(element) {
 		elementsToTab();
 		$("input[name='stich0']").val("");
 		$("input[name='var0']").val("");
-		$("input[name='meta0']").val("");
-
 	}
 }
 
@@ -104,7 +100,6 @@ function elementsToTab() {
 	for (var i = 0; i < varMetaElements.length; i++) {
 		$("#varMetaTable").append(
 				"<tr><td>" + varMetaElements[i].Id + "</td><td>" + varMetaElements[i].Stich + "</td><td>" + varMetaElements[i].Var + "</td>"
-				+ "<td>" + varMetaElements[i].Meta + "</td>"
 				+ "<td><button class=\"btn btn-danger\" onclick=\"removeElement($(this).parent().parent())\" >"
 				+ "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\" /> </button></td></tr>");
 	}
