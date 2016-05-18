@@ -25,7 +25,11 @@ function loadJsonFile(filename) {
 	$.ajax(filename, {
 		type:"get",
 		success: function(res) {
-			props = JSON.parse(res);
+			if (typeof res == "object") {
+				props = res;
+			} else {
+				props = JSON.parse(res);
+			}
 			initialLoad(1);
 		},
 	});
