@@ -25,7 +25,11 @@ function loadJsonFile(filename) {
 	$.ajax(filename, {
 		type:"get",
 		success: function(res) {
-			props = JSON.parse(res);
+			if (typeof res == "object") {
+				props = res;
+			} else {
+				props = JSON.parse(res);
+			}
 			initialLoad(1);
 		},
 	});
@@ -112,12 +116,24 @@ function campaignJsonToObject(json) {
 	var myCount = {}
 	for (var t = 0; t < countObj.length; t++) {
 		nameSplit = countObj[t].TABLE_NAME.split("_");
-		if (nameSplit.length > 1) {
+		if (nameSplit.length == 2) {
 			if (typeof myCount[nameSplit[0]] != "object") {
 				myCount[nameSplit[0]] = {}
 			}
 			myCount[nameSplit[0]][nameSplit[1]] = countObj[t].TABLE_ROWS;
 
+		} else if (nameSplit.length > 2) {
+			var newName = "";
+			for (var j = 0; j < nameSplit.length - 1; j++) {
+				newName += nameSplit[j];
+				if (j < nameSplit.length - 2) {
+					newName += "_";
+				}
+				if (typeof myCount[newName] != "object") {
+					myCount[newName] = {}
+				}
+				myCount[newName][nameSplit[nameSplit.length - 1]] = countObj[t].TABLE_ROWS;
+			}
 		}
 	}
 	console.log(myCount);
@@ -145,8 +161,6 @@ function campaignJsonToObject(json) {
 }
 
 function readyLoaded() {
-	//TODO vorladen des ersten Items
-	//TODO Menü auf die rechte Seite
 	loaded++;
 	if (loaded == LOADDATA) {
 		console.log("Loaded");
@@ -223,7 +237,7 @@ function loadCampaign(element) {
 				if ((stichworte.length > 0) && (stichworte != "\n")) {
 					var loadedCamp = JSON.parse(stichworte); 
 					for (var i = 0; i < loadedCamp.length; i++) {
-						varMetaElements.push({Id: loadedCamp[i].Id, Stich: loadedCamp[i].Stichwort, Var: loadedCamp[i].Variable, Meta: loadedCamp[i].Metavariable});
+						varMetaElements.push({Id: loadedCamp[i].Id, Stich: loadedCamp[i].Stichwort, Var: loadedCamp[i].Variable});
 					}
 				}
 				scoreStichToTab(scoreStich, this.invokedata.groupStich);
@@ -249,7 +263,9 @@ function loadCampaign(element) {
 	console.log(element);
 }
 function scoreVarToTab(scoreVar, group) {
-	$("#scoreVarTab").find("tr:gt(0)").remove();
+	if ($("#scoreVarTab").find("tr:gt(0)").length) {
+		$("#scoreVarTab").find("tr:gt(0)").remove();
+	}
 
 	if (scoreVar.length > 0) {
 		var loadedScoreVar = JSON.parse(scoreVar);
