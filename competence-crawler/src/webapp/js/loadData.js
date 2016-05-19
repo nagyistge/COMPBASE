@@ -161,8 +161,6 @@ function campaignJsonToObject(json) {
 }
 
 function readyLoaded() {
-	//TODO vorladen des ersten Items
-	//TODO Menü auf die rechte Seite
 	loaded++;
 	if (loaded == LOADDATA) {
 		console.log("Loaded");
