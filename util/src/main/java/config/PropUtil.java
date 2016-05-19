@@ -1,12 +1,15 @@
 package config;
 
-import java.io.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Properties;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 public class PropUtil {
 
@@ -40,7 +43,7 @@ public class PropUtil {
         }
         firstRun = false;
         InputStream inputStream = null;
-        if (_amServer()) {
+        try {
             // find file
             System.out.println("Trying to find the file in the WEB-INF/classes directory of the tomcat app");
             inputStream = Thread.currentThread()
@@ -51,7 +54,7 @@ public class PropUtil {
             } catch (IOException e) {
                 System.out.println("Error occured during searching for the the file " + propfFileName + " in the WEB-INF/classes directory of the tomcat app");
             }
-        } else {
+        } catch (Exception e1) {
             try {
                 //To know where the file is searched, uncomment the text below
                 System.out.println("Trying to find the " + propfFileName + " in the current classpath: \n" + Paths.get(".").toAbsolutePath().toString());
@@ -60,27 +63,29 @@ public class PropUtil {
                 prop.load(inputStream);
             } catch (FileNotFoundException e) {
                 try {
-                    findPropFileInAbsolutePaths();
-                } catch (Exception e1) {
+                    return findPropFileInAbsolutePaths();
+                } catch (Exception e2) {
                     e1.printStackTrace();
                 }
             } catch (IOException e) {
                 try {
-                    findPropFileInAbsolutePaths();
-                } catch (Exception e1) {
+                    return findPropFileInAbsolutePaths();
+                } catch (Exception e3) {
                     e1.printStackTrace();
                 }
             }
         }
+
         return prop;
+
 
     }
 
     public static Properties findPropFileInAbsolutePaths() throws Exception {
-        String[] pathsToCheck = new String[]{"~/competence-base/" + propfFileName, "C:/Users/dehne/competence-database/" + propfFileName, "/opt/up/competence-database/" + propfFileName};
+        String[] pathsToCheck = new String[]{"~/competence-base/" + propfFileName, "C:/Users/dehne/competence-database/" + propfFileName, "/opt/up/competence-database/" + propfFileName, "/opt/up/tomcat/7.0/webapps/competence-database-dev/WEB-INF/classes/" + propfFileName, };
         for (String s : pathsToCheck) {
             try {
-                System.out.println("Trying to find the " + propfFileName + " in the current classpath: \n" + Paths.get(".").toAbsolutePath().toString());
+                System.out.println("Trying to find the " + propfFileName + " in the current classpath: \n" + s);
                 FileInputStream inputStream = new FileInputStream(
                         propfFileName);
                 Properties prop = new Properties();
