@@ -16,8 +16,6 @@ public class MagicStrings {
 
 	public static final String MOODLEURL = PropUtil
 			.getProp("moodleURL");
-	public static final String webapplicationPath = PropUtil
-			.getProp("webapplicationPath");
 	//public static final String RESTURLCompetence = "http://172.20.10.10:8084";
 	public static final String RESTURLCompetence = "http://localhost:8084";
 	public static final String ICONPATHMOODLE = "icons/WindowsIcons-master/WindowsPhone/svg";
@@ -39,12 +37,12 @@ public class MagicStrings {
 	public static final String UNIVERSITIESDBNAME = PropUtil.getProp("universitiesDatabaseName");
 	public static final String UNIVERITIESINITTABLE= PropUtil.getProp("universitiesInitTable");
 
-	public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
-	public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
+	//public static final String crawlerOutputDirPath = PropUtil.getProp("crawlerOutputDirPath");
+	/*public static final String stichWortVarPath = crawlerOutputDirPath + "/stichUrl.csv";
 	public static final String varMetaPath = crawlerOutputDirPath + "/varMeta.csv";
 	public static final String dataPath = crawlerOutputDirPath + "/moodle_data.csv";
 	public static final String stichWortPath = crawlerOutputDirPath + "/stichVar.csv";
-
+*/
 	public static final String stichWortSuffix = PropUtil.getProp("stichWortSuffix");
 	public static final String varMetaSuffix = PropUtil.getProp("varMetaSuffix");
 	public static final String minPercentile = PropUtil.getProp("minPercentile");

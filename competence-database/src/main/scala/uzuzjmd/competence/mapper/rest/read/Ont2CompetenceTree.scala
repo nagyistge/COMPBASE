@@ -14,7 +14,7 @@ import scala.collection.JavaConverters._
 object Ont2CompetenceTree extends Logging{
 
   val neo4jqueryManager = DBFactory.getDB;
-  val iconRootPath = MagicStrings.webapplicationPath
+  val iconRootPath = "nvm"
   val iconPathCompetence = iconRootPath + "/icons/competence.png"
   val iconPathOperator = iconRootPath + "/icons/filter.png"
   val iconPathCatchword = iconRootPath + "/icons/filter.png"
