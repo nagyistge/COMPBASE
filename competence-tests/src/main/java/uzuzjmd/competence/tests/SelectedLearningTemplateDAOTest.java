@@ -1,152 +1,110 @@
 package uzuzjmd.competence.tests;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.LoggingFilter;
-import org.junit.AfterClass;
+
+import org.apache.xerces.impl.dv.dtd.ENTITYDatatypeValidator;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import uzuzjmd.competence.main.RestServer;
-import uzuzjmd.competence.shared.*;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
+import uzuzjmd.competence.service.rest.*;
+import uzuzjmd.competence.shared.Assessment;
+import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
+import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
 
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import javax.ws.rs.core.Response;
 
-public class SelectedLearningTemplateDAOTest {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-	private final static String user = "xunguyen";
+public class SelectedLearningTemplateDAOTest extends JerseyTest {
 
-	public static Thread t = new Thread(new Runnable() {
-		public void run() {
-			try {
-				RestServer.startServer();
-			} catch (IOException e) {
-			} catch (URISyntaxException e) {
-			}
-		}
-	});
+    private final static String user = "xunguyen";
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		t.start();
-	}
-	private void createTestUser() {
-		Client client = Client.create();
-		client.addFilter(new LoggingFilter(System.out));
-		WebResource webResource = client.resource("http://localhost:8084"
-				+ "/competences/user/create/" + user + "/teacher");
+    @Override
+    protected javax.ws.rs.core.Application configure() {
+        DBInitializer.init();
+        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, CompetenceServiceRestJSON.class);
+    }
 
-		try {
-			webResource.queryParam("groupId", "user")
-					.accept(MediaType.APPLICATION_JSON).post();
-		} finally {
-			client.destroy();
-		}
-	}
 
-	@AfterClass
-	public static void tearDown() {
-		t.stop();
-	}
+    @Test
+    public void createTestUser() {
+        Response post = target("/competences/user/create/" + user + "/teacher").queryParam("groupId", "user").request(MediaType.APPLICATION_JSON).post(Entity.json(null));
+        assertTrue(post.getStatus() == 200);
 
-	@Test
-	public void testSelectTemplate() throws InterruptedException {
-		Thread.sleep(400l);
-		createTestUser();
-		Client client = com.sun.jersey.api.client.Client.create();
-		client.addFilter(new LoggingFilter(System.out));
-		WebResource webResource = client.resource("http://localhost:8084"
-				+ "/competences/learningtemplates/selected/add");
-		System.out.println("FETCHING FROM_: " + webResource.getURI());
-		try {
+    }
 
-			webResource.queryParam("userId", user)
-					.queryParam("groupId", "user")
-					.queryParam("selectedTemplate", LearningTemplateDaoTest.learningTemplateName)
-					.type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML)
-					.post();
-		} finally {
-			client.destroy();
-		}
-	}
 
-	/**
-	 * tests that interface does not through exception may not return data if
-	 * user has not previously selected learning templates for himself to learn
-	 */
-	@Test
-	public void testSelectedTemplates() throws InterruptedException {
-		testSelectTemplate();
-		Client client = com.sun.jersey.api.client.Client.create();
-		client.addFilter(new LoggingFilter(System.out));
-		WebResource webResource = client.resource("http://localhost:8084"
-				+ "/competences/learningtemplates/selected");
-		System.out.println("FETCHING FROM_: " + webResource.getURI());
-		StringList result = null;
-		try {
+    @Test
+    public void testSelectTemplate() throws InterruptedException {
+        createTestUser();
+        Response post = target("/competences/learningtemplates/selected/add").queryParam("userId", user)
+                .queryParam("groupId", "user")
+                .queryParam("selectedTemplate", LearningTemplateDaoTest.learningTemplateName).request(MediaType.APPLICATION_XML)
+                .post(null);
+        assertTrue(post.getStatus() == 200);
 
-			result = webResource.queryParam("userId", user)
-					.queryParam("groupId", "user")
-					.accept(MediaType.APPLICATION_XML).get(StringList.class);
-		} finally {
-			client.destroy();
-		}
-		Assert.assertNotNull(result);
-	}
-	
-	@Test
-	public void testUpdateReflexion() throws InterruptedException {
-		// setup data
-		testSelectedTemplates();
-		LearningTemplateDaoTest learningTemplateDaoTest = new LearningTemplateDaoTest();
-		learningTemplateDaoTest.initTestGraph();
-		learningTemplateDaoTest.testCreateTemplateWithGraph();
-		SuggestedCompetenceGrid result = testFetchingGrid();
-		Assert.assertNotNull(result);
-		testSendingNewGrid(result);
-	}
+    }
 
-	private SuggestedCompetenceGrid testFetchingGrid() {
-		Client client1 = Client.create();
-		WebResource webResource2 = client1.resource("http://localhost:8084/competences/learningtemplates/gridview");
-		SuggestedCompetenceGrid result = null;
-		try {
-			result = webResource2
-					.queryParam("userId", user)
-					.queryParam("groupId","user")
-					.queryParam("selectedTemplate", LearningTemplateDaoTest.learningTemplateName)
-					.accept(MediaType.APPLICATION_XML)
-					.get(SuggestedCompetenceGrid.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			client1.destroy();
-		}
-		return result;
-	}
+    /**
+     * tests that interface does not through exception may not return data if
+     * user has not previously selected learning templates for himself to learn
+     */
+    @Test
+    public void testSelectedTemplates() throws InterruptedException {
+        testSelectTemplate();
+        WebTarget target = target("/competences/learningtemplates/selected");
 
-	private void testSendingNewGrid(SuggestedCompetenceGrid result) {
-		System.out.println(result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceRowHeader());
+        StringList result = target.queryParam("userId", user)
+                .queryParam("groupId", "user").request()
+                .accept(MediaType.APPLICATION_XML).get(StringList.class);
 
-		ReflectiveAssessmentsListHolder holder = result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceColumns().get(0).getReflectiveAssessmentListHolder();
-		holder.getReflectiveAssessmentList().get(0).setIsLearningGoal(true);
-		holder.getReflectiveAssessmentList().get(0).setAssessment(new Assessment().getItems().get(1));
-		System.out.println("updating: " + holder.getSuggestedMetaCompetence());
+        assertFalse(result.getData().isEmpty());
+        Assert.assertNotNull(result);
+    }
 
-		Client client = Client.create();
-		client.addFilter(new LoggingFilter(System.out));
-		WebResource webResource = client.resource("http://localhost:8084/competences/learningtemplates/gridview/update");
-		try {
-			 webResource
-					.queryParam("userId", user)
-					.queryParam("groupId", "user")
-					.post(holder);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			client.destroy();
-		}
-	}
+    @Test
+    public void testUpdateReflexion() throws InterruptedException {
+        // setup data
+        testSelectedTemplates();
+        LearningTemplateDaoTest learningTemplateDaoTest = new LearningTemplateDaoTest();
+        learningTemplateDaoTest.initTestGraph();
+        learningTemplateDaoTest.testCreateTemplateWithGraph();
+        SuggestedCompetenceGrid result = testFetchingGrid();
+        Assert.assertNotNull(result);
+        testSendingNewGrid(result);
+    }
+
+
+    private SuggestedCompetenceGrid testFetchingGrid() {
+        WebTarget target = target("/competences/learningtemplates/gridview");
+        SuggestedCompetenceGrid result = target
+                    .queryParam("userId", user)
+                    .queryParam("groupId", "user")
+                    .queryParam("selectedTemplate", LearningTemplateDaoTest.learningTemplateName).request()
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(SuggestedCompetenceGrid.class);
+        return result;
+    }
+
+    private void testSendingNewGrid(SuggestedCompetenceGrid result) {
+        System.out.println(result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceRowHeader());
+
+        ReflectiveAssessmentsListHolder holder = result.getSuggestedCompetenceRows().get(0).getSuggestedCompetenceColumns().get(0).getReflectiveAssessmentListHolder();
+        holder.getReflectiveAssessmentList().get(0).setIsLearningGoal(true);
+        holder.getReflectiveAssessmentList().get(0).setAssessment(new Assessment().getItems().get(1));
+        System.out.println("updating: " + holder.getSuggestedMetaCompetence());
+
+        WebTarget target = target("/competences/learningtemplates/gridview/update");
+        Response post = target.queryParam("userId", user)
+                .queryParam("groupId", "user").request()
+                .post(Entity.entity(holder, MediaType.APPLICATION_JSON));
+        assertTrue(post.getStatus() == 200);
+
+    }
 }

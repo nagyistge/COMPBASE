@@ -22,6 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * This needs running RestServer in order to work
+ */
 public class LearningTemplateDaoTest {
 
 	public static final String LABELNAME = "SuggestedCompetencePrerequisite";
