@@ -4,6 +4,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 import uzuzjmd.competence.api.EvidenceApi;
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
@@ -35,7 +36,7 @@ public class CoreTests extends JerseyTest {
     @Override
     protected javax.ws.rs.core.Application configure() {
         DBInitializer.init();
-        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class);
+        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, EvidenceServiceRestServerImpl.class);
     }
 
     @Test
@@ -56,6 +57,18 @@ public class CoreTests extends JerseyTest {
         Thread.sleep(3000l);
 //        java.util.List<String> result = target("/api1/competences/semblances/"+competenceString).request().get(java.util.List.class);
 //        assertTrue(result.contains(competenceString2));
+    }
+
+    //@Test
+    public void testLogin() {
+        String response = target("/lms/user/exists").queryParam("user", "dehne").queryParam("password", "####").queryParam("lmsSystem", "moodle").request().get(String.class);
+        assertTrue(response.equals("true"));
+    }
+
+    @Test
+    public void lmsSystems() {
+        List response = target("/lms/systems").request().get(List.class);
+        assertFalse(response.isEmpty());
     }
 
 
