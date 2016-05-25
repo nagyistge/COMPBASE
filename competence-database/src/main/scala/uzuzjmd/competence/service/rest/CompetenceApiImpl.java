@@ -38,6 +38,8 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
      *
+     * courseId  null should be at least 'university' as default"
+     *
      * @param selectedCatchwords
      * @param selectedOperators
      * @param textFilter
