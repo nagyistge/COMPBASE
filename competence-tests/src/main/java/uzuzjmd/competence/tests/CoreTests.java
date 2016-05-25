@@ -61,9 +61,17 @@ public class CoreTests extends JerseyTest {
 
     //@Test
     public void testLogin() {
-        String response = target("/lms/user/exists").queryParam("user", "dehne").queryParam("password", "####").queryParam("lmsSystem", "moodle").request().get(String.class);
+        String response = target("/lms/user/exists").queryParam("user", "dehne").queryParam("password", "000").queryParam("lmsSystem", "moodle").request().get(String.class);
         assertTrue(response.equals("true"));
     }
+
+
+    @Test
+    public void testLoginApi1() {
+        String response = target("/api1/users/dehne/exists").queryParam("password", "###").request().get(String.class);
+        assertTrue(response.equals("true"));
+    }
+
 
     @Test
     public void lmsSystems() {

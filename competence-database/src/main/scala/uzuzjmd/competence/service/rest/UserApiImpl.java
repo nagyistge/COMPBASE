@@ -1,6 +1,7 @@
 package uzuzjmd.competence.service.rest;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
+import uzuzjmd.competence.evidence.service.EvidenceService;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidenceList;
@@ -134,8 +135,10 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Boolean checksIfUserExists(@PathParam("userId") String userId, @QueryParam("password") String password) {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
-        MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
-        return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);
+        /*MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
+        return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);*/
+        EvidenceServiceRestServerImpl evidenceServiceRestServer = new EvidenceServiceRestServerImpl();
+        return evidenceServiceRestServer.exists(userId, password, "moodle", null);
     }
 
     @Path("/users/{userId}/competences")
