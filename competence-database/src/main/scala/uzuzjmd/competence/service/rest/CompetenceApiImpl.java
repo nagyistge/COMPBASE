@@ -1,6 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
 import edu.stanford.nlp.trees.GrammaticalRelation;
+import org.apache.zookeeper.proto.ErrorResponse;
+import org.glassfish.jersey.internal.Errors;
 import uzuzjmd.competence.comparison.verification.CompetenceVerifierFactory;
 import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
@@ -22,6 +24,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+
+import static org.glassfish.jersey.internal.Errors.*;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -48,9 +52,12 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                                    @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
                                    @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId) {
-
         if (course == null) {
-            throw new WebApplicationException("courseId  null should be at least 'university' as default");
+            WebApplicationException ex = new WebApplicationException(new Exception("courseId  null should be at least 'university' as default"));
+            return Response.status(400)
+                    .entity(ex)
+                    .type(MediaType.APPLICATION_JSON).
+                            build();
         }
 
         CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId, asTree, rootCompetence);
