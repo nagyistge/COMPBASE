@@ -1,13 +1,12 @@
 package uzuzjmd.competence.tests;
 
-import de.unipotsdam.anh.dao.LearningTemplateDao;
-
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uzuzjmd.competence.main.RestServer;
+import uzuzjmd.competence.reflexion.dao.LearningTemplateDao;
 import uzuzjmd.competence.shared.DESCRIPTORType;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.Graph;
