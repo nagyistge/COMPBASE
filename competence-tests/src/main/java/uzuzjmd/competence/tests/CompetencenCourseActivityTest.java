@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.WebResource;
 import de.unipotsdam.anh.dao.ActivityDao;
 import de.unipotsdam.anh.dao.CourseDao;
 
+// TODO rewrite this as jersey test
 public class CompetencenCourseActivityTest {
 
     private static final String course = "15";

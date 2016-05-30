@@ -177,4 +177,11 @@ public class CoreTests extends JerseyTest {
         //assertFalse(get.isEmpty());
 
     }
+
+    @Test
+    public void getUserAssessments() {
+        String userEmail = "";
+        String courseId = "";
+        Object get = target("/api1/users/" + userEmail + "/assessments").queryParam("courseId", courseId) .queryParam("courseIdOptional", null).request().get(Object.class);
+    }
 }
