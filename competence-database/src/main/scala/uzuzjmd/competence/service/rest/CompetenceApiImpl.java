@@ -78,6 +78,13 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data) {
         data.setForCompetence(competenceId);
+        if (data.getSubCompetences() == null) {
+            data.setSubCompetences(new ArrayList<String>());
+        }
+
+        if (data.getSuperCompetences() == null) {
+            data.setSuperCompetences(new ArrayList<String>());
+        }
         String resultMessage = Competence2Ont
                 .convert(data);
         return Response.ok(resultMessage).build();
