@@ -72,6 +72,10 @@ public class EvidenceData {
 		this.printableUserName = printableUserName;
 	}
 
+	public static EvidenceData instance(String course, String creator, String role, String linkedUser, List<String> competences, HashMap<String, String> evidences, String printableUserName) {
+		return new EvidenceData(course, creator, role, linkedUser, competences, evidences, printableUserName);
+	}
+
 	private String courseId;
 
 	public String getCourseId() {
