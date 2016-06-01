@@ -3,8 +3,9 @@ package uzuzjmd.competence.mapper.rest.write
 import java.util
 
 import uzuzjmd.competence.logging.Logging
-import uzuzjmd.competence.persistence.dao.{EvidenceActivity, Competence, SelfAssessment, User}
-import uzuzjmd.competence.service.rest.dto.EvidenceData
+import uzuzjmd.competence.persistence.dao._
+import uzuzjmd.competence.persistence.ontology.Contexts
+import uzuzjmd.competence.service.rest.dto.{CommentData, EvidenceData}
 import uzuzjmd.competence.shared.dto.{CompetenceLinksView, AbstractAssessment, UserProgress}
 import uzuzjmd.competence.util.LanguageConverter
 import scala.collection.JavaConverters._
@@ -34,6 +35,7 @@ object UserProgress2Ont extends LanguageConverter with Logging{
   }
 
   def persistEvidences(input: CompetenceLinksView, competence: Competence)(user: User): Unit = {
+    // persist evidence links
     val evidence = new util.HashMap[String, String]() {
       {
         put(input.getEvidenceTitel, input.getEvidenceUrl);
@@ -48,6 +50,11 @@ object UserProgress2Ont extends LanguageConverter with Logging{
       evidence,
       user.getName)
     Evidence2Ont.writeLinkToDatabase(data)
+
+    // persist comments
+    val linkId = AbstractEvidenceLink.computeId(competence.getDefinition, input.getEvidenceUrl)
+    val commentData = input.getComments.asScala.map(x=>new CommentData(x.getCreated,linkId, x.getUserName, x.getCommentName, Contexts.university.toString, data.getRole))
+    commentData.foreach(Comment2Ont.convert)
 
   }
 }

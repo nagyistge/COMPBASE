@@ -61,9 +61,10 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
   }
 
   private def mapCommentToCommentEntry(input: Comment): CommentEntry = {
-    val fullComment = input.getFullDao().asInstanceOf[Comment];
-    val creatorName = fullComment.getCreator().getName
-    val result = new CommentEntry(creatorName, fullComment.getText, fullComment.getDateCreated)
+    if (input.getCreator == null) {
+      return null;
+    }
+    val result = new CommentEntry(input.getCreator.getId, input.getText, input.getDateCreated)
     return result
   }
 

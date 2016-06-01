@@ -16,6 +16,10 @@ public class AbstractEvidenceLink extends AbstractAbstractEvidenceLink implement
         super(id);
     }
 
+    public static final String computeId (String competence,String evidenceActivityUrl) {
+        return competence+evidenceActivityUrl;
+    }
+
     public AbstractEvidenceLink(User creator,
                                 User linkedUser,
                                 CourseContext courseContext,
@@ -24,7 +28,7 @@ public class AbstractEvidenceLink extends AbstractAbstractEvidenceLink implement
                                 Boolean isValidated,
                                 Competence competence,
                                 List<Comment> comments) {
-        super(competence.getId() + evidenceActivity.getId());
+        super(computeId(competence.getId(), evidenceActivity.getId()));
         this.creator = creator;
         this.linkedUser = linkedUser;
         this.courseContext = courseContext;
@@ -37,7 +41,10 @@ public class AbstractEvidenceLink extends AbstractAbstractEvidenceLink implement
 
 
 
-    public List<Comment> getComments() {
+    public List<Comment> getComments() throws Exception {
+        if (comments == null || comments.isEmpty()) {
+            comments = getAssociatedDaosAsRange(Edge.CommentOfEvidence, Comment.class);
+        }
         return comments;
     }
 
