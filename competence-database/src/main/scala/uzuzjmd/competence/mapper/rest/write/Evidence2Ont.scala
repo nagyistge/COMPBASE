@@ -16,6 +16,11 @@ object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter 
   }
 
   def linkCompetencesToJson(data: EvidenceData) {
+    if (data.getCreator == null) {
+      data.setCreator(data.getLinkedUser)
+    }
+
+
     val creatorRole = convertRole(data.getRole);
     for (evidence <- data.getEvidences().asScala) {
       for (competence <- data.getCompetences.asScala) {
@@ -29,10 +34,13 @@ object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter 
         evidenceActivity.persist()
         val competenceDao = new Competence(competence);
         competenceDao.persist
+
         val abstractEvidenceLink = new AbstractEvidenceLink(creatorUser,linkedUserUser, courseContext, evidenceActivity,System.currentTimeMillis(), false, competenceDao,
           null);
-        abstractEvidenceLink.persist();
-        linkedUserUser.addCompetencePerformed(competenceDao)
+        abstractEvidenceLink.persistMore();
+        if (competenceDao.listSubClasses().isEmpty) {
+          linkedUserUser.addCompetencePerformed(competenceDao)
+        }
       }
     }
   }

@@ -36,7 +36,7 @@ object UserProgress2Ont extends LanguageConverter with Logging{
   def persistEvidences(input: CompetenceLinksView, competence: Competence)(user: User): Unit = {
     val evidence = new util.HashMap[String, String]() {
       {
-        put(input.getEvidenceUrl, input.getEvidenceTitel);
+        put(input.getEvidenceTitel, input.getEvidenceUrl);
       }
     }
     val data = EvidenceData.instance(

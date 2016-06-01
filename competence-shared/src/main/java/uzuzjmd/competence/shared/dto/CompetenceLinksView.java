@@ -12,6 +12,7 @@ public class CompetenceLinksView {
 
 	public CompetenceLinksView() {
 		// TODO Auto-generated constructor stub
+		this.comments = new LinkedList<CommentEntry>();
 	}
 
 	public CompetenceLinksView(String abstractLinkId, String evidenceTitel,
@@ -20,7 +21,9 @@ public class CompetenceLinksView {
 		this.evidenceTitel = evidenceTitel;
 		this.evidenceUrl = evidenceUrl;
 		this.comments = new LinkedList<CommentEntry>();
-		this.comments.addAll(comments);
+		if (comments != null) {
+			this.comments.addAll(comments);
+		}
 
 		// for (CommentEntry commentEntry : comments) {
 		// comments.add(commentEntry);

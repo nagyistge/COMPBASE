@@ -61,7 +61,21 @@ public class CourseContext extends DaoAbstractImpl {
         return super.getFullDao();
     }
 
+    @Override
+    public Dao persist() throws Exception {
+        if (getPrintableName() == null) {
+            logger.warn("no printable Name for course given - better explicitly persist course first before using api that involes this course; setting id as name");
+            printableName = getId();
+        }
+        return super.persist();
+    }
+
     public String getPrintableName() {
         return this.printableName;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

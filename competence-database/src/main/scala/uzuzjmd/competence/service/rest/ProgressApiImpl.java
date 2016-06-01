@@ -37,7 +37,8 @@ public class ProgressApiImpl {
     @GET
     public UserCompetenceProgress getUserCompetenceProgress(@PathParam("userId") String userId, @PathParam("competenceId") String competenceId) throws Exception {
         checkUserExists(userId);
-        return Ont2UserProgress.convert(competenceId, userId);
+        UserCompetenceProgress result = Ont2UserProgress.convert(competenceId, userId);
+        return result;
     }
 
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
