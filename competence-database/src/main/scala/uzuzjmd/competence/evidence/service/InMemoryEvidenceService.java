@@ -26,7 +26,7 @@ public class InMemoryEvidenceService extends AbstractEvidenceService {
 	@Override
 	public UserTree[] getUserTree(String course, String lmsSystem, String organization, String username, String password) {
 		if (!courseUserTreeMap.containsKey(course)) {
-			throw new BadParameterException("course " + course + " wurde nicht in dem System " + lmsSystem + " gefunden");
+			throw new BadParameterException("courseId " + course + " wurde nicht in dem System " + lmsSystem + " gefunden");
 		}
 		return courseUserTreeMap.get(course);
 	}

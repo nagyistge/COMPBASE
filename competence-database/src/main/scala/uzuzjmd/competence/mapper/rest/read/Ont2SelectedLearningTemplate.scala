@@ -19,7 +19,7 @@ object Ont2SelectedLearningTemplate extends ReadTransactional[LearningTemplateDa
       changes.setGroupId("university")
     }
     val context = new CourseContext(changes.getGroupId);
-    val user = new User(changes.getUserName, Role.teacher, context);
+    val user = new User(changes.getUserName, Role.teacher, null, null, context);
     val learningTemplate = user.getAssociatedLearningProjectTemplateIds()
     return new StringList(learningTemplate)
   }

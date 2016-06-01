@@ -3,7 +3,7 @@ package uzuzjmd.competence.service.rest.dto;
 import java.util.List;
 
 /**
- * This class wraps a course, the linked competence and a number of prerequisites
+ * This class wraps a courseId, the linked competence and a number of prerequisites
  */
 public class PrerequisiteData {
 	private String course;

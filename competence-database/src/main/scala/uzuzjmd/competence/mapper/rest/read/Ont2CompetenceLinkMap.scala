@@ -35,7 +35,8 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
   private def getCompetenceLinkMap(user: String): CompetenceLinksMap = {
     val userDap = new User(user)
     if (!userDap.exists) {
-      return new CompetenceLinksMap
+      val result =  new CompetenceLinksMap
+      return result
     }
     val links = userDap.getAssociatedLinks.asScala
     val maps = links.map(link => (link -> link.getAllLinkedCompetences.asScala.map(x => x.getDefinition()).toList)).toMap

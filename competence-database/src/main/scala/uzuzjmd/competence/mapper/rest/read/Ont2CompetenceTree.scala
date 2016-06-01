@@ -14,7 +14,7 @@ import scala.collection.JavaConverters._
 object Ont2CompetenceTree extends Logging{
 
   val neo4jqueryManager = DBFactory.getDB;
-  val iconRootPath = MagicStrings.webapplicationPath
+  val iconRootPath = "nvm"
   val iconPathCompetence = iconRootPath + "/icons/competence.png"
   val iconPathOperator = iconRootPath + "/icons/filter.png"
   val iconPathCatchword = iconRootPath + "/icons/filter.png"
@@ -26,7 +26,7 @@ object Ont2CompetenceTree extends Logging{
     * @param filterData
     * @return
     */
-  def getOperatorXMLTree(filterData: CompetenceTreeFilterData): java.util.List[OperatorXMLTree] = {
+  def getOperatorXMLTree(filterData: CompetenceFilterData): java.util.List[OperatorXMLTree] = {
     val competenceLabel = classOf[Operator].getSimpleName;
     val f = convertNodeXMLTree (classOf[OperatorXMLTree]) _
     // TODO implement filter
@@ -39,18 +39,20 @@ object Ont2CompetenceTree extends Logging{
     * @param filterData
     * @return
     */
-  def getCatchwordXMLTree(filterData: CompetenceTreeFilterData): java.util.List[CatchwordXMLTree] = {
+  def getCatchwordXMLTree(filterData: CompetenceFilterData): java.util.List[CatchwordXMLTree] = {
     val competenceLabel = classOf[Catchword].getSimpleName;
     val f = convertNodeXMLTree (classOf[CatchwordXMLTree]) _
     // TODO implement filter
     return convertTree(competenceLabel, filterData, f(x=>true)(iconPathCatchword))
   }
 
-  def getCompetenceTree(filterData: CompetenceTreeFilterData): java.util.List[CompetenceXMLTree] = {
+  def getCompetenceTree(filterData: CompetenceFilterData): java.util.List[CompetenceXMLTree] = {
     val competenceLabel = classOf[Competence].getSimpleName;
     val f = convertNodeXMLTree (classOf[CompetenceXMLTree]) _
     return convertTree(competenceLabel, filterData, f(competenceNodeFilter (filterData)(_))(iconPathCompetence))
   }
+
+
 
   /**
     * filters the result from the database and converts it into pairs of the subclass triples
@@ -60,7 +62,7 @@ object Ont2CompetenceTree extends Logging{
     * @tparam T
     * @return
     */
-  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, filterData: CompetenceTreeFilterData, f: (Node) => T) : java.util.List[T] = {
+  def convertTree[T <: AbstractXMLTree[T]](competenceLabel: String, filterData: CompetenceFilterData, f: (Node) => T) : java.util.List[T] = {
     val nodesArray = neo4jqueryManager.getSubClassTriples(competenceLabel, filterData)
     val nodesArray2 = nodesArray.asScala.filterNot(_.isEmpty)
     val nodesArray3 = nodesArray2.map(x => new TreePair(x.get(1), x.get(0)))
@@ -92,7 +94,7 @@ object Ont2CompetenceTree extends Logging{
     return result
   }
 
-  def competenceNodeFilter (competenceFilterData : CompetenceTreeFilterData) (input : String) :  java.lang.Boolean = {
+  def competenceNodeFilter(competenceFilterData : CompetenceFilterData)(input : String) :  java.lang.Boolean = {
      val textCorrect = TextValidator.isValidText(input,competenceFilterData.getTextFilter)
      return textCorrect
   }

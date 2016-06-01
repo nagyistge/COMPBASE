@@ -80,7 +80,7 @@ public class MysqlConnector {
 
     public VereinfachtesResultSet queryStichwortTable(String table) throws NoResultsException {
         logger.debug("Entering queryDomain with domain:" + table);
-        String query = "Select * from " + table + "_Stichwort";
+        String query = "Select * from " + table + "_" + MagicStrings.stichWortSuffix;
         VereinfachtesResultSet result = connector.issueSelectStatement(query );
         if ((result == null) || (! result.isBeforeFirst()) ) {
             logger.debug("Leaving queryDomain with 0 fetches");
@@ -94,16 +94,16 @@ public class MysqlConnector {
     //Status: 0 = nothing done, 1 = work in progress, 2 = work done successfully, 3 = work aborted, because of reasons
     public void setCampaignStatus(String camp, int status) {
         logger.debug("Entering setCampaignStatus with camp:" + camp + ", status:" + String.valueOf(status));
-        String query = "UPDATE `Overview` SET Status=" + String.valueOf(status) + " WHERE Name=\""
+        String query = "UPDATE overview SET Status=" + String.valueOf(status) + " WHERE Name=\""
                 + camp +"\"";
         connector.issueUpdateStatement(query);
         logger.debug("Leaving setCampaignStatus");
 
     }
 
-    public boolean checkCampaignStatus (String camp) throws NoResultsException {
+    public int checkCampaignStatus (String camp) throws NoResultsException {
         logger.debug("Entering checkCampaignStatus with camp:" + camp);
-        boolean res;
+        int res;
         String query = "SELECT Status from overview where Name=\"" + camp + "\"";
         VereinfachtesResultSet result = connector.issueSelectStatement(query);
         if ((result == null) || (! result.isBeforeFirst()) ) {
@@ -111,7 +111,7 @@ public class MysqlConnector {
             throw new NoResultsException("No Results where fetched");
         }
         result.next();
-        res = result.getInt("Status") == 1;
+        res = result.getInt("Status");
         logger.debug("Leaving checkCampaignStatus with " + String.valueOf(res));
         return res;
     }

@@ -13,7 +13,7 @@ public interface EvidenceService {
 	 * 
 	 * Gets the (possible) activities of the user in the given System.
 	 * 
-	 * Get all the activities of this user in given the context (may be course
+	 * Get all the activities of this user in given the context (may be courseId
 	 * id or group id)
 	 * 
 	 * It produces a xml structure which shows which user could do which
@@ -59,7 +59,7 @@ public interface EvidenceService {
 	 * 
 	 * Gets the (possible) activities of the user in the given System.
 	 * 
-	 * Get all the activities of this user in given the context (may be course
+	 * Get all the activities of this user in given the context (may be courseId
 	 * id or group id)
 	 * 
 	 * It produces a xml structure which shows which user could do which

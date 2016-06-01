@@ -64,9 +64,7 @@ public class CompetenceLinksView {
 		return abstractLinkId;
 	}
 
-	public void setAbstractLinkId(String abstractLinkId) {
-		this.abstractLinkId = abstractLinkId;
-	}
+
 
 	public int compareTo(Object arg0) {
 		CompetenceLinksView toCompare = (CompetenceLinksView) arg0;

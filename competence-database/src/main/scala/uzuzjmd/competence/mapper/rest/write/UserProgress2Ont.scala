@@ -16,15 +16,15 @@ import scala.collection.mutable
   */
 object UserProgress2Ont extends LanguageConverter with Logging{
 
-  def convert(input: UserProgress, user: User, creator: User = new User("not given")): Unit = {
+  def convert(input: UserProgress, user: User): Unit = {
     val selfAssessments: mutable.Buffer[(mutable.Buffer[AbstractAssessment], Competence)] = input.getUserCompetenceProgressList.asScala.map(x => (x.getAbstractAssessment.asScala, new Competence(x.getCompetence)))
     val evidences: mutable.Buffer[(Array[CompetenceLinksView], Competence)] = input.getUserCompetenceProgressList.asScala.map(x => (x.getCompetenceLinksView, new Competence(x.getCompetence)))
-    selfAssessments.foreach(x => x._1.foreach(persistSelfAssessments(_, x._2)(user, creator)))
-    evidences.foreach(x => x._1.foreach(persistEvidences(_, x._2)(user, creator)))
+    selfAssessments.foreach(x => x._1.foreach(persistSelfAssessments(_, x._2)(user)))
+    evidences.foreach(x => x._1.foreach(persistEvidences(_, x._2)(user)))
     logger.debug("progress updated")
   }
 
-  def persistSelfAssessments(input: AbstractAssessment, competence: Competence)(user: User, creator: User): Unit = {
+  def persistSelfAssessments(input: AbstractAssessment, competence: Competence)(user: User): Unit = {
     val assessmentIndex = input.getAssessmentIndex
     val assessment = competence.getAssessment(user)
     assessment.setAssessmentIndex(assessmentIndex)
@@ -33,7 +33,7 @@ object UserProgress2Ont extends LanguageConverter with Logging{
     assessment.persist()
   }
 
-  def persistEvidences(input: CompetenceLinksView, competence: Competence)(user: User, creator: User): Unit = {
+  def persistEvidences(input: CompetenceLinksView, competence: Competence)(user: User): Unit = {
     val evidence = new util.HashMap[String, String]() {
       {
         put(input.getEvidenceUrl, input.getEvidenceTitel);
@@ -41,7 +41,7 @@ object UserProgress2Ont extends LanguageConverter with Logging{
     }
     val data = EvidenceData.instance(
       "university",
-      creator.getId,
+      null,
       "teacher",
       user.getId,
       (competence.getDefinition :: Nil).asJava,

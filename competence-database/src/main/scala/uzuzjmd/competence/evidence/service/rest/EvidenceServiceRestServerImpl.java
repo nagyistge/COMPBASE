@@ -57,7 +57,7 @@ public class EvidenceServiceRestServerImpl implements
             @QueryParam("password") String password) {
         user = checkLoginisEmail(user);
         logger.debug("start query activities for user "
-                + user + " and course " + course);
+                + user + " and courseId " + course);
         UserTree[] result = evidenceService.getUserTree(
                 course, lmsSystem, organization, user,
                 password);
@@ -109,7 +109,7 @@ public class EvidenceServiceRestServerImpl implements
         }
 
         logger.debug("start query activities for user "
-                + user + " and course " + course);
+                + user + " and courseId " + course);
         user = checkLoginisEmail(user);
         UserTree[] result = evidenceService.getUserTree(
                 course, lmsSystem, organization, user,
@@ -119,7 +119,7 @@ public class EvidenceServiceRestServerImpl implements
         Response response = Response.status(200)
                 .entity(result).build();
         // Response response =
-        // Response.status(200).entity(moodleServiceImpl.getCachedUserTree(course)).build();
+        // Response.status(200).entity(moodleServiceImpl.getCachedUserTree(courseId)).build();
 
         return response;
     }
@@ -169,7 +169,7 @@ public class EvidenceServiceRestServerImpl implements
         return result;
     }
 
-    private String checkLoginisEmail(String username) {
+    public static String checkLoginisEmail(String username) {
         if (username.contains("@")) {
             username = username.split("@")[0];
         }
@@ -177,7 +177,7 @@ public class EvidenceServiceRestServerImpl implements
     }
 
     /**
-     * Add a course to the system (this only works if the the lms allows this). Does not work for the moodle lms interface
+     * Add a courseId to the system (this only works if the the lms allows this). Does not work for the moodle lms interface
      *
      * @param user
      * @param usertree

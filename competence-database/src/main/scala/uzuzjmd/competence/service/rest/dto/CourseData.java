@@ -1,25 +1,46 @@
 package uzuzjmd.competence.service.rest.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * This wraps a pair of course and competences in order to exchange competences linked to a course
+ * This wraps a pair of courseId and competences in order to exchange competences linked to a courseId
  */
+@XmlRootElement
 public class CourseData {
-	private String course;
+	private String courseId;
+	private String printableName;
 	private List<String> competences;
-	
-	public CourseData(String course, List<String> competences) {
-		this.course = course;
+
+	public CourseData() {
+	}
+
+	public CourseData(String courseId, String printableName, List<String> competences) {
+        super();
+		this.courseId = courseId;
+		this.printableName = printableName;
 		this.competences = competences;
 	}
 
-	public String getCourse() {
-		return course;
+	
+	public CourseData(String courseId, List<String> competences) {
+        super();
+		this.courseId = courseId;
+		this.competences = competences;
 	}
 
-	public void setCourse(String course) {
-		this.course = course;
+	public CourseData(String courseId, String printableName) {
+        super();
+		this.courseId = courseId;
+		this.printableName = printableName;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public List<String> getCompetences() {
@@ -29,5 +50,12 @@ public class CourseData {
 	public void setCompetences(List<String> competences) {
 		this.competences = competences;
 	}
-	
+
+	public String getPrintableName() {
+		return printableName;
+	}
+
+	public void setPrintableName(String printableName) {
+		this.printableName = printableName;
+	}
 }

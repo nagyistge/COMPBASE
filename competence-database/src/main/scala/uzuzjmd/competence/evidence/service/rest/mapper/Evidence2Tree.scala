@@ -26,7 +26,7 @@ case class Evidence2Tree(moodleResponses: MoodleContentResponseList, moodleEvide
   val pluralMap = modules.map(x => x.getModname() -> x.getModplural()).toMap.filterKeys(key => (!key.equals("competence")))
 
   def getUserTrees(): java.util.List[UserTree] = {
-    val groupedByUser = moodleEvidences.filterNot(x => x.getActivityTyp().equals("course")).groupBy(evidence => evidence.getUsername())
+    val groupedByUser = moodleEvidences.filterNot(x => x.getActivityTyp().equals("courseId")).groupBy(evidence => evidence.getUsername())
     val groupedByModAndMappedToPlural = groupedByUser.map(x => (x._1, x._2.groupBy(x => x.getActivityTyp()).map(y => (getValueFromMap(y._1)(pluralMap), y._2.map(z => z.getUrl()).distinct))))
     val testresult = groupedByModAndMappedToPlural.map(x => activityTypEntryMapToActivityTyp(x._2))
     val result = groupedByModAndMappedToPlural.map(x => new UserTree(x._1, "Benutzer", "http://icons.iconarchive.com/icons/artua/dragon-soft/16/User-icon.png", activityTypEntryMapToActivityTyp(x._2)))

@@ -1,6 +1,8 @@
 package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.shared.Assessment;
+import uzuzjmd.competence.shared.dto.AbstractAssessment;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -57,6 +59,10 @@ public class SelfAssessment extends AbstractSelfAssessment implements Cascadable
 
     public void addUserToAssessment(User user) throws Exception {
         createEdgeWith(Edge.AssessmentOfUser, user);
+    }
+
+    public AbstractAssessment toAbstractAssessment() {
+        return new AbstractAssessment("eposScale", this.getAssessmentIndex(), new Assessment().getItems());
     }
 
     @Override

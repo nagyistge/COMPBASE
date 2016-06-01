@@ -18,7 +18,7 @@ object DeleteTemplateInOnt extends WriteTransactional[LearningTemplateData] {
 
   def convertHelper(changes: LearningTemplateData): Unit = {
     //val context = new CourseContext(changes.getGroupId);
-    val user = new User(changes.getUserName, Role.teacher);
+    val user = new User(changes.getUserName);
     val learningTemplate = new LearningProjectTemplate(changes.getSelectedTemplate)
     learningTemplate.deleteEdgeWith(user, Edge.UserOfLearningProjectTemplate)
   }

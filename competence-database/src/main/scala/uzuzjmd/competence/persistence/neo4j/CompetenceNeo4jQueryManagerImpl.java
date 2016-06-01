@@ -1,16 +1,12 @@
 package uzuzjmd.competence.persistence.neo4j;
 
-import neo4j.Neo4JQueryManagerImpl;
 import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
 import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
-import uzuzjmd.competence.service.rest.dto.CompetenceTreeFilterData;
+import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dehne on 24.02.2016.
@@ -22,6 +18,21 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         issueNeo4JRequestStrings(query);
 
     }
+
+    public void createRelationShipWithWeight(String domainId, Edge edge, String rangeId, Double weight) throws Exception {
+        logger.info("calling create relationship with" + domainId + " " + edge + " " + rangeId+ weight);
+        String deleteQuery = "MATCH (n{id:'"+domainId+"'})-[old:" + edge.toString() + "{weight:'"+weight+"'}]->(n2{id:'"+rangeId+"'}) DELETE old";
+        issueNeo4JRequestStrings(deleteQuery);
+        String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "{weight:'"+weight+"'}]->(n2) return n,r,n2";
+        issueNeo4JRequestStrings(query);
+    }
+
+    public ArrayList<String> getClosestEdges(String domainId, Edge edge) throws Exception {
+        String query = "MATCH (n {id:'" + domainId + "'})-[r:" + edge.toString()+ "]->(n2)  return n2.id ORDER BY (r.weight) LIMIT 10";
+        return issueNeo4JRequestStrings(query);
+    }
+
+
 
 
     public void deleteNode(String id) throws Exception {
@@ -96,6 +107,26 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         String query = "MATCH (a:" + clazz.name() + ") return a.id";
         ArrayList<String> result = issueNeo4JRequestStrings(query);
         return result;
+    }
+
+    /**
+     * @param clazz
+     * @return
+     * @throws Exception
+     */
+    public <T extends Dao> Set<T> getAllDaos(Label clazzLabel, Class<T> clazz) throws Exception {
+        String query = "MATCH (a:" + clazzLabel.name() + ") return a.id";
+        ArrayList<String> result = issueNeo4JRequestStrings(query);
+        Set<T> result2 = new HashSet<>();
+        for (String s : result) {
+            HashMap<String, String> props = new HashMap<String, String>();
+            props.put("id", s);
+            Dao r = clazz.newInstance();
+            r.setFullDao(props);
+            r = r.getFullDao();
+            result2.add((T) r);
+        }
+        return result2;
     }
 
     /**
@@ -193,21 +224,27 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
      * @param label
      * @return
      */
-    public List<ArrayList<String>> getSubClassTriples(String label, CompetenceTreeFilterData filterData) throws Exception {
+    public List<ArrayList<String>> getSubClassTriples(String label, CompetenceFilterData filterData) throws Exception {
         String courseId = filterData.getCourse();
         List<String> operators = filterData.getSelectedOperatorsArray();
         List<String> catchwords = filterData.getSelectedCatchwordArray();
         String futherMatches = "";
+        String hiddenQuestion = "";
         for (String catchword : catchwords) {
             futherMatches += "MATCH (c:Catchword{id:'" + catchword + "'})-[r33:CatchwordOf]->(p)";
         }
         for (String operator : operators) {
             futherMatches += "MATCH (c:Operator{id:'" + operator + "'})-[r44:OperatorOf]->(p)";
         }
+        if (filterData.getUserId() != null && !filterData.getUserId().equals("")) {
+            futherMatches += "MATCH (p)-[r32:HiddenFor]->(u:User{id:'" + filterData.getUserId() + "'})";
+            hiddenQuestion += " WHERE r32 is null ";
+        }
+
         if (filterData.getRootCompetence() != null) {
             futherMatches += "MATCH (p:" + label + ")-[:subClassOf*1..5]->(z:" + label + "{id:'" + filterData.getRootCompetence() + "'})";
         }
-        String query = "MATCH tree = (p:" + label + ")-[:subClassOf*1..5]->(c:" + label + ")" + futherMatches + "MATCH (x:CourseContext{id:'" + courseId + "'})-[r33:CourseContextOfCompetence]->(p) return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
+        String query = "MATCH tree = (p:" + label + ")-[:subClassOf*1..5]->(c:" + label + ")" + futherMatches + "MATCH (x:CourseContext{id:'" + courseId + "'})-[r33:CourseContextOfCompetence]->(p)" + hiddenQuestion +  "return extract(n IN filter(x in nodes(tree) WHERE length(nodes(tree)) = 2)|n.id) ORDER BY length(tree) ";
         return issueNeo4JRequestArrayListArrayList(query);
     }
 

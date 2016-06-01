@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.mapper.rest.read.Ont2UserProgress;
@@ -43,29 +44,21 @@ public class ProgressApiImpl {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/progress/{userId}")
     @PUT
-    public Response updateOrCreateUserProgress(@PathParam("userId") String userId, @QueryParam("creator") String creator, UserProgress userProgress) throws Exception {
+    public Response updateOrCreateUserProgress(@PathParam("userId") String userId, UserProgress userProgress) throws Exception {
         checkUserExists(userId);
-        if (creator != null) {
-            UserProgress2Ont.convert(userProgress, (User) new User(userId).getFullDao(), new User(creator));
-        } else {
-            UserProgress2Ont.convert(userProgress, (User) new User(userId).getFullDao(), null);
-        }
-
+        UserProgress2Ont.convert(userProgress, (User) new User(userId).getFullDao());
         return Response.ok("progress updated").build();
     }
+
 
 
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/progress/{userId}/competences/{competenceId}")
     @PUT
-    public Response updateOrCreateUserProgress(@PathParam("userId") String userId, @QueryParam("creator") String creator, @PathParam("competenceId") String competenceId, UserCompetenceProgress userProgress) throws Exception {
+    public Response updateOrCreateUserProgress(@PathParam("userId") String userId, @PathParam("competenceId") String competenceId, UserCompetenceProgress userProgress) throws Exception {
         checkUserExists(userId);
-        if (creator != null) {
-            UserProgress2Ont.convert(new UserProgress(userProgress), new User(userId), new User(creator));
-        } else {
-            UserProgress2Ont.convert(new UserProgress(userProgress), new User(userId), null);
-        }
+        UserProgress2Ont.convert(new UserProgress(userProgress), new User(userId));
         return Response.ok("progress updated").build();
     }
 

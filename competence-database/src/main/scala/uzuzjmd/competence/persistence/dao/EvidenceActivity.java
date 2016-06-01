@@ -1,5 +1,10 @@
 package uzuzjmd.competence.persistence.dao;
 
+import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.service.rest.dto.CommentData;
+
+import java.util.ArrayList;
+
 /**
  * Created by dehne on 11.01.2016.
  */
@@ -25,4 +30,14 @@ public class EvidenceActivity extends DaoAbstractImpl {
     }
 
 
+    public ArrayList<CommentData> getComments() throws Exception {
+        ArrayList<CommentData> result = new ArrayList<>();
+        java.util.List<Comment> associatedDaosAsRange = getAssociatedDaosAsRange(Edge.CommentOfEvidence, Comment.class);
+        for (Comment comment : associatedDaosAsRange) {
+            String course = comment.getAssociatedDaoAsDomain(Edge.CommentOfCourse, CourseContext.class).getPrintableName();
+            CommentData commentData = new CommentData(comment.getDateCreated(), this.getId(), comment.getCreator().getPrintableName(), comment.getText(), course, comment.getCreator().getRole().toString());
+            commentData.setText(comment.getText());
+        }
+        return result;
+    }
 }

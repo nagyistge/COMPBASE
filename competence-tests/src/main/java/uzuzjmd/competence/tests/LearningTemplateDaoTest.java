@@ -1,13 +1,12 @@
 package uzuzjmd.competence.tests;
 
-import de.unipotsdam.anh.dao.LearningTemplateDao;
-
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uzuzjmd.competence.main.RestServer;
+import uzuzjmd.competence.reflexion.dao.LearningTemplateDao;
 import uzuzjmd.competence.shared.DESCRIPTORType;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.Graph;
@@ -22,6 +21,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * This needs running RestServer in order to work
+ */
 public class LearningTemplateDaoTest {
 
 	public static final String LABELNAME = "SuggestedCompetencePrerequisite";

@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +64,10 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         }
     }
 
+    public void addSimilarCompetence(Competence competence, Double score) throws Exception {
+        queryManager.createRelationShipWithWeight(competence.getId(), Edge.SimilarTo, this.getId(), score);
+    }
+
     public void addRequiredCompetence(Competence competence) throws Exception {
         deleteEdgeWith(competence, Edge.NotPrerequisiteOf);
         createEdgeWith(competence, Edge.PrerequisiteOf);
@@ -109,7 +114,7 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
         List<Competence> prerequisites = getAssociatedDaosAsDomain(Edge.PrerequisiteOf, Competence.class);
         Boolean result = true;
         for (Competence prerequisite : prerequisites) {
-            result = result && prerequisite.hasEdge(user, Edge.UserHasPerformed);
+            result = result && prerequisite.hasEdge(user, Edge.UserHasEvidencedAllSubCompetences);
         }
         return result;
     }
@@ -207,12 +212,12 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
             }
         }
         this.delete();
-        //throw new NotImplementedException();
     }
 
     @Override
     public Dao persist() throws Exception {
         super.persist();
+        logger.info("saving competence");
         createEdgeWith(Edge.subClassOf, new Competence(DBInitializer.COMPETENCEROOT));
         CourseContext universityContext = new CourseContext(Contexts.university);
         createEdgeWith(universityContext, Edge.CourseContextOfCompetence);
@@ -224,11 +229,30 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
                 addCatchword(catchword);
             }
         }
+
+        // TODO add if needed
+       /* final Competence competence = this;
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("updating similarities 1");
+                SimilaritiesUpdater.updateSimilarCompetencies(competence);
+            }
+        });
+        t.start();*/
         return this;
+    }
+
+    public ArrayList<String> getSimilarCompetences() throws Exception {
+        return queryManager.getClosestEdges(this.getId(), Edge.SimilarTo);
     }
 
 
     public Set<Competence> listSubClasses() throws Exception {
         return (HashSet<Competence>) super.listSubClasses(getClass());
+    }
+
+    public void hideFor(User user) throws Exception {
+        createEdgeWith(Edge.HiddenFor, user);
     }
 }

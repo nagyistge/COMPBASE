@@ -32,13 +32,17 @@ object Competence2Ont extends WriteTransactional[CompetenceData] {
     val superCompetencesTyped = new LinkedList[Competence]();
     for (competence <- data.getSuperCompetences.asScala) {
       val superCompetence = new Competence(competence);
+      superCompetence.persist();
       superCompetencesTyped.add(superCompetence);
+
 
     }
     val subCompetencesTyped = new LinkedList[Competence]();
     for (competence <- data.getSubCompetences.asScala) {
       val subCompetence = new Competence(competence);
+      subCompetence.persist()
       subCompetencesTyped.add(subCompetence);
+
     }
     val competenceGraphValidator = new CompetenceGraphValidator(addedCompetence, superCompetencesTyped, subCompetencesTyped);
     if (competenceGraphValidator.isValid()) {

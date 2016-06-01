@@ -52,12 +52,13 @@ public class CompetenceServiceRestJSON {
     /**
      * Get the GUI Competence TREE
      *
-     * @param course             the (course) context of the competences ("university") for no
+     * @param course             the (courseId) context of the competences ("university") for no
      *                           filter
      * @param selectedCatchwords
      * @param selectedOperators
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/competencetree/{context}")
@@ -67,7 +68,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedOperators") List<String> selectedOperators,
             @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, rootCompetence);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, null, true, rootCompetence);
         List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
         return result;
     }
@@ -79,6 +80,7 @@ public class CompetenceServiceRestJSON {
      * @param changes of type HierarchieChangeObject @see updateHierarchie2
      * @return
      */
+    @Deprecated
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/updateHierarchie2")
@@ -97,6 +99,7 @@ public class CompetenceServiceRestJSON {
      * @param changes
      * @return
      */
+    @Deprecated
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/updateHierarchie2/example")
@@ -111,6 +114,7 @@ public class CompetenceServiceRestJSON {
      * @param role can be "student or teacher"
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/user/create/{user}/{role}")
@@ -128,13 +132,13 @@ public class CompetenceServiceRestJSON {
         CourseContext courseContextDao = new CourseContext(courseContext);
         courseContextDao.persist();
         UserData data = new UserData(user, courseContext,
-                role);
+                role, null, null);
         User2Ont.convert(data);
         return Response.ok("user created").build();
     }
 
     /**
-     * Deletes the course context.
+     * Deletes the courseId context.
      * <p/>
      * All competences linked to this context will be removed from it. This
      * should be used as a companion with coursecontext/create
@@ -142,6 +146,7 @@ public class CompetenceServiceRestJSON {
      * @param course
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -151,19 +156,20 @@ public class CompetenceServiceRestJSON {
         CourseContext courseContext = new CourseContext(course);
         courseContext.delete();
         return Response
-                .ok("competences deleted from course:"
+                .ok("competences deleted from courseId:"
                         + course).build();
     }
 
     /**
-     * Get the description of requirements for the course.
+     * Get the description of requirements for the courseId.
      * <p/>
      * The requirement string specifying why this subset of competences was
-     * selected for the course is returned.
+     * selected for the courseId is returned.
      *
      * @param course the context of the competences
      * @return the requirement string
      */
+    @Deprecated
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     @Path("/coursecontext/requirements/{course}")
@@ -200,10 +206,10 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "competences") List<String> competences,
             @QueryParam(value = "evidences") List<String> evidences) {
 
-        CompetenceLinkData data = new CompetenceLinkData(
+        EvidenceData data = new EvidenceData(
                 course, creator, role, linkedUser,
-                competences, evidences);
-        Link2Ont.writeLinkToDatabase(data);
+                competences, evidences, null);
+        Evidence2Ont.writeLinkToDatabase(data);
         return Response.ok(
                 "competences linked to evidences").build();
     }
@@ -217,7 +223,7 @@ public class CompetenceServiceRestJSON {
      * @param linkId        the id of the link
      * @param user          the user who creates the comment
      * @param text          the text of the comment
-     * @param courseContext the course context the comment is created in
+     * @param courseContext the courseId context the comment is created in
      * @param role          the role of the user
      * @return
      */
@@ -232,9 +238,9 @@ public class CompetenceServiceRestJSON {
             @PathParam("courseContext") String courseContext,
             @PathParam("role") String role) {
         UserData userData = new UserData(user,
-                courseContext, role);
+                courseContext, role, null, null);
         User2Ont.convert(userData);
-        CommentData commentData = new CommentData(linkId,
+        CommentData commentData = new CommentData(System.currentTimeMillis(), linkId,
                 user, text, courseContext, role);
         Comment2Ont.convert(commentData);
         return Response.ok("link commented").build();
@@ -343,9 +349,9 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     * Shows overview of the progress a user has made in a course
+     * Shows overview of the progress a user has made in a courseId
      *
-     * @param course              the course the overview is generated for
+     * @param course              the courseId the overview is generated for
      * @param selectedCompetences a filter: the percentate of acquired competences is calculated
      *                            taking into account the competences visible to the user
      * @return
@@ -356,7 +362,7 @@ public class CompetenceServiceRestJSON {
     public ProgressMap getProgressM(
             @PathParam("course") String course,
             @QueryParam("competences") List<String> selectedCompetences) {
-        return GetProgressMInOnt.convert(new CourseData(
+        return GetProgressMinOnt.convert(new CourseData(
                 course, selectedCompetences));
     }
 
@@ -364,7 +370,7 @@ public class CompetenceServiceRestJSON {
      * This creates a "prerequisite" relation between the
      * selectedCompetences->linkedCompetences
      *
-     * @param course              the course context the link is created in (may be "university"
+     * @param course              the courseId context the link is created in (may be "university"
      *                            for global context")
      * @param linkedCompetence    the pre competences
      * @param selectedCompetences the post competences
@@ -388,7 +394,7 @@ public class CompetenceServiceRestJSON {
     /**
      * Deletes the "prerequisite" link between the competences
      *
-     * @param course              the course context the link is created in (may be "university"
+     * @param course              the courseId context the link is created in (may be "university"
      *                            for global context")
      * @param linkedCompetence    the pre competences
      * @param selectedCompetences the post competences
@@ -512,8 +518,8 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     * The semantic of this interface is that a course is linked to a competence as template.
-     * This way the learner can navigate to the course if he/she wants to learn a specific set of competencies
+     * The semantic of this interface is that a courseId is linked to a competence as template.
+     * This way the learner can navigate to the courseId if he/she wants to learn a specific set of competencies
      * @param competence
      * @param course
      * @return
@@ -522,8 +528,8 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
-    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) throws Exception {
-        //SuggestedCourseForCompetence2Ont.write(course, competence);
+    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("courseId") String course) throws Exception {
+        //SuggestedCourseForCompetence2Ont.write(courseId, competence);
         Competence competenceDAO = new Competence(competence);
         competenceDAO.persist();
         competenceDAO.addCourseContext((CourseContext) new CourseContext(course).persist());
@@ -532,9 +538,9 @@ public class CompetenceServiceRestJSON {
 
 
     /**
-     * Get competences linked to (courseId) context. (the moodle course Id)
+     * Get competences linked to (courseId) context. (the moodle courseId Id)
      * <p/>
-     * Returns all the competences linked to a course context.
+     * Returns all the competences linked to a courseId context.
      *
      * @param courseId
      * @return
@@ -556,7 +562,7 @@ public class CompetenceServiceRestJSON {
 
 
     /**
-     * Get competences linked to (course) context.
+     * Get competences linked to (courseId) context.
      * <p/>
      * Returns all the courses linked to a certain competence as a suggestions
      *
@@ -621,7 +627,7 @@ public class CompetenceServiceRestJSON {
     }
 
     /**
-     * Deletes the link between the course and the given competence
+     * Deletes the link between the courseId and the given competence
      * @param competence
      * @param course
      * @return
@@ -629,7 +635,7 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/delete")
-    public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) {
+    public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("courseId") String course) {
         SuggestedCourseForCompetence2Ont.delete(course, competence);
         return Response.ok("edge deleted").build();
     }
@@ -661,7 +667,7 @@ public class CompetenceServiceRestJSON {
      * <p/>
      * It has the same format as the competence tree
      *
-     * @param course             the (course) context of the competences ("university") for no
+     * @param course             the (courseId) context of the competences ("university") for no
      *                           filter
      * @param selectedCatchwords
      * @param selectedOperators
@@ -675,7 +681,7 @@ public class CompetenceServiceRestJSON {
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
 
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, null, null, true, null);
         List<OperatorXMLTree> result = Ont2CompetenceTree.getOperatorXMLTree(data);
         return result;
     }
@@ -685,7 +691,7 @@ public class CompetenceServiceRestJSON {
      * <p/>
      * It has the same format as the competence tree
      *
-     * @param course             the (course) context of the competences ("university") for no
+     * @param course             the (courseId) context of the competences ("university") for no
      *                           filter
      * @param selectedCatchwords
      * @param selectedOperators
@@ -698,7 +704,7 @@ public class CompetenceServiceRestJSON {
             @PathParam("course") String course,
             @QueryParam(value = "selectedCatchwords") List<String> selectedCatchwords,
             @QueryParam(value = "selectedOperators") List<String> selectedOperators) {
-        CompetenceTreeFilterData data = new CompetenceTreeFilterData(selectedCatchwords, selectedOperators, course, null, null, null);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, null, null, true, null);
         List<CatchwordXMLTree> result = Ont2CompetenceTree.getCatchwordXMLTree(data);
         return result;
 
@@ -723,7 +729,7 @@ public class CompetenceServiceRestJSON {
      * A user selects a learning template as his project in portfolio
      *
      * @param userName         the use selecting the template
-     * @param groupId          (or course context) is the context the learning template is
+     * @param groupId          (or courseId context) is the context the learning template is
      *                         selected
      * @param selectedTemplate the learning template selected
      * @return
@@ -808,7 +814,7 @@ public class CompetenceServiceRestJSON {
      * Users and their selfevaluation are presented.
      *
      * @param userName
-     * @param groupId          (or course context)
+     * @param groupId          (or courseId context)
      * @param selectedTemplate
      * @return
      */
@@ -833,7 +839,7 @@ public class CompetenceServiceRestJSON {
      * view that was changed in the ui)
      *
      * @param userName                   the user who self-evaluated
-     * @param groupId                    or course context (depending on the evidence source)
+     * @param groupId                    or courseId context (depending on the evidence source)
      * @param reflectiveAssessmentHolder
      * @return
      */

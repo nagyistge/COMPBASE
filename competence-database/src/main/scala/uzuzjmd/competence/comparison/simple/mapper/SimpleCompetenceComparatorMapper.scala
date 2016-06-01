@@ -7,9 +7,9 @@ import uzuzjmd.competence.comparison.analysis.WordToStem
 import uzuzjmd.competence.comparison.analysis.SentenceToNoun
 
 /**
- * @author dehne
- */
-class SimpleCompetenceComparatorMapper(){
+  * @author dehne
+  */
+class SimpleCompetenceComparatorMapper() {
 
   var strategy1Explanation = SimilarExplanations.NONE
   var strategy2Explanation = SimilarExplanations.NONE
@@ -22,33 +22,58 @@ class SimpleCompetenceComparatorMapper(){
     return (isSimilarVerbsStrategy1(input1, input2) || isSimilarVerbsStrategy2(input1, input2)) && (isSimilarCatchwordStrategy1(input1, input2) || isSimilarCatchwordStrategy2(input1, input2))
   }
 
+  def computeSimilarityScore(input1: String, input2: String): Double = {
+
+    var result = 0.0;
+
+    var a = 1.0;
+    var b = 1.0;
+
+    if (isSimilarVerbsStrategy1(input1, input2)) {
+      a = a * 1.5;
+    }
+
+    if (isSimilarVerbsStrategy2(input1, input2)) {
+      a = a * 1.5
+    }
+    if (isSimilarCatchwordStrategy1(input1, input2)) {
+      b = b * 1.3;
+    }
+
+    if (isSimilarCatchwordStrategy2(input1, input2)) {
+      b = b * 1.3;
+    }
+    result = a * b;
+    return result
+  }
+
   def isSimilarCatchwordStrategy1(input1: String, input2: String): Boolean = {
-     return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat1_Words)
+    return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat1_Words)
   }
 
 
   def isSimilarCatchwordStrategy2(input1: String, input2: String): Boolean = {
-     return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat2_Words)
+    return isSimilarStrategyHelper(input1, input2, SentenceToNoun.convertSentenceToFilteredElement, isSimilarStrat2_Words)
   }
 
   /**
-   * Simple Conmparison using stemming
-   */
+    * Simple Conmparison using stemming
+    */
   def isSimilarVerbsStrategy2(input1: String, input2: String): Boolean = {
     return isSimilarStrategyHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat2_Words)
   }
 
   /**
-   * Simple Comparison without stemming
-   */
+    * Simple Comparison without stemming
+    */
   def isSimilarVerbsStrategy1(input1: String, input2: String): Boolean = {
     return isSimilarStrategyHelper(input1, input2, SentenceToOperator.convertSentenceToFilteredElement, isSimilarStrat1_Words)
   }
 
-  private def isSimilarStrategyHelper(input1: String, input2: String, f:(String => List[String]), g: (List[String], List[String]) => Boolean) : Boolean = {
-     val result = f(input1)
-     val result2 = f(input2)
-     return g(result, result2)
+  private def isSimilarStrategyHelper(input1: String, input2: String, f: (String => List[String]), g: (List[String], List[String]) => Boolean): Boolean = {
+    val result = f(input1)
+    val result2 = f(input2)
+    return g(result, result2)
   }
 
   private def isSimilarStrat1_Words(result: List[String], result2: List[String]): Boolean = {

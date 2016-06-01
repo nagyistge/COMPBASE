@@ -69,7 +69,7 @@ public class Model implements PersistenceModel {
             stichwortVar.addElement(stichwort, variable);
         }
         for (int i = 0; i < metas.length; i++) {
-            varMeta.addElement(variable, metas[i]);
+            varMeta.addElement(variable);
         }
         logger.debug("Leaving addDate");
     }
@@ -77,7 +77,7 @@ public class Model implements PersistenceModel {
     public String[] toNeo4JQuery() {
         logger.debug("Entering toNeo4JQuery");
 
-        String[] result = (String[]) ArrayUtils.addAll( ArrayUtils.addAll(new String[]{deleteModelInNeo4J()},  stichwortVar.toNeo4JQuery()), varMeta.toNeo4JQuery());
+        String[] result = (String[]) ArrayUtils.addAll( new String[]{deleteModelInNeo4J()},  stichwortVar.toNeo4JQuery());
         logger.debug("Leaving toNeo4JQuery");
         return result;
     }
@@ -101,13 +101,17 @@ public class Model implements PersistenceModel {
      * @throws IOException
      * @throws SolrServerException
      */
-    public void scoreStichwort(SolrConnector connector, String filepath) throws IOException, SolrServerException {
+    public void scoreStichwort(SolrConnector connector, String filepath) throws IOException, SolrServerException, InterruptedException {
         logger.debug("Entering scoreStichwort with SolrConnector:" + connector.getServerUrl() + ", filepath: " + filepath);
         int i = 1;
         int size = stichwortVar.getElements().keySet().size();
         for (String key :
                 stichwortVar.getElements().keySet()) {
             logger.debug("scoreStich Object " + i + " from " + size);
+            if (Thread.interrupted()) {
+                logger.warn("Thread has been interrupted");
+                throw new InterruptedException("Thread interruption forced");
+            }
             i++;
             QueryResponse response = connector.connectToSolr(key);
             SolrDocumentList solrList = response.getResults();
@@ -123,14 +127,18 @@ public class Model implements PersistenceModel {
     }
 
 
-    public void solrListToDB(String key, SolrDocumentList solrList) {
-        logger.debug("Entering solrListToDB");
+    public void solrListToDB(String key, SolrDocumentList solrList) throws InterruptedException {
+        logger.debug("Entering solrListToDB with " + key);
         int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
         MysqlConnect connect = new MysqlConnect();
         connect.connect(connextionString);
         connect.issueInsertOrDeleteStatement("set global max_connections = 20000000000;");
         connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
         for (int i = 0; i < sizeOfStichwortResult; i++) {
+            if (Thread.interrupted()) {
+                logger.warn("Thread has been interrupted");
+                throw new InterruptedException("Thread interruption forced");
+            }
             SolrDocument doc = solrList.get(i);
             connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_ScoreStich (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
         }
@@ -181,13 +189,17 @@ public class Model implements PersistenceModel {
         logger.debug("Leaving solrListToFile");
     }
 
-    public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException {
+    public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException, InterruptedException {
         logger.debug("Entering scoreVariable with SolrConnector:" + connector.getServerUrl());
         HashMap<String, String> varStich = varMeta.toSolrQuery(stichwortVar);
         int i = 1;
         int size = varStich.keySet().size();
         for (String key: varStich.keySet()) {
             logger.debug("scoreVar Object " + i + " from " + size);
+            if (Thread.interrupted()) {
+                logger.warn("Thread has been interrupted");
+                throw new InterruptedException("Thread interruption forced");
+            }
             i++;
             QueryResponse response = connector.connectToSolr(varStich.get(key));
             SolrDocumentList solrList = response.getResults();
@@ -211,6 +223,7 @@ public class Model implements PersistenceModel {
             writeFirstLineOfKeyUrlFile(filepath, "Entering initStichFile", "Stichwort" + delimiter + "URL" + delimiter + "SolrScore", "Leaving initStichFile");
         } else {
             issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_ScoreStich (Stichwort TEXT, id TEXT, SolrScore DOUBLE);");
+            issueStatement(connextionString, "TRUNCATE TABLE " + database + "_ScoreStich;");
         }
     }
 
@@ -253,21 +266,28 @@ public class Model implements PersistenceModel {
     @Override
     public void initVarMetaFile(String filepath) throws IOException {
         if (fileBased) {
-            writeFirstLineOfKeyUrlFile(filepath, "Entering initVarMetaFile", "Variable" + delimiter + "Metavariable" + delimiter + "Stichworte"
+            writeFirstLineOfKeyUrlFile(filepath, "Entering initVarMetaFile", "Variable" + delimiter + "Stichworte"
                     + delimiter + "Hochschule" + delimiter
                     + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
                     "Depth" + delimiter + "Lat" + delimiter + "Lon", "Leaving initVarMetaFile");
         } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_varMeta (Variable TEXT, Metavariable TEXT, Stichworte TEXT, Hochschule TEXT, Content TEXT, SolrScore TEXT, URL TEXT, Depth TEXT, Lat DOUBLE, Lon Double);");
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_"
+                    + MagicStrings.varMetaSuffix + " (Variable TEXT, Stichworte TEXT,"
+                    + "Hochschule TEXT, Content TEXT, SolrScore TEXT, URL TEXT, Depth TEXT, Lat DOUBLE, Lon Double);");
+            issueStatement(connextionString, "TRUNCATE TABLE " + database + "_" + MagicStrings.varMetaSuffix + ";");
         }
     }
 
 
     @Override
-    public void varMetaToCsv(String key, SolrDocumentList solrList, String filepath, String stich) throws IOException, URISyntaxException {
+    public void varMetaToCsv(String key, SolrDocumentList solrList, String filepath, String stich) throws IOException, URISyntaxException, InterruptedException {
         List<String> lines = new ArrayList<>();
         int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
         for (int i = 0; i < sizeOfStichwortResult; i++) {
+            if (Thread.interrupted()) {
+                logger.warn("Thread has been interrupted");
+                throw new InterruptedException("Thread interruption forced");
+            }
             try {
                 writeLine(key, solrList, filepath, stich, lines, i);
             } catch (NoResultsException e) {
@@ -279,9 +299,29 @@ public class Model implements PersistenceModel {
 
     private void writeLine(String key, SolrDocumentList solrList, String filepath, String stich, List<String> lines, int i) throws URISyntaxException, NoResultsException {
         SolrDocument doc = solrList.get(i);
+        URI uri = new URI("");
 
         //Get Domain
-        URI uri = new URI(((String) doc.getFieldValue("url")).replace(" ", "").replace("[", "").replace("]", "").split("\\?")[0]);
+        try {
+            uri = new URI(((String) doc.getFieldValue("url")).replace(" ", "").replace("[", "").replace("]", "").replace("`", "").split("\\?")[0]);
+
+        } catch (URISyntaxException e) {
+            logger.error(((String) doc.getFieldValue("url")).replace(" ", "").replace("[", "").replace("]", "").replace("`", "").split("\\?")[0]);
+            logger.error(e);
+            for ( String part : ((String) doc.getFieldValue("url")).split("/") ) {
+                if ( part.contains("www")) {
+                    try {
+                        uri = new URI("http://" + part);
+                        break;
+                    } catch (URISyntaxException use) {
+                        logger.error(part);
+                        logger.error(use);
+                        throw use;
+                    }
+                }
+            }
+        }
+
         String domain = uri.getHost();
         String[] tempStrings = domain.split("\\.");
         if (tempStrings.length >= 0) {
@@ -291,12 +331,12 @@ public class Model implements PersistenceModel {
         }
         urls.addDomain(domain, uri.getHost());
 
+
         //concatenate result
         try {
             if (
                 // (domain.contains("qualitaetspakt-lehre")) ||
-                    urls.isHochschule(domain) ||
-                            Integer.parseInt((String) doc.getFieldValue("pageDepth")) <= 3) {
+                    urls.isHochschule(domain) ) {
                 String hochschulname;
                 String latLon = "";
                 try {
@@ -309,46 +349,57 @@ public class Model implements PersistenceModel {
                     hochschulname = domain;
                 }
 
-                Double score = Double.valueOf(doc.getFieldValue("score").toString())*1000;
+                Double score = Double.valueOf(doc.getFieldValue("score").toString()) * 1000;
                 if (score < 0.0000001) {
                     score = 0.0;
                 }
 
-                String col1 = key.replaceAll(delimiter, ":" ).replaceAll("'", "" );
-                String col2 = StringUtils.join(varMeta.getElements().get(key).metaVar, ";").replaceAll(delimiter, ":" ).replaceAll(delimiter, ":" ).replaceAll("'", "" )  ;
-                String col3 = stich.replaceAll(delimiter, ":" ).replaceAll("'", "") ;
-                String col4 = hochschulname.replaceAll(delimiter, ":" ).replaceAll("'", "") ;
+                String col1 = key.replaceAll(delimiter, ":").replaceAll("'", "");
+                //String col2 = StringUtils.join(varMeta.getElements().get(key).metaVar, ";").replaceAll(delimiter, ":").replaceAll(delimiter, ":").replaceAll("'", "");
+                String col3 = stich.replaceAll(delimiter, ":").replaceAll("'", "");
+                String col4 = hochschulname.replaceAll(delimiter, ":").replaceAll("'", "");
                 //TODO Wieder den Content einfügen
                 //String col5 = doc.getFieldValue("content").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
                 String col5 = "";
-                String col6 = score.toString().replaceAll(delimiter, ":" ).replaceAll("'", "" ) ;
-                String col7 = doc.getFieldValue("url").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
-                String col8 = doc.getFieldValue("pageDepth").toString().replaceAll(delimiter, ":" ).replaceAll("'", "") ;
+                String col6 = score.toString().replaceAll(delimiter, ":").replaceAll("'", "");
+                String col7 = doc.getFieldValue("url").toString().replaceAll(delimiter, ":").replaceAll("'", "");
+                String col8 = doc.getFieldValue("pageDepth").toString().replaceAll(delimiter, ":").replaceAll("'", "");
 
                 if (fileBased) {
-                    writeVarMetaToFile(filepath, lines, latLon, col1, col2, col3, col4, col5, col6, col7, col8);
+                    writeVarMetaToFile(filepath, lines, latLon, col1, col3, col4, col5, col6, col7, col8);
                 } else {
-                    writeVarMetaToDB(latLon, col1, col2, col3, col4, col5, col6, col7, col8);
+                    writeVarMetaToDB(latLon, col1, col3, col4, col5, col6, col7, col8);
                 }
             }
         } catch (Exception e) {
             logger.warn("Something went wrong " + domain + " pageDepth " + doc.getFieldValue("pageDepth") + " so far");
-            logger.warn(e.getMessage());
+            logger.warn(e);
         }
+
     }
 
-    private void writeVarMetaToDB(String latLon, String col1, String col2, String col3, String col4, String col5, String col6, String col7, String col8) {
+    private void writeVarMetaToDB(String latLon, String col1, String col3, String col4, String col5, String col6, String col7, String col8) {
         MysqlConnect connect = new MysqlConnect();
+        if (! latLon.contains(delimiter)) {
+            return;
+        }
+        if ( latLon.contains("0;0") || latLon.contains("0.0;0.0")){
+            //logger.debug("is " + latLon);
+            return;
+        }
         connect.connect(connextionString);
         connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
-        connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_varMeta (`Variable`, `Metavariable`, `Stichworte`, `Hochschule`, `Content`, `SolrScore`, `URL`, `Depth`, `Lat`, `Lon`) VALUES (?,?,?,?,?,?,?,?,?,?)", col1, col2, col3, col4, col5, col6, col7, col8, latLon.split(delimiter)[0] , latLon.split(delimiter)[1]);
+        connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_"
+                + MagicStrings.varMetaSuffix + " (`Variable`, `Stichworte`, `Hochschule`, `Content`,"
+                + "`SolrScore`, `URL`, `Depth`, `Lat`, `Lon`) VALUES (?,?,?,?,?,?,?,?,?)"
+                , col1, col3, col4, col5, col6, col7, col8, latLon.split(delimiter)[0]
+                , latLon.split(delimiter)[1]);
         connect.close();
     }
 
-    private void writeVarMetaToFile(String filepath, List<String> lines, String latLon, String col1, String col2, String col3, String col4, String col5, String col6, String col7, String col8) throws IOException {
+    private void writeVarMetaToFile(String filepath, List<String> lines, String latLon, String col1, String col3, String col4, String col5, String col6, String col7, String col8) throws IOException {
         logger.debug("Entering varMetaToCsv");
         lines.add(col1 + delimiter
-                + col2 + delimiter
                 + col3 + delimiter
                 + col4 + delimiter
                 + col5 + delimiter
@@ -365,5 +416,9 @@ public class Model implements PersistenceModel {
 
     public int varMetaSize() {
         return varMeta.getElements().size();
+    }
+
+    public VarMeta getVarMeta() {
+        return varMeta;
     }
 }

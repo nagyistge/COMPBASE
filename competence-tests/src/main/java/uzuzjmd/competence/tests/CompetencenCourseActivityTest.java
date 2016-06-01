@@ -1,112 +1,97 @@
 package uzuzjmd.competence.tests;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import org.junit.AfterClass;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uzuzjmd.competence.main.RestServer;
-import uzuzjmd.competence.shared.dto.UserCourseListItem;
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
+import uzuzjmd.competence.service.rest.CompetenceApiImpl;
+import uzuzjmd.competence.service.rest.CourseApiImpl;
+import uzuzjmd.competence.service.rest.EvidenceApiImpl;
+import uzuzjmd.competence.service.rest.LearningTemplateApiImpl;
+import uzuzjmd.competence.service.rest.UserApiImpl;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-
-import de.unipotsdam.anh.dao.ActivityDao;
-import de.unipotsdam.anh.dao.CourseDao;
-
-public class CompetencenCourseActivityTest {
+public class CompetencenCourseActivityTest extends JerseyTest {
 
     private static final String course = "15";
     private static final String activityURL = "activityURL";
 
-	/*public static Thread t = new Thread(new Runnable() {
-		public void run() {
-			try {
-				RestServer.startServer();
-			} catch (IOException e) {
-			} catch (URISyntaxException e) {
-			}
-		}
-	});*/
-
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        //	t.start();
-    }
-
-    @AfterClass
-    public static void tearDown() {
-
-        //t.stop();
+    @Override
+    protected javax.ws.rs.core.Application configure() {
+        DBInitializer.init();
+        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, EvidenceServiceRestServerImpl.class);
     }
 
     @Test
     public void testCreateSuggestedCourseForCompetence() {
-        final int status1 = CourseDao.addSuggestedCourseForCompetence("r1", course);
-        final int status2 = CourseDao.addSuggestedCourseForCompetence("r2", course);
-        final int status3 = CourseDao.addSuggestedCourseForCompetence("r3", course);
+        final int status1 = addSuggestedCourseForCompetence("r1", course);
+        final int status2 = addSuggestedCourseForCompetence("r2", course);
+        final int status3 = addSuggestedCourseForCompetence("r3", course);
 
         Assert.assertEquals(200, status1);
         Assert.assertEquals(200, status2);
         Assert.assertEquals(200, status3);
 
-        final List<String> competencen = getCompetenceFormSuggestedCourse();
+        final List<String> competencen = getCompetenceFormSuggestedCourse(course);
         final List<String> tmp = Arrays.asList("r1", "r2", "r3");
 
         for (String c : competencen) {
             Assert.assertTrue(tmp.contains(c));
         }
 
-        final List<String> courses = getSuggestedCourseForCompetence();
+        final List<String> courses = getSuggestedCourseForCompetence("r1");
         Assert.assertEquals("15", String.valueOf(courses.get(0)));
     }
 
     @Test
     public void testDeleteSuggestedCourseForCompetence() {
-        final int status1 = CourseDao.deleteSuggestedCourseForCompetence("r1", course);
-        final int status2 = CourseDao.deleteSuggestedCourseForCompetence("r2", course);
-        final int status3 = CourseDao.deleteSuggestedCourseForCompetence("r3", course);
+        final int status1 = deleteSuggestedCourseForCompetence("r1", course);
+        final int status2 = deleteSuggestedCourseForCompetence("r2", course);
+        final int status3 = deleteSuggestedCourseForCompetence("r3", course);
 
         Assert.assertEquals(200, status1);
         Assert.assertEquals(200, status2);
         Assert.assertEquals(200, status3);
 
-        List<String> competencen = getCompetenceFormSuggestedCourse();
+        List<String> competencen = getCompetenceFormSuggestedCourse(course);
 
         Assert.assertEquals(0, competencen.size());
     }
 
     @Test
     public void testCreateSuggestedActivityForCompetence() {
-        final int status1 = ActivityDao.addSuggestedActivityForCompetence("t1", activityURL);
-        final int status2 = ActivityDao.addSuggestedActivityForCompetence("t2", activityURL);
-        final int status3 = ActivityDao.addSuggestedActivityForCompetence("t3", activityURL);
+        final int status1 = addSuggestedActivityForCompetence("t1", activityURL);
+        final int status2 = addSuggestedActivityForCompetence("t2", activityURL);
+        final int status3 = addSuggestedActivityForCompetence("t3", activityURL);
 
         Assert.assertEquals(200, status1);
         Assert.assertEquals(200, status2);
         Assert.assertEquals(200, status3);
 
-        final List<String> competencen = getCompetenceFormSuggestedActivity();
+        final List<String> competencen = getCompetenceFormSuggestedActivity(activityURL);
         final List<String> tmp = Arrays.asList("t1", "t2", "t3");
 
         for (String c : competencen) {
             Assert.assertTrue(tmp.contains(c));
         }
+        
+        final List<String> activities = getSuggestedActivityForCompetence("t1");
+        
+        Assert.assertEquals(activityURL, String.valueOf(activities.get(0)));
     }
 
     @Test
     public void testDeleteSuggestedActivityForCompetence() {
-        final int status1 = ActivityDao.deleteSuggestedActivityForCompetence("t1", activityURL);
-        final int status2 = ActivityDao.deleteSuggestedActivityForCompetence("t2", activityURL);
-        final int status3 = ActivityDao.deleteSuggestedActivityForCompetence("t3", activityURL);
+        final int status1 = deleteSuggestedActivityForCompetence("t1", activityURL);
+        final int status2 = deleteSuggestedActivityForCompetence("t2", activityURL);
+        final int status3 = deleteSuggestedActivityForCompetence("t3", activityURL);
 
         Assert.assertEquals(200, status1);
         Assert.assertEquals(200, status2);
@@ -114,85 +99,70 @@ public class CompetencenCourseActivityTest {
     }
 
 
-    private List<String> getCompetenceFormSuggestedCourse() {
-        // TODO need URL for get SuggestedCourseForCompetence
-        Client client1 = Client.create();
-        WebResource webResource2 = client1.resource("http://localhost:8084/competences/SuggestedCompetencesForCourse/"
-                + course);
-        String[] result = null;
-        try {
-            result = webResource2
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(String[].class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            client1.destroy();
-        }
-
-        return Arrays.asList(result);
+    private List<String> getCompetenceFormSuggestedCourse(String course) {
+    	String[] response = target("/competences/SuggestedCompetencesForCourse/" + course)
+				.request().get(String[].class);
+    	
+        return Arrays.asList(response);
     }
 
-    private List<String> getSuggestedCourseForCompetence() {
-        // TODO need URL for get CompetenceFromSuggestedCourse
-        final String selectedCompetence = "r1";
-        Client client1 = Client.create();
-        WebResource webResource2 = client1.resource("http://localhost:8084/competences/SuggestedCourseForCompetence");
-        String[] result = null;
-        try {
-            result = webResource2.queryParam("competence", selectedCompetence)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(String[].class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            client1.destroy();
-        }
+    private List<String> getSuggestedCourseForCompetence(String competence) {
+        String[] response = target("/competences/SuggestedCourseForCompetence/")
+        		.queryParam("competence", competence)
+				.request().get(String[].class);
 
-        if (result == null) {
-            return new LinkedList<String>();
-        }
-
-        return Arrays.asList(result);
+        return Arrays.asList(response);
     }
 
 
-    private List<String> getCompetenceFormSuggestedActivity() {
-        // TODO need URL for get SuggestedCourseForCompetence
-        Client client1 = Client.create();
-        WebResource webResource2 = client1.resource("http://localhost:8084/competences/CompetencesForSuggestedActivity/get"
-                );
-        String[] result = null;
-        try {
-            result = webResource2.queryParam("activityURL", "activityURL")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(String[].class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            client1.destroy();
-        }
+    private List<String> getCompetenceFormSuggestedActivity(String activityURL) {
+        String[] response = target("/competences/CompetencesForSuggestedActivity/get")
+        		.queryParam("activityURL", activityURL)
+				.request().get(String[].class);
 
-        return Arrays.asList(result);
+        return Arrays.asList(response);
+    }
+    
+    private List<String> getSuggestedActivityForCompetence(String competence) {
+        String[] response = target("")
+				.request().get(String[].class);
+
+        return Arrays.asList(response);
     }
 
-    private List<String> getSuggestedActivityForCompetence() {
-        // TODO need URL for get CompetenceFromSuggestedCourse
-        final String selectedCompetence = "r1";
-        Client client1 = Client.create();
-        WebResource webResource2 = client1.resource("http://localhost:8084/competences/SuggestedActivityForCompetence/"
-                + selectedCompetence);
-        String[] result = null;
-        try {
-            result = webResource2
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(String[].class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            client1.destroy();
-        }
+    private int addSuggestedCourseForCompetence(String competence, String course) {
+        Response response = target("/competences/SuggestedCourseForCompetence/create/")
+        		.queryParam("competence", competence)
+        		.queryParam("course", course)
+				.request().post(null);
 
-        return Arrays.asList(result);
+        return response.getStatus();
+    }
+    
+    private int deleteSuggestedCourseForCompetence(String competence, String course) {
+    	Response response = target("/competences/SuggestedCourseForCompetence/delete/")
+        		.queryParam("competence", competence)
+        		.queryParam("course", course)
+				.request().post(null);
+
+        return response.getStatus();
+    }
+    
+    private int addSuggestedActivityForCompetence(String competence, String activityUrl) {
+    	Response response = target("/competences/SuggestedActivityForCompetence/create/")
+        		.queryParam("competence", competence)
+        		.queryParam("activityUrl", activityUrl)
+				.request().post(null);
+
+        return response.getStatus();
+    }
+    
+    private int deleteSuggestedActivityForCompetence(String competence, String activityUrl) {
+    	Response response = target("/competences/SuggestedActivityForCompetence/delete/")
+        		.queryParam("competence", competence)
+        		.queryParam("activityUrl", activityUrl)
+				.request().post(null);
+
+        return response.getStatus();
     }
 }

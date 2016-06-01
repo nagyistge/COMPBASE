@@ -5,6 +5,7 @@ package uzuzjmd.competence.comparison.verification;
  */
 public enum ValidSubjects {
     Studierende,
+    Studierenden,
     Studenten,
     Student,
     Studierender,

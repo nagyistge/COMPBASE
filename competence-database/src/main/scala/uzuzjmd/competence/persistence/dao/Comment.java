@@ -2,6 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.exceptions.NoUserGivenException;
 import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.service.rest.dto.CommentData;
 
 /**
  * Created by dehne on 11.01.2016.
@@ -34,6 +35,11 @@ public class Comment extends AbstractComment implements Cascadable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public CommentData getData(){
+        CommentData commentData = new CommentData(null, this.getText(), null, null, null, null);
+        return commentData;
     }
 
     @Override

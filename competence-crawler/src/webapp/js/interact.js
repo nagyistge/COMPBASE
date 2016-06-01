@@ -1,16 +1,21 @@
 var varMetaElements = [];
 function addJob(element) {
-	$("#jobOverview").append("<li><a href='#' >" + $('#jobName').val() + " <span class='badge'>0</span></a></li>");
+	if ($("#addJob").val().length == 0) {
+		return;
+	}
+	//$("#jobOverview").append("<li><a href='#' >" + $('#jobName').val() + " <span class='badge'>0</span></a></li>");
 
 		$.ajax("php/handleDb.php", {
 			type:"post",
 			data: {
 				loadPurpose: "saveCampaign",
-				Name: $('#jobName').val()
+				props: JSON.stringify(props["database"]),
+				Name: $('#addJob').val()
 			},
 			success: function (res) {
 				console.log(res);
-				usableNavbar();
+				initialLoad(0);
+				//usableNavbar();
 				
 			},
 			error: function(e) {
@@ -26,9 +31,8 @@ function addStichVar(element) {
 	if (element.id == "addr0") {
 		var stich = $("input[name='stich0']").val();
 		var vari = $("input[name='var0']").val();
-		var meta = $("input[name='meta0']").val();
 
-		varMetaElements.unshift({Stich: stich, Var: vari, Meta:meta});
+		varMetaElements.unshift({Stich: stich, Var: vari});
 		console.log(varMetaElements);
 
 		//save this element
@@ -37,12 +41,13 @@ function addStichVar(element) {
 			data: {
 				loadPurpose: "saveStichVarMeta",
 				stich: stich,
+				props: JSON.stringify(props["database"]),
 				vari: vari,
-				meta: meta,
 				campaign: $("#addr0").attr("name")
 			},
 			success: function (res) {
 				console.log(res);
+				loadAndLock("#" + active);
 				
 			},
 			error: function(e) {
@@ -55,17 +60,48 @@ function addStichVar(element) {
 		elementsToTab();
 		$("input[name='stich0']").val("");
 		$("input[name='var0']").val("");
-		$("input[name='meta0']").val("");
-
 	}
 }
 
+function buttonGroupInteract(element) {
+	if ($("#stichBtn").find(".active")[0] != element[0]) {
+		$("#stichBtn").find(".active").removeClass("active");
+		element.addClass("active");
+		var g = $("#stichBtn").find(".active")[0].innerHTML;
+		if (g == "Url" ) {
+			g = "id"
+		}
+		$.ajax("php/handleDb.php", {
+			type:"post",
+			data: {
+				loadPurpose: "loadScoreStich",
+				props: JSON.stringify(props["database"]),
+				campaign: $(".nav .active").children()[0].id,
+				group: g
+			},
+			invokedata: {
+				group: g
+			},
+			success: function (res) {
+				scoreStichToTab(res, this.invokedata.group);
+				console.log(res);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+
+	}
+	console.log(element);
+}
 
 function elementsToTab() {
 	$("#varMetaTable").find("tr:gt(1)").remove();
 	for (var i = 0; i < varMetaElements.length; i++) {
 		$("#varMetaTable").append(
-				"<tr><td>" + (i + 1) + "</td><td>" + varMetaElements[i].Stich + "</td><td>" + varMetaElements[i].Var + "</td>"
-				+ "<td>" + varMetaElements[i].Meta + "</td></tr>");
+				"<tr><td>" + varMetaElements[i].Id + "</td><td>" + varMetaElements[i].Stich + "</td><td>" + varMetaElements[i].Var + "</td>"
+				+ "<td><button class=\"btn btn-danger\" onclick=\"removeElement($(this).parent().parent())\" >"
+				+ "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\" /> </button></td></tr>");
 	}
+	
 }

@@ -1,11 +1,12 @@
 package uzuzjmd.competence.tests;
 
-import de.unipotsdam.anh.dao.LearningTemplateDao;
 import org.junit.matchers.StringContains;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
+
 import uzuzjmd.competence.datasource.epos.EposImporter;
 import uzuzjmd.competence.main.RestServer;
+import uzuzjmd.competence.reflexion.dao.LearningTemplateDao;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

@@ -4,12 +4,12 @@ import edu.stanford.nlp.trees.GrammaticalRelation
 import edu.stanford.nlp.trees.GrammaticalRelation.Language
 import uzuzjmd.competence.comparison.analysis.{WordToStem, SentenceToNoun, SentenceToOperator}
 import uzuzjmd.competence.comparison.synonyms.OpenThesaurusSynonymCreator
-import uzuzjmd.competence.comparison.verification.{ValidSubjects, ValidOperators}
+import uzuzjmd.competence.comparison.verification.{CompetenceVerifier, ValidSubjects, ValidOperators}
 
 /**
   * Created by dehne on 14.03.2016.
   */
-class SimpleCompetenceVerifier {
+class SimpleCompetenceVerifier extends CompetenceVerifier{
   private var language: Language = null
   private var sentence: String = null
 
@@ -19,11 +19,13 @@ class SimpleCompetenceVerifier {
     this.language = language
   }
 
-  def isCompetence(sentence: String, language: GrammaticalRelation.Language): Boolean = {
+  @Override
+  def isCompetence(sentence: String, language: GrammaticalRelation.Language): java.lang.Boolean = {
     this.sentence = sentence
     this.language = language
     return isCompetence2
   }
+
 
   def isCompetence2: Boolean = {
     return satisfiesCorrectSubjectRestriction && satisfiesCorrectVerbRestriction
@@ -55,12 +57,16 @@ class SimpleCompetenceVerifier {
     if (words.isEmpty) {
       return false;
     }
-    val stemmedWords = words.map(x=>WordToStem.stemWord(x))
-    val stemmedValidWords = set.map(x=>WordToStem.stemWord(x))
+    val stemmedWords = words.map(x => WordToStem.stemWord(x))
+    val stemmedValidWords = set.map(x => WordToStem.stemWord(x))
 
-    val synonyms: List[String] = words.map(x=>OpenThesaurusSynonymCreator.getSynonyms(x)).flatten
-    val stemmedSynonyms = synonyms.map(x=>WordToStem.stemWord(x))
+    val synonyms: List[String] = words.map(x => OpenThesaurusSynonymCreator.getSynonyms(x)).flatten
+    val stemmedSynonyms = synonyms.map(x => WordToStem.stemWord(x))
 
-    return !stemmedValidWords.intersect(stemmedWords).isEmpty || !stemmedValidWords.intersect(stemmedSynonyms).isEmpty
+    val casea = !stemmedValidWords.intersect(stemmedWords).isEmpty
+    val caseb = !stemmedValidWords.intersect(stemmedSynonyms).isEmpty
+    val casec = !set.toList.intersect(words).isEmpty
+    return  casea || caseb || casec
+
   }
 }
