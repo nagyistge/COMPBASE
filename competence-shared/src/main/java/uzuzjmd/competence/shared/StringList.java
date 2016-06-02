@@ -1,5 +1,6 @@
 package uzuzjmd.competence.shared;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +11,7 @@ public class StringList {
 	private List<String> data;
 
 	public StringList() {
+		data = new ArrayList<>();
 	}
 
 	public StringList(List<String> data) {

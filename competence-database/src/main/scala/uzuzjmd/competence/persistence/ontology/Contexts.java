@@ -6,5 +6,5 @@ package uzuzjmd.competence.persistence.ontology;
 public enum Contexts {
     university,
     school,
-    workplace
+    workplace,
 }

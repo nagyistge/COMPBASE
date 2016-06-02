@@ -32,7 +32,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
     context.persist()
     val user = new User(changes.getUserName, Role.teacher, null, null, context);
     user.persist()
-    context.createEdgeWith(Edge.CourseContextOfCompetence, user)
+    context.createEdgeWith(Edge.CourseContextOfUser, user)
   }
 
   private def convertHelper(changes: LearningTemplateData) {
@@ -45,6 +45,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
       throw new ContextNotExistsException
     }
     val template = new LearningProjectTemplate(changes.getSelectedTemplate);
+    template.persist()
     template.createEdgeWith(user, Edge.UserOfLearningProjectTemplate);
   }
 

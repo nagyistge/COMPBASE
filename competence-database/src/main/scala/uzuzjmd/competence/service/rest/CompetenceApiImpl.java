@@ -1,8 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
 import edu.stanford.nlp.trees.GrammaticalRelation;
-import org.apache.zookeeper.proto.ErrorResponse;
-import org.glassfish.jersey.internal.Errors;
 import uzuzjmd.competence.comparison.verification.CompetenceVerifierFactory;
 import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
@@ -24,8 +22,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-
-import static org.glassfish.jersey.internal.Errors.*;
 
 /**
  * Created by dehne on 11.04.2016.

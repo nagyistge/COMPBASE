@@ -1,7 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
-import scala.NotImplementedError;
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
+import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
+import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
+import uzuzjmd.competence.persistence.dao.LearningProjectTemplate;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
 import uzuzjmd.competence.shared.StringList;
 
@@ -20,10 +22,14 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Path("/learningtemplates")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public StringList getLearningTemplates(){
-        StringList learningTemplates = Ont2LearningTemplates
-                .convert();
-        return learningTemplates;
+    public StringList getLearningTemplates(@QueryParam("userId") String userId, @QueryParam("courseId") String courseId) {
+        if (userId != null) {
+            return Ont2SelectedLearningTemplate.convert(new LearningTemplateData(userId, courseId, null));
+        } else {
+            StringList learningTemplates = Ont2LearningTemplates
+                    .convert();
+            return learningTemplates;
+        }
     }
 
     @Override
@@ -31,21 +37,29 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
-        throw new NotImplementedError();
+        data.setSelectedTemplate(learningtemplateId);
+        LearningTemplateToOnt.convert(data);
+        return Response.ok().build();
     }
 
     @Override
     @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
-    public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) {
-        throw new NotImplementedError();
+    public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
+        return deleteLearningTemplateIntern(learningtemplateId);
+    }
+
+    private Response deleteLearningTemplateIntern(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
+        LearningProjectTemplate learningProjectTemplate = new LearningProjectTemplate(learningtemplateId);
+        learningProjectTemplate.delete();
+        return Response.ok().build();
     }
 
     @Override
     @Path("/learningtemplates/{learningtemplateId}/delete")
     @POST
-    public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) {
-        throw new NotImplementedError();
+    public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
+        return deleteLearningTemplateIntern(learningtemplateId);
     }
 
     @Override
@@ -53,11 +67,10 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
-        throw new NotImplementedError();
+        data.setSelectedTemplate(learningtemplateId);
+        LearningTemplateToOnt.convert(data);
+        return Response.ok().build();
     }
-
-
-
 
 
 }
