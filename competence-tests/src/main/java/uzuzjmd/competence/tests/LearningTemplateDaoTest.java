@@ -57,8 +57,8 @@ public class LearningTemplateDaoTest extends JerseyTest {
 	public static void setUpBeforeClass() throws Exception {
 		//t.start();
 		//Thread.sleep(200l);
-		initTestGraph();
-		
+		//initTestGraph();
+
 	}
 
 	public static void initTestGraph() {
@@ -94,6 +94,8 @@ public class LearningTemplateDaoTest extends JerseyTest {
 
 	}
 */
+
+
 	@Test
 	public void testCreateTemplate() {
 		System.out.println("##### Test CreateTemplate #####");
