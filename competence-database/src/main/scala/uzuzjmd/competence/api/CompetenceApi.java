@@ -29,7 +29,7 @@ public interface CompetenceApi {
      */
     Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                             @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId);
+                            @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId, @QueryParam("learningTemplate") String learningTemplate);
 
     /**
      * Add a competence to the model with the id (the competence string) and competence meta data as payload.

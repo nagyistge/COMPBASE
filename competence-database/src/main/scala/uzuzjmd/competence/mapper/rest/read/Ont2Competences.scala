@@ -18,6 +18,7 @@ object Ont2Competences extends LanguageConverter{
     val nodesArray: util.List[util.ArrayList[String]] = qManager.getSubClassTriples(classOf[Competence].getSimpleName, filter)
     val result =  new util.ArrayList[String]
     nodesArray.foreach(x=>result.addAll(x))
+    result.remove("Kompetenz")
     return result
     //return qManager.getCompetences(filter)
     // TODO implement more efficient function

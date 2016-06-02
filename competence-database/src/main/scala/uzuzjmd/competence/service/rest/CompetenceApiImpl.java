@@ -49,7 +49,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
                                    @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                                   @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId) {
+                                   @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId, @QueryParam("learningTemplate") String learningTemplate) {
         if (course == null) {
             WebApplicationException ex = new WebApplicationException(new Exception("courseId  null should be at least 'university' as default"));
             return Response.status(400)
@@ -58,7 +58,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
                             build();
         }
 
-        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId, asTree, rootCompetence);
+        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId, learningTemplate, asTree, rootCompetence);
         if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
             java.util.List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
             return Response.status(200).entity(result).build();

@@ -18,7 +18,7 @@ public interface LearningTemplateApi {
     Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data);
 
 
-    Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) throws Exception;
+    Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, @QueryParam(value = "userId") String userName) throws Exception;
 
     /**
      * Use this legacy method for browsers who do not support http delete
