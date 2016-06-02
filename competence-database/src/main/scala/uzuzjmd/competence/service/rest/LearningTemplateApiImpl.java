@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
 import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
+import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
@@ -45,7 +46,10 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Override
     @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
-    public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
+    public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, @QueryParam(value = "userId") String userName) throws Exception {
+        if (userName != null) {
+            DeleteTemplateInOnt.convert(new LearningTemplateData(userName, null, learningtemplateId));
+        }
         return deleteLearningTemplateIntern(learningtemplateId);
     }
 

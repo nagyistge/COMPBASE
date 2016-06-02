@@ -236,6 +236,10 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         for (String operator : operators) {
             futherMatches += "MATCH (c:Operator{id:'" + operator + "'})-[r44:OperatorOf]->(p)";
         }
+        if (filterData.getLearningTemplate() != null) {
+            futherMatches += "MATCH (LPT:LearningProjectTemplate{id:'" + filterData.getLearningTemplate() + "'})-[rLPT:LearningProjectTemplateOf]->(p)";
+        }
+
         if (filterData.getUserId() != null && !filterData.getUserId().equals("")) {
             futherMatches += "MATCH (p)-[r32:HiddenFor]->(u:User{id:'" + filterData.getUserId() + "'})";
             hiddenQuestion += " WHERE r32 is null ";
