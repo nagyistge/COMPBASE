@@ -1,9 +1,17 @@
 package uzuzjmd.competence.service.rest.dto;
 
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class LearningTemplateData {
 	private String userName;
 	private String groupId;
 	private String selectedTemplate;
+
+
+	public LearningTemplateData() {
+	}
 
 	public String getUserName() {
 		return userName;

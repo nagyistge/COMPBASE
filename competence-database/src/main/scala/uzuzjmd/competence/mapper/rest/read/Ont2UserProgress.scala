@@ -21,7 +21,7 @@ object Ont2UserProgress extends LanguageConverter {
     val competenceDAO = new Competence(competence)
     val user = new User(userId)
     val assessment: SelfAssessment = competenceDAO.getAssessment(user)
-    val selfAssessment = new AbstractAssessment("eposScale", assessment.getAssessmentIndex, new Assessment().getItems)
+    val selfAssessment = assessment.toAbstractAssessment
     val linksMap: CompetenceLinksMap = Ont2CompetenceLinkMap.convert(userId)
     val linksView = linksMap.getMapUserCompetenceLinks.get(competence)
     val result = new UserCompetenceProgress(competence, linksView, selfAssessment)

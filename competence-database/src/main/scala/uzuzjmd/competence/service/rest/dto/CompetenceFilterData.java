@@ -10,6 +10,7 @@ public class CompetenceFilterData {
 	private Boolean compulsory;
 	private String textFilter;
 	private String userId;
+	private String learningTemplate;
 
 	public Boolean getResultAsTree() {
 		return resultAsTree;
@@ -31,7 +32,7 @@ public class CompetenceFilterData {
 			List<String> selectedCatchwordArray,
 			List<String> selectedOperatorsArray,
 			String course, Boolean compulsory,
-			String textFilter, String userId, Boolean resultAsTree, String rootCompetence) {
+			String textFilter, String userId, String learningTemplate, Boolean resultAsTree, String rootCompetence) {
 		super();
 		this.selectedCatchwordArray = selectedCatchwordArray;
 		this.selectedOperatorsArray = selectedOperatorsArray;
@@ -39,6 +40,7 @@ public class CompetenceFilterData {
 		this.compulsory = compulsory;
 		this.textFilter = textFilter;
 		this.userId = userId;
+		this.learningTemplate = learningTemplate;
 		this.resultAsTree = resultAsTree;
 		this.rootCompetence = rootCompetence;
 		if (rootCompetence == null) {
@@ -46,8 +48,9 @@ public class CompetenceFilterData {
 		}
 	}
 
-	public CompetenceFilterData(String course, Boolean resultAsTree) {
+	public CompetenceFilterData(String course, String learningTemplate, Boolean resultAsTree) {
 		this.course = course;
+		this.learningTemplate = learningTemplate;
 		this.resultAsTree = resultAsTree;
 		if (rootCompetence == null) {
 			setRootCompetence("Kompetenz");
@@ -106,5 +109,9 @@ public class CompetenceFilterData {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getLearningTemplate() {
+		return learningTemplate;
 	}
 }

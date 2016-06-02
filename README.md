@@ -12,6 +12,16 @@ You need to replace the prefix of the rest interfaces with either localhost:8084
 the url prefix of the deployed tomcat app such as: http://localhost:8080/competence-servlet/competence (if you build locally like below) or you can use the server provided by us here: http://fleckenroller.cs.uni-potsdam.de/app/competence-database/... such as
 http://fleckenroller.cs.uni-potsdam.de/app/competence-database/competences/learningtemplates.
 
+## Install Competence Server Project on MacOS
+### Install
+
+### Requirements
+Before you install this project you have to follow the following steps:
+
+ - Install [Neo4J](http://neo4j.com/download/)
+ - Add **dbms.security.auth_enabled=false** to  C:\Users\{UserName}\Documents\Neo4j\default.graphdb\neo4j.properties in order to disable authentication (in productive use you can reenable this)
+ - TODO ADAPT Tutorial for Mac
+
 ## Install Competence Server Project in Ubuntu/Debian
 ### Install
 This project provides a .deb file which could be easily installed via package manager. Simply use the file in the path [competence-installer/Linux/Ubuntu_Debian](https://github.com/uzuzjmd/Wissensmodellierung/tree/master/competence-installer/Linux/Ubuntu_Debian)
@@ -82,6 +92,9 @@ Important to change: moodleURL, neo4jURL
 
 ### Build with intellij
 - open project with intellij (scala plugin)
+- select import project -> competence-application
+- check create module groups for multi maven projects
+- check import maven projects
 - make project: voilá!
 - copy competence-database/src/test/scala/evidenceserver.properties to competence-database/target/classes and change rootPath to the project location
 - Run competence-database/uzuzjmd/competence/main/RestServer.main

@@ -3,7 +3,8 @@ package uzuzjmd.competence.api;
 import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
 import uzuzjmd.competence.shared.StringList;
 
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -11,20 +12,20 @@ import javax.ws.rs.core.Response;
  */
 public interface LearningTemplateApi {
 
-    StringList getLearningTemplates();
 
+    StringList getLearningTemplates(@QueryParam("userId") String userId, @QueryParam("courseId") String courseId);
 
     Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data);
 
 
-    Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId);
+    Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, @QueryParam(value = "userId") String userName) throws Exception;
 
     /**
      * Use this legacy method for browsers who do not support http delete
      * @param learningtemplateId
      * @return
      */
-    Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId);
+    Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) throws Exception;
 
     /**
      * Use this legacy method for browsers who do not support http put

@@ -7,19 +7,17 @@ import java.util.List;
 /**
  * Created by dehne on 11.01.2016.
  */
-public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable {
+public class AbstractEvidenceLink extends AbstractAbstractEvidenceLink implements Cascadable {
 
-    public User creator;
-    public User linkedUser;
-    public CourseContext courseContext;
-    public EvidenceActivity evidenceActivity;
     public Long dateCreated;
     public Boolean isValidated;
-    public Competence competence;
-    public List<Comment> comments;
 
     public AbstractEvidenceLink(String id) {
         super(id);
+    }
+
+    public static final String computeId (String competence,String evidenceActivityUrl) {
+        return competence+evidenceActivityUrl;
     }
 
     public AbstractEvidenceLink(User creator,
@@ -30,7 +28,7 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
                                 Boolean isValidated,
                                 Competence competence,
                                 List<Comment> comments) {
-        super(competence.getId() + evidenceActivity.getId());
+        super(computeId(competence.getId(), evidenceActivity.getId()));
         this.creator = creator;
         this.linkedUser = linkedUser;
         this.courseContext = courseContext;
@@ -43,7 +41,10 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
 
 
 
-    public List<Comment> getComments() {
+    public List<Comment> getComments() throws Exception {
+        if (comments == null || comments.isEmpty()) {
+            comments = getAssociatedDaosAsRange(Edge.CommentOfEvidence, Comment.class);
+        }
         return comments;
     }
 
@@ -109,6 +110,7 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
 
     @Override
     public void persistMore() throws Exception{
+        this.persist();
         linkedUser.persist();
         createEdgeWith(linkedUser, Edge.UserOfLink);
         creator.persist();
@@ -119,7 +121,6 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
         createEdgeWith(evidenceActivity, Edge.ActivityOf);
         competence.persist();
         createEdgeWith(Edge.linksCompetence, competence);
-        this.persist();
     }
 
 
@@ -139,7 +140,7 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
     }
 
     public List<EvidenceActivity> getAllActivities() throws Exception {
-            return getAssociatedDaosAsDomain(Edge.ActivityOf, EvidenceActivity.class);
+            return getAssociatedDaosAsRange(Edge.ActivityOf, EvidenceActivity.class);
     }
 
     public List<CourseContext> getAllCourseContexts() throws Exception {
@@ -147,8 +148,17 @@ public class AbstractEvidenceLink extends DaoAbstractImpl implements Cascadable 
     }
 
     public List<Competence> getAllLinkedCompetences() throws Exception {
-        return  getAssociatedDaosAsRange(Edge.linksCompetence, Competence.class);
+        return  getAssociatedDaosAsDomain(Edge.linksCompetence, Competence.class);
     }
 
-
+    /**
+     * use persistMore for cascadables
+     * @return
+     * @throws Exception
+     */
+    @Deprecated
+    @Override
+    public Dao persist() throws Exception {
+        return super.persist();
+    }
 }

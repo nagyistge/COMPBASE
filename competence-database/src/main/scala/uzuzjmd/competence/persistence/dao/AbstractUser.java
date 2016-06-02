@@ -18,7 +18,7 @@ public class AbstractUser extends DaoAbstractImpl {
     }
 
     public List<AbstractEvidenceLink> getAssociatedLinks() throws Exception {
-        return getAssociatedDaosAsRange(Edge.UserOfLink, AbstractEvidenceLink.class);
+        return getAssociatedDaosAsDomain(Edge.UserOfLink, AbstractEvidenceLink.class);
     }
 
     public List<Competence> getCompetencesLearned() throws Exception {

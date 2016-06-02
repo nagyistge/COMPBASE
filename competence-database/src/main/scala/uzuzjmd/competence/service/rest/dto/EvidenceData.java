@@ -53,8 +53,7 @@ public class EvidenceData {
 	 *                    "teacher" or "student")
 	 * @param linkedUser  the user who has acquired the competences
 	 * @param competences the competences acquired
-	 * @param evidences   the activities that stand as evidences in the form [url,
-	 *                    speakingname]
+	 * @param evidences   the titel as key and the url as value
 	 *
 	 */
 	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, HashMap<String, String> evidences, String printableUserName) {
@@ -70,6 +69,10 @@ public class EvidenceData {
 		}
 
 		this.printableUserName = printableUserName;
+	}
+
+	public static EvidenceData instance(String course, String creator, String role, String linkedUser, List<String> competences, HashMap<String, String> evidences, String printableUserName) {
+		return new EvidenceData(course, creator, role, linkedUser, competences, evidences, printableUserName);
 	}
 
 	private String courseId;

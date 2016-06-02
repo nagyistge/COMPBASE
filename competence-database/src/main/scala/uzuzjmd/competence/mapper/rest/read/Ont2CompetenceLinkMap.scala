@@ -1,5 +1,6 @@
 package uzuzjmd.competence.mapper.rest.read
 
+import java.util
 import java.util.{SortedSet, TreeSet}
 
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
@@ -35,7 +36,7 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
   private def getCompetenceLinkMap(user: String): CompetenceLinksMap = {
     val userDap = new User(user)
     if (!userDap.exists) {
-      val result =  new CompetenceLinksMap
+      val result = new CompetenceLinksMap
       return result
     }
     val links = userDap.getAssociatedLinks.asScala
@@ -45,21 +46,25 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
     val resultScalaTmp2 = resultScalaTmp1.filterKeys(p => p != null)
     val resultAsArray = resultScalaTmp2.mapValues { x => x.toArray }
     val result = new CompetenceLinksMap(resultAsArray.asJava);
-    result.getMapUserCompetenceLinks.isEmpty()
     return result
   }
 
   private def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): mutable.Buffer[CompetenceLinksView] = {
     val linkedEvidence = input.getAllActivities.asScala
-    val linkedComments = input.getComments.asScala.map(mapCommentToCommentEntry)
-    val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.getId, x.getPrintableName, x.getUrl, linkedComments.asJava, input.getValidated))
+    val comments = input.getComments;
+    var linkedComments : java.util.List[CommentEntry] =  null;
+    if (comments != null) {
+      linkedComments = comments.asScala.map(mapCommentToCommentEntry).asJava
+    }
+    val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.getId, x.getPrintableName, x.getUrl, linkedComments, input.getValidated))
     return competenceLinksView
   }
 
   private def mapCommentToCommentEntry(input: Comment): CommentEntry = {
-    val fullComment = input.getFullDao().asInstanceOf[Comment];
-    val creatorName = fullComment.getCreator().getName
-    val result = new CommentEntry(creatorName, fullComment.getText, fullComment.getDateCreated)
+    if (input.getCreator == null) {
+      return null;
+    }
+    val result = new CommentEntry(input.getCreator.getId, input.getText, input.getDateCreated)
     return result
   }
 

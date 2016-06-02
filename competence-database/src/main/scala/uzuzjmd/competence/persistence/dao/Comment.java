@@ -18,6 +18,7 @@ public class Comment extends AbstractComment implements Cascadable {
 
     public Comment(String text, User creator, Long dateCreated) {
         super(dateCreated + text);
+        this.text = text;
         this.creator = creator;
     }
 
@@ -50,8 +51,6 @@ public class Comment extends AbstractComment implements Cascadable {
         }
         createEdgeWith(creator, Edge.UserOfComment);
     }
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package uzuzjmd.competence.shared.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,11 @@ public class UserProgress {
 
     public UserProgress(List<UserCompetenceProgress> userCompetenceProgressList) {
         this.userCompetenceProgressList = userCompetenceProgressList;
+    }
+
+    public UserProgress(UserCompetenceProgress userCompetenceProgress) {
+        userCompetenceProgressList = new ArrayList<>();
+        userCompetenceProgressList.add(userCompetenceProgress);
     }
 
     public List<UserCompetenceProgress> getUserCompetenceProgressList() {
