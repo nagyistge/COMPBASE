@@ -1,12 +1,13 @@
 package uzuzjmd.competence.crawler.datatype;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.solr.common.SolrDocumentList;
-import neo4j.Neo4JConnector;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by carl on 06.01.16.

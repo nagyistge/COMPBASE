@@ -1,15 +1,10 @@
 package uzuzjmd.competence.evidence.service;
 
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import javax.jws.WebService;
-import javax.ws.rs.core.Response;
-
-import org.apache.commons.lang.NotImplementedException;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
@@ -18,9 +13,10 @@ import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 import uzuzjmd.competence.shared.dto.UserTree;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import javax.jws.WebService;
+import javax.ws.rs.core.Response;
+
+import java.util.List;
 
 /**
  * Webservice interface for the moodle service
@@ -120,12 +116,6 @@ public class MoodleEvidenceRestServiceImpl extends
 
 
 
-    @Override
-    public Response getUserTreeCrossDomain(String course,
-                                           String lmsSystem, String organization,
-                                           String username, String password) {
-        throw new Error("decorator called");
-    }
 
     @Override
     public UserCourseListResponse getCourses(
@@ -161,15 +151,20 @@ public class MoodleEvidenceRestServiceImpl extends
     public void addUserTree(String course,
                             List<UserTree> usertree, String lmssystem,
                             String organization) {
-        throw new NotImplementedException();
 
+        throw new Error("not implemented");
+    }
+
+    @Override
+    public Response getUserTreeCrossDomain(String course, String lmssystem, String organization, String username, String password) {
+        return null;
     }
 
     @Override
     public void addCourses(String user,
                            UserCourseListResponse usertree,
                            String lmssystem, String organization) {
-        throw new NotImplementedException();
+        throw new Error("not implemented");
     }
 
 }

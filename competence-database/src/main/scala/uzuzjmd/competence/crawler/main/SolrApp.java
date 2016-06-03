@@ -2,13 +2,10 @@ package uzuzjmd.competence.crawler.main;
 
 import config.MagicStrings;
 import neo4j.Neo4JConnector;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 import uzuzjmd.competence.crawler.analysis.CrawlerDataAnalysis;
 import uzuzjmd.competence.crawler.datatype.Model;
-import uzuzjmd.competence.crawler.io.ReadCsv;
 import uzuzjmd.competence.crawler.io.ReadMysql;
 import uzuzjmd.competence.crawler.mysql.MysqlConnector;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
@@ -73,7 +70,7 @@ public class SolrApp {
                 logger.debug("Search percentile for " + var);
                 cda.prepareHochschuleSolrAnalyse(var);
 
-                double[] values = ArrayUtils.toPrimitive(cda.inputData.keySet().toArray(new Double[0]));
+                Double[] values = cda.inputData.keySet().toArray(new Double[0]);
 
                 logger.debug("There are " + values.length + " elements in the table");
                 if (values.length > Integer.valueOf(MagicStrings.maxPercentile)) {
