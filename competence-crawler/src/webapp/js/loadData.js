@@ -69,6 +69,7 @@ function initialLoad(pollIt) {
 				}
 			},
 			error: function(e) {
+				handleError(e);
 				console.log(e);
 			}
 		});
@@ -96,6 +97,7 @@ function poll() {
 				poll();
 			},
 			error: function(e) {
+				handleError(e);
 				console.log(e);
 				poll();
 			}
@@ -246,6 +248,7 @@ function loadCampaign(element) {
 				$("#pluswrap").hide();
 			},
 			error: function(e) {
+				handleError(e);
 				console.log(e);
 				$("#pluswrap").hide();
 			}
@@ -296,10 +299,33 @@ function fireInTheHole() {
 		success: function (res) {
 			console.log(res);
 		},
-		error: function (res) {
+		error: function (res, status, error) {
 			console.log(res);
+			if (res.status != 200) {
+				handleError(res);
+				$("#fireButton").show();
+				$("#cancelButton").hide();
+			}
 		},
 	});
+}
+
+function handleError(res) {
+		switch (res.status) {
+			case 0:
+				alert("Kein Server kann angesprochen werden. Fehlercode:" + res.status);
+				break;
+			case 404:
+				alert("Der Server ist gerade nicht erreichbar oder es liegt keine Internetverbindung an. Hoffentlich ändert sich das bald. Fehlercode:" + res.status);
+				break;
+			case 503:
+				alert("Der Service ist auf dem Server nicht verfügbar. Da wurde also irgendwas im Backend verändert. Fehlercode:" + res.status);
+				break;
+			default:
+				alert("Unerklärlicher Fehler. Sicher, dass der Server der Schuldige ist? Fehlercode:" + res.status);
+				break;
+		}
+
 }
 function removeElement(element) {
 	$.ajax("php/handleDb.php", {
@@ -325,7 +351,9 @@ function cancelTheThing() {
 			console.log(res);
 		},
 		error: function (res) {
+			handleError(res);
 			console.log(res);
+			$("#cancelButton").show();
 		},
 	});
 }
