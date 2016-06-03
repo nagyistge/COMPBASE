@@ -1,7 +1,6 @@
 package uzuzjmd.competence.tests;
 
 
-import org.apache.xerces.impl.dv.dtd.ENTITYDatatypeValidator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
