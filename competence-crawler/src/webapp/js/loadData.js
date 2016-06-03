@@ -300,10 +300,12 @@ function fireInTheHole() {
 			console.log(res);
 		},
 		error: function (res, status, error) {
-			handleError(res);
 			console.log(res);
-			$("#fireButton").show();
-			$("#cancelButton").hide();
+			if (res.status != 200) {
+				handleError(res);
+				$("#fireButton").show();
+				$("#cancelButton").hide();
+			}
 		},
 	});
 }
