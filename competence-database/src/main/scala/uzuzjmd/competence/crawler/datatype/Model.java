@@ -114,23 +114,30 @@ public class Model implements PersistenceModel {
                 throw new InterruptedException("Thread interruption forced");
             }
             i++;
-            QueryResponse response = connector.connectToSolr(key);
-            SolrDocumentList solrList = response.getResults();
-            logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
+            boolean noMoreResponses = true;
+            int iterationCount = 0;
+            while (noMoreResponses) {
+                noMoreResponses = connector.connectToSolr(key, iterationCount);
 
-            if (fileBased) {
-                solrListToFile(key, solrList, filepath);
-            } else {
-                solrListToDB(key, solrList);
+                if (fileBased) {
+                    solrListToFile(key, connector.response.getResults(), filepath);
+                } else {
+                    solrListToDB(key, connector.response.getResults(), iterationCount);
+                }
+                connector.response = null;
+                iterationCount++;
+                System.gc();
             }
         }
         logger.debug("Leaving scoreStichwort");
     }
 
 
-    public void solrListToDB(String key, SolrDocumentList solrList) throws InterruptedException {
+    public void solrListToDB(String key, SolrDocumentList solrList, int iterationCount) throws InterruptedException {
         logger.debug("Entering solrListToDB with " + key);
-        int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
+        int sizeOfStichwortResult = Math.min(((int) solrList.getNumFound())
+                - (Integer.parseInt(MagicStrings.maxSolrDocs) * iterationCount),
+                Integer.parseInt(MagicStrings.maxSolrDocs) - 1);
         MysqlConnect connect = new MysqlConnect();
         connect.connect(connextionString);
         connect.issueInsertOrDeleteStatement("set global max_connections = 20000000000;");
@@ -140,8 +147,9 @@ public class Model implements PersistenceModel {
                 logger.warn("Thread has been interrupted");
                 throw new InterruptedException("Thread interruption forced");
             }
-            SolrDocument doc = solrList.get(i);
-            connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_ScoreStich (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);", key,  doc.getFieldValue("id"), doc.getFieldValue("score"));
+            connect.issueInsertOrDeleteStatement("INSERT INTO " + database
+                    + "_ScoreStich (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);",
+                    key,  solrList.get(i).getFieldValue("id"), solrList.get(i).getFieldValue("score"));
         }
         connect.close();
 
@@ -202,11 +210,17 @@ public class Model implements PersistenceModel {
                 throw new InterruptedException("Thread interruption forced");
             }
             i++;
-            QueryResponse response = connector.connectToSolr(varStich.get(key));
-            SolrDocumentList solrList = response.getResults();
-            logger.debug("Key:" + key + " got " + solrList.getNumFound() + " Results");
-            varMetaToCsv(key, solrList, filepath,
-                    StringUtils.join(varStich.get(key).split("\" OR \""), ", "));
+
+            boolean noMoreResponses = true;
+            int iterationCount = 0;
+            while (noMoreResponses) {
+                noMoreResponses = connector.connectToSolr(varStich.get(key), iterationCount);
+                varMetaToCsv(key, connector.response.getResults(), filepath,
+                        StringUtils.join(varStich.get(key).split("\" OR \""), ", "), iterationCount);
+                iterationCount++;
+                connector.response = null;
+                System.gc();
+            }
         }
         logger.debug("Leaving scoreVariable");
     }
@@ -281,9 +295,12 @@ public class Model implements PersistenceModel {
 
 
     @Override
-    public void varMetaToCsv(String key, SolrDocumentList solrList, String filepath, String stich) throws IOException, URISyntaxException, InterruptedException {
+    public void varMetaToCsv(String key, SolrDocumentList solrList, String filepath, String stich, int iterationCount)
+            throws IOException, URISyntaxException, InterruptedException {
         List<String> lines = new ArrayList<>();
-        int sizeOfStichwortResult = Math.min((int) solrList.getNumFound(), SolrConnector.getLimit());
+        int sizeOfStichwortResult = Math.min(((int) solrList.getNumFound())
+                        - (Integer.parseInt(MagicStrings.maxSolrDocs) * iterationCount),
+                Integer.parseInt(MagicStrings.maxSolrDocs) - 1);
         for (int i = 0; i < sizeOfStichwortResult; i++) {
             if (Thread.interrupted()) {
                 logger.warn("Thread has been interrupted");

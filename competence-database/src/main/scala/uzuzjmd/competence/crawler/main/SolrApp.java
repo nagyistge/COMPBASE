@@ -4,6 +4,7 @@ import config.MagicStrings;
 import neo4j.Neo4JConnector;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import uzuzjmd.competence.crawler.analysis.CrawlerDataAnalysis;
 import uzuzjmd.competence.crawler.datatype.Model;
 import uzuzjmd.competence.crawler.io.ReadMysql;
@@ -18,14 +19,14 @@ import java.util.Collection;
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
     static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/uni";
-    private String database;
+    static private String database;
 
     public SolrApp(String database) {
         this.database = database;
     }
 
     public  void excecute() throws Exception {
-        //DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
+        DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
         MysqlConnector mc = new MysqlConnector(MagicStrings.UNIVERSITIESDBNAME);
         if (mc.checkCampaignStatus(this.database) == 1) {
             logger.warn("Campaign is already computing");
@@ -42,6 +43,8 @@ public class SolrApp {
             ReadMysql mysql = new ReadMysql();
             Neo4JConnector nj = new Neo4JConnector();
             SolrConnector connector = new SolrConnector(solrUrl);
+            logger.debug(MagicStrings.minPercentile);
+            logger.debug(MagicStrings.maxPercentile);
 
             CrawlerDataAnalysis cda = new CrawlerDataAnalysis(Integer.valueOf(MagicStrings.minPercentile),
                     Integer.valueOf(MagicStrings.maxPercentile), this.database);
@@ -93,7 +96,9 @@ public class SolrApp {
 
     }
     public static void main(String[] args) throws Exception {
-        SolrApp sapp = new SolrApp("up_test");
+        MysqlConnector mc = new MysqlConnector(MagicStrings.UNIVERSITIESDBNAME);
+        mc.setCampaignStatus("elearningForschendesLernen", 0);
+        SolrApp sapp = new SolrApp("elearningForschendesLernen");
         sapp.excecute();
     }
 }

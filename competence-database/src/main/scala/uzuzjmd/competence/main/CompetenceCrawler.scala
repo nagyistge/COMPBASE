@@ -39,7 +39,8 @@ object CompetenceCrawler extends LanguageConverter with Logging {
     // ++ ValidSubjects.values().map(x=>x.toString)
     val inputList: Array[String] = ValidOperators.values().map(x => x.toString)
     val inputListFolded = inputList.reduce((a, b) => a + "\" OR \"" + b)
-    val result: QueryResponse = solrConnector.connectToSolr(inputListFolded)
+    val iterateMore = solrConnector.connectToSolr(inputListFolded, 0)
+    val result: QueryResponse = solrConnector.response;
     val documents: SolrDocumentList = result.getResults
 
     val documentIterator = documents.listIterator();

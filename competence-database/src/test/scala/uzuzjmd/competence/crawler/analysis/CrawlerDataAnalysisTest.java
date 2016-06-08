@@ -1,19 +1,19 @@
 package uzuzjmd.competence.crawler.analysis;
 
-import config.MagicStrings;
-import datastructures.Pair;
-import mysql.VereinfachtesResultSet;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import scala.Predef;
-import scala.collection.immutable.List;
-import uzuzjmd.competence.crawler.mysql.MysqlConnector;
-
+//import config.MagicStrings;
+//import datastructures.Pair;
+//import mysql.VereinfachtesResultSet;
+//import org.apache.commons.collections.CollectionUtils;
+//import org.apache.commons.lang.ArrayUtils;
+//import org.apache.commons.lang.StringUtils;
+//import org.apache.log4j.LogManager;
+//import org.apache.log4j.Logger;
+//import org.junit.Test;
+//
+//import scala.Predef;
+//import scala.collection.immutable.List;
+//import uzuzjmd.competence.crawler.mysql.MysqlConnector;
+//
 import java.util.*;
 
 import static org.junit.Assert.assertFalse;
@@ -23,6 +23,7 @@ import static org.junit.Assert.assertFalse;
  */
 public class CrawlerDataAnalysisTest {
 
+    /*
     static private final Logger logger = LogManager.getLogger(CrawlerDataAnalysisTest.class.getName());
     @Test
     public void testSelectRelevantDataForPlotting() throws Exception {
@@ -50,4 +51,5 @@ public class CrawlerDataAnalysisTest {
         }
 
     }
+    */
 }

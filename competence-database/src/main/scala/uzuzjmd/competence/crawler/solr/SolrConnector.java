@@ -1,5 +1,6 @@
 package uzuzjmd.competence.crawler.solr;
 
+import config.MagicStrings;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrClient;
@@ -19,6 +20,7 @@ public class SolrConnector {
     private SolrClient client ;
     private final String serverUrl;
     private static int limit =1000000;
+    public QueryResponse response;
 
     public SolrConnector(String serverUrl) {
         logger.debug("Entering SolrConnector Constructor with serverUrl:" + serverUrl);
@@ -37,7 +39,21 @@ public class SolrConnector {
     static public int getLimit() {
         return limit;
     }
-    public QueryResponse connectToSolr(String query) throws IOException, SolrServerException {
+
+    public int getCountOfResults(String query) throws IOException, SolrServerException {
+
+        SolrQuery solrQuery = new SolrQuery("content:" + query);
+        solrQuery.set("indent", "true");
+        solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
+        solrQuery.set("wt", "json");
+        if (query.toLowerCase().matches("forsch[a-z]* lern[a-z]*") || query.toLowerCase().matches("entdeckend[a-z]* lern[a-z]*")) {
+            solrQuery.set("defType", "edismax");
+            solrQuery.set("qs", "10");
+        }
+        QueryResponse response = client.query(solrQuery);
+        return (int) response.getResults().getNumFound();
+    }
+    public boolean connectToSolr(String query, int iterationCount) throws IOException, SolrServerException {
         //query = "content\"" + StringUtils.join(query.split(" "), "\" AND \"") + "\"";
 
         //TODO Hacky exception
@@ -45,10 +61,21 @@ public class SolrConnector {
             logger.info("Match");
             query = "\"" + query + "\"";
         }
-        logger.debug("Entering connectToSolr with query:" + query);
+        int numFound = getCountOfResults(query);
+        int maxCount = Integer.parseInt(MagicStrings.maxSolrDocs) * (iterationCount + 1);
+
+        logger.debug("Entering connectToSolr with query:" + query
+                + " and iterationCount:" + iterationCount);
+        //logger.debug("Numbers of documents:" + numFound);
+        //Build a query
         SolrQuery solrQuery = new SolrQuery("content:" + query);
         solrQuery.set("indent", "true");
-        solrQuery.set("rows", limit);
+        if ( numFound < maxCount) {
+            solrQuery.set("rows", numFound);
+        } else {
+            solrQuery.set("rows", maxCount - 1);
+        }
+        solrQuery.set("start", iterationCount * Integer.parseInt(MagicStrings.maxSolrDocs));
         solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
         if (query.toLowerCase().matches("forsch[a-z]* lern[a-z]*") || query.toLowerCase().matches("entdeckend[a-z]* lern[a-z]*")) {
@@ -56,14 +83,11 @@ public class SolrConnector {
             solrQuery.set("qs", "10");
         }
 
-        QueryResponse response = client.query(solrQuery);
-        SolrDocumentList docs = response.getResults();
-        logger.info("Quantitiv Result from " + query + ":" + String.valueOf(docs.getNumFound()));
-        if (docs.getNumFound() > limit) {
-            logger.warn("Limit Exceeded. Found more Docs in solr than queried. Increase the limit if you want to get more Docs");
-        }
+        //send query
+        response = client.query(solrQuery);
         logger.debug("Leaving connectToSolr");
-        return response;
+        //TODO
+        return (numFound > maxCount);
     }
 
     public String getServerUrl(){
