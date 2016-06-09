@@ -61,14 +61,14 @@
 					<groupId>concurrent</groupId>
 					<artifactId>concurrent</artifactId>
 				</exclusion>
-				<exclusion>
+				<!--exclusion>
 					<groupId>org.apache.httpcomponents</groupId>
 					<artifactId>httpclient</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.apache.httpcomponents</groupId>
 					<artifactId>httpcore</artifactId>
-				</exclusion>
+				</exclusion-->
 				<exclusion>
 					<groupId>com.ibm.icu</groupId>
 					<artifactId>icu4j</artifactId>

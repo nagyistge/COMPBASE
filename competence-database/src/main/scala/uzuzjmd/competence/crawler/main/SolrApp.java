@@ -2,13 +2,11 @@ package uzuzjmd.competence.crawler.main;
 
 import config.MagicStrings;
 import neo4j.Neo4JConnector;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import uzuzjmd.competence.crawler.analysis.CrawlerDataAnalysis;
 import uzuzjmd.competence.crawler.datatype.Model;
-import uzuzjmd.competence.crawler.io.ReadCsv;
 import uzuzjmd.competence.crawler.io.ReadMysql;
 import uzuzjmd.competence.crawler.mysql.MysqlConnector;
 import uzuzjmd.competence.crawler.solr.SolrConnector;
@@ -21,7 +19,7 @@ import java.util.Collection;
 public class SolrApp {
     static private final Logger logger = LogManager.getLogger(SolrApp.class.getName());
     static private final String solrUrl = "http://learnlib.soft.cs.uni-potsdam.de:80/solr/uni";
-    private String database;
+    static private String database;
 
     public SolrApp(String database) {
         this.database = database;
@@ -43,8 +41,10 @@ public class SolrApp {
         try {
             //ReadCsv csv = new ReadCsv(MagicStrings.dataPath);
             ReadMysql mysql = new ReadMysql();
-            Neo4JConnector nj = new Neo4JConnector();
+            //Neo4JConnector nj = new Neo4JConnector();
             SolrConnector connector = new SolrConnector(solrUrl);
+            logger.debug(MagicStrings.minPercentile);
+            logger.debug(MagicStrings.maxPercentile);
 
             CrawlerDataAnalysis cda = new CrawlerDataAnalysis(Integer.valueOf(MagicStrings.minPercentile),
                     Integer.valueOf(MagicStrings.maxPercentile), this.database);
@@ -56,7 +56,7 @@ public class SolrApp {
             //model.insertSynonyms();
             logger.info("Model instance with Synonyms. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
                     + model.varMetaSize());
-            nj.queryMyStatements(model.toNeo4JQuery());
+            //nj.queryMyStatements(model.toNeo4JQuery());
             logger.info("The model has been put into Neo4J");
             logger.info("Create Query");
             model.initStichFile("NOPATH");
@@ -73,7 +73,7 @@ public class SolrApp {
                 logger.debug("Search percentile for " + var);
                 cda.prepareHochschuleSolrAnalyse(var);
 
-                double[] values = ArrayUtils.toPrimitive(cda.inputData.keySet().toArray(new Double[0]));
+                Double[] values = cda.inputData.keySet().toArray(new Double[0]);
 
                 logger.debug("There are " + values.length + " elements in the table");
                 if (values.length > Integer.valueOf(MagicStrings.maxPercentile)) {
@@ -96,7 +96,9 @@ public class SolrApp {
 
     }
     public static void main(String[] args) throws Exception {
-        SolrApp sapp = new SolrApp("up_test");
+        MysqlConnector mc = new MysqlConnector(MagicStrings.UNIVERSITIESDBNAME);
+        mc.setCampaignStatus("elearningForschendesLernen", 0);
+        SolrApp sapp = new SolrApp("elearningForschendesLernen");
         sapp.excecute();
     }
 }

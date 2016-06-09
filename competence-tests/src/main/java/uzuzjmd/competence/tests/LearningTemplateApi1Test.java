@@ -3,7 +3,6 @@ package uzuzjmd.competence.tests;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
@@ -17,8 +16,6 @@ import uzuzjmd.competence.shared.StringList;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 

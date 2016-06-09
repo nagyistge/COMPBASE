@@ -1,12 +1,19 @@
 package uzuzjmd.competence.tests;
 
+import config.MagicStrings;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.main.RestServer;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.reflexion.dao.LearningTemplateDao;
+import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.shared.DESCRIPTORType;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.Graph;
@@ -14,6 +21,9 @@ import uzuzjmd.competence.shared.dto.GraphNode;
 import uzuzjmd.competence.shared.dto.GraphTriple;
 import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
 
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -24,7 +34,7 @@ import java.util.Map.Entry;
 /**
  * This needs running RestServer in order to work
  */
-public class LearningTemplateDaoTest {
+public class LearningTemplateDaoTest extends JerseyTest {
 
 	public static final String LABELNAME = "SuggestedCompetencePrerequisite";
 	private static final String course = "university";
@@ -37,23 +47,17 @@ public class LearningTemplateDaoTest {
 	private static GraphTriple fourth;
 	private static GraphTriple fifth;
 
-	public static Thread t = new Thread(new Runnable() {
-		public void run() {
-			try {
-				RestServer.startServer();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-		}
-	});
+	@Override
+	protected javax.ws.rs.core.Application configure() {
+		DBInitializer.init();
+		return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, EvidenceServiceRestServerImpl.class, ProgressApiImpl.class, CompetenceServiceRestJSON.class);
+	}
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		//t.start();
 		//Thread.sleep(200l);
-		initTestGraph();
+		//initTestGraph();
 
 	}
 
@@ -82,26 +86,37 @@ public class LearningTemplateDaoTest {
 		learningTemplateResultSet.addTriple(fifth, new String[] {
 				"programming", "api", "universality" });
 	}
-
+/**
 	@AfterClass
 	public static void tearDown() {
 		graph = null;
 		learningTemplateResultSet = null;
 
 	}
+*/
+
 
 	@Test
 	public void testCreateTemplate() {
 		System.out.println("##### Test CreateTemplate #####");
-		Assert.assertEquals(200, LearningTemplateDao.createTemplate(learningTemplateResultSet));
-		Assert.assertEquals(200, LearningTemplateDao.createTemplate("testOnlyTemplateCreate"));
-		final LearningTemplateResultSet result = LearningTemplateDao
-				.getLearningProjectTemplate("testOnlyTemplateCreate");
+		LearningTemplateResultSet learningTemplateResultSet = new LearningTemplateResultSet();
+		learningTemplateResultSet.setNameOfTheLearningTemplate(learningTemplateName);
+		Response response = target("/competences/learningtemplate/add").request(MediaType.APPLICATION_XML)
+				.post(Entity.entity(learningTemplateResultSet, MediaType.APPLICATION_XML));
+		Response testOnlyResponse = target("/competences/learningtemplate/add")
+				.queryParam("learningTemplateName", learningTemplateResultSet)
+				.request(MediaType.APPLICATION_XML)
+				.post(Entity.entity(learningTemplateResultSet, MediaType.APPLICATION_XML));
+		Assert.assertEquals(200, response.getStatus());
+		Assert.assertEquals(200, testOnlyResponse.getStatus());
+
+		final LearningTemplateResultSet result = target("/competences/learningtemplate/get/testOnlyTemplateCreate").request(MediaType.APPLICATION_XML)
+				.get(LearningTemplateResultSet.class);
 
 		Assert.assertNotNull(result);
 		
 	}
-
+/*
 	@Test
 	public void testGetLearningProjectTemplate() {
 		testCreateTemplate();
@@ -301,4 +316,5 @@ public class LearningTemplateDaoTest {
 		 Assert.assertNotNull(result1);
 		 Assert.assertNotNull(result2);
 	}
+	*/
 }

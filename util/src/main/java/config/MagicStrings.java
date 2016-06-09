@@ -47,6 +47,7 @@ public class MagicStrings {
 	public static final String varMetaSuffix = PropUtil.getProp("varMetaSuffix");
 	public static final String minPercentile = PropUtil.getProp("minPercentile");
 	public static final String maxPercentile = PropUtil.getProp("maxPercentile");
+	public static final String maxSolrDocs = PropUtil.getProp("maxSolrDocs");
 
 
 }
