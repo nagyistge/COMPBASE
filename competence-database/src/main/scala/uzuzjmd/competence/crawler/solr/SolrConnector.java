@@ -76,7 +76,7 @@ public class SolrConnector {
             solrQuery.set("rows", maxCount - 1);
         }
         solrQuery.set("start", iterationCount * Integer.parseInt(MagicStrings.maxSolrDocs));
-        solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
+        solrQuery.setFields("id", "title", "score", "url", "pageDepth");
         solrQuery.set("wt", "json");
         if (query.toLowerCase().matches("forsch[a-z]* lern[a-z]*") || query.toLowerCase().matches("entdeckend[a-z]* lern[a-z]*")) {
             solrQuery.set("defType", "edismax");
