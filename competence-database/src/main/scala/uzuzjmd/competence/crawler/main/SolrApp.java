@@ -26,7 +26,7 @@ public class SolrApp {
     }
 
     public  void excecute() throws Exception {
-        DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
+        //DOMConfigurator.configure(MagicStrings.LOG4JLOCATION);
         MysqlConnector mc = new MysqlConnector(MagicStrings.UNIVERSITIESDBNAME);
         if (mc.checkCampaignStatus(this.database) == 1) {
             logger.warn("Campaign is already computing");
@@ -41,7 +41,7 @@ public class SolrApp {
         try {
             //ReadCsv csv = new ReadCsv(MagicStrings.dataPath);
             ReadMysql mysql = new ReadMysql();
-            Neo4JConnector nj = new Neo4JConnector();
+            //Neo4JConnector nj = new Neo4JConnector();
             SolrConnector connector = new SolrConnector(solrUrl);
             logger.debug(MagicStrings.minPercentile);
             logger.debug(MagicStrings.maxPercentile);
@@ -56,7 +56,7 @@ public class SolrApp {
             //model.insertSynonyms();
             logger.info("Model instance with Synonyms. Length - StichwortVar:" + model.stichwortVarSize() + " VarMeta:"
                     + model.varMetaSize());
-            nj.queryMyStatements(model.toNeo4JQuery());
+            //nj.queryMyStatements(model.toNeo4JQuery());
             logger.info("The model has been put into Neo4J");
             logger.info("Create Query");
             model.initStichFile("NOPATH");
