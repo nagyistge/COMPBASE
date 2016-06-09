@@ -66,7 +66,7 @@ public class SolrConnector {
 
         logger.debug("Entering connectToSolr with query:" + query
                 + " and iterationCount:" + iterationCount);
-        //logger.debug("Numbers of documents:" + numFound);
+        logger.debug("Numbers of documents:" + numFound);
         //Build a query
         SolrQuery solrQuery = new SolrQuery("content:" + query);
         solrQuery.set("indent", "true");
