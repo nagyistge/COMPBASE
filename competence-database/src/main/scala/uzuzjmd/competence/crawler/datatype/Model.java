@@ -307,6 +307,8 @@ public class Model implements PersistenceModel {
                 throw new InterruptedException("Thread interruption forced");
             }
             try {
+                if ( i == 55561)
+                    logger.debug(i + " frome " + sizeOfStichwortResult + " " +  stich);
                 writeLine(key, solrList, filepath, stich, lines, i);
             } catch (NoResultsException e) {
                 logger.error("No Results");
@@ -340,6 +342,9 @@ public class Model implements PersistenceModel {
             }
         }
 
+        if (uri.getHost() == null) {
+            return;
+        }
         String domain = uri.getHost();
         String[] tempStrings = domain.split("\\.");
         if (tempStrings.length >= 0) {
