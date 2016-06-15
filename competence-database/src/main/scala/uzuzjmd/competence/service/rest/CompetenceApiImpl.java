@@ -90,6 +90,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     @Path("/competences/{competenceId}")
     @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
         competence.delete();
@@ -100,6 +101,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     @Path("/competences/{competenceId}/users/{userId}")
     @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCompetence(@PathParam("competenceId") String competenceId, @PathParam("userId") String userId) throws Exception {
         Competence competence = new Competence(competenceId);
         if (userId != null) {
@@ -124,6 +126,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     @Path("/competences/{competenceId}/delete")
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
         competence.delete();
@@ -140,6 +143,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Path("/competences/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data) {
         data.setForCompetence(data.getForCompetence());
         String resultMessage = Competence2Ont
@@ -157,7 +161,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/competences/hierarchy/update")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response updateHierarchy(HierarchyChangeSet changes) {
         HierarchieChangesToOnt.convert(changes);
         return Response.ok("updated taxonomy").build();
@@ -166,7 +170,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/competences/{competenceId}/comments")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @Override
     public Response addComment(@PathParam("competenceId") String competenceId, CommentData data) throws Exception {
         Competence competence = new Competence(competenceId);

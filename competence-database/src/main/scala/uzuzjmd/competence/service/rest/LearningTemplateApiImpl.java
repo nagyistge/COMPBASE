@@ -37,6 +37,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Path("/learningtemplates/{learningtemplateId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
         data.setSelectedTemplate(learningtemplateId);
         LearningTemplateToOnt.convert(data);
@@ -46,6 +47,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Override
     @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, @QueryParam(value = "userId") String userName) throws Exception {
         if (userName != null) {
             DeleteTemplateInOnt.convert(new LearningTemplateData(userName, null, learningtemplateId));
@@ -62,6 +64,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Override
     @Path("/learningtemplates/{learningtemplateId}/delete")
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
         return deleteLearningTemplateIntern(learningtemplateId);
     }
@@ -70,6 +73,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
     @Path("/learningtemplates/{learningtemplateId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
         data.setSelectedTemplate(learningtemplateId);
         LearningTemplateToOnt.convert(data);

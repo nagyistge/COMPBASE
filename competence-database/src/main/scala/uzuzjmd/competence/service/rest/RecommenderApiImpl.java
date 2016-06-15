@@ -87,6 +87,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/competences/{competenceId}/activities/{activityId}")
     public Response createSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
@@ -116,15 +117,16 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Consumes(MediaType.APPLICATION_JSON)
     @DELETE
     @Path("/competences/{competenceId}/courses/{courseId}")
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSuggestedCourseForCompetence(@PathParam("competenceId") String competence, @PathParam("courseId") String course) {
         SuggestedCourseForCompetence2Ont.delete(course, competence);
         return Response.ok("edge deleted").build();
     }
 
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @DELETE
     @Path("/competences/{competenceId}/activities/{activityId}")
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) {
         SuggestedActivityForCompetence2Ont.delete(activityId, competenceId);
         return Response.ok("edge created").build();

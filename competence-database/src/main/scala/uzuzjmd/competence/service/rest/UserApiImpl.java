@@ -77,6 +77,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @Path("/users/{userId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addUser(@PathParam("userId") String userId, UserData data) throws Exception {
         return addUser(data);
     }
@@ -94,6 +95,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @Override
     @Path("/users/{userId}")
     @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteUser(@PathParam("userId") String userId) throws Exception {
         User user = new User(userId);
         user.delete();
@@ -103,6 +105,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     @Override
     @Path("/users/{userId}/delete")
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteUserLegacy(@PathParam("userId") String userId) throws Exception {
         User user = new User(userId);
         user.delete();
