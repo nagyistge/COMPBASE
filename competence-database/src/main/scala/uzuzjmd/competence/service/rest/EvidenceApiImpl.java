@@ -61,8 +61,6 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
     @Path("/evidences/{evidenceId}")
-    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
     public Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data) {
         return createEvidenceLink(evidenceId, data);
     }

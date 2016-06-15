@@ -258,4 +258,6 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         return competence.getSimilarCompetences();
     }
 
+
+
 }

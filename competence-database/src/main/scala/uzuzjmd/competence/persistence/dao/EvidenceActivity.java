@@ -2,6 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.CommentData;
+import uzuzjmd.competence.shared.dto.ActivityEntry;
 
 import java.util.ArrayList;
 
@@ -39,5 +40,9 @@ public class EvidenceActivity extends DaoAbstractImpl {
             commentData.setText(comment.getText());
         }
         return result;
+    }
+
+    public ActivityEntry toActivityEntry() {
+        return new ActivityEntry(printableName, null, null, getId());
     }
 }

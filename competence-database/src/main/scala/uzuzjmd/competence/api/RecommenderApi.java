@@ -19,9 +19,6 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/competences/{userEmail}")
     HashMap<String, Double> recommendCompetences(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId);
 
     /**
@@ -31,9 +28,6 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/activities/{userEmail}")
     HashMap<Evidence, Double> recommendActivities(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId);
 
     /**
@@ -41,9 +35,6 @@ public interface RecommenderApi {
      * @param userEmail
      * @return
      */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/courses/{userEmail}")
     MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail);
 
     /**
@@ -54,9 +45,6 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/courses/{courseId}")
     String[] getSuggestedCompetencesForCourse(
             @PathParam("courseId") String courseId) throws Exception;
 
@@ -68,9 +56,6 @@ public interface RecommenderApi {
      * @param competenceId
      * @return
      */
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/competences/{competenceId}")
     String[] getSuggestedCoursesForCompetence(
             @PathParam("competenceId") String competenceId) throws Exception;
 
@@ -82,19 +67,9 @@ public interface RecommenderApi {
      * @return
      * @throws Exception
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/competences/{competenceId}/activities/{activityId}")
     Response createSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) throws Exception;
 
-    /**
-     * This returns a list of competencies linked to certain activity
-     * @param activityId
-     * @return
-     * @throws Exception
-     */
 
-    String[] getCompetencesForSuggestedActivity(@PathParam("activityId") String activityId) throws Exception;
 
     /**
      * Deletes the link between the courseId and the given competence
@@ -102,9 +77,6 @@ public interface RecommenderApi {
      * @param course
      * @return
      */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @DELETE
-    @Path("/competences/{competenceId}/courses/{courseId}")
     Response deleteSuggestedCourseForCompetence(@PathParam("competenceId") String competence, @PathParam("courseId") String course);
 
     /**
@@ -113,8 +85,5 @@ public interface RecommenderApi {
      * @param activityId
      * @return
      */
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @DELETE
-    @Path("/competences/{competenceId}/activities/{activityId}")
     Response deleteSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId);
 }

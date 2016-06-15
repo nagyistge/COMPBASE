@@ -8,6 +8,12 @@ import java.util.List;
 @XmlRootElement
 public class EvidenceData {
 
+	private String creator;
+	private String role;
+	private String linkedUser;
+	private List<String> competences;
+	private List<String> evidences;
+
 	public EvidenceData() {
 		printableUserName = null;
 	}
@@ -125,9 +131,5 @@ public class EvidenceData {
 		this.evidences = evidences;
 	}
 
-	private String creator;
-	private String role;
-	private String linkedUser;
-	private List<String> competences;
-	private List<String> evidences;
+
 }

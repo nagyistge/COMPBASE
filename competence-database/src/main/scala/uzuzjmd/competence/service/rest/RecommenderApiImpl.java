@@ -98,20 +98,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
         return Response.ok("edge created").build();
     }
 
-    @Override
-    @Consumes(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/activities/{activityId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String[] getCompetencesForSuggestedActivity(@PathParam("activityId") String activityId) throws Exception {
-        EvidenceActivity activity = new EvidenceActivity(activityId);
-        if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
-            return new String[0];
-        }
-        List<String> result = activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence);
-        return result.toArray(new String[0]);
 
-    }
 
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
