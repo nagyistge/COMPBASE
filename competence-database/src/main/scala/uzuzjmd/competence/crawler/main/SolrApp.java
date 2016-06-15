@@ -97,8 +97,8 @@ public class SolrApp {
     }
     public static void main(String[] args) throws Exception {
         MysqlConnector mc = new MysqlConnector(MagicStrings.UNIVERSITIESDBNAME);
-        mc.setCampaignStatus("elearningForschendesLernen", 0);
-        SolrApp sapp = new SolrApp("elearningForschendesLernen");
+        mc.setCampaignStatus("elearningforschendeslernen", 0);
+        SolrApp sapp = new SolrApp("elearningforschendeslernen");
         sapp.excecute();
     }
 }

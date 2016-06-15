@@ -42,7 +42,7 @@ public class ProgressApiImpl {
     }
 
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/progress/{userId}")
     @PUT
     public Response updateOrCreateUserProgress(@PathParam("userId") String userId, UserProgress userProgress) throws Exception {
@@ -54,7 +54,7 @@ public class ProgressApiImpl {
 
 
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/progress/{userId}/competences/{competenceId}")
     @PUT
     public Response updateOrCreateUserProgress(@PathParam("userId") String userId, @PathParam("competenceId") String competenceId, UserCompetenceProgress userProgress) throws Exception {

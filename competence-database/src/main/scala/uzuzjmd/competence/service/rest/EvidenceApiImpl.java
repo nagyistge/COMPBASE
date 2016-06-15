@@ -39,7 +39,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/evidences/{evidenceURL}/create")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
         java.util.List<String> evidences = data.getEvidences();
         if (evidences == null) {
@@ -61,7 +61,6 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
     @Path("/evidences/{evidenceId}")
-    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data) {
         return createEvidenceLink(evidenceId, data);
     }
@@ -79,7 +78,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
     @Path("/evidences/{evidenceId}/comments")
     public Response commentCompetence(@PathParam("evidenceId") String evidenceId, CommentData commentData) {
@@ -117,7 +116,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
     @Path("/evidences/{evidenceId}/validate")
     public Response validateLink(
@@ -128,7 +127,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
     @Path("/evidences/{evidenceId}/invalidate")
     public Response inValidateLink(

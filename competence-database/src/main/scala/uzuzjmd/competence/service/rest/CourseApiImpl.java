@@ -57,6 +57,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @Override
     @Path("/courses/{courseId}")
     @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCourse(@PathParam("courseId") String courseId) throws Exception {
         CourseContext courseContext = new CourseContext(courseId);
         courseContext.delete();
@@ -72,6 +73,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @Override
     @Path("/courses/{courseId}/delete")
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCourseLegacy(@PathParam("courseId") String courseId) throws Exception {
         CourseContext courseContext = new CourseContext(courseId);
         courseContext.delete();
@@ -89,6 +91,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @Path("/courses/{courseId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addCourseLegacy(@PathParam("courseId") String courseId, CourseData data) throws Exception {
         return addCourseIntern(courseId, data);
     }
