@@ -87,5 +87,5 @@ public interface UserApi {
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Boolean checksIfUserExists(@PathParam("userId") String userId, String password);
+    Boolean checksIfUserExists(@PathParam("userId") String userId, String password) throws Exception;
 }
