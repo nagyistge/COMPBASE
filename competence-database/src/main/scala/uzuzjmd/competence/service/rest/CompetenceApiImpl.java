@@ -72,6 +72,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Path("/competences/{competenceId}")
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data) {
         data.setForCompetence(competenceId);
         if (data.getSubCompetences() == null) {
