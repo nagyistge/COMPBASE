@@ -63,14 +63,11 @@ public class Model implements PersistenceModel {
        this.database = database;
    }
 
-    public void addDate(String stichwort, String variable, String... metas){
+    public void addDate(String stichwort, String variable){
         logger.debug("Entering addDate with stichwort " + stichwort + " variable " + variable
-            + " metas " + Arrays.toString(metas));
+            );
         if (stichwort.length() > 0) {
             stichwortVar.addElement(stichwort, variable);
-        }
-        for (int i = 0; i < metas.length; i++) {
-            varMeta.addElement(variable);
         }
         logger.debug("Leaving addDate");
     }
@@ -147,8 +144,9 @@ public class Model implements PersistenceModel {
                 logger.warn("Thread has been interrupted");
                 throw new InterruptedException("Thread interruption forced");
             }
-            connect.issueInsertOrDeleteStatement("INSERT INTO " + database
-                    + "_ScoreStich (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);",
+            String query = "INSERT INTO `" + database
+                    + "_ScoreStich` (`Stichwort`, `id`, `SolrScore`) VALUES (?,?,?);";
+            connect.issueInsertOrDeleteStatement(query,
                     key,  solrList.get(i).getFieldValue("id"), solrList.get(i).getFieldValue("score"));
         }
         connect.close();
@@ -200,7 +198,7 @@ public class Model implements PersistenceModel {
 
     public void scoreVariable(SolrConnector connector, String filepath) throws IOException, SolrServerException, URISyntaxException, InterruptedException {
         logger.debug("Entering scoreVariable with SolrConnector:" + connector.getServerUrl());
-        HashMap<String, String> varStich = varMeta.toSolrQuery(stichwortVar);
+        HashMap<String, String> varStich = stichwortVar.toVarStichwort();
         int i = 1;
         int size = varStich.keySet().size();
         for (String key: varStich.keySet()) {
@@ -237,8 +235,8 @@ public class Model implements PersistenceModel {
         if (fileBased) {
             writeFirstLineOfKeyUrlFile(filepath, "Entering initStichFile", "Stichwort" + delimiter + "URL" + delimiter + "SolrScore", "Leaving initStichFile");
         } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_ScoreStich (Stichwort TEXT, id TEXT, SolrScore DOUBLE);");
-            issueStatement(connextionString, "TRUNCATE TABLE " + database + "_ScoreStich;");
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS `" + database + "_ScoreStich` (Stichwort TEXT, id TEXT, SolrScore DOUBLE);");
+            issueStatement(connextionString, "TRUNCATE TABLE `" + database + "_ScoreStich`;");
         }
     }
 
@@ -286,10 +284,10 @@ public class Model implements PersistenceModel {
                     + "Content" + delimiter + "SolrScore" + delimiter + "URL" + delimiter +
                     "Depth" + delimiter + "Lat" + delimiter + "Lon", "Leaving initVarMetaFile");
         } else {
-            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS " + database + "_"
-                    + MagicStrings.varMetaSuffix + " (Variable TEXT, Stichworte TEXT,"
+            issueStatement(connextionString, "CREATE TABLE IF NOT EXISTS `" + database + "_"
+                    + MagicStrings.varMetaSuffix + "` (Variable TEXT, Stichworte TEXT,"
                     + "Hochschule TEXT, Content TEXT, SolrScore TEXT, URL TEXT, Depth TEXT, Lat DOUBLE, Lon Double);");
-            issueStatement(connextionString, "TRUNCATE TABLE " + database + "_" + MagicStrings.varMetaSuffix + ";");
+            issueStatement(connextionString, "TRUNCATE TABLE `" + database + "_" + MagicStrings.varMetaSuffix + "`;");
         }
     }
 
@@ -308,7 +306,7 @@ public class Model implements PersistenceModel {
             }
             try {
                 if ( i == 55561)
-                    logger.debug(i + " frome " + sizeOfStichwortResult + " " +  stich);
+                    logger.debug(i + " from " + sizeOfStichwortResult + " " +  stich);
                 writeLine(key, solrList, filepath, stich, lines, i);
             } catch (NoResultsException e) {
                 logger.error("No Results");
@@ -412,8 +410,8 @@ public class Model implements PersistenceModel {
         }
         connect.connect(connextionString);
         connect.issueInsertOrDeleteStatement("use " + MagicStrings.UNIVERSITIESDBNAME + ";");
-        connect.issueInsertOrDeleteStatement("INSERT INTO " + database + "_"
-                + MagicStrings.varMetaSuffix + " (`Variable`, `Stichworte`, `Hochschule`, `Content`,"
+        connect.issueInsertOrDeleteStatement("INSERT INTO `" + database + "_"
+                + MagicStrings.varMetaSuffix + "` (`Variable`, `Stichworte`, `Hochschule`, `Content`,"
                 + "`SolrScore`, `URL`, `Depth`, `Lat`, `Lon`) VALUES (?,?,?,?,?,?,?,?,?)"
                 , col1, col3, col4, col5, col6, col7, col8, latLon.split(delimiter)[0]
                 , latLon.split(delimiter)[1]);

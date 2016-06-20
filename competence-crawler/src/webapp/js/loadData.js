@@ -47,6 +47,11 @@ function initialLoad(pollIt) {
 			success: function (res) {
 				if (res.length > 0) {
 					campaignJsonToObject(res);
+					var lastLi = $("#jobOverview").find("li").last();
+					var isFocus = false;
+					if (lastLi.find("input").length > 0) {
+						isFocus = lastLi.find("input").is(":focus");
+					}
 					$("#jobOverview").find("li").remove();
 					var r = active.length;
 					for (prop in campaigns) {
@@ -60,6 +65,18 @@ function initialLoad(pollIt) {
 					
 				} else {
 					console.log("No list elements found");
+				}
+				if (lastLi.length == 0)  {
+					$("#jobOverview").append("<li><div class=\"form-group\"><div class=\"input-group\">"
+						+ "<input id=\"addJob\" type=\"text\"  class=\"form-control\" placeholder=\"Neues Projekt\">"
+						+ "<span class=\"input-group-btn\"><button class=\"btn btn-default btn-success\" onclick=\"addJob(this)\">"
+						+ "<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>"
+						+ "</button></span></div></div></li>");
+				} else {
+					$("#jobOverview").append(lastLi);
+					if (isFocus) {
+						$(lastLi.find("input")[0]).get(0).focus();
+					}
 				}
 				usableNavbar();
 				readyLoaded();
@@ -174,11 +191,7 @@ function readyLoaded() {
 }
 
 function usableNavbar() {
-	$("#jobOverview").append("<li><div class=\"form-group\"><div class=\"input-group\">"
-		+ "<input id=\"addJob\" type=\"text\"  class=\"form-control\" placeholder=\"Neues Projekt\">"
-	  + "<span class=\"input-group-btn\"><button class=\"btn btn-default btn-success\" onclick=\"addJob(this)\">"
-		+ "<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>"
-		+ "</button></span></div></div></li>");
+	
 
 	$(".nav a").on("click", function(){
 		if (this.parentNode != $(".nav").find(".active")[0]) {

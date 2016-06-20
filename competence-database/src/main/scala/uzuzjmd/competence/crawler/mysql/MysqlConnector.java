@@ -23,6 +23,9 @@ public class MysqlConnector {
 
     static private final Logger logger = LogManager.getLogger(MysqlConnector.class.getName());
 
+    public List<MysqlResult> getMysqlResults() {
+        return mysqlResults;
+    }
     public MysqlConnector(String database) {
         connector = new MysqlConnect();
         String connection = String.format(connectionString, database);
@@ -78,9 +81,15 @@ public class MysqlConnector {
         return result;
     }
 
+    public  void updateHochschulCount(MysqlResult msr, int count) {
+        String query = "Update Hochschulen Set Count=" + String.valueOf(count)
+                + " Where Hochschulname=\"" + msr.hochschulname + "\"";
+        System.out.println(query);
+        connector.issueUpdateStatement(query);
+    }
     public VereinfachtesResultSet queryStichwortTable(String table) throws NoResultsException {
         logger.debug("Entering queryDomain with domain:" + table);
-        String query = "Select * from " + table + "_" + MagicStrings.stichWortSuffix;
+        String query = "Select * from `" + table + "_" + MagicStrings.stichWortSuffix + "`";
         VereinfachtesResultSet result = connector.issueSelectStatement(query );
         if ((result == null) || (! result.isBeforeFirst()) ) {
             logger.debug("Leaving queryDomain with 0 fetches");

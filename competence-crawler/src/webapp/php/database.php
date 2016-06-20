@@ -1,4 +1,3 @@
-
 <?php
 class database {
 	private $db;
@@ -48,21 +47,21 @@ class database {
 	}
 
 	public function newCampaign($name) {
-		$query= "INSERT INTO " . $this->props->overview . "(Name, Count) VALUE ('" . $name . "', 0)";
+		$query= "INSERT INTO " . $this->props->overview . "(Name, Status) VALUE ('" . $name . "', 0)";
 		$this->query($query);
 	}
 
 	public function createTable($name) {
-		$query = "CREATE TABLE " . $name . "_" . $this->props->stichWort . " (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), PRIMARY KEY (Id))";
+		$query = "CREATE TABLE `" . $name . "_" . $this->props->stichWort . "` (Id MEDIUMINT NOT NULL AUTO_INCREMENT, Stichwort VARCHAR(50), Variable VARCHAR(50), PRIMARY KEY (Id))";
 		return $this->query($query);
 	}
 
 	public function saveStichVarMeta($stich, $var, $camp) {
-		$query = "INSERT INTO " . $camp . "_" . $this->props->stichWort . " (Stichwort, Variable) VALUE ('" . $stich . "', '" . $var . "')";
+		$query = "INSERT INTO `" . $camp . "_" . $this->props->stichWort . "` (Stichwort, Variable) VALUE ('" . $stich . "', '" . $var . "')";
 		$this->query($query);
 	}
 	public function loadStichVarMeta($camp) {
-		$query = "SELECT * FROM " . $camp . "_" . $this->props->stichWort;
+		$query = "SELECT * FROM `" . $camp . "_" . $this->props->stichWort . "`";
 		return $this->querySelect($query, $camp . "_" . $this->props->stichWort);
 	}
 
@@ -82,7 +81,7 @@ class database {
 	}
 	
 	public function deleteElement($elem, $camp) {
-		$query = "DELETE FROM " . $camp . "_" . $this->props->stichWort . " WHERE Id = \"" . $elem . "\"";
+		$query = "DELETE FROM `" . $camp . "_" . $this->props->stichWort . "` WHERE Id = \"" . $elem . "\"";
 		echo $query;
 		return $this->query($query);
 	}

@@ -11,6 +11,9 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by carl on 07.01.16.
@@ -40,6 +43,23 @@ public class SolrConnector {
         return limit;
     }
 
+    public int getCountOfUni(String query) throws IOException, SolrServerException {
+
+        SolrQuery solrQuery = new SolrQuery("content:*");
+        solrQuery.set("indent", "true");
+        solrQuery.setFields("id", "content", "title", "score", "url", "pageDepth");
+        solrQuery.set("wt", "json");
+        String domain = query.split("\\.")[1];
+        System.out.println(domain);
+            solrQuery.set("fq", "id:*" + domain + "*");
+            if (query.toLowerCase().matches("forsch[a-z]* lern[a-z]*") || query.toLowerCase().matches("entdeckend[a-z]* lern[a-z]*")) {
+                solrQuery.set("defType", "edismax");
+                solrQuery.set("qs", "10");
+            }
+            QueryResponse response = client.query(solrQuery);
+            return (int) response.getResults().getNumFound();
+
+    }
     public int getCountOfResults(String query) throws IOException, SolrServerException {
 
         SolrQuery solrQuery = new SolrQuery("content:" + query);
