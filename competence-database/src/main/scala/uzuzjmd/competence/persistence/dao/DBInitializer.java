@@ -18,7 +18,7 @@ public class DBInitializer {
                 new Competence(COMPETENCEROOT).persist();
                 new Catchword(CATCHWORDROOT).persist();
                 new Operator(OPERATORROOT).persist();
-                new CourseContext(Contexts.university).persist();
+                new CourseContext(Contexts.university.toString(), "Alle", "Keine Beschreibung").persist();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -45,6 +45,7 @@ public class PropUtil {
         InputStream inputStream = null;
         try {
             // find file
+            System.out.println("Loading the properties-check the wiki for useful information: ");
             System.out.println("Trying to find the file in the WEB-INF/classes directory of the tomcat app");
             inputStream = Thread.currentThread()
                     .getContextClassLoader()

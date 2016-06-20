@@ -1,6 +1,7 @@
 package uzuzjmd.competence.shared.dto;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -10,6 +11,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  */
 @XmlSeeAlso(AbstractTreeEntry.class)
+@XmlRootElement
 public class ActivityEntry extends AbstractTreeEntry {
 
 	private String url;

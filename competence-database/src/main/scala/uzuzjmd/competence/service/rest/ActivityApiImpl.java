@@ -3,11 +3,13 @@ package uzuzjmd.competence.service.rest;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
+import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.ActivityEntry;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,16 +22,14 @@ public class ActivityApiImpl {
      * 1) create activity
      *
      * @param activity
-     * @param activityId
      * @return
      * @throws Exception
      */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
-    @Path("/activities/{activityId}")
+    @Path("/activities")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addActivity(ActivityEntry activity, @PathParam("activityId") String activityId) throws Exception {
-        activity.setUrl(activityId);
+    public Response addActivity(ActivityEntry activity) throws Exception {
         new EvidenceActivity(activity.getUrl(), activity.getName()).persist();
         return Response.ok("activity has been created").build();
     }
@@ -37,19 +37,18 @@ public class ActivityApiImpl {
     /**
      * 2) link activity to competence it is suggested for
      *
-     * @param activity
-     * @param activityId
      * @param competenceId
+     * @param activityUrl
      * @return
      * @throws Exception
      */
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @PUT
-    @Path("/activity/{activityId}/competences/{competenceId}")
+    @POST
+    @Path("/activities/links/competences/{competenceId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addActivity(ActivityEntry activity, @PathParam("activityId") String activityId, @PathParam("competenceId") String competenceId) throws Exception {
+    public Response addActivity(@PathParam("competenceId") String competenceId, String activityUrl) throws Exception {
         RecommenderApiImpl impl = new RecommenderApiImpl();
-        impl.createSuggestedActivityForCompetence(competenceId, activityId);
+        impl.createSuggestedActivityForCompetence(competenceId, activityUrl);
         return Response.ok("edge has been created").build();
     }
 
@@ -62,15 +61,15 @@ public class ActivityApiImpl {
      */
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/activities/{activityId}/competences")
+    @Path("/activities/links/competences")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] getCompetencesForSuggestedActivity(@PathParam("activityId") String activityId) throws Exception {
+    public StringList getCompetencesForSuggestedActivity(@QueryParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
         if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
-            return new String[0];
+            return new StringList();
         }
         List<String> result = activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence);
-        return result.toArray(new String[0]);
+        return new StringList(result);
 
     }
 

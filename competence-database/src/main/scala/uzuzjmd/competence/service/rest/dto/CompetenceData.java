@@ -1,6 +1,7 @@
 package uzuzjmd.competence.service.rest.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.ws.WebServiceException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class CompetenceData {
 		this.subCompetences = subCompetences;
 		this.learningProjectName = learningProjectName;
 		this.forCompetence = forCompetence;
+
+		if (catchwords == null || catchwords.isEmpty()) {
+			throw new WebServiceException(new Exception("catchwords must be given"));
+		}
 
 		if (superCompetences == null) {
 			this.superCompetences = new LinkedList<String>();
