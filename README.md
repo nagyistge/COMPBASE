@@ -50,13 +50,15 @@ Please use purge in case you want to install this deb file again.
 
 ## Install Competence Server Project in Windows
 ### Requirements
+We have not tested this lately; at the moment we suggest building from sources.
 Before you install this project you have to follow the following steps:
 
  - Install [Neo4J](http://neo4j.com/download/)
  - Add **dbms.security.auth_enabled=false** to  C:\Users\{UserName}\Documents\Neo4j\default.graphdb\neo4j.properties in order to disable authentication (in productive use you can reenable this)
 	
 ### Install
-Download the zip file here. To install this server just use "install.exe" and follow the instructions. After that you can run tray.exe. The software will start a icon in your system tray and with this menu you can run or stop the server.
+ - download https://github.com/uzuzjmd/competence-installer/tree/225a3133724513c60802ac91c9285875497db8cd/Windows
+ - start the install.bat
 
 ### Update
 You can click on the install.exe to update your server
