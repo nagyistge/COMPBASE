@@ -5,7 +5,8 @@ The goal of COMBASE is the creation of a generic competence database that allows
 ## Quick Start
 
 ### Interface Documentation
-http://fleckenroller.cs.uni-potsdam.de/doku/ contains a html documentation of the relevant interfaces. 
+// http://fleckenroller.cs.uni-potsdam.de/doku/ contains a html documentation of the relevant interfaces. 
+-> is down at the moment, we are working on a new api right now.
 
 ### Interfaces Endpoints
 You need to replace the prefix of the rest interfaces with either localhost:8084 or the 
