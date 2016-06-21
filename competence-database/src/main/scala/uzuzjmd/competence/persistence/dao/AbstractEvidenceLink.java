@@ -114,7 +114,7 @@ public class AbstractEvidenceLink extends AbstractAbstractEvidenceLink implement
         linkedUser.persist();
         createEdgeWith(linkedUser, Edge.UserOfLink);
         creator.persist();
-        createEdgeWith(Edge.createdBy, creator);
+        createEdgeWith(Edge.LinkCreatedByUser, creator);
         courseContext.persist();
         createEdgeWith(Edge.LinkOfCourseContext, courseContext);
         evidenceActivity.persist();

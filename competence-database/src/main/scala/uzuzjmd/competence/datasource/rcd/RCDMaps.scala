@@ -20,14 +20,11 @@ object RCDMaps {
   def classToObjectProperty(compOntClass: Label): Edge = {
     compOntClass match {
       case Label.Catchword => return Edge.CatchwordOf
-      case Label.Competence => return Edge.SubCompetenceOf
+      case Label.Competence => return Edge.subClassOf
       case Label.CompetenceDescription => return Edge.CompetenceDescriptionOf
-      case Label.Evidence => return Edge.EvidencOf
-      case Label.Learner => return Edge.LearnerOf
       case Label.MetaCatchword => return Edge.MetaCatchwordOf
       case Label.Operator => return Edge.OperatorOf
-      case Label.SubOperator => return Edge.SubOperatorOf
-      case Label.MetaOperator => return Edge.MetaOperatorOf
+      case Label.SubOperator => return Edge.subClassOf
       case Label.CourseContext => return Edge.CourseContextOfCompetence
       case default => return null
     }

@@ -25,11 +25,11 @@ object RCDFilter {
   }
 
   def isSubClassTriple(triple: CompetenceTriple): Boolean = {
-    Edge.SubCompetenceOf.equals(Edge.valueOf(triple._2))
+    Edge.subClassOf.equals(Edge.valueOf(triple._2))
   }
 
   def isSubOperatorTriple(triple: CompetenceTriple): Boolean = {
-    Edge.SubOperatorOf.equals(Edge.valueOf(triple._2))
+    Edge.subClassOf.equals(Edge.valueOf(triple._2))
   }
 
   def isMetaCatchwordOfTriple(triple: CompetenceTriple): Boolean = {
