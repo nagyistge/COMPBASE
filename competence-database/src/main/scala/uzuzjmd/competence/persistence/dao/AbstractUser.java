@@ -10,6 +10,7 @@ import java.util.List;
 public class AbstractUser extends DaoAbstractImpl {
     protected List<CourseContext> courseContexts;
     protected List<Competence> competencesLearned;
+    protected List<Competence> competencesInterestedIn;
 
 
 
@@ -26,5 +27,12 @@ public class AbstractUser extends DaoAbstractImpl {
             competencesLearned =  getAssociatedDaosAsDomain(Edge.UserHasEvidencedAllSubCompetences, Competence.class);
         }
         return competencesLearned;
+    }
+
+    public List<Competence> getCompetencesInterestedIn() throws Exception {
+        if (competencesInterestedIn == null) {
+            competencesInterestedIn =  getAssociatedDaosAsDomain(Edge.InterestedIn, Competence.class);
+        }
+        return competencesInterestedIn;
     }
 }

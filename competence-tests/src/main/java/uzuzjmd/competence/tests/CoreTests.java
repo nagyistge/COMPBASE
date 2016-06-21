@@ -83,12 +83,7 @@ public class CoreTests extends JerseyTest {
     @Test
     public void testCompetenceDeletionAndHiding() throws InterruptedException {
         String competenceString = "Die Studierenden vergleichen y Sätze anhand ihrer Bausteine";
-        String userEmail = "julian@stuff.com";
-
-        // creates user
-        UserData userData = new UserData(userEmail, "Julian Dehne", null, "student", null);
-        Response post1 = target("/api1/users/" + userEmail).request().put(Entity.entity(userData, MediaType.APPLICATION_JSON));
-        assertTrue(post1.getStatus() == 200);
+        String userEmail = createUser();
 
         // creates competence
         CompetenceData data = new CompetenceData("vergleichen", Arrays.asList(new String[]{"vergleichen", "Sätze", "Bausteine"}), null, null, null, competenceString);
@@ -106,6 +101,16 @@ public class CoreTests extends JerseyTest {
 
         List get2 = target("/api1/competences").queryParam("courseId", "university").queryParam("userId", userEmail).request().get(java.util.List.class);
         assertTrue(get2.isEmpty());
+    }
+
+    public String createUser() {
+        String userEmail = "julian@stuff.com";
+
+        // creates user
+        UserData userData = new UserData(userEmail, "Julian Dehne", null, "student", null);
+        Response post1 = target("/api1/users/" + userEmail).request().put(Entity.entity(userData, MediaType.APPLICATION_JSON));
+        assertTrue(post1.getStatus() == 200);
+        return userEmail;
     }
 
 

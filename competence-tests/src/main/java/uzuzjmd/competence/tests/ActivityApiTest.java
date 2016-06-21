@@ -7,6 +7,7 @@ import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.service.rest.dto.CompetenceData;
+import uzuzjmd.competence.service.rest.dto.UserData;
 import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.ActivityEntry;
 import javax.ws.rs.client.Entity;
@@ -37,9 +38,6 @@ public class ActivityApiTest extends JerseyTest {
 
     @Test
     public void createActivity() {
-
-
-
         ActivityEntry activityEntry = new ActivityEntry("AktivitätenAktivitäten", null, null, activityUrl);
         Response result = target("/api1/activities").request(MediaType.TEXT_PLAIN).put(Entity.entity(activityEntry, MediaType.APPLICATION_JSON));
         assertTrue(result.getStatus() == 200);
@@ -51,21 +49,26 @@ public class ActivityApiTest extends JerseyTest {
         CompetenceData data = new CompetenceData("programmieren", Arrays.asList(new String[]{"programmieren", "tabalugatv"}), null, null, null, competenceId);
         Response result = target("/api1/competences/"+data.getForCompetence()).request(MediaType.TEXT_PLAIN).put(Entity.entity(data, MediaType.APPLICATION_JSON));
         assertTrue(result.getStatus() == 200);
-
-
         createActivity();
         // create Link
-
-        //ActivityEntry activityEntry = new ActivityEntry(null, null, null, activityUrl);
         Response result2 = target("/api1/activities/links/competences/" + competenceId).request(MediaType.TEXT_PLAIN).post(Entity.entity(activityUrl, MediaType.APPLICATION_JSON));
         assertTrue(result2.getStatus() == 200);
-
-
     }
 
     @Test
     public void linkUserToCompetence() {
+        String userEmail = "julian@stuff.com";
 
+        // creates user
+        UserData userData = new UserData(userEmail, "Julian Dehne", null, "student", null);
+        Response post1 = target("/api1/users/" + userEmail).request().put(Entity.entity(userData, MediaType.APPLICATION_JSON));
+        assertTrue(post1.getStatus() == 200);
+
+        Response r = target("/api1/users/"+userEmail+"/interests/competences/"+competenceId).request().post(Entity.entity(null, MediaType.APPLICATION_JSON));
+        assertTrue(r.getStatus() == 200);
+
+        StringList result = target("/api1/users/"+userEmail+"/competences").queryParam("interestedIn", true).request().get(StringList.class);
+        assertTrue(!result.getData().isEmpty());
     }
 
     @Test
@@ -80,12 +83,8 @@ public class ActivityApiTest extends JerseyTest {
 
     @Test
     public void recommendCompetence() {
-
         linkActivityToCompetence();
-
-        //ActivityEntry activityEntry = new ActivityEntry(null, null, null, activityUrl);
         StringList result2 = target("/api1/activities/links/competences").queryParam("activityId", activityUrl).request(MediaType.APPLICATION_JSON).get(StringList.class);
-        //assertTrue(result2.getStatus() == 200);
         assertFalse(result2.getData().isEmpty());
     }
 

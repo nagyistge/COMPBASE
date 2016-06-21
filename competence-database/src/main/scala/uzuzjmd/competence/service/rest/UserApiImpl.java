@@ -11,7 +11,9 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
 import uzuzjmd.competence.persistence.dao.User;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.service.rest.dto.UserData;
+import uzuzjmd.competence.shared.StringList;
 import uzuzjmd.competence.shared.dto.UserCourseListResponse;
 
 import javax.ws.rs.*;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -154,17 +157,65 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         return result;
     }
 
+    /**
+     * get competences the user has acquired or is interested in (interested in is boolean flag)
+     *
+     * @param userId
+     * @param interestedIn
+     * @return
+     * @throws Exception
+     */
     @Path("/users/{userId}/competences")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<String> getCompetencesForUser(@PathParam("userId") String userId) throws Exception {
+    public StringList getCompetencesForUser(@PathParam("userId") String userId, @QueryParam("interestedIn") Boolean interestedIn) throws Exception {
         List<String> result = new ArrayList<>();
         User user = new User(userId);
-        List<Competence> competencesLearned = user.getCompetencesLearned();
-        for (Competence competence : competencesLearned) {
-            result.add(competence.getDefinition());
+        if (interestedIn != null && interestedIn) {
+            List<Competence> competencesInterestedIn = user.getCompetencesInterestedIn();
+            for (Competence competence : competencesInterestedIn) {
+                result.add(competence.getDefinition());
+            }
+        } else {
+            List<Competence> competencesLearned = user.getCompetencesLearned();
+            for (Competence competence : competencesLearned) {
+                result.add(competence.getDefinition());
+            }
         }
-        return result;
+        return new StringList(result);
+    }
+
+    /**
+     * set interested competences for user
+     *
+     * @param userId
+     * @param competenceId
+     * @return
+     * @throws Exception
+     */
+    @Path("/users/{userId}/interests/competences/{competenceId}")
+    @POST
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
+    public Response setCompetencesForUser(@PathParam("userId") String userId, @PathParam("competenceId") String competenceId) throws Exception {
+        User user = new User(userId);
+        if (!user.exists()) {
+            WebApplicationException ex = new WebApplicationException(new Exception("user does not exist in database"));
+            return Response.status(400)
+                    .entity(ex)
+                    .type(MediaType.TEXT_PLAIN).
+                            build();
+        }
+        Competence competence1 = new Competence(competenceId);
+        if (!competence1.exists()) {
+            WebApplicationException ex = new WebApplicationException(new Exception("competence does not exist in database"));
+            return Response.status(400)
+                    .entity(ex)
+                    .type(MediaType.TEXT_PLAIN).
+                            build();
+        }
+        user.createEdgeWith(Edge.InterestedIn, competence1);
+        return Response.ok("user deleted").build();
     }
 }

@@ -74,5 +74,7 @@ public enum Edge {
     /* 2 competences may be similar based on a weight */
     SimilarTo,
     /* hide competence for User*/
-    HiddenFor
+    HiddenFor,
+    /*The user is interested to acquire the competence*/
+    InterestedIn
 }
