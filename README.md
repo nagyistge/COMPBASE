@@ -2,6 +2,8 @@
 
 The goal of COMBASE is the creation of a generic competence database that allows for comparison and consistent persistence of competencies. Plugins for current elearning system are being developed as well as mobile applications and badge systems.
 
+We have put some effort into maintaining a developer wiki here: https://github.com/uzuzjmd/COMPBASE/wiki
+
 ## Quick Start
 
 ### Interface Documentation
