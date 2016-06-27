@@ -9,6 +9,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.util.CrossOriginResourceSharingFilter;
 
@@ -31,6 +32,7 @@ public class RestServer {
             NullPointerException, IOException,
             ProcessingException, URISyntaxException {
         startServer();
+        DBInitializer.init();
     }
 
 

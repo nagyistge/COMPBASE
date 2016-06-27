@@ -4,6 +4,7 @@ import javax.ws.rs.ApplicationPath;
 
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
+import uzuzjmd.competence.persistence.dao.DBInitializer;
 
 @ApplicationPath("/")
 public class MyRESTAPIApp extends ResourceConfig {
@@ -21,6 +22,7 @@ public class MyRESTAPIApp extends ResourceConfig {
 
 		logger.info("Initiated Logger");
 		logger.info("Initiated Server");
+		DBInitializer.init();
 
 	}
 }

@@ -66,7 +66,7 @@ public class CoreTests extends JerseyTest {
     }
 
 
-    @Test
+    //@Test
     public void testLoginApi1() {
         String response = target("/api1/users/dehne/exists").queryParam("password", "###").request().get(String.class);
         assertTrue(response.equals("true"));
