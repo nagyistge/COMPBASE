@@ -15,5 +15,5 @@ public interface ActivityRecommender {
      * @param courseId
      * @return
      */
-    public HashMap<Evidence, Double> recommendActivities(String email, String competenceToReach, String courseId);
+    public HashMap<Evidence, Double> recommendActivities(String email, String competenceToReach, String courseId, String password);
 }

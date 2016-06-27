@@ -19,7 +19,7 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    HashMap<String, Double> recommendCompetences(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId);
+    HashMap<String, Double> recommendCompetences( String userEmail, String competenceToReach,  String courseId);
 
     /**
      * returns all the activities recommended for a user given the users id (normally the userEmail)
@@ -28,14 +28,14 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    HashMap<Evidence, Double> recommendActivities(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId);
+    HashMap<Evidence, Double> recommendActivities(String userEmail,  String competenceToReach, String courseId, String password);
 
     /**
      * returns all the courses recommended for a user given the users id (normally the userEmail)
      * @param userEmail
      * @return
      */
-    MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail);
+    MapWrapper<UserCourseListItem, Double> recommendCourses(String userEmail);
 
     /**
      * Get competences linked to (courseId) context. (the moodle courseId Id)

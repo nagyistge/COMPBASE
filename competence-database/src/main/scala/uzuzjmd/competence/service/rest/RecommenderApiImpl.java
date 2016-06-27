@@ -39,8 +39,8 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/recommendations/activities/{userEmail}")
-    public HashMap<Evidence, Double> recommendActivities(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId) {
-        return RecommenderFactory.createActivityRecommender().recommendActivities(userEmail, competenceToReach, courseId);
+    public HashMap<Evidence, Double> recommendActivities(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId, @QueryParam("password") String password) {
+        return RecommenderFactory.createActivityRecommender().recommendActivities(userEmail, competenceToReach, courseId, password);
     }
 
     @Override

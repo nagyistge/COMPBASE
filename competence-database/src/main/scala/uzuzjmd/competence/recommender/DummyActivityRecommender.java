@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 public class DummyActivityRecommender implements ActivityRecommender {
     @Override
-    public HashMap<Evidence, Double> recommendActivities(String email, String competenceToReach, String userEmail) {
+    public HashMap<Evidence, Double> recommendActivities(String email, String competenceToReach, String userEmail, String password) {
         HashMap<Evidence, Double> map = new HashMap<Evidence, Double>();
         map.put(new Evidence("schöne Aktivität", "http://testthis1.com", userEmail), 1.0);
         map.put(new Evidence("schöne Aktivität 2", "http://testthis2.com", userEmail), 0.3);
