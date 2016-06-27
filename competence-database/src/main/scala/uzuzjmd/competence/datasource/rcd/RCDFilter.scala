@@ -33,7 +33,7 @@ object RCDFilter {
   }
 
   def isMetaCatchwordOfTriple(triple: CompetenceTriple): Boolean = {
-    Edge.MetaCatchwordOf.equals(Edge.valueOf(triple._2)) || Edge.MetaOperatorOf.equals(Edge.valueOf(triple._2))
+    Edge.subClassOf.equals(Edge.valueOf(triple._2)) || Edge.subClassOf.equals(Edge.valueOf(triple._2))
   }
 
 

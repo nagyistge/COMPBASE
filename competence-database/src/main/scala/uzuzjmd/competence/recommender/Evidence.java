@@ -89,4 +89,16 @@ public class Evidence {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+		return "Evidence{" +
+				"shortname='" + shortname + '\'' +
+				", url='" + url + '\'' +
+				", userId='" + userId + '\'' +
+				", username='" + username + '\'' +
+				", changed='" + changed + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
 }

@@ -12,6 +12,7 @@ public class RecommenderFactory {
         return new DummyCourseRecommender();
     }
     public static ActivityRecommender createActivityRecommender() {
-        return new DummyActivityRecommender();
+        //return new DummyActivityRecommender();
+        return new ActivityRecommenderImpl();
     }
 }

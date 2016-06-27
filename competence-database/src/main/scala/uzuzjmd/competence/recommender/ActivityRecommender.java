@@ -9,10 +9,11 @@ public interface ActivityRecommender {
     /**
      * Produces recommended Competences based on information of the user
      * The double signifies the strength of the recommendation (1.0 for perfect recommendation)
-     *
-     *  @param email
+
+     * @param email
      * @param competenceToReach
-     * @param userEmail  @return
+     * @param courseId
+     * @return
      */
     public HashMap<Evidence, Double> recommendActivities(String email, String competenceToReach, String courseId);
 }

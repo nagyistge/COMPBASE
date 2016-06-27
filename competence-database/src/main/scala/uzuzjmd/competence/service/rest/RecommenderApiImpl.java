@@ -24,13 +24,13 @@ import java.util.List;
 /**
  * Root resource (exposed at "competences" path)
  */
-@Path("/api1/recommendations")
+@Path("/api1")
 public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi {
 
     @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/competences/{userEmail}/competences")
+    @Path("/recommendations/competences/{userEmail}/competences")
     public HashMap<String, Double> recommendCompetences(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId) {
         return RecommenderFactory.createCompetenceRecommender().recommendCompetences(userEmail, competenceToReach, courseId);
     }
@@ -38,7 +38,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/activities/{userEmail}")
+    @Path("/recommendations/activities/{userEmail}")
     public HashMap<Evidence, Double> recommendActivities(@PathParam("userEmail") String userEmail, @QueryParam("competenceToReach") String competenceToReach, @QueryParam("courseId") String courseId) {
         return RecommenderFactory.createActivityRecommender().recommendActivities(userEmail, competenceToReach, courseId);
     }
@@ -46,7 +46,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/courses/{userEmail}/courses")
+    @Path("/recommendations/courses/{userEmail}/courses")
     public MapWrapper<UserCourseListItem, Double> recommendCourses(@PathParam("userEmail") String userEmail) {
         return new MapWrapper<>(RecommenderFactory.createCourseRecommender().recommendCourse(userEmail));
     }
@@ -55,7 +55,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/courses/{courseId}/competences")
+    @Path("/recommendations/courses/{courseId}/competences")
     public String[] getSuggestedCompetencesForCourse(
             @PathParam("courseId") String courseId) throws Exception {
         CourseContext context = new CourseContext(courseId);
@@ -71,7 +71,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/competences/{competenceId}")
+    @Path("/recommendations/competences/{competenceId}")
     public String[] getSuggestedCoursesForCompetence(
             @PathParam("competenceId") String competenceId) throws Exception {
         Competence context = new Competence(competenceId);
@@ -88,7 +88,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/competences/{competenceId}/activities/{activityId}")
+    @Path("/recommendations/competences/{competenceId}/activities/{activityId}")
     public Response createSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
         activity.persist();
@@ -103,7 +103,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @DELETE
-    @Path("/competences/{competenceId}/courses/{courseId}")
+    @Path("/recommendations/competences/{competenceId}/courses/{courseId}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSuggestedCourseForCompetence(@PathParam("competenceId") String competence, @PathParam("courseId") String course) {
         SuggestedCourseForCompetence2Ont.delete(course, competence);
@@ -112,7 +112,7 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
 
     @Override
     @DELETE
-    @Path("/competences/{competenceId}/activities/{activityId}")
+    @Path("/recommendations/competences/{competenceId}/activities/{activityId}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) {
         SuggestedActivityForCompetence2Ont.delete(activityId, competenceId);

@@ -21,8 +21,6 @@ object RCDMaps {
     compOntClass match {
       case Label.Catchword => return Edge.CatchwordOf
       case Label.Competence => return Edge.subClassOf
-      case Label.CompetenceDescription => return Edge.CompetenceDescriptionOf
-      case Label.MetaCatchword => return Edge.MetaCatchwordOf
       case Label.Operator => return Edge.OperatorOf
       case Label.SubOperator => return Edge.subClassOf
       case Label.CourseContext => return Edge.CourseContextOfCompetence

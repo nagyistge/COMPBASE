@@ -47,7 +47,7 @@ public enum Edge {
     SuggestedActivityForCompetence,
     /*competence may be a subclass of another */
     subClassOf,
-    /* user may belong to a couse context Co*/
+    /* user may belong to a course context Context*/
     CourseContextOfUser,
     /* 2 competences may be similar based on a weight */
     SimilarTo,
