@@ -1,5 +1,6 @@
 package uzuzjmd.competence.tests;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
@@ -145,15 +146,15 @@ public class CoreTests extends JerseyTest {
 
         url = URLEncoder.encode(url);
 
-        Response post2 = target("/api1/evidences/" + url).request().put(evidenceDataEntity);
+        Response post2 = target("/api1/evidences/create").request().put(evidenceDataEntity);
         System.out.print("status is: " + post2.getStatus());
         assertTrue(post2.getStatus() == 200);
 
         // assertions
         // asserts that the competence is listed as one of the competences the user has accomplished
-        List get = target("/api1/users/" + userEmail + "/competences").queryParam("courseId", courseId).request().get(java.util.List.class);
+        StringList get = target("/api1/users/" + userEmail + "/competences").queryParam("courseId", courseId).request().get(StringList.class);
         assertNotNull(get);
-        assertFalse(get.isEmpty());
+        assertFalse(get.getData().isEmpty());
 
     }
 
@@ -179,10 +180,9 @@ public class CoreTests extends JerseyTest {
 
     }
 
+
     @Test
-    public void getUserAssessments() {
-        String userEmail = "";
-        String courseId = "";
-        Object get = target("/api1/users/" + userEmail + "/assessments").queryParam("courseId", courseId) .queryParam("courseIdOptional", null).request().get(Object.class);
+    public void getUserAssessments() throws Exception {
+        // tested in ProgressApiTests
     }
 }

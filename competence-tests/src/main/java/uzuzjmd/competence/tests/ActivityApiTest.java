@@ -59,8 +59,6 @@ public class ActivityApiTest extends JerseyTest {
 
     @Test
     public void linkUserToCompetence() {
-
-
         // creates user
         UserData userData = new UserData(userEmail, "Julian Dehne", null, "student", null);
         Response post1 = target("/api1/users/" + userEmail).request().put(Entity.entity(userData, MediaType.APPLICATION_JSON));

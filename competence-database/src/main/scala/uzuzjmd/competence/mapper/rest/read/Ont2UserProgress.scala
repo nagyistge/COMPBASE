@@ -30,8 +30,13 @@ object Ont2UserProgress extends LanguageConverter {
   }
 
   def convert2(user : String, courseId: String) : UserProgress = {
+
     val course = new CourseContext(courseId)
-    val progressList: mutable.Buffer[UserCompetenceProgress] = course.getLinkedCompetences.asScala.map(x=>x.getDefinition).map(convert(_, user))
+    val progressList: mutable.Buffer[UserCompetenceProgress] =
+      course.getLinkedCompetences.asScala
+      .filterNot(_.getId.equals("Kompetenz"))
+      .map(x=>x.getDefinition).map(convert(_, user))
+      .filterNot(x=>x.getCompetenceLinksView == null && (x.getAbstractAssessment.isEmpty || x.getAbstractAssessment.forall(_.getAssessmentIndex == 0)))
     val result = new UserProgress()
     if (!progressList.isEmpty) {
       result.setUserCompetenceProgressList(progressList.asJava)

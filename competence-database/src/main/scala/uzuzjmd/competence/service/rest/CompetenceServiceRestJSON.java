@@ -509,7 +509,7 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
-    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("courseId") String course) throws Exception {
+    public Response createSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) throws Exception {
         //SuggestedCourseForCompetence2Ont.write(courseId, competence);
         Competence competenceDAO = new Competence(competence);
         competenceDAO.persist();
@@ -587,7 +587,7 @@ public class CompetenceServiceRestJSON {
 
     /**
      * This returns a list of competencies linked to certain activity
-     * @param activityURL
+     * @param activityUrl
      * @return
      * @throws Exception
      */
@@ -595,14 +595,38 @@ public class CompetenceServiceRestJSON {
     @GET
     @Path("/CompetencesForSuggestedActivity/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] getCompetencesForSuggestedActivity(@QueryParam("activityURL") String activityURL) throws Exception {
+    public String[] getCompetencesForSuggestedActivity(@QueryParam("activityUrl") String activityUrl) throws Exception {
 
-        EvidenceActivity activity = new EvidenceActivity(activityURL);
+        EvidenceActivity activity = new EvidenceActivity(activityUrl);
 
         if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
             return new String[0];
         }
         List<String> result = activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence);
+        return result.toArray(new String[0]);
+
+    }
+
+
+
+    /**
+     * This returns a list of competencies linked to certain activity
+     * @param competence
+     * @return
+     * @throws Exception
+     */
+    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/SuggestedActivityForCompetence/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String[] getSuggestedActivityForCompetence(@QueryParam("competence") String competence) throws Exception {
+
+        Competence competence1 = new Competence(competence);
+
+        if (competence1.getAssociatedDaoIdsAsRange(Edge.SuggestedActivityForCompetence) == null) {
+            return new String[0];
+        }
+        List<String> result = competence1.getAssociatedDaoIdsAsRange(Edge.SuggestedActivityForCompetence);
         return result.toArray(new String[0]);
 
     }
@@ -616,7 +640,7 @@ public class CompetenceServiceRestJSON {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/delete")
-    public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("courseId") String course) {
+    public Response deleteSuggestedCourseForCompetence(@QueryParam("competence") String competence, @QueryParam("course") String course) {
         SuggestedCourseForCompetence2Ont.delete(course, competence);
         return Response.ok("edge deleted").build();
     }
@@ -630,7 +654,7 @@ public class CompetenceServiceRestJSON {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/SuggestedActivityForCompetence/delete")
-    public Response deleteSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityURL") String activityURL) {
+    public Response deleteSuggestedActivityForCompetence(@QueryParam("competence") String competence, @QueryParam("activityUrl") String activityURL) {
         SuggestedActivityForCompetence2Ont.delete(activityURL, competence);
         return Response.ok("edge created").build();
     }

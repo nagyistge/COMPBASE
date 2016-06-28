@@ -20,6 +20,7 @@ public class Comment extends AbstractComment implements Cascadable {
         super(dateCreated + text);
         this.text = text;
         this.creator = creator;
+        this.dateCreated = dateCreated;
     }
 
     public Long getDateCreated() {

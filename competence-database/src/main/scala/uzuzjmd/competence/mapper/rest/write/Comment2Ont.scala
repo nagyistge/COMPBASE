@@ -18,6 +18,8 @@ object Comment2Ont extends RoleConverter with WriteTransactional[CommentData] {
     val abstractEvidenceLink = new AbstractEvidenceLink(data.getLinkId)
     val comment = new Comment(data.getText, creator2, System.currentTimeMillis());
     comment.persist();
-    abstractEvidenceLink.linkComment(comment);
+    if (data.getLinkId != null && abstractEvidenceLink.exists()) {
+      abstractEvidenceLink.linkComment(comment);
+    }
   }
 }

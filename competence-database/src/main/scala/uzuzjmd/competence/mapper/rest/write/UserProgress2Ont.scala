@@ -59,6 +59,7 @@ object UserProgress2Ont extends LanguageConverter with Logging{
     // persist comments
     val linkId = AbstractEvidenceLink.computeId(competence.getDefinition, input.getEvidenceUrl)
     val commentData = input.getComments
+    commentData.asScala.foreach(_.setLinkId(linkId))
     commentData.foreach(Comment2Ont.convert)
 
   }

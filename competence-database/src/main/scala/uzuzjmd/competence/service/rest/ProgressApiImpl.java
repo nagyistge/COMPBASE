@@ -14,8 +14,9 @@ import javax.ws.rs.core.Response;
 
 /**
  * Created by dehne on 30.05.2016.
+ *
+ *
  */
-
 @Path("/api1")
 public class ProgressApiImpl {
 
@@ -23,10 +24,13 @@ public class ProgressApiImpl {
 
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/progress/{userId}/courses/{courseId}")
+    @Path("/progress/{userId}")
     @GET
-    public UserProgress getUserProgress(@PathParam("userId") String userId, @PathParam("courseId") String courseId) throws Exception {
+    public UserProgress getUserProgress(@PathParam("userId") String userId, @QueryParam("courseId") String courseId) throws Exception {
         checkUserExists(userId);
+        if (courseId == null) {
+            courseId = "university";
+        }
         return Ont2UserProgress.convert2(userId, courseId);
     }
 

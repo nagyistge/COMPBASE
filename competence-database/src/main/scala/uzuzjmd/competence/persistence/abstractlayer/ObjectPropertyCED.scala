@@ -37,6 +37,7 @@ trait ObjectPropertyCED[Domain <:Dao, Range <:Dao] extends WriteTransactional[( 
   def deleteHelper(tuple: ( String, String)): Unit = {
     val manager = DBFactory.getDB;
     manager.deleteRelationShip(tuple._1, tuple._2, edgeType)
+    manager.deleteRelationShip(tuple._2, tuple._1, edgeType)
   }
 
 }

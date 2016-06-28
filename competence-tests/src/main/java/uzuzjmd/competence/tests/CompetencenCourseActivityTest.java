@@ -12,11 +12,7 @@ import org.junit.Test;
 
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
-import uzuzjmd.competence.service.rest.CompetenceApiImpl;
-import uzuzjmd.competence.service.rest.CourseApiImpl;
-import uzuzjmd.competence.service.rest.EvidenceApiImpl;
-import uzuzjmd.competence.service.rest.LearningTemplateApiImpl;
-import uzuzjmd.competence.service.rest.UserApiImpl;
+import uzuzjmd.competence.service.rest.*;
 
 public class CompetencenCourseActivityTest extends JerseyTest {
 
@@ -26,7 +22,7 @@ public class CompetencenCourseActivityTest extends JerseyTest {
     @Override
     protected javax.ws.rs.core.Application configure() {
         DBInitializer.init();
-        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, EvidenceServiceRestServerImpl.class);
+        return new ResourceConfig(LearningTemplateApiImpl.class, CompetenceApiImpl.class, UserApiImpl.class, CourseApiImpl.class, EvidenceApiImpl.class, EvidenceServiceRestServerImpl.class, CompetenceServiceRestJSON.class);
     }
 
     @Test
@@ -39,10 +35,10 @@ public class CompetencenCourseActivityTest extends JerseyTest {
         Assert.assertEquals(200, status2);
         Assert.assertEquals(200, status3);
 
-        final List<String> competencen = getCompetenceFormSuggestedCourse(course);
+        final List<String> competencues = getCompetenceFormSuggestedCourse(course);
         final List<String> tmp = Arrays.asList("r1", "r2", "r3");
 
-        for (String c : competencen) {
+        for (String c : competencues) {
             Assert.assertTrue(tmp.contains(c));
         }
 
@@ -124,14 +120,14 @@ public class CompetencenCourseActivityTest extends JerseyTest {
     }
     
     private List<String> getSuggestedActivityForCompetence(String competence) {
-        String[] response = target("")
+        String[] response = target("/competences/SuggestedActivityForCompetence/get").queryParam("competence", competence)
 				.request().get(String[].class);
 
         return Arrays.asList(response);
     }
 
     private int addSuggestedCourseForCompetence(String competence, String course) {
-        Response response = target("/competences/SuggestedCourseForCompetence/create/")
+        Response response = target("/competences/SuggestedCourseForCompetence/create")
         		.queryParam("competence", competence)
         		.queryParam("course", course)
 				.request().post(null);
@@ -140,7 +136,7 @@ public class CompetencenCourseActivityTest extends JerseyTest {
     }
     
     private int deleteSuggestedCourseForCompetence(String competence, String course) {
-    	Response response = target("/competences/SuggestedCourseForCompetence/delete/")
+    	Response response = target("/competences/SuggestedCourseForCompetence/delete")
         		.queryParam("competence", competence)
         		.queryParam("course", course)
 				.request().post(null);
@@ -149,7 +145,7 @@ public class CompetencenCourseActivityTest extends JerseyTest {
     }
     
     private int addSuggestedActivityForCompetence(String competence, String activityUrl) {
-    	Response response = target("/competences/SuggestedActivityForCompetence/create/")
+    	Response response = target("/competences/SuggestedActivityForCompetence/create")
         		.queryParam("competence", competence)
         		.queryParam("activityUrl", activityUrl)
 				.request().post(null);
@@ -158,7 +154,7 @@ public class CompetencenCourseActivityTest extends JerseyTest {
     }
     
     private int deleteSuggestedActivityForCompetence(String competence, String activityUrl) {
-    	Response response = target("/competences/SuggestedActivityForCompetence/delete/")
+    	Response response = target("/competences/SuggestedActivityForCompetence/delete")
         		.queryParam("competence", competence)
         		.queryParam("activityUrl", activityUrl)
 				.request().post(null);

@@ -1,5 +1,8 @@
 package uzuzjmd.competence.shared.activity;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class CommentData {
 	private  Long created;
 	private String commentId;
@@ -10,6 +13,9 @@ public class CommentData {
 	private String courseContext;
 	private String role;
 	private String competenceId;
+
+	public CommentData() {
+	}
 
 	public CommentData(String userId, String text, Long datecreated) {
 		this.commentId = datecreated + text;

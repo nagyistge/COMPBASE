@@ -13,10 +13,12 @@ import uzuzjmd.competence.shared.activity.CommentData;
 import uzuzjmd.competence.shared.assessment.AbstractAssessment;
 import uzuzjmd.competence.shared.competence.CompetenceLinksView;
 import uzuzjmd.competence.shared.progress.UserCompetenceProgress;
+import uzuzjmd.competence.shared.progress.UserProgress;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
@@ -50,7 +52,9 @@ public class ProgressApiTests extends JerseyTest {
         competenceLinksView1.setEvidenceUrl("Http://meinefressewoistdasdenn");
         competenceLinksView1.setValidated(false);
         CommentData CommentData = new CommentData("julian", "läuft gut", System.currentTimeMillis());
-        competenceLinksView1.setComments(Arrays.asList(CommentData));
+        ArrayList<CommentData> comments = new ArrayList<uzuzjmd.competence.shared.activity.CommentData>();
+        comments.add(CommentData);
+        competenceLinksView1.setComments(comments);
         SelfAssessment assessment = new SelfAssessment(new Competence(competenceString), new User(user), 3, true);
         AbstractAssessment abstractAssessments1 = assessment.toAbstractAssessment();
         UserCompetenceProgress userCompetenceProgress = new UserCompetenceProgress(competenceString, new CompetenceLinksView[] {competenceLinksView1}, abstractAssessments1);
@@ -67,6 +71,15 @@ public class ProgressApiTests extends JerseyTest {
         assertFalse(response.getCompetenceLinksView().length == 0 );
         assertFalse(response.getCompetenceLinksView()[0].getComments().isEmpty());
 
+    }
+
+    @Test
+    public void getUserProgressGeneral() {
+        UserProgress response = target("/api1/progress/"+user).request().get(UserProgress.class);
+        UserCompetenceProgress assessment = response.getUserCompetenceProgressList().iterator().next();
+        assertFalse(assessment.getAbstractAssessment().isEmpty());
+        assertFalse(assessment.getCompetenceLinksView().length == 0 );
+        assertFalse(assessment.getCompetenceLinksView()[0].getComments().isEmpty());
     }
 
 }
