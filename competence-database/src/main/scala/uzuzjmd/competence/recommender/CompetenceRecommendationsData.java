@@ -1,6 +1,6 @@
 package uzuzjmd.competence.recommender;
 
-import uzuzjmd.competence.evidence.model.Evidence;
+import uzuzjmd.competence.shared.activity.Evidence;
 
 import java.util.HashMap;
 import java.util.List;

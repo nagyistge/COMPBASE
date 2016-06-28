@@ -7,11 +7,11 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.moodle.MoodleContentResponseList;
-import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
+import uzuzjmd.competence.shared.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.mapper.Evidence2Tree;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
-import uzuzjmd.competence.shared.dto.UserTree;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
+import uzuzjmd.competence.shared.moodle.UserTree;
 
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;

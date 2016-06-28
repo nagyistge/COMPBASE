@@ -65,8 +65,8 @@ public class CommentWidget extends CompetenceTab {
 						@Override
 						public void onResponseReceived(Request request,
 								Response response) {
-							stackPanelReloader.commentEntryIdLastUpdated = linkId;
-							stackPanelReloader.setCommentEntryWasSuccess(true);
+							stackPanelReloader.CommentDataIdLastUpdated = linkId;
+							stackPanelReloader.setCommentDataWasSuccess(true);
 							stackPanelReloader.reload();
 						}
 

@@ -6,8 +6,8 @@ import javax.ws.rs.core.Response;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import config.PropUtil;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
-import uzuzjmd.competence.shared.dto.UserTree;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
+import uzuzjmd.competence.shared.moodle.UserTree;
 
 /**
  * a proxy that routes the requests to the lms implemention provided

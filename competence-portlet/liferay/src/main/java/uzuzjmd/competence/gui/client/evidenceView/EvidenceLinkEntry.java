@@ -6,7 +6,7 @@ import org.fusesource.restygwt.client.Resource;
 
 import uzuzjmd.competence.gui.client.Controller;
 import uzuzjmd.competence.gui.client.NativeContext;
-import uzuzjmd.competence.gui.client.shared.dto.CommentEntry;
+import uzuzjmd.competence.gui.client.shared.dto.CommentData;
 import uzuzjmd.competence.gui.client.tabs.CompetenceTab;
 
 import com.github.gwtbootstrap.client.ui.Alert;
@@ -70,13 +70,13 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	}
 
 	public EvidenceLinkEntry(String abstractLinkId, String evidenceTitel,
-			String evidenceUrl, List<CommentEntry> list, Boolean validated,
+			String evidenceUrl, List<CommentData> list, Boolean validated,
 			StackPanelReloader stackPanelReloader, String userName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		initContent(evidenceTitel, evidenceUrl, list, validated);
 		this.stackPanelReloader = stackPanelReloader;
 		initCommentWidget(abstractLinkId, userName);
-		initSubmitCommentMessages(stackPanelReloader.commentEntryWasSuccess,
+		initSubmitCommentMessages(stackPanelReloader.CommentDataWasSuccess,
 				abstractLinkId);
 		this.abstractLinkId = abstractLinkId;
 		this.userName = userName;
@@ -90,7 +90,7 @@ public class EvidenceLinkEntry extends CompetenceTab {
 		commentWidgetPlaceholder.setVisible(false);
 	}
 
-	private void initSubmitCommentMessages(Boolean commentEntryWasSuccess,
+	private void initSubmitCommentMessages(Boolean CommentDataWasSuccess,
 			String abstractLinkId) {
 		successPanelPlaceholder.add(new Alert(
 				"Der Kommentar wurde erfolgreich eingetragen!",
@@ -99,15 +99,15 @@ public class EvidenceLinkEntry extends CompetenceTab {
 				"Es gab ein Problem, kontaktieren Sie einen Entwickler",
 				AlertType.ERROR));
 
-		if (commentEntryWasSuccess != null
-				&& stackPanelReloader.commentEntryIdLastUpdated == abstractLinkId) {
-			successPanelPlaceholder.setVisible(commentEntryWasSuccess);
-			errorPanelPlaceHolder.setVisible(!commentEntryWasSuccess);
+		if (CommentDataWasSuccess != null
+				&& stackPanelReloader.CommentDataIdLastUpdated == abstractLinkId) {
+			successPanelPlaceholder.setVisible(CommentDataWasSuccess);
+			errorPanelPlaceHolder.setVisible(!CommentDataWasSuccess);
 		}
 	}
 
 	private void initContent(String evidenceTitel, final String evidenceUrl,
-			List<CommentEntry> list, Boolean validated) {
+			List<CommentData> list, Boolean validated) {
 		this.textPlaceholder.add(new HTML(evidenceTitel));
 		this.evidenceUrl = evidenceUrl;
 
@@ -127,10 +127,10 @@ public class EvidenceLinkEntry extends CompetenceTab {
 		previewAnchor = ".activity-preview";
 		evidenceHref.add(previewLabel);
 
-		for (CommentEntry commentEntry : list) {
+		for (CommentData CommentData : list) {
 			commentsVerticalPanel.add(new HTML("<b>"
-					+ commentEntry.getUserName() + "</b>: "
-					+ commentEntry.getCommentName()));
+					+ CommentData.getUserName() + "</b>: "
+					+ CommentData.getCommentName()));
 		}
 		setButtonImage(validated);
 		if (!Controller.contextFactory.getRole().equals("teacher")) {
@@ -193,25 +193,25 @@ public class EvidenceLinkEntry extends CompetenceTab {
 	@UiHandler("errorPanelPlaceHolder")
 	void onErrorPanelPlaceHolderClick(ClickEvent event) {
 		errorPanelPlaceHolder.setVisible(false);
-		stackPanelReloader.setCommentEntryWasSuccess(null);
+		stackPanelReloader.setCommentDataWasSuccess(null);
 	}
 
 	@UiHandler("errorPanelPlaceHolder")
 	void onErrorPanelPlaceHolderMouseOut(MouseOutEvent event) {
 		errorPanelPlaceHolder.setVisible(false);
-		stackPanelReloader.setCommentEntryWasSuccess(null);
+		stackPanelReloader.setCommentDataWasSuccess(null);
 	}
 
 	@UiHandler("successPanelPlaceholder")
 	void onSuccessPanelPlaceholderMouseOut(MouseOutEvent event) {
 		successPanelPlaceholder.setVisible(false);
-		stackPanelReloader.setCommentEntryWasSuccess(null);
+		stackPanelReloader.setCommentDataWasSuccess(null);
 	}
 
 	@UiHandler("successPanelPlaceholder")
 	void onSuccessPanelPlaceholderClick(ClickEvent event) {
 		successPanelPlaceholder.setVisible(false);
-		stackPanelReloader.setCommentEntryWasSuccess(null);
+		stackPanelReloader.setCommentDataWasSuccess(null);
 	}
 
 	@UiHandler("deleteButton")

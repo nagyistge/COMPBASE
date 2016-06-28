@@ -1,9 +1,9 @@
 package uzuzjmd.competence.mapper.rest.read
 
+import datastructures.lists.StringList
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.{CourseContext, Role, User}
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData
-import uzuzjmd.competence.shared.StringList
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData
 
 /**
  * @author dehne

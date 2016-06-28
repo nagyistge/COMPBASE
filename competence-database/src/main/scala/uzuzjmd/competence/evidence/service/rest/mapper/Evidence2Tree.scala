@@ -1,8 +1,10 @@
 package uzuzjmd.competence.evidence.service.rest.mapper
 
 import config.MagicStrings
-import uzuzjmd.competence.evidence.service.moodle.{Module, MoodleContentResponseList, MoodleEvidence}
-import uzuzjmd.competence.shared.dto.{ActivityEntry, ActivityTyp, UserTree}
+import datastructures.trees.ActivityEntry
+import uzuzjmd.competence.evidence.service.moodle.{Module, MoodleContentResponseList}
+import uzuzjmd.competence.shared.activity.ActivityTyp
+import uzuzjmd.competence.shared.moodle.{MoodleEvidence, UserTree}
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer

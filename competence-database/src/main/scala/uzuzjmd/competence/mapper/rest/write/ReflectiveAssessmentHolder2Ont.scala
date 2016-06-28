@@ -4,8 +4,7 @@ import javax.ws.rs.WebApplicationException
 
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.service.rest.dto.ReflectiveAssessmentChangeData
-import uzuzjmd.competence.shared.{ReflectiveAssessment, ReflectiveAssessmentsListHolder}
+import uzuzjmd.competence.shared.assessment.{ReflectiveAssessment, ReflectiveAssessmentChangeData, ReflectiveAssessmentsListHolder}
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 

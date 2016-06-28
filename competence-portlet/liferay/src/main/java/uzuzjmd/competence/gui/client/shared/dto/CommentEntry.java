@@ -1,15 +1,15 @@
 package uzuzjmd.competence.gui.client.shared.dto;
 
-public class CommentEntry {
+public class CommentData {
 	private String userName;
 	private String commentName;
 	private Long created;
 
-	public CommentEntry() {
+	public CommentData() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommentEntry(String userName, String commentName, Long created) {
+	public CommentData(String userName, String commentName, Long created) {
 		this.userName = userName;
 		this.commentName = commentName;
 		this.created = created;

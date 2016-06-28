@@ -1,8 +1,8 @@
 package uzuzjmd.competence.mapper.rest.write
 
+import datastructures.trees.{HierarchyChange, HierarchyChangeSet}
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 

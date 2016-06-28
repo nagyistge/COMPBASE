@@ -5,7 +5,7 @@ import java.util
 import com.google.common.collect.Lists
 import uzuzjmd.competence.persistence.dao.Competence
 import uzuzjmd.competence.persistence.neo4j.CompetenceNeo4jQueryManagerImpl
-import uzuzjmd.competence.service.rest.dto.CompetenceFilterData
+import uzuzjmd.competence.shared.competence.CompetenceFilterData
 import uzuzjmd.competence.util.LanguageConverter
 
 /**

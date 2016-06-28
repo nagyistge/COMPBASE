@@ -2,7 +2,7 @@ package uzuzjmd.scompetence.owl.validation
 
 import java.util.HashMap
 import uzuzjmd.competence.logging.Logging
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateResultSet
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Stack
 

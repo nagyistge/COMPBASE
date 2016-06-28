@@ -1,14 +1,15 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
-import config.MagicStrings
-import neo4j.Neo4JQueryManagerImpl
+
+import datastructures.trees.{TreeGenerator, AbstractXMLTree, Node, TreePair}
 import uzuzjmd.competence.logging.Logging
-import uzuzjmd.competence.persistence.dao.{Catchword, Competence, CourseContext, Operator}
+import uzuzjmd.competence.persistence.dao.{Catchword, Competence, Operator}
 import uzuzjmd.competence.persistence.neo4j.DBFactory
 import uzuzjmd.competence.persistence.validation.TextValidator
-import uzuzjmd.competence.service.rest.dto._
-import uzuzjmd.java.collections.{TreePair, _}
+import uzuzjmd.competence.shared._
+import uzuzjmd.competence.shared.competence.{CompetenceFilterData, CompetenceXMLTree}
+
 import scala.collection.JavaConverters._
 
 object Ont2CompetenceTree extends Logging{
@@ -70,7 +71,7 @@ object Ont2CompetenceTree extends Logging{
     if (nodesArray3.isEmpty) {
       return new util.LinkedList[T]()
     }
-    val rootNode = uzuzjmd.java.collections.TreeGenerator.getTree(nodesArray3);
+    val rootNode = TreeGenerator.getTree(nodesArray3);
     //logger.debug(rootNode.toStrinz);
     return (f(rootNode) :: Nil).asJava
   }

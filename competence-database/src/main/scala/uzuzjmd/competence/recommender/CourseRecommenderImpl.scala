@@ -4,7 +4,7 @@ import java.lang.Double
 import java.util
 
 import uzuzjmd.competence.persistence.dao.{EvidenceActivity, CourseContext, Competence}
-import uzuzjmd.competence.shared.dto.UserCourseListItem
+import uzuzjmd.competence.shared.moodle.UserCourseListItem
 
 /**
   * Created by dehne on 31.03.2016.

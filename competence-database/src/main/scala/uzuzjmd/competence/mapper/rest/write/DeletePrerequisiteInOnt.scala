@@ -3,7 +3,7 @@ package uzuzjmd.competence.mapper.rest.write
 import java.util.LinkedList
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.Competence
-import uzuzjmd.competence.service.rest.dto.PrerequisiteData
+import uzuzjmd.competence.shared.competence.PrerequisiteData
 import scala.collection.JavaConversions.asScalaBuffer
 
 /**

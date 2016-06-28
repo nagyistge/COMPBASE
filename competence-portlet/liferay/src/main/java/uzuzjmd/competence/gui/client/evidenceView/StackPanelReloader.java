@@ -22,17 +22,17 @@ class StackPanelReloader {
 	private DecoratedStackPanel decoratedStackPanel;
 	private String username;
 	private LmsContextFactory context;
-	public Boolean commentEntryWasSuccess;
-	public String commentEntryIdLastUpdated = "";
+	public Boolean CommentDataWasSuccess;
+	public String CommentDataIdLastUpdated = "";
 	private int selected;
 
 	public StackPanelReloader(DecoratedStackPanel decoratedStackPanel,
 			String username, LmsContextFactory context,
-			Boolean commentEntryWasSuccess) {
+			Boolean CommentDataWasSuccess) {
 		this.decoratedStackPanel = decoratedStackPanel;
 		this.username = username;
 		this.context = context;
-		this.commentEntryWasSuccess = commentEntryWasSuccess;
+		this.CommentDataWasSuccess = CommentDataWasSuccess;
 	}
 
 	public void reload() {
@@ -41,8 +41,8 @@ class StackPanelReloader {
 		loadEvidencesFromServer(username, context);
 	}
 
-	public void setCommentEntryWasSuccess(Boolean commentEntryWasSuccess) {
-		this.commentEntryWasSuccess = commentEntryWasSuccess;
+	public void setCommentDataWasSuccess(Boolean CommentDataWasSuccess) {
+		this.CommentDataWasSuccess = CommentDataWasSuccess;
 	}
 
 	private void loadEvidencesFromServer(final String userName,

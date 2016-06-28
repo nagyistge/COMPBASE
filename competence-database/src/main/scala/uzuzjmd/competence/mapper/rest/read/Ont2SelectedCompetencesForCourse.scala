@@ -4,7 +4,7 @@ import com.google.common.collect.Lists
 import com.liferay.portal.kernel.language.Language
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.CourseContext
-import uzuzjmd.competence.service.rest.dto.CourseData
+import uzuzjmd.competence.shared.course.CourseData
 import uzuzjmd.competence.util.LanguageConverter
 import scala.collection.JavaConverters._
 

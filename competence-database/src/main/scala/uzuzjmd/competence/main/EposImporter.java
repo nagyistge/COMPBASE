@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.datasource.epos.mapper.EposXML2Ont;
 import config.MagicStrings;
-import uzuzjmd.competence.shared.DESCRIPTORSETType;
+import uzuzjmd.competence.shared.epos.DESCRIPTORSETType;
 
 public class EposImporter {
 

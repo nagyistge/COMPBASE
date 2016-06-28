@@ -1,8 +1,8 @@
 package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.shared.Assessment;
-import uzuzjmd.competence.shared.dto.AbstractAssessment;
+import uzuzjmd.competence.shared.assessment.Assessment;
+import uzuzjmd.competence.shared.assessment.AbstractAssessment;
 
 /**
  * Created by dehne on 11.01.2016.

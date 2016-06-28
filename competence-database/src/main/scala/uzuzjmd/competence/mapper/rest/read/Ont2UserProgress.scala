@@ -1,13 +1,13 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import uzuzjmd.competence.persistence.dao.{CourseContext, User, SelfAssessment, Competence}
+import uzuzjmd.competence.persistence.dao.{Competence, CourseContext, SelfAssessment, User}
 import uzuzjmd.competence.persistence.neo4j.CompetenceNeo4jQueryManagerImpl
-import uzuzjmd.competence.shared.Assessment
-import uzuzjmd.competence.shared.dto.{CompetenceLinksMap, AbstractAssessment, UserProgress, UserCompetenceProgress}
+import uzuzjmd.competence.shared.competence.CompetenceLinksMap
+import uzuzjmd.competence.shared.progress.{UserCompetenceProgress, UserProgress}
 import uzuzjmd.competence.util.LanguageConverter
 
-import scala.collection.mutable
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 
 /**
   * Created by dehne on 30.05.2016.

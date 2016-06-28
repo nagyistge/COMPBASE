@@ -5,8 +5,8 @@ import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
 import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
 import uzuzjmd.competence.mapper.rest.write.LearningTemplateToOnt;
 import uzuzjmd.competence.persistence.dao.LearningProjectTemplate;
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
-import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData;
+import datastructures.lists.StringList;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

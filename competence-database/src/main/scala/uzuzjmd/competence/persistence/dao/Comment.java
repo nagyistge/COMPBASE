@@ -2,7 +2,7 @@ package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.exceptions.NoUserGivenException;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.CommentData;
+import uzuzjmd.competence.shared.activity.CommentData;
 
 /**
  * Created by dehne on 11.01.2016.

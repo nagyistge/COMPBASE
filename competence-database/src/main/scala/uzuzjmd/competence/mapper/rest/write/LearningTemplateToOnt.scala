@@ -2,15 +2,14 @@ package uzuzjmd.competence.mapper.rest.write
 
 import java.util
 
-import neo4j.Neo4JQueryManagerImpl
+import datastructures.graph.GraphTriple
 import uzuzjmd.competence.exceptions.{ContextNotExistsException, UserNotExistsException}
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.neo4j.DBFactory
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.persistence.performance.PerformanceTimer
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData
-import uzuzjmd.competence.shared.dto.{GraphTriple, LearningTemplateResultSet}
+import uzuzjmd.competence.shared.learningtemplate.{LearningTemplateData, LearningTemplateResultSet}
 import uzuzjmd.scompetence.owl.validation.LearningTemplateValidation
 
 import scala.collection.JavaConverters._

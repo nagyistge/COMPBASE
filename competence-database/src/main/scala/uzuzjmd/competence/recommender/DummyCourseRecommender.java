@@ -1,6 +1,6 @@
 package uzuzjmd.competence.recommender;
 
-import uzuzjmd.competence.shared.dto.UserCourseListItem;
+import uzuzjmd.competence.shared.moodle.UserCourseListItem;
 
 import java.util.HashMap;
 

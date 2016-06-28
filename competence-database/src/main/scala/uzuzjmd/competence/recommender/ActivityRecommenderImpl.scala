@@ -6,6 +6,7 @@ import java.util
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.service.rest.CourseApiImpl
+import uzuzjmd.competence.shared.activity.Evidence
 import uzuzjmd.competence.util.LanguageConverter
 
 import scala.collection.JavaConverters._

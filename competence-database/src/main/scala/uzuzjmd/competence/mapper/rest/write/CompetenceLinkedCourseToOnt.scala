@@ -1,7 +1,7 @@
 package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
-import uzuzjmd.competence.service.rest.dto.CompetenceLinkedToCourseData
+import uzuzjmd.competence.shared.competence.CompetenceLinkedToCourseData
 
 /**
  * @author dehne

@@ -3,7 +3,7 @@ package uzuzjmd.competence.mapper.rest.write
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.{LearningProjectTemplate, Role, User}
 import uzuzjmd.competence.persistence.ontology.Edge
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData
 
 /**
  * @author dehne

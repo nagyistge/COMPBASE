@@ -2,12 +2,12 @@ package uzuzjmd.competence.gui.client.shared;
 
 import java.util.Comparator;
 
-import uzuzjmd.competence.gui.client.shared.dto.CommentEntry;
+import uzuzjmd.competence.gui.client.shared.dto.CommentData;
 
-public class CommentEntryComparator implements Comparator<CommentEntry> {
+public class CommentDataComparator implements Comparator<CommentData> {
 
 	@Override
-	public int compare(CommentEntry arg0, CommentEntry arg1) {
+	public int compare(CommentData arg0, CommentData arg1) {
 		if (arg0.getCreated().equals(arg1)) {
 			return 0;
 		} else {

@@ -12,11 +12,11 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.CommentData;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
-import uzuzjmd.competence.service.rest.dto.CompetenceXMLTree;
-import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.competence.CompetenceData;
+import uzuzjmd.competence.shared.competence.CompetenceFilterData;
+import uzuzjmd.competence.shared.competence.CompetenceXMLTree;
+import datastructures.trees.HierarchyChangeSet;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

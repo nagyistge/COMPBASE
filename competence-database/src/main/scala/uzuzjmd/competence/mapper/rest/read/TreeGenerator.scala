@@ -1,10 +1,12 @@
+/*
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
+
+import datastructures.trees.{Node, TreePair}
 import uzuzjmd.competence.logging.Logging
-import uzuzjmd.java.collections.TreePair
-import uzuzjmd.java.collections._
-import collection.JavaConverters._
+
+import scala.collection.JavaConverters._
 
 /**
   * Created by dehne on 22.01.2016.
@@ -61,3 +63,4 @@ object TreeGenerator extends Logging{
   }
 
 }
+*/

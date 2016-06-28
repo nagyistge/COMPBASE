@@ -7,9 +7,10 @@ import uzuzjmd.competence.mapper.rest.write.Evidence2Ont;
 import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
 import uzuzjmd.competence.persistence.dao.Comment;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
-import uzuzjmd.competence.service.rest.dto.CommentData;
-import uzuzjmd.competence.service.rest.dto.EvidenceData;
-import uzuzjmd.competence.service.rest.dto.LinkValidationData;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.activity.Evidence;
+import uzuzjmd.competence.shared.activity.EvidenceData;
+import uzuzjmd.competence.shared.activity.LinkValidationData;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,44 +34,15 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     }
 
 
-
-
-    @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @POST
-    @Path("/evidences/{evidenceURL}/create")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
-        java.util.List<String> evidences = data.getEvidences();
-        if (evidences == null) {
-            throw new WebApplicationException("evidences are not provided");
-        }
-        if (evidences.isEmpty()) {
-            throw new WebApplicationException("evidences are not provided");
-        }
-        for (String evidence : evidences) {
-            if (!evidence.contains(",")) {
-                throw new WebApplicationException("evidences need to have the structure 'url,speakingname' or be provided as a hashmap" );
-            }
-        }
-        return createEvidenceLink(evidenceURL, data);
-    }
-
-
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
-    @Path("/evidences/{evidenceId}")
-    public Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data) {
-        return createEvidenceLink(evidenceId, data);
+    @Path("/evidences/create")
+    public Response linkCompetencesToUser2( EvidenceData data) {
+        return createEvidenceLink(data);
     }
 
-    private Response createEvidenceLink(@PathParam("evidenceURL") String evidenceURL, EvidenceData data) {
-        if (data.getEvidences() != null) {
-            data.getEvidences().add(evidenceURL);
-        } else {
-            data.setEvidences(Lists.newArrayList(evidenceURL));
-        }
+    private Response createEvidenceLink( EvidenceData data) {
         Evidence2Ont.writeLinkToDatabase(data);
         return Response.ok(
                 "competences linked to evidences").build();

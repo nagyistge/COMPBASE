@@ -1,10 +1,9 @@
 package uzuzjmd.competence.api;
 
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
-import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData;
+import datastructures.lists.StringList;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**

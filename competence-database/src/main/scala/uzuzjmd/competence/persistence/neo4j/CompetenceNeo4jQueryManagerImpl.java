@@ -4,7 +4,7 @@ import uzuzjmd.competence.exceptions.DataFieldNotInitializedException;
 import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.persistence.ontology.Label;
-import uzuzjmd.competence.service.rest.dto.CompetenceFilterData;
+import uzuzjmd.competence.shared.competence.CompetenceFilterData;
 
 import java.util.*;
 

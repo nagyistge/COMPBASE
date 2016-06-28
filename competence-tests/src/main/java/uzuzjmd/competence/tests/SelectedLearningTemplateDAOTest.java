@@ -7,10 +7,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
-import uzuzjmd.competence.shared.Assessment;
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.assessment.Assessment;
+import uzuzjmd.competence.shared.assessment.ReflectiveAssessmentsListHolder;
+import datastructures.lists.StringList;
+import uzuzjmd.competence.shared.learningtemplate.SuggestedCompetenceGrid;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;

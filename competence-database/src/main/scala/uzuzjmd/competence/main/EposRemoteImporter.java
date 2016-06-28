@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBException;
 
-import uzuzjmd.competence.shared.DESCRIPTORSETType;
-import uzuzjmd.competence.shared.dto.EPOSTypeWrapper;
+import uzuzjmd.competence.shared.epos.DESCRIPTORSETType;
+import uzuzjmd.competence.shared.epos.EPOSTypeWrapper;
 
 
 /**

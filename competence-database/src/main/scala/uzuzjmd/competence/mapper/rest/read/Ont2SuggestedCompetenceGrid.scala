@@ -6,8 +6,10 @@ import com.google.common.collect.Lists
 import org.apache.log4j.LogManager
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData
 import uzuzjmd.competence.shared._
+import uzuzjmd.competence.shared._
+import uzuzjmd.competence.shared.assessment.{ReflectiveAssessment, ReflectiveAssessmentsListHolder, Assessment}
+import uzuzjmd.competence.shared.learningtemplate.{LearningTemplateData, SuggestedCompetenceRow, SuggestedCompetenceGrid, SuggestedCompetenceColumn}
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer
 

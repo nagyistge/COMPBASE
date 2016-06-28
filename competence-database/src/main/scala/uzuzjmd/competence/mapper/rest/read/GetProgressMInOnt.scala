@@ -1,8 +1,8 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
-import uzuzjmd.competence.service.rest.dto.CourseData
-import uzuzjmd.competence.shared.dto.ProgressMap
+import uzuzjmd.competence.shared.course.CourseData
+import uzuzjmd.competence.shared.progress.ProgressMap
 
 /**
  * @author jbe

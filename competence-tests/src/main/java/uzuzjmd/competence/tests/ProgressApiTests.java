@@ -9,12 +9,11 @@ import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.persistence.dao.SelfAssessment;
 import uzuzjmd.competence.service.rest.*;
-import uzuzjmd.competence.shared.dto.AbstractAssessment;
-import uzuzjmd.competence.shared.dto.CommentEntry;
-import uzuzjmd.competence.shared.dto.CompetenceLinksView;
-import uzuzjmd.competence.shared.dto.UserCompetenceProgress;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.assessment.AbstractAssessment;
+import uzuzjmd.competence.shared.competence.CompetenceLinksView;
+import uzuzjmd.competence.shared.progress.UserCompetenceProgress;
 
-import javax.validation.constraints.AssertTrue;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -50,8 +49,8 @@ public class ProgressApiTests extends JerseyTest {
         competenceLinksView1.setEvidenceTitel("Ich habe einen UI-Protoyp erstellt");
         competenceLinksView1.setEvidenceUrl("Http://meinefressewoistdasdenn");
         competenceLinksView1.setValidated(false);
-        CommentEntry commentEntry = new CommentEntry("julian", "läuft gut", System.currentTimeMillis());
-        competenceLinksView1.setComments(Arrays.asList(commentEntry));
+        CommentData CommentData = new CommentData("julian", "läuft gut", System.currentTimeMillis());
+        competenceLinksView1.setComments(Arrays.asList(CommentData));
         SelfAssessment assessment = new SelfAssessment(new Competence(competenceString), new User(user), 3, true);
         AbstractAssessment abstractAssessments1 = assessment.toAbstractAssessment();
         UserCompetenceProgress userCompetenceProgress = new UserCompetenceProgress(competenceString, new CompetenceLinksView[] {competenceLinksView1}, abstractAssessments1);

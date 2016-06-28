@@ -1,13 +1,12 @@
 package uzuzjmd.competence.service.rest;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.mapper.rest.read.Ont2UserProgress;
 import uzuzjmd.competence.mapper.rest.write.UserProgress2Ont;
 import uzuzjmd.competence.persistence.dao.User;
-import uzuzjmd.competence.shared.dto.UserCompetenceProgress;
-import uzuzjmd.competence.shared.dto.UserProgress;
+import uzuzjmd.competence.shared.progress.UserCompetenceProgress;
+import uzuzjmd.competence.shared.progress.UserProgress;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

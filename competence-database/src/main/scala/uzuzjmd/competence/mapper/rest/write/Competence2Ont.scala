@@ -7,7 +7,7 @@ import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.{Catchword, Competence, LearningProjectTemplate, Operator}
 import uzuzjmd.competence.persistence.ontology.Edge
 import uzuzjmd.competence.persistence.validation.CompetenceGraphValidator
-import uzuzjmd.competence.service.rest.dto.CompetenceData
+import uzuzjmd.competence.shared.competence.CompetenceData
 
 import scala.collection.JavaConverters.asScalaBufferConverter
 

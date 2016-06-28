@@ -1,35 +1,21 @@
 package uzuzjmd.competence.tests;
 
-import config.MagicStrings;
-import org.apache.log4j.xml.DOMConfigurator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
-import uzuzjmd.competence.main.RestServer;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
-import uzuzjmd.competence.reflexion.dao.LearningTemplateDao;
 import uzuzjmd.competence.service.rest.*;
-import uzuzjmd.competence.shared.DESCRIPTORType;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.dto.Graph;
-import uzuzjmd.competence.shared.dto.GraphNode;
-import uzuzjmd.competence.shared.dto.GraphTriple;
-import uzuzjmd.competence.shared.dto.LearningTemplateResultSet;
+import datastructures.graph.Graph;
+import datastructures.graph.GraphTriple;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateResultSet;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * This needs running RestServer in order to work

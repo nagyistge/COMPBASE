@@ -1,9 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
 import uzuzjmd.competence.evidence.model.LMSSystems;
-import uzuzjmd.competence.evidence.service.EvidenceService;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
-import uzuzjmd.competence.evidence.service.moodle.MoodleEvidence;
+import uzuzjmd.competence.shared.moodle.MoodleEvidence;
 import uzuzjmd.competence.evidence.service.moodle.MoodleEvidenceList;
 import uzuzjmd.competence.evidence.service.moodle.SimpleMoodleService;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
@@ -12,9 +11,9 @@ import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.Role;
 import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.UserData;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.user.UserData;
+import datastructures.lists.StringList;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +21,6 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by dehne on 11.04.2016.

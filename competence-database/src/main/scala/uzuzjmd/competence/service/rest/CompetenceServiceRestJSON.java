@@ -1,15 +1,28 @@
 package uzuzjmd.competence.service.rest;
 
+import datastructures.graph.Graph;
+import datastructures.graph.GraphFilterData;
+import datastructures.trees.HierarchyChangeSet;
 import uzuzjmd.competence.main.EposImporter;
 import uzuzjmd.competence.mapper.rest.read.*;
 import uzuzjmd.competence.mapper.rest.write.*;
 import uzuzjmd.competence.persistence.dao.*;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.*;
-import uzuzjmd.competence.shared.ReflectiveAssessmentsListHolder;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.SuggestedCompetenceGrid;
-import uzuzjmd.competence.shared.dto.*;
+import uzuzjmd.competence.shared.*;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.activity.EvidenceData;
+import uzuzjmd.competence.shared.activity.LinkValidationData;
+import uzuzjmd.competence.shared.assessment.ReflectiveAssessmentChangeData;
+import uzuzjmd.competence.shared.assessment.ReflectiveAssessmentsListHolder;
+import datastructures.lists.StringList;
+import uzuzjmd.competence.shared.competence.*;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateResultSet;
+import uzuzjmd.competence.shared.learningtemplate.SuggestedCompetenceGrid;
+import uzuzjmd.competence.shared.course.CourseData;
+import uzuzjmd.competence.shared.epos.EPOSTypeWrapper;
+import uzuzjmd.competence.shared.progress.ProgressMap;
+import uzuzjmd.competence.shared.user.UserData;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -180,39 +193,7 @@ public class CompetenceServiceRestJSON {
     }
 
 
-    /**
-     * Creates an evidence as a proof that competences have been acquired by the
-     * user by certain activities
-     *
-     * @param course      (the context of the acquirement)
-     * @param creator     the user who created the link
-     * @param role        the role of the user who created the link (can be either
-     *                    "teacher" or "student")
-     * @param linkedUser  the user who has acquired the competences
-     * @param competences the competences acquired
-     * @param evidences   the activities that stand as evidences in the form [url,
-     *                    speakingname]
-     * @return
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    @Path("/link/create/{course}/{creator}/{role}/{linkedUser}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response linkCompetencesToUser(
-            @PathParam("course") String course,
-            @PathParam("creator") String creator,
-            @PathParam("role") String role,
-            @PathParam("linkedUser") String linkedUser,
-            @QueryParam(value = "competences") List<String> competences,
-            @QueryParam(value = "evidences") List<String> evidences) {
 
-        EvidenceData data = new EvidenceData(
-                course, creator, role, linkedUser,
-                competences, evidences, null);
-        Evidence2Ont.writeLinkToDatabase(data);
-        return Response.ok(
-                "competences linked to evidences").build();
-    }
 
     /**
      * Add a comment to an evidence link

@@ -1,11 +1,10 @@
 package uzuzjmd.competence.api;
 
-import uzuzjmd.competence.service.rest.dto.CommentData;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.shared.dto.HierarchyChangeSet;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.competence.CompetenceData;
+import datastructures.trees.HierarchyChangeSet;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 

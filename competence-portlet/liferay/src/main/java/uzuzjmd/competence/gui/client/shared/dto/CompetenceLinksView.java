@@ -6,7 +6,7 @@ public class CompetenceLinksView {
 	private String abstractLinkId;
 	private String evidenceTitel;
 	private String evidenceUrl;
-	private List<CommentEntry> comments;
+	private List<CommentData> comments;
 	private Boolean validated;
 
 	public CompetenceLinksView() {
@@ -14,7 +14,7 @@ public class CompetenceLinksView {
 	}
 
 	public CompetenceLinksView(String abstractLinkId, String evidenceTitel,
-			String evidenceUrl, List<CommentEntry> comments, Boolean validated) {
+			String evidenceUrl, List<CommentData> comments, Boolean validated) {
 		this.abstractLinkId = abstractLinkId;
 		this.evidenceTitel = evidenceTitel;
 		this.evidenceUrl = evidenceUrl;
@@ -39,11 +39,11 @@ public class CompetenceLinksView {
 		this.evidenceUrl = evidenceUrl;
 	}
 
-	public List<CommentEntry> getComments() {
+	public List<CommentData> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<CommentEntry> comments) {
+	public void setComments(List<CommentData> comments) {
 		this.comments = comments;
 	}
 

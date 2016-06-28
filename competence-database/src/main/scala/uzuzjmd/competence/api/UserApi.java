@@ -1,7 +1,7 @@
 package uzuzjmd.competence.api;
 
-import uzuzjmd.competence.service.rest.dto.UserData;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.user.UserData;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

@@ -1,10 +1,9 @@
 package uzuzjmd.competence.api;
 
-import uzuzjmd.competence.recommender.Evidence;
-import uzuzjmd.competence.shared.dto.MapWrapper;
-import uzuzjmd.competence.shared.dto.UserCourseListItem;
+import datastructures.maps.MapWrapper;
+import uzuzjmd.competence.shared.activity.Evidence;
+import uzuzjmd.competence.shared.moodle.UserCourseListItem;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
@@ -28,7 +27,7 @@ public interface RecommenderApi {
      * @param courseId
      * @return
      */
-    HashMap<Evidence, Double> recommendActivities(String userEmail,  String competenceToReach, String courseId, String password);
+    HashMap<Evidence, Double> recommendActivities(String userEmail, String competenceToReach, String courseId, String password);
 
     /**
      * returns all the courses recommended for a user given the users id (normally the userEmail)

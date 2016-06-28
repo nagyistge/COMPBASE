@@ -2,8 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.service.rest.dto.EvidenceData
-
+import uzuzjmd.competence.shared.activity.EvidenceData
 import scala.collection.JavaConverters.asScalaBufferConverter
 
 /**
@@ -30,7 +29,7 @@ object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter 
         creatorUser.persist();
         val linkedUserUser = new User(data.getLinkedUser, Role.student, data.getPrintableUserName, null, courseContext);
         linkedUserUser.persist();
-        val evidenceActivity = new EvidenceActivity(evidence.split(",")(1), evidence.split(",")(0));
+        val evidenceActivity = new EvidenceActivity(evidence.getUrl, evidence.getShortname);
         evidenceActivity.persist()
         val competenceDao = new Competence(competence);
         competenceDao.persist

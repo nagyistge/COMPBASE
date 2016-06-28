@@ -2,18 +2,21 @@ package uzuzjmd.competence.service.rest
 
 import com.google.common.collect.Lists
 import config.MagicStrings
+import datastructures.graph.GraphFilterData
+import datastructures.trees.{HierarchyChange, HierarchyChangeSet}
 import org.junit.Assert._
 import org.junit.{After, Before, BeforeClass, Test}
 import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.main.EposImporter
-import uzuzjmd.competence.mapper.rest.read.{Ont2LearningTemplateResultSet, Ont2SuggestedCompetenceGrid, Ont2CompetenceGraph, Ont2CompetenceTree}
+import uzuzjmd.competence.mapper.rest.read.{Ont2CompetenceGraph, Ont2CompetenceTree, Ont2LearningTemplateResultSet, Ont2SuggestedCompetenceGrid}
 import uzuzjmd.competence.mapper.rest.write._
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.ontology.Edge
-import uzuzjmd.competence.service.rest.dto._
-import uzuzjmd.competence.shared.{SuggestedCompetenceGrid, ReflectiveAssessment, Assessment, ReflectiveAssessmentsListHolder}
-import uzuzjmd.competence.shared.dto.{HierarchyChange, HierarchyChangeSet}
+import uzuzjmd.competence.shared.activity.LinkValidationData
+import uzuzjmd.competence.shared.assessment.{Assessment, ReflectiveAssessment, ReflectiveAssessmentChangeData, ReflectiveAssessmentsListHolder}
+import uzuzjmd.competence.shared.competence.{CompetenceData, CompetenceFilterData, PrerequisiteData}
+import uzuzjmd.competence.shared.learningtemplate.{LearningTemplateData, SuggestedCompetenceGrid}
 
 import scala.collection.JavaConverters._
 

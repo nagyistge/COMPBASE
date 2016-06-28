@@ -3,7 +3,7 @@ package uzuzjmd.competence.evidence.service.moodle;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import config.MagicStrings;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;

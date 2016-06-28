@@ -1,11 +1,10 @@
 package uzuzjmd.competence.api;
 
 import scala.collection.immutable.List;
-import uzuzjmd.competence.service.rest.dto.CommentData;
-import uzuzjmd.competence.service.rest.dto.EvidenceData;
+import uzuzjmd.competence.shared.activity.CommentData;
+import uzuzjmd.competence.shared.activity.EvidenceData;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
@@ -13,16 +12,7 @@ import java.util.ArrayList;
  * Created by dehne on 15.04.2016.
  */
 public interface EvidenceApi {
-    /**
-     * Legacy implementation for browsers that do not support put
-     * <p/>
-     * Creates an evidence as a proof that competences have been acquired by the
-     * user by certain activities
-     *
-     * @return
-     */
 
-    Response linkCompetencesToUser(@PathParam("evidenceURL") String evidenceURL, EvidenceData data);
 
     /**
      * Creates an evidence as a proof that competences have been acquired by the
@@ -31,7 +21,7 @@ public interface EvidenceApi {
      * @return
      */
 
-    Response linkCompetencesToUser2(@PathParam("evidenceId") String evidenceId, EvidenceData data);
+    Response linkCompetencesToUser2(EvidenceData data);
 
     /**
      * Add a comment to an evidence link

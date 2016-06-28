@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
-import uzuzjmd.competence.shared.dto.UserTree;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
+import uzuzjmd.competence.shared.moodle.UserTree;
 
 /**
  * Not used much could be used for testing evidence based aspects

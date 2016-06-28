@@ -3,26 +3,24 @@ package uzuzjmd.competence.tests;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
-import uzuzjmd.competence.api.EvidenceApi;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.dto.CourseData;
-import uzuzjmd.competence.service.rest.dto.EvidenceData;
-import uzuzjmd.competence.service.rest.dto.UserData;
-import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.activity.Evidence;
+import uzuzjmd.competence.shared.activity.EvidenceData;
+import uzuzjmd.competence.shared.competence.CompetenceData;
+import uzuzjmd.competence.shared.course.CourseData;
+import uzuzjmd.competence.shared.user.UserData;
+import datastructures.lists.StringList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URLEncoder;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -119,10 +117,8 @@ public class CoreTests extends JerseyTest {
         String userEmail = "julian@stuff2.com";
         String courseName = "TestkursA";
         String courseId = "44";
-        HashMap<String, String> evidence = new HashMap<String, String>();
-        String url = "http://hasstschegut, Gut gemacht"; // TODO refactor in two variables
-        evidence.put(url.split(",")[0], url.split(",")[1]);
-
+        String url = "http://hasstschegut";
+        Evidence evidence = new Evidence("gut gemacht", url, userEmail );
 
         // create course context
         // creates a course for the test case which the competence is linked to
@@ -140,7 +136,7 @@ public class CoreTests extends JerseyTest {
 
         // create evidence
         // creates the evidence that the user rly has performed the competence
-        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, "student", userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), evidence, userData.getPrintableName());
+        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, "student", userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), Arrays.asList(evidence), userData.getPrintableName());
         Entity<EvidenceData> evidenceDataEntity = Entity.entity(evidenceData, APPLICATION_JSON);
 
 

@@ -10,10 +10,10 @@ import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.recommender.Evidence;
 import uzuzjmd.competence.recommender.RecommenderFactory;
-import uzuzjmd.competence.shared.dto.MapWrapper;
-import uzuzjmd.competence.shared.dto.UserCourseListItem;
+import datastructures.maps.MapWrapper;
+import uzuzjmd.competence.shared.activity.Evidence;
+import uzuzjmd.competence.shared.moodle.UserCourseListItem;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

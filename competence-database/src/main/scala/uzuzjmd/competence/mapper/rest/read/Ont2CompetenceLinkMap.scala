@@ -1,12 +1,11 @@
 package uzuzjmd.competence.mapper.rest.read
 
-import java.util
 import java.util.{SortedSet, TreeSet}
 
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.{AbstractEvidenceLink, Comment, User}
-import uzuzjmd.competence.service.rest.dto.CompetenceLinksViewComparator
-import uzuzjmd.competence.shared.dto.{CommentEntry, CompetenceLinksMap, CompetenceLinksView}
+import uzuzjmd.competence.shared.activity.CommentData
+import uzuzjmd.competence.shared.competence.{CompetenceLinksMap, CompetenceLinksView, CompetenceLinksViewComparator}
 import uzuzjmd.java.collections.MapsMagic
 
 import scala.collection.JavaConverters._
@@ -52,19 +51,19 @@ object Ont2CompetenceLinkMap extends ReadTransactional[String, CompetenceLinksMa
   private def mapAbstractEvidenceLinkToCompetenceLinksView(input: AbstractEvidenceLink): mutable.Buffer[CompetenceLinksView] = {
     val linkedEvidence = input.getAllActivities.asScala
     val comments = input.getComments;
-    var linkedComments : java.util.List[CommentEntry] =  null;
+    var linkedComments : java.util.List[CommentData] =  null;
     if (comments != null) {
-      linkedComments = comments.asScala.map(mapCommentToCommentEntry).asJava
+      linkedComments = comments.asScala.map(mapCommentToCommentData).asJava
     }
     val competenceLinksView = linkedEvidence.map(x => new CompetenceLinksView(input.getId, x.getPrintableName, x.getUrl, linkedComments, input.getValidated))
     return competenceLinksView
   }
 
-  private def mapCommentToCommentEntry(input: Comment): CommentEntry = {
+  private def mapCommentToCommentData(input: Comment): CommentData = {
     if (input.getCreator == null) {
       return null;
     }
-    val result = new CommentEntry(input.getCreator.getId, input.getText, input.getDateCreated)
+    val result = new CommentData(input.getCreator.getId, input.getText, input.getDateCreated)
     return result
   }
 

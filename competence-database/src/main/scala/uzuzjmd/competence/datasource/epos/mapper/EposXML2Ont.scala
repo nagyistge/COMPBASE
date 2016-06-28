@@ -6,7 +6,7 @@ import uzuzjmd.competence.datasource.csv.FilteredCSVCompetence
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao._
 import uzuzjmd.competence.persistence.ontology.Edge
-import uzuzjmd.competence.shared.DESCRIPTORSETType
+import uzuzjmd.competence.shared.epos.DESCRIPTORSETType
 import collection.JavaConverters._
 
 /**

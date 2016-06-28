@@ -18,8 +18,8 @@ import org.apache.log4j.Logger;
 
 import uzuzjmd.competence.evidence.service.EvidenceService;
 import uzuzjmd.competence.evidence.service.EvidenceServiceProxy;
-import uzuzjmd.competence.shared.dto.UserCourseListResponse;
-import uzuzjmd.competence.shared.dto.UserTree;
+import uzuzjmd.competence.shared.moodle.UserCourseListResponse;
+import uzuzjmd.competence.shared.moodle.UserTree;
 
 /**
  * implements the lms service that provides access to the lms activities

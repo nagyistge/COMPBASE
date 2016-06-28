@@ -1,12 +1,12 @@
 package uzuzjmd.competence.mapper.rest.read
 
 import java.util
+
+import datastructures.graph.{Graph, GraphFilterData}
 import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.abstractlayer.ReadTransactional
 import uzuzjmd.competence.persistence.dao.{Competence, CourseContext}
 import uzuzjmd.competence.persistence.ontology.Edge
-import uzuzjmd.competence.service.rest.dto.GraphFilterData
-import uzuzjmd.competence.shared.dto.Graph
 
 import scala.collection.JavaConverters._
 import scala.collection.{SeqView, mutable}

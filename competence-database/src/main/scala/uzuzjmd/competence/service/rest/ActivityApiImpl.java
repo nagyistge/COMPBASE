@@ -3,13 +3,12 @@ package uzuzjmd.competence.service.rest;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.shared.StringList;
-import uzuzjmd.competence.shared.dto.ActivityEntry;
+import datastructures.lists.StringList;
+import datastructures.trees.ActivityEntry;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

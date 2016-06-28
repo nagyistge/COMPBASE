@@ -1,6 +1,7 @@
 package uzuzjmd.competence.persistence.validation
 
-import uzuzjmd.competence.service.rest.dto.AbstractXMLTree
+
+import datastructures.trees.AbstractXMLTree
 
 import scala.collection.JavaConverters._
 

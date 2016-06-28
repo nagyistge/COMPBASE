@@ -35,7 +35,7 @@
 }
 
 
-.commentEntry {
+.CommentData {
     padding-right: 2px !important;
     width: 320px !important;
     padding-left: 5px !important;
@@ -43,7 +43,7 @@
 }
 
 
-.commentEntryHeader {    
+.CommentDataHeader {
     width: 320px !important;    
     margin-bottom: 10px !important;
 }

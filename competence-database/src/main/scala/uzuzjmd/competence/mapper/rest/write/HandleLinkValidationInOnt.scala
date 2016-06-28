@@ -2,7 +2,7 @@ package uzuzjmd.competence.mapper.rest.write
 
 import uzuzjmd.competence.persistence.abstractlayer.WriteTransactional
 import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink
-import uzuzjmd.competence.service.rest.dto.LinkValidationData
+import uzuzjmd.competence.shared.activity.LinkValidationData
 
 /**
 * @author jbe

@@ -1,8 +1,8 @@
 package uzuzjmd.competence.persistence.dao;
 
 import uzuzjmd.competence.persistence.ontology.Edge;
-import uzuzjmd.competence.service.rest.dto.CommentData;
-import uzuzjmd.competence.shared.dto.ActivityEntry;
+import uzuzjmd.competence.shared.activity.CommentData;
+import datastructures.trees.ActivityEntry;
 
 import java.util.ArrayList;
 

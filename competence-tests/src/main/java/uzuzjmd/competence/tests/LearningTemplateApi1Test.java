@@ -9,9 +9,9 @@ import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.service.rest.*;
-import uzuzjmd.competence.service.rest.dto.CompetenceData;
-import uzuzjmd.competence.service.rest.dto.LearningTemplateData;
-import uzuzjmd.competence.shared.StringList;
+import uzuzjmd.competence.shared.competence.CompetenceData;
+import uzuzjmd.competence.shared.learningtemplate.LearningTemplateData;
+import datastructures.lists.StringList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
