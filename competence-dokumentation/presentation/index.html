@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Bridging the interinstitutional gap</h1>
+            <h3>Tracing lifelong skill evolvement</h3>
+            by Julian Dehne
+        </section>
+        <section>
+            <h2>Agenda</h2>
+            <ol>
+                <li>Perspectives</li>
+                <li>Theoretical framework</li>
+                <li>Technical developments</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Introduction</h2>
+            <ul>
+                <li>Grades are relative (classmates, cohort, age) but are treated as static (i.e. for university
+                    entrance)
+                </li>
+                <li>Grades were invented in a time of professions and disciplines but the shift to service sector
+                    blurred disciplines and professions
+                </li>
+                <li>Grades are pseudo-objective: the numerical value implies a standardized evaluation of performance
+                </li>
+                <li>Grades are an ordinal scale. However, student performance does not follow equidistant steps but is
+                    multidimensional and infinitely differentiable
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>Portfolio types</h2>
+                <ul>
+                    <li>time dimension (continous, project based) [HPGH07b, S.39]</li>
+                    <li>group or indvidual [BKM98]</li>
+                    <li>pedagogical principles (learning process, competencies, company based) [Neu11]
+                    </li>
+                    <li>scope (personal development portfolio, studies portfolio, school portfolio, course portfolio,
+                        internship portfolio) [Lam14, S.6]
+                    </li>
+                    <li>goal (reflexion, assessment, presentation) [Lam14]</li>
+                </ul>
+
+            </section>
+            <section>
+                <h2>Competency portfolios</h2>
+                <ul>
+                    <li>Competency portfolio is very useful for assessing future learning goals</li>
+                    <li>Competency portfolio more objective then grades (formulated competencies are indicators for
+                        evaluation method)
+                    </li>
+                    <li>Competencies are interchangeable between organizations without limiting the creativity of the
+                        teacher with centralized tests
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Heutagogy and competence based assessment</h2>
+                <ul>
+                    <li>Portfolios as a formative evaluation method offers potential to display individual learning processes</li>
+                    <li>The competence portfolio model can be transferred to any stage of education</li>
+                </ul>
+            </section>
+
+            <section>
+                <image src="pictures/gap.png"></image>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Developing a generic competency database</h2>
+            </section>
+
+            <section>
+                <h2>Challenges</h2>
+                <ul>
+                    <li>Standardized way of formulating competencies (+)</li>
+                    <li>Comparing competencies (=)</li>
+                    <li>Comparing competency taxonomies (-)</li>
+                    <li>Providing a central competency pool for a whole organization (+)</li>
+                    <li>Creating a standard that can be reused in other organizations (+)</li>
+                </ul>
+            </section>
+
+
+        </section>
+
+        <section>
+            <section>
+                <h2>Standardizing competency descriptions</h2>
+            </section>
+
+            <section>
+                <h2>Formulating competencies</h2>
+                <br>
+                <style type="text/css">
+                    .mycss {
+                        letter-spacing: 4pt;
+
+                    }
+                </style>
+                <div class="mycss" align="left">
+                    <h4>Structure:</h4>
+                    <ul style="list-style-type: none;">
+                        <li>Learner&nbsp:&nbspoperator&nbsp:&nbsp[action&nbspdomain&nbsp|&nbspknowledge&nbspdomain]</li>
+                        <li>
+                            <ul style="list-style-type: none;">
+                                <li>List([(subcompetence)])</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <div align="left">
+                    <h4>For instance:</h4>
+                    <i>
+                        <ul style="list-style-type: none;">
+                            <li>Computer science students : implement : programs</li>
+                            <li>
+                                <ul style="list-style-type: none;">
+                                    <li>(by programming : webservices)</li>
+                                    <li>(by designing : interfaces)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </i>
+                </div>
+            </section>
+            <section>
+                <image src="pictures/similarity2.png"></image>
+            </section>
+            <section>
+                <image src="pictures/similarity3.png"></image>
+            </section>
+            <section>
+                <image src="pictures/similarity.png"></image>
+            </section>
+
+            <section>
+
+
+                <h2>Natural language processing pipeline:</h2>
+                <ul>
+                    <li>Dependency graph (extracting the operator, the subject and the knowledge tokens)</li>
+                    <li>Stemming</li>
+                    <li>Synonym database</li>
+                    <li>Generic term database in order to determine subcompetences and supercompetences</li>
+                </ul>
+            </section>
+
+            <section>
+                <image src="pictures/Pipeline.png"></image>
+            </section>
+
+        </section>
+
+        <section>
+            <h2>Use case university</h2>
+            <image src="pictures/services.png" width="70%"></image>
+
+        </section>
+
+        <section>
+            <section>
+                <h1>Literature</h1>
+            </section>
+            <section>
+                <div style="font-size: 50%;">
+                    <ul>
+                        <li><b>Hornung-Prähauser</b>, Veronika; Geser, Guntram; Hilzensauer, Wolf; Schaffert, Sandra; Luckmann,
+                            M.; Wieden-Bischof, D. (2007): Didaktische, organisatorische und technologische Grundlagen
+                            von E-Portfolios und Analyse internationaler Beispiele und Erfahrungen mit
+                            E-Portfolio-Implementierungen an Hochschulen. In: Salzburg. Verfügbar unter: http://www.
+                            salzburgresearch. at/research/gfx/e-portfolio\_studie\_srfg\_fnma. Pdf, , zuletzt
+                            aktualisiert am 19.06.2014, zuletzt geprüft am 19.06.2014.
+                        </li>
+                        <li><b>Lamont</b>, M. (2014): What are the features of E-Portfolio implementation that can enhance
+                            learning and promote self-regulation? Online verfügbar unter
+                            http://www.eife-l.org/publications/eportfolio/proceedings2/ep2007/papers/eportfolio/what-are-the-features-of-e-portfolio-implementation-that-can-enhance-learning-and-promote-self-regulation/view,
+                            zuletzt aktualisiert am 19.06.2014, zuletzt geprüft am 19.06.2014.
+                        </li>
+                        <li><b>Neuböck</b>, Kristina (2011): Kompetenzportfolios. Instrumente für das Erfassen individueller
+                            Lernprozesse. In: J. Pauschenwein (Hg.): Innovative Lern- und Trainingsszenarien mit Social
+                            Media, S. 40–46.
+                        </li>
+                        <li><b>Preschner</b>, T., Schulz, F. (2011): ePortfolio-Prüfung. Prozessorientiertes
+                            Kompetenz-Entwicklungs-Assessment zur Förderung der Self-Monitoring-Kompetenz im
+                            Lehramtsstudium. In: Hamburger E-Learning Magazin 2011 (07), S. 45–53. Online verfügbar
+                            unter http://www.uni-hamburg.de/elearning/hamburger-elearning-magazin-07.pdf, zuletzt
+                            geprüft am 26.06.2014.
+                        </li>
+                        <li><b>Salzman</b>, Stephanie A.; Denner, Peter R.; Harris, Larry B. (2002): Teacher Education Outcomes
+                            Measures: Special Study Survey. In: AACTE Research and Information Committee (Hg.): AACTE.
+                            Annual meeting of the American Association of Colleges for Teacher Education. New York,
+                            23.02.2002. U.S. Department of Education.
+                        </li>
+                        <li><b>Schubarth</b>, Wilfried (2007): Endlich Praxis! Die zweite Phase der Lehrerbildung; Potsdamer
+                            Studien zum Referendariat. Wien.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
