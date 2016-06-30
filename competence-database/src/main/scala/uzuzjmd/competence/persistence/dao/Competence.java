@@ -154,6 +154,9 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
     }
 
     public void addLearningTemplate(LearningProjectTemplate learningTemplate) throws Exception {
+        if (!learningTemplate.exists()) {
+            learningTemplate.persist();
+        }
         createEdgeWith(learningTemplate, Edge.LearningProjectTemplateOf);
     }
 

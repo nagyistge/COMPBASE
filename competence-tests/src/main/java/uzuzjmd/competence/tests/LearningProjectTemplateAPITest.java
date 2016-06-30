@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 
 public class LearningProjectTemplateAPITest extends JerseyTest {
 
-    public static final String LABELNAME = "SuggestedCompetencePrerequisit";
+    public static final String LABELNAME = "SuggestedCompetencePrerequisite";
     private static Graph graph;
 
     private static String learningTemplateName;
@@ -110,11 +110,7 @@ public class LearningProjectTemplateAPITest extends JerseyTest {
      */
     public void createLearningProjectTemplate() {
 
-        Response response = target("/competences/xml/learningtemplate/add/"
-                + learningTemplateName)
-                .register(logginFilter)
-                .queryParam("learningTemplateResultSet",
-                        learningTemplateResultSet).request(MediaType.APPLICATION_XML)
+        Response response = target("/competences/learningtemplate/add").request()
                 .post(Entity.entity(learningTemplateResultSet,
                         MediaType.APPLICATION_XML));
         assertTrue(response.getStatus() == 200);
@@ -129,7 +125,7 @@ public class LearningProjectTemplateAPITest extends JerseyTest {
         // add single learningTemplate
         addSingleRootLearningProjectTemplate();
         createLearningProjectTemplate();
-        LearningTemplateResultSet result = target("/competences/xml/learningtemplate/get/"
+        LearningTemplateResultSet result = target("/competences/learningtemplate/get/"
                 + learningTemplateName).request(
                 MediaType.APPLICATION_XML).get(
                 LearningTemplateResultSet.class);
@@ -142,11 +138,11 @@ public class LearningProjectTemplateAPITest extends JerseyTest {
      */
     public void addSingleRootLearningProjectTemplate() {
 
-        Response result = target("/competences/json/addOne/")
+        Response result = target("/competences/addOne")
                 .queryParam("competence",
                         "The ability to jump high distances")
                 .queryParam("operator", "jump")
-                .queryParam("catchword", "ability")
+                .queryParam("catchwords", "ability")
                 .queryParam("learningTemplateName", templateName).request(MediaType.APPLICATION_JSON)
                 .post(null);
         assertTrue(result.getStatus() == 200);
@@ -158,9 +154,9 @@ public class LearningProjectTemplateAPITest extends JerseyTest {
     @Test
     public void checkSingletonLearningTemplate() {
         // make client call
-
-        LearningTemplateResultSet result2 = target("/competences/xml/learningtemplate/get/"
-                + templateName).register(logginFilter).request(MediaType.APPLICATION_XML).get(
+        addSingleRootLearningProjectTemplate();
+        LearningTemplateResultSet result2 = target("/competences/learningtemplate/get/"
+                + templateName).request(MediaType.APPLICATION_XML).get(
                 LearningTemplateResultSet.class);
         assertNotNull(result2);
         assertEquals(
