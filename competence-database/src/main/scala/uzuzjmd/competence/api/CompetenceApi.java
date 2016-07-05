@@ -12,7 +12,6 @@ import java.util.ArrayList;
 /**
  * Created by dehne on 15.04.2016.
  */
-@Path("/api1")
 public interface CompetenceApi {
 
     /**
