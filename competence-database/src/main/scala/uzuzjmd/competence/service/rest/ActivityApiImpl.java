@@ -15,15 +15,9 @@ import java.util.List;
  * Created by dehne on 15.06.2016.
  */
 @Path("/api1")
-public class ActivityApiImpl {
+public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
 
-    /**
-     * 1) create activity
-     *
-     * @param activity
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
     @Path("/activities")
@@ -33,14 +27,7 @@ public class ActivityApiImpl {
         return Response.ok("activity has been created").build();
     }
 
-    /**
-     * 2) link activity to competence it is suggested for
-     *
-     * @param competenceId
-     * @param activityUrl
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/activities/links/competences/{competenceId}")
@@ -51,13 +38,7 @@ public class ActivityApiImpl {
         return Response.ok("edge has been created").build();
     }
 
-    /**
-     * query competences that are linked to this activity
-     *
-     * @param activityId
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/activities/links/competences")
@@ -72,12 +53,7 @@ public class ActivityApiImpl {
 
     }
 
-    /**
-     * query competences that are linked to this activity
-     *
-     * @return
-     * @throws Exception
-     */
+    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/activities")

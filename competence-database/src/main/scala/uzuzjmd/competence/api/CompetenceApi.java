@@ -18,11 +18,11 @@ public interface CompetenceApi {
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
      *
-     * @param selectedCatchwords
-     * @param selectedOperators
-     * @param textFilter
-     * @param rootCompetence
-     * @param course
+     * @param selectedCatchwords (as a filter for the competences that a queried)
+     * @param selectedOperators (as a filter for the competences that a queried)
+     * @param textFilter (as a filter for the competences that a queried)
+     * @param rootCompetence (as a filter for the competences that a queried)
+     * @param course (as a filter for the competences that a queried)
      * @param asTree
      * @return
      */

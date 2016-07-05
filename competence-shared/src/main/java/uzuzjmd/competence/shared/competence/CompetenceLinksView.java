@@ -5,6 +5,10 @@ import uzuzjmd.competence.shared.activity.CommentData;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The class represents the link between the activity and the comments related to it for a specific class
+ * The evidence link can be validated.
+ */
 public class CompetenceLinksView {
 	private String abstractLinkId;
 	private String evidenceTitel;
@@ -13,7 +17,6 @@ public class CompetenceLinksView {
 	private Boolean validated;
 
 	public CompetenceLinksView() {
-		// TODO Auto-generated constructor stub
 		this.comments = new LinkedList<CommentData>();
 	}
 

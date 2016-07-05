@@ -22,6 +22,8 @@ public interface RecommenderApi {
 
     /**
      * returns all the activities recommended for a user given the users id (normally the userEmail)
+     * @see uzuzjmd.competence.shared.activity.Evidence
+     *
      * @param userEmail
      * @param competenceToReach
      * @param courseId

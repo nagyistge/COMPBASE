@@ -18,10 +18,11 @@ import javax.ws.rs.core.Response;
  *
  */
 @Path("/api1")
-public class ProgressApiImpl {
+public class ProgressApiImpl implements uzuzjmd.competence.api.ProgressApi {
 
     private Logger logger = LogManager.getLogger(getClass());
 
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/progress/{userId}")
@@ -34,6 +35,7 @@ public class ProgressApiImpl {
         return Ont2UserProgress.convert2(userId, courseId);
     }
 
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/progress/{userId}/competences/{competenceId}")
@@ -44,6 +46,7 @@ public class ProgressApiImpl {
         return result;
     }
 
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/progress/{userId}")
@@ -56,6 +59,7 @@ public class ProgressApiImpl {
 
 
 
+    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/progress/{userId}/competences/{competenceId}")

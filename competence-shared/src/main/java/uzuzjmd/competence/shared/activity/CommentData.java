@@ -2,49 +2,61 @@ package uzuzjmd.competence.shared.activity;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ */
 @XmlRootElement
 public class CommentData {
+	// the date when the comment was created
 	private  Long created;
+	// the id of the comment
 	private String commentId;
+	// the id of the comment this comment is linked to
 	private String commentedCommentId;
+	// the id of the abstract link this comment is attached to
 	private String linkId;
+	// the id of the user
 	private String user;
+	// the plain text of the comment
 	private String text;
+	// the id of the course the link is attached to
 	private String courseContext;
+	// the role of the creator (teacher or student) -> should be refactored
 	private String role;
+	// the id of the competence the comment is related to
 	private String competenceId;
 
 	public CommentData() {
 	}
 
-	public CommentData(String userId, String text, Long datecreated) {
-		this.commentId = datecreated + text;
+	public CommentData(String userId, String text, Long dateCreated) {
+		this.commentId = dateCreated + text;
 		this.user = userId;
 		this.text = text;
 	}
 
-	public CommentData(Long datecreated, String linkId, String user, String text, String courseContext, String role) {
+	public CommentData(Long dateCreated, String linkId, String user, String text, String courseContext, String role) {
 		super();
-		this.commentId = datecreated + text;
+		this.commentId = dateCreated + text;
 		this.linkId = linkId;
 		this.user = user;
 		this.text = text;
 		this.courseContext = courseContext;
 		this.role = role;
-		this.created = datecreated;
+		this.created = dateCreated;
 	}
 
 
 
-	public CommentData(Long datecreated, String competenceId, String text, String userId, String courseContext, String role, String commentedCommentId) {
-		this.commentId = datecreated + text;
+	public CommentData(Long dateCreated, String competenceId, String text, String userId, String courseContext, String role, String commentedCommentId) {
+		this.commentId = dateCreated + text;
 		this.competenceId = competenceId;
 		this.text = text;
 		this.user = userId;
 		this.courseContext = courseContext;
 		this.role = role;
 		this.commentedCommentId = commentedCommentId;
-		this.created = datecreated;
+		this.created = dateCreated;
 	}
 
 	public String getLinkId() {
