@@ -1,3 +1,4 @@
+/*
 package uzuzjmd.competence.config;
 
 
@@ -11,9 +12,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+*/
 /**
  * Created by dehne on 05.07.2016.
- */
+ *//*
+
 public class SwaggerBootsTrap extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -32,3 +35,4 @@ public class SwaggerBootsTrap extends HttpServlet {
         context.setAttribute("swagger", swagger);
     }
 }
+*/

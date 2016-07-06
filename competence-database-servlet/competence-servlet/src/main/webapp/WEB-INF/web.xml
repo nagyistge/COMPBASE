@@ -4,40 +4,9 @@
 
 <web-app>
     <display-name>Competence Database Rest Server</display-name>
-    <servlet>
-        <servlet-name>SwaggerBootsTrap</servlet-name>
-        <servlet-class>uzuzjmd.competence.config.SwaggerBootsTrap</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-
-
-   <!-- <filter>
-        <filter-name>swaggerFilter</filter-name>
-        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
-        <init-param>
-            <param-name>jersey.config.server.provider.classnames</param-name>
-            <param-value>
-                io.swagger.jaxrs.listing.ApiListingResource,
-                io.swagger.jaxrs.listing.SwaggerSerializers,
-            </param-value>
-        </init-param>
-        <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>uzuzjmd.competence</param-value>
-        </init-param>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>uzuzjmd.competence</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>swaggerFilter</filter-name>
-        <url-pattern>/api/*</url-pattern>
-    </filter-mapping>-->
-
 
     <servlet>
+        <!--suppress ServletWithoutMappingInspection -->
         <servlet-name>rest-server</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <!-- <init-param> -->
@@ -50,9 +19,11 @@
         </init-param>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>uzuzjmd.competence</param-value>
+            <param-value>
+                io.swagger.jaxrs.listing
+                uzuzjmd.competence,
+            </param-value>
         </init-param>
-
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
@@ -64,29 +35,34 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-  <!--  <servlet>
-        <servlet-name>swagger</servlet-name>
-        <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
-        <init-param>
-            <param-name>api.version</param-name>
-            <param-value>1</param-value>
-        </init-param>
-        <init-param>
-            <param-name>swagger.api.basepath</param-name>
-            <param-value>http://localhost:8080/competence-base/api</param-value>
-        </init-param>
-        <load-on-startup>2</load-on-startup>
-    </servlet>-->
+
+
+      <servlet>
+          <!--suppress ServletWithoutMappingInspection -->
+          <servlet-name>swagger</servlet-name>
+          <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+          <init-param>
+              <param-name>api.version</param-name>
+              <param-value>1</param-value>
+          </init-param>
+          <init-param>
+              <param-name>swagger.api.basepath</param-name>
+              <param-value>http://localhost:8080/competence-base/swagger</param-value>
+          </init-param>
+          <load-on-startup>2</load-on-startup>
+      </servlet>
+
+<!--
+    <servlet-mapping>
+        <servlet-name>rest-server</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+-->
+
 
     <servlet-mapping>
         <servlet-name>rest-server</servlet-name>
-        <url-pattern>/competence/*</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet-mapping>
-        <servlet-name>SwaggerBootsTrap</servlet-name>
-        <url-pattern>/api/*</url-pattern>
+        <url-pattern>/swagger/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
