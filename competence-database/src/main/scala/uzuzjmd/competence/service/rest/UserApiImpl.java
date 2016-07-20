@@ -141,9 +141,9 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
         User user = new User(userId);
         // checks if user exists locally
-        if (user.exists()) {
+        /*if (user.exists()) {
             return true;
-        }
+        }*/
         /*MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
         return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);*/
         EvidenceServiceRestServerImpl evidenceServiceRestServer = new EvidenceServiceRestServerImpl();
