@@ -1,10 +1,10 @@
 package uzuzjmd.competence.service.rest;
 
+import datastructures.lists.StringList;
+import datastructures.trees.ActivityEntry;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
-import datastructures.lists.StringList;
-import datastructures.trees.ActivityEntry;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,6 +14,8 @@ import java.util.List;
 /**
  * Created by dehne on 15.06.2016.
  */
+
+//@Api(value = "/api1", description = "Activities")
 @Path("/api1")
 public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
 

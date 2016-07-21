@@ -6,7 +6,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
@@ -53,10 +52,10 @@ public class RestServer {
                 EvidenceApiImpl.class,
                 LearningTemplateApiImpl.class,
                 RecommenderApiImpl.class, UserApiImpl.class);
-        resourceConfig.register(JacksonFeature.class);
 
         // add CORS header filter
         resourceConfig.register(CrossOriginResourceSharingFilter.class);
+        //resourceConfig.register(JacksonFeature.class);
 
         server = GrizzlyHttpServerFactory.createHttpServer(new URI(
                         MagicStrings.RESTURLCompetence),
@@ -107,7 +106,7 @@ public class RestServer {
         ResourceConfig resourceConfig = new ResourceConfig(
                 CompetenceServiceRestJSON.class, RecommenderApiImpl.class,
                 EvidenceServiceRestServerImpl.class, CrawlerServiceRest.class);
-        resourceConfig.register(JacksonFeature.class);
+
 
         // add CORS header filter
         resourceConfig.register(CrossOriginResourceSharingFilter.class);

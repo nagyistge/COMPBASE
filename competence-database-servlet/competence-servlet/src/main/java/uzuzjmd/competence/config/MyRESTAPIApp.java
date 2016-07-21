@@ -1,19 +1,10 @@
 package uzuzjmd.competence.config;
 
-import javax.ws.rs.ApplicationPath;
-
-import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
-import io.swagger.jersey.listing.ApiListingResourceJSON;
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
-import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
-import uzuzjmd.competence.service.rest.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import javax.ws.rs.ApplicationPath;
 
 @ApplicationPath("/")
 public class MyRESTAPIApp extends ResourceConfig {
@@ -22,7 +13,7 @@ public class MyRESTAPIApp extends ResourceConfig {
 			.getLogger(MyRESTAPIApp.class);
 
 	public MyRESTAPIApp() {
-		// LogConfigurator.init();
+
 		packages("uzuzjmd.competence");
 		register(org.glassfish.jersey.filter.LoggingFilter.class);
 		property(
@@ -33,15 +24,19 @@ public class MyRESTAPIApp extends ResourceConfig {
 		logger.info("Initiated Server");
 		DBInitializer.init();
 
-/*		BeanConfig beanConfig = new BeanConfig();
-		beanConfig.setVersion("1");
-		beanConfig.setHost("localhost:8080");
-		beanConfig.setBasePath("/competence-base/api1");
-		beanConfig.setResourcePackage("io.swagger.resources");
+		/*logger.info("initiating swagger config");
+		register(io.swagger.jaxrs.listing.ApiListingResource.class);
+		register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+		packages("io.swagger.jaxrs.listing");
+
+		BeanConfig beanConfig = new BeanConfig();
+		beanConfig.setVersion("1.0.2");
+		beanConfig.setHost("http://localhost:8080");
+		beanConfig.setBasePath("/competence-base");
 		beanConfig.setScan(true);
-		register(beanConfig);
-		register(new ApiListingResourceJSON());
-		register(new SwaggerSerializers());*/
+		beanConfig.setResourcePackage("uzuzjmd.competence");
+		registerInstances(beanConfig);*/
+
 
 	}
 

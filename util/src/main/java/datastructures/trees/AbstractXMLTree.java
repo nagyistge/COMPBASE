@@ -43,9 +43,9 @@ public class AbstractXMLTree<T extends AbstractXMLTree<T>>
 		return children;
 	}
 
-	public void setChildren(SortedList<T> children) {
+	/*public void setChildren(SortedList<T> children) {
 		this.children = children;
-	}
+	}*/
 
 	public void setChildren(List<T> children) {
 		this.children = new SortedList<T>(

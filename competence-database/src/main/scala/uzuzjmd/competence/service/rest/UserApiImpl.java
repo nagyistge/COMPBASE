@@ -149,9 +149,9 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         EvidenceServiceRestServerImpl evidenceServiceRestServer = new EvidenceServiceRestServerImpl();
         Boolean result = evidenceServiceRestServer.exists(userId, password, "moodle", null);
         // persist user locally if it exists in lms
-        /*   if (result) {
+        if (result) {
             user.persist();
-        }*/
+        }
         return result;
     }
 
