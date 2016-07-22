@@ -208,6 +208,7 @@ public class CompetenceServiceRestJSON {
      * @param role          the role of the user
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @POST
@@ -239,6 +240,7 @@ public class CompetenceServiceRestJSON {
      * @param linkId
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/link/validate/{linkId}")
@@ -257,6 +259,7 @@ public class CompetenceServiceRestJSON {
      * @param linkId
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/link/invalidate/{linkId}")
@@ -272,6 +275,7 @@ public class CompetenceServiceRestJSON {
      * @param linkId the id of the link to be deleted
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/link/delete/{linkId}")
@@ -288,6 +292,7 @@ public class CompetenceServiceRestJSON {
      * @param competences
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/competence/delete")
@@ -304,6 +309,7 @@ public class CompetenceServiceRestJSON {
      * @param competences the competences to be deleted
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/competence/deleteTree")
@@ -321,6 +327,7 @@ public class CompetenceServiceRestJSON {
      * @param user the user who has acquired the competences
      * @return
      */
+    @Deprecated
     @GET
     @Path("/link/overview/{user}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -337,6 +344,7 @@ public class CompetenceServiceRestJSON {
      *                            taking into account the competences visible to the user
      * @return
      */
+    @Deprecated
     @GET
     @Path("/link/progress/{course}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -356,6 +364,7 @@ public class CompetenceServiceRestJSON {
      * @param linkedCompetence    the pre competences
      * @param selectedCompetences the post competences
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/prerequisite/create/{course}")
@@ -381,6 +390,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedCompetences the post competences
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/prerequisite/delete/{course}")
@@ -403,6 +413,7 @@ public class CompetenceServiceRestJSON {
      * @param course
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/prerequisite/graph/{course}")
@@ -427,6 +438,7 @@ public class CompetenceServiceRestJSON {
      * @param forCompetence
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/prerequisite/required/{course}")
@@ -443,6 +455,7 @@ public class CompetenceServiceRestJSON {
      * @param forCompetence
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/operator")
@@ -458,6 +471,7 @@ public class CompetenceServiceRestJSON {
      * @param forCompetence
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/catchwords")
@@ -478,6 +492,7 @@ public class CompetenceServiceRestJSON {
      *                             with
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/addOne")
@@ -506,6 +521,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/create")
@@ -526,6 +542,7 @@ public class CompetenceServiceRestJSON {
      * @param courseId
      * @return
      */
+    @Deprecated
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("/SuggestedCompetencesForCourse/{courseId}")
@@ -550,6 +567,7 @@ public class CompetenceServiceRestJSON {
      * @param competence
      * @return
      */
+    @Deprecated
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("/SuggestedCourseForCompetence")
@@ -573,6 +591,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedActivityForCompetence/create")
@@ -591,6 +610,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/CompetencesForSuggestedActivity/get")
@@ -615,6 +635,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
     @Path("/SuggestedActivityForCompetence/get")
@@ -637,6 +658,7 @@ public class CompetenceServiceRestJSON {
      * @param course
      * @return
      */
+    @Deprecated
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/SuggestedCourseForCompetence/delete")
@@ -651,6 +673,7 @@ public class CompetenceServiceRestJSON {
      * @param activityURL
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/SuggestedActivityForCompetence/delete")
@@ -678,6 +701,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedOperators
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/operatortree/{course}")
@@ -702,6 +726,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedOperators
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/catchwordtree/{course}/{cache}")
@@ -720,6 +745,7 @@ public class CompetenceServiceRestJSON {
      *
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/learningtemplates")
@@ -739,6 +765,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedTemplate the learning template selected
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplates/selected/add")
@@ -759,6 +786,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws ContainsCircleException
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplate/add")
@@ -776,6 +804,7 @@ public class CompetenceServiceRestJSON {
      * @param groupId
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/learningtemplates/selected")
@@ -798,6 +827,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedTemplate
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplates/selected/delete")
@@ -823,6 +853,7 @@ public class CompetenceServiceRestJSON {
      * @param selectedTemplate
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("learningtemplates/gridview")
@@ -848,6 +879,7 @@ public class CompetenceServiceRestJSON {
      * @param reflectiveAssessmentHolder
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
@@ -869,6 +901,7 @@ public class CompetenceServiceRestJSON {
      * @param wrapper
      * @return
      */
+    @Deprecated
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
@@ -886,6 +919,7 @@ public class CompetenceServiceRestJSON {
      * @param learningTemplateName
      * @return
      */
+    @Deprecated
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @GET
     @Path("/learningtemplate/get/{learningTemplateName}")
@@ -903,6 +937,7 @@ public class CompetenceServiceRestJSON {
      * @param learningTemplateName
      * @return
      */
+    @Deprecated
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/learningtemplate/delete/{learningTemplateName}")
@@ -926,6 +961,7 @@ public class CompetenceServiceRestJSON {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @POST
     @Path("/update/{clazz}/{oldId}/{newId}")

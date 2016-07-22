@@ -7,12 +7,14 @@ import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
 import uzuzjmd.competence.mapper.rest.read.Ont2SelectedCompetencesForCourse;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
+import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.shared.course.CourseData;
 import uzuzjmd.competence.shared.moodle.UserTree;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,10 +27,15 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @Path("/courses")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<CourseData> getCourses(@QueryParam("competence") List<String> competences) {
+    public List<CourseData> getCourses(@QueryParam("competence") List<String> competences) throws Exception {
         List<CourseData> result = new ArrayList<>();
         for (String competence : competences) {
-            result.addAll(Lists.newArrayList(Ont2SelectedCompetencesForCourse.convertDao(competence)));
+            List<CourseContext> result1 = new Competence(competence).getAssociatedDaosAsRange(Edge
+                    .CourseContextOfCompetence, CourseContext.class);
+            List<String> competenceX = Arrays.asList(competence);
+            for (CourseContext courseContext : result1) {
+                result.add(new CourseData(courseContext.getId(), courseContext.getPrintableName(), competenceX));
+            }
         }
         return result;
     }

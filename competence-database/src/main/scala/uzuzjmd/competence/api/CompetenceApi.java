@@ -1,5 +1,6 @@
 package uzuzjmd.competence.api;
 
+import datastructures.lists.StringList;
 import uzuzjmd.competence.shared.activity.CommentData;
 import uzuzjmd.competence.shared.competence.CompetenceData;
 import datastructures.trees.HierarchyChangeSet;
@@ -51,22 +52,22 @@ public interface CompetenceApi {
      */
     Response deleteCompetence(@PathParam("competenceId") String competenceId,  String userId) throws Exception;
 
-    /**
+ /*   *//**
      * Delete a acompetence with competenceID from the database using POST
      * @param competenceId
      * @return
      * @throws Exception
-     */
+     *//*
     Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception;
 
-    /**
+    *//**
      * add competence with competenceId to the database using POST
      * @param competenceId
      * @param data
      * @return
-     */
+     *//*
     Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data);
-
+*/
     /**
      * update the competence hierarchy with the changeSet
      * @param changes
@@ -124,5 +125,5 @@ public interface CompetenceApi {
      * @param competenceId
      * @return
      */
-    ArrayList<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception;
+    StringList similarCompetences(@PathParam("competenceId") String competenceId, Boolean firstRun) throws Exception;
 }

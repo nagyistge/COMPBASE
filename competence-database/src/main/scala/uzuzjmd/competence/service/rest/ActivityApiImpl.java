@@ -2,6 +2,7 @@ package uzuzjmd.competence.service.rest;
 
 import datastructures.lists.StringList;
 import datastructures.trees.ActivityEntry;
+import io.swagger.annotations.ApiParam;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.persistence.ontology.Edge;
@@ -25,8 +26,9 @@ public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
     @Path("/activities")
     @Produces(MediaType.TEXT_PLAIN)
     public Response addActivity(ActivityEntry activity) throws Exception {
-        new EvidenceActivity(activity.getUrl(), activity.getName()).persist();
-        return Response.ok("activity has been created").build();
+        EvidenceActivity activityDao = new EvidenceActivity(activity.getUrl(), activity.getName());
+        activityDao.persist();
+        return Response.ok("activity has been created with {id:'"+activityDao.getId()+"'}").build();
     }
 
     @Override
@@ -34,7 +36,9 @@ public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
     @POST
     @Path("/activities/links/competences/{competenceId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addActivity(@PathParam("competenceId") String competenceId, String activityUrl) throws Exception {
+    public Response addActivity(@PathParam("competenceId") String competenceId,
+                                @ApiParam(value = "the id of the activity to link the competence to", required = true)
+                                @QueryParam("activityId") String activityUrl) throws Exception {
         RecommenderApiImpl impl = new RecommenderApiImpl();
         impl.createSuggestedActivityForCompetence(competenceId, activityUrl);
         return Response.ok("edge has been created").build();
@@ -45,7 +49,9 @@ public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
     @GET
     @Path("/activities/links/competences")
     @Produces(MediaType.APPLICATION_JSON)
-    public StringList getCompetencesForSuggestedActivity(@QueryParam("activityId") String activityId) throws Exception {
+    public StringList getCompetencesForSuggestedActivity(
+            @ApiParam(value = "the id of the activity queried", required = true)
+            @QueryParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
         if (activity.getAssociatedDaoIdsAsDomain(Edge.SuggestedActivityForCompetence) == null) {
             return new StringList();
@@ -58,9 +64,9 @@ public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
     @GET
-    @Path("/activities")
+    @Path("/activities/competences/{competenceId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ActivityEntry[] getActivitiesSuggestedForCompetence(@QueryParam("competenceId") String competenceId) throws Exception {
+    public ActivityEntry[] getActivitiesSuggestedForCompetence(@ApiParam(value = "the id of the competence the activities are suggested for", required = true) @PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
         if (competence.getAssociatedDaoIdsAsRange(Edge.SuggestedActivityForCompetence) == null) {
             return new ActivityEntry[0];

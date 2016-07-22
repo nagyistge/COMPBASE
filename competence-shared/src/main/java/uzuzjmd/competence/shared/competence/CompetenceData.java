@@ -1,6 +1,10 @@
 package uzuzjmd.competence.shared.competence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.ws.WebServiceException;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +17,8 @@ public class CompetenceData {
     private List<String> superCompetences;
     private List<String> subCompetences;
     private String learningProjectName;
+
+
     private String forCompetence;
 
     public CompetenceData() {
@@ -43,6 +49,10 @@ public class CompetenceData {
         }
     }
 
+
+    @XmlTransient
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
     public String getForCompetence() {
         return forCompetence;
     }

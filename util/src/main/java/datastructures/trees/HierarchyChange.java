@@ -11,6 +11,9 @@ public class HierarchyChange implements Serializable {
 	private String newClass;
 	private String nodeSelected;
 
+	public HierarchyChange() {
+	}
+
 	public HierarchyChange(String oldClass, String newClass,
 						   String nodeSelected) {
 		super();

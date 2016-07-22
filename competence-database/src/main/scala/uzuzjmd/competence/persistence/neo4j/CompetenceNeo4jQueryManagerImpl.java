@@ -121,7 +121,7 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         for (String s : result) {
             HashMap<String, String> props = new HashMap<String, String>();
             props.put("id", s);
-            Dao r = clazz.newInstance();
+            Dao r = clazz.getConstructor(String.class).newInstance(s);
             r.setFullDao(props);
             r = r.getFullDao();
             result2.add((T) r);

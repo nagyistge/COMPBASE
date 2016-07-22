@@ -20,7 +20,7 @@ public interface CourseApi {
      * @return
      */
 
-    List<CourseData> getCourses(@QueryParam("competence") List<String> competences);
+    List<CourseData> getCourses(@QueryParam("competence") List<String> competences) throws Exception;
 
     /**
      * Add a courseId to the persistence layer with data as payload and the courseId as param.

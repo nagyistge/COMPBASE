@@ -1,6 +1,9 @@
 package uzuzjmd.competence.service.rest;
 
+import datastructures.lists.StringList;
+import datastructures.trees.HierarchyChangeSet;
 import edu.stanford.nlp.trees.GrammaticalRelation;
+import io.swagger.annotations.ApiParam;
 import uzuzjmd.competence.comparison.verification.CompetenceVerifierFactory;
 import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
 import uzuzjmd.competence.mapper.rest.read.Ont2CompetenceTree;
@@ -11,12 +14,12 @@ import uzuzjmd.competence.persistence.dao.Comment;
 import uzuzjmd.competence.persistence.dao.Competence;
 import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.User;
+import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
 import uzuzjmd.competence.shared.activity.CommentData;
 import uzuzjmd.competence.shared.competence.CompetenceData;
 import uzuzjmd.competence.shared.competence.CompetenceFilterData;
 import uzuzjmd.competence.shared.competence.CompetenceXMLTree;
-import datastructures.trees.HierarchyChangeSet;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,7 +36,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     /**
      * returns either a list of string or a tree representation depending on the value of "asTree"
-     *
+     * <p/>
      * courseId  null should be at least 'university' as default"
      *
      * @param selectedCatchwords
@@ -47,23 +50,27 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getCompetences(@QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
-                                   @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
-                                   @QueryParam("textFilter") String textFilter, @QueryParam("rootCompetence") String rootCompetence, @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree, @QueryParam("userId") String userId, @QueryParam("learningTemplate") String learningTemplate) {
+    public Response getCompetences(
+            @QueryParam(value = "selectedCatchwords") java.util.List<String> selectedCatchwords,
+            @ApiParam(value = "the verbs",
+                    required = false) @QueryParam(value = "selectedOperators") java.util.List<String> selectedOperators,
+            @QueryParam("textFilter") String textFilter, @ApiParam(value = "the plain text string of the topcompetence",
+            required = false) @QueryParam("rootCompetence") String rootCompetence,
+            @QueryParam("courseId") String course, @QueryParam("asTree") Boolean asTree,
+            @QueryParam("userId") String userId, @QueryParam("learningTemplate") String learningTemplate) {
+
         if (course == null) {
-            WebApplicationException ex = new WebApplicationException(new Exception("courseId  null should be at least 'university' as default"));
-            return Response.status(400)
-                    .entity(ex)
-                    .type(MediaType.APPLICATION_JSON).
-                            build();
+            course = Contexts.university.toString();
         }
 
-        CompetenceFilterData data = new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId, learningTemplate, asTree, rootCompetence);
+        CompetenceFilterData data =
+                new CompetenceFilterData(selectedCatchwords, selectedOperators, course, null, textFilter, userId,
+                        learningTemplate, asTree, rootCompetence);
         if (data != null && data.getResultAsTree() != null && data.getResultAsTree()) {
             java.util.List<CompetenceXMLTree> result = Ont2CompetenceTree.getCompetenceTree(data);
             return Response.status(200).entity(result).build();
         } else {
-            java.util.List<String> result = Ont2Competences.convert(data);
+            java.util.HashSet<String> result = Ont2Competences.convert(data);
             return Response.status(200).entity(result).build();
         }
     }
@@ -73,7 +80,9 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addCompetence(@PathParam("competenceId") String competenceId, CompetenceData data) {
+    public Response addCompetence(
+            @ApiParam(value = "the plain text string of the competence",
+                    required = true) @PathParam("competenceId") String competenceId, CompetenceData data) {
         data.setForCompetence(competenceId);
         if (data.getSubCompetences() == null) {
             data.setSubCompetences(new ArrayList<String>());
@@ -82,27 +91,35 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         if (data.getSuperCompetences() == null) {
             data.setSuperCompetences(new ArrayList<String>());
         }
-        String resultMessage = Competence2Ont
-                .convert(data);
+
+        String resultMessage = Competence2Ont.convert(data);
         return Response.ok(resultMessage).build();
     }
 
+
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     @Path("/competences/{competenceId}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteCompetence(@PathParam("competenceId") String competenceId) throws Exception {
+    public Response deleteCompetence(
+            @ApiParam(value = "the plain text string of the competence",
+                    required = true) @PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
         competence.delete();
         return Response.ok("competence deleted").build();
     }
 
 
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     @Path("/competences/{competenceId}/users/{userId}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteCompetence(@PathParam("competenceId") String competenceId, @PathParam("userId") String userId) throws Exception {
+    public Response deleteCompetence(
+            @ApiParam(value = "the plain text string of the competence to be hidden for the user",
+                    required = true) @PathParam("competenceId") String competenceId, @PathParam("userId") String userId)
+            throws Exception {
         Competence competence = new Competence(competenceId);
         if (userId != null) {
             User user = new User(userId);
@@ -116,40 +133,44 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             throw new WebApplicationException("userId is null");
         }
     }
-
-    /**
+/*
+    *//**
      * Use this legacy method for browsers who do not support http delete
      *
      * @param competenceId
      * @return
-     */
+     *//*
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     @Path("/competences/{competenceId}/delete")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteCompetenceLegacy(@PathParam("competenceId") String competenceId) throws Exception {
+    public Response deleteCompetenceLegacy(
+            @ApiParam(value = "the plain text string of the competence",
+                    required = true) @PathParam("competenceId") String competenceId) throws Exception {
         Competence competence = new Competence(competenceId);
         competence.delete();
         return Response.ok("competence deleted").build();
     }
 
 
-    /**
+    *//**
      * Use this legacy method for browsers who do not support http put
      *
      * @return
-     */
+     *//*
 
     @Path("/competences/{competenceId}/create")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addCompetenceLegacy(@PathParam("competenceId") String competenceId, CompetenceData data) {
+    public Response addCompetenceLegacy(
+            @ApiParam(value = "the plain text string of the competence",
+                    required = true) @PathParam("competenceId") String competenceId, CompetenceData data) {
         data.setForCompetence(data.getForCompetence());
-        String resultMessage = Competence2Ont
-                .convert(data);
+        String resultMessage = Competence2Ont.convert(data);
         return Response.ok(resultMessage).build();
-    }
+    }*/
 
     /**
      * updates the competence hierarchy
@@ -169,10 +190,12 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/competences/{competenceId}/comments")
+    //@Path("/competences/{competenceId}/comments")
     @Produces(MediaType.TEXT_PLAIN)
     @Override
-    public Response addComment(@PathParam("competenceId") String competenceId, CommentData data) throws Exception {
+    public Response addComment(
+            @ApiParam(value = "the plain text string of the competence", required = true) @PathParam("competenceId")
+            String competenceId, CommentData data) throws Exception {
         Competence competence = new Competence(competenceId);
         String context = "university";
         if (data.getCourseContext() != null && !data.getCourseContext().isEmpty()) {
@@ -205,7 +228,8 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             throw new WebApplicationException(new Exception("competence does not exist in database"));
         }
         if (commentId.isEmpty()) {
-            java.util.List<Comment> commentDatas = competence.getAssociatedDaosAsRange(Edge.CommentOfCompetence, Comment.class);
+            java.util.List<Comment> commentDatas =
+                    competence.getAssociatedDaosAsRange(Edge.CommentOfCompetence, Comment.class);
             ArrayList<CommentData> results = new ArrayList<>();
             for (Comment comment : commentDatas) {
                 CommentData data = comment.getData();
@@ -218,7 +242,8 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             if (!comment.exists()) {
                 throw new WebApplicationException(new Exception("comment does not exist in database"));
             }
-            CommentData commentData = new CommentData(comment.getDateCreated(), competenceId, comment.getText(), null, null, null, null);
+            CommentData commentData =
+                    new CommentData(comment.getDateCreated(), competenceId, comment.getText(), null, null, null, null);
             return Response.status(200).entity(commentData).build();
         }
     }
@@ -243,7 +268,8 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
 
     @Override
     public Boolean verifyCompetence(String competenceId) {
-        return CompetenceVerifierFactory.getSimpleCompetenceVerifier(competenceId, GrammaticalRelation.Language.Any).isCompetence2();
+        return CompetenceVerifierFactory.getSimpleCompetenceVerifier(competenceId, GrammaticalRelation.Language.Any)
+                .isCompetence2();
     }
 
 
@@ -252,12 +278,26 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
-    public ArrayList<String> similarCompetences(@PathParam("competenceId") String competenceId) throws Exception {
-        Competence competence = new Competence(competenceId);
-        SimilaritiesUpdater.updateSimilarCompetencies(competence);
-        return competence.getSimilarCompetences();
-    }
+    public StringList similarCompetences(
+            @ApiParam(value = "the plain text string of the competence",
+                    required = true) @PathParam("competenceId") String competenceId,
+            @ApiParam(value = "if this is the first query on semblances it should be called sequentially",
+                    required = true) @QueryParam("firstRun") Boolean firstRun) throws Exception {
+        final Competence competence = new Competence(competenceId);
 
+        if (!firstRun) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SimilaritiesUpdater.updateSimilarCompetencies(competence);
+                }
+            });
+            t.start();
+        } else {
+            SimilaritiesUpdater.updateSimilarCompetencies(competence);
+        }
+        return new StringList(competence.getSimilarCompetences());
+    }
 
 
 }

@@ -17,6 +17,8 @@ public class Competence extends AbstractCompetence implements HasDefinition, Tre
 
     public Boolean compulsory;
 
+
+
     public Competence(String id) {
         super(id);
         compulsory = false;
