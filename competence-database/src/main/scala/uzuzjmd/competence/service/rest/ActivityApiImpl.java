@@ -21,7 +21,7 @@ import java.util.List;
 public class ActivityApiImpl implements uzuzjmd.competence.api.ActivityApi {
 
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
     @PUT
     @Path("/activities")
     @Produces(MediaType.TEXT_PLAIN)

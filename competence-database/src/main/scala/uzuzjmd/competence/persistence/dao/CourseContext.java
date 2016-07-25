@@ -11,8 +11,9 @@ import java.util.List;
  */
 public class CourseContext extends DaoAbstractImpl {
 
-    public String requirement;
     public String printableName;
+    public String requirement;
+
 
     public CourseContext(String id) {
         super(id);
@@ -63,16 +64,16 @@ public class CourseContext extends DaoAbstractImpl {
 
     @Override
     public Dao persist() throws Exception {
-        if (getPrintableName() == null) {
+        if (printableName == null) {
             logger.warn("no printable Name for course given - better explicitly persist course first before using api that involes this course; setting id as name");
             printableName = getId();
         }
         return super.persist();
     }
-
+/*
     public String getPrintableName() {
         return this.printableName;
-    }
+    }*/
 
     @Override
     public String toString() {

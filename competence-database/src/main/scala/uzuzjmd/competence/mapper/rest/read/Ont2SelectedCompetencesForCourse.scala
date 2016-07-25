@@ -23,8 +23,8 @@ object Ont2SelectedCompetencesForCourse extends ReadTransactional[String, Array[
   def convertDao(changes: String) : CourseData =  {
     val course = new CourseContext(changes);
     val competences: List[String] = course.getLinkedCompetences.asScala.map(x=>x.getDefinition).toList;
-    course.getFullDao.getPrintableName();
-    val courseData = new CourseData(course.getId, course.getPrintableName, competences.asJava);
+    course.getFullDao.printableName
+    val courseData = new CourseData(course.getId, course.printableName, competences.asJava);
     return courseData;
   }
 

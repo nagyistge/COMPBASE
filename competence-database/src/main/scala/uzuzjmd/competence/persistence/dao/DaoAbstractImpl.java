@@ -17,12 +17,14 @@ public abstract class DaoAbstractImpl implements Dao {
     private final String id;
     protected final CompetenceNeo4jQueryManagerImpl queryManager = new CompetenceNeo4jQueryManagerImpl();
     static Logger logger = LogManager.getLogger(DaoAbstractImpl.class.getName());
+    private final Class clazz;
     protected HashSet<Dao> superClasses = new HashSet<>();
     protected HashSet<Dao> subClasses = new HashSet<>();
 
 
     public DaoAbstractImpl(String id) {
         this.id = id;
+        this.clazz = this.getClass();
     }
 
     /**
@@ -40,14 +42,15 @@ public abstract class DaoAbstractImpl implements Dao {
 
     @Override
     public void setFullDao(HashMap<String, String> props) {
-        logger.trace("Entering hashMapToIndividual with properties");
+              logger.debug("Entering hashMapToIndividual with properties" + props);
         String logMessage = "Created/Updated Individual {";
         for (String key :
                 props.keySet()) {
             logMessage += key + ":" + props.get(key) + "; ";
             try {
                 Field f = getClass().getDeclaredField(key);
-                if (f.get(this).getClass().getName().equals(String.class.getName())) {
+                String name = f.getType().toString();
+                if (name.contains("java.lang.String")) {
                     f.set(this, props.get(f.getName()));
                 } else {
                     try {

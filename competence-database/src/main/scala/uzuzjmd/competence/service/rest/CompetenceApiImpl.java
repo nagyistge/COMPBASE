@@ -78,7 +78,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     @Override
     @Path("/competences/{competenceId}")
     @PUT
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response addCompetence(
             @ApiParam(value = "the plain text string of the competence",
@@ -188,9 +188,9 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         return Response.ok("updated taxonomy").build();
     }
 
-    @POST
+  /*  @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    //@Path("/competences/{competenceId}/comments")
+    @Path("/competences/{competenceId}/comments")
     @Produces(MediaType.TEXT_PLAIN)
     @Override
     public Response addComment(
@@ -219,7 +219,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             throw new WebApplicationException(new Exception("competence does not exist in database"));
         }
         return null;
-    }
+    }*/
 
     @Override
     public Response getComment(String competenceId, String commentId) throws Exception {

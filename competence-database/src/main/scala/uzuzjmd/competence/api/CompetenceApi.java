@@ -77,14 +77,14 @@ public interface CompetenceApi {
     Response updateHierarchy(HierarchyChangeSet changes);
 
 
-    /**
+  /*  *//**
      * create a comment using POST
      * @param competenceId
      * @param data
      * @return
-     */
+     *//*
     Response addComment(@PathParam("competenceId") String competenceId, CommentData data) throws Exception;
-
+*/
 
     /**
      * get all the comment for the competence with the id given

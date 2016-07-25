@@ -35,7 +35,7 @@ public class EvidenceActivity extends DaoAbstractImpl {
         ArrayList<CommentData> result = new ArrayList<>();
         java.util.List<Comment> associatedDaosAsRange = getAssociatedDaosAsRange(Edge.CommentOfEvidence, Comment.class);
         for (Comment comment : associatedDaosAsRange) {
-            String course = comment.getAssociatedDaoAsDomain(Edge.CommentOfCourse, CourseContext.class).getPrintableName();
+            String course = comment.getAssociatedDaoAsDomain(Edge.CommentOfCourse, CourseContext.class).printableName;
             CommentData commentData = new CommentData(comment.getDateCreated(), this.getId(), comment.getCreator().getPrintableName(), comment.getText(), course, comment.getCreator().getRole().toString());
             commentData.setText(comment.getText());
         }

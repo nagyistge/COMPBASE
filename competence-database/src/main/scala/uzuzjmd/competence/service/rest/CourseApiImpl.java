@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dehne on 11.04.2016.
@@ -28,16 +29,27 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CourseData> getCourses(@QueryParam("competence") List<String> competences) throws Exception {
+        if (competences == null || competences.isEmpty()) {
+            List<CourseData> result = new ArrayList<>();
+            Set<CourseContext> result1 = CourseContext.getAllInstances(CourseContext.class);
+            convertCourseDaosToCourseData(result, Lists.newArrayList(result1), null);
+            return result;
+        }
         List<CourseData> result = new ArrayList<>();
         for (String competence : competences) {
             List<CourseContext> result1 = new Competence(competence).getAssociatedDaosAsRange(Edge
                     .CourseContextOfCompetence, CourseContext.class);
             List<String> competenceX = Arrays.asList(competence);
-            for (CourseContext courseContext : result1) {
-                result.add(new CourseData(courseContext.getId(), courseContext.getPrintableName(), competenceX));
-            }
+            convertCourseDaosToCourseData(result, result1, competenceX);
         }
         return result;
+    }
+
+    private void convertCourseDaosToCourseData(
+            List<CourseData> result, List<CourseContext> result1, List<String> competenceX) {
+        for (CourseContext courseContext : result1) {
+            result.add(new CourseData(courseContext.getId(), courseContext.printableName, competenceX));
+        }
     }
 
     @Override

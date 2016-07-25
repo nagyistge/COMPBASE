@@ -26,12 +26,13 @@ public class CompetenceNeo4JQueryManager extends Neo4JQueryManagerImpl {
     }
 
     public <T extends Dao> T getDao(String id, Class<T> clazz) throws Exception {
-        super.statsHolder.requestHashMap.put(7, statsHolder.requestHashMap.get(7)+1);
+        //super.statsHolder.requestHashMap.put(7, statsHolder.requestHashMap.get(7)+1);
         logger.debug(statsHolder.toString());
         String query = "MATCH (a{id:'"+id+"'}) return a";
         ArrayList result = issueNeo4JRequestHashMap(query);
         HashMap<String, String> hashMap = ((HashMap<String,String>)result.get(0));
-        T tClass = clazz.getConstructor(String.class).newInstance(hashMap.get("id")).getFullDao(hashMap);
+        T tClass = clazz.getConstructor(String.class).newInstance(hashMap.get("id"));
+        tClass.setFullDao(hashMap);
         return tClass;
     }
 
