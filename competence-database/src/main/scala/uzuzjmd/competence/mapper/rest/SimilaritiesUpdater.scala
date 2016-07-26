@@ -39,8 +39,10 @@ object SimilaritiesUpdater extends LanguageConverter with Logging {
         }
         logger.info("not found similarity: updating")
         val queryManagerImpl = new CompetenceNeo4jQueryManagerImpl
-        queryManagerImpl.createRelationShipWithWeight(tuple._1.getDefinition, Edge.SimilarTo, tuple._2.getDefinition, result)
-        queryManagerImpl.createRelationShipWithWeight(tuple._2.getDefinition, Edge.SimilarTo, tuple._1.getDefinition, result)
+        queryManagerImpl.createRelationShipWithWeight(tuple._1.getDefinition, Edge.SimilarTo, tuple._2.getDefinition,
+          result, classOf[Competence],classOf[Competence])
+        queryManagerImpl.createRelationShipWithWeight(tuple._2.getDefinition, Edge.SimilarTo, tuple._1.getDefinition,
+          result, classOf[Competence],classOf[Competence])
       } catch {
         case e: Exception => List.empty
       }

@@ -13,17 +13,26 @@ import java.util.*;
  */
 public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager {
 
-    public void createRelationShip(String domainId, Edge edge, String rangeId) throws Exception {
-        String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "]->(n2) return n,r,n2";
+    public void createRelationShip(String domainId, Edge edge, String rangeId, Class<? extends Dao> domainClass,
+                                   Class<? extends Dao> rangeClass)
+            throws Exception {
+        String query = "MATCH (n:"+domainClass.getSimpleName()+" {id:'" + domainId + "'}), (n2:"+rangeClass
+                .getSimpleName()
+                +"{id:'" + rangeId + "'}) CREATE UNIQUE " +
+                "(n)-[r:" + edge
+                .toString() + "]->(n2) return n,r,n2";
         issueNeo4JRequestStrings(query);
 
     }
 
-    public void createRelationShipWithWeight(String domainId, Edge edge, String rangeId, Double weight) throws Exception {
+    public void createRelationShipWithWeight(String domainId, Edge edge, String rangeId, Double weight, Class<? extends Dao> domainClass,
+                                             Class<? extends Dao> rangeClass) throws
+            Exception {
         logger.info("calling create relationship with" + domainId + " " + edge + " " + rangeId+ weight);
-        String deleteQuery = "MATCH (n{id:'"+domainId+"'})-[old:" + edge.toString() + "{weight:'"+weight+"'}]->(n2{id:'"+rangeId+"'}) DELETE old";
+        String deleteQuery = "MATCH (n:"+domainClass.getSimpleName()+"{id:'"+domainId+"'})-[old:" + edge.toString() +
+                "{weight:'"+weight+"'}]->(n2:"+rangeClass.getSimpleName()+"{id:'"+rangeId+"'}) DELETE old";
         issueNeo4JRequestStrings(deleteQuery);
-        String query = "MATCH (n {id:'" + domainId + "'}), (n2{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "{weight:'"+weight+"'}]->(n2) return n,r,n2";
+        String query = "MATCH (n:"+domainClass.getSimpleName()+" {id:'" + domainId + "'}), (n2:"+rangeClass.getSimpleName()+"{id:'" + rangeId + "'}) CREATE UNIQUE (n)-[r:" + edge.toString() + "{weight:'"+weight+"'}]->(n2) return n,r,n2";
         issueNeo4JRequestStrings(query);
     }
 

@@ -61,8 +61,11 @@ public abstract class DaoAbstractImpl implements Dao {
                     }
                 }
             } catch (NoSuchFieldException e) {
+                logger.trace("field does not exist");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
+            } catch (Exception e ){
+                logger.error("other error:" + e.getMessage());
             }
         }
         logger.trace(logMessage + "}");
@@ -98,7 +101,7 @@ public abstract class DaoAbstractImpl implements Dao {
     @Override
     public void createEdgeWith(Edge edge, Dao range) throws Exception {
         if(!this.getId().equals(range.getId())) {
-            queryManager.createRelationShip(this.getId(), edge, range.getId());
+            queryManager.createRelationShip(this.getId(), edge, range.getId(), this.getClass(), range.getClass());
         }
     }
 
@@ -112,7 +115,7 @@ public abstract class DaoAbstractImpl implements Dao {
     @Override
     public void createEdgeWith(Dao domain, Edge edge) throws Exception {
         if(!this.getId().equals(domain.getId())) {
-            queryManager.createRelationShip(domain.getId(), edge, this.getId());
+            queryManager.createRelationShip(domain.getId(), edge, this.getId(), domain.getClass(), this.getClass());
         }
     }
 

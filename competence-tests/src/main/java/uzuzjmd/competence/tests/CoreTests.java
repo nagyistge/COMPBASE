@@ -5,6 +5,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
+import uzuzjmd.competence.persistence.dao.AbstractEvidenceLink;
 import uzuzjmd.competence.persistence.dao.DBInitializer;
 import uzuzjmd.competence.service.rest.*;
 import uzuzjmd.competence.shared.activity.Evidence;
@@ -137,17 +138,17 @@ public class CoreTests extends JerseyTest {
 
         // create evidence
         // creates the evidence that the user rly has performed the competence
-        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, "student", userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), Arrays.asList(evidence), userData.getPrintableName());
+        EvidenceData evidenceData = new EvidenceData(courseId, userEmail, Arrays.asList(new String[]{"kann jetzt linken"}), evidence);
         Entity<EvidenceData> evidenceDataEntity = Entity.entity(evidenceData, APPLICATION_JSON);
 
 
-        Boolean works = target("/api1/evidences").request().get(Boolean.class);
-        assertTrue(works);
+     /*   Boolean works = target("/api1/evidences").request().get(Boolean.class);
+        assertTrue(works);*/
 
         url = URLEncoder.encode(url);
 
         Response post2 = target("/api1/evidences/create").request().put(evidenceDataEntity);
-        System.out.print("status is: " + post2.getStatus());
+        System.out.print("status is: " + post2.getStatus() + " message is :");
         assertTrue(post2.getStatus() == 200);
 
         // assertions
@@ -185,4 +186,12 @@ public class CoreTests extends JerseyTest {
     public void getUserAssessments() throws Exception {
         // tested in ProgressApiTests
     }
+
+    @Test
+    public void testor() throws Exception {
+        AbstractEvidenceLink abstractEvidenceLink = new AbstractEvidenceLink("stringstring");
+        abstractEvidenceLink.setValidated(false);
+        abstractEvidenceLink.persist();
+    }
+
 }

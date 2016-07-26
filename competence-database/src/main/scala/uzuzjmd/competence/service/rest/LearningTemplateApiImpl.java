@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import io.swagger.annotations.ApiOperation;
 import uzuzjmd.competence.mapper.rest.read.Ont2LearningTemplates;
 import uzuzjmd.competence.mapper.rest.read.Ont2SelectedLearningTemplate;
 import uzuzjmd.competence.mapper.rest.write.DeleteTemplateInOnt;
@@ -19,13 +20,19 @@ import javax.ws.rs.core.Response;
 @Path("/api1")
 public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningTemplateApi {
 
+
+    @ApiOperation(value =  "get all " +
+            "the learningtemplates." , notes = "If the user is " +
+            "specified only the users learning templates are queried. \n Learning templates are" +
+            " aggregations of the competences a user wants to learn and their " +
+            "relationships. They can be looked at as learning trails as well as learning goals.")
     @Override
     @Path("/learningtemplates")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public StringList getLearningTemplates(@QueryParam("userId") String userId, @QueryParam("courseId") String courseId) {
+    public StringList getLearningTemplates(@QueryParam("userId") String userId) {
         if (userId != null) {
-            return Ont2SelectedLearningTemplate.convert(new LearningTemplateData(userId, courseId, null));
+            return Ont2SelectedLearningTemplate.convert(new LearningTemplateData(userId, null, null));
         } else {
             StringList learningTemplates = Ont2LearningTemplates
                     .convert();
@@ -33,6 +40,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
         }
     }
 
+    @ApiOperation(value = "create a learningtemplate")
     @Override
     @Path("/learningtemplates/{learningtemplateId}")
     @PUT
@@ -44,6 +52,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
         return Response.ok().build();
     }
 
+    @ApiOperation(value = "delete a learning template")
     @Override
     @Path("/learningtemplates/{learningtemplateId}")
     @DELETE
@@ -61,24 +70,7 @@ public class LearningTemplateApiImpl implements uzuzjmd.competence.api.LearningT
         return Response.ok().build();
     }
 
-    @Override
-    @Path("/learningtemplates/{learningtemplateId}/delete")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) throws Exception {
-        return deleteLearningTemplateIntern(learningtemplateId);
-    }
 
-    @Override
-    @Path("/learningtemplates/{learningtemplateId}/create")
-    @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data) {
-        data.setSelectedTemplate(learningtemplateId);
-        LearningTemplateToOnt.convert(data);
-        return Response.ok().build();
-    }
 
 
 }

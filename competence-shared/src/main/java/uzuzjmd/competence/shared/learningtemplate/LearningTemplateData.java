@@ -1,12 +1,17 @@
 package uzuzjmd.competence.shared.learningtemplate;
 
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "LearningTemplateData")
 public class LearningTemplateData {
+	@ApiModelProperty(value = "the user id (email)", required = true)
 	private String userName;
+	@ApiModelProperty(value = "course context (in liferay group id)", required = true)
 	private String groupId;
+	@ApiModelProperty(value = "the name of the template", required = false)
 	private String selectedTemplate;
 
 

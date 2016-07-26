@@ -12,26 +12,12 @@ import javax.ws.rs.core.Response;
 public interface LearningTemplateApi {
 
 
-    StringList getLearningTemplates(@QueryParam("userId") String userId, @QueryParam("courseId") String courseId);
+    StringList getLearningTemplates(@QueryParam("userId") String userId);
 
     Response addLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data);
 
 
     Response deleteLearningTemplate(@PathParam("learningtemplateId") String learningtemplateId, @QueryParam(value = "userId") String userName) throws Exception;
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     * @param learningtemplateId
-     * @return
-     */
-    Response deleteLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId) throws Exception;
 
-    /**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @param learningtemplateId
-     * @param data
-     * @return
-     */
-    Response addLearningTemplateLegacy(@PathParam("learningtemplateId") String learningtemplateId, LearningTemplateData data);
 }

@@ -1,11 +1,8 @@
 package uzuzjmd.competence.mapper.rest.write
 
-import java.util
-
 import uzuzjmd.competence.logging.Logging
 import uzuzjmd.competence.persistence.dao._
-import uzuzjmd.competence.persistence.ontology.Contexts
-import uzuzjmd.competence.shared.activity.{Evidence, CommentData, EvidenceData}
+import uzuzjmd.competence.shared.activity.{Evidence, EvidenceData}
 import uzuzjmd.competence.shared.assessment.AbstractAssessment
 import uzuzjmd.competence.shared.competence.CompetenceLinksView
 import uzuzjmd.competence.shared.progress.UserProgress
@@ -38,22 +35,12 @@ object UserProgress2Ont extends LanguageConverter with Logging{
   }
 
   def persistEvidences(input: CompetenceLinksView, competence: Competence)(user: User): Unit = {
-    // persist evidence links
-    /*val evidence = new util.HashMap[String, String]() {
-      {
-        put(input.getEvidenceTitel, input.getEvidenceUrl);
-      }
-    }*/
-
     val evidence = new Evidence(input.getEvidenceTitel, input.getEvidenceUrl, user.getId)
     val data = EvidenceData.instance(
       "university",
-      null,
-      "teacher",
       user.getId,
       (competence.getDefinition :: Nil).asJava,
-      (evidence :: Nil).asJava,
-      user.getName)
+      evidence)
     Evidence2Ont.writeLinkToDatabase(data)
 
     // persist comments

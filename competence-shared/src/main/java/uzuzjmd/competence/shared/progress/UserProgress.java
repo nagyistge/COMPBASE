@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by dehne on 30.05.2016.
  */
-@XmlRootElement
+@XmlRootElement(name = "UserProgress")
 public class UserProgress {
     private List<UserCompetenceProgress> userCompetenceProgressList;
 

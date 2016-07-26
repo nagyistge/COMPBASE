@@ -71,7 +71,8 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
 
       // create the relations maybe use batch update if it is too slow
       val manager = DBFactory.getDB;
-      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, Edge.SuggestedCompetencePrerequisiteOf, x.toNode))
+      triples.asScala.view.foreach(x => manager.createRelationShip(x.fromNode, Edge
+        .SuggestedCompetencePrerequisiteOf, x.toNode, classOf[Competence],classOf[Competence]))
 
       // create Catchword relations
       val map: util.HashMap[GraphTriple, Array[String]] = changes.getCatchwordMap

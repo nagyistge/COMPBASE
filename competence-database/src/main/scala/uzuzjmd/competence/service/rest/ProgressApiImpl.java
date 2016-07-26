@@ -1,5 +1,6 @@
 package uzuzjmd.competence.service.rest;
 
+import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import uzuzjmd.competence.mapper.rest.read.Ont2UserProgress;
@@ -22,6 +23,7 @@ public class ProgressApiImpl implements uzuzjmd.competence.api.ProgressApi {
 
     private Logger logger = LogManager.getLogger(getClass());
 
+    @ApiOperation(value = "get the progress of a user")
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

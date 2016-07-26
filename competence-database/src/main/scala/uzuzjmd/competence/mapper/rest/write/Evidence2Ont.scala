@@ -16,32 +16,27 @@ object Evidence2Ont extends WriteTransactional[EvidenceData] with RoleConverter 
 
   def linkCompetencesToJson(data: EvidenceData) {
     if (data.getCreator == null) {
-      data.setCreator(data.getLinkedUser)
+      data.setCreator(data.getEvidence.getUserId)
     }
 
-
-    val creatorRole = convertRole(data.getRole);
-    for (evidence <- data.getEvidences().asScala) {
-      for (competence <- data.getCompetences.asScala) {
-        val courseContext = new CourseContext(data.getCourseId);
-        courseContext.persist();
-        val creatorUser = new User(data.getCreator, creatorRole, data.getPrintableUserName, null, courseContext);
-        creatorUser.persist();
-        val linkedUserUser = new User(data.getLinkedUser, Role.student, data.getPrintableUserName, null, courseContext);
-        linkedUserUser.persist();
-        val evidenceActivity = new EvidenceActivity(evidence.getUrl, evidence.getShortname);
-        evidenceActivity.persist()
-        val competenceDao = new Competence(competence);
-        competenceDao.persist
-
-        val abstractEvidenceLink = new AbstractEvidenceLink(creatorUser,linkedUserUser, courseContext, evidenceActivity,System.currentTimeMillis(), false, competenceDao,
-          null);
-        abstractEvidenceLink.persistMore();
-        if (competenceDao.listSubClasses().isEmpty) {
-          linkedUserUser.addCompetencePerformed(competenceDao)
-        }
+    //val creatorRole = convertRole(data.getRole);
+    val evidence = data.getEvidence
+    for (competence <- data.getCompetences.asScala) {
+      val courseContext = new CourseContext(data.getCourseId);
+      val creatorUser = new User(data.getCreator);
+      val linkedUserUser = new User(data.getEvidence.getUserId);
+      val evidenceActivity = new EvidenceActivity(evidence.getUrl, evidence.getShortname);
+      evidenceActivity.persist()
+      val competenceDao = new Competence(competence);
+      competenceDao.persist
+      val abstractEvidenceLink = new AbstractEvidenceLink(creatorUser, linkedUserUser, courseContext, evidenceActivity, System.currentTimeMillis(), false, competenceDao,
+        null);
+      abstractEvidenceLink.persistMore();
+      if (competenceDao.listSubClasses().isEmpty) {
+        linkedUserUser.addCompetencePerformed(competenceDao)
       }
     }
+
   }
 
 }

@@ -21,7 +21,7 @@ public interface EvidenceApi {
      * @return
      */
 
-    Response linkCompetencesToUser2(EvidenceData data);
+    Response linkCompetencesToUser2(EvidenceData data) throws Exception;
 
     /**
      * Add a comment to an evidence link

@@ -47,15 +47,12 @@ public class Neo4JQueryManagerImpl extends Neo4JQueryManager {
         if (props.containsKey("clazz") && props.get("clazz") != null) {
             states.get(states.size() - 1).setGroup(props.get("clazz"));
         }
-        /*else {
-            states.get(states.size() - 1).setGroup("unknown");
-        }*/
         if (props.containsKey("id")) {
             states.get(states.size() - 1).addArgument("id", props.get("id"));
         }
         for (Map.Entry<String, String> kvp :
                 props.entrySet()) {
-            if (kvp.getKey().contains("clazz") || kvp.getKey().contains("id")) {
+            if (kvp.getKey().contains("clazz") || kvp.getKey().equals("id")) {
                 continue;
             } else {
                 states.add(new Neo4jQueryStatement());

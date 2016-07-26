@@ -1,30 +1,34 @@
 package uzuzjmd.competence.shared.activity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "CommentData")
 public class CommentData {
 	// the date when the comment was created
+	@ApiModelProperty(value = "the date created", required = false)
 	private  Long created;
 	// the id of the comment
+	@ApiModelProperty(value = "the id of the comment; will be generated", required = false)
 	private String commentId;
 	// the id of the comment this comment is linked to
+	@ApiModelProperty(value = "the id of the comment this comment references", required = false)
 	private String commentedCommentId;
 	// the id of the abstract link this comment is attached to
+	@ApiModelProperty(value = "the id of the evidence the comment references", required = true)
 	private String linkId;
 	// the id of the user
+	@ApiModelProperty(value = "the id of the user creating the comment", required = true)
 	private String user;
-	// the plain text of the comment
+	@ApiModelProperty(value = "the plain text of the comment", required = true)
 	private String text;
-	// the id of the course the link is attached to
+	@ApiModelProperty(value = "the id of the course the link is attached to", required = false)
 	private String courseContext;
-	// the role of the creator (teacher or student) -> should be refactored
-	private String role;
-	// the id of the competence the comment is related to
-	private String competenceId;
+
 
 	public CommentData() {
 	}
@@ -35,29 +39,18 @@ public class CommentData {
 		this.text = text;
 	}
 
-	public CommentData(Long dateCreated, String linkId, String user, String text, String courseContext, String role) {
+	public CommentData(Long dateCreated, String linkId, String user, String text, String courseContext, String commentedCommentId) {
 		super();
 		this.commentId = dateCreated + text;
 		this.linkId = linkId;
 		this.user = user;
 		this.text = text;
 		this.courseContext = courseContext;
-		this.role = role;
 		this.created = dateCreated;
-	}
-
-
-
-	public CommentData(Long dateCreated, String competenceId, String text, String userId, String courseContext, String role, String commentedCommentId) {
-		this.commentId = dateCreated + text;
-		this.competenceId = competenceId;
-		this.text = text;
-		this.user = userId;
-		this.courseContext = courseContext;
-		this.role = role;
 		this.commentedCommentId = commentedCommentId;
-		this.created = dateCreated;
 	}
+
+
 
 	public String getLinkId() {
 		return linkId;
@@ -91,24 +84,8 @@ public class CommentData {
 		this.courseContext = courseContext;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public String getCommentedCommentId() {
 		return commentedCommentId;
-	}
-
-	public String getCompetenceId() {
-		return competenceId;
-	}
-
-	public void setCompetenceId(String competenceId) {
-		this.competenceId = competenceId;
 	}
 
 	public String getCommentId() {
