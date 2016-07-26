@@ -127,6 +127,9 @@ public class CompetenceNeo4jQueryManagerImpl extends CompetenceNeo4JQueryManager
         String query = "MATCH (a:" + clazzLabel.name() + ") return a";
         ArrayList<HashMap<String, String>> result = issueNeo4JRequestArrayOfHashMap(query);
         Set<T> result2 = new HashSet<>();
+        if (result == null) {
+            return new HashSet<T>();
+        }
         for (HashMap<String,String> hashMap : result) {
             //HashMap<String, String> props = new HashMap<String, String>();
             T tClass = clazz.getConstructor(String.class).newInstance(hashMap.get("id")).getFullDao(hashMap);

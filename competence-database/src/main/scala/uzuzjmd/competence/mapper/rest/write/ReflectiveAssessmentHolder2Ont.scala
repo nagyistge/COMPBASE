@@ -16,7 +16,7 @@ object ReflectiveAssessmentHolder2Ont extends WriteTransactional[ReflectiveAsses
 
   def convertHelper(reflectiveAssessment: ReflectiveAssessmentChangeData) {
     val context = new CourseContext(reflectiveAssessment.getGroupId);
-    val user = new User(reflectiveAssessment.getUserName, Role.teacher, null, null, context);
+    val user = new User(reflectiveAssessment.getUserName, Role.teacher.toString, null, null, context);
     if (!user.exists()) {
       throw new WebApplicationException(new Exception("User not known in database"));
     }

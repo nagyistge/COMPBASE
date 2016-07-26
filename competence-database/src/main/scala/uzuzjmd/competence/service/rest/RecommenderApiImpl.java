@@ -91,9 +91,13 @@ public class RecommenderApiImpl implements uzuzjmd.competence.api.RecommenderApi
     @Path("/recommendations/competences/{competenceId}/activities/{activityId}")
     public Response createSuggestedActivityForCompetence(@PathParam("competenceId") String competenceId, @PathParam("activityId") String activityId) throws Exception {
         EvidenceActivity activity = new EvidenceActivity(activityId);
-        activity.persist();
+        if (!activity.exists()) {
+            return Response.status(422).entity("activity does not exist in db").build();
+        }
         Competence competence1 = new Competence(competenceId);
-        competence1.persist();
+        if (!competence1.exists()) {
+            return Response.status(422).entity("competence does not exist in db").build();
+        }
         SuggestedActivityForCompetence2Ont.write(activityId, competenceId);
         return Response.ok("edge created").build();
     }

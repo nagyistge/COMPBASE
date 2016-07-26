@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * A simple Wrapper class for a userId, his courseContext and his role
  */
-@XmlRootElement
+@XmlRootElement(name="UserData")
 public class UserData {
 	@ApiModelProperty(value = "the id (email) of the learner the who has evidenced the competence", required = true)
 	private String userId;
@@ -59,6 +59,9 @@ public class UserData {
 		return printableName;
 	}
 
+	public void setPrintableName(String printableName) {
+		this.printableName = printableName;
+	}
 
 	public String getLmsSystems() {
 		return lmsSystems;
@@ -66,5 +69,39 @@ public class UserData {
 
 	public void setLmsSystems(String lmsSystems) {
 		this.lmsSystems = lmsSystems;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		UserData userData = (UserData) o;
+
+		if (!getUserId().equals(userData.getUserId()))
+			return false;
+		if (getCourseContext() != null ? !getCourseContext().equals(userData.getCourseContext()) : userData
+				.getCourseContext() != null)
+			return false;
+		if (getRole() != null ? !getRole().equals(userData.getRole()) : userData.getRole() != null)
+			return false;
+		if (getPrintableName() != null ? !getPrintableName().equals(userData.getPrintableName()) : userData
+				.getPrintableName() != null)
+			return false;
+		return getLmsSystems() != null ? getLmsSystems().equals(userData.getLmsSystems()) : userData
+				.getLmsSystems() == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getUserId().hashCode();
+		result = 31 * result + (getCourseContext() != null ? getCourseContext().hashCode() : 0);
+		result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
+		result = 31 * result + (getPrintableName() != null ? getPrintableName().hashCode() : 0);
+		result = 31 * result + (getLmsSystems() != null ? getLmsSystems().hashCode() : 0);
+		return result;
 	}
 }

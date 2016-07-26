@@ -9,7 +9,7 @@ import java.util.List;
  * Created by dehne on 11.01.2016.
  */
 public class User extends AbstractUser {
-    public Role role;
+    public String role;
     public String printableName;
     public String lmsSystem;
 
@@ -18,7 +18,7 @@ public class User extends AbstractUser {
     }
 
 
-    public User(String id, Role role, String printableName, String lmsSystem, CourseContext ... courseContexts) {
+    public User(String id, String role, String printableName, String lmsSystem, CourseContext ... courseContexts) {
         super(id);
         this.role = role;
         this.printableName = printableName;
@@ -26,11 +26,11 @@ public class User extends AbstractUser {
         this.lmsSystem = lmsSystem;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

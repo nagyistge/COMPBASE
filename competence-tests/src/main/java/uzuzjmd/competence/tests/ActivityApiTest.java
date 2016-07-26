@@ -53,7 +53,9 @@ public class ActivityApiTest extends JerseyTest {
         assertTrue(result.getStatus() == 200);
         createActivity();
         // create Link
-        Response result2 = target("/api1/activities/links/competences/" + competenceId).request(MediaType.TEXT_PLAIN).post(Entity.entity(activityUrl, MediaType.APPLICATION_JSON));
+        Response result2 = target("/api1/activities/links/competences/" + competenceId).queryParam("activityId", activityUrl)
+                .request(MediaType.TEXT_PLAIN)
+                .post(null);
         assertTrue(result2.getStatus() == 200);
     }
 

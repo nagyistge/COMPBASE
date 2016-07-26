@@ -29,7 +29,7 @@ object LearningTemplateToOnt extends WriteTransactional[LearningTemplateData] wi
   private def convertHelper1(changes: LearningTemplateData) {
     val context = new CourseContext(changes.getGroupId);
     context.persist()
-    val user = new User(changes.getUserName, Role.teacher, null, null, context);
+    val user = new User(changes.getUserName, Role.teacher.toString, null, null, context);
     user.persist()
     context.createEdgeWith(Edge.CourseContextOfUser, user)
   }
