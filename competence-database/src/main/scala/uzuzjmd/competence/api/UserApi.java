@@ -39,27 +39,6 @@ public interface UserApi {
     @DELETE
     Response deleteUser(@PathParam("userId") String userId) throws Exception;
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     *
-     * @param userId
-     * @return
-     */
-    @Path("/users/{userId}/delete")
-    @POST
-    Response deleteUserLegacy(@PathParam("userId") String userId) throws Exception;
-
-    /**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @param userId
-     * @param data
-     * @return
-     */
-    @Path("/users/{userId}/create")
-    @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response addUserLegacy(@PathParam("userId") String userId, UserData data) throws Exception;
 
     /**
      * get the courses for a certain user

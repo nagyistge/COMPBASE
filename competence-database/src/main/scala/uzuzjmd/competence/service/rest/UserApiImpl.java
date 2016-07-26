@@ -30,11 +30,13 @@ import java.util.Set;
 @Path("/api1")
 public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
 
+
     /**
      * @param userName
      * @param password
      * @return
      */
+    @ApiOperation(value = "get full user details from local db and if provided with authentication from the lms")
     @Path("/users")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -92,6 +94,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
 
     }
 
+    @ApiOperation(value = "add user to local db")
     @Override
     @Path("/users/{userId}")
     @PUT
@@ -112,6 +115,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         return Response.ok("user added").build();
     }
 
+    @ApiOperation(value = "delete user in local db")
     @Override
     @Path("/users/{userId}")
     @DELETE
@@ -122,24 +126,9 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         return Response.ok("user deleted").build();
     }
 
-    @Override
-    @Path("/users/{userId}/delete")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteUserLegacy(@PathParam("userId") String userId) throws Exception {
-        User user = new User(userId);
-        user.delete();
-        return Response.ok("user deleted").build();
-    }
 
-    @Override
-    @Path("/users/{userId}/create")
-    @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addUserLegacy(@PathParam("userId") String userId, UserData data) throws Exception {
-        return addUser(data);
-    }
 
+    @ApiOperation(value = "get courses from user in lms")
     @Override
     @Path("/users/{userId}/courses")
     @GET
@@ -148,32 +137,32 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
     public UserCourseListResponse getCoursesForUser(
             @PathParam("userId") String userId, @QueryParam("password") String password) {
         userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
-        MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
-        return moodleEvidenceRestService.getCourses(LMSSystems.moodle.toString(), "university", userId, password);
+        try {
+            MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
+            return moodleEvidenceRestService.getCourses(LMSSystems.moodle.toString(), "university", userId, password);
+        } catch (Exception e) {
+
+        }
+        return new UserCourseListResponse();
     }
 
+    @ApiOperation(value = "check if user exists in lms")
     @Override
     @Path("/users/{userId}/exists")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public Boolean checksIfUserExists(@PathParam("userId") String userId, @QueryParam("password") String password)
             throws Exception {
-        userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
-        User user = new User(userId);
-        // checks if user exists locally
-        /*if (user.exists()) {
-            return true;
-        }*/
-        /*MoodleEvidenceRestServiceImpl moodleEvidenceRestService = new MoodleEvidenceRestServiceImpl();
-        return moodleEvidenceRestService.exists(LMSSystems.moodle.toString(), "university", userId, password);*/
-        EvidenceServiceRestServerImpl evidenceServiceRestServer = new EvidenceServiceRestServerImpl();
-        Boolean result = evidenceServiceRestServer.exists(userId, password, "moodle", null);
-        // persist user locally if it exists in lms
-        if (result) {
-            user.persist();
-        }
-        return result;
+       try {
+           userId = EvidenceServiceRestServerImpl.checkLoginisEmail(userId);
+           EvidenceServiceRestServerImpl evidenceServiceRestServer = new EvidenceServiceRestServerImpl();
+           Boolean result = evidenceServiceRestServer.exists(userId, password, "moodle", null);
+           return result;
+       } catch (Exception e ){
+
+       }
+        return false;
     }
 
     /**
@@ -184,6 +173,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value = "get competences user has learned or is interested in")
     @Path("/users/{userId}/competences")
     @GET
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -206,6 +196,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         return new StringList(result);
     }
 
+
     /**
      * set interested competences for user
      *
@@ -214,26 +205,22 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value = "add competences user is interested in")
     @Path("/users/{userId}/interests/competences/{competenceId}")
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
     public Response setCompetencesForUser(
             @PathParam("userId") String userId, @PathParam("competenceId") String competenceId) throws Exception {
         User user = new User(userId);
         if (!user.exists()) {
-            WebApplicationException ex = new WebApplicationException(new Exception("user does not exist in database"));
-            return Response.status(400).entity(ex).type(MediaType.TEXT_PLAIN).
-                    build();
+           return  Response.status(422).entity("User does not exist in database").build();
         }
         Competence competence1 = new Competence(competenceId);
         if (!competence1.exists()) {
-            WebApplicationException ex =
-                    new WebApplicationException(new Exception("competence does not exist in database"));
-            return Response.status(400).entity(ex).type(MediaType.TEXT_PLAIN).
-                    build();
+           return Response.status(422).entity("competence does not exist in database").build();
         }
         user.createEdgeWith(Edge.InterestedIn, competence1);
-        return Response.ok("user deleted").build();
+        return Response.ok("interest link created").build();
     }
 }
