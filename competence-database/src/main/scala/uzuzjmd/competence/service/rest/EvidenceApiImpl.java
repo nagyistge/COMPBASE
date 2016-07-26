@@ -1,14 +1,17 @@
 package uzuzjmd.competence.service.rest;
 
-import com.google.common.collect.Lists;
+
+import io.swagger.annotations.ApiOperation;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import scala.collection.immutable.List;
 import uzuzjmd.competence.mapper.rest.write.Comment2Ont;
 import uzuzjmd.competence.mapper.rest.write.Evidence2Ont;
 import uzuzjmd.competence.mapper.rest.write.HandleLinkValidationInOnt;
-import uzuzjmd.competence.persistence.dao.Comment;
+import uzuzjmd.competence.persistence.dao.*;
+import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.EvidenceActivity;
 import uzuzjmd.competence.shared.activity.CommentData;
-import uzuzjmd.competence.shared.activity.Evidence;
 import uzuzjmd.competence.shared.activity.EvidenceData;
 import uzuzjmd.competence.shared.activity.LinkValidationData;
 
@@ -25,31 +28,53 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
 
 
 
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @GET
-    @Path("/evidences")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Boolean dummy() {
-        return true;
-    }
+    static private final Logger logger = LogManager.getLogger(EvidenceApiImpl.class.getName());
 
-
-
-
-
+    @ApiOperation(value = "add an evidence for a competence and a user", notes = "the course and the user referenced " +
+            "must exist in database beforehand")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @PUT
     @Path("/evidences/create")
-    public Response linkCompetencesToUser2( EvidenceData data) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response linkCompetencesToUser2(EvidenceData data) throws Exception {
+        if (data.getEvidence() == null) {
+            String message = "evidence is null";
+            logger.warn(message);
+            return Response.status(422).entity(message).build();
+        }
+        CourseContext courseDao = new CourseContext(data.getCourseId());
+        if (data.getCourseId() == null || !(courseDao.exists())) {
+
+            String message = "course does not exist in db "+ data.getCourseId();
+            logger.warn(message);
+            return Response.status(422).entity(message).build();
+        }
+        User user = new User(data.getCreator());
+        if (!user.exists()) {
+            String message = "user does not exist in db "+ data.getCreator();
+            logger.warn(message);
+            return Response.status(422).entity(message).build();
+        }
+
+        User user2 = new User(data.getEvidence().getUserId());
+        if (!user2.exists()) {
+            String message = "user does not exist in db "+ data.getEvidence().getUserId();
+            logger.warn(message);
+            return Response.status(422).entity(message).build();
+        }
         return createEvidenceLink(data);
     }
 
     private Response createEvidenceLink( EvidenceData data) {
+
         Evidence2Ont.writeLinkToDatabase(data);
         return Response.ok(
-                "competences linked to evidences").build();
+                "competences linked to evidences \n activity persisted with id: " + data.getEvidence().getUrl())
+                .build();
     }
 
+    @ApiOperation(value = "comment an competence attribution", notes = "The evidence attributing the competence " +
+            "acquisition to the activity is commented")
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
@@ -88,6 +113,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
     }
 
 
+    @ApiOperation(value = "validate the evidence")
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)
@@ -99,6 +125,7 @@ public class EvidenceApiImpl implements uzuzjmd.competence.api.EvidenceApi {
         return handleLinkValidation(evidenceId, isValid);
     }
 
+    @ApiOperation(value = "invalidate the evidence")
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces(MediaType.TEXT_PLAIN)

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "HierarchyChangeSet")
 public class HierarchyChangeSet implements Serializable {
 
 	List<HierarchyChange> elements;

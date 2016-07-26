@@ -3,6 +3,7 @@ package uzuzjmd.competence.service.rest;
 import datastructures.lists.StringList;
 import datastructures.trees.HierarchyChangeSet;
 import edu.stanford.nlp.trees.GrammaticalRelation;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import uzuzjmd.competence.comparison.verification.CompetenceVerifierFactory;
 import uzuzjmd.competence.mapper.rest.SimilaritiesUpdater;
@@ -12,7 +13,6 @@ import uzuzjmd.competence.mapper.rest.write.Competence2Ont;
 import uzuzjmd.competence.mapper.rest.write.HierarchieChangesToOnt;
 import uzuzjmd.competence.persistence.dao.Comment;
 import uzuzjmd.competence.persistence.dao.Competence;
-import uzuzjmd.competence.persistence.dao.CourseContext;
 import uzuzjmd.competence.persistence.dao.User;
 import uzuzjmd.competence.persistence.ontology.Contexts;
 import uzuzjmd.competence.persistence.ontology.Edge;
@@ -47,6 +47,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
      * @param asTree
      * @return
      */
+    @ApiOperation(value = "get competences based on filter", notes = "Get all the competence descriptions stored in the database with filters specified")
     @Path("/competences")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -75,6 +76,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         }
     }
 
+    @ApiOperation(value = "add a competence to db")
     @Override
     @Path("/competences/{competenceId}")
     @PUT
@@ -97,6 +99,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
 
+    @ApiOperation(value = "delete a db")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     @Path("/competences/{competenceId}")
@@ -111,6 +114,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
 
+    @ApiOperation(value = "hide competence for user")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     @Path("/competences/{competenceId}/users/{userId}")
@@ -133,44 +137,6 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             throw new WebApplicationException("userId is null");
         }
     }
-/*
-    *//**
-     * Use this legacy method for browsers who do not support http delete
-     *
-     * @param competenceId
-     * @return
-     *//*
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Override
-    @Path("/competences/{competenceId}/delete")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteCompetenceLegacy(
-            @ApiParam(value = "the plain text string of the competence",
-                    required = true) @PathParam("competenceId") String competenceId) throws Exception {
-        Competence competence = new Competence(competenceId);
-        competence.delete();
-        return Response.ok("competence deleted").build();
-    }
-
-
-    *//**
-     * Use this legacy method for browsers who do not support http put
-     *
-     * @return
-     *//*
-
-    @Path("/competences/{competenceId}/create")
-    @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response addCompetenceLegacy(
-            @ApiParam(value = "the plain text string of the competence",
-                    required = true) @PathParam("competenceId") String competenceId, CompetenceData data) {
-        data.setForCompetence(data.getForCompetence());
-        String resultMessage = Competence2Ont.convert(data);
-        return Response.ok(resultMessage).build();
-    }*/
 
     /**
      * updates the competence hierarchy
@@ -178,13 +144,20 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
      * @param changes of type HierarchieChangeObject @see updateHierarchie2
      * @return
      */
+    @ApiOperation(value = "change the superclass for a node selected.", notes =  "If the old class superclass is null" +
+            " a new super" +
+            "class will be added. This should not be used to add new competences to the database.")
     @Override
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/competences/hierarchy/update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateHierarchy(HierarchyChangeSet changes) {
-        HierarchieChangesToOnt.convert(changes);
+        try {
+            HierarchieChangesToOnt.convert(changes);
+        } catch (NullPointerException e) {
+            return Response.serverError().build();
+        }
         return Response.ok("updated taxonomy").build();
     }
 
@@ -206,7 +179,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
         if (data.getText() == null || data.getText().isEmpty()) {
             throw new WebApplicationException(new Exception("text is not valid"));
         }
-        User user = new User(data.getUser());
+        User user = new User(data.getUserId());
         if (!user.exists()) {
             throw new WebApplicationException(new Exception("user does not exist in database"));
         }
@@ -233,7 +206,6 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
             ArrayList<CommentData> results = new ArrayList<>();
             for (Comment comment : commentDatas) {
                 CommentData data = comment.getData();
-                data.setCompetenceId(competenceId);
                 results.add(data);
             }
             return Response.status(200).entity(commentDatas).build();
@@ -243,7 +215,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
                 throw new WebApplicationException(new Exception("comment does not exist in database"));
             }
             CommentData commentData =
-                    new CommentData(comment.getDateCreated(), competenceId, comment.getText(), null, null, null, null);
+                    new CommentData(null, comment.getText(), comment.getDateCreated());
             return Response.status(200).entity(commentData).build();
         }
     }
@@ -273,6 +245,7 @@ public class CompetenceApiImpl implements uzuzjmd.competence.api.CompetenceApi {
     }
 
 
+    @ApiOperation(value = "get similar competences (to avoid redundancy)")
     @GET
     @Path("/competences/semblances/{competenceId}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

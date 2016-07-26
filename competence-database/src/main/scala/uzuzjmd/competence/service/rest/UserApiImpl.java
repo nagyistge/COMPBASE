@@ -88,7 +88,7 @@ public class UserApiImpl implements uzuzjmd.competence.api.UserApi {
         if (data.getRole() != null) {
             role = Role.valueOf(data.getRole());
         }
-        User user = new User(data.getUser(), role, data.getPrintableName(), data.getLmsSystems(), new CourseContext(data.getCourseContext()));
+        User user = new User(data.getUserId(), role, data.getPrintableName(), data.getLmsSystems(), new CourseContext(data.getCourseContext()));
         user.persist();
         return Response.ok("user added").build();
     }

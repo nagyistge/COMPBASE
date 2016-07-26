@@ -41,24 +41,7 @@ public interface CourseApi {
 
     Response deleteCourse(@PathParam("courseId") String courseId) throws Exception;
 
-    /**
-     * * Delete the courseId with the given ID from the database using POST
-     * @param courseId
-     * @return
-     * @throws Exception
-     */
 
-    Response deleteCourseLegacy(@PathParam("courseId") String courseId) throws Exception;
-
-    /**
-     * get all the activities from a given courseId
-     * @param courseId
-     * @param data
-     * @return
-     * @throws Exception
-     */
-
-    Response addCourseLegacy(@PathParam("courseId") String courseId, CourseData data) throws Exception;
 
     /**
      * get all the activities from a given courseId in the form of a usertree

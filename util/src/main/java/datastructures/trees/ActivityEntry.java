@@ -11,7 +11,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  */
 @XmlSeeAlso(AbstractTreeEntry.class)
-@XmlRootElement
+@XmlRootElement(name = "ActivityEntry")
+//@XmlRootElement
 public class ActivityEntry extends AbstractTreeEntry {
 
 	// the url the activity is linked to

@@ -1,17 +1,22 @@
 package uzuzjmd.competence.shared.user;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A simple Wrapper class for a user, his courseContext and his role
+ * A simple Wrapper class for a userId, his courseContext and his role
  */
 @XmlRootElement
 public class UserData {
-	private String user;
+	@ApiModelProperty(value = "the id (email) of the learner the who has evidenced the competence", required = true)
+	private String userId;
 	private String courseContext;
+	@ApiModelProperty(value = "role can either be 'teacher' or 'student'", required = true)
 	private String role;
+
 	private String printableName;
-	// the lms systems the user is enrolled in can be inclusive "moodle" < db < "mobile"
+	// the lms systems the userId is enrolled in can be inclusive "moodle" < db < "mobile"
 	private String lmsSystems;
 
 	public UserData() {
@@ -19,19 +24,19 @@ public class UserData {
 
 	public UserData(String user, String printableName, String courseContext, String role, String lmsSystems) {
 		super();
-		this.user = user;
+		this.userId = user;
 		this.courseContext = courseContext;
 		this.role = role;
 		this.printableName = printableName;
 		this.lmsSystems = lmsSystems;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getCourseContext() {

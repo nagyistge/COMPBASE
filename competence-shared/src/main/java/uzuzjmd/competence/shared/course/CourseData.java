@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This wraps a pair of courseId and competences in order to exchange competences linked to a courseId
  */
-@XmlRootElement
+@XmlRootElement(name = "CourseData")
 public class CourseData {
 	private String courseId;
 	private String printableName;

@@ -1,6 +1,8 @@
 package uzuzjmd.competence.service.rest;
 
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import uzuzjmd.competence.evidence.model.LMSSystems;
 import uzuzjmd.competence.evidence.service.MoodleEvidenceRestServiceImpl;
 import uzuzjmd.competence.evidence.service.rest.EvidenceServiceRestServerImpl;
@@ -24,11 +26,15 @@ import java.util.Set;
 @Path("/api1")
 public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
 
+    @ApiOperation(value = "get courses stored in db", notes = "does not yield courses of the use /users api for that " +
+            "as lms courses need authentication token of the user to be acquired")
     @Override
     @Path("/courses")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<CourseData> getCourses(@QueryParam("competence") List<String> competences) throws Exception {
+    public List<CourseData> getCourses(   @ApiParam(value = "the competence the course is connected to, competence " +
+            "field will be null if no competence is specified since querying all competences is too much load",
+            required = false) @QueryParam("competence") List<String> competences) throws Exception {
         if (competences == null || competences.isEmpty()) {
             List<CourseData> result = new ArrayList<>();
             Set<CourseContext> result1 = CourseContext.getAllInstances(CourseContext.class);
@@ -52,6 +58,9 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
         }
     }
 
+    @ApiOperation(value =
+    "create local course in db", notes = "This will not create a course in the lms since this would require different" +
+            " permissions and the interface is not implemented in the lms adaptor.")
     @Override
     @Path("/courses/{courseId}")
     @PUT
@@ -73,6 +82,11 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
         return Response.ok("courseId added").build();
     }
 
+    @ApiOperation(value =
+            "delete local course in db", notes = "This will not delete a course in the lms since this would require " +
+            "different" +
+            " permissions and the interface is not implemented in the lms adaptor. This api should be used carefully " +
+            "since all the links to the course would also be deleted.")
     @Override
     @Path("/courses/{courseId}")
     @DELETE
@@ -83,37 +97,6 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
         return Response.ok("courseId deleted").build();
     }
 
-    /**
-     * Use this legacy method for browsers who do not support http delete
-     *
-     * @param courseId
-     * @return
-     */
-    @Override
-    @Path("/courses/{courseId}/delete")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteCourseLegacy(@PathParam("courseId") String courseId) throws Exception {
-        CourseContext courseContext = new CourseContext(courseId);
-        courseContext.delete();
-        return Response.ok("courseId deleted").build();
-    }
-
-    /**
-     * Use this legacy method for browsers who do not support http put.
-     *
-     * @param courseId
-     * @param data
-     * @return
-     */
-    @Override
-    @Path("/courses/{courseId}/create")
-    @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response addCourseLegacy(@PathParam("courseId") String courseId, CourseData data) throws Exception {
-        return addCourseIntern(courseId, data);
-    }
 
     /**
      * the method can only be accessed if the authentication of a user in that courseId is provided for reasons
@@ -124,6 +107,7 @@ public class CourseApiImpl implements uzuzjmd.competence.api.CourseApi {
      * @param password
      * @return
      */
+    @ApiOperation(value = "get activities registered for the course id in the lms")
     @Override
     @Path("/courses/{courseId}/activities")
     @GET

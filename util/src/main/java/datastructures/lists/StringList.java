@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "StringList")
 public class StringList {
 
 	private List<String> data;

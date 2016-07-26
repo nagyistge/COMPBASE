@@ -1,26 +1,26 @@
 package uzuzjmd.competence.shared.activity;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "EvidenceData")
 public class EvidenceData {
 
+
+	private String courseId;
+	@ApiModelProperty(value = "the id (email) of the creator", required = true)
 	private String creator;
-	private String role;
-	private String linkedUser;
+	@ApiModelProperty(value = "the list of competences proven", required = true)
 	private List<String> competences;
-	private List<Evidence> evidences;
+	@ApiModelProperty(value = "the activity (as in urls) that show the prove", required = true)
+	private Evidence evidence;
 
 	public EvidenceData() {
-		printableUserName = null;
-	}
 
-	public String getPrintableUserName() {
-		return printableUserName;
 	}
-
-	private final String printableUserName;
 
 	/**
 	 * This class provides a wrapper for the service
@@ -28,31 +28,24 @@ public class EvidenceData {
 	 *
 	 * @param course      (the context of the acquirement)
 	 * @param creator     the user who created the link
-	 * @param role        the role of the user who created the link (can be either
-	 *                    "teacher" or "student")
-	 * @param linkedUser  the user who has acquired the competences
 	 * @param competences the competences acquired
-	 * @param evidences   the activities that stand as evidences in the form [url,
+	 * @param evidence   the activity that stand as evidences in the form [url,
 	 *                    speakingname]
 	 *
 	 */
-	public EvidenceData(String course, String creator, String role, String linkedUser, List<String> competences, List<Evidence> evidences, String printableUserName) {
+	public EvidenceData(String course, String creator, List<String> competences, Evidence evidence) {
 		super();
 		this.courseId = course;
 		this.creator = creator;
-		this.role = role;
-		this.linkedUser = linkedUser;
 		this.competences = competences;
-		this.evidences = evidences;
-		this.printableUserName = printableUserName;
+		this.evidence = evidence;
 	}
 
 
-	public static EvidenceData instance(String course, String creator, String role, String linkedUser, List<String> competences, List<Evidence> evidences, String printableUserName) {
-		return new EvidenceData(course, creator, role, linkedUser, competences, evidences, printableUserName);
+	public static EvidenceData instance(String course, String creator,  List<String> competences, Evidence evidence) {
+		return new EvidenceData(course, creator, competences, evidence);
 	}
 
-	private String courseId;
 
 	public String getCourseId() {
 		return courseId;
@@ -70,22 +63,6 @@ public class EvidenceData {
 		this.creator = creator;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getLinkedUser() {
-		return linkedUser;
-	}
-
-	public void setLinkedUser(String linkedUser) {
-		this.linkedUser = linkedUser;
-	}
-
 	public List<String> getCompetences() {
 		return competences;
 	}
@@ -95,11 +72,12 @@ public class EvidenceData {
 	}
 
 
-	public List<Evidence> getEvidences() {
-		return evidences;
+	@XmlElement(name = "Evidence")
+	public Evidence getEvidence() {
+		return evidence;
 	}
 
-	public void setEvidences(List<Evidence> evidences) {
-		this.evidences = evidences;
+	public void setEvidence(Evidence evidence) {
+		this.evidence = evidence;
 	}
 }

@@ -9,7 +9,7 @@ import javax.xml.ws.WebServiceException;
 import java.util.LinkedList;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "CompetenceData")
 public class CompetenceData {
 
     private String operator;

@@ -1,5 +1,6 @@
 package uzuzjmd.competence.shared.activity;
 
+import io.swagger.annotations.ApiModelProperty;
 import uzuzjmd.competence.shared.moodle.MoodleEvidence;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  */
 @XmlSeeAlso(MoodleEvidence.class)
-@XmlRootElement
+@XmlRootElement(name = "Evidence")
 public class Evidence {
 
 	public Evidence() {
@@ -38,6 +39,7 @@ public class Evidence {
 
 	private String shortname; // zur Anzeige
 	private String url; // die web referenzierbare url des Kompetenznachweises
+	@ApiModelProperty(value = "the id (email) of the learner the who has evidenced the competence", required = true)
 	private String userId; // eine Identifikation des Users (z.B. die ID des
 							// users in Moodle)
 	private String username; // der username zum anzeigen
